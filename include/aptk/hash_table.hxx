@@ -36,7 +36,7 @@ public:
 	void add( unsigned k );
 	void add( std::vector<unsigned>& k );
 
-	unsigned operator()() const
+	operator size_t() const
 	{
 		return m_code;
 	}
@@ -103,7 +103,7 @@ public:
 		return h;
 	}
 	*/
-	Object* get_element( Hash_Key& h, Object* other ){ return get_element( h(), other ); }
+	Object* get_element( Hash_Key& h, Object* other ){ return get_element( (size_t)h, other ); }
 	Object* get_element( unsigned h, Object* other )
 	{
 		assert( m_buckets.size() > 0 );
@@ -121,14 +121,14 @@ public:
 		return NULL;
 	}	
 
-        void add_element( Hash_Key& h, Object* obj ){ add_element( h(), obj );  }
+        void add_element( Hash_Key& h, Object* obj ){ add_element( (size_t)h, obj );  }
 	void add_element( unsigned h, Object* obj )
 	{
 		unsigned address = h & ( m_buckets.size() - 1);
 		m_buckets[address].push_back( std::make_pair( h, obj ) );
 	}
 
-        void remove_element( Hash_Key& h, Object* obj ){ remove_element( h(), obj );  }
+        void remove_element( Hash_Key& h, Object* obj ){ remove_element( (size_t)h, obj );  }
 	void remove_element( unsigned h, Object* obj )
 	{
 		unsigned address = h & ( m_buckets.size() - 1);

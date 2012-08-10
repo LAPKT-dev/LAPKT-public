@@ -40,7 +40,7 @@ public:
 	void 			set( unsigned f );
 	void			set_all();
 	void 			unset( unsigned f );
-	unsigned		isset( unsigned f );
+	unsigned		isset( unsigned f ) const;
 	unsigned		next( unsigned f );
 	unsigned		first();
 
@@ -95,7 +95,7 @@ inline void Bit_Set::unset( unsigned f )
 	}
 }
 
-inline unsigned Bit_Set::isset( unsigned f )
+inline unsigned Bit_Set::isset( unsigned f ) const
 {
 	return m_fset[f];
 }

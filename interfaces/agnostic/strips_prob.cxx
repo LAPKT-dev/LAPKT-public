@@ -3,6 +3,7 @@
 #include <fluent.hxx>
 #include <cassert>
 #include <map>
+#include <iostream>
 
 namespace aptk
 {
@@ -124,4 +125,32 @@ namespace aptk
         unsigned STRIPS_Problem::get_fluent_index( std::string signature ) {
               return m_fluents_map[signature];
         }
+
+	void	STRIPS_Problem::print( std::ostream& os ) const {
+		os << "# Fluents: " << num_fluents() << std::endl;
+		print_fluents( os );
+		os << "# Actions: " << num_actions() << std::endl;
+		print_actions( os );
+	}
+
+	void	STRIPS_Problem::print_fluents( std::ostream& os ) const {
+		for ( unsigned k = 0; k < fluents().size(); k++ ) {
+			os << k+1 << ". " << fluents().at(k)->signature() << std::endl;
+		}
+	}
+
+	void	STRIPS_Problem::print_actions( std::ostream& os ) const {
+		std::cout << "Actions" << std::endl;
+		for ( unsigned k = 0; k < actions().size(); k++ )
+			actions().at(k)->print( *this, os );
+	}
+
+	void	STRIPS_Problem::print_fluent_vec( std::ostream& os, const Fluent_Vec& v ) const {
+		for ( unsigned k = 0; k < v.size(); k++ )
+		{	
+			unsigned p = v[k];
+			os << fluents()[p]->signature();
+			if ( k < v.size()-1 ) std::cout << ", ";
+		}		
+	}
 }

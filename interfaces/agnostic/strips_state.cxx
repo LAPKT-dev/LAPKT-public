@@ -1,11 +1,12 @@
 #include <strips_state.hxx>
 #include <action.hxx>
 #include <fluent.hxx>
+#include <aptk/hash_table.hxx>
 
 namespace aptk
 {
 
-State::State( STRIPS_Problem& problem )
+State::State( const STRIPS_Problem& problem )
 	: m_fluent_set( problem.num_fluents() ), m_problem( problem )
 {
 }
@@ -14,7 +15,13 @@ State::~State()
 {
 }
 
-State* State::progress_through( Action& a )
+void	State::update_hash() {
+	Hash_Key hasher;
+	hasher.add( fluent_vec() );
+	m_hash = (size_t)hasher;	
+}
+
+State* State::progress_through( const Action& a ) const
 {
 	if ( !a.can_be_applied_on(*this) )
 		return NULL;
@@ -60,7 +67,7 @@ State* State::progress_through( Action& a )
 	return succ;
 }
 
-State* State::regress_through( Action& a )
+State* State::regress_through( const Action& a ) const
 {
 	if ( !a.can_be_applied_on( *this, true ) )
 		return NULL;

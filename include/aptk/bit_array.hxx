@@ -111,7 +111,7 @@ public:
 		return m_packs[i/32] & 1 << (i%32);
 	}
 
-	unsigned operator[]( unsigned i )
+	unsigned operator[]( unsigned i ) const
 	{
 		return m_packs[i/32] & 1 << (i%32);
 	}

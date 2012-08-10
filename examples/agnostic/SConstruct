@@ -4,7 +4,7 @@ debug = ARGUMENTS.get('debug', 0)
 
 common_env = Environment()
 
-include_paths = ['../../include', '../../interfaces/agnostic' ]
+include_paths = ['../../include', '../../interfaces/agnostic', '..' ]
 lib_paths = [ '../..', '../../interfaces/agnostic'  ]
 libs = ['aptk-base','Judy', 'aptk']
 
@@ -17,8 +17,10 @@ else:
 
 cxx_sources = Glob('*.cxx')
 c_sources = Glob('*.c')
-
 src_objs = [ common_env.Object(s) for s in cxx_sources ] + [ common_env.Object(s) for s in c_sources ]
+
+Export('common_env')
+src_objs += SConscript( '../common/SConscript', 'common_env' )
 
 common_env.Append( LIBS=libs)
 common_env.Append( LIBPATH=[ os.path.abspath(p) for p in lib_paths ] )

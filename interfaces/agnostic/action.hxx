@@ -5,6 +5,7 @@
 #include <strips_prob.hxx>
 #include <strips_state.hxx>
 #include <cond_eff.hxx>
+#include <iosfwd>
 
 namespace aptk
 {
@@ -15,41 +16,53 @@ public:
 	Action(STRIPS_Problem& p);
 	virtual ~Action();
 
-	Fluent_Vec&	           prec_vec() { return m_prec_vec; }
-	Fluent_Set&	           prec_set() { return m_prec_set; }
-	Fluent_Vec&	           add_vec()  { return m_add_vec; }
-	Fluent_Set&	           add_set()  { return m_add_set; }
-	Fluent_Vec&	           del_vec()  { return m_del_vec; }
-	Fluent_Set&	           del_set()  { return m_del_set; }
-	Conditional_Effect_Vec&    ceff_vec(){ return m_cond_effects; }
+	Fluent_Vec&	           	prec_vec() { return m_prec_vec; }
+	Fluent_Set&	           	prec_set() { return m_prec_set; }
+	Fluent_Vec&	           	add_vec()  { return m_add_vec; }
+	Fluent_Set&	           	add_set()  { return m_add_set; }
+	Fluent_Vec&	           	del_vec()  { return m_del_vec; }
+	Fluent_Set&	           	del_set()  { return m_del_set; }
+	Conditional_Effect_Vec&    	ceff_vec(){ return m_cond_effects; }
 
-	std::string	           signature() { return m_signature; }
-	void		           set_signature(std::string sig) { m_signature = sig; }
+	const Fluent_Vec&		prec_vec() const { return m_prec_vec; }
+	const Fluent_Set&	        prec_set() const { return m_prec_set; }
+	const Fluent_Vec&	        add_vec()  const { return m_add_vec; }
+	const Fluent_Set&	        add_set()  const { return m_add_set; }
+	const Fluent_Vec&	        del_vec()  const { return m_del_vec; }
+	const Fluent_Set&	        del_set()  const { return m_del_set; }
+	const Conditional_Effect_Vec&   ceff_vec() const { return m_cond_effects; }
 
-	std::string	           name() { return m_name; }
-	void		           set_name(std::string nam) { m_name = nam; }
 
-	unsigned	           index() const { return m_index; }
-	void		           set_index( unsigned idx ) { m_index = idx; }
 
-	void		           define( Fluent_Vec& precs, Fluent_Vec& adds, Fluent_Vec& dels );
-	void		           define( Fluent_Vec& precs, Fluent_Vec& adds, Fluent_Vec& dels, Conditional_Effect_Vec& ceffs );
+	std::string	          	signature() const { return m_signature; }
+	void		           	set_signature(std::string sig) { m_signature = sig; }
 
-	void		           define_fluent_list( Fluent_Vec& in, Fluent_Vec& list, Fluent_Set& set );
+	std::string	           	name() const { return m_name; }
+	void		           	set_name(std::string nam) { m_name = nam; }
 
-	bool		           requires( unsigned f );
-	bool		           asserts( unsigned f );
-	bool		           retracts( unsigned f );
-	bool		           consumes( unsigned f );
+	unsigned	           	index() const { return m_index; }
+	void		           	set_index( unsigned idx ) { m_index = idx; }
 
-	bool		           can_be_applied_on( State& s, bool regress=false );
+	void		           	define( Fluent_Vec& precs, Fluent_Vec& adds, Fluent_Vec& dels );
+	void		           	define( Fluent_Vec& precs, Fluent_Vec& adds, Fluent_Vec& dels, Conditional_Effect_Vec& ceffs );
 
-	void		           set_cost( Cost_Type c ) { m_cost = c; }
-	Cost_Type	           cost() { return m_cost; }
+	void		           	define_fluent_list( Fluent_Vec& in, Fluent_Vec& list, Fluent_Set& set );
 
-	static bool	           are_effect_interfering( Action& a1, Action& a2 );
-	static bool	           deletes_precondition_of( Action& a1, Action& a2 );
-	static bool	           possible_supporter( Action& a1, Action& a2, Fluent_Vec& pvec );
+	bool		           	requires( unsigned f ) const;
+	bool		           	asserts( unsigned f ) const;
+	bool		           	retracts( unsigned f ) const;
+	bool		           	consumes( unsigned f ) const;
+
+	bool		           	can_be_applied_on( const State& s, bool regress=false ) const ;
+
+	void		           	set_cost( Cost_Type c ) { m_cost = c; }
+	Cost_Type	           	cost() const { return m_cost; }
+
+	void				print( const STRIPS_Problem& prob, std::ostream& ) const;		
+
+	static bool	           	are_effect_interfering( const Action& a1, const Action& a2 );
+	static bool	           	deletes_precondition_of( const Action& a1, const Action& a2 );
+	static bool	           	possible_supporter( const Action& a1, const Action& a2, Fluent_Vec& pvec );
 protected:
 	// Preconditions and Effects ( Adds and Deletes)
 	std::string			m_signature;
@@ -66,7 +79,7 @@ protected:
 
 };
 
-inline bool	Action::possible_supporter( Action& a1, Action& a2, Fluent_Vec& pvec )
+inline bool	Action::possible_supporter( const Action& a1, const Action& a2, Fluent_Vec& pvec )
 {
 	pvec.clear();
 	for ( unsigned k = 0; k < a1.add_vec().size(); k++ )
@@ -75,7 +88,7 @@ inline bool	Action::possible_supporter( Action& a1, Action& a2, Fluent_Vec& pvec
 	return !pvec.empty();
 }
 
-inline bool	Action::deletes_precondition_of( Action& a1, Action& a2 )
+inline bool	Action::deletes_precondition_of( const Action& a1, const Action& a2 )
 {
 	for ( unsigned k = 0; k < a1.del_vec().size(); k++ )
 		if ( a2.requires( a1.del_vec()[k]) )
@@ -84,7 +97,7 @@ inline bool	Action::deletes_precondition_of( Action& a1, Action& a2 )
 	return false;
 }
 
-inline bool	Action::are_effect_interfering( Action& a1, Action& a2 )
+inline bool	Action::are_effect_interfering( const Action& a1, const Action& a2 )
 {
 	for ( unsigned k = 0; k < a1.add_vec().size(); k++ )
 		if ( a2.retracts( a1.add_vec()[k] ) )
@@ -95,22 +108,22 @@ inline bool	Action::are_effect_interfering( Action& a1, Action& a2 )
 	return false;
 }
 
-inline bool	Action::requires( unsigned f )
+inline bool	Action::requires( unsigned f ) const
 {
 	return prec_set().isset(f);
 }
 
-inline bool	Action::asserts( unsigned f )
+inline bool	Action::asserts( unsigned f ) const 
 {
 	return add_set().isset(f);
 }
 
-inline bool	Action::retracts( unsigned f )
+inline bool	Action::retracts( unsigned f ) const
 {
 	return del_set().isset(f);
 }
 
-inline bool	Action::can_be_applied_on( State& s, bool regress )
+inline bool	Action::can_be_applied_on( const State& s, bool regress ) const
 {
 	if ( regress ) 
 	{
@@ -124,7 +137,6 @@ inline bool	Action::can_be_applied_on( State& s, bool regress )
 			for ( unsigned k = 0; k < ceff_vec()[i]->add_vec().size() && !relevant; k++ )
 				if( s.entails( ceff_vec()[i]->add_vec()[k] ) )
 					relevant = true;
-			
 		}
 		
 		
@@ -147,7 +159,7 @@ inline bool	Action::can_be_applied_on( State& s, bool regress )
 	return s.entails( prec_vec() );
 }
 
-inline bool	Action::consumes( unsigned f )
+inline bool	Action::consumes( unsigned f ) const
 {
 	return requires(f) && retracts(f);
 }

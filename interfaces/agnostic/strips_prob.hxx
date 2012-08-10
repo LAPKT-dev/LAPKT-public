@@ -2,8 +2,9 @@
 #define __STRIPS_PROBLEM__
 
 #include <string>
-#include <types.hxx>
 #include <map>
+#include <iosfwd>
+#include <types.hxx>
 
 namespace aptk
 {
@@ -15,8 +16,8 @@ namespace aptk
 		STRIPS_Problem();
 		~STRIPS_Problem();
 
-		unsigned 		num_fluents() 			{ return m_num_fluents; }
-		unsigned 		num_actions() 			{ return m_num_actions; }
+		unsigned 		num_fluents() const		{ return m_num_fluents; }
+		unsigned 		num_actions() const		{ return m_num_actions; }
 
 		void			set_num_fluents( unsigned nf ) { m_num_fluents = nf; }
 		void			set_num_actions( unsigned na ) { m_num_actions = na; }
@@ -33,9 +34,15 @@ namespace aptk
 	  	
 		Fluent_Ptr_Vec&		fluents() 			{ return m_fluents; }
 		Action_Ptr_Vec&		actions() 			{ return m_actions; }
+		const Fluent_Ptr_Vec&	fluents() const			{ return m_fluents; }
+		const Action_Ptr_Vec&	actions() const			{ return m_actions; }
+
 
 		Fluent_Vec&		init()	  			{ return m_init; }
 		Fluent_Vec&		goal()	  			{ return m_goal; }
+		const Fluent_Vec&	init() const  			{ return m_init; }
+		const Fluent_Vec&	goal() const  			{ return m_goal; }
+
 
 		Action_Ptr_Vec&		actions_adding( unsigned f ) 	{ return m_adding[f]; }
 		Action_Ptr_Vec&		actions_deleting( unsigned f ) 	{ return m_deleting[f]; }
@@ -48,7 +55,13 @@ namespace aptk
 		unsigned                end_operator() { return m_end_operator_id; }
 	        unsigned                get_fluent_index(std::string signature);
 
-		void			make_action_tables();	
+		void			make_action_tables();
+
+		void			print( std::ostream& os ) const;
+		void			print_fluents( std::ostream& os ) const;
+		void			print_actions( std::ostream& os ) const;
+		void			print_fluent_vec( std::ostream& os, const Fluent_Vec& v ) const;	
+	
 	protected:
 	
 		void			increase_num_fluents()        	{ m_num_fluents++; }

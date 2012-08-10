@@ -25,13 +25,19 @@ public:
 	Fluent_Vec&	del_vec()  { return m_del_vec; }
 	Fluent_Set&	del_set()  { return m_del_set; }
 
+	const Fluent_Vec&	prec_vec() const { return m_prec_vec; }
+	const Fluent_Set&	prec_set() const { return m_prec_set; }
+	const Fluent_Vec&	add_vec()  const { return m_add_vec; }
+	const Fluent_Set&	add_set()  const { return m_add_set; }
+	const Fluent_Vec&	del_vec()  const { return m_del_vec; }
+	const Fluent_Set&	del_set()  const { return m_del_set; }
 
-	bool            requires( unsigned f );
-	bool	        asserts( unsigned f );
-	bool	        retracts( unsigned f );
-	bool            consumes( unsigned f );
+	bool            requires( unsigned f ) const;
+	bool	        asserts( unsigned f ) const;
+	bool	        retracts( unsigned f ) const;
+	bool            consumes( unsigned f ) const;
 
-	bool	        can_be_applied_on( State& s, bool regress=false );
+	bool	        can_be_applied_on( const State& s, bool regress=false ) const;
 
 
 protected:
@@ -44,22 +50,22 @@ protected:
 
 };
 
-inline bool	Conditional_Effect::requires( unsigned f )
+inline bool	Conditional_Effect::requires( unsigned f ) const
 {
 	return prec_set().isset(f);
 }
 
-inline bool	Conditional_Effect::asserts( unsigned f )
+inline bool	Conditional_Effect::asserts( unsigned f ) const
 {
 	return add_set().isset(f);
 }
 
-inline bool	Conditional_Effect::retracts( unsigned f )
+inline bool	Conditional_Effect::retracts( unsigned f ) const 
 {
 	return del_set().isset(f);
 }
 
-inline bool	Conditional_Effect::can_be_applied_on( State& s, bool regress )
+inline bool	Conditional_Effect::can_be_applied_on( const State& s, bool regress ) const
 {
 	if ( regress ) 
 	{
@@ -77,7 +83,7 @@ inline bool	Conditional_Effect::can_be_applied_on( State& s, bool regress )
 	return s.entails( prec_vec() );
 }
 
-inline bool	Conditional_Effect::consumes( unsigned f )
+inline bool	Conditional_Effect::consumes( unsigned f ) const
 {
 	return requires(f) && retracts(f);
 }
