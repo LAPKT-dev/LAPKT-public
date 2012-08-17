@@ -54,6 +54,7 @@ public:
 	bool		           	consumes( unsigned f ) const;
 
 	bool		           	can_be_applied_on( const State& s, bool regress=false ) const ;
+	bool				can_be_regressed_from( const State& s ) const;
 
 	void		           	set_cost( Cost_Type c ) { m_cost = c; }
 	Cost_Type	           	cost() const { return m_cost; }
@@ -123,39 +124,38 @@ inline bool	Action::retracts( unsigned f ) const
 	return del_set().isset(f);
 }
 
-inline bool	Action::can_be_applied_on( const State& s, bool regress ) const
-{
-	if ( regress ) 
+inline bool	Action::can_be_regressed_from( const State& s ) const {
+	// Relevance testing
+	bool relevant = false;
+	for ( unsigned k = 0; k < add_vec().size() && !relevant; k++ )
+		if ( s.entails( add_vec()[k] ) ) relevant = true;		
+	
+	for( unsigned i = 0; i < ceff_vec().size() && !relevant; i++ )
 	{
-		// Relevance testing
-		bool relevant = false;
-		for ( unsigned k = 0; k < add_vec().size() && !relevant; k++ )
-			if ( s.entails( add_vec()[k] ) ) relevant = true;		
-		
-		for( unsigned i = 0; i < ceff_vec().size() && !relevant; i++ )
-		{
-			for ( unsigned k = 0; k < ceff_vec()[i]->add_vec().size() && !relevant; k++ )
-				if( s.entails( ceff_vec()[i]->add_vec()[k] ) )
-					relevant = true;
-		}
-		
-		
-		if (!relevant) return false;
-		// Now test if no deletes from a are entailed by s
-		for ( unsigned k = 0; k < del_vec().size(); k++ )
-			if ( s.entails( del_vec()[k] ) ) return false;
+		for ( unsigned k = 0; k < ceff_vec()[i]->add_vec().size() && !relevant; k++ )
+			if( s.entails( ceff_vec()[i]->add_vec()[k] ) )
+				relevant = true;
+	}
+	
+	
+	if (!relevant) return false;
+	// Now test if no deletes from a are entailed by s
+	for ( unsigned k = 0; k < del_vec().size(); k++ )
+		if ( s.entails( del_vec()[k] ) ) return false;
 
-		for( unsigned i = 0; i < ceff_vec().size(); i++ )
-		{
-			for ( unsigned k = 0; k < ceff_vec()[i]->del_vec().size(); k++ )
-				if( s.entails( ceff_vec()[i]->del_vec()[k] ) )
-					return false;
-			
-		}
-
-		return true;
+	for( unsigned i = 0; i < ceff_vec().size(); i++ )
+	{
+		for ( unsigned k = 0; k < ceff_vec()[i]->del_vec().size(); k++ )
+			if( s.entails( ceff_vec()[i]->del_vec()[k] ) )
+				return false;
+		
 	}
 
+	return true;
+}
+
+inline bool	Action::can_be_applied_on( const State& s, bool regress ) const
+{
 	return s.entails( prec_vec() );
 }
 

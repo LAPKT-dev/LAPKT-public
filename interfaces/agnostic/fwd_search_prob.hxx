@@ -3,6 +3,8 @@
 
 #include <strips_prob.hxx>
 #include <aptk/search_prob.hxx>
+#include <strips_state.hxx>
+#include <action.hxx>
 
 namespace aptk {
 
@@ -24,8 +26,6 @@ public:
 	virtual float		cost( const State& s, Action_Idx a ) const;
 	virtual State*		next( const State& s, Action_Idx a ) const;
 	virtual void		print( std::ostream& os ) const;
-
-protected:
 
 	STRIPS_Problem&		task() 		{ return *m_task; }
 	const STRIPS_Problem&	task() const 	{ return *m_task; }

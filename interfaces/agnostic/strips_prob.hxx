@@ -24,7 +24,7 @@ namespace aptk
 
 		static unsigned 	add_action( STRIPS_Problem& p, std::string signature,
 						    Fluent_Vec& pre, Fluent_Vec& add, Fluent_Vec& del,
-						    Conditional_Effect_Vec& ceffs );
+						    Conditional_Effect_Vec& ceffs, float cost = 1.0f );
 
 		static unsigned 	add_fluent( STRIPS_Problem& p, std::string signature );
 
@@ -43,10 +43,18 @@ namespace aptk
 		const Fluent_Vec&	init() const  			{ return m_init; }
 		const Fluent_Vec&	goal() const  			{ return m_goal; }
 
-
-		Action_Ptr_Vec&		actions_adding( unsigned f ) 	{ return m_adding[f]; }
-		Action_Ptr_Vec&		actions_deleting( unsigned f ) 	{ return m_deleting[f]; }
-		Action_Ptr_Vec&		actions_requiring( unsigned f ) { return m_requiring[f]; }
+		std::vector<const Action*>&		
+					actions_adding( unsigned f )		{ return m_adding[f]; }
+		std::vector<const Action*>&		
+					actions_deleting( unsigned f )		{ return m_deleting[f]; }
+		std::vector<const Action*>&		
+					actions_requiring( unsigned f )		{ return m_requiring[f]; }
+		const std::vector<const Action*>&		
+					actions_adding( unsigned f ) const	{ return m_adding[f]; }
+		const std::vector<const Action*>&		
+					actions_deleting( unsigned f ) const	{ return m_deleting[f]; }
+		const std::vector<const Action*>&		
+					actions_requiring( unsigned f ) const	{ return m_requiring[f]; }
 
 		bool			is_in_init( unsigned f )	{ return m_in_init[f]; }
 		bool			is_in_goal( unsigned f )	{ return m_in_goal[f]; }

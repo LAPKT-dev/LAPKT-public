@@ -38,7 +38,7 @@ public:
 
 	const STRIPS_Problem&		problem() const;
   
-        bool operator==(State &a);
+        bool operator==(const State &a) const;
 
 protected:
 
@@ -52,7 +52,7 @@ inline	size_t State::hash() const {
 	return m_hash;
 }
 
-inline bool State::operator==(State &a) {
+inline bool State::operator==(const State &a) const {
   return fluent_vec() == a.fluent_vec();
 }
 
@@ -118,10 +118,7 @@ inline	void State::unset( const Fluent_Vec& f )
 
 inline bool	State::entails( const State& s ) const
 {
-	for ( unsigned i = 0; i < s.fluent_vec().size(); i++ )
-		if ( !fluent_set().isset(s.fluent_vec()[i]) ) return false;
-	return true;
-	
+	return entails( s.fluent_vec() );
 }
 
 inline std::ostream& operator<<(std::ostream &os, State &s);

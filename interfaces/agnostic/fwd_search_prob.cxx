@@ -1,6 +1,4 @@
 #include <fwd_search_prob.hxx>
-#include <strips_state.hxx>
-#include <action.hxx>
 #include <algorithm>
 
 namespace aptk {
@@ -51,7 +49,9 @@ float	Fwd_Search_Problem::cost( const State& s, Action_Idx a ) const {
 
 State*	Fwd_Search_Problem::next( const State& s, Action_Idx a ) const {
 	const Action& act = *(task().actions().at(a));
-	return s.progress_through( act );
+	State* succ = s.progress_through( act );
+	succ->update_hash();
+	return succ;
 }
 
 void	Fwd_Search_Problem::print( std::ostream& os ) const {

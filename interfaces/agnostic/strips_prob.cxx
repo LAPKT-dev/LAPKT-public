@@ -50,7 +50,7 @@ namespace aptk
 	
 	unsigned STRIPS_Problem::add_action( STRIPS_Problem& p, std::string signature,
 					     Fluent_Vec& pre, Fluent_Vec& add, Fluent_Vec& del,
-					     Conditional_Effect_Vec& ceffs )
+					     Conditional_Effect_Vec& ceffs, float cost )
 	{
 		Action* new_act = new Action( p );
 		new_act->set_signature( signature );
@@ -58,6 +58,7 @@ namespace aptk
 		p.increase_num_actions();
 		p.actions().push_back( new_act );
 		new_act->set_index( p.actions().size()-1 );
+		new_act->set_cost( cost );
 		return p.actions().size()-1;
 	}
 
@@ -140,7 +141,7 @@ namespace aptk
 	}
 
 	void	STRIPS_Problem::print_actions( std::ostream& os ) const {
-		std::cout << "Actions" << std::endl;
+		os << "Actions" << std::endl;
 		for ( unsigned k = 0; k < actions().size(); k++ )
 			actions().at(k)->print( *this, os );
 	}
@@ -150,7 +151,7 @@ namespace aptk
 		{	
 			unsigned p = v[k];
 			os << fluents()[p]->signature();
-			if ( k < v.size()-1 ) std::cout << ", ";
+			if ( k < v.size()-1 ) os << ", ";
 		}		
 	}
 }
