@@ -13,9 +13,10 @@ Graph::Graph(  ) {
 Graph::~Graph() {
 }
 
-void	Graph::add_vertex( std::string label ) {
+unsigned	Graph::add_vertex( std::string label ) {
 	Vertex* v = new Vertex( m_vertices.size(), label );
 	m_vertices.push_back( v );
+	return v->index();
 }
 
 void	Graph::connect( unsigned v1, unsigned v2 ) {

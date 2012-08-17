@@ -17,18 +17,21 @@ public:
 		unsigned			index() const { return m_index; }
 		std::string			label() const { return m_label; }
 		std::vector<Vertex*>& 		neighbours() { return m_neighbours; }
+		unsigned			at_fluent() const { return m_at_fluent_idx; }
+		void				set_at_fluent( unsigned idx ) { m_at_fluent_idx = idx; }
 
 	protected:
 		unsigned		m_index;
 		std::string		m_label;
 		std::vector< Vertex* >	m_neighbours;
+		unsigned		m_at_fluent_idx;
 	};
 
 	Graph();
 	~Graph();
 
-	void	add_vertex( std::string label );
-	void	connect( unsigned v1, unsigned v2 );
+	unsigned		add_vertex( std::string label );
+	void			connect( unsigned v1, unsigned v2 );
 	std::vector< Vertex* >&	vertices() { return m_vertices; }
 
 	typedef	std::vector<Vertex*>::iterator	Vertex_It;
