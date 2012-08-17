@@ -16,6 +16,8 @@ const		Action_Idx no_op = -1;
 template <typename State> class Search_Problem {
 public:
 
+	typedef  State		State_Type;
+
 	Search_Problem() {}
 	virtual ~Search_Problem() {}
 
