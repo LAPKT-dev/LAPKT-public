@@ -135,36 +135,29 @@ void Relaxed_Plan_Heuristic<Search_Model,Primary_Heuristic>::eval( const State& 
 	
 	h_val = 0.0f;
 
-	m_po_set.reset();
 	m_rp_precs.reset();
 	for ( unsigned k = 0; k < relaxed_plan.size(); k++ ) {
 		h_val += relaxed_plan[k]->cost();
-		if ( relaxed_plan[k]->can_be_applied_on( s ) ) {
-			pref_ops.push_back( relaxed_plan[k]->index() );
-			m_po_set.set( relaxed_plan[k]->index() );
-			const Fluent_Vec& precs = relaxed_plan[k]->prec_vec();
-			for ( Fluent_Vec::const_iterator it = precs.begin();
-				it != precs.end(); it++ ) {
-				m_rp_precs.set( *it );
+		const Fluent_Vec& precs = relaxed_plan[k]->prec_vec();
+		for ( Fluent_Vec::const_iterator it = precs.begin();
+			it != precs.end(); it++ )
+			m_rp_precs.set(*it);
+	}
+
+	Successor_Generator::Iterator it( s, m_strips_model.successor_generator().nodes() );
+	int a = it.first();
+	while ( a != -1 ) {
+		const Action& act = *(m_strips_model.actions()[a]);
+		for ( Fluent_Vec::const_iterator it = act.add_vec().begin();
+			it != act.add_vec().end(); it++ )
+			if ( m_rp_precs.isset( *it ) ) {
+				pref_ops.push_back( act.index() );
+				m_rp_precs.unset(*it);
+				break;
 			}
-		}
-		else {
-			const Fluent_Vec& precs = relaxed_plan[k]->prec_vec();
-			for ( Fluent_Vec::const_iterator it = precs.begin();
-				it != precs.end(); it++ ) {
-				if ( m_rp_precs.isset( *it ) ) continue;
-				const std::vector<const Action*>& adding_acts = m_strips_model.actions_adding( *it );
-				for ( unsigned i = 0; i < adding_acts.size(); i++ ) {
-					const Action* act = adding_acts[i];
-					if ( m_po_set.isset( act->index() ) ) continue;
-					if ( !act->can_be_applied_on( s ) ) continue;
-					m_po_set.set( act->index() );
-				}
-				m_rp_precs.set(*it);
-			}
-		}
-	}	
-	
+		a = it.next();
+	}
+
 }
 
 }
