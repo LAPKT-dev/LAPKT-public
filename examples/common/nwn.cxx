@@ -1,7 +1,9 @@
 #include <common/nwn.hxx>
+#include <action.hxx>
 #include <cstdlib>
 #include <sstream>
 #include <fstream>
+#include <algorithm>
 
 NWN_Mockup::NWN_Mockup( int random_seed ) {
 	srandom( random_seed );
@@ -185,8 +187,13 @@ void	NWN_Mockup::make_init( aptk::STRIPS_Problem& prob ) {
 void	NWN_Mockup::make_goal( int n_goal_items, int n_goal_locs, aptk::STRIPS_Problem& prob ) {
 
 	std::vector<unsigned> goal_items;
-	for ( int i = 0; i < n_goal_items; i++ )
-		goal_items.push_back( random()%m_items.size() );
+	for ( int i = 0; i < n_goal_items; i++ ) {
+		unsigned item;
+		do {
+			item = random()%m_items.size();
+		} while ( std::find( goal_items.begin(), goal_items.end(), item ) != goal_items.end() );
+		goal_items.push_back( item );
+	}
 
 	std::vector<unsigned> goal_locs;
 	for ( int i = 0; i < n_goal_locs; i++ ) 
