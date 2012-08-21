@@ -217,29 +217,26 @@ public:
 	
 
 	void 			process(  Search_Node *head ) {
-
-		for(int i = 0; i < m_problem.num_actions(); i++) {
-
-			if( m_problem.is_applicable( *(head->state()), i ) ) {
-
-				State *succ = m_problem.next( *(head->state()), i );
-
-				Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), i ), i, head, m_problem.num_actions() );
-				if ( is_closed( n ) ) {
-					delete n;
-					continue;
-				}
-
-				n->hn() = head->hn();
-				n->fn() = n->hn() + n->gn();
-
-				if( previously_hashed(n) ) {
-					delete n;
-				}
-				else 
-					open_node(n, head->is_po(i));
+		typedef typename Search_Model::Action_Iterator Iterator;
+		Iterator it( this->problem() );
+		int a = it.start( *(head->state()) );
+		while ( a != no_op ) {		
+			State *succ = m_problem.next( *(head->state()), a );
+			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions() );
+			if ( is_closed( n ) ) {
+				delete n;
+				a = it.next();
+				continue;
 			}
-		}
+			n->hn() = head->hn();
+			n->fn() = n->hn() + n->gn();
+			if( previously_hashed(n) ) {
+				delete n;
+			}
+			else 
+				open_node(n, head->is_po(a));
+			a = it.next();	
+		} 
 		inc_eval();
 	}
 
@@ -333,7 +330,7 @@ protected:
 	
 protected:
 
-	const Search_Problem<State>&		m_problem;
+	const Search_Model&			m_problem;
 	Abstract_Heuristic*			m_heuristic_func;
 	Open_List_Type				m_open_po;
 	Open_List_Type				m_open;
@@ -351,7 +348,7 @@ protected:
 	unsigned				m_non_po_exp_left;
 	unsigned				m_po_exp_max;
 	unsigned				m_non_po_exp_max;
-
+	std::vector<Action_Idx>			m_app_set;
 };
 
 }

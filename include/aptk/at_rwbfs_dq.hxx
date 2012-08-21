@@ -60,44 +60,45 @@ public:
 
 	void 			process(  Search_Node *head ) {
 
-		for(int i = 0; i < this->problem().num_actions(); i++) {
+		typedef typename Search_Model::Action_Iterator Iterator;
+		Iterator it( this->problem() );
+		int a = it.start( *(head->state()) );
+		while ( a != no_op ) {
+			State *succ = this->problem().next( *(head->state()), a );
+			Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
+			if ( is_closed( n ) ) {
+				delete n;
+				a = it.next();
+				continue;
+			}
 
-			if( this->problem().is_applicable( *(head->state()), i ) ) {
-
-				State *succ = this->problem().next( *(head->state()), i );
-				Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), i ), i, head );
-				if ( is_closed( n ) ) {
+			Search_Node* n2 = m_seen.retrieve(n);
+			if ( n2 == NULL ) {	
+				n->hn() = head->hn();
+				n->fn() = m_W * n->hn() + n->gn();
+				if( this->previously_hashed(n) ) {
 					delete n;
-					continue;
 				}
-	
-				Search_Node* n2 = m_seen.retrieve(n);
-				if ( n2 == NULL ) {	
-					n->hn() = head->hn();
-					n->fn() = m_W * n->hn() + n->gn();
-					if( this->previously_hashed(n) ) {
+				else 
+					this->open_node(n, head->is_po(a));
+			}
+			else {
+				if ( n->gn() < n2->gn() ) {
+					m_seen.erase( m_seen.retrieve_iterator(n2) );
+					delete n2;
+					if ( this->previously_hashed(n) ) {
 						delete n;
 					}
-					else 
-						this->open_node(n, head->is_po(i));
+					else
+						this->open_node(n, head->is_po(a));
 				}
 				else {
-					if ( n->gn() < n2->gn() ) {
-						m_seen.erase( m_seen.retrieve_iterator(n2) );
-						delete n2;
-						if ( this->previously_hashed(n) ) {
-							delete n;
-						}
-						else
-							this->open_node(n, head->is_po(i));
-					}
-					else {
-						delete n;
-						n2->fn() = m_W * n2->hn() + n2->gn();
-						this->open_node( n2, head->is_po(i) );
-					}
+					delete n;
+					n2->fn() = m_W * n2->hn() + n2->gn();
+					this->open_node( n2, head->is_po(a) );
 				}
 			}
+			a = it.next();
 		}
 		this->inc_eval();
 	}

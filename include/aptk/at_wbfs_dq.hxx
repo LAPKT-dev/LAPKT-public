@@ -39,25 +39,26 @@ public:
 
 	void 			process(  Search_Node *head ) {
 
-		for(int i = 0; i < this->problem().num_actions(); i++) {
-
-			if( this->problem().is_applicable( *(head->state()), i ) ) {
-
-				State *succ = this->problem().next( *(head->state()), i );
-				Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), i ), i, head );
-				if ( is_closed( n ) ) {
-					delete n;
-					continue;
-				}
-				n->hn() = head->hn();
-				n->fn() = m_W * n->hn() + n->gn();
-				if( this->previously_hashed(n) ) {
-					delete n;
-				}
-				else 
-					this->open_node(n, head->is_po(i));
+		typedef typename Search_Model::Action_Iterator Iterator;
+		Iterator it( this->problem() );
+		int a = it.start( *(head->state()) );
+		while ( a != no_op ) {		
+			State *succ = this->problem().next( *(head->state()), a );
+			Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
+			if ( is_closed( n ) ) {
+				delete n;
+				a = it.next();
+				continue;
 			}
-		}
+			n->hn() = head->hn();
+			n->fn() = m_W * n->hn() + n->gn();
+			if( previously_hashed(n) ) {
+				delete n;
+			}
+			else 
+				open_node(n, head->is_po(a));	
+			a = it.next();	
+		} 
 		this->inc_eval();
 	}
 
@@ -94,6 +95,7 @@ protected:
 
 	float					m_W;
 	float					m_decay;
+	std::vector<Action_Idx>			m_app_set;
 };
 
 }
