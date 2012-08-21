@@ -13,22 +13,9 @@ namespace search {
 template <typename Node>
 class Node_Comparer
 {             
-	/**
-	* bigger g higher priority
-	*/
-	static bool WAStarComp( Node* a, Node* b) {
-		return (dless(b->fn(), a->fn()) || (dequal(a->fn(), b->fn()) && dless(a->gn(), b->gn())));
-	}
-        
-	/**
-	* lower g higher priority
-	*/
-	static bool GBFSComp( Node* a, Node* b) {
-		return (dless(b->fn(), a->fn()) || (dequal(a->fn(), b->fn()) && dless(b->gn(), a->gn())));
-	}
 public:
-	bool operator()( Node* a, Node* b ) {
-		return WAStarComp(a, b);
+	bool operator()( Node* a, Node* b ) const {
+		return (dless(b->fn(), a->fn()) || (dequal(a->fn(), b->fn()) && dless(b->hn(), a->hn())));
 	}
 };          
   
