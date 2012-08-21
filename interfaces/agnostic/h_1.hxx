@@ -77,8 +77,8 @@ public:
 
 		m_already_updated.reset();
 		m_updated.clear();
-		initialize(s, m_updated);
-		compute(m_updated);
+		initialize(s);
+		compute();
 		h_val = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );
 	}
 
@@ -119,7 +119,7 @@ protected:
 		}		
 	}
 
-	void	initialize( const State& s, std::deque<unsigned>& m_updated ) 
+	void	initialize( const State& s ) 
 	{
 		for ( unsigned k = 0; k < m_strips_model.num_fluents(); k++ )
 			m_values[k] = infty;
@@ -147,7 +147,7 @@ protected:
 			set( *it, 0.0f );
 	}
 
-	void	compute( std::deque<unsigned>& m_updated ) 
+	void	compute(  ) 
 	{
 		while ( !m_updated.empty() ) {
 
@@ -156,9 +156,14 @@ protected:
 			m_updated.pop_front();
 			m_already_updated.unset(p);
 
+			//Successor_Generator::Heuristic_Iterator it( m_values, m_strips_model.successor_generator().nodes() );
+			//int i = it.first();
+			//std::cout << "First action: " << i << std::endl;
+			//while ( i != -1 ) {
 			for ( unsigned i = 0; i < m_strips_model.num_actions(); i++ ) {
 				const Action& a = *(m_strips_model.actions()[i]);
 
+				//std::cout << "Action considered: " << a.signature() << std::endl;
 				bool relevant =  a.prec_set().isset(p);
 				
 				for ( unsigned j = 0; j < a.ceff_vec().size() && !relevant; j++ ) {
@@ -166,7 +171,10 @@ protected:
 					relevant = relevant || ceff.prec_set().isset(p);
 				}
 				
-				if ( !relevant ) continue;
+				if ( !relevant ) {
+					//i = it.next();
+					continue;
+				}
 
 				float h_pre = eval_func( a.prec_vec().begin(), a.prec_vec().end() );
 
@@ -191,6 +199,8 @@ protected:
 						it != ceff.add_vec().end(); it++ )
 						update( *it, v_eff, m_strips_model.actions()[i] );
 				}
+
+				//i = it.next();
 			}
 		}
 	}
