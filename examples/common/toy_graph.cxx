@@ -21,6 +21,5 @@ unsigned	Graph::add_vertex( std::string label ) {
 
 void	Graph::connect( unsigned v1, unsigned v2 ) {
 	m_vertices.at(v1)->neighbours().push_back( m_vertices.at(v2) );
-	m_vertices.at(v2)->neighbours().push_back( m_vertices.at(v1) );
 }
 
