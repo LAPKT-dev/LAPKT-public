@@ -23,11 +23,8 @@ public:
 	float	operator()( Fluent_Vec::const_iterator begin, Fluent_Vec::const_iterator end ) const {
 		float v = 0.0f;
 		for ( Fluent_Vec::const_iterator it = begin; it != end; it++ ) {
-			if ( m_values[*it] == infty ) {
-				v = infty;
-				break;
-			}
 			v = ( v < m_values[*it] ? m_values[*it] : v );
+			if ( v == infty ) return v;
 		}
 		return v;	
 	}
@@ -48,10 +45,8 @@ public:
 	float	operator()( Fluent_Vec::const_iterator begin, Fluent_Vec::const_iterator end ) const {
 		float v = 0.0f;
 		for ( Fluent_Vec::const_iterator it = begin; it != end; it++ ) {
-			if ( m_values[*it] == infty ) {
-				v = infty;
-				break;
-			}
+			if ( m_values[*it] == infty ) 
+				return infty;
 			v += m_values[*it];
 		}
 		return v;	
@@ -72,6 +67,7 @@ public:
 	: Heuristic<State>( prob ), m_strips_model( prob.task() ), eval_func(m_values) {
 		m_values.resize( m_strips_model.num_fluents() );
 		m_best_supporters.resize(  m_strips_model.num_fluents() );
+		m_already_updated.resize( m_strips_model.num_fluents() );
 	}
 
 	virtual ~H1_Heuristic() {
@@ -79,11 +75,11 @@ public:
 
 	virtual void eval( const State& s, float& h_val ) {
 
-		std::deque<unsigned> updated;
-		initialize(s, updated);
-		compute(updated);
+		m_already_updated.reset();
+		m_updated.clear();
+		initialize(s, m_updated);
+		compute(m_updated);
 		h_val = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );
-
 	}
 
 	virtual void eval( const State& s, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
@@ -96,22 +92,44 @@ public:
 
 protected:
 
-	void	initialize( const State& s, std::deque<unsigned>& updated ) 
+	void	update( unsigned p, float v ) {
+		if ( v >= m_values[p] ) return;
+		m_values[p] = v;
+		if ( !m_already_updated.isset( p ) ) {
+			m_updated.push_back( p );
+			m_already_updated.set( p );
+		}		
+	}
+
+	void	update( unsigned p, float v, const Action* a ) {
+		if ( v >= m_values[p] ) return;
+		m_values[p] = v;
+		if ( !m_already_updated.isset( p ) ) {
+			m_updated.push_back( p );
+			m_already_updated.set( p );
+		}
+		m_best_supporters[p] = a;
+	}
+
+	void	set( unsigned p, float v ) {
+		m_values[p] = v;
+		if ( !m_already_updated.isset( p ) ) {
+			m_updated.push_back( p );
+			m_already_updated.set( p );
+		}		
+	}
+
+	void	initialize( const State& s, std::deque<unsigned>& m_updated ) 
 	{
 		for ( unsigned k = 0; k < m_strips_model.num_fluents(); k++ )
 			m_values[k] = infty;
 
-		for ( unsigned k = 0; k < m_strips_model.num_actions(); k++ ) {
-			if ( !m_strips_model.actions()[k]->prec_vec().empty()  ) continue;
-			const Action& a = *(m_strips_model.actions()[k]);
+		for ( unsigned k = 0; k < m_strips_model.empty_prec_actions().size(); k++ ) {
+			const Action& a = *(m_strips_model.empty_prec_actions()[k]);
 			float v = (float)a.cost();
 			for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 				it != a.add_vec().end(); it++ )
-			{
-				if ( v >= m_values[*it] ) continue;
-				m_values[*it] = v;
-				updated.push_back(*it);
-			}
+				update( *it, v );
 			// Conditional effects
 			for ( unsigned j = 0; j < a.ceff_vec().size(); j++ )
 			{
@@ -120,34 +138,28 @@ protected:
 				float v_eff = v;
 				for ( Fluent_Vec::const_iterator it = ceff.add_vec().begin();
 					it != ceff.add_vec().end(); it++ )
-				{
-					if ( v_eff >= m_values[*it] ) continue;
-					m_values[*it] = v_eff;
-					updated.push_back( *it );
-				}
+					update( *it, v_eff );
 			}
 		}
 	
 		for ( Fluent_Vec::const_iterator it = s.fluent_vec().begin(); 
 			it != s.fluent_vec().end(); it++ )
-		{
-			m_values[*it] = 0.0f;
-			updated.push_back( *it );
-		}
+			set( *it, 0.0f );
 	}
 
-	void	compute( std::deque<unsigned>& updated ) 
+	void	compute( std::deque<unsigned>& m_updated ) 
 	{
-		while ( !updated.empty() ) {
+		while ( !m_updated.empty() ) {
 
-			unsigned p = updated.front();
-			//std::cout << p << ". " << m_strips_model.atoms[p]->name << " " << m_values[p] << std::endl;
-			updated.pop_front();
+			unsigned p = m_updated.front();
+			//std::cout << p << ". " << m_strips_model.fluents()[p]->signature() << " " << m_values[p] << std::endl;
+			m_updated.pop_front();
+			m_already_updated.unset(p);
 
 			for ( unsigned i = 0; i < m_strips_model.num_actions(); i++ ) {
 				const Action& a = *(m_strips_model.actions()[i]);
-			
-				bool relevant =  m_strips_model.actions()[i]->prec_set().isset(p);
+
+				bool relevant =  a.prec_set().isset(p);
 				
 				for ( unsigned j = 0; j < a.ceff_vec().size() && !relevant; j++ ) {
 					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
@@ -159,19 +171,15 @@ protected:
 				float h_pre = eval_func( a.prec_vec().begin(), a.prec_vec().end() );
 
 				if ( h_pre == infty ) continue;
+				//assert( h_pre != infty );
 
-				//std::cout << "Action " << i << ". " << m_strips_model.actions[i]->name << " relevant" << std::endl;
+				//std::cout << "Action " << i << ". " << a.signature() << " relevant" << std::endl;
 
 				float v = (float)a.cost() + h_pre;
 
 				for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 					it != a.add_vec().end(); it++ )
-				{
-					if ( v >= m_values[*it] ) continue;
-					m_values[*it] = v;
-					updated.push_back(*it);
-					m_best_supporters[ *it ] = m_strips_model.actions()[i];
-				}
+					update( *it, v, m_strips_model.actions()[i] );
 				// Conditional effects
 				for ( unsigned j = 0; j < a.ceff_vec().size(); j++ )
 				{
@@ -181,12 +189,7 @@ protected:
 					float v_eff = v + h_cond;
 					for ( Fluent_Vec::const_iterator it = ceff.add_vec().begin();
 						it != ceff.add_vec().end(); it++ )
-					{
-						if ( v_eff >= m_values[*it] ) continue;
-						m_values[*it] = v_eff;
-						updated.push_back( *it );
-						m_best_supporters[ *it ] = m_strips_model.actions()[i];
-					}
+						update( *it, v_eff, m_strips_model.actions()[i] );
 				}
 			}
 		}
@@ -198,6 +201,9 @@ protected:
 	std::vector<float>			m_values;
 	Fluent_Set_Eval_Func			eval_func;
 	std::vector<const Action*>		m_best_supporters;
+	std::vector<const Action*>		m_app_set;
+	std::deque<unsigned> 			m_updated;
+	Bit_Set					m_already_updated;
 };
 
 }
