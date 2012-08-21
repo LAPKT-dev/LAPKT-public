@@ -9,7 +9,8 @@ namespace aptk
 {
 
 	STRIPS_Problem::STRIPS_Problem()
-		: m_num_fluents( 0 ), m_num_actions( 0 ), m_end_operator_id( no_such_index )
+		: m_num_fluents( 0 ), m_num_actions( 0 ), m_end_operator_id( no_such_index ),
+		m_succ_gen( *this )
 	{
 	}
 
@@ -25,12 +26,19 @@ namespace aptk
 		
 		for ( unsigned k = 0; k < actions().size(); k++ )
 			register_action_in_tables( actions()[k] );
+		
+		m_succ_gen.build();
 	}
 
 	void	STRIPS_Problem::register_action_in_tables( Action* a )
 	{
-		for ( unsigned k = 0; k < a->prec_vec().size(); k++ )
-			actions_requiring(a->prec_vec()[k]).push_back( a );
+		if ( a->prec_vec().empty() ) {
+			m_empty_precs.push_back(a);
+		}
+		else {
+			for ( unsigned k = 0; k < a->prec_vec().size(); k++ )
+				actions_requiring(a->prec_vec()[k]).push_back( a );
+		}
 		for ( unsigned k = 0; k < a->add_vec().size(); k++ )
 			actions_adding(a->add_vec()[k]).push_back(a);
 		for ( unsigned k = 0; k < a->del_vec().size(); k++ )
@@ -59,6 +67,7 @@ namespace aptk
 		p.actions().push_back( new_act );
 		new_act->set_index( p.actions().size()-1 );
 		new_act->set_cost( cost );
+		p.m_const_actions.push_back( new_act );
 		return p.actions().size()-1;
 	}
 
@@ -70,6 +79,7 @@ namespace aptk
 		p.m_fluents_map[signature] = new_fluent->index();
 		p.increase_num_fluents();
 		p.fluents().push_back( new_fluent );
+		p.m_const_fluents.push_back( new_fluent );
 		return p.fluents().size()-1;
 	}
 
