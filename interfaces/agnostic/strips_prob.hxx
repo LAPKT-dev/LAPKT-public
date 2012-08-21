@@ -5,6 +5,7 @@
 #include <map>
 #include <iosfwd>
 #include <types.hxx>
+#include <succ_gen.hxx>
 
 namespace aptk
 {
@@ -34,8 +35,10 @@ namespace aptk
 	  	
 		Fluent_Ptr_Vec&		fluents() 			{ return m_fluents; }
 		Action_Ptr_Vec&		actions() 			{ return m_actions; }
-		const Fluent_Ptr_Vec&	fluents() const			{ return m_fluents; }
-		const Action_Ptr_Vec&	actions() const			{ return m_actions; }
+		const std::vector< const Fluent*>&	
+					fluents() const			{ return m_const_fluents; }
+		const std::vector< const Action*>&
+					actions() const			{ return m_const_actions; }
 
 
 		Fluent_Vec&		init()	  			{ return m_init; }
@@ -56,6 +59,21 @@ namespace aptk
 		const std::vector<const Action*>&		
 					actions_requiring( unsigned f ) const	{ return m_requiring[f]; }
 
+		const std::vector<const Action*>&
+					empty_prec_actions() const 		{ return m_empty_precs; }
+
+		void			applicable_actions( const State& s, std::vector<const Action* >& actions  ) const {
+			m_succ_gen.retrieve_applicable(s,actions);
+		}
+		
+		void			applicable_actions( const State& s, std::vector<int>& actions ) const {
+			m_succ_gen.retrieve_applicable(s,actions);
+		}
+
+		void			applicable_actions( const std::vector<float>& v, std::vector<const Action*>& actions ) const {
+			m_succ_gen.retrieve_applicable( v, actions );
+		}
+
 		bool			is_in_init( unsigned f )	{ return m_in_init[f]; }
 		bool			is_in_goal( unsigned f )	{ return m_in_goal[f]; }
 
@@ -69,7 +87,8 @@ namespace aptk
 		void			print_fluents( std::ostream& os ) const;
 		void			print_actions( std::ostream& os ) const;
 		void			print_fluent_vec( std::ostream& os, const Fluent_Vec& v ) const;	
-	
+		const agnostic::Successor_Generator&
+					successor_generator() const { return m_succ_gen; }	
 	protected:
 	
 		void			increase_num_fluents()        	{ m_num_fluents++; }
@@ -81,7 +100,9 @@ namespace aptk
 		unsigned		 	m_num_fluents;
 		unsigned		 	m_num_actions;
 		Action_Ptr_Vec		 	m_actions;
+		std::vector<const Action*>	m_const_actions;
 		Fluent_Ptr_Vec		 	m_fluents;
+		std::vector<const Fluent*>	m_const_fluents;
 		Fluent_Vec		 	m_init;
 		Fluent_Vec		 	m_goal;
 		Fluent_Action_Table	 	m_adding;
@@ -91,6 +112,8 @@ namespace aptk
 		std::vector<bool>	 	m_in_goal;
 		unsigned                 	m_end_operator_id;
 	  	std::map<std::string,int> 	m_fluents_map;
+		agnostic::Successor_Generator	m_succ_gen;
+		std::vector< const  Action* >   m_empty_precs;
 	  };
 
 }
