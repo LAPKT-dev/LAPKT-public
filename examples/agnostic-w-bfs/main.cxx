@@ -12,11 +12,13 @@
 
 #include <fwd_search_prob.hxx>
 #include <h_1.hxx>
+#include <simple_landmarks.hxx>
 #include <rp_heuristic.hxx>
 #include <aptk/open_list.hxx>
 #include <aptk/at_wbfs.hxx>
 #include <aptk/at_wbfs_dq.hxx>
 #include <aptk/at_rwbfs_dq.hxx>
+#include <aptk/at_rwbfs_dq_mh.hxx>
 #include <aptk/string_conversions.hxx>
 
 using	aptk::STRIPS_Problem;
@@ -24,34 +26,42 @@ using	aptk::State;
 using	aptk::Action;
 using	aptk::agnostic::Fwd_Search_Problem;
 using 	aptk::agnostic::H1_Heuristic;
+using	aptk::agnostic::Simple_Landmarks_Heuristic;
 using	aptk::agnostic::H_Add_Evaluation_Function;
 using	aptk::agnostic::H_Max_Evaluation_Function;
 using	aptk::agnostic::Relaxed_Plan_Heuristic;
 using 	aptk::search::Open_List;
 using	aptk::search::Node_Comparer;
+using	aptk::search::Node_Comparer_DH;
 using	aptk::search::bfs::AT_WBFS_SQ_SH;
 using	aptk::search::bfs_dq::AT_WBFS_DQ_SH;
 using	aptk::search::bfs_dq::AT_RWBFS_DQ_SH;
+using	aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH;
 using	aptk::search::bfs::Node;
 
 // MRJ: We start defining the type of nodes for our planner
 typedef		Node< State >							Search_Node;
-typedef	aptk::search::bfs_dq::Node< State >					DQ_Search_Node;				
+typedef	aptk::search::bfs_dq::Node< State >					DQ_Search_Node;
+typedef aptk::search::bfs_dq_mh::Node< State >					DQ_DH_Search_Node;			
 
 // MRJ: Then we define the type of the tie-breaking algorithm
 // for the open list we are going to use
 typedef		Node_Comparer< Search_Node >					Tie_Breaking_Algorithm;
 typedef		Node_Comparer< DQ_Search_Node >					DQ_Tie_Breaking_Algorithm;
+typedef 	Node_Comparer_DH< DQ_DH_Search_Node >				DQ_DH_Tie_Breaking_Algorithm;
 
 // MRJ: Now we define the Open List type by combining the types we have defined before
 typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >			BFS_Open_List;
 typedef		Open_List< DQ_Tie_Breaking_Algorithm, DQ_Search_Node >			DQ_BFS_Open_List;
+typedef		Open_List< DQ_DH_Tie_Breaking_Algorithm, DQ_DH_Search_Node >		DQ_DH_BFS_Open_List;
 
 // MRJ: Now we define the heuristics
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Max_Evaluation_Function>	H_Max_Fwd;
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd;
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Max_Fwd >		H_FF_Fwd;
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
+
+typedef		Simple_Landmarks_Heuristic< Fwd_Search_Problem >		H_LM;
 
 // MRJ: Now we're ready to define the BFS algorithm we're going to use
 typedef		AT_WBFS_SQ_SH< Fwd_Search_Problem, H_Add_Fwd, BFS_Open_List >		Anytime_WBFS_H_Add;
@@ -60,9 +70,11 @@ typedef		AT_WBFS_SQ_SH< Fwd_Search_Problem, H_FF_Fwd, BFS_Open_List >		Anytime_W
 typedef		AT_WBFS_SQ_SH< Fwd_Search_Problem, H_Add_Rp_Fwd, BFS_Open_List >	Anytime_WBFS_H_Add_Rp_Fwd;
 
 
-typedef		AT_WBFS_DQ_SH< Fwd_Search_Problem, H_FF_Fwd, DQ_BFS_Open_List >		Anytime_DQ_WBFS_H_FF;
-typedef		AT_WBFS_DQ_SH< Fwd_Search_Problem, H_Add_Rp_Fwd, DQ_BFS_Open_List >	Anytime_DQ_WBFS_H_Add_Rp_Fwd;
-typedef		AT_RWBFS_DQ_SH< Fwd_Search_Problem, H_Add_Rp_Fwd, DQ_BFS_Open_List >	Anytime_DQ_RWBFS_H_Add_Rp_Fwd;
+typedef		AT_WBFS_DQ_SH< Fwd_Search_Problem, H_FF_Fwd, DQ_BFS_Open_List >			Anytime_DQ_WBFS_H_FF;
+typedef		AT_WBFS_DQ_SH< Fwd_Search_Problem, H_Add_Rp_Fwd, DQ_BFS_Open_List >		Anytime_DQ_WBFS_H_Add_Rp_Fwd;
+typedef		AT_RWBFS_DQ_SH< Fwd_Search_Problem, H_Add_Rp_Fwd, DQ_BFS_Open_List >		Anytime_DQ_RWBFS_H_Add_Rp_Fwd;
+
+typedef		AT_RWBFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_LM, DQ_DH_BFS_Open_List >	Anytime_DQ_RWBFS_H_Add_Rp_Fwd_LM;
 
 int main( int argc, char** argv ) {
 
@@ -154,7 +166,6 @@ int main( int argc, char** argv ) {
 	plan_prob.print_fluent_vec( std::cout, plan_prob.goal() );
 	std::cout << std::endl;
 
-	std::cout << "Starting search..." << std::endl;
 
 	Fwd_Search_Problem	search_prob( &plan_prob );
 
@@ -183,19 +194,51 @@ int main( int argc, char** argv ) {
 	}
 	*/
 
+	// MRJ: Example comparing preferred operators according to reachability heuristics
+	// and landmarks heuristics
+	/*
+	H_Add_Rp_Fwd	h1(search_prob);
+	H_LM		h2(search_prob);
+	State* s0 = search_prob.init();
+
+	float h1_val, h2_val;
+	std::vector<aptk:: Action_Idx> h1_po, h2_po;
+	
+	h1.eval( *s0, h1_val, h1_po );
+	h2.eval( *s0, h2_val, h2_po );
+	
+	std::cout << "Reachability heuristic:" << std::endl;
+	std::cout << "\th(s) = " << h1_val << std::endl;
+	std::cout << "\tPreferred ops:" << std::endl;
+	for ( unsigned k = 0; k < h1_po.size(); k++ ) {
+		std::cout << "\t\t" << plan_prob.actions()[h1_po[k]]->signature() << std::endl;
+	}
+
+	std::cout << "Landmarks heuristic:" << std::endl;
+	std::cout << "\th(s) = " << h2_val << std::endl;
+	std::cout << "\tPreferred ops:" << std::endl;
+	for ( unsigned k = 0; k < h2_po.size(); k++ ) {
+		std::cout << "\t\t" << plan_prob.actions()[h2_po[k]]->signature() << std::endl;
+	}
+	*/
+
 	// MRJ: Uncomment for seeing how the combination of search strategy
 	// and heuristic work for the particular class of problems generated by
 	// the NWN Mock up
 
+	std::cout << "Starting search..." << std::endl;
+
 	//Anytime_WBFS_H_Add_Rp_Fwd search_engine( search_prob, W_0, decay);
 	//Anytime_WBFS_H_FF	search_engine( search_prob, W_0, decay );
 	//Anytime_DQ_WBFS_H_Add_Rp_Fwd search_engine( search_prob, W_0, decay );
-	Anytime_DQ_RWBFS_H_Add_Rp_Fwd search_engine( search_prob, W_0, decay );
-
+	//Anytime_DQ_RWBFS_H_Add_Rp_Fwd search_engine( search_prob, W_0, decay );
+	Anytime_DQ_RWBFS_H_Add_Rp_Fwd_LM search_engine( search_prob, W_0, decay );
+	
 	// MRJ: Only works for DQ search engines. Allows to control the 'greediness'
 	// of the search while maintaining completeness (which is a big difference
 	// w.r.t. FF).
-	search_engine.set_schedule( 100, 1 );
+	//search_engine.set_schedule( 100, 1 );
+	search_engine.set_schedule( 100, 50, 1 );
 
 	search_engine.start();
 
