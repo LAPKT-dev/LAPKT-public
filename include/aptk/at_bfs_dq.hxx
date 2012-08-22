@@ -181,6 +181,7 @@ public:
 				m_po_exp_left--;			
 				if ( m_po_exp_left == 0 )
 					m_non_po_exp_left = m_non_po_exp_max;
+				return next;
 			}
 		}
 
