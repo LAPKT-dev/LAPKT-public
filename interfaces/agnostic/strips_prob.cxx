@@ -23,6 +23,7 @@ namespace aptk
 		m_requiring.resize( fluents().size() );
 		m_deleting.resize( fluents().size() );
 		m_adding.resize( fluents().size() );
+		m_ceffs_adding.resize( fluents().size() );
 		
 		for ( unsigned k = 0; k < actions().size(); k++ )
 			register_action_in_tables( actions()[k] );
@@ -41,10 +42,16 @@ namespace aptk
 		}
 		for ( unsigned k = 0; k < a->add_vec().size(); k++ )
 			actions_adding(a->add_vec()[k]).push_back(a);
+
+		for ( unsigned k = 0; k < a->ceff_vec().size(); k++ )
+			for ( unsigned i = 0; i < a->ceff_vec()[k]->add_vec().size(); i++ )
+				ceffs_adding( a->ceff_vec()[k]->add_vec()[i] ).push_back( std::make_pair( k, a ) );
+
 		for ( unsigned k = 0; k < a->del_vec().size(); k++ )
 			actions_deleting(a->del_vec()[k]).push_back(a);	
 		
 		//register conditional effects
+		/*
 		for ( unsigned i = 0; i < a->ceff_vec().size(); i++ )
 		{
 			for ( unsigned k = 0; k < a->ceff_vec()[i]->prec_vec().size(); k++ )
@@ -54,6 +61,7 @@ namespace aptk
 			for ( unsigned k = 0; k < a->ceff_vec()[i]->del_vec().size(); k++ )
 				actions_deleting(a->ceff_vec()[i]->del_vec()[k]).push_back(a);	
 		}
+		*/
 	}
 	
 	unsigned STRIPS_Problem::add_action( STRIPS_Problem& p, std::string signature,
