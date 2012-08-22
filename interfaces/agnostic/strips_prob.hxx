@@ -48,6 +48,13 @@ namespace aptk
 
 		std::vector<const Action*>&		
 					actions_adding( unsigned f )		{ return m_adding[f]; }
+
+		std::vector< std::pair< unsigned, const Action*> >&
+					ceffs_adding( unsigned f )		{ return m_ceffs_adding[f]; }
+
+		const std::vector< std::pair< unsigned, const Action*> >&
+					ceffs_adding( unsigned f ) const	{ return m_ceffs_adding[f]; }
+
 		std::vector<const Action*>&		
 					actions_deleting( unsigned f )		{ return m_deleting[f]; }
 		std::vector<const Action*>&		
@@ -97,23 +104,24 @@ namespace aptk
 
 	protected:
 
-		unsigned		 	m_num_fluents;
-		unsigned		 	m_num_actions;
-		Action_Ptr_Vec		 	m_actions;
-		std::vector<const Action*>	m_const_actions;
-		Fluent_Ptr_Vec		 	m_fluents;
-		std::vector<const Fluent*>	m_const_fluents;
-		Fluent_Vec		 	m_init;
-		Fluent_Vec		 	m_goal;
-		Fluent_Action_Table	 	m_adding;
-		Fluent_Action_Table	 	m_requiring;
-		Fluent_Action_Table	 	m_deleting;
-		std::vector<bool>	 	m_in_init;
-		std::vector<bool>	 	m_in_goal;
-		unsigned                 	m_end_operator_id;
-	  	std::map<std::string,int> 	m_fluents_map;
-		agnostic::Successor_Generator	m_succ_gen;
-		std::vector< const  Action* >   m_empty_precs;
+		unsigned		 				m_num_fluents;
+		unsigned		 				m_num_actions;
+		Action_Ptr_Vec		 				m_actions;
+		std::vector<const Action*>				m_const_actions;
+		Fluent_Ptr_Vec		 				m_fluents;
+		std::vector<const Fluent*>				m_const_fluents;
+		Fluent_Vec		 				m_init;
+		Fluent_Vec		 				m_goal;
+		Fluent_Action_Table	 				m_adding;
+		Fluent_Action_Table	 				m_requiring;
+		Fluent_Action_Table	 				m_deleting;
+		std::vector<bool>	 				m_in_init;
+		std::vector<bool>	 				m_in_goal;
+		unsigned                 				m_end_operator_id;
+	  	std::map<std::string,int> 				m_fluents_map;
+		agnostic::Successor_Generator				m_succ_gen;
+		std::vector< const  Action* >   			m_empty_precs;
+		std::vector< std::vector< std::pair< unsigned, const Action* > > >	m_ceffs_adding;
 	  };
 
 }
