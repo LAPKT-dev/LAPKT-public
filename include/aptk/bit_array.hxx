@@ -35,22 +35,28 @@ public:
 	~Bit_Array();
 
 	void resize( unsigned dim );
+
 	unsigned* packs()
 	{
 		return m_packs;
 	}
 
-	unsigned npacks()
+	const unsigned* packs() const
+	{
+		return m_packs;
+	}
+
+	unsigned npacks() const
 	{
 		return m_n_packs;
 	}
 
-	unsigned max_index()
+	unsigned max_index() const
 	{
 		return m_max_idx;
 	}
 	
-	unsigned size() // in bytes
+	unsigned size() const // in bytes
 	{
 		return m_n_packs*32;
 	}
@@ -65,7 +71,7 @@ public:
 		memset( m_packs, 0, m_n_packs*sizeof(unsigned) );
 	}	
 
-	bool equal( Bit_Array& other )
+	bool equal( const Bit_Array& other ) const
 	{
 		for ( unsigned i = 0; i < m_n_packs; i++ )
 			if ( m_packs[i] != other.m_packs[i] )
@@ -82,7 +88,7 @@ public:
 		m_packs[index] |= (1 << offset);
 	}
        
-        void set( Bit_Array &other )
+        void set( const Bit_Array &other )
         {
 	  for ( unsigned i = 0; i < m_n_packs; i++ )
 	    m_packs[i] |= other.m_packs[i];
@@ -105,7 +111,7 @@ public:
 	}
 
 
-	unsigned isset( unsigned i )
+	unsigned isset( unsigned i ) const
 	{
                 assert( i <= (unsigned)m_max_idx );
 		return m_packs[i/32] & 1 << (i%32);
@@ -115,25 +121,15 @@ public:
 	{
 		return m_packs[i/32] & 1 << (i%32);
 	}
-	/*
-	int pack_population( unsigned char x )
-	{
-		x = ( ( x & 0xAA ) >> 1 ) + ( x & 0x55 );
-		x = ( ( x & 0xCC ) >> 2 ) + ( x & 0x33 );
-		x = ( ( x & 0xF0 ) >> 4 ) + ( x & 0x0F );
-		
-		return x;
-	}
 
 	int count_elements()
 	{
 		int count = 0;
-		for ( unsigned i = 0; i < m_n_packs; i++ )
-			count += pack_population( m_packs[i] );
+		for ( unsigned i = 0; i < m_max_idx; i++ )
+			if ( isset( i ) ) count++;			
 		return count;
 		
 	}	
-	*/
 protected:
 	unsigned*      m_packs;
 	unsigned       m_n_packs;
