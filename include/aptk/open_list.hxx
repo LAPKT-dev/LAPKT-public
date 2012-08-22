@@ -15,10 +15,28 @@ class Node_Comparer
 {             
 public:
 	bool operator()( Node* a, Node* b ) const {
-		return (dless(b->fn(), a->fn()) || (dequal(a->fn(), b->fn()) && dless(b->hn(), a->hn())));
+		if ( dless( b->fn(), a->fn() ) ) return true;
+		if ( dless( b->hn(), a->hn() ) ) return true;
+		return false;
+
+		//return (dless(b->fn(), a->fn()) || (dequal(a->fn(), b->fn()) && dless(b->hn(), a->hn())));
 	}
 };          
-  
+ 
+template <typename Node>
+class Node_Comparer_DH
+{             
+public:
+	bool operator()( Node* a, Node* b ) const {
+		if ( dless( b->fn(), a->fn() ) )  return true;
+		if ( dless( b->h1n(), a->h1n() ) ) return true;
+		if ( dless( b->h2n(), a->h2n() ) ) return true;
+		return false;
+
+		//return (dless(b->fn(), a->fn()) || (dequal(a->fn(), b->fn()) && dless(b->hn(), a->hn())));
+	}
+};   
+ 
 template < class Node_Comp, class Node >
 class Open_List
 {
