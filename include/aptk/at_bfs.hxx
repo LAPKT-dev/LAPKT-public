@@ -129,12 +129,28 @@ public:
 	float			t0() const			{ return m_t0; }
 
 	void 			close( Search_Node* n ) 	{  m_closed.put(n); }
-	Search_Node* 		isClosed( Search_Node* n ) 	{ return m_closed.retrieve(n); }
+	Closed_List_Type&	closed() 			{ return m_closed; }
 
 	const	Search_Model&	problem() const			{ return m_problem; }
 
 	void			eval( Search_Node* candidate ) {
 		m_heuristic_func->eval( *(candidate->state()), candidate->hn() );
+	}
+
+	bool 		is_closed( Search_Node* n ) 	{ 
+		Search_Node* n2 = this->closed().retrieve(n);
+
+		if ( n2 != NULL ) {
+			if ( n2->gn() <= n->gn() ) {
+				// The node we generated is a worse path than
+				// the one we already found
+				return true;
+			}
+			// Otherwise, we put it into Open and remove
+			// n2 from closed
+			this->closed().erase( this->closed().retrieve_iterator( n2 ) );
+		}
+		return false;
 	}
 
 	Search_Node* 		get_node() {
