@@ -32,7 +32,7 @@ namespace aptk
 
 
 #define no_such_index  std::numeric_limits<unsigned>::max()
-#define	infty          std::numeric_limits<Cost_Type>::infinity()
+#define	infty          std::numeric_limits<aptk::Cost_Type>::infinity()
 
 	class Pair_Value_Table : public std::map< Fluent_Pair, unsigned >
 	{
