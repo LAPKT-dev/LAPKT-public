@@ -201,8 +201,10 @@ protected:
 				q = lm_set.next(q);
 			}	
 		}
+		#ifdef DEBUG
 		std::cout << "Landmarks found: " << m_graph.num_landmarks() << std::endl;
 		m_graph.print( std::cout );
+		#endif
 	}
 
 protected:
