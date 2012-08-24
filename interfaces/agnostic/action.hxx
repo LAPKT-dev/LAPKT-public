@@ -53,7 +53,7 @@ public:
 	bool		           	retracts( unsigned f ) const;
 	bool		           	consumes( unsigned f ) const;
 
-	bool		           	can_be_applied_on( const State& s, bool regress=false ) const ;
+	bool		           	can_be_applied_on( const State& s ) const ;
 	bool				can_be_regressed_from( const State& s ) const;
 
 	void		           	set_cost( Cost_Type c ) { m_cost = c; }
@@ -154,7 +154,7 @@ inline bool	Action::can_be_regressed_from( const State& s ) const {
 	return true;
 }
 
-inline bool	Action::can_be_applied_on( const State& s, bool regress ) const
+inline bool	Action::can_be_applied_on( const State& s ) const
 {
 	return s.entails( prec_vec() );
 }
