@@ -69,7 +69,7 @@ State* State::progress_through( const Action& a ) const
 
 State* State::regress_through( const Action& a ) const
 {
-	if ( !a.can_be_applied_on( *this, true ) )
+	if ( !a.can_be_regressed_from( *this ) )
 		return NULL;
 
 	State* succ = new State( problem() );
