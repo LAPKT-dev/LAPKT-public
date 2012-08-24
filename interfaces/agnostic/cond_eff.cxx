@@ -5,9 +5,9 @@ namespace aptk
 
 Conditional_Effect::Conditional_Effect( STRIPS_Problem& p )
 {
-	prec_set().resize( p.num_fluents() + 1 );
-	add_set().resize( p.num_fluents() + 1 );
-	del_set().resize( p.num_fluents() + 1 );
+	prec_set().resize( p.num_fluents() );
+	add_set().resize( p.num_fluents() );
+	del_set().resize( p.num_fluents() );
 }
 
 Conditional_Effect::~Conditional_Effect()
