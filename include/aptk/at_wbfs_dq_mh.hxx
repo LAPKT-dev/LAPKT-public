@@ -31,7 +31,7 @@ public:
 	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
 	AT_WBFS_DQ_MH( 	const Search_Model& search_problem, float W = 5.0f, float decay = 0.75f ) 
-	: AT_BFS_DQ_MH<Search_Model, Abstract_Heuristic, Open_List_Type>(search_problem), m_W( W ), m_decay( decay ) {
+	: AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type>(search_problem), m_W( W ), m_decay( decay ) {
 	}
 
 	~AT_WBFS_DQ_MH() {
