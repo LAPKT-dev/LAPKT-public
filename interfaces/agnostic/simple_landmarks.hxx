@@ -176,12 +176,14 @@ protected:
 			//std::cout << "Processing landmark: " << m_strips_model.fluents()[ p ]->signature() << std::endl;
 			const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( p );
 			//std::cout << "Added by " << add_acts.size() << " actions" << std::endl;
-			lm_set.reset();
-			lm_set.add( add_acts[0]->prec_set() );
-
-			for ( unsigned k = 1; k < add_acts.size(); k++ ) 
-				lm_set.set_intersection( add_acts[k]->prec_set() ); 
-
+			if ( !add_acts.empty() ) {
+				lm_set.reset();
+				lm_set.add( add_acts[0]->prec_set() );
+	
+				for ( unsigned k = 1; k < add_acts.size(); k++ ) 
+					lm_set.set_intersection( add_acts[k]->prec_set() ); 
+			}
+			
 			const std::vector< std::pair< unsigned, const Action*> >& add_acts_ce = 
 				 m_strips_model.ceffs_adding( p );
 			for ( unsigned k = 0; k < add_acts_ce.size(); k++ ) {
