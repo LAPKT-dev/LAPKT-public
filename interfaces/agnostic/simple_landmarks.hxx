@@ -140,11 +140,11 @@ public:
 		int a = it.first();
 		while ( a != -1 ) {
 			const Action& act = *(m_strips_model.actions()[a]);
-			for ( Fluent_Vec::const_iterator it = act.add_vec().begin();
-				it != act.add_vec().end(); it++ )
-				if ( m_in_lm_cut.isset( *it ) ) {
+			for ( Fluent_Vec::const_iterator it2 = act.add_vec().begin();
+				it2 != act.add_vec().end(); it2++ )
+				if ( m_in_lm_cut.isset( *it2 ) ) {
 					pref_ops.push_back( act.index() );
-					m_in_lm_cut.unset(*it);
+					m_in_lm_cut.unset(*it2);
 					break;
 				}
 			
@@ -186,6 +186,9 @@ protected:
 			
 			const std::vector< std::pair< unsigned, const Action*> >& add_acts_ce = 
 				 m_strips_model.ceffs_adding( p );
+			
+			if ( add_acts_ce.empty() ) continue;
+
 			for ( unsigned k = 0; k < add_acts_ce.size(); k++ ) {
 				lm_set.set_intersection( add_acts_ce[k].second->prec_set() );
 				lm_set.set_intersection( add_acts_ce[k].second->ceff_vec()[ add_acts_ce[k].first ]->prec_set() );
