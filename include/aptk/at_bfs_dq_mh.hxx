@@ -119,6 +119,7 @@ public:
 	}
 
 	bool	find_solution( float& cost, std::vector<Action_Idx>& plan ) {
+		cost = infty;
 		m_t0 = time_used();
 		Search_Node* end = do_search();
 		if ( end == NULL ) return false;
