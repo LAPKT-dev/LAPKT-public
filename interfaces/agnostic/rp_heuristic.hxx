@@ -148,11 +148,11 @@ void Relaxed_Plan_Heuristic<Search_Model,Primary_Heuristic>::eval( const State& 
 	int a = it.first();
 	while ( a != -1 ) {
 		const Action& act = *(m_strips_model.actions()[a]);
-		for ( Fluent_Vec::const_iterator it = act.add_vec().begin();
-			it != act.add_vec().end(); it++ )
-			if ( m_rp_precs.isset( *it ) ) {
+		for ( Fluent_Vec::const_iterator it2 = act.add_vec().begin();
+			it2 != act.add_vec().end(); it2++ )
+			if ( m_rp_precs.isset( *it2 ) ) {
 				pref_ops.push_back( act.index() );
-				m_rp_precs.unset(*it);
+				m_rp_precs.unset(*it2);
 				break;
 			}
 		a = it.next();
