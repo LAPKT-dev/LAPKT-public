@@ -163,9 +163,6 @@ bool	Reachability_Test::is_reachable( const Fluent_Vec& s, const Fluent_Vec& g, 
 {
 	initialize(s);
 
-	#ifdef DEBUG
-	std::cout << "Disabling operator " << m_problem.actions()[op]->signature() << std::endl;
-	#endif
 	m_action_mask.add(excluded);	
 	#ifdef DEBUG
 	std::cout << "Reachable atoms:" << std::endl;
