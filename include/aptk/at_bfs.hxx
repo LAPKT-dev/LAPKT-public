@@ -72,7 +72,7 @@ public:
 		m_heuristic_func = new Abstract_Heuristic( search_problem );
 	}
 
-	~AT_BFS_SQ_SH() {
+	virtual ~AT_BFS_SQ_SH() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
 			i != m_closed.end(); i++ ) {
 			delete i->second;
@@ -174,7 +174,7 @@ public:
 		inc_gen();
 	}
 
-	void 			process(  Search_Node *head ) {
+	virtual void 			process(  Search_Node *head ) {
 		typedef typename Search_Model::Action_Iterator Iterator;
 		Iterator it( this->problem() );
 		int a = it.start( *(head->state()) );
@@ -198,7 +198,7 @@ public:
 		inc_eval();
 	}
 
-	Search_Node*	 	do_search() {
+	virtual Search_Node*	 	do_search() {
 		Search_Node *head = get_node();
 		int counter =0;
 		while(head) {
@@ -227,7 +227,7 @@ public:
 		return NULL;
 	}
 
-	bool 			previously_hashed( Search_Node *n ) {
+	virtual bool 			previously_hashed( Search_Node *n ) {
 		Search_Node *previous_copy = NULL;
 
 		if( (previous_copy = m_open_hash.retrieve(n)) ) {
