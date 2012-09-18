@@ -34,10 +34,10 @@ public:
 	: AT_BFS_SQ_SH<Search_Model, Abstract_Heuristic, Open_List_Type>(search_problem), m_W( W ), m_decay( decay ) {
 	}
 
-	~AT_WBFS_SQ_SH() {
+	virtual ~AT_WBFS_SQ_SH() {
 	}
 
-	void 			process(  Search_Node *head ) {
+	virtual void 			process(  Search_Node *head ) {
 		typedef typename Search_Model::Action_Iterator Iterator;
 		Iterator it( this->problem() );
 		int a = it.start( *(head->state()) );
@@ -62,7 +62,7 @@ public:
 		this->inc_eval();
 	}
 
-	Search_Node*	 	do_search() {
+	virtual Search_Node*	 	do_search() {
 		Search_Node *head = this->get_node();
 		while(head) {
 			if ( head->gn() >= this->bound() )  {
@@ -89,6 +89,25 @@ public:
 			head = this->get_node();
 		}
 		return NULL;
+	}
+
+	virtual bool 			previously_hashed( Search_Node *n ) {
+		Search_Node *previous_copy = NULL;
+
+		if( (previous_copy = m_open_hash.retrieve(n)) ) {
+			
+			if(n->gn() < previous_copy->gn())
+			{
+				previous_copy->m_parent = n->m_parent;
+				previous_copy->m_action = n->m_action;
+				previous_copy->m_g = n->m_g;
+				previous_copy->m_f = m_W * previous_copy->m_h + previous_copy->m_g;
+				inc_replaced_open();
+			}
+			return true;
+		}
+
+		return false;
 	}
 
 protected:
