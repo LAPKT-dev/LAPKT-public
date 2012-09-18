@@ -152,7 +152,7 @@ void	NWN_Mockup::make_actions( aptk::STRIPS_Problem& prob ) {
 			add.push_back( m_items[i].carries_fluent );
 			del.push_back( m_items[i].loc_fluents[ v_k ] );
 
-			aptk::STRIPS_Problem::add_action( prob, pick_buffer.str(), pre, add, del, ceff );
+			aptk::STRIPS_Problem::add_action( prob, pick_buffer.str(), pre, add, del, ceff, 2.0f );
 			
 			pre.clear(); add.clear(); del.clear();
 
