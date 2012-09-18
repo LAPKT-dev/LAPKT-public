@@ -34,10 +34,10 @@ public:
 	: AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type>(search_problem), m_W( W ), m_decay( decay ) {
 	}
 
-	~AT_WBFS_DQ_MH() {
+	virtual ~AT_WBFS_DQ_MH() {
 	}
 
-	void 			process(  Search_Node *head ) {
+	virtual void 	process(  Search_Node *head ) {
 
 		typedef typename Search_Model::Action_Iterator Iterator;
 		Iterator it( this->problem() );
@@ -45,25 +45,31 @@ public:
 		while ( a != no_op ) {		
 			State *succ = this->problem().next( *(head->state()), a );
 			Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
+
 			if ( is_closed( n ) ) {
 				delete n;
 				a = it.next();
 				continue;
 			}
+
+			if( is_open(n) ) {
+				delete n;
+				a = it.next();
+				continue;
+			}
+
 			n->h1n() = head->h1n();
 			n->h2n() = head->h2n();
 			n->fn() = m_W * n->h1n() + n->gn();
-			if( previously_hashed(n) ) {
-				delete n;
-			}
-			else 
-				open_node(n, head->is_po_1(a), head->is_po_2(a));	
+
+			open_node(n, head->is_po_1(a), head->is_po_2(a));	
+
 			a = it.next();	
 		} 
 		this->inc_eval();
 	}
 
-	Search_Node*	 	do_search() {
+	virtual Search_Node*	 	do_search() {
 		Search_Node *head = this->get_node();
 		while(head) {
 			if ( head->gn() >= this->bound() )  {
@@ -80,9 +86,11 @@ public:
 				if ( m_W < 1.0f ) m_W = 1.0f;	
 				return head;
 			}
-			if ( (time_used() - this->t0() ) > this->time_budget() )
+			float t = time_used();
+			if ( ( t - this->t0() ) > this->time_budget() ) {
 				return NULL;
-	
+			}	
+
 			this->eval( head );
 
 			this->process(head);
@@ -90,6 +98,25 @@ public:
 			head = this->get_node();
 		}
 		return NULL;
+	}
+	
+	virtual bool is_open( Search_Node *n ) {
+		Search_Node *n2 = NULL;
+
+		if( ( n2 = this->open_hash().retrieve(n)) ) {
+			
+			if(n->gn() < n2->gn())
+			{
+				n2->m_parent = n->m_parent;
+				n2->m_action = n->m_action;
+				n2->m_g = n->m_g;
+				n2->m_f = m_W * n2->m_h1 + n2->m_g;
+				this->inc_replaced_open();
+			}
+			return true;
+		}
+
+		return false;
 	}
 
 protected:

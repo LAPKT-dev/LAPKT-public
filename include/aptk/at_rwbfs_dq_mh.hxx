@@ -42,16 +42,18 @@ public:
 	: AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type>(search_problem), m_W( W ), m_decay( decay ) {
 	}
 
-	~AT_RWBFS_DQ_MH() {
+	virtual ~AT_RWBFS_DQ_MH() {
 		for ( typename Closed_List_Type::iterator i = m_seen.begin();
 			i != m_seen.end(); i++ ) {
+			assert( this->closed().retrieve( i->second ) == NULL );
 			delete i->second;
 		}
 		m_seen.clear();
 	}
 
-	void			eval( Search_Node* candidate ) {
+	virtual void			eval( Search_Node* candidate ) {
 		if ( candidate->seen() ) return;
+
 		std::vector<Action_Idx>	po;
 		this->h1().eval( *(candidate->state()), candidate->h1n(), po );
 		for ( unsigned k = 0; k < po.size(); k++ )
@@ -64,7 +66,7 @@ public:
 			candidate->add_po_2( po[k] );	
 	}
 
-	void 			process(  Search_Node *head ) {
+	virtual void 			process(  Search_Node *head ) {
 
 		typedef typename Search_Model::Action_Iterator Iterator;
 		Iterator it( this->problem() );
@@ -72,51 +74,40 @@ public:
 		while ( a != no_op ) {
 			State *succ = this->problem().next( *(head->state()), a );
 			Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
+
 			if ( is_closed( n ) ) {
 				delete n;
 				a = it.next();
 				continue;
 			}
 
-			Search_Node* n2 = m_seen.retrieve(n);
-			if ( n2 == NULL ) {	
-				n->h1n() = head->h1n();
-				n->h2n() = head->h2n();
-				n->fn() = m_W * n->h1n() + n->gn();
-				if( this->previously_hashed(n) ) {
-					delete n;
-				}
-				else 
-					this->open_node(n, head->is_po_1(a), head->is_po_2(a));
+			if ( is_open( n ) ) {
+				delete n;
+				a = it.next();
+				continue;
 			}
-			else {
-				if ( n->gn() < n2->gn() ) {
-					m_seen.erase( m_seen.retrieve_iterator(n2) );
-					delete n2;
-					if ( this->previously_hashed(n) ) {
-						delete n;
-					}
-					else
-						this->open_node(n, head->is_po(a));
-				}
-				else {
-					delete n;
-					n2->fn() = m_W * n2->h1n() + n2->gn();
-					this->open_node( n2, head->is_po_1(a), head->is_po_2(a) );
-				}
+			if ( is_seen( n ) ) {
+				delete n;
+				a = it.next();
+				continue;
 			}
+			n->h1n() = head->h1n();
+			n->h2n() = head->h2n();
+			n->fn() = m_W * n->h1n() + n->gn();
+
+			this->open_node(n, head->is_po_1(a), head->is_po_2(a));
+
 			a = it.next();
 		}
 		this->inc_eval();
 	}
 
-	Search_Node*	 	do_search() {
+	virtual Search_Node*	 	do_search() {
 		Search_Node *head = this->get_node();
 		while(head) {
 			if ( head->gn() >= this->bound() )  {
 				this->inc_pruned_bound();
-				if ( !head->seen() )
-					this->close(head);
+				this->close(head);
 				head = this->get_node();
 				continue;
 			}
@@ -129,18 +120,16 @@ public:
 				restart_search();	
 				return head;
 			}
-			if ( (time_used() - this->t0() ) > this->time_budget() )
+			float t = time_used();
+			if ( ( t - this->t0() ) > this->time_budget() ) {
 				return NULL;
-	
+			}	
+
 			this->eval( head );
 
 			this->process(head);
-			if ( !head->seen() )
-				this->close(head);
+			this->close(head);
 			head = this->get_node();
-			if ( this->expanded() % 1000 ) {
-				std::cout << "Expanded: " << this->expanded() << " g(head(OPEN)) = " << head->gn() << std::endl;
-			}
 		}
 		return NULL;
 	}
@@ -150,6 +139,17 @@ public:
 		for ( typename Closed_List_Type::iterator it = this->closed().begin();
 			it != this->closed().end(); it++ ) {
 			it->second->set_seen();
+			if ( it->second == this->root() ) continue;
+			Search_Node* n2 = m_seen.retrieve( it->second );
+			if ( n2 == NULL ) {
+				m_seen.put( it->second );
+				continue;
+			}
+			if ( n2->gn() <= it->second->gn() ) {
+				delete it->second;
+				continue;
+			}
+			m_seen.erase( m_seen.retrieve_iterator( n2 ) );
 			m_seen.put( it->second );
 		} 
 		this->closed().clear();
@@ -160,7 +160,42 @@ public:
 			delete head;
 			head = this->get_node();
 		}
-		open_node( this->root(), false );
+		open_node( this->root(), false, false );
+	}
+
+	virtual bool is_open( Search_Node *n ) {
+		Search_Node *n2 = NULL;
+
+		if( ( n2 = this->open_hash().retrieve(n)) ) {
+			
+			if(n->gn() < n2->gn())
+			{
+				n2->m_parent = n->m_parent;
+				n2->m_action = n->m_action;
+				n2->m_g = n->m_g;
+				n2->m_f = m_W * n2->m_h1 + n2->m_g;
+				this->inc_replaced_open();
+			}
+			return true;
+		}
+
+		return false;
+	}
+
+	bool is_seen( Search_Node* n ) {
+		Search_Node* n2 = m_seen.retrieve(n);
+		
+		if ( n2 == NULL ) return false;
+		
+		if ( n->gn() < n2->gn() ) {
+			n2->gn() = n->gn();
+			n2->m_parent = n->m_parent;
+			n2->m_action = n->action();
+		}
+		n2->fn() = m_W * n2->h1n() + n2->gn();
+		m_seen.erase( m_seen.retrieve_iterator(n2) );
+		this->open_node( n2, n2->parent()->is_po_1(n2->action()), n2->parent()->is_po_2(n2->action()) );
+		return true;
 	}
 
 protected:

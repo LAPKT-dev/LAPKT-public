@@ -21,7 +21,8 @@ public:
 	typedef State State_Type;
 
 	Node( State* s, float cost, Action_Idx action, Node<State>* parent, int num_actions ) 
-	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_po( num_actions ) {
+	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_po( num_actions ),
+	m_seen(false) {
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 	}
 	
@@ -79,7 +80,7 @@ public:
 		m_heuristic_func = new Abstract_Heuristic( search_problem );
 	}
 
-	~AT_BFS_DQ_SH() {
+	virtual ~AT_BFS_DQ_SH() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
 			i != m_closed.end(); i++ ) {
 			delete i->second;
@@ -109,11 +110,13 @@ public:
 	}
 
 	bool	find_solution( float& cost, std::vector<Action_Idx>& plan ) {
+		cost = infty;
 		m_t0 = time_used();
 		Search_Node* end = do_search();
 		if ( end == NULL ) return false;
 		extract_plan( m_root, end, plan, cost );	
-		
+		float t2 = time_used();
+		m_time_budget -= ( t2 - m_t0 );		
 		return true;
 	}
 
@@ -149,9 +152,9 @@ public:
 
 	Closed_List_Type&	closed() 			{ return m_closed; }
 	Closed_List_Type&	open_hash() 			{ return m_open_hash; }
-	Abstract_Heuristic&	heuristic_func()		{ return *m_heuristic_func; }
+	Abstract_Heuristic&	heuristic()			{ return *m_heuristic_func; }
 
-	void			eval( Search_Node* candidate ) {
+	virtual void	eval( Search_Node* candidate ) {
 		std::vector<Action_Idx>	po;
 		m_heuristic_func->eval( *(candidate->state()), candidate->hn(), po );
 		for ( unsigned k = 0; k < po.size(); k++ )
@@ -162,6 +165,7 @@ public:
 		if ( open.empty() ) return NULL;
 
 		Search_Node* next = open.pop();
+		if ( !m_open_hash.empty() )
 		m_open_hash.erase( m_open_hash.retrieve_iterator( next) );
 		return next;				
 	}
@@ -211,13 +215,13 @@ public:
 			else
 				m_open.insert(n);
 			m_open_hash.put(n);
+			inc_gen();
 		}
-		inc_gen();
 	}
 
 	
 
-	void 			process(  Search_Node *head ) {
+	virtual void 	process(  Search_Node *head ) {
 		typedef typename Search_Model::Action_Iterator Iterator;
 		Iterator it( this->problem() );
 		int a = it.start( *(head->state()) );
@@ -229,19 +233,20 @@ public:
 				a = it.next();
 				continue;
 			}
+			if ( is_open( n ) ) {
+				delete n;
+				a = it.next();
+				continue;
+			}
 			n->hn() = head->hn();
 			n->fn() = n->hn() + n->gn();
-			if( previously_hashed(n) ) {
-				delete n;
-			}
-			else 
-				open_node(n, head->is_po(a));
+			open_node(n, head->is_po(a));
 			a = it.next();	
 		} 
 		inc_eval();
 	}
 
-	Search_Node*	 	do_search() {
+	virtual Search_Node*	 do_search() {
 		Search_Node *head = get_node();
 		int counter =0;
 		while(head) {
@@ -270,7 +275,7 @@ public:
 		return NULL;
 	}
 
-	bool 			previously_hashed( Search_Node *n ) {
+	virtual bool is_open( Search_Node *n ) {
 		Search_Node *previous_copy = NULL;
 
 		if( (previous_copy = m_open_hash.retrieve(n)) ) {

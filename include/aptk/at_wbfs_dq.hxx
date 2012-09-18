@@ -34,10 +34,10 @@ public:
 	: AT_BFS_DQ_SH<Search_Model, Abstract_Heuristic, Open_List_Type>(search_problem), m_W( W ), m_decay( decay ) {
 	}
 
-	~AT_WBFS_DQ_SH() {
+	virtual ~AT_WBFS_DQ_SH() {
 	}
 
-	void 			process(  Search_Node *head ) {
+	virtual void 			process(  Search_Node *head ) {
 
 		typedef typename Search_Model::Action_Iterator Iterator;
 		Iterator it( this->problem() );
@@ -50,19 +50,23 @@ public:
 				a = it.next();
 				continue;
 			}
+			
+			if( is_open(n) ) {
+				delete n;
+				a = it.next();
+				continue;
+			}
+
 			n->hn() = head->hn();
 			n->fn() = m_W * n->hn() + n->gn();
-			if( previously_hashed(n) ) {
-				delete n;
-			}
-			else 
-				open_node(n, head->is_po(a));	
+			open_node(n, head->is_po(a));	
+			
 			a = it.next();	
 		} 
 		this->inc_eval();
 	}
 
-	Search_Node*	 	do_search() {
+	virtual Search_Node*	 	do_search() {
 		Search_Node *head = this->get_node();
 		while(head) {
 			if ( head->gn() >= this->bound() )  {
@@ -89,6 +93,25 @@ public:
 			head = this->get_node();
 		}
 		return NULL;
+	}
+
+	virtual bool is_open( Search_Node *n ) {
+		Search_Node *n2 = NULL;
+
+		if( ( n2 = this->open_hash().retrieve(n)) ) {
+			
+			if(n->gn() < n2->gn())
+			{
+				n2->m_parent = n->m_parent;
+				n2->m_action = n->m_action;
+				n2->m_g = n->m_g;
+				n2->m_f = m_W * n2->m_h + n2->m_g;
+				this->inc_replaced_open();
+			}
+			return true;
+		}
+
+		return false;
 	}
 
 protected:

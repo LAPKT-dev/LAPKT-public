@@ -4,6 +4,7 @@
 #include <aptk/search_prob.hxx>
 #include <aptk/resources_control.hxx>
 #include <aptk/closed_list.hxx>
+#include <aptk/hash_table.hxx>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -21,7 +22,7 @@ public:
 	typedef State State_Type;
 
 	Node( State* s, float cost, Action_Idx action, Node<State>* parent, int num_actions ) 
-	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_po_1( num_actions ), m_po_2( num_actions) {
+	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_po_1( num_actions ), m_po_2( num_actions), m_seen(false) {
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 	}
 	
@@ -42,7 +43,9 @@ public:
 	State*			state()				{ return m_state; }
 	const State&		state() const 			{ return *m_state; }
 	void			add_po_1( Action_Idx index )	{ m_po_1.set( index ); }
+	void			remove_po_1( Action_Idx index ) { m_po_1.unset( index ); }
 	void			add_po_2( Action_Idx index )	{ m_po_2.set( index ); }
+	void			remove_po_2( Action_Idx index ) { m_po_2.unset( index ); }
 	bool			is_po_1(Action_Idx index) const	{ return m_po_1.isset( index ); }
 	bool			is_po_2(Action_Idx index) const	{ return m_po_2.isset( index ); }
 	void			set_seen( )			{ m_seen = true; }
@@ -68,6 +71,84 @@ public:
 };
 
 
+template <typename State>
+class Lazy_Node {
+public:
+
+	typedef State State_Type;
+
+	Lazy_Node( float cost, Action_Idx action, Lazy_Node<State>* parent, int num_actions ) 
+	: m_state( NULL ), m_parent( parent ), m_action(action), m_g( 0 ), m_po_1( num_actions ), m_po_2( num_actions) {
+		m_g = ( parent ? parent->m_g + cost : 0.0f);
+	}
+	
+	virtual ~Lazy_Node() {
+		if ( m_state != NULL ) delete m_state;
+	}
+
+	float&			h1n()				{ return m_h1; }
+	float			h1n() const 			{ return m_h1; }
+	float&			h2n()				{ return m_h2; }
+	float			h2n() const 			{ return m_h2; }
+	float&			gn()				{ return m_g; }			
+	float			gn() const 			{ return m_g; }
+	float&			fn()				{ return m_f; }
+	float			fn() const			{ return m_f; }
+	Lazy_Node<State>*	parent()   			{ return m_parent; }
+	Action_Idx		action() const 			{ return m_action; }
+	void			set_state( State* s )		{ m_state = s; }
+	State*			state()				{ return m_state; }
+	const State&		state() const 			{ return *m_state; }
+	void			add_po_1( Action_Idx index )	{ m_po_1.set( index ); }
+	void			remove_po_1( Action_Idx index ) { m_po_1.unset( index ); }
+	void			add_po_2( Action_Idx index )	{ m_po_2.set( index ); }
+	void			remove_po_2( Action_Idx index ) { m_po_2.unset( index ); }
+	bool			is_po_1(Action_Idx index) const	{ return m_po_1.isset( index ); }
+	bool			is_po_2(Action_Idx index) const	{ return m_po_2.isset( index ); }
+	void			set_seen( )			{ m_seen = true; }
+	bool			seen() const			{ return m_seen; }
+
+	bool			operator==( const Lazy_Node<State>& o ) const {
+		if  ( m_parent == NULL ) {
+			if ( o.m_parent == NULL ) return true;
+			return false;
+		}
+	
+		if ( o.m_parent == NULL ) return false;
+		
+		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
+	}
+
+	void			print( std::ostream& os ) const {
+		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = ";
+		os << m_g << ", h1(n) = " << m_h1 << ", h2(n) = " << m_h2 << ", f(n) = " << m_f << "}";
+	}
+
+	size_t	hash() const { return m_hash; }
+
+	void	update_hash() {
+		Hash_Key hasher;
+		hasher.add( m_action );
+		if ( m_parent != NULL )
+			hasher.add( m_parent->state()->fluent_vec() );
+		m_hash = (size_t)hasher;
+	}
+
+public:
+
+	State*			m_state;
+	Lazy_Node<State>*	m_parent;
+	float			m_h1;
+	float			m_h2;
+	Action_Idx		m_action;
+	float			m_g;
+	float			m_f;
+	Bit_Set			m_po_1;
+	Bit_Set			m_po_2;
+	bool			m_seen;
+	size_t			m_hash;
+};
+
 // Anytime best-first search, with one single open list and one single
 // heuristic estimator, with delayed evaluation of states generated
 template <typename Search_Model, typename Primary_Heuristic, typename Secondary_Heuristic, typename Open_List_Type >
@@ -87,17 +168,17 @@ public:
 		m_secondary_h = new Secondary_Heuristic( search_problem );
 	}
 
-	~AT_BFS_DQ_MH() {
+	virtual ~AT_BFS_DQ_MH() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
 			i != m_closed.end(); i++ ) {
 			delete i->second;
 		}
-		
-		while	(!m_open.empty() ) 
-		{	
-			Search_Node* n = m_open.pop();
-			delete n;
+		Search_Node *head = this->get_node();
+		while ( head ) {
+			delete head;
+			head = this->get_node();
 		}
+	
 		m_closed.clear();
 		m_open_hash.clear();
 		delete m_primary_h;
@@ -106,7 +187,7 @@ public:
 
 	void	start() {
 		m_B = infty;
-		m_root = new Search_Node( m_problem.init(), 0.0f, no_op, NULL, m_problem.num_actions() );	
+		m_root = new Search_Node( m_problem.init(), 0.0f, no_op, NULL, m_problem.num_actions() );
 		eval(m_root);
 		#ifdef DEBUG
 		std::cout << "Initial search node: ";
@@ -124,7 +205,8 @@ public:
 		Search_Node* end = do_search();
 		if ( end == NULL ) return false;
 		extract_plan( m_root, end, plan, cost );	
-		
+		float t2 = time_used();
+		m_time_budget -= ( t2 - m_t0);
 		return true;
 	}
 
@@ -164,7 +246,7 @@ public:
 	Primary_Heuristic&	h1()				{ return *m_primary_h; }
 	Secondary_Heuristic&	h2()				{ return *m_secondary_h; }
 
-	void	eval( Search_Node* candidate ) {
+	virtual void	eval( Search_Node* candidate ) {
 		std::vector<Action_Idx>	po;
 		m_primary_h->eval( *(candidate->state()), candidate->h1n(), po );
 		for ( unsigned k = 0; k < po.size(); k++ )
@@ -180,7 +262,8 @@ public:
 		if ( open.empty() ) return NULL;
 
 		Search_Node* next = open.pop();
-		m_open_hash.erase( m_open_hash.retrieve_iterator( next) );
+		if ( !m_open_hash.empty() ) 
+			m_open_hash.erase( m_open_hash.retrieve_iterator( next) );
 		return next;				
 	}
 
@@ -241,37 +324,43 @@ public:
 		}
 		else {
 			if ( po_1 && po_2 ) {
+				/*
 				#ifdef DEBUG
 				std::cout << "Node: ";
 				n->print(std::cout);
 				std::cout << " goes to JOINT OPEN" << std::endl;
 				#endif
+				*/
 				m_open_po_joint.insert(n);
 			}
 			else if ( po_1 ) {
+				/*
 				#ifdef DEBUG
 				std::cout << "Node: ";
 				n->print(std::cout);
 				std::cout << " goes to PRIMARY OPEN" << std::endl;
 				#endif
+				*/
 				m_open_po_1.insert(n);
 			}
 			else {
+				/*
 				#ifdef DEBUG
 				std::cout << "Node: ";
 				n->print(std::cout);
 				std::cout << " goes to DEFAULT OPEN" << std::endl;
 				#endif
+				*/
 				m_open.insert(n);
 			}
 			m_open_hash.put(n);
+			inc_gen();
 		}
-		inc_gen();
 	}
 
 	
 
-	void 			process(  Search_Node *head ) {
+	virtual void 	process(  Search_Node *head ) {
 		typedef typename Search_Model::Action_Iterator Iterator;
 		Iterator it( this->problem() );
 		int a = it.start( *(head->state()) );
@@ -283,20 +372,24 @@ public:
 				a = it.next();
 				continue;
 			}
+			if( is_open(n) ) {
+				delete n;
+				a = it.next();
+				continue;
+			}
+
 			n->h1n() = head->h1n();
 			n->h2n() = head->h2n();
 			n->fn() = n->h1n() + n->gn();
-			if( previously_hashed(n) ) {
-				delete n;
-			}
-			else 
-				open_node(n, head->is_po_1(a), head->is_po_2(a));
+
+			open_node(n, head->is_po_1(a), head->is_po_2(a));
+
 			a = it.next();	
 		} 
 		inc_eval();
 	}
 
-	Search_Node*	 	do_search() {
+	virtual Search_Node*	 	do_search() {
 		Search_Node *head = get_node();
 		int counter =0;
 		while(head) {
@@ -306,7 +399,6 @@ public:
 				head = get_node();
 				continue;
 			}
-
 			if(m_problem.goal(*(head->state()))) {
 				close(head);
 				set_bound( head->gn() );	
@@ -325,7 +417,7 @@ public:
 		return NULL;
 	}
 
-	bool 			previously_hashed( Search_Node *n ) {
+	virtual bool is_open( Search_Node *n ) {
 		Search_Node *previous_copy = NULL;
 
 		if( (previous_copy = m_open_hash.retrieve(n)) ) {
@@ -362,7 +454,7 @@ public:
 
 protected:
 
-	void	extract_plan( Search_Node* s, Search_Node* t, std::vector<Action_Idx>& plan, float& cost ) {
+	virtual void	extract_plan( Search_Node* s, Search_Node* t, std::vector<Action_Idx>& plan, float& cost ) {
 		Search_Node *tmp = t;
 		cost = 0.0f;
 		while( tmp != s) {
