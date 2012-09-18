@@ -199,28 +199,28 @@ int main( int argc, char** argv ) {
 	Fwd_Search_Problem	search_prob( &plan_prob );
 
 
-	std::cout << "Starting search with plain BFS (time budget is 60 secs)..." << std::endl;
+	std::cout << "Starting search with plain BFS (time budget is 5 secs)..." << std::endl;
 
 	Anytime_BFS_H_Add_Rp_Fwd bfs_engine( search_prob );
 	bfs_engine.set_schedule( 10, 1 );
-	float bfs_t = do_search( bfs_engine, plan_prob, 60.0f, "bfs-dq.log" );
+	float bfs_t = do_search( bfs_engine, plan_prob, 5.0f, "bfs-dq.log" );
 
 	std::cout << "BFS search completed in " << bfs_t << " secs, check 'bfs-dq.log' for details" << std::endl;
 
-	std::cout << "Starting search with Weighted BFS (time budget is 60 secs)..." << std::endl;
+	std::cout << "Starting search with Weighted BFS (time budget is 5 secs)..." << std::endl;
 
 	Anytime_WBFS_H_Add_Rp_Fwd wbfs_engine( search_prob, W_0, decay);
 	wbfs_engine.set_schedule( 10, 1 );
-	float wbfs_t = do_search( wbfs_engine, plan_prob, 60.0f, "wbfs-dq.log" );
+	float wbfs_t = do_search( wbfs_engine, plan_prob, 5.0f, "wbfs-dq.log" );
 	
 	std::cout << "Weighted BFS search completed in " << wbfs_t << " secs, check 'wbfs-dq.log' for details" << std::endl;
 
-	std::cout << "Starting search with Restarting Weighted BFS (time budget is 60 secs)" << std::endl;
+	std::cout << "Starting search with Restarting Weighted BFS (time budget is 5 secs)" << std::endl;
 
 	Anytime_RWBFS_H_Add_Rp_Fwd rwbfs_engine( search_prob, W_0, decay );
 	rwbfs_engine.set_schedule( 10, 1 );
 	
-	float rwbfs_t = do_search( rwbfs_engine, plan_prob, 60.0f, "rwbfs-dq.log" );
+	float rwbfs_t = do_search( rwbfs_engine, plan_prob, 5.0f, "rwbfs-dq.log" );
 	
 	std::cout << "Restartign Weighted BFS search completed in " << rwbfs_t << " secs, check 'rwbfs-dq.log' for details" << std::endl;	
 
