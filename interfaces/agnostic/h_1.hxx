@@ -59,7 +59,7 @@ private:
 };
 
 
-template <typename Search_Model, typename Fluent_Set_Eval_Func >
+template <typename Search_Model, typename Fluent_Set_Eval_Func, bool Ignore_Action_Costs = false >
 class H1_Heuristic : public Heuristic<State> {
 public:
 
@@ -126,7 +126,7 @@ protected:
 
 		for ( unsigned k = 0; k < m_strips_model.empty_prec_actions().size(); k++ ) {
 			const Action& a = *(m_strips_model.empty_prec_actions()[k]);
-			float v = (float)a.cost();
+			float v =  ( Ignore_Action_Costs ? 1.0f : (float)a.cost() );
 			for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 				it != a.add_vec().end(); it++ )
 				update( *it, v );
