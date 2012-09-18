@@ -48,7 +48,7 @@ typedef		Node< State >							Search_Node;
 typedef		Node_Comparer_DH< Search_Node >					Tie_Breaking_Algorithm;
 
 // MRJ: Now we define the Open List type by combining the types we have defined before
-typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >		BFS_Open_List;
+typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >			BFS_Open_List;
 
 // MRJ: Now we define the heuristics
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd;
@@ -59,7 +59,6 @@ typedef		Simple_Landmarks_Heuristic< Fwd_Search_Problem >		H_LM;
 typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_LM, BFS_Open_List >		Anytime_BFS_H_Add_Rp_Fwd;
 typedef		AT_WBFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_LM, BFS_Open_List >		Anytime_WBFS_H_Add_Rp_Fwd;
 typedef		AT_RWBFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_LM, BFS_Open_List >		Anytime_RWBFS_H_Add_Rp_Fwd;
-
 
 template <typename Search_Engine>
 float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float budget, std::string logfile ) {
@@ -158,7 +157,7 @@ int main( int argc, char** argv ) {
 		if ( parm == "--num-goal-locations" ) {
 			i++;
 			std::string value = argv[i];
-			aptk::from_string( n_goal_items, value, std::dec );
+			aptk::from_string( n_goal_locs, value, std::dec );
 			std::cout << "Number of locations relevant to goal set to " << n_goal_locs << std::endl;
 			i++;
 			continue;
@@ -204,30 +203,30 @@ int main( int argc, char** argv ) {
 	Fwd_Search_Problem	search_prob( &plan_prob );
 
 
-	std::cout << "Starting search with plain BFS (time budget is 60 secs)..." << std::endl;
+	std::cout << "Starting search with plain BFS (time budget is 5 secs)..." << std::endl;
 
 	Anytime_BFS_H_Add_Rp_Fwd bfs_engine( search_prob );
 	bfs_engine.set_schedule( 10, 5, 1 );
-	float bfs_t = do_search( bfs_engine, plan_prob, 60.0f, "bfs-dq-mh.log" );
+	float bfs_t = do_search( bfs_engine, plan_prob, 5.0f, "bfs-dq-mh.log" );
 
 	std::cout << "BFS search completed in " << bfs_t << " secs, check 'bfs-dq-mh.log' for details" << std::endl;
 
-	std::cout << "Starting search with Weighted BFS (time budget is 60 secs)..." << std::endl;
+	std::cout << "Starting search with Weighted BFS (time budget is 5 secs)..." << std::endl;
 
 	Anytime_WBFS_H_Add_Rp_Fwd wbfs_engine( search_prob, W_0, decay);
 	wbfs_engine.set_schedule( 10, 5, 1 );
-	float wbfs_t = do_search( wbfs_engine, plan_prob, 60.0f, "wbfs-dq-mh.log" );
+	float wbfs_t = do_search( wbfs_engine, plan_prob, 5.0f, "wbfs-dq-mh.log" );
 	
 	std::cout << "Weighted BFS search completed in " << wbfs_t << " secs, check 'wbfs-dq-mh.log' for details" << std::endl;
 
-	std::cout << "Starting search with Restarting Weighted BFS (time budget is 60 secs)" << std::endl;
+	std::cout << "Starting search with Restarting Weighted BFS (time budget is 5 secs)" << std::endl;
 
 	Anytime_RWBFS_H_Add_Rp_Fwd rwbfs_engine( search_prob, W_0, decay );
 	rwbfs_engine.set_schedule( 10, 5, 1 );
 	
-	float rwbfs_t = do_search( rwbfs_engine, plan_prob, 60.0f, "rwbfs-dq-mh.log" );
+	float rwbfs_t = do_search( rwbfs_engine, plan_prob, 5.0f, "rwbfs-dq-mh.log" );
 	
-	std::cout << "Restartign Weighted BFS search completed in " << rwbfs_t << " secs, check 'rwbfs-dq-mh.log' for details" << std::endl;	
+	std::cout << "Restarting Weighted BFS search completed in " << rwbfs_t << " secs, check 'rwbfs-dq-mh.log' for details" << std::endl;	
 
 	return 0;
 }
