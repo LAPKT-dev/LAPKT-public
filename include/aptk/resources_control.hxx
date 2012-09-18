@@ -10,6 +10,7 @@
 
 namespace aptk
 {
+
 inline double  time_used()
 {
 	struct rusage  data;
