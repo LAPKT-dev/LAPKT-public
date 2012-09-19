@@ -160,16 +160,8 @@ public:
 			it != this->closed().end(); it++ ) {
 			it->second->set_seen();
 			if ( it->second == this->root() ) continue;
-			Search_Node* n2 = m_seen.retrieve( it->second );
-			if ( n2 == NULL ) {
-				m_seen.put( it->second );
-				continue;
-			}
-			if ( n2->gn() <= it->second->gn() ) {
-				delete it->second;
-				continue;
-			}
-			m_seen.erase( m_seen.retrieve_iterator( n2 ) );
+			assert( m_seen.retrieve( it->second ) == NULL );
+			//this->garbage().push_back( n2 );
 			m_seen.put( it->second );
 		} 
 		this->closed().clear();
@@ -177,7 +169,8 @@ public:
 		this->open_hash().clear();
 		Search_Node *head = this->get_node();
 		while ( head ) {
-			delete head;
+			assert( m_seen.retrieve(head) == NULL );
+			m_seen.put(head);
 			head = this->get_node();
 		}
 		open_node( this->root(), false, false );

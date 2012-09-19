@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <list>
 
 namespace aptk {
 
@@ -201,6 +202,11 @@ public:
 	
 		m_closed.clear();
 		m_open_hash.clear();
+
+		for ( typename std::list<Search_Node*>::iterator it = m_garbage.begin();
+			it != m_garbage.end(); it++ )
+			delete *it;
+
 		delete m_primary_h;
 		delete m_secondary_h;
 	}
@@ -261,8 +267,9 @@ public:
 
 	Search_Node*		root()				{ return m_root; }	
 
-	Closed_List_Type&	closed() 			{ return m_closed; }
-	Closed_List_Type&	open_hash() 			{ return m_open_hash; }
+	Closed_List_Type&		closed() 			{ return m_closed; }
+	Closed_List_Type&		open_hash() 			{ return m_open_hash; }
+	std::list<Search_Node*>&	garbage()			{ return m_garbage; }
 	Primary_Heuristic&	h1()				{ return *m_primary_h; }
 	Secondary_Heuristic&	h2()				{ return *m_secondary_h; }
 
@@ -468,6 +475,7 @@ public:
 			// Otherwise, we put it into Open and remove
 			// n2 from closed
 			closed().erase( closed().retrieve_iterator( n2 ) );
+			m_garbage.push_back( n2 );
 		}
 		return false;
 	}
@@ -520,6 +528,7 @@ protected:
 	unsigned				m_po_joint_exp_max;
 	unsigned				m_po_1_exp_max;
 	unsigned				m_non_po_exp_max;
+	std::list<Search_Node*>			m_garbage;
 };
 
 }
