@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <vector>
 #include <queue>
+#include <boost/heap/fibonacci_heap.hpp>
 #include <aptk/ext_math.hxx>
 
 namespace aptk
@@ -121,6 +122,72 @@ void	Open_List<Node_Comp, Node>::clear()
 		delete elem;
 	}	
 }
+
+template < class Node_Comp, class Node >
+class Fibonacci_Open_List
+{
+	boost::heap::fibonacci_heap<
+					Node*,
+					boost::heap::compare<Node_Comp> > m_queue;
+public:
+	Fibonacci_Open_List();
+	~Fibonacci_Open_List();
+
+	void 		insert( Node* );
+	Node* 		pop();
+	bool		empty() const;
+	float		min() const;
+	void		clear();
+};
+
+template < class Node_Comp, class Node >
+Fibonacci_Open_List<Node_Comp, Node>::Fibonacci_Open_List()
+{
+}
+
+template < typename Node_Comp, typename Node >
+Fibonacci_Open_List<Node_Comp, Node>::~Fibonacci_Open_List()
+{
+}
+
+template < typename Node_Comp, typename Node >
+void	Fibonacci_Open_List<Node_Comp, Node>::insert( Node* n )
+{
+	m_queue.push( n );
+}
+
+template <typename Node_Comp, typename Node >
+Node*	Fibonacci_Open_List<Node_Comp, Node>::pop()
+{
+        if( empty() ) return NULL;
+	Node* elem = m_queue.top();
+	m_queue.pop();
+	return elem;
+}
+
+template < typename Node_Comp, typename Node >
+bool	Fibonacci_Open_List<Node_Comp, Node>::empty() const
+{
+	return m_queue.empty();
+}
+
+template < typename Node_Comp, typename Node >
+float     Fibonacci_Open_List<Node_Comp, Node>::min() const
+{
+	if ( empty() ) return 0.0f;
+	return m_queue.top()->f;
+}
+
+template < typename Node_Comp, typename Node >
+void	Fibonacci_Open_List<Node_Comp, Node>::clear() 
+{
+	while ( !empty() )
+	{
+		Node* elem = pop();
+		delete elem;
+	}	
+}
+
 
 }
 
