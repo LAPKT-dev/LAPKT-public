@@ -35,7 +35,9 @@ namespace aptk {
 
 namespace agnostic {
 
-template < typename Search_Model, typename Primary_Heuristic, bool Ignore_Action_Costs = false >
+enum class RP_Cost_Function { Ignore_Costs, Use_Costs};
+
+template < typename Search_Model, typename Primary_Heuristic, RP_Cost_Function cost_opt = RP_Cost_Function::Use_Costs >
 class Relaxed_Plan_Heuristic : public Heuristic<State>
 {
 	typedef std::queue<const Action* >	Action_Queue;
@@ -112,7 +114,7 @@ public:
 	
 		m_rp_precs.reset();
 		for ( unsigned k = 0; k < relaxed_plan.size(); k++ ) {
-			h_val += ( Ignore_Action_Costs ? 1.0f : relaxed_plan[k]->cost() );
+			h_val += ( cost_opt == RP_Cost_Function::Ignore_Costs ? 1.0f : relaxed_plan[k]->cost() );
 			const Fluent_Vec& precs = relaxed_plan[k]->prec_vec();
 			for ( Fluent_Vec::const_iterator it = precs.begin();
 				it != precs.end(); it++ )

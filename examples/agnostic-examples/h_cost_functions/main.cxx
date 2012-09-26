@@ -37,9 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <simple_landmarks.hxx>
 
 #include <aptk/open_list.hxx>
-
-#include <aptk/das.hxx>
-
+#include <aptk/at_bfs_dq_mh.hxx>
+#include <aptk/at_wbfs_dq_mh.hxx>
+#include <aptk/at_rwbfs_dq_mh.hxx>
 #include <aptk/string_conversions.hxx>
 
 using	aptk::STRIPS_Problem;
@@ -50,35 +50,40 @@ using	aptk::agnostic::Fwd_Search_Problem;
 
 using 	aptk::agnostic::H1_Heuristic;
 using	aptk::agnostic::H_Add_Evaluation_Function;
-using	aptk::agnostic::H_Max_Evaluation_Function;
 using	aptk::agnostic::Relaxed_Plan_Heuristic;
+using	aptk::agnostic::Simple_Landmarks_Heuristic;
 
-using	aptk::search::Open_List;
-using	aptk::search::Node_Comparer;
-using	aptk::search::das::Node;
-using	aptk::search::das::Deadline_Aware_Search;
+using 	aptk::search::Open_List;
+using	aptk::search::Node_Comparer_DH;
+using 	aptk::search::bfs_dq_mh::Node;
+using	aptk::search::bfs_dq_mh::AT_BFS_DQ_MH;
+using	aptk::search::bfs_dq_mh::AT_WBFS_DQ_MH;
+using	aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH;
+
+// MRJ: We start defining the type of nodes for our planner
+typedef		Node< State >							Search_Node;
+
+// MRJ: Then we define the type of the tie-breaking algorithm
+// for the open list we are going to use
+typedef		Node_Comparer_DH< Search_Node >					Tie_Breaking_Algorithm;
+
+// MRJ: Now we define the Open List type by combining the types we have defined before
+typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >			BFS_Open_List;
 
 // MRJ: Now we define the heuristics
-typedef		H1_Heuristic<	Fwd_Search_Problem, H_Add_Evaluation_Function,
-				aptk::agnostic::H1_Cost_Function::LAMA>				H_Add_Fwd;
+typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd;
+typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
 
-typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >				H_Add_Rp_Fwd;
-
-typedef 	H1_Heuristic<	Fwd_Search_Problem, 
-				H_Max_Evaluation_Function, 
-				aptk::agnostic::H1_Cost_Function::Ignore_Costs >		H_Max_Unit_Fwd;
-
-typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, 
-					H_Max_Unit_Fwd, 
-					aptk::agnostic::RP_Cost_Function::Ignore_Costs >	H_FF;
-
-typedef		Node< State >							Search_Node;
-typedef		Node_Comparer< Search_Node >					Tie_Breaking_Algorithm;
-typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >		DAS_Open_List;
-
-typedef		Deadline_Aware_Search< Fwd_Search_Problem, H_Add_Rp_Fwd, H_FF, DAS_Open_List > DAS;
+typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function,
+				aptk::agnostic::H1_Cost_Function::LAMA >	LAMA_H_Add_Fwd;
+typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, LAMA_H_Add_Fwd >	LAMA_H_Add_Rp_Fwd;
 
 
+typedef		Simple_Landmarks_Heuristic< Fwd_Search_Problem >		H_LM;
+
+// MRJ: Now we're ready to define the BFS algorithm we're going to use
+typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_LM, BFS_Open_List >		Anytime_BFS_H_Add_Rp_Fwd;
+typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, LAMA_H_Add_Rp_Fwd, H_LM, BFS_Open_List >	Anytime_BFS_LAMA_H_Add_Rp_Fwd;
 
 template <typename Search_Engine>
 float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float budget, std::string logfile ) {
@@ -221,19 +226,24 @@ int main( int argc, char** argv ) {
 
 
 	Fwd_Search_Problem	search_prob( &plan_prob );
-	State* s0 = search_prob.init();
-	H_Add_Rp_Fwd cost_h( search_prob );
-	H_FF depth_h( search_prob );
 
-	float cost_est, depth_est;
-	cost_h.eval( *s0, cost_est );
-	depth_h.eval( *s0, depth_est );
 
-	std::cout << "rp(h_add) = " << cost_est << " depth_est = " << depth_est << std::endl;
+	std::cout << "Starting search with plain BFS, using action costs in the heuristic (time budget is 5 secs)..." << std::endl;
 
-	DAS	engine( search_prob );
-	float 	das_t = do_search( engine, plan_prob, 0.15f, "das.log" );
-	std::cout << "Deadline Aware Search completed in " << das_t << " secs, check 'das.log' for details" << std::endl;
+	Anytime_BFS_H_Add_Rp_Fwd bfs_engine( search_prob );
+	bfs_engine.set_schedule( 10, 5, 1 );
+	float bfs_t = do_search( bfs_engine, plan_prob, 5.0f, "bfs-dq-mh.log" );
+
+	std::cout << "BFS search completed in " << bfs_t << " secs, check 'bfs-dq-mh.log' for details" << std::endl;
+
+	std::cout << "Starting search with plain BFS, using LAMA's scheme (1 + cost(a)) (time budget is 5 secs)" << std::endl;
+
+	Anytime_BFS_LAMA_H_Add_Rp_Fwd rwbfs_engine( search_prob );
+	rwbfs_engine.set_schedule( 10, 5, 1 );
+	
+	float rwbfs_t = do_search( rwbfs_engine, plan_prob, 5.0f, "bfs-dq-mh-lama.log" );
+	
+	std::cout << "BFS (with LAMA definition of FF(h_a)) search completed in " << rwbfs_t << " secs, check 'bfs-dq-mh-lama.log' for details" << std::endl;	
 
 	return 0;
 }

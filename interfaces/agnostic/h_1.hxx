@@ -78,8 +78,9 @@ private:
 
 };
 
+enum class H1_Cost_Function { Ignore_Costs, Use_Costs, LAMA};
 
-template <typename Search_Model, typename Fluent_Set_Eval_Func, bool Ignore_Action_Costs = false >
+template <typename Search_Model, typename Fluent_Set_Eval_Func, H1_Cost_Function cost_opt = H1_Cost_Function::Use_Costs >
 class H1_Heuristic : public Heuristic<State> {
 public:
 
@@ -146,7 +147,8 @@ protected:
 
 		for ( unsigned k = 0; k < m_strips_model.empty_prec_actions().size(); k++ ) {
 			const Action& a = *(m_strips_model.empty_prec_actions()[k]);
-			float v =  ( Ignore_Action_Costs ? 1.0f : (float)a.cost() );
+			float v =  ( cost_opt == H1_Cost_Function::Ignore_Costs ? 1.0f : 
+					( cost_opt == H1_Cost_Function::Use_Costs ? (float)a.cost()  : 1.0f + (float)a.cost()) );
 			for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 				it != a.add_vec().end(); it++ )
 				update( *it, v );
@@ -203,7 +205,12 @@ protected:
 
 				//std::cout << "Action " << i << ". " << a.signature() << " relevant" << std::endl;
 
-				float v = (float)a.cost() + h_pre;
+				float v = ( cost_opt == H1_Cost_Function::Ignore_Costs ?  
+						1.0f + h_pre :
+						( cost_opt == H1_Cost_Function::Use_Costs ?
+							(float)a.cost() + h_pre :
+							1.0f + (float)a.cost() + h_pre
+						) );
 
 				for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 					it != a.add_vec().end(); it++ )
