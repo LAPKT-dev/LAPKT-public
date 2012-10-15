@@ -19,6 +19,15 @@ EXTERN int	FF_instantiate_problem();
 // C++ helper functions
 namespace FF
 {
+	inline std::string	get_domain_name()
+	{
+		return std::string( gdomain_name );
+	}
+	
+	inline std::string	get_problem_name()
+	{
+		return std::string( gproblem_name);
+	}
 
 	inline void 		get_initial_state( std::vector<unsigned>& init_atoms )
 	{
