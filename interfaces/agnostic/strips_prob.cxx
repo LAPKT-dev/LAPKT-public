@@ -28,8 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace aptk
 {
 
-	STRIPS_Problem::STRIPS_Problem()
-		: m_num_fluents( 0 ), m_num_actions( 0 ), m_end_operator_id( no_such_index ),
+	STRIPS_Problem::STRIPS_Problem( std::string dom_name, std::string prob_name )
+		: m_domain_name(dom_name), m_problem_name( prob_name ), 
+		m_num_fluents( 0 ), m_num_actions( 0 ), m_end_operator_id( no_such_index ),
 		m_succ_gen( *this )
 	{
 	}

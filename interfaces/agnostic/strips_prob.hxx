@@ -34,8 +34,13 @@ namespace aptk
 	{
 	public:
 	
-		STRIPS_Problem();
+		STRIPS_Problem( std::string dom_name = "Unnamed", std::string prob_name = "Unnamed ");
 		~STRIPS_Problem();
+
+		void			set_domain_name( std::string name ) { m_domain_name = name; }
+		void			set_problem_name( std::string name ) { m_problem_name = name; }
+		std::string		domain_name() const { return m_domain_name; }
+		std::string		problem_name() const { return m_problem_name; }
 
 		unsigned 		num_fluents() const		{ return m_num_fluents; }
 		unsigned 		num_actions() const		{ return m_num_actions; }
@@ -124,6 +129,8 @@ namespace aptk
 
 	protected:
 
+		std::string						m_domain_name;
+		std::string						m_problem_name;
 		unsigned		 				m_num_fluents;
 		unsigned		 				m_num_actions;
 		Action_Ptr_Vec		 				m_actions;

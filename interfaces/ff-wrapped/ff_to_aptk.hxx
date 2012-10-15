@@ -28,17 +28,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace aptk
 {
 
-class FF_PDDL_To_STRIPS
+namespace FF_Parser
 {
-public:
-	FF_PDDL_To_STRIPS();
-	~FF_PDDL_To_STRIPS();
-	
 	void get_problem_description( 	std::string pddl_domain_path,
 					std::string pddl_problem_path,
 					STRIPS_Problem& strips_problem,
 					bool get_detailed_fluent_names = false );
-};
+}
 
 }
 

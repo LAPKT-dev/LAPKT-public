@@ -25,15 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace aptk
 {
 
-FF_PDDL_To_STRIPS::FF_PDDL_To_STRIPS()
-{
-}
+namespace  FF_Parser {
 
-FF_PDDL_To_STRIPS::~FF_PDDL_To_STRIPS()
-{
-}
-
-void	FF_PDDL_To_STRIPS::get_problem_description( std::string pddl_domain_path,
+void	get_problem_description( std::string pddl_domain_path,
 					std::string pddl_problem_path,
 					STRIPS_Problem& strips_problem,
 					bool get_detailed_fluent_names )
@@ -43,6 +37,9 @@ void	FF_PDDL_To_STRIPS::get_problem_description( std::string pddl_domain_path,
 	//	std::cout << "FF-preprocessing of PDDL problem description" << std::endl;
 	FF_instantiate_problem();
 	//	std::cout << "Facts in problem:" << gnum_ft_conn << std::endl;
+
+	strips_problem.set_domain_name( FF::get_domain_name() );
+	strips_problem.set_problem_name( FF::get_problem_name() );
 
 	for ( int i = 0; i < gnum_ft_conn; i++ )
 	{
@@ -167,6 +164,9 @@ void	FF_PDDL_To_STRIPS::get_problem_description( std::string pddl_domain_path,
 			strips_problem.actions()[op_idx]->set_cost( op_cost );
 		}
 	}
+	strips_problem.make_action_tables();
+}
+
 }
 
 }
