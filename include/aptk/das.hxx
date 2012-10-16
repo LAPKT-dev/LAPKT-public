@@ -364,7 +364,7 @@ public:
 
 	double	estimate_depth_bound( ) {
 		if ( !m_ed_stats.settled() || !m_nr_stats.settled() ) 
-			return std::numeric_limits<double>::max();
+			return infty;
 		double avg_exp_delay = m_ed_stats.get_avg();
 		double exp = estimate_remaining_expansions();
 #ifdef DEBUG

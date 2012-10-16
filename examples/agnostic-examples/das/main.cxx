@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <h_1.hxx>
 #include <rp_heuristic.hxx>
 #include <simple_landmarks.hxx>
-
 #include <aptk/open_list.hxx>
 
 #include <aptk/das.hxx>
