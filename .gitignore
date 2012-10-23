@@ -20,3 +20,15 @@
 
 # Python bytecodes
 *.pyc
+
+# Binaries
+examples/agnostic-examples/bfs-double-queue-secondary-heuristic/bfs-dq-mh
+examples/agnostic-examples/das-planner/planner
+examples/agnostic-examples/das/das
+examples/agnostic-examples/h_cost_functions/h-cost-funcs
+examples/agnostic-examples/rwa-planner/planner
+examples/agnostic-examples/wa-planner/planner
+examples/ff-interface/ff-parser-example
+
+# Local directories 
+spikes
