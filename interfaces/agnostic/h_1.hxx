@@ -142,8 +142,10 @@ protected:
 
 	void	initialize( const State& s ) 
 	{
-		for ( unsigned k = 0; k < m_strips_model.num_fluents(); k++ )
+		for ( unsigned k = 0; k < m_strips_model.num_fluents(); k++ ) {
 			m_values[k] = infty;
+			m_best_supporters[k] = nullptr;
+		}
 
 		for ( unsigned k = 0; k < m_strips_model.empty_prec_actions().size(); k++ ) {
 			const Action& a = *(m_strips_model.empty_prec_actions()[k]);
@@ -219,9 +221,14 @@ protected:
 				for ( unsigned j = 0; j < a.ceff_vec().size(); j++ )
 				{
 					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
-					float h_cond = eval_func( ceff.prec_vec().begin(), ceff.prec_vec().end() );
+					float h_cond = std::max(eval_func( ceff.prec_vec().begin(), ceff.prec_vec().end() ), h_pre);
 					if ( h_cond == infty ) continue;
-					float v_eff = v + h_cond;
+					float v_eff = ( cost_opt == H1_Cost_Function::Ignore_Costs ?  
+						1.0f + h_cond :
+						( cost_opt == H1_Cost_Function::Use_Costs ?
+							(float)a.cost() + h_cond :
+							1.0f + (float)a.cost() + h_cond
+						) );
 					for ( Fluent_Vec::const_iterator it = ceff.add_vec().begin();
 						it != ceff.add_vec().end(); it++ )
 						update( *it, v_eff, m_strips_model.actions()[i] );

@@ -36,15 +36,14 @@ namespace aptk {
 namespace agnostic {
 
 enum class RP_Cost_Function { Ignore_Costs, Use_Costs};
-
-template < typename Search_Model, typename Primary_Heuristic, RP_Cost_Function cost_opt = RP_Cost_Function::Use_Costs >
-class Relaxed_Plan_Heuristic : public Heuristic<State>
+template < typename Primary_Heuristic, RP_Cost_Function cost_opt = RP_Cost_Function::Use_Costs >
+class Relaxed_Plan_Extractor
 {
 	typedef std::queue<const Action* >	Action_Queue;
 public:
 
-	Relaxed_Plan_Heuristic( const Search_Model& prob )
-	: Heuristic<State>(prob), m_base_heuristic(prob), m_strips_model( prob.task() ) {
+	Relaxed_Plan_Extractor( const STRIPS_Problem& prob, Primary_Heuristic& h )
+	: m_base_heuristic(h), m_strips_model( prob ) {
 		m_act_seen.resize( m_strips_model.num_actions() );
 		m_init_fluents.resize( m_strips_model.num_fluents() );
 		m_po_set.resize( m_strips_model.num_actions() );
@@ -52,14 +51,9 @@ public:
 
 	}
 
-	virtual ~Relaxed_Plan_Heuristic() {}
+	virtual ~Relaxed_Plan_Extractor() {}
 
-	virtual void eval( const State& s, float& h_val ) {
-		std::vector<Action_Idx> po;
-		eval( s, h_val, po );
-	}
-	
-	virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops ) {
+	virtual void compute( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops ) {
 
 		m_base_heuristic.eval( s, h_val );
 		if ( h_val == infty )
@@ -167,7 +161,7 @@ protected:
 protected:
 
 	
-	Primary_Heuristic		m_base_heuristic;
+	Primary_Heuristic&		m_base_heuristic;
 	Bit_Array			m_act_seen;
 	Bit_Array			m_init_fluents;
 	Action_Queue			m_pending;
@@ -175,6 +169,34 @@ protected:
 	Bit_Set				m_po_set;
 	Bit_Set				m_rp_precs;
 
+};
+
+template < typename Search_Model, typename Primary_Heuristic, RP_Cost_Function cost_opt = RP_Cost_Function::Use_Costs >
+class Relaxed_Plan_Heuristic : public Heuristic<State>
+{
+public:
+
+	Relaxed_Plan_Heuristic( const Search_Model& prob )
+	: Heuristic<State>(prob), m_base_heuristic(prob), m_plan_extractor( prob.task(), m_base_heuristic ) {
+
+	}
+
+	virtual ~Relaxed_Plan_Heuristic() {}
+
+	virtual void eval( const State& s, float& h_val ) {
+		std::vector<Action_Idx> po;
+		eval( s, h_val, po );
+	}
+	
+	virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops ) {
+		m_plan_extractor.compute( s, h_val, pref_ops );
+	}
+	
+
+protected:
+
+	Primary_Heuristic					m_base_heuristic;
+	Relaxed_Plan_Extractor< Primary_Heuristic, cost_opt >	m_plan_extractor;
 };
 
 }

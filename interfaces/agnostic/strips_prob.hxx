@@ -55,7 +55,7 @@ namespace aptk
 		static unsigned 	add_fluent( STRIPS_Problem& p, std::string signature );
 
 		static void		set_init( STRIPS_Problem& p, Fluent_Vec& init );
-		static void		set_goal( STRIPS_Problem& p, Fluent_Vec& goal, bool createEndOp = true );
+		static void		set_goal( STRIPS_Problem& p, Fluent_Vec& goal, bool createEndOp = false );
 
 	  	
 		Fluent_Ptr_Vec&		fluents() 			{ return m_fluents; }
