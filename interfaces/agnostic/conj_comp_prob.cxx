@@ -22,7 +22,22 @@ namespace agnostic {
 	: m_orig_prob( prob ) {
 		import_fluents_from_original();
 		for ( auto it = conjs.begin(); it != conjs.end(); it++ ) {
-			m_fluents.push_back( new Fluent_Conjunction( m_fluents.size(), *it ) );
+			Fluent_Vec primitive;
+			for ( auto it2 = it->begin(); it2 != it->end(); it2++ ) {
+				if (*it2 < m_orig_prob.num_fluents() )
+					primitive.push_back( *it2 );
+				else
+					for ( auto it3 = m_fluents[*it2]->fluents().begin();
+						it3 != m_fluents[*it2]->fluents().end(); it3++ )
+						primitive.push_back( *it3 );
+			}
+			
+			Fluent_Conjunction* fc = new Fluent_Conjunction( m_fluents.size(), primitive );
+			if ( fc->singleton() || subsumed( *fc ) ) {
+				delete fc;
+				continue;
+			}	
+			m_fluents.push_back( fc );
 			m_cfluents.push_back( m_fluents.back() );
 		}
 		make_actions();
@@ -48,6 +63,13 @@ namespace agnostic {
 			m_fluents.push_back( new Fluent_Conjunction( p ) ); 
 			m_cfluents.push_back( m_fluents.back() );
 		}
+	}
+
+	bool	CC_Problem::subsumed( const Fluent_Conjunction& fc ) {
+		for ( unsigned p = m_orig_prob.num_fluents(); p < m_orig_prob.num_fluents(); p++ )
+			if ( fc.in_set( m_fluents[p]->fluents() ) )
+				return true;
+		return false;
 	}
 
 	void	CC_Problem::enumerate_binary_conjunctions() {

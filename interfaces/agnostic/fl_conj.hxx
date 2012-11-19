@@ -18,6 +18,10 @@ namespace agnostic {
 
 		unsigned index() const { return m_index; }
 
+		bool	in_set( unsigned p ) const {
+			return std::find( m_fluents.begin(), m_fluents.end(), p ) != m_fluents.end();
+		}
+
 		bool	in_set( const Fluent_Vec& fv ) const {
 			for ( auto p = m_fluents.begin(); p != m_fluents.end(); p++ ) {
 				if ( std::find( fv.begin(), fv.end(), *p ) == fv.end() )

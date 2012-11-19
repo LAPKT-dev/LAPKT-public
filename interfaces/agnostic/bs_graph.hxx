@@ -8,6 +8,7 @@
 #include <map>
 #include <deque>
 #include <fstream>
+#include <stack>
 
 namespace aptk {
 
@@ -89,7 +90,7 @@ namespace agnostic {
 				os << k << " [label=\"" << m_nodes[k]->action->signature() << "\"];" << std::endl;
 			}
 			os << "// edges" << std::endl;
-			for ( unsigned k = 1; k < m_adj_lists_out.size(); k++ ) {
+			for ( unsigned k = 1; k < m_adj_lists_in.size(); k++ ) {
 				if ( !m_valid[k] ) continue;
 				for ( auto it = m_adj_lists_out[k].begin(); it != m_adj_lists_out[k].end(); it++ ) {
 					os << k << " -> " << (*it)->consumer << "[label=\"";
@@ -104,7 +105,191 @@ namespace agnostic {
 			return m_pref_ops;
 		}
 
+		bool check_interference( const Fluent_Vec& del, const std::vector<bool>& mask, const Fluent_Vec& prec, unsigned& deleted ) const {
+			for ( unsigned k = 0; k < del.size(); k++ ) {
+				if ( !mask[k] ) continue;
+				for ( auto it2 = prec.begin(); it2 != prec.end(); it2++ ) {
+					const Fluent_Conjunction& conj = *(m_model.fluents()[*it2]);
+					if ( conj.in_set( del[k] ) ) {
+						deleted = del[k];
+						return true;
+					} 
+				}
+			}
+			return false;
+		}
+
+		bool check_interference( const Fluent_Vec& del,  const Fluent_Vec& prec, Fluent_Vec& deleted  ) const {
+			for ( unsigned k = 0; k < del.size(); k++ ) {
+				for ( auto it2 = prec.begin(); it2 != prec.end(); it2++ ) {
+					const Fluent_Conjunction& conj = *(m_model.fluents()[*it2]);
+					if ( conj.in_set( del[k] ) ) {
+						deleted.push_back(*it2);
+					} 
+				}
+			}
+			return !deleted.empty();
+		}
+
+		void find_conflicts( std::vector<Fluent_Vec>& vec ) {
+			for ( int k = m_nodes.size() - 1; k > 0; k-- ) {
+				if ( !m_valid[k] )  continue;
+				const CC_Problem::CC_Action& ak = *(m_nodes[k]->action);
+				for ( int l = m_nodes.size()-1; l >= 0; l-- ) {
+					if ( !m_valid[l] || k == l ) continue;
+					const Fluent_Vec& cond = ( l == 0 ? m_model.goal() : m_nodes[l]->action->pre() ); 
+					Fluent_Vec deleted;
+					if ( !check_interference( ak.original().del_vec(), cond, deleted ) ) continue;
+					Fluent_Vec kl_path;
+					if ( !exists_path_between( k, l, kl_path ) ) {
+						std::cout << "Type 2 Conflict: " << std::endl;
+						std::cout << ak.signature() << " is deleting prec. ";
+						for ( unsigned i = 0; i < deleted.size(); i++ ) {
+							m_model.print_fluent( deleted[i], std::cout );
+							if ( i < deleted.size() - 1 ) std::cout << ", ";
+						}
+						std::cout <<" of " << ( l == 0 ? "GOAL" : m_nodes[l]->action->signature() ) << std::endl;
+						for ( int i = m_nodes.size()-1; i >= 0; i-- ) {
+							if ( !m_valid[i] || i == k || i == l ) continue;
+							Fluent_Vec kpath, lpath;
+							if ( !exists_path_between( k, i, kpath ) ) continue;
+							if ( !exists_path_between( l, i, lpath ) ) continue;
+							for ( auto it = kpath.begin(); it != kpath.end(); it++ )
+								for ( auto it2 = lpath.begin(); it2 != lpath.end(); it2++ ) {
+									Fluent_Vec C;
+									C.push_back( *it );
+									C.push_back( *it2 );
+									vec.push_back( C );
+								}
+						}
+					}
+					else {
+						std::cout << "Type 1 Conflict: " << std::endl;
+						std::cout << ak.signature() << " is deleting prec. ";
+						for ( unsigned i = 0; i < deleted.size(); i++ ) {
+							m_model.print_fluent( deleted[i], std::cout );
+							if ( i < deleted.size() - 1 ) std::cout << ", ";
+						}
+						std::cout <<" of " << ( l == 0 ? "GOAL" : m_nodes[l]->action->signature() ) << std::endl;
+						for ( auto it = kl_path.begin(); it != kl_path.end(); it++ ) 
+							for (auto it2 = deleted.begin(); it2!= deleted.end(); it2++ ) {
+								Fluent_Vec C;
+								C.push_back( *it );
+								C.push_back( *it2 );
+								vec.push_back( C );
+							}
+						Fluent_Vec C = deleted;
+						C.push_back( kl_path[0] );
+						vec.push_back( C );
+					}
+				}
+			}
+		}
+
+		/*
+		void find_type_1_conflicts( std::vector<Fluent_Vec>& vec ) {
+			typedef typename std::pair<unsigned, typename Adj_List::iterator> dfs_node;
+			for ( unsigned k = m_nodes.size() - 1; k > 0; k-- ) {
+				if ( !m_valid[k] )  continue;
+				dfs_node n0 = std::make_pair( k, m_adj_lists_out[k].begin() );
+				if (n0.first == 0 ) break;
+				std::cout << "Conflict search start: " << m_nodes[n0.first]->action->signature() << std::endl;
+				std::stack< dfs_node > open;
+				for ( auto it =  m_adj_lists_out[n0.first].begin(); it != m_adj_lists_out[n0.first].end(); it++ ) {
+					const Fluent_Vec& curr_del_vec = m_nodes[n0.first]->action->original().del_vec();
+					std::vector<bool> del_mask( curr_del_vec.size() );
+					for ( unsigned k = 0; k < curr_del_vec.size(); k++ )
+						del_mask[k] = true;
+					open.push( std::make_pair( (*it)->consumer, m_adj_lists_out[(*it)->consumer].begin() ) );
+					while( !open.empty() ) {
+						dfs_node& n = open.top();
+						if ( n.second == m_adj_lists_out[n.first].end() ) {
+							open.pop();
+							if ( n.first != 0 ) {
+								const Fluent_Vec& add_vec = m_nodes[n.first]->action->original().add_vec();
+								for ( unsigned k = 0; k < add_vec.size(); k++ )
+									for ( unsigned l = 0; l < curr_del_vec.size(); l++ )
+										if ( curr_del_vec[l] == add_vec[k] ) {
+											del_mask[l] = true;
+											break;
+										}
+								const Fluent_Vec& del_vec = m_nodes[n.first]->action->original().del_vec();
+								for ( unsigned k = 0; k < del_vec.size(); k++ ) 
+									for ( unsigned l = 0; l < curr_del_vec.size(); l++ )
+										if ( curr_del_vec[l] == del_vec[k] ) {
+											del_mask[l] = false;
+											break;
+										}
+							}
+							continue;
+						}
+						if ( n.second == m_adj_lists_out[n.first].begin() ) {
+							std::cout << "Action " << ( n.first == 0 ? "GOAL" : m_nodes[n.first]->action->signature() );
+							std::cout << " first found, performing conflict check" << std::endl;
+							bool 	 conflict = false;
+							unsigned del_prec;
+							if ( n.first == 0 ) 
+								conflict = check_interference( curr_del_vec, del_mask,
+												m_model.goal(), del_prec );
+							else
+								conflict = check_interference( curr_del_vec, del_mask,
+											m_nodes[n.first]->action->pre(), del_prec );
+							if ( conflict ) {
+								std::cout << "Action " << m_nodes[n0.first]->action->signature() << " deletes ";
+								m_model.print_fluent( del_prec, std::cout );
+								std::cout << " required by ";
+								if ( n.first == 0 ) std::cout << "GOAL";
+								else std::cout << m_nodes[n.first]->action->signature();
+								std::cout << std::endl;
+								open.pop();
+								while ( !open.empty() ) {
+									Fluent_Vec C;
+									C.push_back( del_prec );
+									C.push_back( (*open.top().second)->p );
+									vec.push_back( C );
+									open.pop();
+								}
+								Fluent_Vec C;
+								C.push_back( del_prec );
+								C.push_back( (*it)->p );
+								vec.push_back( C );
+								return;
+							}
+							if ( n.first != 0 ) {
+								const Fluent_Vec& add_vec = m_nodes[n.first]->action->original().add_vec();
+								for ( unsigned k = 0; k < add_vec.size(); k++ )
+									for ( unsigned l = 0; l < curr_del_vec.size(); l++ )
+										if ( curr_del_vec[l] == add_vec[k] ) {
+											del_mask[l] = false;
+											break;
+										}
+								const Fluent_Vec& del_vec = m_nodes[n.first]->action->original().del_vec();
+
+								for ( unsigned k = 0; k < del_vec.size(); k++ ) 
+									for ( unsigned l = 0; l < curr_del_vec.size(); l++ )
+										if ( curr_del_vec[l] == del_vec[k] ) {
+											del_mask[l] = true;
+											break;
+										}
+							}
+						}
+						if (n.first == 0) {
+							open.pop();
+							continue;
+						}
+						open.push( std::make_pair( (*(n.second))->consumer, m_adj_lists_out[(*(n.second))->consumer].begin() ) );
+						std::cout << (*(n.second))->consumer << std::endl;
+						std::cout << "Follow-up action ";
+						std::cout << ( (*(n.second))->consumer == 0 ? "GOAL" : m_nodes[  (*(n.second))->consumer ]->action->signature() );
+						std::cout << " added to open" << std::endl;
+						n.second++;
+					}
+				}
+			}
+		}
+		*/
 	protected:
+
 
 		void	update_pref_ops() {
 			m_pref_ops.clear();
@@ -214,6 +399,32 @@ namespace agnostic {
 
 		}
 
+		bool	exists_path_between( unsigned src, unsigned dst, Fluent_Vec& precs ) {
+			typedef std::pair<unsigned, Fluent_Vec> bfs_node;
+			std::deque<bfs_node> 	open;
+			for ( auto it = m_adj_lists_out[src].begin(); it != m_adj_lists_out[src].end(); it++ ) {
+				Fluent_Vec context;
+				context.push_back( (*it)->p );
+				open.push_back( std::make_pair( (*it)->consumer, context ) );
+			}
+			while ( !open.empty() ) {
+				bfs_node next = open.front();
+				open.pop_front();
+				if ( !m_valid[next.first] ) continue;
+				if ( next.first == dst ) {
+					precs = next.second;
+					return true;
+				}
+				for ( auto it = m_adj_lists_out[next.first].begin(); it != m_adj_lists_out[next.first].end(); it++ ) {
+					Fluent_Vec context = next.second;
+					context.push_back( (*it)->p );
+					open.push_back( std::make_pair((*it)->consumer, context)  );
+				}
+			}	
+			return false;
+			
+		}
+
 		void	add_goal_action_node() {
 			Node* n = new Node(nullptr, 0);
 			Effect_Handle goal_handle = std::make_pair(nullptr,0);
@@ -239,6 +450,7 @@ namespace agnostic {
 			if ( eff_it != m_eff_node.end() ) {
 				unsigned producer_idx = eff_it->second;
 				m_adj_lists_out[producer_idx].push_back( new Edge( oc.first, oc.second ) );
+				m_adj_lists_in[oc.second].push_back( new Edge( oc.first, producer_idx ) );
 				return;
 			}
 			Node* n = new Node( eff.first, eff.second );

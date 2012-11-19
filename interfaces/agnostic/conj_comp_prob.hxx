@@ -88,7 +88,7 @@ namespace agnostic {
 		const std::vector<unsigned>&	requiring( unsigned p) const { return m_requiring[p]; }
 
 	protected: 
-
+		bool		subsumed( const Fluent_Conjunction& fc );
 		void 		import_fluents_from_original();	
 		void 		enumerate_binary_conjunctions();
 		void		compute_actions_closure();

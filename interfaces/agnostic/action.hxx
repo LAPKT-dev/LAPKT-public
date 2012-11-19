@@ -83,6 +83,8 @@ public:
 
 	static bool	           	are_effect_interfering( const Action& a1, const Action& a2 );
 	static bool	           	deletes_precondition_of( const Action& a1, const Action& a2 );
+	static bool	           	deletes_precondition_of( const Action& a1, const Action& a2, Fluent_Vec& deleted );
+
 	static bool	           	possible_supporter( const Action& a1, const Action& a2, Fluent_Vec& pvec );
 protected:
 	// Preconditions and Effects ( Adds and Deletes)
@@ -116,6 +118,15 @@ inline bool	Action::deletes_precondition_of( const Action& a1, const Action& a2 
 			return true;
 
 	return false;
+}
+
+inline bool	Action::deletes_precondition_of( const Action& a1, const Action& a2, Fluent_Vec& deleted )
+{
+	for ( unsigned k = 0; k < a1.del_vec().size(); k++ )
+		if ( a2.requires( a1.del_vec()[k]) )
+			deleted.push_back( a1.del_vec()[k] );
+
+	return !deleted.empty();
 }
 
 inline bool	Action::are_effect_interfering( const Action& a1, const Action& a2 )
