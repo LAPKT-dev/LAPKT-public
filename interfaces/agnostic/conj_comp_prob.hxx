@@ -65,6 +65,7 @@ namespace agnostic {
 	public:
 		
 		CC_Problem( const STRIPS_Problem& prob, const std::vector<Fluent_Vec>& conjs );
+		CC_Problem( const STRIPS_Problem& prob, const std::vector<Fluent_Conjunction*>& conjs );
 		CC_Problem( const STRIPS_Problem& prob, unsigned sz = 1 );
 		virtual ~CC_Problem();
 
@@ -86,6 +87,8 @@ namespace agnostic {
 		void	print_fluent( unsigned p, std::ostream& os ) const;
 
 		const std::vector<unsigned>&	requiring( unsigned p) const { return m_requiring[p]; }
+
+		void  filter_subsumed( const std::vector<Fluent_Vec>& conjs, std::vector<Fluent_Conjunction*>& filtered );
 
 	protected: 
 		bool		subsumed( const Fluent_Conjunction& fc );

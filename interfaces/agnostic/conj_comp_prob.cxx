@@ -18,25 +18,61 @@ namespace agnostic {
 	CC_Problem::CC_Action::~CC_Action() {
 	}
 
-	CC_Problem::CC_Problem(  const STRIPS_Problem& prob, const std::vector<Fluent_Vec>& conjs )
-	: m_orig_prob( prob ) {
-		import_fluents_from_original();
+	void	CC_Problem::filter_subsumed( const std::vector<Fluent_Vec>& conjs, std::vector<Fluent_Conjunction*>& filtered ) {
+		std::vector<Fluent_Conjunction*> pre_filtered;
 		for ( auto it = conjs.begin(); it != conjs.end(); it++ ) {
 			Fluent_Vec primitive;
 			for ( auto it2 = it->begin(); it2 != it->end(); it2++ ) {
-				if (*it2 < m_orig_prob.num_fluents() )
-					primitive.push_back( *it2 );
-				else
-					for ( auto it3 = m_fluents[*it2]->fluents().begin();
-						it3 != m_fluents[*it2]->fluents().end(); it3++ )
-						primitive.push_back( *it3 );
+				for ( auto it3 = m_fluents[*it2]->fluents().begin();
+					it3 != m_fluents[*it2]->fluents().end(); it3++ )
+					primitive.push_back( *it3 );
 			}
 			
-			Fluent_Conjunction* fc = new Fluent_Conjunction( m_fluents.size(), primitive );
-			if ( fc->singleton() || subsumed( *fc ) ) {
+			Fluent_Conjunction* fc = new Fluent_Conjunction( 0, primitive );
+			if ( subsumed( *fc ) ) {
 				delete fc;
 				continue;
 			}	
+			pre_filtered.push_back( fc );
+		}
+		std::vector<bool> mask( pre_filtered.size(), false );
+
+		for ( unsigned k = 0; k < pre_filtered.size(); k++ ) {
+			bool subsumed = false;
+			for ( unsigned l = 0; l < pre_filtered.size(); l++ ) {
+				if ( l == k || mask[l] ) continue;
+				if ( pre_filtered[k]->in_set( pre_filtered[l]->fluents() ) ) {
+					subsumed = true;
+					mask[k] = true;
+					break;
+				}
+			}
+			if ( !subsumed ) 
+				filtered.push_back( new Fluent_Conjunction( 0, pre_filtered[k]->fluents() ) );
+		}
+		for ( auto it = pre_filtered.begin(); it != pre_filtered.end(); it++ )
+			delete (*it);
+	}
+
+	CC_Problem::CC_Problem(  const STRIPS_Problem& prob, const std::vector<Fluent_Vec>& conjs )
+	: m_orig_prob( prob ) {
+		import_fluents_from_original();
+		std::vector<Fluent_Conjunction*> filtered;
+		filter_subsumed( conjs, filtered );
+		for ( auto it = filtered.begin(); it != filtered.end(); it++ ) {
+			m_fluents.push_back( *it );
+			m_cfluents.push_back( m_fluents.back() );
+		}
+		make_actions();
+		compute_actions_closure();
+		make_goal();
+	}
+
+	CC_Problem::CC_Problem(  const STRIPS_Problem& prob, const std::vector<Fluent_Conjunction*>& conjs )
+	: m_orig_prob( prob ) {
+		import_fluents_from_original();
+		for ( auto it = conjs.begin(); it != conjs.end(); it++ ) {
+			Fluent_Conjunction* fc = new Fluent_Conjunction( m_fluents.size(), (*it)->fluents() );
 			m_fluents.push_back( fc );
 			m_cfluents.push_back( m_fluents.back() );
 		}
@@ -66,7 +102,8 @@ namespace agnostic {
 	}
 
 	bool	CC_Problem::subsumed( const Fluent_Conjunction& fc ) {
-		for ( unsigned p = m_orig_prob.num_fluents(); p < m_orig_prob.num_fluents(); p++ )
+		if ( fc.singleton() ) return true;
+		for ( unsigned p = m_orig_prob.num_fluents(); p < m_fluents.size(); p++ )
 			if ( fc.in_set( m_fluents[p]->fluents() ) )
 				return true;
 		return false;
