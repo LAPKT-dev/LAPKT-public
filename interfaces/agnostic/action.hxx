@@ -76,8 +76,8 @@ public:
 	bool		           	can_be_applied_on( const State& s ) const ;
 	bool				can_be_regressed_from( const State& s ) const;
 
-	void		           	set_cost( Cost_Type c ) { m_cost = c; }
-	Cost_Type	           	cost() const { return m_cost; }
+	void		           	set_cost( float c ) { m_cost = c; }
+	float		           	cost() const { return m_cost; }
 
 	void				print( const STRIPS_Problem& prob, std::ostream& ) const;		
 
@@ -97,7 +97,7 @@ protected:
 	Fluent_Vec			m_del_vec;
 	Fluent_Set			m_del_set;
 	Conditional_Effect_Vec		m_cond_effects;
-	Cost_Type			m_cost;	
+	float				m_cost;	
 	unsigned			m_index;
 
 };

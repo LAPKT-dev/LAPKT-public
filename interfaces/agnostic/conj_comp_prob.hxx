@@ -47,7 +47,7 @@ namespace agnostic {
 				return std::find( m_add.begin(), m_add.end(), p ) != m_add.end();
 			}
 
-			Cost_Type	cost( ) const { return original().cost(); }
+			float	cost( ) const { return original().cost(); }
 
 			const	Action&	original() const { return m_orig_act; }
 

@@ -81,7 +81,7 @@ void	get_problem_description( std::string pddl_domain_path,
 			for( int j = 0; j < gop_conn[i].action->num_preconds; j++)
 				op_precs.push_back( gop_conn[i].action->preconds[j] );
 			
-			aptk::Cost_Type op_cost = 0;
+			float op_cost = 0;
 			Conditional_Effect_Vec cond_effects;
 			for( int j = 0; j < gop_conn[i].num_E; j++)
 			{
@@ -146,7 +146,7 @@ void	get_problem_description( std::string pddl_domain_path,
 			for ( int j = 0; j < gef_conn[i].num_D; j++ )
 				op_dels.push_back( gef_conn[i].D[j] );
 
-			aptk::Cost_Type op_cost = 0;
+			float op_cost = 0;
 			if(with_costs)
 			{
 				if ( gef_conn[i].num_IN == 0 ) {
