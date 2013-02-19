@@ -4,7 +4,8 @@ lwaptk
 Lightweight Automated Planning Toolkit
 
 Miquel Ramirez <miquel.ramirez@gmail.com>
-September 2012
+Nir Lipovetzky <nirlipo@gmail.com>
+Last update: February 2013
 
 CONTENTS
 ========
@@ -14,6 +15,7 @@ CONTENTS
 3. Search algorithms implemented
 4. Examples
 5. Contributing
+6. Requirements
 
 1. OVERVIEW
 ===========
@@ -172,3 +174,16 @@ when (if) there's enough people interested and making contributions
 to the codebase, I will setup a 'github' organization to centralize the
 efforts. People making significant contributions will be granted 
 commit permissions upon request.
+
+6. REQUIREMENTS
+==============
+
+lwaptk requires the following libraries:
+	* boost::program_options
+	* varjudy
+
+In order to compile lwaptk, we recommend need g++ 4.6 or better. However, any 
+compiler able to handle both boost libraries and C++0x standard new features, 
+should also be usable (we have been able to compile it under Visual Studio 
+2010 and llvm).
+
