@@ -62,6 +62,10 @@ public:
 	: AT_BFS_DQ_SH<Search_Model, Abstract_Heuristic, Open_List_Type>(search_problem), m_W( W ), m_decay( decay ) {
 	}
 
+	AT_RWBFS_DQ_SH( const Search_Model& search_problem, Abstract_Heuristic& h, float W = 5.0f, float decay = 0.75f ) 
+	: AT_BFS_DQ_SH<Search_Model, Abstract_Heuristic, Open_List_Type>(search_problem, h), m_W( W ), m_decay( decay ) {
+	}
+
 	virtual ~AT_RWBFS_DQ_SH() {
 		for ( typename Closed_List_Type::iterator i = m_seen.begin();
 			i != m_seen.end(); i++ ) {
@@ -78,6 +82,18 @@ public:
 			candidate->add_po( po[k] );	
 	}
 
+	bool in_closed( Search_Node* n )  {
+		return this->closed().retrieve(n) != nullptr;
+	}
+
+	bool in_open( Search_Node* n )  {
+		return this->open_hash().retrieve(n) != nullptr;
+	}
+
+	bool in_seen( Search_Node* n )  {
+		return m_seen.retrieve(n) != nullptr;
+	}
+
 	virtual void 	process(  Search_Node *head ) {
 
 		typedef typename Search_Model::Action_Iterator Iterator;
@@ -86,12 +102,62 @@ public:
 		while ( a != no_op ) {
 			State *succ = this->problem().next( *(head->state()), a );
 			Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
-			if ( is_closed( n ) ) {
+			bool is_in_closed = in_closed(n);
+			bool is_in_open = in_open(n);
+			bool is_in_seen = in_seen(n);
+			if ( !is_in_closed && !is_in_open && !is_in_seen ) {
+				n->hn() = head->hn();
+				n->fn() = m_W * n->hn() + n->gn();
+
+				this->open_node(n, head->is_po(a));
+
+				a = it.next();
+				continue;
+			}
+			if ( is_in_seen ) {
+				Search_Node* n2 = m_seen.retrieve(n);
+				if ( n->gn() < n2->gn() ) {
+					n2->gn() = n->gn();
+					n2->m_parent = n->m_parent;
+					n2->m_action = n->action();
+				}
+				n2->fn() = m_W * n2->hn() + n2->gn();
+				m_seen.erase( m_seen.retrieve_iterator(n2) );
+				this->open_node( n2, n2->parent()->is_po(n2->action()));
 				delete n;
 				a = it.next();
 				continue;
 			}
-
+			if ( is_in_closed ) {
+				Search_Node* n2 = this->closed().retrieve(n);
+				if ( n->gn() < n2->gn() ) {
+					n2->gn() = n->gn();
+					n2->m_parent = n->m_parent;
+					n2->m_action = n->action();
+					n2->fn() = m_W * n2->hn() + n2->gn();
+					this->closed().erase( this->closed().retrieve_iterator( n2 ) );
+					n2->set_seen();
+					this->open_node( n2, n2->parent()->is_po(n2->action()));
+				}
+				delete n;
+				a = it.next();
+				continue;
+			}
+			if ( is_in_open ) {
+				Search_Node* n2 = this->open_hash().retrieve(n);
+				if ( n->gn() < n2->gn() ) {
+					n2->gn() = n->gn();
+					n2->m_parent = n->m_parent;
+					n2->m_action = n->action();
+					n2->fn() = m_W * n2->hn() + n2->gn();
+					this->inc_replaced_open();
+				}
+				delete n;
+				a = it.next();
+				continue;
+			}
+			assert(false);
+			/*
 			if ( is_closed( n ) ) {
 				delete n;
 				a = it.next();
@@ -115,11 +181,14 @@ public:
 			this->open_node(n, head->is_po(a));
 
 			a = it.next();
+			*/
 		}
 		this->inc_eval();
 	}
 
 	virtual Search_Node*	 	do_search() {
+		if ( !this->closed().empty() )
+			restart_search();	
 		Search_Node *head = this->get_node();
 		while(head) {
 			if ( head->gn() >= this->bound() )  {
@@ -134,7 +203,6 @@ public:
 				this->set_bound( head->gn() );
 				m_W *= m_decay;
 				if ( m_W < 1.0f ) m_W = 1.0f;
-				restart_search();	
 				return head;
 			}
 			if ( (time_used() - this->t0() ) > this->time_budget() )
@@ -156,8 +224,9 @@ public:
 			it != this->closed().end(); it++ ) {
 			it->second->set_seen();
 			if ( it->second == this->root() ) continue;
+			/*
 			Search_Node* n2 = m_seen.retrieve( it->second );
-			if ( n2 == NULL ) {
+			if ( n2 == nullptr ) {
 				m_seen.put( it->second );
 				continue;
 			}
@@ -166,6 +235,7 @@ public:
 				continue;
 			}
 			m_seen.erase( m_seen.retrieve_iterator( n2 ) );
+			*/
 			m_seen.put( it->second );
 		} 
 		this->closed().clear();
@@ -173,9 +243,16 @@ public:
 		this->open_hash().clear();
 		Search_Node *head = this->get_node();
 		while ( head ) {
-			delete head;
+			if ( !head->seen() )
+				delete head;
+			else
+				m_seen.put( head );
 			head = this->get_node();
 		}
+		#ifdef DEBUG
+		std::cout << "Size(SEEN) = " << m_seen.size() << std::endl;
+		#endif
+
 		open_node( this->root(), false );
 	}
 

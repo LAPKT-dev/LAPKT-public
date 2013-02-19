@@ -99,6 +99,12 @@ public:
 	m_B( infty ), m_time_budget(infty), m_po_exp_left( 100 ), m_non_po_exp_left(0), m_po_exp_max(100), m_non_po_exp_max(0) {
 		m_heuristic_func = new Abstract_Heuristic( search_problem );
 	}
+	
+	AT_BFS_DQ_SH( 	const Search_Model& search_problem, Abstract_Heuristic& h ) 
+	: m_problem( search_problem ), m_heuristic_func(&h), 
+	m_exp_count(0), m_gen_count(0), m_pruned_B_count(0), m_dead_end_count(0), m_open_repl_count(0),
+	m_B( infty ), m_time_budget(infty), m_po_exp_left( 100 ), m_non_po_exp_left(0), m_po_exp_max(100), m_non_po_exp_max(0) {
+	}
 
 	virtual ~AT_BFS_DQ_SH() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
