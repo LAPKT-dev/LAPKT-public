@@ -1,3 +1,23 @@
+/*
+Lightweight Automated Planning Toolkit
+Copyright (C) 2012
+Miquel Ramirez <miquel.ramirez@rmit.edu.au>
+Nir Lipovetzky <nirlipo@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #ifndef __BEST_SUPPORT_GRAPH__
 #define __BEST_SUPPORT_GRAPH__
 
@@ -5,6 +25,7 @@
 #include <conj_comp_prob.hxx>
 #include <vector>
 #include <list>
+
 #include <map>
 #include <deque>
 #include <fstream>
@@ -21,9 +42,12 @@ namespace agnostic {
 		class Node {
 		public:
 			const CC_Problem::CC_Action* action;
-			unsigned eff_idx;
+			std::vector<unsigned> eff_idx;
+			unsigned rank;
 			Node( const CC_Problem::CC_Action* a, unsigned index ) 
-			: action(a), eff_idx(index) {}
+			: action(a), rank(0) {
+				eff_idx.push_back( index );
+			}
 		};
 
 		class Edge {
@@ -62,6 +86,7 @@ namespace agnostic {
 				add_action_node( bs.best_effect( oc.first ), oc );
 			}
 			remove_redundant_action_nodes();
+			topological_sort();
 			update_pref_ops();
 		}
 
@@ -81,13 +106,22 @@ namespace agnostic {
 			return sum;
 		}
 
+		void	extract_plan( std::vector<unsigned>& actions ) {
+			std::deque<unsigned> open;
+			for ( unsigned k = m_nodes.size()-1; k > 0; k-- ) {
+				if ( m_valid[k] ) {
+					actions.push_back( m_nodes[k]->action->original().index() );
+				}
+			}
+		}
+
 		void	print( std::ofstream& os ) {
 			os << "digraph bs_graph {" << std::endl;
 			os << "// vertex set" << std::endl;
-			os << "0 [label=\"(GOAL)\"]; " << std::endl;
+			os << "0 [label=\"(GOAL), r=" << m_nodes[0]->rank <<"\"]; " << std::endl;
 			for ( unsigned k = 1; k < m_nodes.size(); k++ ) {
 				if (!m_valid[k]) continue;
-				os << k << " [label=\"" << m_nodes[k]->action->signature() << "\"];" << std::endl;
+				os << k << " [label=\"" << m_nodes[k]->action->signature() << ", r=" << m_nodes[k]->rank << "\"];" << std::endl;
 			}
 			os << "// edges" << std::endl;
 			for ( unsigned k = 1; k < m_adj_lists_in.size(); k++ ) {
@@ -95,7 +129,13 @@ namespace agnostic {
 				for ( auto it = m_adj_lists_out[k].begin(); it != m_adj_lists_out[k].end(); it++ ) {
 					os << k << " -> " << (*it)->consumer << "[label=\"";
 					m_model.print_fluent( (*it)->p, os );
-					os << ", eff=" << m_nodes[k]->eff_idx << "\"];" << std::endl; 
+					os << ", eff={";
+					for ( unsigned l = 0; l < m_nodes[k]->eff_idx.size(); l++ ) {
+					 	os << m_nodes[k]->eff_idx[l];
+						if ( l < m_nodes[k]->eff_idx.size() -1 )
+							os << ", ";
+					}
+					os << "}\"];" << std::endl; 
 				}
 			}
 			os << "}" << std::endl;
@@ -131,36 +171,116 @@ namespace agnostic {
 			return !deleted.empty();
 		}
 
+		class Node_Comparer {
+		public:
+			Node_Comparer( const Node_Set& V ) 
+			: m_V( V ) {}
+			
+			bool operator()( unsigned a, unsigned b ) const {
+				return m_V[a]->rank < m_V[b]->rank;
+			}
+			
+			const Node_Set& m_V;
+		};
+
 		void find_conflicts( std::vector<Fluent_Vec>& vec ) {
-			for ( int k = m_nodes.size() - 1; k > 0; k-- ) {
-				if ( !m_valid[k] )  continue;
-				const CC_Problem::CC_Action& ak = *(m_nodes[k]->action);
-				for ( int l = m_nodes.size()-1; l >= 0; l-- ) {
-					if ( !m_valid[l] || k == l ) continue;
-					const Fluent_Vec& cond = ( l == 0 ? m_model.goal() : m_nodes[l]->action->pre() ); 
+			std::vector<unsigned> valid_nodes;
+			for ( unsigned k = 0; k < m_nodes.size(); k++ ) {
+				if (m_valid[k]) { 
+					valid_nodes.push_back( k );
+				}
+			}
+			std::sort( valid_nodes.begin(), valid_nodes.end(), Node_Comparer( m_nodes ) );
+				
+			for ( unsigned k = 0; k < valid_nodes.size()-1; k++ ) {
+				unsigned nd = valid_nodes[k];
+				const CC_Problem::CC_Action& ak = *(m_nodes[nd]->action);
+				
+				for ( unsigned l = 0; l < valid_nodes.size(); l++ ) {
+					unsigned nf = valid_nodes[l];
+					if ( nd == nf || m_nodes[nf]->rank < m_nodes[nd]->rank ) continue;
+					Fluent_Vec cond;
+					if ( nf == 0 )
+						cond = m_model.goal();
+					else {
+						Fluent_Vec tmp_cond = m_nodes[nf]->action->pre();
+						for ( unsigned i = 0; i < m_nodes[nf]->eff_idx.size(); i++ ) {
+							if ( m_nodes[nf]->eff_idx[i] == 0 ) continue;
+							const CC_Problem::CC_Cond_Eff& ce = m_nodes[nf]->action->cond_effs()[  m_nodes[nf]->eff_idx[i]-1 ];
+							for ( auto it = ce.first.begin(); it != ce.first.end(); it++ )
+								tmp_cond.push_back( *it );	
+						}
+						std::vector<bool> mask( tmp_cond.size(), false );
+
+						for ( unsigned i = 0; i < tmp_cond.size(); i++ ) {
+							const Fluent_Conjunction& C_i = *(m_model.fluents()[tmp_cond[i]]);
+							bool dominated = false;
+							for ( unsigned j = 0; j < tmp_cond.size(); j++ ) {
+								if ( i == j || mask[j] ) continue;
+								const Fluent_Conjunction& C_j = *(m_model.fluents()[tmp_cond[j]]);
+								if ( C_i.in_set(C_j.fluents())) {
+									dominated = true;
+									mask[i] = true;
+									break;
+								}
+							}
+							if (!dominated) cond.push_back( tmp_cond[i] );
+						}
+
+					}
+					std::cout << "Checking whether action " << ak.signature() << " deletes precondition of ";
+					std::cout << ( nf == 0 ? "(GOAL)" : m_nodes[nf]->action->signature() ) << " which is " << std::endl;
+					for ( unsigned i = 0; i < cond.size(); i++ ) {
+						m_model.print_fluent( cond[i], std::cout );
+						if ( i < cond.size() -1 ) std::cout << ", ";
+					}
+					std::cout << std::endl;
 					Fluent_Vec deleted;
 					if ( !check_interference( ak.original().del_vec(), cond, deleted ) ) continue;
 					Fluent_Vec kl_path;
-					if ( !exists_path_between( k, l, kl_path ) ) {
+					if ( !exists_path_between( nd, nf, kl_path ) ) {
 						std::cout << "Type 2 Conflict: " << std::endl;
 						std::cout << ak.signature() << " is deleting prec. ";
 						for ( unsigned i = 0; i < deleted.size(); i++ ) {
 							m_model.print_fluent( deleted[i], std::cout );
 							if ( i < deleted.size() - 1 ) std::cout << ", ";
 						}
-						std::cout <<" of " << ( l == 0 ? "GOAL" : m_nodes[l]->action->signature() ) << std::endl;
-						for ( int i = m_nodes.size()-1; i >= 0; i-- ) {
-							if ( !m_valid[i] || i == k || i == l ) continue;
+						std::cout <<" of " << ( nf == 0 ? "GOAL" : m_nodes[nf]->action->signature() ) << std::endl;
+						unsigned min_rank = ( m_nodes[nd]->rank > m_nodes[nf]->rank ? m_nodes[nd]->rank : m_nodes[nf]->rank  );
+						for ( unsigned i = 0; i < valid_nodes.size(); i++ ) {
+							unsigned nj = valid_nodes[i];
+							if ( nj == nd || nj == nf || m_nodes[nj]->rank <= min_rank ) continue;
 							Fluent_Vec kpath, lpath;
-							if ( !exists_path_between( k, i, kpath ) ) continue;
-							if ( !exists_path_between( l, i, lpath ) ) continue;
-							for ( auto it = kpath.begin(); it != kpath.end(); it++ )
+							if ( !exists_path_between( nd, nj, kpath ) ) continue;
+							if ( !exists_path_between( nf, nj, lpath ) ) continue;
+							/*
+							for ( auto it = kpath.begin(); it != kpath.end(); it++ ) {
 								for ( auto it2 = lpath.begin(); it2 != lpath.end(); it2++ ) {
+									if ( *it == *it2 ) continue;
 									Fluent_Vec C;
 									C.push_back( *it );
 									C.push_back( *it2 );
+									std::cout << "Suggested flaw: ";
+									m_model.print_fluent( *it, std::cout );
+									std::cout << " & ";
+									m_model.print_fluent( *it2, std::cout );
+									std::cout << std::endl;
 									vec.push_back( C );
 								}
+							}
+							*/
+							if ( kpath.back() == lpath.back() ) continue;
+							std::cout << "Suggested flaw: ";
+							m_model.print_fluent( kpath.back(), std::cout );
+							std::cout << " & ";
+							m_model.print_fluent( lpath.back(), std::cout );
+							std::cout << std::endl;
+
+							Fluent_Vec C;
+							C.push_back( kpath.back() );
+							C.push_back( lpath.back() );
+							vec.push_back( C );
+							return;
 						}
 					}
 					else {
@@ -170,17 +290,34 @@ namespace agnostic {
 							m_model.print_fluent( deleted[i], std::cout );
 							if ( i < deleted.size() - 1 ) std::cout << ", ";
 						}
-						std::cout <<" of " << ( l == 0 ? "GOAL" : m_nodes[l]->action->signature() ) << std::endl;
+						std::cout <<" of " << ( nf == 0 ? "GOAL" : m_nodes[nf]->action->signature() ) << std::endl;
+						/*
 						for ( auto it = kl_path.begin(); it != kl_path.end(); it++ ) 
 							for (auto it2 = deleted.begin(); it2!= deleted.end(); it2++ ) {
+								if ( *it == *it2 ) continue;
 								Fluent_Vec C;
 								C.push_back( *it );
 								C.push_back( *it2 );
+								std::cout << "Suggested flaw: ";
+								m_model.print_fluent( *it, std::cout );
+								std::cout << " & ";
+								m_model.print_fluent( *it2, std::cout );
+								std::cout << std::endl;
 								vec.push_back( C );
 							}
-						Fluent_Vec C = deleted;
-						C.push_back( kl_path[0] );
+						*/
+						if ( kl_path.back() == deleted[0] ) continue;
+						Fluent_Vec C;
+						C.push_back( kl_path.back() );
+						C.push_back( deleted[0] );
+						std::cout << "Suggested flaw: ";
+						m_model.print_fluent( kl_path.back(), std::cout );
+						std::cout << " & ";
+						m_model.print_fluent( deleted[0], std::cout );
+						std::cout << std::endl;
 						vec.push_back( C );
+						
+						return;
 					}
 				}
 			}
@@ -290,6 +427,28 @@ namespace agnostic {
 		*/
 	protected:
 
+		void	topological_sort() {
+			typedef std::pair<unsigned, unsigned> bfs_node;
+			std::deque<bfs_node>	open;
+			for ( unsigned k = 0; k < m_nodes.size(); k++ ) {
+				if (!m_valid[k]) continue;
+				if ( m_adj_lists_in[k].empty() ) {
+					m_nodes[k]->rank = 0;
+					for ( auto it = m_adj_lists_out[k].begin(); it != m_adj_lists_out[k].end(); it++ )
+						open.push_back( std::make_pair((*it)->consumer, 1) );
+				}
+			}
+			
+			while ( !open.empty() ) {
+				bfs_node n = open.front();
+				open.pop_front();
+				if ( !m_valid[n.first] ) continue;
+				m_nodes[n.first]->rank = ( m_nodes[n.first]->rank < n.second ? n.second :  m_nodes[n.first]->rank  );
+				for ( auto it = m_adj_lists_out[n.first].begin(); it != m_adj_lists_out[n.first].end(); it++ )
+						open.push_back( std::make_pair((*it)->consumer, m_nodes[n.first]->rank + 1 ) );
+			}
+		}
+
 
 		void	update_pref_ops() {
 			m_pref_ops.clear();
@@ -349,7 +508,8 @@ namespace agnostic {
 		}
 
 		void	merge( unsigned from, unsigned into ) {
-			m_nodes[into]->eff_idx = 0;
+			for ( unsigned k = 0; k < m_nodes[from]->eff_idx.size(); k++ )
+				m_nodes[into]->eff_idx.push_back( m_nodes[from]->eff_idx[k] );
 			for ( auto it = m_adj_lists_out[from].begin();
 				it != m_adj_lists_out[from].end(); it++ ) {
 				if ( !m_valid[(*it)->consumer] ) continue;
@@ -495,13 +655,16 @@ namespace agnostic {
 				for ( auto it = ce.begin(); it != ce.end(); it++ )
 					precs.push_back( *it );
 			}
+			std::vector<bool> mask( precs.size(), false );
 			for ( unsigned k = 0; k < precs.size(); k++ ) {
 				const Fluent_Conjunction& C_k = *(m_model.fluents()[precs[k]]);
 				bool dominated = false;
-				for ( unsigned l = k + 1; l < precs.size(); l++ ) {
+				for ( unsigned l = 0; l < precs.size(); l++ ) {
+					if ( k == l || mask[l] ) continue;
 					const Fluent_Conjunction& C_l = *(m_model.fluents()[precs[l]]);
 					if ( C_k.in_set(C_l.fluents())) {
 						dominated = true;
+						mask[k] = true;
 						break;
 					}
 				}

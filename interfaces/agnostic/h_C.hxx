@@ -94,6 +94,10 @@ public:
 		eval( s, h_val );
 	}
 
+	float	eval( const Fluent_Vec& f ) const {
+		return eval_func( f.begin(), f.end() );
+	}
+
 	const Action*	best_supporter( unsigned f ) const {
 		if ( m_best_supporters[f].first == nullptr ) return nullptr;
 		return &(m_best_supporters[f].first->original());

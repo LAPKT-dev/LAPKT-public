@@ -170,6 +170,10 @@ int main( int argc, char** argv ) {
 		std::exit(1);
 	}
 
+	float time = 1800.0f;
+	if ( vm.count( "time" ) )
+		time = vm["time"].as<int>();
+
 	STRIPS_Problem	prob;
 
 	aptk::FF_Parser::get_problem_description( vm["domain"].as<std::string>(), vm["problem"].as<std::string>(), prob );
@@ -185,7 +189,7 @@ int main( int argc, char** argv ) {
 
 	Anytime_RWBFS_H_Add_Rp_Fwd wbfs_engine( search_prob, 5.0f, 0.75f);
 	wbfs_engine.set_schedule( 10, 5, 1 );
-	float time = vm["time"].as<int>();
+	
 	do_search( wbfs_engine, prob, time - 0.005f, "rwbfs-dq-mh.log" );
 
 	return 0;

@@ -65,9 +65,22 @@ namespace agnostic {
 	public:
 		
 		CC_Problem( const STRIPS_Problem& prob, const std::vector<Fluent_Vec>& conjs );
+		CC_Problem( const STRIPS_Problem& prob, const std::vector<Fluent_Conjunction*>& conjs );
+		template <typename Mutex_Table >
+		CC_Problem( const STRIPS_Problem& prob, const std::vector<Fluent_Conjunction*>& conjs, const Mutex_Table& mutexes ) 
+		: m_orig_prob( prob ) {
+			import_fluents_from_original();
+			for ( auto it = conjs.begin(); it != conjs.end(); it++ ) {
+				Fluent_Conjunction* fc = new Fluent_Conjunction( m_fluents.size(), (*it)->fluents() );
+				m_fluents.push_back( fc );
+				m_cfluents.push_back( m_fluents.back() );
+			}
+			make_actions();
+			compute_actions_closure(mutexes);
+			make_goal();		
+		}
 		CC_Problem( const STRIPS_Problem& prob, unsigned sz = 1 );
 		virtual ~CC_Problem();
-
 		unsigned		num_fluents() const  { return m_fluents.size(); }
 		unsigned		num_actions() const  { return m_actions.size(); }
 
@@ -84,11 +97,70 @@ namespace agnostic {
 					empty_prec_actions() const { return m_orig_prob.empty_prec_actions(); }
 	
 		void	print_fluent( unsigned p, std::ostream& os ) const;
+		void 	print_fluents( const Fluent_Vec& v, std::ostream& os ) const;
+		void	print_fluents( std::ostream& os ) const;
+		void	print_actions( std::ostream& os ) const;
 
 		const std::vector<unsigned>&	requiring( unsigned p) const { return m_requiring[p]; }
 
+		void  filter_subsumed( const std::vector<Fluent_Vec>& conjs, std::vector<Fluent_Conjunction*>& filtered ) const;
+		void  filter_subsumed( const std::vector<Fluent_Vec>& conjs, std::vector<Fluent_Vec>& filtered ) const;
+
+		Fluent_Conjunction*  	subsumed( const Fluent_Vec& ) const;
+		bool  			subsumed( const Fluent_Conjunction& fc ) const ;
+		void			flatten( const Fluent_Vec&, Fluent_Vec& ) const;
+		bool			subsumed_flat( const Fluent_Vec& C ) const;
+
+		template <typename Mutex_Table >
+		void	compute_actions_closure( const Mutex_Table& mutex_table ) {
+			for ( unsigned c = m_orig_prob.num_fluents(); c < num_fluents(); c++ ) {
+				Fluent_Conjunction& pc = *(m_fluents[c]);
+				for ( unsigned a = 0; a < m_actions.size(); a++ ) {
+					CC_Action& act = *(m_actions[a]);
+					if ( pc.in_set( act.pre() ) ) {
+						//std::cout << "Conjunction ";
+						//print_fluent( c, std::cout );
+						//std::cout << " added to precondition of " << act.signature() << std::endl;
+						act.add_new_pre( c );
+						m_requiring[c].push_back( a );
+					}
+					if ( pc.in_set( act.add() ) ) {
+						//std::cout << "Conjunction ";
+						//print_fluent( c, std::cout );
+						//std::cout << " added to add(a) of " << act.signature() << std::endl;
+						act.add_new_eff( c );
+					}
+					if ( 	pc.intersects( act.original().add_vec() ) 
+						&& !pc.intersects( act.original().del_vec() ) ) {
+						//if ( !mutex_table.is_mutex( flat_pc ) ) {
+							Fluent_Vec cond, eff;
+						
+							cond = act.original().prec_vec();
+							for ( auto fl_it = pc.fluents().begin(); fl_it != pc.fluents().end(); fl_it++ )
+								if ( std::find( act.original().add_vec().begin(), act.original().add_vec().end(), *fl_it ) == act.original().add_vec().end() )
+									cond.push_back( *fl_it );
+							Fluent_Vec flat_pc;
+							flatten( cond, flat_pc );
+							if ( !mutex_table.is_mutex( flat_pc ) ) {
+
+								for ( unsigned c2 = m_orig_prob.num_fluents(); c2 < num_fluents(); c2++ ) {
+									Fluent_Conjunction& pc2 = *(m_fluents[c2]);
+									if ( pc2.in_set(cond) )
+										cond.push_back(c2);								
+								}
+								//std::cout << "Conjunction ";
+								//print_fluent( c, std::cout );
+								//std::cout << " added to conditional effect of " << act.signature() << std::endl;
+								eff.push_back( c );
+								act.add_new_cond_eff( cond, eff );
+							}
+					}	
+				}	
+			}
+		}
+
+
 	protected: 
-		bool		subsumed( const Fluent_Conjunction& fc );
 		void 		import_fluents_from_original();	
 		void 		enumerate_binary_conjunctions();
 		void		compute_actions_closure();

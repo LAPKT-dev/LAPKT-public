@@ -61,6 +61,8 @@ public:
   
         bool operator==(const State &a) const;
 
+	void	print( std::ofstream& os ) const;
+
 protected:
 
 	Fluent_Vec			m_fluent_vec;
