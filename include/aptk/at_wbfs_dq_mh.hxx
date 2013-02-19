@@ -66,13 +66,13 @@ public:
 			State *succ = this->problem().next( *(head->state()), a );
 			Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
 
-			if ( is_closed( n ) ) {
+			if ( this->is_closed( n ) ) {
 				delete n;
 				a = it.next();
 				continue;
 			}
 
-			if( is_open(n) ) {
+			if( this->is_open(n) ) {
 				delete n;
 				a = it.next();
 				continue;
@@ -82,7 +82,7 @@ public:
 			n->h2n() = head->h2n();
 			n->fn() = m_W * n->h1n() + n->gn();
 
-			open_node(n, head->is_po_1(a), head->is_po_2(a));	
+			this->open_node(n, head->is_po_1(a), head->is_po_2(a));	
 
 			a = it.next();	
 		} 

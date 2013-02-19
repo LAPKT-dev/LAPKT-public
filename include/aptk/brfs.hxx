@@ -18,12 +18,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __ANYTIME_SINGLE_QUEUE_SINGLE_HEURISTIC_BEST_FIRST_SEARCH__
-#define __ANYTIME_SINGLE_QUEUE_SINGLE_HEURISTIC_BEST_FIRST_SEARCH__
+#ifndef __BREADTH_FIRST_SEARCH__
+#define __BREADTH_FIRST_SEARCH__
 
 #include <aptk/search_prob.hxx>
 #include <aptk/resources_control.hxx>
 #include <aptk/closed_list.hxx>
+
+#include <queue>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -32,7 +34,7 @@ namespace aptk {
 
 namespace search {
 
-namespace bfs {
+namespace brfs {
 
 template <typename State>
 class Node {
@@ -40,27 +42,43 @@ public:
 
 	typedef State State_Type;
 
-	Node( State* s, float cost, Action_Idx action, Node<State>* parent ) 
+	Node( State* s, Action_Idx action, Node<State>* parent ) 
 	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ) {
-		m_g = ( parent ? parent->m_g + cost : 0.0f);
+		m_g = ( parent ? parent->m_g + 1 : 1);
 	}
 	
 	virtual ~Node() {
 		if ( m_state != NULL ) delete m_state;
 	}
 
-	float&			hn()		{ return m_h; }
-	float			hn() const 	{ return m_h; }
-	float&			gn()		{ return m_g; }			
-	float			gn() const 	{ return m_g; }
-	float&			fn()		{ return m_f; }
-	float			fn() const	{ return m_f; }
+	unsigned&      		gn()		{ return m_g; }			
+	unsigned       		gn() const 	{ return m_g; }
 	Node<State>*		parent()   	{ return m_parent; }
 	Action_Idx		action() const 	{ return m_action; }
 	State*			state()		{ return m_state; }
+	void			set_state( State* s )	{  m_state = s; }
 	const State&		state() const 	{ return *m_state; }
 	void			print( std::ostream& os ) const {
-		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = " << m_g << ", h(n) = " << m_h << ", f(n) = " << m_f << "}";
+		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = " << m_g  << "}";
+	}
+	
+	size_t                  hash() const { return m_state->hash(); }
+
+	bool   	operator==( const Node<State>& o ) const {
+		
+		if( &(o.state()) != NULL && &(state()) != NULL)
+			return (const State&)(o.state()) == (const State&)(state());
+		/**
+		 * Lazy
+		 */
+		if  ( m_parent == NULL ) {
+			if ( o.m_parent == NULL ) return true;
+			return false;
+		}
+	
+		if ( o.m_parent == NULL ) return false;
+		
+		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
 	}
 
 public:
@@ -69,85 +87,67 @@ public:
 	Node<State>*	m_parent;
 	float		m_h;
 	Action_Idx	m_action;
-	float		m_g;
-	float		m_f;
+	unsigned       	m_g;
+
 };
 
-
-// Anytime best-first search, with one single open list and one single
-// heuristic estimator, with delayed evaluation of states generated
-template <typename Search_Model, typename Abstract_Heuristic, typename Open_List_Type >
-class AT_BFS_SQ_SH {
+template <typename Search_Model>
+class BRFS {
 
 public:
 
 	typedef		typename Search_Model::State_Type		State;
 	typedef  	Node< State >					Search_Node;
-	typedef 	Closed_List< Search_Node >			Closed_List_Type;
+	typedef 	Closed_List< Search_Node >      		Closed_List_Type;
 
-	AT_BFS_SQ_SH( 	const Search_Model& search_problem ) 
-	: m_problem( search_problem ), m_heuristic_func(NULL), 
-	m_exp_count(0), m_gen_count(0), m_pruned_B_count(0), m_dead_end_count(0), m_open_repl_count(0),
-	m_B( infty ), m_time_budget(infty) {
-		m_heuristic_func = new Abstract_Heuristic( search_problem );
+	BRFS( 	const Search_Model& search_problem ) 
+	: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_cl_count(0){		
 	}
 
-	virtual ~AT_BFS_SQ_SH() {
+	virtual ~BRFS() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
 			i != m_closed.end(); i++ ) {
 			delete i->second;
 		}
+		
 		while	(!m_open.empty() ) 
 		{	
-			Search_Node* n = m_open.pop();
+			Search_Node* n = m_open.front();
+			m_open.pop();
 			delete n;
 		}
+		
 		m_closed.clear();
 		m_open_hash.clear();
-		delete m_heuristic_func;
 	}
 
 	void	start() {
-		m_B = infty;
-		m_root = new Search_Node( m_problem.init(), 0.0f, no_op, NULL );	
-		eval(m_root);
-		#ifdef DEBUG
+		
+		m_root = new Search_Node( m_problem.init(), no_op, NULL );	
+#ifdef DEBUG
 		std::cout << "Initial search node: ";
 		m_root->print(std::cout);
 		std::cout << std::endl;
-		#endif 
-		m_open.insert( m_root );
+#endif 
+		m_open.push( m_root );
 		m_open_hash.put( m_root );
 		inc_gen();
 	}
 
 	bool	find_solution( float& cost, std::vector<Action_Idx>& plan ) {
-		m_t0 = time_used();
 		Search_Node* end = do_search();
 		if ( end == NULL ) return false;
 		extract_plan( m_root, end, plan, cost );	
 		
 		return true;
 	}
-
-	float			bound() const			{ return m_B; }
-	void			set_bound( float v ) 		{ m_B = v; }
-
 	void			inc_gen()			{ m_gen_count++; }
 	unsigned		generated() const		{ return m_gen_count; }
-	void			inc_eval()			{ m_exp_count++; }
+	void			inc_exp()			{ m_exp_count++; }
 	unsigned		expanded() const		{ return m_exp_count; }
-	void			inc_pruned_bound() 		{ m_pruned_B_count++; }
-	unsigned		pruned_by_bound() const		{ return m_pruned_B_count; }
-	void			inc_dead_end()			{ m_dead_end_count++; }
-	unsigned		dead_ends() const		{ return m_dead_end_count; }
-	void			inc_replaced_open()		{ m_open_repl_count++; }
-	unsigned		open_repl() const		{ return m_open_repl_count; }
 
-	void			set_budget( float v ) 		{ m_time_budget = v; }
-	float			time_budget() const		{ return m_time_budget; }
-
-	float			t0() const			{ return m_t0; }
+	void			inc_closed()			{ m_cl_count++; }
+	unsigned		pruned_closed() const		{ return m_cl_count; }
 
 	void 			close( Search_Node* n ) 	{  m_closed.put(n); }
 	Closed_List_Type&	closed() 			{ return m_closed; }
@@ -155,94 +155,70 @@ public:
 
 	const	Search_Model&	problem() const			{ return m_problem; }
 
-	void			eval( Search_Node* candidate ) {
-		m_heuristic_func->eval( *(candidate->state()), candidate->hn() );
-	}
-
 	bool 		is_closed( Search_Node* n ) 	{ 
 		Search_Node* n2 = this->closed().retrieve(n);
 
-		if ( n2 != NULL ) {
-			if ( n2->gn() <= n->gn() ) {
-				// The node we generated is a worse path than
-				// the one we already found
-				return true;
-			}
-			// Otherwise, we put it into Open and remove
-			// n2 from closed
-			this->closed().erase( this->closed().retrieve_iterator( n2 ) );
-		}
+		if ( n2 != NULL ) 
+			return true;
+		
 		return false;
 	}
 
 	Search_Node* 		get_node() {
 		Search_Node *next = NULL;
 		if(! m_open.empty() ) {
-			next = m_open.pop();
+			next = m_open.front();
+			m_open.pop();
 			m_open_hash.erase( m_open_hash.retrieve_iterator( next) );
 		}
 		return next;
 	}
 
-	void	 	open_node( Search_Node *n ) {
-		if(n->hn() == infty ) {
-			close(n);
-			inc_dead_end();
-		}
-		else {
-			m_open.insert(n);
-			m_open_hash.put(n);
-		}
+	void	 	open_node( Search_Node *n ) {		
+		m_open.push(n);
+		m_open_hash.put(n);
 		inc_gen();
 	}
 
-	virtual void 			process(  Search_Node *head ) {
+	virtual Search_Node*   process(  Search_Node *head ) {
 		typedef typename Search_Model::Action_Iterator Iterator;
 		Iterator it( this->problem() );
+		
 		int a = it.start( *(head->state()) );
-		while ( a != no_op ) {		
-			State *succ = m_problem.next( *(head->state()), a );
-			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head );
+		while ( a != no_op ) {	
+			State *succ =  m_problem.next( *(head->state()), a ) ;			
+			Search_Node* n = new Search_Node( succ, a, head );
+			
 			if ( is_closed( n ) ) {
 				delete n;
 				a = it.next();
+				inc_closed();
 				continue;
 			}
-			n->hn() = head->hn();
-			n->fn() = n->hn() + n->gn();
 			if( previously_hashed(n) ) {
+				inc_closed();
 				delete n;
 			}
-			else 
-				open_node(n);	
+			else{
+				open_node(n);			       
+				if(m_problem.goal(*(n->state())))
+					return n;
+				
+			}
 			a = it.next();		
 		} 
-		inc_eval();
+		inc_exp();
+		
+		return NULL;
 	}
 
 	virtual Search_Node*	 	do_search() {
 		Search_Node *head = get_node();
 		int counter =0;
-		while(head) {
-			if ( head->gn() >= bound() )  {
-				inc_pruned_bound();
-				close(head);
-				head = get_node();
-				continue;
-			}
-
-			if(m_problem.goal(*(head->state()))) {
-				close(head);
-				set_bound( head->gn() );	
-				return head;
-			}
-			if ( (time_used() - m_t0 ) > m_time_budget )
-				return NULL;
-	
-			eval( head );
-
-			process(head);
+		while(head) {	
+			Search_Node* goal = process(head);
 			close(head);
+			if( goal ) return goal;
 			counter++;
 			head = get_node();
 		}
@@ -250,21 +226,11 @@ public:
 	}
 
 	virtual bool 			previously_hashed( Search_Node *n ) {
-		Search_Node *previous_copy = NULL;
+		Search_Node *previous_copy = m_open_hash.retrieve(n);
 
-		if( (previous_copy = m_open_hash.retrieve(n)) ) {
-			
-			if(n->gn() < previous_copy->gn())
-			{
-				previous_copy->m_parent = n->m_parent;
-				previous_copy->m_action = n->m_action;
-				previous_copy->m_g = n->m_g;
-				previous_copy->m_f = previous_copy->m_h + previous_copy->m_g;
-				inc_replaced_open();
-			}
+		if( previous_copy != NULL ) 
 			return true;
-		}
-
+		
 		return false;
 	}
 
@@ -295,17 +261,11 @@ protected:
 protected:
 
 	const Search_Model&			m_problem;
-	Abstract_Heuristic*			m_heuristic_func;
-	Open_List_Type				m_open;
+	std::queue<Search_Node*>		m_open;
 	Closed_List_Type			m_closed, m_open_hash;
 	unsigned				m_exp_count;
 	unsigned				m_gen_count;
-	unsigned				m_pruned_B_count;
-	unsigned				m_dead_end_count;
-	unsigned				m_open_repl_count;
-	float					m_B;
-	float					m_time_budget;
-	float					m_t0;
+	unsigned				m_cl_count;
 	Search_Node*				m_root;
 	std::vector<Action_Idx> 		m_app_set;
 };
@@ -316,4 +276,4 @@ protected:
 
 }
 
-#endif // at_bfs_sq_sh.hxx
+#endif // brfs.hxx

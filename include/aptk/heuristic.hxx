@@ -44,6 +44,8 @@ public:
 	virtual void eval( const State& s, float& h_val ) = 0;
 	
 	virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops ) = 0;
+	template <class Node >
+	void eval( const Node& n, float& h_val ) { eval( n.state(), h_val ); }
 
 	const Search_Problem<State>&	problem() const { return m_problem; }
 

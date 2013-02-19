@@ -56,6 +56,20 @@ inline bool dequal(float f1, float f2)
 }
 
 
+template <typename T>
+T pow( T a, unsigned b )
+{
+        T result = 1;
+        while (b){
+                if (b & 1)
+                        result *= a;
+                b >>= 1;
+                a *= a;
+        }
+        return result;
+}
+
+
 
 }
 

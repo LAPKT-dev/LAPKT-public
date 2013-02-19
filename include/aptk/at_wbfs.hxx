@@ -114,7 +114,7 @@ public:
 	virtual bool 			previously_hashed( Search_Node *n ) {
 		Search_Node *previous_copy = NULL;
 
-		if( (previous_copy = m_open_hash.retrieve(n)) ) {
+		if( (previous_copy = this->open_hash().retrieve(n)) ) {
 			
 			if(n->gn() < previous_copy->gn())
 			{
@@ -122,7 +122,7 @@ public:
 				previous_copy->m_action = n->m_action;
 				previous_copy->m_g = n->m_g;
 				previous_copy->m_f = m_W * previous_copy->m_h + previous_copy->m_g;
-				inc_replaced_open();
+				this->inc_replaced_open();
 			}
 			return true;
 		}

@@ -54,6 +54,7 @@ public:
 	void	update_hash();
 
 	State*	progress_through( const Action& a ) const;
+
 	State*	regress_through( const Action& a ) const;
 
 	const STRIPS_Problem&		problem() const;
@@ -142,6 +143,7 @@ inline bool	State::entails( const State& s ) const
 }
 
 inline std::ostream& operator<<(std::ostream &os, State &s);
+inline std::ostream& operator<<(std::ostream &os, const State &s);
 
 
 inline bool	State::entails( const Fluent_Vec& fv ) const
@@ -163,6 +165,16 @@ inline bool	State::entails( const Fluent_Vec& fv, unsigned& num_unsat ) const
 }
 
 inline std::ostream& operator<<(std::ostream &os, State &s) {
+  for(unsigned i = 0; i < s.fluent_vec().size(); i++) {
+    os << s.problem().fluents()[s.fluent_vec()[i]]->signature();
+    os << ", ";
+  }
+  os << std::endl;
+  return os;
+}
+
+
+inline std::ostream& operator<<(std::ostream &os, const State &s) {
   for(unsigned i = 0; i < s.fluent_vec().size(); i++) {
     os << s.problem().fluents()[s.fluent_vec()[i]]->signature();
     os << ", ";

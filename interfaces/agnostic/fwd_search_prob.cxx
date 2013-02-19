@@ -56,6 +56,17 @@ bool	Fwd_Search_Problem::goal( const State& s ) const {
 	return s.entails( task().goal() );
 }
 
+bool	Fwd_Search_Problem::lazy_goal( const State& s, Action_Idx a  ) const {
+
+	const Action& act = *(task().actions().at(a));
+	const Fluent_Vec& g = task().goal();
+	for ( unsigned i = 0; i < g.size(); i++ )
+		if ( !s.fluent_set().isset(g[i]) && ( !act.asserts(g[i]) || act.retracts(g[i])) ) {
+			return false;
+		}
+	return true;
+}
+
 bool	Fwd_Search_Problem::is_applicable( const State& s, Action_Idx a ) const {
 
 	const Action& act = *(task().actions().at(a));
@@ -77,6 +88,7 @@ State*	Fwd_Search_Problem::next( const State& s, Action_Idx a ) const {
 	succ->update_hash();
 	return succ;
 }
+
 
 void	Fwd_Search_Problem::print( std::ostream& os ) const {
 	task().print( os );
