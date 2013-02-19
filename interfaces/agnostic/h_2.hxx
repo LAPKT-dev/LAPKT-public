@@ -112,6 +112,10 @@ public:
 		return eval(s) == infty;
 	}
 
+	bool	is_mutex( unsigned p, unsigned q ) const {
+		return value( p, q ) == infty;
+	}
+
 	float eval( const Fluent_Vec& s, unsigned p ) const {
 		float v = 0;
 		for ( unsigned k = 0; k < s.size(); k++ )
