@@ -18,7 +18,36 @@ namespace agnostic {
 	CC_Problem::CC_Action::~CC_Action() {
 	}
 
-	void	CC_Problem::filter_subsumed( const std::vector<Fluent_Vec>& conjs, std::vector<Fluent_Conjunction*>& filtered ) {
+	void CC_Problem::flatten( const Fluent_Vec& c, Fluent_Vec& flattened) const {
+		for ( auto i = c.begin(); i != c.end(); i++ ) {
+			for ( auto j = m_fluents[*i]->fluents().begin();
+				j != m_fluents[*i]->fluents().end(); j++ )
+				flattened.push_back( *j );
+		}
+	
+	}
+
+	bool	CC_Problem::subsumed_flat( const Fluent_Vec& c ) const {
+		Fluent_Conjunction* fc = new Fluent_Conjunction( 0, c );
+		if ( subsumed( *fc ) ) {
+			delete fc;	
+			return false;
+		}
+		return true;
+	}
+
+	Fluent_Conjunction*	CC_Problem::subsumed( const Fluent_Vec& c ) const {
+		Fluent_Vec flattened;
+		flatten( c, flattened );
+		Fluent_Conjunction* fc = new Fluent_Conjunction( 0, flattened );
+		if ( subsumed( *fc ) ) {
+			delete fc;	
+			return nullptr;
+		}
+		return fc;
+	}
+
+	void	CC_Problem::filter_subsumed( const std::vector<Fluent_Vec>& conjs, std::vector<Fluent_Conjunction*>& filtered ) const {
 		std::vector<Fluent_Conjunction*> pre_filtered;
 		for ( auto it = conjs.begin(); it != conjs.end(); it++ ) {
 			Fluent_Vec primitive;
@@ -49,6 +78,42 @@ namespace agnostic {
 			}
 			if ( !subsumed ) 
 				filtered.push_back( new Fluent_Conjunction( 0, pre_filtered[k]->fluents() ) );
+		}
+		for ( auto it = pre_filtered.begin(); it != pre_filtered.end(); it++ )
+			delete (*it);
+	}
+
+	void	CC_Problem::filter_subsumed( const std::vector<Fluent_Vec>& conjs, std::vector<Fluent_Vec>& filtered ) const {
+		std::vector<Fluent_Conjunction*> pre_filtered;
+		for ( auto it = conjs.begin(); it != conjs.end(); it++ ) {
+			Fluent_Vec primitive;
+			for ( auto it2 = it->begin(); it2 != it->end(); it2++ ) {
+				for ( auto it3 = m_fluents[*it2]->fluents().begin();
+					it3 != m_fluents[*it2]->fluents().end(); it3++ )
+					primitive.push_back( *it3 );
+			}
+			
+			Fluent_Conjunction* fc = new Fluent_Conjunction( 0, primitive );
+			if ( subsumed( *fc ) ) {
+				delete fc;
+				continue;
+			}	
+			pre_filtered.push_back( fc );
+		}
+		std::vector<bool> mask( pre_filtered.size(), false );
+
+		for ( unsigned k = 0; k < pre_filtered.size(); k++ ) {
+			bool subsumed = false;
+			for ( unsigned l = 0; l < pre_filtered.size(); l++ ) {
+				if ( l == k || mask[l] ) continue;
+				if ( pre_filtered[k]->in_set( pre_filtered[l]->fluents() ) ) {
+					subsumed = true;
+					mask[k] = true;
+					break;
+				}
+			}
+			if ( !subsumed ) 
+				filtered.push_back(  pre_filtered[k]->fluents() );
 		}
 		for ( auto it = pre_filtered.begin(); it != pre_filtered.end(); it++ )
 			delete (*it);
@@ -101,11 +166,18 @@ namespace agnostic {
 		}
 	}
 
-	bool	CC_Problem::subsumed( const Fluent_Conjunction& fc ) {
-		if ( fc.singleton() ) return true;
+	bool	CC_Problem::subsumed( const Fluent_Conjunction& fc ) const {
+		if ( fc.singleton() ) {
+			//std::cout << "Subsumed: Singleton" << std::endl;
+			return true;
+		}
 		for ( unsigned p = m_orig_prob.num_fluents(); p < m_fluents.size(); p++ )
-			if ( fc.in_set( m_fluents[p]->fluents() ) )
+			if ( fc.in_set( m_fluents[p]->fluents() ) ) {
+				//std::cout << "Subsumed by ";
+				//print_fluent( p, std::cout );
+				//std::cout << std::endl;
 				return true;
+			}
 		return false;
 	}
 
@@ -161,7 +233,8 @@ namespace agnostic {
 					//std::cout << " added to add(a) of " << act.signature() << std::endl;
 					act.add_new_eff( c );
 				}
-				if ( pc.intersects( act.original().add_vec() ) && !pc.intersects( act.original().del_vec() ) ) {
+				if ( 	pc.intersects( act.original().add_vec() ) 
+					&& !pc.intersects( act.original().del_vec() ) ) {
 					Fluent_Vec cond, eff;
 					
 					cond = act.original().prec_vec();
@@ -230,17 +303,58 @@ namespace agnostic {
 	void	CC_Problem::print_fluent( unsigned p, std::ostream& os ) const {
 		const Fluent_Conjunction& C = *(fluents()[p]);
 		if ( C.singleton() ) {
-			os << "[" << m_orig_prob.fluents()[C.fluents()[0]]->signature() << "]";
+			os << m_orig_prob.fluents()[C.fluents()[0]]->signature();
 			return;
 		}
-		os << "[";
+		os << "(";
 		for ( unsigned i = 0; i < C.fluents().size(); i++ ) {
 			print_fluent( C.fluents()[i], os );
 			if ( i < C.fluents().size() - 1 )
-				os << ", ";
+				os << " & ";
 		}
-		os << "]";
+		os << ")";
 		
+	}
+
+	void	CC_Problem::print_fluents( std::ostream& os ) const {
+		for ( unsigned i =0; i < m_fluents.size(); i++ ) {
+			os << i + 1 << ". ";
+			print_fluent( i, os );
+			os << std::endl;
+		}
+	}
+
+	void	CC_Problem::print_fluents( const Fluent_Vec& v, std::ostream& os ) const {
+		for ( unsigned i = 0; i < v.size(); i++ ) {
+			print_fluent( v[i], os );
+			if ( i < v.size() - 1 ) os << ", ";
+		}	
+	}
+
+	void	CC_Problem::print_actions( std::ostream& os ) const {
+		for ( auto a = m_cactions.begin(); a != m_cactions.end(); a++ ) {
+			os << (*a)->signature() << "{" << std::endl;
+			os << "\tPre:" << std::endl;
+			os << "\t\t";
+			print_fluents( (*a)->pre(), os );
+			os << std::endl;
+			os << "\tAdd:" << std::endl;
+			os << "\t\t";
+			print_fluents( (*a)->add(), os );
+			os << std::endl;
+			os << "\tConditional Effects:";
+			for ( auto ce = (*a)->cond_effs().begin(); ce != (*a)->cond_effs().end(); ce++ ) {
+				os << "\t\tCondition:" << std::endl;
+				os << "\t\t\t";
+				print_fluents( ce->first, os );
+				os << std::endl;
+				os << "\t\tEffect:" << std::endl;				
+				os << "\t\t\t";
+				print_fluents( ce->second, os );
+				os << std::endl;
+			}
+			os << "}" << std::endl;
+		}
 	}
 }
 
