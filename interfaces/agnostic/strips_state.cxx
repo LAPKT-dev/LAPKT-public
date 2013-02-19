@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <action.hxx>
 #include <fluent.hxx>
 #include <aptk/hash_table.hxx>
+#include <fstream>
 
 namespace aptk
 {
@@ -128,6 +129,14 @@ State* State::regress_through( const Action& a ) const
 	}
 
 	return succ;
+}
+
+void	State::print( std::ofstream& os ) const {
+	os << "(:init" << std::endl;
+	for ( auto p = m_fluent_vec.begin(); p != m_fluent_vec.end(); p++ ) {
+		os << m_problem.fluents()[*p]->signature() << std::endl;
+	}
+	os << ")" << std::endl;
 }
 
 }
