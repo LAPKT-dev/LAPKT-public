@@ -7,3 +7,5 @@
 
 * Support for Lazy Node Generation
 	-> This prevents from checking for duplicates in OPEN
+
+* Prune actions with unreachable preconditions (in ff-wrapped) via simple reachability (h1)
