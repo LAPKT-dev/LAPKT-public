@@ -62,9 +62,12 @@ template < class Node_Comp, class Node >
 class Open_List
 {
 
-        std::priority_queue< Node*, std::vector< Node* >, Node_Comp > m_queue;
+        
 	//std::priority< Node, std::vector< Node >, Node_Comp > m_queue;
 public:
+
+	typedef	Node		Node_Type;
+
 	Open_List();
 	~Open_List();
 
@@ -73,6 +76,10 @@ public:
 	bool		empty() const;
 	float		min() const;
 	void		clear();
+
+private:
+
+	std::priority_queue< Node*, std::vector< Node* >, Node_Comp > m_queue;
 };
 
 template < class Node_Comp, class Node >
@@ -130,6 +137,9 @@ class Fibonacci_Open_List
 					Node*,
 					boost::heap::compare<Node_Comp> > m_queue;
 public:
+
+	typedef	Node		Node_Type;
+
 	Fibonacci_Open_List();
 	~Fibonacci_Open_List();
 

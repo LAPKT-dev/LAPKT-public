@@ -77,6 +77,25 @@ public:
 		os << m_g << ", h1(n) = " << m_h1 << ", h2(n) = " << m_h2 << ", f(n) = " << m_f << "}";
 	}
 
+	bool   	operator==( const Node<State>& o ) const {
+		
+		if( &(o.state()) != NULL && &(state()) != NULL)
+			return (const State&)(o.state()) == (const State&)(state());
+		/**
+		 * Lazy
+		 */
+		if  ( m_parent == NULL ) {
+			if ( o.m_parent == NULL ) return true;
+			return false;
+		}
+	
+		if ( o.m_parent == NULL ) return false;
+		
+		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
+	}
+
+	size_t                  hash() const { return m_state->hash(); }
+
 public:
 
 	State*		m_state;
@@ -177,8 +196,8 @@ class AT_BFS_DQ_MH {
 
 public:
 
-	typedef		typename Search_Model::State_Type		State;
-	typedef  	Node< State >					Search_Node;
+	typedef	typename Search_Model::State_Type		State;
+	typedef  	typename Open_List_Type::Node_Type		Search_Node;
 	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
 	AT_BFS_DQ_MH( 	const Search_Model& search_problem ) 

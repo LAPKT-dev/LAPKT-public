@@ -22,7 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <action.hxx>
 #include <fluent.hxx>
 #include <aptk/hash_table.hxx>
-#include <fstream>
+#include <iostream>
+#include <cassert>
 
 namespace aptk
 {
@@ -42,10 +43,34 @@ void	State::update_hash() {
 	m_hash = (size_t)hasher;	
 }
 
+State* State::progress_through_df( const Action& a ) const
+{
+	assert( a.can_be_applied_on(*this) );
+
+	State* succ = new State( problem() );
+
+
+	succ->set( fluent_vec() );
+	succ->set( a.add_vec() );
+
+	//Add Conditional Effects
+	if( !a.ceff_vec().empty() )
+	{		
+		for( unsigned i = 0; i < a.ceff_vec().size(); i++ )
+		{
+			Conditional_Effect* ce = a.ceff_vec()[i];
+			if( ce->can_be_applied_on( *this ) )
+				succ->set( ce->add_vec() );
+		}
+	}
+
+	return succ;
+}
+
+
 State* State::progress_through( const Action& a ) const
 {
-	if ( !a.can_be_applied_on(*this) )
-		return NULL;
+	assert( a.can_be_applied_on(*this) );
 	State* succ = new State( problem() );
 	for ( unsigned k = 0; k < m_fluent_vec.size(); k++ ) 
 	{
@@ -131,7 +156,7 @@ State* State::regress_through( const Action& a ) const
 	return succ;
 }
 
-void	State::print( std::ofstream& os ) const {
+void	State::print( std::ostream& os ) const {
 	os << "(:init" << std::endl;
 	for ( auto p = m_fluent_vec.begin(); p != m_fluent_vec.end(); p++ ) {
 		os << m_problem.fluents()[*p]->signature() << std::endl;

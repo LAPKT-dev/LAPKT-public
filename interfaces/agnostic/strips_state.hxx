@@ -55,13 +55,15 @@ public:
 
 	State*	progress_through( const Action& a ) const;
 
+	State*	progress_through_df( const Action& a ) const;
+
 	State*	regress_through( const Action& a ) const;
 
 	const STRIPS_Problem&		problem() const;
   
         bool operator==(const State &a) const;
 
-	void	print( std::ofstream& os ) const;
+	void	print( std::ostream& os ) const;
 
 protected:
 

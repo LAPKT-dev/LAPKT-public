@@ -127,7 +127,7 @@ public:
 					if ( lhs == *(n->state()) ) return range.second;
 				}
 				else{
-					const State& lhs = *(range.second->second);
+					const Node& lhs = *(range.second->second);
 					if ( lhs == *n ) return range.second;
 				}
 			}

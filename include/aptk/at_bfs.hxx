@@ -63,6 +63,25 @@ public:
 		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = " << m_g << ", h(n) = " << m_h << ", f(n) = " << m_f << "}";
 	}
 
+	bool   	operator==( const Node<State>& o ) const {
+		
+		if( &(o.state()) != NULL && &(state()) != NULL)
+			return (const State&)(o.state()) == (const State&)(state());
+		/**
+		 * Lazy
+		 */
+		if  ( m_parent == NULL ) {
+			if ( o.m_parent == NULL ) return true;
+			return false;
+		}
+	
+		if ( o.m_parent == NULL ) return false;
+		
+		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
+	}
+
+	size_t                  hash() const { return m_state->hash(); }
+
 public:
 
 	State*		m_state;
@@ -81,8 +100,8 @@ class AT_BFS_SQ_SH {
 
 public:
 
-	typedef		typename Search_Model::State_Type		State;
-	typedef  	Node< State >					Search_Node;
+	typedef	typename Search_Model::State_Type		State;
+	typedef  	typename Open_List_Type::Node_Type		Search_Node;
 	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
 	AT_BFS_SQ_SH( 	const Search_Model& search_problem ) 
@@ -114,6 +133,8 @@ public:
 		#ifdef DEBUG
 		std::cout << "Initial search node: ";
 		m_root->print(std::cout);
+		std::cout << std::endl;
+		m_root->state()->print( std::cout );
 		std::cout << std::endl;
 		#endif 
 		m_open.insert( m_root );
@@ -197,13 +218,31 @@ public:
 	}
 
 	virtual void 			process(  Search_Node *head ) {
+		#ifdef DEBUG
+		std::cout << "Expanding:" << std::endl;
+		head->print(std::cout);
+		std::cout << std::endl;
+		head->state()->print( std::cout );
+		std::cout << std::endl;
+		#endif
 		typedef typename Search_Model::Action_Iterator Iterator;
 		Iterator it( this->problem() );
 		int a = it.start( *(head->state()) );
 		while ( a != no_op ) {		
 			State *succ = m_problem.next( *(head->state()), a );
 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head );
+			#ifdef DEBUG
+			std::cout << "Successor:" << std::endl;
+			n->print(std::cout);
+			std::cout << std::endl;
+			n->state()->print( std::cout );
+			std::cout << std::endl;
+			#endif
+
 			if ( is_closed( n ) ) {
+				#ifdef DEBUG
+				std::cout << "Already in CLOSED" << std::endl;
+				#endif
 				delete n;
 				a = it.next();
 				continue;
@@ -211,10 +250,17 @@ public:
 			n->hn() = head->hn();
 			n->fn() = n->hn() + n->gn();
 			if( previously_hashed(n) ) {
+				#ifdef DEBUG
+				std::cout << "Already in OPEN" << std::endl;
+				#endif
 				delete n;
 			}
-			else 
+			else {
+				#ifdef DEBUG
+				std::cout << "Inserted into OPEN" << std::endl;
+				#endif
 				open_node(n);	
+			}
 			a = it.next();		
 		} 
 		inc_eval();
