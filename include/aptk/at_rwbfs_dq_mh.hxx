@@ -95,7 +95,7 @@ public:
 			State *succ = this->problem().next( *(head->state()), a );
 			Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
 
-			if ( is_closed( n ) ) {
+			if ( this->is_closed( n ) ) {
 				delete n;
 				a = it.next();
 				continue;
@@ -173,7 +173,7 @@ public:
 			m_seen.put(head);
 			head = this->get_node();
 		}
-		open_node( this->root(), false, false );
+		this->open_node( this->root(), false, false );
 	}
 
 	virtual bool is_open( Search_Node *n ) {
