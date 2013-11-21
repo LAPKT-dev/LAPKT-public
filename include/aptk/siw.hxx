@@ -84,6 +84,9 @@ public:
 				this->set_bound( this->bound()+1 );				
 				this->start( new_init_state );				
 
+				// Memory exceeded to reserve data structures for novelty
+				if(this->m_novelty->arity() != this->bound() )
+					return false;
 			}
 			else{
 

@@ -56,6 +56,8 @@ public:
 
 	}
 
+	unsigned arity() const { return m_arity; }
+
 	void set_arity( unsigned max_arity ){
 	
 		m_arity = max_arity;
