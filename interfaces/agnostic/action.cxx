@@ -30,6 +30,7 @@ Action::Action( STRIPS_Problem& p )
 	prec_set().resize( p.num_fluents() );
 	add_set().resize( p.num_fluents() );
 	del_set().resize( p.num_fluents() );
+	edel_set().resize( p.num_fluents() );
 }
 
 Action::~Action()
@@ -42,6 +43,7 @@ void Action::define( Fluent_Vec& precs, Fluent_Vec& adds, Fluent_Vec& dels )
 	define_fluent_list( precs, prec_vec(), prec_set() );
 	define_fluent_list( adds, add_vec(), add_set() );
 	define_fluent_list( dels, del_vec(), del_set() );
+	define_fluent_list( dels, edel_vec(), edel_set() );
 }
 
 void Action::define( Fluent_Vec& precs, Fluent_Vec& adds, Fluent_Vec& dels, Conditional_Effect_Vec& ceffs )
@@ -72,6 +74,11 @@ void	Action::print( const STRIPS_Problem& prob, std::ostream& os ) const {
 	os << "\tDel(a) = {";
 	prob.print_fluent_vec( os, del_vec() );
 	os << "}" << std::endl;
+	if( ! edel_vec().empty() ){
+		os << "\teDel(a) = {";
+		prob.print_fluent_vec( os, edel_vec() );
+		os << "}" << std::endl;
+	}
 	os << "\tConditional Effects:" << std::endl;
 	for ( unsigned l = 0; l < ceff_vec().size(); l++ )
 	{

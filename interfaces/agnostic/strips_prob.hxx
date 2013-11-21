@@ -82,12 +82,17 @@ namespace aptk
 
 		std::vector<const Action*>&		
 					actions_deleting( unsigned f )		{ return m_deleting[f]; }
+
+		std::vector<const Action*>&		
+					actions_edeleting( unsigned f )		{ return m_edeleting[f]; }
 		std::vector<const Action*>&		
 					actions_requiring( unsigned f )		{ return m_requiring[f]; }
 		const std::vector<const Action*>&		
 					actions_adding( unsigned f ) const	{ return m_adding[f]; }
 		const std::vector<const Action*>&		
 					actions_deleting( unsigned f ) const	{ return m_deleting[f]; }
+		const std::vector<const Action*>&		
+					actions_edeleting( unsigned f ) const	{ return m_edeleting[f]; }
 		const std::vector<const Action*>&		
 					actions_requiring( unsigned f ) const	{ return m_requiring[f]; }
 
@@ -118,6 +123,7 @@ namespace aptk
 		void			print( std::ostream& os ) const;
 		void			print_fluents( std::ostream& os ) const;
 		void			print_actions( std::ostream& os ) const;
+		void                    print_action( unsigned idx, std::ostream& os ) const;
 		void			print_fluent_vec( std::ostream& os, const Fluent_Vec& v ) const;	
 		const agnostic::Successor_Generator&
 					successor_generator() const { return m_succ_gen; }	
@@ -142,6 +148,7 @@ namespace aptk
 		Fluent_Action_Table	 				m_adding;
 		Fluent_Action_Table	 				m_requiring;
 		Fluent_Action_Table	 				m_deleting;
+		Fluent_Action_Table	 				m_edeleting;
 		std::vector<bool>	 				m_in_init;
 		std::vector<bool>	 				m_in_goal;
 		unsigned                 				m_end_operator_id;

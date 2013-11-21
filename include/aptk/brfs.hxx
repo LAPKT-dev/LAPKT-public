@@ -101,7 +101,7 @@ public:
 	typedef 	Closed_List< Search_Node >      		Closed_List_Type;
 
 	BRFS( 	const Search_Model& search_problem ) 
-	: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_cl_count(0){		
+	: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_cl_count(0), m_max_depth(0) {		
 	}
 
 	virtual ~BRFS() {
@@ -121,9 +121,34 @@ public:
 		m_open_hash.clear();
 	}
 
-	void	start() {
+	void reset() {
+		for ( typename Closed_List_Type::iterator i = m_closed.begin();
+			i != m_closed.end(); i++ ) {
+			delete i->second;
+		}
 		
-		m_root = new Search_Node( m_problem.init(), no_op, NULL );	
+		while	(!m_open.empty() ) 
+		{	
+			Search_Node* n = m_open.front();
+			m_open.pop();
+			delete n;
+		}
+		
+		m_closed.clear();
+		m_open_hash.clear();
+		m_max_depth=0;
+	}
+	
+	virtual bool    is_goal( State* s  ){ return m_problem.goal( *s ); }
+
+	void	start( State *s = NULL ) {
+	
+		reset();
+		
+		if(!s)
+			m_root = new Search_Node( m_problem.init(), no_op, NULL );	
+		else
+			m_root = new Search_Node( s, no_op, NULL );
 #ifdef DEBUG
 		std::cout << "Initial search node: ";
 		m_root->print(std::cout);
@@ -134,13 +159,14 @@ public:
 		inc_gen();
 	}
 
-	bool	find_solution( float& cost, std::vector<Action_Idx>& plan ) {
+	virtual bool	find_solution( float& cost, std::vector<Action_Idx>& plan ) {
 		Search_Node* end = do_search();
 		if ( end == NULL ) return false;
 		extract_plan( m_root, end, plan, cost );	
 		
 		return true;
 	}
+
 	void			inc_gen()			{ m_gen_count++; }
 	unsigned		generated() const		{ return m_gen_count; }
 	void			inc_exp()			{ m_exp_count++; }
@@ -178,6 +204,12 @@ public:
 		m_open.push(n);
 		m_open_hash.put(n);
 		inc_gen();
+		if(n->gn() + 1 > m_max_depth){
+			if( m_max_depth == 0 ) std::cout << std::endl;  
+			m_max_depth = n->gn() + 1 ;
+			std::cout << "[" << m_max_depth << "]" << std::flush;
+		}
+
 	}
 
 	virtual Search_Node*   process(  Search_Node *head ) {
@@ -201,7 +233,7 @@ public:
 			}
 			else{
 				open_node(n);			       
-				if(m_problem.goal(*(n->state())))
+				if( is_goal( n->state() ) )
 					return n;
 				
 			}
@@ -214,6 +246,9 @@ public:
 
 	virtual Search_Node*	 	do_search() {
 		Search_Node *head = get_node();
+		if( is_goal( head->state() ) )
+			return head;
+
 		int counter =0;
 		while(head) {	
 			Search_Node* goal = process(head);
@@ -266,6 +301,7 @@ protected:
 	unsigned				m_exp_count;
 	unsigned				m_gen_count;
 	unsigned				m_cl_count;
+	unsigned                                m_max_depth;
 	Search_Node*				m_root;
 	std::vector<Action_Idx> 		m_app_set;
 };

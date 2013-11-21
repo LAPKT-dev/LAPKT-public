@@ -57,6 +57,10 @@ public:
 		Action_Iterator( const Fwd_Search_Problem& p )
 		:	m_problem(*(p.m_task)) {
 		}
+        
+		~Action_Iterator() {
+			if (m_it_impl) delete m_it_impl;
+		}
 
 		int	start( const State& s ) {
 			m_it_impl = new Successor_Generator::Iterator( s, m_problem.successor_generator().nodes() );

@@ -35,6 +35,7 @@ namespace aptk
 	class Conditional_Effect;
 	
 	
+	typedef		std::vector<bool>				Bool_Vec;
 	typedef		std::vector<unsigned>				Fluent_Vec;
 	typedef		std::vector<unsigned>				Index_Vec;
 	typedef		std::vector<float>				Value_Vec;

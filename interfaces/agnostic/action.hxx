@@ -42,6 +42,8 @@ public:
 	Fluent_Set&	           	add_set()  { return m_add_set; }
 	Fluent_Vec&	           	del_vec()  { return m_del_vec; }
 	Fluent_Set&	           	del_set()  { return m_del_set; }
+	Fluent_Vec&	           	edel_vec()  { return m_edel_vec; }
+	Fluent_Set&	           	edel_set()  { return m_edel_set; }
 	Conditional_Effect_Vec&    	ceff_vec(){ return m_cond_effects; }
 
 	const Fluent_Vec&		prec_vec() const { return m_prec_vec; }
@@ -50,6 +52,8 @@ public:
 	const Fluent_Set&	        add_set()  const { return m_add_set; }
 	const Fluent_Vec&	        del_vec()  const { return m_del_vec; }
 	const Fluent_Set&	        del_set()  const { return m_del_set; }
+	const Fluent_Vec&	        edel_vec()  const { return m_edel_vec; }
+	const Fluent_Set&	        edel_set()  const { return m_edel_set; }
 	const Conditional_Effect_Vec&   ceff_vec() const { return m_cond_effects; }
 
 
@@ -72,6 +76,7 @@ public:
 	bool		           	asserts( unsigned f ) const;
 	bool		           	retracts( unsigned f ) const;
 	bool		           	consumes( unsigned f ) const;
+	bool		           	edeletes( unsigned f ) const;
 
 	bool		           	can_be_applied_on( const State& s ) const ;
 	bool				can_be_regressed_from( const State& s ) const;
@@ -96,6 +101,8 @@ protected:
 	Fluent_Set			m_add_set;
 	Fluent_Vec			m_del_vec;
 	Fluent_Set			m_del_set;
+	Fluent_Vec			m_edel_vec;
+	Fluent_Set			m_edel_set;
 	Conditional_Effect_Vec		m_cond_effects;
 	float				m_cost;	
 	unsigned			m_index;
@@ -153,6 +160,11 @@ inline bool	Action::asserts( unsigned f ) const
 inline bool	Action::retracts( unsigned f ) const
 {
 	return del_set().isset(f);
+}
+
+inline bool	Action::edeletes( unsigned f ) const
+{
+	return edel_set().isset(f);
 }
 
 inline bool	Action::can_be_regressed_from( const State& s ) const {

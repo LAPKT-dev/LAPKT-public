@@ -83,7 +83,7 @@ inline void Bit_Set::resize(unsigned sz)
 }
 
 inline void Bit_Set::set( unsigned f )
-{
+{       
 	m_fset.set(f);
 }
 
