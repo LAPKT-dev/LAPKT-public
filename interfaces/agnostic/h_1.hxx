@@ -40,8 +40,8 @@ public:
 	: m_values( value_table ) {
 	}	
 
-	float	operator()( Fluent_Vec::const_iterator begin, Fluent_Vec::const_iterator end ) const {
-		float v = 0.0f;
+	float	operator()( Fluent_Vec::const_iterator begin, Fluent_Vec::const_iterator end, float v2 = 0.0f ) const {
+		float v = v2;
 		for ( Fluent_Vec::const_iterator it = begin; it != end; it++ ) {
 			v = ( v < m_values[*it] ? m_values[*it] : v );
 			if ( v == infty ) return v;
@@ -62,8 +62,8 @@ public:
 	: m_values( value_table ) {
 	}	
 
-	float	operator()( Fluent_Vec::const_iterator begin, Fluent_Vec::const_iterator end ) const {
-		float v = 0.0f;
+	float	operator()( Fluent_Vec::const_iterator begin, Fluent_Vec::const_iterator end, float v2 = 0.0f ) const {
+		float v = v2;
 		for ( Fluent_Vec::const_iterator it = begin; it != end; it++ ) {
 			if ( m_values[*it] == infty ) 
 				return infty;
@@ -71,7 +71,6 @@ public:
 		}
 		return v;	
 	}
-
 private:
 
 	const std::vector<float>&	m_values;
@@ -221,7 +220,7 @@ protected:
 				for ( unsigned j = 0; j < a.ceff_vec().size(); j++ )
 				{
 					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
-					float h_cond = std::max(eval_func( ceff.prec_vec().begin(), ceff.prec_vec().end() ), h_pre);
+					float h_cond = eval_func( ceff.prec_vec().begin(), ceff.prec_vec().end(), h_pre );
 					if ( h_cond == infty ) continue;
 					float v_eff = ( cost_opt == H1_Cost_Function::Ignore_Costs ?  
 						1.0f + h_cond :
