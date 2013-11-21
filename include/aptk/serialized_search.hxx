@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/resources_control.hxx>
 #include <aptk/closed_list.hxx>
 #include <aptk/iw.hxx>
-#include <h_1.hxx>
+#include <reachability.hxx>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -42,13 +42,14 @@ public:
 
 	typedef		typename Search_Model::State_Type		                          State;
 	typedef 	Closed_List< Search_Node >			                          Closed_List_Type;
-	typedef         aptk::agnostic::H1_Heuristic< Search_Model,aptk::agnostic::H_Max_Evaluation_Function > H1_Reachability;	
 
 	Serialized_Search( 	const Search_Model& search_problem ) 
-	: Search_Strategy( search_problem ), m_reachability( search_problem ) {	   	
+	: Search_Strategy( search_problem ) {	   
+		m_reachability = new aptk::agnostic::Reachability_Test( this->problem().task() );
 	}
 
 	virtual ~Serialized_Search() {
+		delete m_reachability;
 	}
 
 	void debug_info( State*s, Fluent_Vec& unachieved ){
@@ -72,6 +73,31 @@ public:
 
 	}
 
+	void exclude_actions( Bit_Set& excluded ){
+		std::vector< const Action*>::const_iterator it_a =  this->problem().task().actions().begin();
+		unsigned asize = this->problem().num_actions();
+		unsigned fsize = m_goals_achieved.size();
+
+		for ( unsigned i = 0; i < asize ; i++, it_a++ ) {
+						
+			/**
+			 * If actions edel or adds fluent that has to persist, exclude action.
+			 */
+			unsigned p = 0;
+			for(; p < fsize; p++){
+				unsigned fl = m_goals_achieved.at(p);
+				if( (*it_a)->asserts( fl ) || (*it_a)->edeletes( fl ) ){
+					excluded.set( i ); 
+					break;
+				}
+			}
+			if( p == fsize )
+				excluded.unset( i ); 
+			
+		}
+		
+	}
+
 	virtual bool  is_goal( State* s ){
 
 		for(Fluent_Vec::iterator it =  m_goals_achieved.begin(); it != m_goals_achieved.end(); it++){
@@ -82,6 +108,7 @@ public:
 		
 		
 
+
 		
 		bool new_goal_achieved = false; 
 		Fluent_Vec unachieved;
@@ -89,13 +116,13 @@ public:
 			if(  s->entails( *it ) )
 				{
 					m_goals_achieved.push_back( *it );		
+
+					static Bit_Set excluded( this->problem().num_actions() );
+					exclude_actions( excluded );
+
+					//debug_info( s, unachieved );
 					
-					float val =  0.0f;
-					m_reachability.eval_reachability( *s, val, &m_goals_achieved );
-
-					//					debug_info( s, unachieved );
-
-					if(val != infty) 		
+					if(m_reachability->is_reachable( s->fluent_vec() , m_goal_candidates , excluded  ) )
 						new_goal_achieved = true;
 					else{	
 						unachieved.push_back( *it );
@@ -150,7 +177,7 @@ public:
 
 	
 protected:	       
-	H1_Reachability                         m_reachability;	
+	aptk::agnostic::Reachability_Test*      m_reachability;	
 
 	Fluent_Vec                              m_goals_achieved;
 	Fluent_Vec                              m_goal_candidates;
