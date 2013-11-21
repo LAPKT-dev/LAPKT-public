@@ -46,6 +46,7 @@ public:
 	void	unset( unsigned f );
 	void	set( const Fluent_Vec& fv );
 	void	unset( const Fluent_Vec& fv );
+	void    reset();
 	bool	entails( unsigned f ) const { return fluent_set().isset(f); }
 	bool	entails( const State& s ) const;
 	bool	entails( const Fluent_Vec& fv ) const;
@@ -140,6 +141,11 @@ inline	void State::unset( const Fluent_Vec& f )
 	}
 }
 
+inline	void State::reset(  )
+{
+	m_fluent_vec.clear();
+	m_fluent_set.reset();
+}
 
 inline bool	State::entails( const State& s ) const
 {

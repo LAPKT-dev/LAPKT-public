@@ -43,6 +43,7 @@ namespace aptk
 	{
 		m_requiring.resize( fluents().size() );
 		m_deleting.resize( fluents().size() );
+		m_edeleting.resize( fluents().size() );
 		m_adding.resize( fluents().size() );
 		m_ceffs_adding.resize( fluents().size() );
 		
@@ -177,6 +178,10 @@ namespace aptk
 		for ( unsigned k = 0; k < fluents().size(); k++ ) {
 			os << k+1 << ". " << fluents().at(k)->signature() << std::endl;
 		}
+	}
+
+	void	STRIPS_Problem::print_action( unsigned idx, std::ostream& os ) const {
+			actions().at(idx)->print( *this, os );
 	}
 
 	void	STRIPS_Problem::print_actions( std::ostream& os ) const {

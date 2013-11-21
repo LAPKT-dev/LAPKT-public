@@ -102,8 +102,10 @@ public:
 	float eval( const Fluent_Vec& s ) const {
 		float v = 0;
 		for ( unsigned i = 0; i < s.size(); i++ )
-			for ( unsigned j = i; j < s.size(); j++ )
-				v = std::max( v, value( s[i], s[j] ) );
+			for ( unsigned j = i; j < s.size(); j++ ){			
+				v = std::max( v, value( s[i], s[j] ) );		
+				if(v == infty ) return infty;
+			}
 
 		return v;
 	}
@@ -142,6 +144,55 @@ public:
 			}		
 	}
 
+	void compute_edeletes( STRIPS_Problem& prob ){
+
+		initialize( prob.init() );
+		compute_mutexes_only();
+
+
+		for ( unsigned p = 0 ; p < prob.num_fluents(); p++ ){
+			for ( unsigned a = 0; a < prob.num_actions(); a++ ){
+				bool is_edelete = false;
+				Action& action = *(prob.actions()[a]);
+
+				for ( unsigned i = 0; i < action.add_vec().size(); i++ ){
+					unsigned q = action.add_vec()[i];
+					if ( value(p,q) == infty ){
+						is_edelete = true;
+						action.edel_vec().push_back( p );					
+						action.edel_set().set( p );
+						prob.actions_edeleting( p ).push_back( (const Action*) &action );
+						break;
+					}
+				}
+
+				if ( is_edelete ) continue;
+
+				for ( unsigned i = 0; i < action.prec_vec().size(); i++ ){
+					unsigned r = action.prec_vec()[i];
+					if ( !action.add_set().isset(p) && value( p, r ) == infty ){
+						action.edel_vec().push_back( p );
+						action.edel_set().set( p );
+						prob.actions_edeleting( p ).push_back( (const Action*) &action );
+						break;
+					}
+				}
+
+				if ( !action.edel_set().isset(p) && action.del_set().isset(p) ){
+					action.edel_vec().push_back( p );
+					action.edel_set().set( p );
+					prob.actions_edeleting( p ).push_back( (const Action*) &action );
+				}
+
+			}
+		}
+		
+#ifdef DEBUG
+		print_values(std::cout);
+		prob.print_actions(std::cout);
+#endif
+	}
+
 protected:
 
 	void initialize( const State& s ) {
@@ -156,6 +207,23 @@ protected:
 			for ( unsigned j = i+1; j < s.fluent_vec().size(); j++ )
 			{
 				unsigned q = s.fluent_vec()[j];
+				value(p,q) = 0.0f;
+			}
+		}
+	}
+
+	void initialize( const Fluent_Vec& f ) {
+		for ( unsigned k = 0; k < m_values.size(); k++ )
+			m_values[k] = infty;
+		for ( unsigned k = 0; k < m_op_values.size(); k++ )
+			m_op_values[k] = infty;
+		for ( unsigned i = 0; i < f.size(); i++ )
+		{
+			unsigned p = f[i];
+			value(p,p) = 0.0f;
+			for ( unsigned j = i+1; j < f.size(); j++ )
+			{
+				unsigned q = f[j];
 				value(p,q) = 0.0f;
 			}
 		}
@@ -211,6 +279,55 @@ protected:
 		} while ( !fixed_point );
 		
 	}
+
+
+	void compute_mutexes_only() {
+		bool fixed_point;
+		
+		do {
+			fixed_point = true;
+
+			for ( unsigned a = 0; a < m_strips_model.num_actions(); a++ ) {
+				const Action& action = *(m_strips_model.actions()[a]);
+				op_value(a) = eval( action.prec_vec() );
+				if ( op_value(a) == infty ) continue;
+				
+				for ( unsigned i = 0; i < action.add_vec().size(); i++ ) {
+					unsigned p = action.add_vec()[i];
+					for ( unsigned j = i; j < action.add_vec().size(); j++ ) {
+						unsigned q = action.add_vec()[j];
+						float curr_value = value(p,q);
+						if ( curr_value == 0.0f ) continue;
+						value(p,q) = 0.0f;
+						fixed_point = false;
+							
+					}
+
+					for ( unsigned r = 0; r < m_strips_model.num_fluents(); r++ ) {
+						if ( interferes( a, r ) || value( p, r ) == 0.0f ) continue;
+						float h2_pre_noop = std::max( op_value(a), value(r,r) );
+						if ( h2_pre_noop == infty ) continue;
+						
+						for ( unsigned j = 0; j < action.prec_vec().size(); j++ ) {
+							unsigned s = action.prec_vec()[j];
+							h2_pre_noop = std::max( h2_pre_noop, value(r,s) );
+							if ( h2_pre_noop == infty ) break;
+						}
+						
+						if ( h2_pre_noop == infty ) continue;
+						value(p,r) = 0.0f;
+						fixed_point = false;
+																			
+					}
+
+				}
+			}
+			
+		} while ( !fixed_point );
+		
+	}
+		
+
 
 protected:
 	

@@ -96,6 +96,146 @@ protected:
 	Bit_Set					m_fl_in_graph;
 };
 
+
+template <typename Search_Model >
+class Landmarks_Graph_Generator  {
+public:
+
+	Landmarks_Graph_Generator( const Search_Model& prob ) 
+	:  m_strips_model( prob.task() ), m_graph( m_strips_model ), m_only_goals( false )
+	{
+	}
+
+	virtual ~Landmarks_Graph_Generator() {
+	}
+	
+public:
+	void   set_only_goals( bool b ){ m_only_goals = b; }
+
+	const Landmarks_Graph& lands_graph(){ return m_graph; }
+	
+	void	compute_lm_graph_set_additive() {
+		std::deque<unsigned> updated;
+		
+		// 1. Insert goal atoms as landmarks
+		for ( Fluent_Vec::const_iterator it = m_strips_model.goal().begin();
+			it != m_strips_model.goal().end(); it++ ) {
+			m_graph.add_landmark( *it );
+			updated.push_back( *it );
+		}
+
+		for ( unsigned i = 0; i < m_strips_model.goal().size(); i++ ) {
+			unsigned p = m_strips_model.goal()[i];
+			for ( unsigned j = i+1; j < m_strips_model.goal().size(); j++ ) {
+				unsigned q = m_strips_model.goal()[j];				
+
+				/**
+				 * If all actions adding p edel q, then p must precede q
+				 */
+				const std::vector<const Action*>& add_acts_p = m_strips_model.actions_adding( p );
+				
+				bool all_actions_edel_q = true;
+				for ( unsigned k = 0; k < add_acts_p.size(); k++ ) {
+					//add_acts_p[k]->print( m_strips_model, std::cout );
+					//std::cout << m_strips_model.fluents().at(p)->signature() << " edel " << m_strips_model.fluents().at(q)->signature() << "? " <<std::endl;
+					if( ! add_acts_p[k]->edel_set().isset( q ) ){					
+						all_actions_edel_q = false;
+						break;
+					}      
+
+				}
+				/**
+				 * If all actions adding q edel p, then q must precede p
+				 */
+				
+				const std::vector<const Action*>& add_acts_q = m_strips_model.actions_adding( q );
+				bool all_actions_edel_p = true;
+				for ( unsigned k = 0; k < add_acts_q.size(); k++ ) {
+					//add_acts_q[k]->print( m_strips_model, std::cout );
+					//std::cout << m_strips_model.fluents().at(q)->signature() << " edel " << m_strips_model.fluents().at(p)->signature() << "? " <<std::endl;
+					if( ! add_acts_q[k]->edel_set().isset( p ) ){				       
+						all_actions_edel_p = false;
+						break;
+					}      
+				}
+				/**
+				 * Avoid loops in the graph
+				 */
+				if(all_actions_edel_q &&  all_actions_edel_p)continue;
+
+				if(all_actions_edel_q){
+					m_graph.add_landmark_for( q, p );
+				}
+				if(all_actions_edel_p){
+					m_graph.add_landmark_for( p, q );
+				}
+
+
+			}
+				
+	
+		}
+
+		if( m_only_goals ) return;
+		
+		Bit_Set lm_set( m_strips_model.num_fluents() );
+		Bit_Set processed( m_strips_model.num_fluents() );
+		while ( !updated.empty() ) {
+			unsigned p = updated.front();
+			updated.pop_front(); 
+
+			//if ( processed.isset(p) ) continue; 
+			//processed.set(p);
+
+			//std::cout << "Processing landmark: " << m_strips_model.fluents()[ p ]->signature() << std::endl;
+			const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( p );
+			//std::cout << "Added by " << add_acts.size() << " actions" << std::endl;
+			if ( !add_acts.empty() ) {
+				lm_set.reset();
+				lm_set.add( add_acts[0]->prec_set() );
+	
+				for ( unsigned k = 1; k < add_acts.size(); k++ ) 
+					lm_set.set_intersection( add_acts[k]->prec_set() ); 
+			}
+			
+			const std::vector< std::pair< unsigned, const Action*> >& add_acts_ce = 
+				 m_strips_model.ceffs_adding( p );
+			
+			if ( !add_acts_ce.empty() ) {
+
+				for ( unsigned k = 0; k < add_acts_ce.size(); k++ ) {
+					lm_set.set_intersection( add_acts_ce[k].second->prec_set() );
+					lm_set.set_intersection( add_acts_ce[k].second->ceff_vec()[ add_acts_ce[k].first ]->prec_set() );
+				}
+
+			}
+
+			//std::cout << "LM set size: " << lm_set.bits().count_elements() << std::endl;
+			lm_set.compute_first();
+
+			unsigned q = lm_set.first();
+			while ( q != lm_set.end() ) {
+				if ( !m_graph.is_landmark(q) )
+					m_graph.add_landmark( q );
+				m_graph.add_landmark_for( p, q );
+				updated.push_back( q );
+				q = lm_set.next(q);
+			}	
+		}
+		#ifdef DEBUG
+		std::cout << "Landmarks found: " << m_graph.num_landmarks() << std::endl;
+		m_graph.print( std::cout );
+		#endif
+	}
+
+protected:
+
+	const STRIPS_Problem&			m_strips_model;
+	Landmarks_Graph				m_graph;
+	bool                                    m_only_goals;
+};
+
+
 template <typename Search_Model >
 class Simple_Landmarks_Heuristic : public Heuristic<State> {
 public:
@@ -171,6 +311,7 @@ public:
 			a = it.next();
 		}
 	}
+	
 
 protected:
 
@@ -207,11 +348,13 @@ protected:
 			const std::vector< std::pair< unsigned, const Action*> >& add_acts_ce = 
 				 m_strips_model.ceffs_adding( p );
 			
-			if ( add_acts_ce.empty() ) continue;
+			if ( !add_acts_ce.empty() ) {
 
-			for ( unsigned k = 0; k < add_acts_ce.size(); k++ ) {
-				lm_set.set_intersection( add_acts_ce[k].second->prec_set() );
-				lm_set.set_intersection( add_acts_ce[k].second->ceff_vec()[ add_acts_ce[k].first ]->prec_set() );
+				for ( unsigned k = 0; k < add_acts_ce.size(); k++ ) {
+					lm_set.set_intersection( add_acts_ce[k].second->prec_set() );
+					lm_set.set_intersection( add_acts_ce[k].second->ceff_vec()[ add_acts_ce[k].first ]->prec_set() );
+				}
+
 			}
 
 			//std::cout << "LM set size: " << lm_set.bits().count_elements() << std::endl;

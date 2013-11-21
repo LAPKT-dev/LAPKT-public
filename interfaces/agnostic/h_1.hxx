@@ -32,7 +32,7 @@ namespace aptk {
 
 namespace agnostic {
 
-class H_Max_Evaluation_Function {
+class H_Max_Evaluation_Function  {
 
 public:
 
@@ -89,10 +89,12 @@ public:
 		m_values.resize( m_strips_model.num_fluents() );
 		m_best_supporters.resize(  m_strips_model.num_fluents() );
 		m_already_updated.resize( m_strips_model.num_fluents() );
+		m_allowed_actions.resize( m_strips_model.num_actions() );
 	}
 
 	virtual ~H1_Heuristic() {
 	}
+
 
 	virtual void eval( const State& s, float& h_val ) {
 
@@ -101,6 +103,15 @@ public:
 		initialize(s);
 		compute();
 		h_val = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );
+	}
+	
+	virtual void eval_reachability( const State& s, float& h_val, Fluent_Vec* persist_fluents = NULL ) {
+		m_already_updated.reset();
+		m_updated.clear();
+		initialize(s);
+		compute_reachability( persist_fluents );
+		h_val = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );
+		
 	}
 
 	virtual void eval( const State& s, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
@@ -238,6 +249,93 @@ protected:
 			}
 		}
 	}
+	
+	void	compute_reachability( Fluent_Vec* persist_fluents = NULL ) 
+	{
+		std::vector< const Action*>::const_iterator it_a =  m_strips_model.actions().begin();
+		for (Bool_Vec::iterator it = m_allowed_actions.begin(); it != m_allowed_actions.end(); it++, it_a++){
+			//		for ( unsigned i = 0; i < m_strips_model.num_actions(); i++ ) {
+			//m_allowed_actions[i]=true;
+			*it = true;
+			
+			if(! persist_fluents ) continue;
+			
+			//const Action& a = *(m_strips_model.actions()[i]);
+
+			/**
+			 * If actions edel or adds fluent that has to persist, exclude action.
+			 */
+
+			for(unsigned p = 0; p < persist_fluents->size(); p++){
+				unsigned fl = persist_fluents->at(p);
+				if( (*it_a)->asserts( fl ) || (*it_a)->edeletes( fl ) ){
+					//m_allowed_actions[i] = false;
+					*it = false;
+					break;
+				}
+			}
+		}
+
+		while ( !m_updated.empty() ) {
+
+			unsigned p = m_updated.front();
+			//std::cout << p << ". " << m_strips_model.fluents()[p]->signature() << " " << m_values[p] << std::endl;
+			m_updated.pop_front();
+			m_already_updated.unset(p);
+
+			//Successor_Generator::Heuristic_Iterator it( m_values, m_strips_model.successor_generator().nodes() );
+			//int i = it.first();
+			//std::cout << "First action: " << i << std::endl;
+			//while ( i != -1 ) {
+			Bool_Vec::iterator it_allowed = m_allowed_actions.begin();
+			for ( unsigned i = 0; i < m_strips_model.num_actions(); i++, it_allowed++ ) {
+				const Action& a = *(m_strips_model.actions()[i]);
+				
+				//if( ! m_allowed_actions[ i ] )
+				if(! *it_allowed )
+					continue;
+
+				//std::cout << "Action considered: " << a.signature() << std::endl;
+				bool relevant =  a.prec_set().isset(p);
+				
+				for ( unsigned j = 0; j < a.ceff_vec().size() && !relevant; j++ ) {
+					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
+					relevant = relevant || ceff.prec_set().isset(p);
+				}
+				
+				if ( !relevant ) {
+					//i = it.next();
+					continue;
+				}
+
+				float h_pre = eval_func( a.prec_vec().begin(), a.prec_vec().end() );
+
+				if ( h_pre == infty ) continue;
+				//assert( h_pre != infty );
+
+				//std::cout << "Action " << i << ". " << a.signature() << " relevant" << std::endl;
+
+				float v = 0.0f;
+
+				for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
+					it != a.add_vec().end(); it++ )
+					update( *it, v, m_strips_model.actions()[i] );
+				// Conditional effects
+				for ( unsigned j = 0; j < a.ceff_vec().size(); j++ )
+				{
+					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
+					float h_cond = std::max(eval_func( ceff.prec_vec().begin(), ceff.prec_vec().end() ), h_pre);
+					if ( h_cond == infty ) continue;
+					float v_eff = 0.0f;
+					for ( Fluent_Vec::const_iterator it = ceff.add_vec().begin();
+						it != ceff.add_vec().end(); it++ )
+						update( *it, v_eff, m_strips_model.actions()[i] );
+				}
+
+				//i = it.next();
+			}
+		}
+	}
 		
 protected:
 
@@ -248,6 +346,7 @@ protected:
 	std::vector<const Action*>		m_app_set;
 	std::deque<unsigned> 			m_updated;
 	Bit_Set					m_already_updated;
+	Bool_Vec                                m_allowed_actions;
 };
 
 }

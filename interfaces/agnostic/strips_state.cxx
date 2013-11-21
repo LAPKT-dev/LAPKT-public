@@ -157,9 +157,9 @@ State* State::regress_through( const Action& a ) const
 }
 
 void	State::print( std::ostream& os ) const {
-	os << "(:init" << std::endl;
+	os << "(:state ";
 	for ( auto p = m_fluent_vec.begin(); p != m_fluent_vec.end(); p++ ) {
-		os << m_problem.fluents()[*p]->signature() << std::endl;
+		os << m_problem.fluents()[*p]->signature() << " ";
 	}
 	os << ")" << std::endl;
 }
