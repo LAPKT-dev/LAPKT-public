@@ -65,7 +65,7 @@ public:
 		while ( a != no_op ) {		
 			State *succ = this->problem().next( *(head->state()), a );
 			Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
-			if ( is_closed( n ) ) {
+			if ( this->is_closed( n ) ) {
 				delete n;
 				a = it.next();
 				continue;
@@ -79,7 +79,7 @@ public:
 
 			n->hn() = head->hn();
 			n->fn() = m_W * n->hn() + n->gn();
-			open_node(n, head->is_po(a));	
+			this->open_node(n, head->is_po(a));
 			
 			a = it.next();	
 		} 

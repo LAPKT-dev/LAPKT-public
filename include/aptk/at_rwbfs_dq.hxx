@@ -253,7 +253,7 @@ public:
 		std::cout << "Size(SEEN) = " << m_seen.size() << std::endl;
 		#endif
 
-		open_node( this->root(), false );
+		this->open_node( this->root(), false );
 	}
 
 	virtual bool is_open( Search_Node *n ) {

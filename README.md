@@ -61,7 +61,12 @@ In order to build lwaptk you need to install scons (a GNU Makefile replacement)
 in your system. Refer to http://www.scons.org for directions on how to achieve
 this.
 
-lwaptk requires the Judy library (http://judy.sourceforge.net/index.html) to
+In order to compile some of the examples, you will also need a version >= 1.49 of the Boost C++ libraries available on your system.
+You can check the version you have either manually by looking at the macro defined in `boost/version.hpp` or, on debian systems, by running
+`dpkg -s libboost-dev`.
+Be aware that systems such as the Ubuntu 12.04LTS release ship with older versions of Boost.
+
+Finally, lwaptk requires the Judy library (http://judy.sourceforge.net/index.html) to
 support the bitmap array class 'Varset Judy'. NOTE: This dependency will be optional
 or entirely deprecated in the future.
 
