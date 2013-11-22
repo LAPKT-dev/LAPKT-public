@@ -53,8 +53,9 @@ public:
 	{
 	}
 	
-	void add( unsigned k );
-	void add( std::vector<unsigned>& k );
+	void 	add( unsigned k );
+	void 	add( std::vector<unsigned>& k );
+	void 	add( const Bit_Array& bits );
 
 	operator size_t() const
 	{
@@ -86,6 +87,16 @@ inline void Hash_Key::add( std::vector<unsigned>& k )
 	for ( unsigned i = 1; i < k.size(); i++ )
 	{
 		m_code = jenkins_hash( (ub1*)(&k[i]), sizeof(unsigned), m_code );
+	}	
+	
+}
+
+inline void Hash_Key::add( const Bit_Array& k )
+{
+	m_code = jenkins_hash( (ub1*)(&k.packs()[0]), sizeof(unsigned), m_code );
+	for ( unsigned i = 1; i < k.npacks(); i++ )
+	{
+		m_code = jenkins_hash( (ub1*)(&k.packs()[i]), sizeof(unsigned), m_code );
 	}	
 	
 }
