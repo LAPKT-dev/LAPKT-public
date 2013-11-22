@@ -41,7 +41,7 @@ public:
 
 	public:
 		Node( unsigned p )
-		: m_fluent( p ) {
+		: m_fluent( p ), m_consumed( false ) {
 		}
 	
 		~Node() {
@@ -56,7 +56,17 @@ public:
 		}
 
 		unsigned	fluent() const { return m_fluent; }
-
+		bool            is_consumed() const { return m_consumed; }
+		void            consume(){ m_consumed = true; }
+		void            unconsume(){ m_consumed = false; }
+		bool            are_precedences_consumed() const{
+			if(  m_preceded_by.empty() ) return true;
+			for ( std::vector<Node* >::const_iterator it = m_preceded_by.begin(); it != m_preceded_by.end(); it++ )
+				if( !(*it)->is_consumed() )
+					return false;
+			return true;
+		}
+		
 		const std::vector<Node* >&
 				preceded_by() const {
 			return m_preceded_by;
@@ -69,6 +79,7 @@ public:
 
 	private:
 		unsigned		m_fluent;
+		bool                    m_consumed;
 		std::vector<Node* >	m_preceded_by;
 		std::vector<Node* >	m_required_by;
 	};
@@ -84,8 +95,20 @@ public:
 	void				add_landmark( unsigned p );
 	void				add_landmark_for( unsigned p, unsigned q );
 
-	unsigned			num_landmarks() const			{ return m_lm_graph.size(); }
+	void                            consume_node( unsigned p ){  m_fl_to_node[p]->consume(); }
+	
+	void                            get_leafs( Fluent_Vec& leafs ){
 
+		for ( 	std::vector< Node* >::const_iterator it = m_lm_graph.begin(); it != m_lm_graph.end(); it++ ) {
+			if( (*it)->is_consumed() ) continue;
+			if(  (*it)->are_precedences_consumed() )
+				leafs.push_back( (*it)->fluent() );				
+		}
+	}
+	
+
+	unsigned			num_landmarks() const			{ return m_lm_graph.size(); }
+	
 	void				print( std::ostream& os ) const;
 
 protected:
@@ -102,7 +125,7 @@ class Landmarks_Graph_Generator  {
 public:
 
 	Landmarks_Graph_Generator( const Search_Model& prob ) 
-	:  m_strips_model( prob.task() ), m_graph( m_strips_model ), m_only_goals( false )
+	:  m_strips_model( prob.task() ), m_only_goals( false )
 	{
 	}
 
@@ -111,16 +134,15 @@ public:
 	
 public:
 	void   set_only_goals( bool b ){ m_only_goals = b; }
-
-	const Landmarks_Graph& lands_graph(){ return m_graph; }
 	
-	void	compute_lm_graph_set_additive() {
+	void	compute_lm_graph_set_additive( Landmarks_Graph& graph ) {
+			
 		std::deque<unsigned> updated;
 		
 		// 1. Insert goal atoms as landmarks
 		for ( Fluent_Vec::const_iterator it = m_strips_model.goal().begin();
 			it != m_strips_model.goal().end(); it++ ) {
-			m_graph.add_landmark( *it );
+			graph.add_landmark( *it );
 			updated.push_back( *it );
 		}
 
@@ -164,10 +186,10 @@ public:
 				if(all_actions_edel_q &&  all_actions_edel_p)continue;
 
 				if(all_actions_edel_q){
-					m_graph.add_landmark_for( q, p );
+					graph.add_landmark_for( q, p );
 				}
 				if(all_actions_edel_p){
-					m_graph.add_landmark_for( p, q );
+					graph.add_landmark_for( p, q );
 				}
 
 
@@ -215,23 +237,23 @@ public:
 
 			unsigned q = lm_set.first();
 			while ( q != lm_set.end() ) {
-				if ( !m_graph.is_landmark(q) )
-					m_graph.add_landmark( q );
-				m_graph.add_landmark_for( p, q );
+				if ( !graph.is_landmark(q) )
+					graph.add_landmark( q );
+				graph.add_landmark_for( p, q );
 				updated.push_back( q );
 				q = lm_set.next(q);
 			}	
 		}
 		#ifdef DEBUG
-		std::cout << "Landmarks found: " << m_graph.num_landmarks() << std::endl;
-		m_graph.print( std::cout );
+		std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
+		graph.print( std::cout );
 		#endif
+
 	}
 
 protected:
 
 	const STRIPS_Problem&			m_strips_model;
-	Landmarks_Graph				m_graph;
 	bool                                    m_only_goals;
 };
 

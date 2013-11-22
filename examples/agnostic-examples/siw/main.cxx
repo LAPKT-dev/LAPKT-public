@@ -47,6 +47,7 @@ using	aptk::STRIPS_Problem;
 using	aptk::agnostic::Fwd_Search_Problem;
 
 using 	aptk::agnostic::Landmarks_Graph_Generator;
+using 	aptk::agnostic::Landmarks_Graph;
 using 	aptk::agnostic::H2_Heuristic;
 
 using 	aptk::agnostic::Novelty;
@@ -171,19 +172,23 @@ int main( int argc, char** argv ) {
 
 	Fwd_Search_Problem	search_prob( &prob );
 
-	// H2_Fwd    h2( search_prob );
-	// h2.compute_edeletes( prob );	
+	H2_Fwd    h2( search_prob );
+	h2.compute_edeletes( prob );	
 
-	// Gen_Lms_Fwd    gen_lms( search_prob );
-	// gen_lms.set_only_goals( true );
-	// gen_lms.compute_lm_graph_set_additive();
+	Gen_Lms_Fwd    gen_lms( search_prob );
+	Landmarks_Graph graph( prob );
+
+	gen_lms.set_only_goals( true );
+	gen_lms.compute_lm_graph_set_additive( graph );
 	
-	// std::cout << "Landmarks found: " << gen_lms.lands_graph().num_landmarks() << std::endl;
-	// gen_lms.lands_graph().print( std::cout );
+	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
+	graph.print( std::cout );
 	
 	std::cout << "Starting search with IW (time budget is 60 secs)..." << std::endl;
 
 	SIW_Fwd siw_engine( search_prob );
+	siw_engine.set_goal_agenda( &graph );
+	
 	float iw_bound = vm["bound"].as<int>();
 
 	float iw_t = do_search( siw_engine, prob, iw_bound, "iw.log" );

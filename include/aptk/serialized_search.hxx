@@ -122,7 +122,7 @@ public:
 
 					//debug_info( s, unachieved );
 					
-					if(m_reachability->is_reachable( s->fluent_vec() , m_goal_candidates , excluded  ) )
+					if(m_reachability->is_reachable( s->fluent_vec() , this->problem().task().goal() , excluded  ) )
 						new_goal_achieved = true;
 					else{	
 						unachieved.push_back( *it );
