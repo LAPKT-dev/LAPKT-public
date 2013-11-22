@@ -39,7 +39,7 @@ State::~State()
 
 void	State::update_hash() {
 	Hash_Key hasher;
-	hasher.add( fluent_vec() );
+	hasher.add( fluent_set().bits() );
 	m_hash = (size_t)hasher;	
 }
 
@@ -72,42 +72,42 @@ State* State::progress_through( const Action& a ) const
 {
 	assert( a.can_be_applied_on(*this) );
 	State* succ = new State( problem() );
+	succ->fluent_vec().reserve( m_fluent_vec.size() );
 	for ( unsigned k = 0; k < m_fluent_vec.size(); k++ ) 
 	{
-		if ( !a.retracts(m_fluent_vec[k]) ) 
+		if ( a.retracts(m_fluent_vec[k]) ) 
+			continue;
+		if ( a.ceff_vec().empty() ) // it's not deleted by un-conditional effects, and there are no c.effs
+			succ->set( m_fluent_vec[k] );
+		//Check Conditional Effects
+		bool retracts = false;
+		for( unsigned i = 0; i < a.ceff_vec().size(); i++ )
 		{
-
-			//Check Conditional Effects
-			if( !a.ceff_vec().empty() )
+			Conditional_Effect* ce = a.ceff_vec()[i];
+			if ( !ce->retracts( m_fluent_vec[k] ) ) // constant-time check
+				continue;
+			if( ce->can_be_applied_on( *this ) ) // linear-time check
 			{
-				bool retracts = false;
-				for( unsigned i = 0; i < a.ceff_vec().size() && !retracts; i++ )
-				{
-					Conditional_Effect* ce = a.ceff_vec()[i];
-					if( ce->can_be_applied_on( *this ) )
-						if( ce->retracts( m_fluent_vec[k] ) )
-							retracts = true;
-				}
-				if( !retracts )
-					succ->set( m_fluent_vec[k] );
+				retracts = true;
+				break;
 			}
-			else
-				succ->set( m_fluent_vec[k] );
 		}
+		if( retracts ) continue;
+		succ->set( m_fluent_vec[k] );
 	}
 
 	
 	succ->set( a.add_vec() );
 
 	//Add Conditional Effects
-	if( !a.ceff_vec().empty() )
-	{		
-		for( unsigned i = 0; i < a.ceff_vec().size(); i++ )
-		{
-			Conditional_Effect* ce = a.ceff_vec()[i];
-			if( ce->can_be_applied_on( *this ) )
-				succ->set( ce->add_vec() );
-		}
+	if( a.ceff_vec().empty() )
+		return succ;
+
+	for( unsigned i = 0; i < a.ceff_vec().size(); i++ )
+	{
+		Conditional_Effect* ce = a.ceff_vec()[i];
+		if( !ce->can_be_applied_on( *this ) ) continue;
+		succ->set( ce->add_vec() );
 	}
 
 	return succ;
