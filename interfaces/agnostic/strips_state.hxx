@@ -89,6 +89,7 @@ inline const STRIPS_Problem& State::problem() const
 
 inline	void State::set( unsigned f ) 
 {
+	if ( entails(f) ) return;
 	m_fluent_vec.push_back( f );
 	m_fluent_set.set( f );
 }

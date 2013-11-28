@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <action.hxx>
 #include <fluent.hxx>
 #include <aptk/hash_table.hxx>
+#include <aptk/resources_control.hxx>
 #include <iostream>
 #include <cassert>
 
@@ -70,9 +71,12 @@ State* State::progress_through_df( const Action& a ) const
 
 State* State::progress_through( const Action& a ) const
 {
+
 	assert( a.can_be_applied_on(*this) );
 	State* succ = new State( problem() );
 	succ->fluent_vec().reserve( m_fluent_vec.size() );
+
+
 	for ( unsigned k = 0; k < m_fluent_vec.size(); k++ ) 
 	{
 		if ( a.retracts(m_fluent_vec[k]) ) 
@@ -108,7 +112,7 @@ State* State::progress_through( const Action& a ) const
 		Conditional_Effect* ce = a.ceff_vec()[i];
 		if( !ce->can_be_applied_on( *this ) ) continue;
 		succ->set( ce->add_vec() );
-	}
+	}       	
 
 	return succ;
 }
