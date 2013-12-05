@@ -207,7 +207,7 @@ public:
 		if(n->gn() + 1 > m_max_depth){
 			if( m_max_depth == 0 ) std::cout << std::endl;  
 			m_max_depth = n->gn() + 1 ;
-			std::cout << "[" << m_max_depth << "]" << std::flush;
+			std::cout << "[" << m_max_depth  <<"]" << std::flush;			
 		}
 
 	}

@@ -132,6 +132,39 @@ void	Reachability_Test::print_reachable_atoms() {
 			std::cout << m_problem.fluents()[k]->signature() << std::endl;	
 }
 
+void	Reachability_Test::get_reachable_actions( const Fluent_Vec& s, const Fluent_Vec& g,  Bit_Set& reach_actions ) {
+
+	initialize(s);
+ 	
+	while ( !apply_actions() )
+	{
+		#ifdef DEBUG
+		std::cout << "Reachable atoms:" << std::endl;
+		print_reachable_atoms();
+		#endif	
+
+		if ( check( g ) )	
+			break;
+	}
+
+	reach_actions.resize( m_problem.actions().size() );
+	for ( unsigned i = 0; i < m_problem.actions().size(); i++ ){
+		const Action* a = m_problem.actions()[i];		
+		// Check if applicable
+		const Fluent_Vec& pi = a->prec_vec();
+		bool applicable = true;
+		for ( unsigned j = 0; j < pi.size(); j++ )
+			if ( !m_reachable_atoms[pi[j]] )
+			{
+				applicable = false;
+				reach_actions.unset(i);
+				break;
+			}
+		if(applicable) reach_actions.set(i);
+		
+	}
+}
+
 bool	Reachability_Test::is_reachable( const Fluent_Vec& s, const Fluent_Vec& g ) {
 
 	initialize(s);

@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/resources_control.hxx>
 #include <aptk/closed_list.hxx>
 #include <aptk/serialized_search.hxx>
-#include <simple_landmarks.hxx>
+#include <landmark_graph.hxx>
 #include <vector>
 #include <algorithm>
 #include <iostream>

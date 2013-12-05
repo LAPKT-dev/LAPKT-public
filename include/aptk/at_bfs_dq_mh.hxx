@@ -43,7 +43,7 @@ public:
 	typedef State State_Type;
 
 	Node( State* s, float cost, Action_Idx action, Node<State>* parent, int num_actions ) 
-	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_po_1( num_actions ), m_po_2( num_actions), m_seen(false) {
+	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_po( num_actions), m_seen(false) {
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 	}
 	
@@ -63,12 +63,9 @@ public:
 	Action_Idx		action() const 			{ return m_action; }
 	State*			state()				{ return m_state; }
 	const State&		state() const 			{ return *m_state; }
-	void			add_po_1( Action_Idx index )	{ m_po_1.set( index ); }
-	void			remove_po_1( Action_Idx index ) { m_po_1.unset( index ); }
-	void			add_po_2( Action_Idx index )	{ m_po_2.set( index ); }
-	void			remove_po_2( Action_Idx index ) { m_po_2.unset( index ); }
-	bool			is_po_1(Action_Idx index) const	{ return m_po_1.isset( index ); }
-	bool			is_po_2(Action_Idx index) const	{ return m_po_2.isset( index ); }
+	void			add_po( Action_Idx index )	{ m_po.set( index ); }
+	void			remove_po( Action_Idx index ) { m_po.unset( index ); }
+	bool			is_po(Action_Idx index) const	{ return m_po.isset( index ); }
 	void			set_seen( )			{ m_seen = true; }
 	bool			seen() const			{ return m_seen; }
 
@@ -105,8 +102,7 @@ public:
 	Action_Idx	m_action;
 	float		m_g;
 	float		m_f;
-	Bit_Set		m_po_1;
-	Bit_Set		m_po_2;
+	Bit_Set		m_po;
 	bool		m_seen;
 };
 
@@ -118,7 +114,7 @@ public:
 	typedef State State_Type;
 
 	Lazy_Node( float cost, Action_Idx action, Lazy_Node<State>* parent, int num_actions ) 
-	: m_state( NULL ), m_parent( parent ), m_action(action), m_g( 0 ), m_po_1( num_actions ), m_po_2( num_actions) {
+	: m_state( NULL ), m_parent( parent ), m_action(action), m_g( 0 ), m_po( num_actions ){
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 	}
 	
@@ -139,12 +135,9 @@ public:
 	void			set_state( State* s )		{ m_state = s; }
 	State*			state()				{ return m_state; }
 	const State&		state() const 			{ return *m_state; }
-	void			add_po_1( Action_Idx index )	{ m_po_1.set( index ); }
-	void			remove_po_1( Action_Idx index ) { m_po_1.unset( index ); }
-	void			add_po_2( Action_Idx index )	{ m_po_2.set( index ); }
-	void			remove_po_2( Action_Idx index ) { m_po_2.unset( index ); }
-	bool			is_po_1(Action_Idx index) const	{ return m_po_1.isset( index ); }
-	bool			is_po_2(Action_Idx index) const	{ return m_po_2.isset( index ); }
+	void			add_po( Action_Idx index )	{ m_po.set( index ); }
+	void			remove_po( Action_Idx index ) { m_po.unset( index ); }
+	bool			is_po(Action_Idx index) const	{ return m_po.isset( index ); }
 	void			set_seen( )			{ m_seen = true; }
 	bool			seen() const			{ return m_seen; }
 

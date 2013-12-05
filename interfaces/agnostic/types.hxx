@@ -36,6 +36,7 @@ namespace aptk
 	
 	
 	typedef		std::vector<bool>				Bool_Vec;
+	typedef		std::vector<bool*>				Bool_Vec_Ptr;
 	typedef		std::vector<unsigned>				Fluent_Vec;
 	typedef		std::vector<unsigned>				Index_Vec;
 	typedef		std::vector<float>				Value_Vec;

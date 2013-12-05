@@ -112,7 +112,9 @@ namespace aptk
 		}
 
 		bool			is_in_init( unsigned f )	{ return m_in_init[f]; }
+		bool			is_in_init( unsigned f ) const	{ return m_in_init[f]; }
 		bool			is_in_goal( unsigned f )	{ return m_in_goal[f]; }
+		bool			is_in_goal( unsigned f ) const	{ return m_in_goal[f]; }
 
 		void                    print_fluent_vec(const Fluent_Vec &a);
 		unsigned                end_operator() { return m_end_operator_id; }
