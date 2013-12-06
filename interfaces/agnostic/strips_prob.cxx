@@ -31,7 +31,7 @@ namespace aptk
 	STRIPS_Problem::STRIPS_Problem( std::string dom_name, std::string prob_name )
 		: m_domain_name(dom_name), m_problem_name( prob_name ), 
 		m_num_fluents( 0 ), m_num_actions( 0 ), m_end_operator_id( no_such_index ),
-		m_succ_gen( *this )
+		m_succ_gen( *this ), m_succ_gen_v2( *this )
 	{
 	}
 
@@ -51,6 +51,7 @@ namespace aptk
 			register_action_in_tables( actions()[k] );
 		
 		m_succ_gen.build();
+		m_succ_gen_v2.build();
 	}
 
 	void	STRIPS_Problem::register_action_in_tables( Action* a )

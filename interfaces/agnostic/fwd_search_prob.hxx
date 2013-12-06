@@ -44,7 +44,8 @@ public:
 	virtual bool		goal( const State& s ) const;
 	bool	                lazy_goal( const State& s, Action_Idx a  ) const;
 	virtual bool		is_applicable( const State& s, Action_Idx a ) const;
-	virtual void		applicable_set( const State& s, std::vector<Action_Idx>& app_set ) const;	
+	virtual void		applicable_set( const State& s, std::vector<Action_Idx>& app_set ) const;
+	virtual void		applicable_set_v2( const State& s, std::vector<Action_Idx>& app_set ) const;	
 	virtual float		cost( const State& s, Action_Idx a ) const;
 	virtual State*		next( const State& s, Action_Idx a ) const;
 	virtual void		print( std::ostream& os ) const;
