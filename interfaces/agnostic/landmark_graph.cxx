@@ -81,6 +81,13 @@ void	Landmarks_Graph::print( std::ostream& os ) const {
 			if ( i < n->preceded_by().size() - 1 )
 				std::cout << ", ";
 		}
+		std::cout << "\n\tGN Preceded by: ";
+		for ( unsigned i = 0; i < n->preceded_by_gn().size(); i++ ) {
+			Node* pred = n->preceded_by_gn()[i];
+			std::cout << m_strips_model.fluents()[ pred->fluent() ]->signature();
+			if ( i < n->preceded_by_gn().size() - 1 )
+				std::cout << ", ";
+		}
 		std::cout << "\n\tRequired by: ";
 		for ( unsigned i = 0; i < n->required_by().size(); i++ ) {
 			Node* pred = n->required_by()[i];

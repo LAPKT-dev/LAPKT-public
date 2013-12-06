@@ -173,62 +173,59 @@ public:
 		
 		/**
 		 * Compute Greedy Necessary Orderings
-		 */
-		// std::vector< Bit_Set > lm_set_in_actions( m_strips_model.num_actions() );
-		// m_fl_in_graph.resize( m_strips_model.num_fluents() );
-		
-		// Bit_Set reach_actions;
-		// m_reachability->get_reachable_actions( s->fluent_vec() , this->problem().task().goal() , reach_actions  );
+		 */		
+		Bit_Set reach_actions;
+		m_reachability->get_reachable_actions( m_strips_model.init() , m_strips_model.goal() , reach_actions  );
 
-		// for(unsigned p = 1; p <  m_strips_model.num_fluents(); p++){
+		for(unsigned p = 1; p <  m_strips_model.num_fluents(); p++){
+			
+			if( ! graph.is_landmark(p) ) continue;
+			const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( p );
 
-		// 	const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( p );
-						
+			lm_set.reset();
 
-		// 	bool first_supp = true;
+			for ( unsigned k = 0; k < add_acts.size(); k++ ){
+				const Action* a = add_acts[k];
+				/**
+				 * if action is reachable
+				 */
+				if( !reach_actions.isset(a->index()) ) continue;
 
-		// 	for ( unsigned k = 0; k < add_acts.size(); k++ ){
-		// 		const Action* a = add_acts[k];
-		// 		/**
-		// 		 * if action is reachable
-		// 		 */
-		// 		if( !reach_action[ a->index() ] ) ) continue;
+				Bit_Set lands_a( m_strips_model.num_fluents() );
 
-		// 		std::set<unsigned> land_supp;
+				getPCFluentLandmarks( a->index(), lands_a, graph );
 
-		// 		getPCFluentLandmarks( supporters[k], land_supp );
+				/**
+				 * if action do contain p as landmark
+				 */
+				if( lands_a.isset(p) ) continue;				
 
-		// 		/**
-		// 		 * if action do contain p as landmark
-		// 		 */
-		// 		if(land_supp.find(p) != land_supp.end()) continue;
+				
+				if(k==0)
+					lm_set.add( a->prec_set() ); 
+				else
+					lm_set.set_intersection( a->prec_set() ); 
+				
 
-		// 		Atom_Vec& prec = task.useful_ops()[ supporters[k] ]->prec_vec();
+			}
 
-		// 		ListSet list_prec;
+			lm_set.compute_first();
 
-		// 		for(Atom_Vec::iterator it_prec = prec.begin(); it_prec != prec.end(); it_prec++){
-		// 			/**
-		// 			 * discard initial state gn_land
-		// 			 */
-		// 			if(fluent_level[*it_prec] == 0)  continue;
+			unsigned q = lm_set.first();
+			while ( q != lm_set.end() ) {
 
-		// 			list_prec.insert(*it_prec);
-		// 			for(unsigned j = 0; j < task.fluent2star_fluent(*it_prec).size(); j++)
-		// 				list_prec.insert(task.fluent2star_fluent(*it_prec)[j]);
+				/**
+				 * Do not add gn of lands in intial state
+				 */
+				if ( ! m_strips_model.is_in_init(q) ){
+					std::cout << m_strips_model.fluents()[q]->signature() << "gn land for " << m_strips_model.fluents()[p]->signature() << std::endl; 
+					graph.node(p)->add_precedent_gn( graph.node(q) );
+				}
+				q = lm_set.next(q);
+			}	
 
-		// 		}
-		// 		if(first_supp){
-		// 			gn_landmarks[p] = list_prec;
-		// 			first_supp = false;
-		// 		}
-		// 		else
-		// 			gn_landmarks[p].intersect(list_prec);
-
-		// 	}
-
-		// }
-		
+		}
+	
 
 		
 	
@@ -239,6 +236,37 @@ public:
 		#endif
 
 	}
+
+protected:
+
+	void getFluentLandmarks( unsigned p, Bit_Set& landmarks, Landmarks_Graph& graph ){
+		
+		if( ! graph.is_landmark( p ) ) return;
+
+		for(std::vector<Landmarks_Graph::Node*>::const_iterator it = graph.node( p )->preceded_by().begin(); 
+		    it != graph.node( p )->preceded_by().end(); it++ ){
+			unsigned fl = (*it)->fluent();
+
+			if( landmarks.isset( fl ) ) continue;
+
+			landmarks.set( fl );
+			getFluentLandmarks( fl, landmarks, graph);
+		}
+		
+	}
+	
+	void getPCFluentLandmarks(unsigned act_idx,
+				  Bit_Set &landmarks, Landmarks_Graph& graph ) {
+
+		const Fluent_Vec& prec = m_strips_model.actions()[act_idx]->prec_vec();
+                for(unsigned i = 0; i < prec.size(); i++) {
+                        landmarks.set( prec[i] );
+			getFluentLandmarks( prec[i], landmarks, graph);
+                }
+
+
+        }
+
 
 protected:
 

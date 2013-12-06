@@ -51,6 +51,10 @@ public:
 			m_preceded_by.push_back( n );
 		}
 
+		void	add_precedent_gn( Node* n ) {
+			m_preceded_by_gn.push_back( n );
+		}
+
 		void	add_requiring( Node* n ) {
 			m_required_by.push_back( n );
 		}
@@ -82,6 +86,11 @@ public:
 		}
 
 		const std::vector<Node* >&
+				preceded_by_gn() const {
+			return m_preceded_by_gn;
+		}
+
+		const std::vector<Node* >&
 				required_by() const {
 			return m_required_by;
 		}
@@ -90,6 +99,7 @@ public:
 		unsigned		m_fluent;
 		bool                    m_consumed;
 		std::vector<Node* >	m_preceded_by;
+		std::vector<Node* >	m_preceded_by_gn;
 		std::vector<Node* >	m_required_by;
 	};
 
