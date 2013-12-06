@@ -18,8 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __NOVELTY__
-#define __NOVELTY__
+#ifndef __NOVELTY_PARTITION__
+#define __NOVELTY_PARTITION__
 
 #include <aptk/search_prob.hxx>
 #include <aptk/heuristic.hxx>
@@ -35,40 +35,42 @@ namespace agnostic {
 
 
 template <typename Search_Model >
-class Novelty : public Heuristic<State> {
+class Novelty_Partition : public Heuristic<State>{
 public:
 
-	Novelty( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 600 ) 
+	Novelty_Partition( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 600 ) 
 		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB) {
 		
-		set_arity(max_arity);
+		set_arity(max_arity, 1);
 		
 	}
 
-	virtual ~Novelty() {
+	virtual ~Novelty_Partition() {
 	}
 
 
 	void init() {
-		for(std::vector<State*>::iterator it = m_nodes_tuples.begin();
-		    it != m_nodes_tuples.end(); it++)		
-			*it = NULL;
+		for(std::vector< std::vector<State*> >::iterator it_p = m_nodes_tuples_by_partition.begin();
+		    it_p != m_nodes_tuples_by_partition.end(); it_p++)		
+			for(std::vector<State*>::iterator it = it_p->begin();
+			    it != it_p->end(); it++)		
+				*it = NULL;
 
 	}
 
 	unsigned arity() const { return m_arity; }
 
-	void set_arity( unsigned max_arity ){
+	void set_arity( unsigned max_arity, unsigned goal_size ){
 	
 		m_arity = max_arity;
 		m_num_tuples = 1;
 		m_num_fluents = m_strips_model.num_fluents();
 
-		float size_novelty = ( (float) pow(m_num_fluents,m_arity) / 1024000.) * sizeof(State*);
+		float size_novelty = ( (float) pow(m_num_fluents,m_arity) / 1024000.)  * (float) goal_size * sizeof(State*);
 		std::cout << "Try allocate size: "<< size_novelty<<" MB"<<std::endl;
 		if(size_novelty > m_max_memory_size_MB){
 			m_arity = 1;
-			size_novelty =  ( (float) pow(m_num_fluents,m_arity) / 1024000.) * sizeof(State*);
+			size_novelty =  ( (float) pow(m_num_fluents,m_arity) / 1024000.) * (float) goal_size * sizeof(State*);
 
 			std::cout<<"EXCEDED, m_arity downgraded to 1 --> size: "<< size_novelty<<" MB"<<std::endl;
 		}
@@ -76,17 +78,24 @@ public:
 		for(unsigned k = 0; k < m_arity; k++)
 			m_num_tuples *= m_num_fluents;
 
-		m_nodes_tuples.resize(m_num_tuples, NULL);
+		m_nodes_tuples_by_partition.resize( goal_size );
+		for( unsigned i = 0; i < goal_size; i++ )
+			m_nodes_tuples_by_partition[i].resize(m_num_tuples, NULL);
 
 	}
 	
+	virtual void eval( const State& s, float& h_val, unsigned goals_unachieved ) {
+	
+		compute( s, h_val, goals_unachieved );		
+	}
+
 	virtual void eval( const State& s, float& h_val ) {
 	
-		compute( s, h_val );		
+		compute( s, h_val, 0 );		
 	}
 
 	virtual void eval( const State& s, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
-		eval( s, h_val );
+		eval( s, h_val, 0 );
 	}
 
 	/**
@@ -110,7 +119,7 @@ protected:
 	 * where i ranges over 1 to max_arity
 	 */
 	template< typename T >
-	void compute(  const T& ns, float& novelty ) 
+	void compute(  const T& ns, float& novelty, unsigned goals_unachieved = 0 ) 
 	{
 
 		novelty = (float) m_arity+1;
@@ -118,7 +127,7 @@ protected:
 #ifdef DEBUG
 			std::cout << "search state node: "<<&(ns)<<std::endl;
 #endif 	
-			bool new_covers = cover_tuples( ns, i );
+			bool new_covers = cover_tuples( ns, i, goals_unachieved );
 			
 #ifdef DEBUG
 			if(!new_covers)	
@@ -175,11 +184,11 @@ protected:
 					 * OR
 					 * -> n better than old_n
 					 */
-					bool cover_new_tuple = ( !m_nodes_tuples[ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples[tuple_idx], s  ) ? true : false);
+					bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ n->goals_unachieved() ][tuple_idx], s  ) ? true : false);
                        
 					if( cover_new_tuple ){
 						
-						m_nodes_tuples[ tuple_idx ] = (State*) &(n.state());
+						m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] = (State*) &(n.state());
 						new_covers = true;
 
 
@@ -188,7 +197,7 @@ protected:
 						for(unsigned i = 0; i < arity; i++){
 							std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
 						}
-						std::cout << " by state: "<< m_nodes_tuples[ tuple_idx ] << "" ;
+						std::cout << " by state: "<< m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] << "" ;
 						std::cout << std::endl;
 #endif
 					}
@@ -200,7 +209,7 @@ protected:
 								std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
 							}
 				
-							std::cout << " by state: "<< m_nodes_tuples[ tuple_idx ] << "" <<std::flush;
+							std::cout << " by state: "<< m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] << "" <<std::flush;
 								
 							std::cout<< std::endl;
 #endif
@@ -211,7 +220,8 @@ protected:
 		return new_covers;
 	}
 
-	bool cover_tuples( const State& s, unsigned arity  )
+
+	bool cover_tuples( const State& s, unsigned arity, unsigned goals_unachieved  )
 	{
 
 
@@ -243,10 +253,10 @@ protected:
 			 * OR
 			 * -> n better than old_n
 			 */
-			bool cover_new_tuple = ( !m_nodes_tuples[ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples[tuple_idx], s  ) ? true : false);
+			bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ goals_unachieved ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ goals_unachieved ][tuple_idx], s  ) ? true : false);
 			
 			if( cover_new_tuple ){
-				m_nodes_tuples[ tuple_idx ] = (State*) &s;
+				m_nodes_tuples_by_partition[ goals_unachieved ][ tuple_idx ] = (State*) &s;
 
 				new_covers = true;
 #ifdef DEBUG
@@ -303,7 +313,7 @@ protected:
 
 
 	const STRIPS_Problem&	m_strips_model;
-        std::vector<State*>     m_nodes_tuples;
+	std::vector< std::vector<State*> >     m_nodes_tuples_by_partition;
         unsigned                m_arity;
 	unsigned long           m_num_tuples;
 	unsigned                m_num_fluents;
@@ -315,4 +325,4 @@ protected:
 
 }
 
-#endif // novelty.hxx
+#endif // novelty_partition.hxx

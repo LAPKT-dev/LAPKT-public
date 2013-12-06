@@ -41,6 +41,7 @@ namespace agnostic {
 		// Returns true if atom set g is reachable from s, when removing action
 		bool	is_reachable( const Fluent_Vec& s, const Fluent_Vec& g, unsigned action );
 		bool 	is_reachable( const Fluent_Vec& s, const Fluent_Vec& g, const Bit_Set& excluded );
+		void	get_reachable_actions( const Fluent_Vec& s, const Fluent_Vec& g,  Bit_Set& reach_actions );
 	protected:
 
 		bool	apply_actions();

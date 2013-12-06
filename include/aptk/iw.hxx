@@ -157,8 +157,11 @@ protected:
 	virtual Search_Node*   	process(  Search_Node *head ) {
 		for (int a = 0; a < this->problem().num_actions(); a++ ) {		
 			if( ! this->problem().task().actions()[ a ]->can_be_applied_on( *(head->state())) ) continue;
-			State *succ = this->problem().next( *(head->state()), a );
+
+
+			State *succ = this->problem().next( *(head->state()), a );	       
 			Search_Node* n = new Search_Node( succ, a, head );
+		
 			if ( this->is_closed( n ) ) {
 				delete n;
 				continue;
@@ -178,6 +181,7 @@ protected:
 					delete n;
 					continue;
 				}
+
 				#ifdef DEBUG
 				std::cout << std::endl;
 				std::cout << "State: " << n->state() << " " << n->parent()->state() << " " << n->gn() << " ";
@@ -192,6 +196,8 @@ protected:
 
 		} 
 		this->inc_exp();
+
+
 		return NULL;
 	}
 	
