@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <fwd_search_prob.hxx>
 #include <aptk/string_conversions.hxx>
+#include <aptk/time.hxx>
 
 using	aptk::STRIPS_Problem;
 using	aptk::State;
@@ -115,29 +116,54 @@ int main( int argc, char** argv ) {
 
 	Fwd_Search_Problem	search_prob( &plan_prob );
 
+	int TRIALS = 2000;
+	float old_time;
+
 	// MRJ: Example of different successor generator modalities
-	std::cout << "Applicable actions at root by direct checking: " << std::endl;
+	std::cout << std::endl << "Applicable actions at root by direct checking: " << std::endl;
 	State* s0 = search_prob.init();
+	old_time = aptk::time_used();
 	
-	for ( int i = 0; i < search_prob.num_actions(); i++ ) {
-		if ( search_prob.is_applicable( *s0, i ) ) 
-			std::cout << plan_prob.actions()[i]->signature() << std::endl;		
+	for (int trial = 0; trial < TRIALS; trial++) {
+		for ( int i = 0; i < search_prob.num_actions(); i++ ) {
+			if ( search_prob.is_applicable( *s0, i ) ) 
+				//std::cout << plan_prob.actions()[i]->signature() << std::endl;
+				//std::cout << '.';
+				int foo = 42;
+		}
 	}
+	//std::cout << std::endl;
+	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
+	old_time = aptk::time_used();
 
 	std::cout << "Applicable actions at root with successor generator: " << std::endl;
-	std::vector< aptk::Action_Idx > app_set;
-	search_prob.applicable_set( *s0, app_set );
-	for ( int i = 0; i < app_set.size(); i++ ) {
-		std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;		
+	for (int trial = 0; trial < TRIALS; trial++) {
+		std::vector< aptk::Action_Idx > app_set;
+		search_prob.applicable_set( *s0, app_set );
+		for ( int i = 0; i < app_set.size(); i++ ) {
+			//std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
+			//std::cout << '.';
+			int foo = 42;
+		}
 	}
+	//std::cout << std::endl;
+	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
+	old_time = aptk::time_used();
 
 	std::cout << "Applicable actions at root with iterator interface: " << std::endl;
-	Fwd_Search_Problem::Action_Iterator it(search_prob);
-	int a = it.start( *s0 );
-	while (a != aptk::no_op) {
-		std::cout << plan_prob.actions()[a]->signature() << std::endl;	
-		a = it.next();
+	for (int trial = 0; trial < TRIALS; trial++) {
+		Fwd_Search_Problem::Action_Iterator it(search_prob);
+		int a = it.start( *s0 );
+		while (a != aptk::no_op) {
+			//std::cout << plan_prob.actions()[a]->signature() << std::endl;
+			//std::cout << '.';
+			int foo = 42;
+			a = it.next();
+		}
 	}
+	//std::cout << std::endl;
+	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl;
+	std::cout << std::endl;
 
 	return 0;
 }
