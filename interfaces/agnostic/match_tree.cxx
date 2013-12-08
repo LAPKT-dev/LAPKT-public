@@ -31,12 +31,85 @@ namespace aptk {
 namespace agnostic {
 
 void Match_Tree::build() {
-    // Coming soon...
+	std::set<int> vars_seen;
+	std::vector<int> actions;
+	
+	// TODO: Fill in the actions list
+	
+	root_node = new Match_Tree::SwitchNode( actions, vars_seen, m_problem );
 }
 
 void Match_Tree::retrieve_applicable( const State& s, std::vector<int>& actions ) const {
-    // Coming soon...
+	return root_node->generate_applicable_items(s, actions, m_problem);
 }
+
+/********************/
+
+BaseNode* Match_Tree::create_tree( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob ) {
+	
+	if (actions.empty())
+		return new EmptyNode;
+	
+	// If every item is done, then we create a leaf node
+	bool all_done = true;
+	for (int i = 0; all_done && (i < actions.size()); ++i) {
+		if (!(reg_item_done(actions[i], vars_seen))) {
+			all_done = false;
+		}
+	}
+	
+	if (all_done) {
+		return new LeafNode(actions);
+	} else {
+		return new SwitchNode(actions, vars_seen);
+	}
+
+}
+
+int Match_Tree::get_best_var( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob ) {
+	
+	vector< pair<int,int> > var_count = vector< pair<int,int> >(prob.fluents().size());
+	
+	for (int i = 0; i < prob.fluents().size(); ++i) {
+		var_count[i] = pair<int,int>(0, i);
+	}
+	
+	for (int i = 0; i < actions.size(); ++i) {
+		Action* act = prob.actions()[actions[i]];
+		for (int j = 0; j < act->prec_vec().size(); ++j) {
+			var_count[act->fluents()[j]].first++;
+		}
+	}
+	
+	sort(var_count.begin(), var_count.end());
+	
+	for (int i = var_count.size() - 1; i >= 0; --i) {
+		if (vars_seen.count(var_count[i].second) <= 0) {
+			//cout << "Best var " << var_count[i].second << " with a count of " << var_count[i].first << endl;
+			return var_count[i].second;
+		}
+	}
+	
+	assert(false);
+	return -1;
+}
+
+bool Match_Tree::reg_item_done( int action_id, std::set<int> &vars_seen, const STRIPS_Problem& prob ) {
+	
+	Action* act = prob.actions()[id];
+	
+	for (int i = 0; i < act->prec_vec().size(); ++i) {
+		if (0 == vars_seen.count(act->prec_vec()[i]))
+			return false;
+	}
+	
+	return true;
+}
+
+/********************/
+
+/********************/
+
 
 }
 

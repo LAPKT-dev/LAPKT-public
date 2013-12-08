@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define __MATCH_TREE__
 
 #include <types.hxx>
-#include <deque>
+#include <pair>
 #include <vector>
 
 namespace aptk {
@@ -34,9 +34,48 @@ class Action;
 
 namespace agnostic {
 
-// Fast-Downward ("The Fast-Downward Planning System", Helmert, M., 2006) successor generator data structure
+// Match tree data structure from PRP ( https://bitbucket.org/haz/planner-for-relevant-policies )
 	
 class Match_Tree {
+
+	class BaseNode {
+	public:
+		virtual ~BaseNode() {}
+		virtual void dump( string indent ) const = 0;
+		virtual void generate_applicable_items( const State& s, std::vector<int>& actions, const STRIPS_Problem& prob ) = 0;
+		
+		BaseNode *create_tree( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
+		int get_best_var( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
+		bool reg_item_done( int action_id, std::set<int> &vars_seen, const STRIPS_Problem& prob );
+	};
+
+	class SwitchNode : public BaseNode {
+		int switch_var;
+		std::vector<int> immediate_items;
+        BaseNode * true_child;
+        BaseNode * false_child;
+        BaseNode * default_child;
+		
+	public:
+		~SwitchNode();
+		SwitchNode( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
+		virtual void generate_applicable_items( const State& s, std::vector<int>& actions, const STRIPS_Problem& prob );
+		virtual void dump( string indent ) const;
+	};
+
+	class LeafNode : public BaseNode {
+		std::vector<int> applicable_items;
+	public:
+		LeafNode( std::vector<int>& actions );
+		virtual void generate_applicable_items( const State& s, std::vector<int>& actions, const STRIPS_Problem& prob );
+		virtual void dump( string indent ) const;
+	};
+
+	class EmptyNode : public BaseNode {
+	public:
+		virtual void generate_applicable_items( const State &, std::vector<int>& ) {}
+		virtual void dump( string indent ) const;
+	};
 
 public:
 
@@ -45,11 +84,12 @@ public:
 	~Match_Tree() {};
 
 	void build();
-    void retrieve_applicable( const State& s, std::vector<int>& actions ) const;
+	void retrieve_applicable( const State& s, std::vector<int>& actions ) const;
 
 private:
 
 	const STRIPS_Problem& m_problem;
+	BaseNode * root_node;
 
 };
 
