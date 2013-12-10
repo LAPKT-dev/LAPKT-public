@@ -145,7 +145,7 @@ int main( int argc, char** argv ) {
 	for (int trial = 0; trial < TRIALS; trial++) {
 		std::vector< aptk::Action_Idx > app_set;
 		search_prob.applicable_set( *s0, app_set );
-		for ( int i = 0; i < app_set.size(); i++ ) {
+		for ( unsigned i = 0; i < app_set.size(); i++ ) {
 			//std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
 			//std::cout << '.';
 			int foo = 42;
@@ -177,7 +177,7 @@ int main( int argc, char** argv ) {
 	for (int trial = 0; trial < TRIALS; trial++) {
 		std::vector< aptk::Action_Idx > app_set;
 		search_prob.applicable_set_v2( *s0, app_set );
-		for ( int i = 0; i < app_set.size(); i++ ) {
+		for ( unsigned i = 0; i < app_set.size(); i++ ) {
 			//std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
 			//std::cout << '.';
 			int foo = 42;

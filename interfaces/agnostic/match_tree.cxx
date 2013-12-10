@@ -34,18 +34,19 @@ void Match_Tree::build() {
 	std::set<int> vars_seen;
 	std::vector<int> actions;
 	
-	// TODO: Fill in the actions list
+	for (unsigned i = 0; i < m_problem.num_actions(); ++i)
+	    actions.push_back(i);
 	
 	root_node = new Match_Tree::SwitchNode( actions, vars_seen, m_problem );
 }
 
 void Match_Tree::retrieve_applicable( const State& s, std::vector<int>& actions ) const {
-	return root_node->generate_applicable_items(s, actions, m_problem);
+	return root_node->generate_applicable_items( s, actions, m_problem );
 }
 
 /********************/
 
-BaseNode* Match_Tree::create_tree( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob ) {
+Match_Tree::BaseNode * Match_Tree::create_tree( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob ) {
 	
 	if (actions.empty())
 		return new EmptyNode;
@@ -68,15 +69,15 @@ BaseNode* Match_Tree::create_tree( std::vector<int>& actions, std::set<int> &var
 
 int Match_Tree::get_best_var( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob ) {
 	
-	vector< pair<int,int> > var_count = vector< pair<int,int> >(prob.fluents().size());
+	std::vector< std::pair<int,int> > var_count = std::vector< std::pair<int,int> >(prob.fluents().size());
 	
-	for (int i = 0; i < prob.fluents().size(); ++i) {
+	for (unsigned i = 0; i < prob.fluents().size(); ++i) {
 		var_count[i] = pair<int,int>(0, i);
 	}
 	
-	for (int i = 0; i < actions.size(); ++i) {
+	for (unsigned i = 0; i < actions.size(); ++i) {
 		Action* act = prob.actions()[actions[i]];
-		for (int j = 0; j < act->prec_vec().size(); ++j) {
+		for (unsigned j = 0; j < act->prec_vec().size(); ++j) {
 			var_count[act->fluents()[j]].first++;
 		}
 	}
@@ -98,8 +99,8 @@ bool Match_Tree::reg_item_done( int action_id, std::set<int> &vars_seen, const S
 	
 	Action* act = prob.actions()[id];
 	
-	for (int i = 0; i < act->prec_vec().size(); ++i) {
-		if (0 == vars_seen.count(act->prec_vec()[i]))
+	for (unsigned i = 0; i < act->prec_varval().size(); ++i) {
+		if (0 == vars_seen.count(act->prec_varval()[i].first))
 			return false;
 	}
 	

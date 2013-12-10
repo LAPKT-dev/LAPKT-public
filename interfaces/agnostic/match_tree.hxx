@@ -23,8 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define __MATCH_TREE__
 
 #include <types.hxx>
-#include <pair>
 #include <vector>
+#include <string>
+#include <set>
 
 namespace aptk {
 
@@ -41,7 +42,7 @@ class Match_Tree {
 	class BaseNode {
 	public:
 		virtual ~BaseNode() {}
-		virtual void dump( string indent ) const = 0;
+		virtual void dump( std::string indent ) const = 0;
 		virtual void generate_applicable_items( const State& s, std::vector<int>& actions, const STRIPS_Problem& prob ) = 0;
 		
 		BaseNode *create_tree( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
@@ -52,15 +53,14 @@ class Match_Tree {
 	class SwitchNode : public BaseNode {
 		int switch_var;
 		std::vector<int> immediate_items;
-        BaseNode * true_child;
-        BaseNode * false_child;
+		std::vector<BaseNode *> children;
         BaseNode * default_child;
 		
 	public:
 		~SwitchNode();
 		SwitchNode( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
 		virtual void generate_applicable_items( const State& s, std::vector<int>& actions, const STRIPS_Problem& prob );
-		virtual void dump( string indent ) const;
+		virtual void dump( std::string indent ) const;
 	};
 
 	class LeafNode : public BaseNode {
@@ -68,20 +68,20 @@ class Match_Tree {
 	public:
 		LeafNode( std::vector<int>& actions );
 		virtual void generate_applicable_items( const State& s, std::vector<int>& actions, const STRIPS_Problem& prob );
-		virtual void dump( string indent ) const;
+		virtual void dump( std::string indent ) const;
 	};
 
 	class EmptyNode : public BaseNode {
 	public:
 		virtual void generate_applicable_items( const State &, std::vector<int>& ) {}
-		virtual void dump( string indent ) const;
+		virtual void dump( std::string indent ) const;
 	};
 
 public:
 
 	Match_Tree ( const STRIPS_Problem& prob ) : m_problem( prob ) {}
 
-	~Match_Tree() {};
+	~Match_Tree() { delete root_node; };
 
 	void build();
 	void retrieve_applicable( const State& s, std::vector<int>& actions ) const;

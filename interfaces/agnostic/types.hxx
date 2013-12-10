@@ -49,6 +49,7 @@ namespace aptk
 	typedef         std::vector< Action_Ptr_Vec >           	PDDLop_Action_Table;
 	typedef		std::vector< Fluent_Ptr_Vec >	        	Type_Fluent_Table;
 	typedef		std::vector< Fluent_Ptr_Vec >	        	Object_Fluent_Table;
+	typedef		std::vector< std::pair<int, int> >   VarVal_Vec;
 
 
 #define no_such_index  std::numeric_limits<unsigned>::max()
