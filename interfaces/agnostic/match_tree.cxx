@@ -41,7 +41,7 @@ void Match_Tree::build() {
 }
 
 void Match_Tree::retrieve_applicable( const State& s, std::vector<int>& actions ) const {
-	return root_node->generate_applicable_items( s, actions, m_problem );
+	return root_node->generate_applicable_items( s, actions );
 }
 
 /********************/
@@ -54,7 +54,7 @@ BaseNode * BaseNode::create_tree( std::vector<int>& actions, std::set<int> &vars
 	// If every item is done, then we create a leaf node
 	bool all_done = true;
 	for (unsigned i = 0; all_done && (i < actions.size()); ++i) {
-		if (!(reg_item_done(actions[i], vars_seen, prob))) {
+		if (!(action_done(actions[i], vars_seen, prob))) {
 			all_done = false;
 		}
 	}
@@ -68,6 +68,8 @@ BaseNode * BaseNode::create_tree( std::vector<int>& actions, std::set<int> &vars
 }
 
 int BaseNode::get_best_var( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob ) {
+	
+	// TODO: This fluents.size() stuff needs to change to the number of mutexes once they're computed
 	
 	std::vector< std::pair<int,int> > var_count = std::vector< std::pair<int,int> >(prob.fluents().size());
 	
@@ -95,7 +97,7 @@ int BaseNode::get_best_var( std::vector<int>& actions, std::set<int> &vars_seen,
 	return -1;
 }
 
-bool BaseNode::reg_item_done( int action_id, std::set<int> &vars_seen, const STRIPS_Problem& prob ) {
+bool BaseNode::action_done( int action_id, std::set<int> &vars_seen, const STRIPS_Problem& prob ) {
 	
 	const Action* act = prob.actions()[action_id];
 	
@@ -124,12 +126,84 @@ void LeafNode::dump( std::string indent ) const {
 		std::cout << indent << applicable_items[i] << std::endl;
 }
 
-void LeafNode::generate_applicable_items( const State&, std::vector<int>& actions, const STRIPS_Problem& ) {
+void LeafNode::generate_applicable_items( const State&, std::vector<int>& actions ) {
 	for (unsigned i = 0; i < applicable_items.size(); ++i)
 		actions.push_back(applicable_items[i]);
 }
 
 /********************/
+
+void SwitchNode::generate_applicable_items( const State& s, std::vector<int>& actions ) {
+    for (unsigned i = 0; i < immediate_items.size(); ++i)
+		actions.push_back(immediate_items[i]);
+    
+    children[s.value_for_var(switch_var)]->generate_applicable_items( s, actions );
+    
+    default_child->generate_applicable_items( s, actions );
+}
+
+SwitchNode::SwitchNode( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob ) {
+
+    switch_var = get_best_var(actions, vars_seen, prob);
+    
+    vector< list<int> > value_items;
+    list<BaseNode *> default_items;
+    
+    
+    
+    
+    
+    
+    
+    
+    // TODO: Rewrite from here...
+    
+    // Initialize the value_items
+    for (int i = 0; i < g_variable_domain[switch_var]; i++)
+        value_items.push_back(list<PolicyItem *>());
+    
+    // Sort out the regression items
+    for (list<PolicyItem *>::iterator op_iter = reg_items.begin(); op_iter != reg_items.end(); ++op_iter) {
+        if (reg_item_done(*op_iter, vars_seen)) {
+            immediate_items.push_back(*op_iter);
+        } else if (state_var_t(-1) != (*((*op_iter)->state))[switch_var]) {
+            value_items[(*((*op_iter)->state))[switch_var]].push_back(*op_iter);
+        } else { // == -1
+            default_items.push_back(*op_iter);
+        }
+    }
+    
+    vars_seen.insert(switch_var);
+    
+    // Create the switch generators
+    for (int i = 0; i < value_items.size(); i++) {
+        generator_for_value.push_back(create_generator(value_items[i], vars_seen));
+    }
+    
+    // Create the default generator
+    default_generator = create_generator(default_items, vars_seen);
+    
+    vars_seen.erase(switch_var);
+    
+    
+    
+    
+    
+    
+}
+
+void SwitchNode::dump( std::string indent ) const {
+    std::cout << indent << "switch on " << switch_var << std::endl;
+    std::cout << indent << "immediately:" << std::endl;
+    for (unsigned i = 0; i < immediate_items.size(); ++i)
+        std::cout << indent << immediate_items[i] << std::endl;
+    for (unsigned i = 0; i < children.size(); ++i) {
+        std::cout << indent << "case " << i << ":" << std::endl;
+        children[i]->dump(indent + "  ");
+    }
+    std::cout << indent << "always:" << std::endl;
+    default_child->dump(indent + "  ");
+}
 
 /********************/
 

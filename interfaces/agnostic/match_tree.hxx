@@ -46,7 +46,7 @@ public:
 	
 	BaseNode *create_tree( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
 	int get_best_var( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
-	bool reg_item_done( int action_id, std::set<int> &vars_seen, const STRIPS_Problem& prob );
+	bool action_done( int action_id, std::set<int> &vars_seen, const STRIPS_Problem& prob );
 };
 
 
@@ -57,9 +57,8 @@ class SwitchNode : public BaseNode {
 	BaseNode * default_child;
 	
 public:
-	~SwitchNode();
 	SwitchNode( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
-	virtual void generate_applicable_items( const State& s, std::vector<int>& actions, const STRIPS_Problem& prob );
+	virtual void generate_applicable_items( const State& s, std::vector<int>& actions );
 	virtual void dump( std::string indent ) const;
 };
 
@@ -68,14 +67,14 @@ class LeafNode : public BaseNode {
 	std::vector<int> applicable_items;
 public:
 	LeafNode( std::vector<int>& actions );
-	virtual void generate_applicable_items( const State& s, std::vector<int>& actions, const STRIPS_Problem& prob );
+	virtual void generate_applicable_items( const State& s, std::vector<int>& actions );
 	virtual void dump( std::string indent ) const;
 };
 
 
 class EmptyNode : public BaseNode {
 public:
-	virtual void generate_applicable_items( const State &, std::vector<int>&, const STRIPS_Problem& ) {}
+	virtual void generate_applicable_items( const State &, std::vector<int>& ) {}
 	virtual void dump( std::string indent ) const;
 };
 
