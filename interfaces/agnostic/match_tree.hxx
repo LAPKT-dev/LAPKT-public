@@ -42,7 +42,8 @@ class BaseNode {
 public:
 	virtual ~BaseNode() {}
 	virtual void dump( std::string indent ) const = 0;
-	virtual void generate_applicable_items( const State& s, std::vector<int>& actions, const STRIPS_Problem& prob ) = 0;
+	virtual void generate_applicable_items( const State& s, std::vector<int>& actions ) = 0;
+	virtual int count() const = 0;
 	
 	BaseNode *create_tree( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
 	int get_best_var( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
@@ -60,6 +61,7 @@ public:
 	SwitchNode( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
 	virtual void generate_applicable_items( const State& s, std::vector<int>& actions );
 	virtual void dump( std::string indent ) const;
+	virtual int count() const;
 };
 
 
@@ -69,6 +71,7 @@ public:
 	LeafNode( std::vector<int>& actions );
 	virtual void generate_applicable_items( const State& s, std::vector<int>& actions );
 	virtual void dump( std::string indent ) const;
+	virtual int count() const { return applicable_items.size(); }
 };
 
 
@@ -76,6 +79,7 @@ class EmptyNode : public BaseNode {
 public:
 	virtual void generate_applicable_items( const State &, std::vector<int>& ) {}
 	virtual void dump( std::string indent ) const;
+	virtual int count() const { return 0; }
 };
 
 
@@ -89,6 +93,8 @@ public:
 
 	void build();
 	void retrieve_applicable( const State& s, std::vector<int>& actions ) const;
+	int count() { return root_node->count(); }
+	void dump() { root_node->dump(""); }
 
 private:
 

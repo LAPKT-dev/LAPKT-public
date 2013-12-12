@@ -146,50 +146,39 @@ SwitchNode::SwitchNode( std::vector<int>& actions, std::set<int> &vars_seen, con
 
     switch_var = get_best_var(actions, vars_seen, prob);
     
-    vector< list<int> > value_items;
-    list<BaseNode *> default_items;
+    std::vector< std::vector<int> > value_items;
+    std::vector<int> default_items;
     
-    
-    
-    
-    
-    
-    
-    
-    // TODO: Rewrite from here...
+    // TODO: This should change when the mutex's are computed
+    //        Ditto for the "1 == s.value..." and "value_items[0]..." lines below
+    int num_of_var_values = 1;
     
     // Initialize the value_items
-    for (int i = 0; i < g_variable_domain[switch_var]; i++)
-        value_items.push_back(list<PolicyItem *>());
+    for (int i = 0; i < num_of_var_values; ++i)
+        value_items.push_back( std::vector<int>() );
     
     // Sort out the regression items
-    for (list<PolicyItem *>::iterator op_iter = reg_items.begin(); op_iter != reg_items.end(); ++op_iter) {
-        if (reg_item_done(*op_iter, vars_seen)) {
-            immediate_items.push_back(*op_iter);
-        } else if (state_var_t(-1) != (*((*op_iter)->state))[switch_var]) {
-            value_items[(*((*op_iter)->state))[switch_var]].push_back(*op_iter);
+    for (unsigned i = 0; i < actions.size(); ++i) {
+        if (action_done(actions[i], vars_seen, prob)) {
+            immediate_items.push_back(actions[i]);
+        } else if (prob.actions()[actions[i]]->requires(switch_var)) {
+            value_items[0].push_back(actions[i]);
         } else { // == -1
-            default_items.push_back(*op_iter);
+            default_items.push_back(actions[i]);
         }
     }
     
     vars_seen.insert(switch_var);
     
     // Create the switch generators
-    for (int i = 0; i < value_items.size(); i++) {
-        generator_for_value.push_back(create_generator(value_items[i], vars_seen));
+    for (unsigned i = 0; i < value_items.size(); i++) {
+        children.push_back(create_tree(value_items[i], vars_seen, prob));
     }
     
     // Create the default generator
-    default_generator = create_generator(default_items, vars_seen);
+    default_child = create_tree(default_items, vars_seen, prob);
     
     vars_seen.erase(switch_var);
-    
-    
-    
-    
-    
-    
 }
 
 void SwitchNode::dump( std::string indent ) const {
@@ -203,6 +192,15 @@ void SwitchNode::dump( std::string indent ) const {
     }
     std::cout << indent << "always:" << std::endl;
     default_child->dump(indent + "  ");
+}
+
+int SwitchNode::count() const {
+    int total = 0;
+    for (unsigned i = 0; i < children.size(); ++i)
+        total += children[i]->count();
+    total += default_child->count();
+    total += immediate_items.size();
+    return total;
 }
 
 /********************/

@@ -121,7 +121,7 @@ int main( int argc, char** argv ) {
 	plan_prob.print_fluent_vec( std::cout, plan_prob.goal() );
 	std::cout << std::endl;
 
-	int TRIALS = 2000;
+	int TRIALS = 1;
 	float old_time;
 
 	// MRJ: Example of different successor generator modalities
@@ -132,7 +132,7 @@ int main( int argc, char** argv ) {
 	for (int trial = 0; trial < TRIALS; trial++) {
 		for ( int i = 0; i < search_prob.num_actions(); i++ ) {
 			if ( search_prob.is_applicable( *s0, i ) ) 
-				//std::cout << plan_prob.actions()[i]->signature() << std::endl;
+				std::cout << plan_prob.actions()[i]->signature() << std::endl;
 				//std::cout << '.';
 				int foo = 42;
 		}
@@ -146,7 +146,7 @@ int main( int argc, char** argv ) {
 		std::vector< aptk::Action_Idx > app_set;
 		search_prob.applicable_set( *s0, app_set );
 		for ( unsigned i = 0; i < app_set.size(); i++ ) {
-			//std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
+			std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
 			//std::cout << '.';
 			int foo = 42;
 		}
@@ -160,7 +160,7 @@ int main( int argc, char** argv ) {
 		Fwd_Search_Problem::Action_Iterator it(search_prob);
 		int a = it.start( *s0 );
 		while (a != aptk::no_op) {
-			//std::cout << plan_prob.actions()[a]->signature() << std::endl;
+			std::cout << plan_prob.actions()[a]->signature() << std::endl;
 			//std::cout << '.';
 			int foo = 42;
 			a = it.next();
@@ -178,7 +178,7 @@ int main( int argc, char** argv ) {
 		std::vector< aptk::Action_Idx > app_set;
 		search_prob.applicable_set_v2( *s0, app_set );
 		for ( unsigned i = 0; i < app_set.size(); i++ ) {
-			//std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
+			std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
 			//std::cout << '.';
 			int foo = 42;
 		}

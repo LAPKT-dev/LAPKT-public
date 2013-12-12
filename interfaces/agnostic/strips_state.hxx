@@ -42,7 +42,7 @@ public:
 	const Fluent_Vec& fluent_vec() const	{ return m_fluent_vec; }
 	const Fluent_Set& fluent_set() const	{ return m_fluent_set; }
 	
-	unsigned value_for_var( unsigned var ) { return 1 ? 0 : m_fluent_set.isset(var); }
+	unsigned value_for_var( unsigned var ) const { return 1 ? 0 : m_fluent_set.isset(var); }
 
 	void	set( unsigned f );
 	void	unset( unsigned f );
