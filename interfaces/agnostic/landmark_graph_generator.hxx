@@ -121,17 +121,17 @@ public:
 		
 		// 1. Insert goal atoms as landmarks
 		for ( Fluent_Vec::const_iterator it = m_strips_model.goal().begin();
-			it != m_strips_model.goal().end(); it++ ) {
+		      it != m_strips_model.goal().end(); it++ ) {
 			graph.add_landmark( *it );
 			if ( ! m_strips_model.is_in_init( *it ) ) {
-			  updated.push_back( *it );
+				updated.push_back( *it );
 			}
 		}
 
 
 		if( m_only_goals ){
-		  build_goal_ordering( graph );
-		  return;
+			build_goal_ordering( graph );
+			return;
 		}
 		
 		Bit_Set lm_set( m_strips_model.num_fluents() );
@@ -156,7 +156,7 @@ public:
 			}
 			
 			const std::vector< std::pair< unsigned, const Action*> >& add_acts_ce = 
-				 m_strips_model.ceffs_adding( p );
+				m_strips_model.ceffs_adding( p );
 			
 			if ( !add_acts_ce.empty() ) {
 
@@ -222,9 +222,9 @@ public:
 				 */
 
 				if( lands_a.isset(p) ){ 
-				  //				  std::cout << m_strips_model.actions()[a->index()]->signature() << "NOT first sup of " << m_strips_model.fluents()[p]->signature() << std::endl; 
+					//				  std::cout << m_strips_model.actions()[a->index()]->signature() << "NOT first sup of " << m_strips_model.fluents()[p]->signature() << std::endl; 
 				  
-				  continue;				
+					continue;				
 				}
 				std::cout << m_strips_model.actions()[a->index()]->signature() << "first sup of " << m_strips_model.fluents()[p]->signature() << std::endl; 
 				
@@ -246,8 +246,14 @@ public:
 				 */
 				if ( ! m_strips_model.is_in_init(q) ){
 					std::cout << m_strips_model.fluents()[q]->signature() << "gn land for " << m_strips_model.fluents()[p]->signature() << std::endl; 
-					if(graph.node(q))
-					  graph.node(p)->add_precedent_gn( graph.node(q) );
+					Landmarks_Graph::Node* nq = graph.node(q);
+					if( nq ){
+						Landmarks_Graph::Node* np = graph.node(p);
+						if( ! np->is_preceded_by(nq) ) 
+							graph.node(p)->add_precedent_gn( graph.node(q) );
+						if( ! nq->is_required_by(np) ) 
+							graph.node(q)->add_requiring_gn( graph.node(p) );
+					}
 				}
 				q = lm_set.next(q);
 			}	
@@ -258,10 +264,10 @@ public:
 		build_goal_ordering( graph );
 	
 
-		#ifdef DEBUG
+#ifdef DEBUG
 		std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
 		graph.print( std::cout );
-		#endif
+#endif
 
 	}
 
