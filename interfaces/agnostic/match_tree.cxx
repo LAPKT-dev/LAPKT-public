@@ -111,7 +111,7 @@ bool BaseNode::action_done( int action_id, std::set<int> &vars_seen, const STRIP
 
 /********************/
 
-void EmptyNode::dump( std::string indent ) const {
+void EmptyNode::dump( std::string indent, const STRIPS_Problem& ) const {
 	std::cout << indent << "<empty>" << std::endl;
 }
 
@@ -121,23 +121,24 @@ LeafNode::LeafNode( std::vector<int>& actions ) {
 	applicable_items.swap(actions);
 }
 
-void LeafNode::dump( std::string indent ) const {
+void LeafNode::dump( std::string indent, const STRIPS_Problem& prob ) const {
 	for (unsigned i = 0; i < applicable_items.size(); ++i)
-		std::cout << indent << applicable_items[i] << std::endl;
+		std::cout << indent << prob.actions()[applicable_items[i]]->signature() << std::endl;
 }
 
 void LeafNode::generate_applicable_items( const State&, std::vector<int>& actions ) {
-	for (unsigned i = 0; i < applicable_items.size(); ++i)
-		actions.push_back(applicable_items[i]);
+    actions.insert( actions.end(), applicable_items.begin(), applicable_items.end() );
 }
 
 /********************/
 
 void SwitchNode::generate_applicable_items( const State& s, std::vector<int>& actions ) {
-    for (unsigned i = 0; i < immediate_items.size(); ++i)
-		actions.push_back(immediate_items[i]);
+    actions.insert( actions.end(), immediate_items.begin(), immediate_items.end() );
     
-    children[s.value_for_var(switch_var)]->generate_applicable_items( s, actions );
+    // TODO: Change this when mutex's are done proper
+    //children[s.value_for_var(switch_var)]->generate_applicable_items( s, actions );
+    if (1 == s.value_for_var(switch_var))
+        children[0]->generate_applicable_items( s, actions );
     
     default_child->generate_applicable_items( s, actions );
 }
@@ -181,17 +182,17 @@ SwitchNode::SwitchNode( std::vector<int>& actions, std::set<int> &vars_seen, con
     vars_seen.erase(switch_var);
 }
 
-void SwitchNode::dump( std::string indent ) const {
-    std::cout << indent << "switch on " << switch_var << std::endl;
+void SwitchNode::dump( std::string indent, const STRIPS_Problem& prob ) const {
+    std::cout << indent << "switch on " << prob.fluents()[switch_var]->signature() << std::endl;
     std::cout << indent << "immediately:" << std::endl;
     for (unsigned i = 0; i < immediate_items.size(); ++i)
-        std::cout << indent << immediate_items[i] << std::endl;
+        std::cout << indent << prob.actions()[immediate_items[i]]->signature() << std::endl;
     for (unsigned i = 0; i < children.size(); ++i) {
         std::cout << indent << "case " << i << ":" << std::endl;
-        children[i]->dump(indent + "  ");
+        children[i]->dump(indent + "  ", prob);
     }
     std::cout << indent << "always:" << std::endl;
-    default_child->dump(indent + "  ");
+    default_child->dump(indent + "  ", prob);
 }
 
 int SwitchNode::count() const {

@@ -41,7 +41,7 @@ namespace agnostic {
 class BaseNode {
 public:
 	virtual ~BaseNode() {}
-	virtual void dump( std::string indent ) const = 0;
+	virtual void dump( std::string indent, const STRIPS_Problem& prob ) const = 0;
 	virtual void generate_applicable_items( const State& s, std::vector<int>& actions ) = 0;
 	virtual int count() const = 0;
 	
@@ -60,7 +60,7 @@ class SwitchNode : public BaseNode {
 public:
 	SwitchNode( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
 	virtual void generate_applicable_items( const State& s, std::vector<int>& actions );
-	virtual void dump( std::string indent ) const;
+	virtual void dump( std::string indent, const STRIPS_Problem& prob ) const;
 	virtual int count() const;
 };
 
@@ -70,7 +70,7 @@ class LeafNode : public BaseNode {
 public:
 	LeafNode( std::vector<int>& actions );
 	virtual void generate_applicable_items( const State& s, std::vector<int>& actions );
-	virtual void dump( std::string indent ) const;
+	virtual void dump( std::string indent, const STRIPS_Problem& prob ) const;
 	virtual int count() const { return applicable_items.size(); }
 };
 
@@ -78,7 +78,7 @@ public:
 class EmptyNode : public BaseNode {
 public:
 	virtual void generate_applicable_items( const State &, std::vector<int>& ) {}
-	virtual void dump( std::string indent ) const;
+	virtual void dump( std::string indent, const STRIPS_Problem& prob) const;
 	virtual int count() const { return 0; }
 };
 
@@ -94,7 +94,7 @@ public:
 	void build();
 	void retrieve_applicable( const State& s, std::vector<int>& actions ) const;
 	int count() { return root_node->count(); }
-	void dump() { root_node->dump(""); }
+	void dump() { root_node->dump("", m_problem); }
 
 private:
 
