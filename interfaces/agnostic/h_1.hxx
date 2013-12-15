@@ -121,6 +121,24 @@ public:
 		return m_best_supporters[f];
 	}
 
+
+        void get_best_supporters( unsigned f, Action_Ptr_Const_Vec& bfs ) const {
+		const Action* bf = m_best_supporters[f];
+
+		if(!bf) return;
+
+		float h_val_bf = eval_func( bf->prec_vec().begin(), bf->prec_vec().end() );
+		float h_val = 0;
+
+		const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( f );		
+		for ( unsigned k = 0; k < add_acts.size(); k++ ){
+		  const Action* a = add_acts[k];
+		  h_val = eval_func( a->prec_vec().begin(), a->prec_vec().end() );
+		  if( h_val == h_val_bf)
+		    bfs.push_back(a);
+		}
+	}
+
 protected:
 
 	void	update( unsigned p, float v ) {

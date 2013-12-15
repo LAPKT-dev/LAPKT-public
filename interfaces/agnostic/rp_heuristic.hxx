@@ -43,7 +43,7 @@ class Relaxed_Plan_Extractor
 public:
 
 	Relaxed_Plan_Extractor( const STRIPS_Problem& prob, Primary_Heuristic& h )
-	: m_base_heuristic(h), m_strips_model( prob ) {
+		: m_base_heuristic(h), m_strips_model( prob ), m_ignore_rp_h_value(false) {
 		m_act_seen.resize( m_strips_model.num_actions() );
 		m_init_fluents.resize( m_strips_model.num_fluents() );
 		m_po_set.resize( m_strips_model.num_actions() );
@@ -104,11 +104,13 @@ public:
 			}
 		}
 	
-		h_val = 0.0f;
+		if(!m_ignore_rp_h_value)
+			h_val = 0.0f;
 	
 		m_rp_precs.reset();
 		for ( unsigned k = 0; k < relaxed_plan.size(); k++ ) {
-			h_val += ( cost_opt == RP_Cost_Function::Ignore_Costs ? 1.0f : relaxed_plan[k]->cost() );
+			if(!m_ignore_rp_h_value)
+				h_val += ( cost_opt == RP_Cost_Function::Ignore_Costs ? 1.0f : relaxed_plan[k]->cost() );
 			const Fluent_Vec& precs = relaxed_plan[k]->prec_vec();
 			for ( Fluent_Vec::const_iterator it = precs.begin();
 				it != precs.end(); it++ )
@@ -123,14 +125,16 @@ public:
 				it2 != act.add_vec().end(); it2++ )
 				if ( m_rp_precs.isset( *it2 ) ) {
 					pref_ops.push_back( act.index() );
-					m_rp_precs.unset(*it2);
+					//Uncomment if just 1 pref op is preferred
+					//m_rp_precs.unset(*it2);
 					break;
 				}
 			a = it.next();
 		}
 	
 	}
-	
+
+	void ignore_rp_h_value(bool b) {m_ignore_rp_h_value = b;}
 
 protected:
 
@@ -168,7 +172,7 @@ protected:
 	const STRIPS_Problem&		m_strips_model;
 	Bit_Set				m_po_set;
 	Bit_Set				m_rp_precs;
-
+	bool                            m_ignore_rp_h_value;
 };
 
 template < typename Search_Model, typename Primary_Heuristic, RP_Cost_Function cost_opt = RP_Cost_Function::Use_Costs >
@@ -192,7 +196,7 @@ public:
 		m_plan_extractor.compute( s, h_val, pref_ops );
 	}
 	
-
+	void ignore_rp_h_value(bool b) {m_plan_extractor.ignore_rp_h_value(b);}
 protected:
 
 	Primary_Heuristic					m_base_heuristic;

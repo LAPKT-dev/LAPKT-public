@@ -95,8 +95,8 @@ public:
 					h_val++;
 				}
 				else
-					for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by().begin(); it_r != n->required_by().end(); it_r++ )
-						if( ! (*it_r)->is_consumed() )
+					//					for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by().begin(); it_r != n->required_by().end(); it_r++ )
+					//	if( ! (*it_r)->is_consumed() )
 							h_val++;
 
 				if(  n->are_precedences_consumed() )
