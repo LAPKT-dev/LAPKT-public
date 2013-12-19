@@ -14,7 +14,7 @@ Export( 'common_env' )
 
 generic_objs = SConscript('../../src/SConscript.aptk')
 agnostic_objs = SConscript('../../interfaces/agnostic/SConscript.agnostic')
-python_objs = SConscript('../python/agnostic/SConscript')
+python_objs = SConscript('../python/agnostic/SConscript.python')
 siw_objs = SConscript('src/SConscript')
 
-common_env.SharedLibrary( 'siw.so', siw_objs + base_objs + agnostic_objs + python_objs ) 
+common_env.SharedLibrary( 'siw.so', siw_objs + generic_objs + agnostic_objs + python_objs ) 

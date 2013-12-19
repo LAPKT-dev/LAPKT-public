@@ -1,4 +1,4 @@
-#include <py_strips_problem.hxx>
+#include <py_strips_prob.hxx>
 using namespace boost::python;
 
 BOOST_PYTHON_MODULE( libaptk )
@@ -15,6 +15,8 @@ BOOST_PYTHON_MODULE( libaptk )
 		.def( "get_problem_name", &STRIPS_Problem::get_problem_name )
 		.def( "add_precondition", &STRIPS_Problem::add_precondition )
 		.def( "add_effect", &STRIPS_Problem::add_effect )
+		.def( "notify_negated_conditions", &STRIPS_Problem::notify_negated_conditions )
+		.def( "create_negated_fluents", &STRIPS_Problem::create_negated_fluents )
 		.def( "set_init", &STRIPS_Problem::set_init )
 		.def( "set_goal", &STRIPS_Problem::set_goal )
 		.def( "set_domain_name", &STRIPS_Problem::set_domain_name )

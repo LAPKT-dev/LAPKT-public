@@ -86,10 +86,14 @@ class PropositionalDetAction :
 		self.cost = cost
 		self.precondition = []
 		self.effects = []
+		self.negated_conditions = []
 	
 	def set_precondition( self, prec, atom_table ) :
 		for p in prec :
-			self.precondition.append( ( atom_table[p.text()], p.negated ) )
+			sym =  atom_table[p.text()]
+			if p.negated and sym not in self.negated_conditions :
+				self.negated_conditions.add( sym )
+			self.precondition.append( ( sym, p.negated ) )
 	
 	def add_effect( self, adds, dels, atom_table ) :
 		effs = []
@@ -160,20 +164,18 @@ def default( domain_file, problem_file, output_task ) :
 		nd_action = PropositionalDetAction( action.name, action.cost )
 		nd_action.set_precondition( action.precondition, atom_table )
 		nd_action.add_effect( action.add_effects, action.del_effects, atom_table )
+		if len(nd_action.negated_conditions) > 0 :
+			output_task.notify_negated_conditions( nd_action.negated_conditions )
 		nd_actions[ nd_action.name ] = nd_action
+		output_task.add_action( action.name )
+
+	output_task.create_negated_fluents()
 
 	index = 0
 	for action in nd_actions.values() :
-		output_task.add_action( action.name )
 		output_task.add_precondition( index, action.precondition )
-		text_prec = []
-		for p, v in action.precondition :
-			text_prec.append( "%s=%s"%(output_task.get_atom_name( p ),  not v) )
 		for eff in action.effects :
 			output_task.add_effect( index, eff )
-			text_eff = []
-			for p, v in eff :
-				text_eff.append( "%s=%s"%(output_task.get_atom_name( p ), not v) )
 		index += 1
 	output_task.set_domain_name( task.domain_name )
 	output_task.set_problem_name( task.task_name )

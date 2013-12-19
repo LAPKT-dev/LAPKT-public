@@ -2,8 +2,11 @@
 #define __PY_FOD_PROBLEM__
 
 #include <strips_prob.hxx>
+#include <fluent.hxx>
+#include <action.hxx>
 #include <boost/python.hpp>
 #include <string>
+#include <set>
 
 class STRIPS_Problem {
 public:
@@ -21,6 +24,8 @@ public:
 	void	add_cond_effect( int index, boost::python::list& cond_lits, boost::python::list& eff_lits );
 	void	add_effect( int index, boost::python::list& list );
 	void	add_invariant( boost::python::list& list );
+	void	notify_negated_conditions( boost::python::list& list );
+	void	create_negated_fluents();
 
 	void	set_init( boost::python::list& list );
 	void	set_goal( boost::python::list& list );
@@ -45,6 +50,8 @@ public:
 
 protected:
 	aptk::STRIPS_Problem*	m_problem;
+	std::set<int>		m_negated_conditions;
+	aptk::Fluent_Ptr_Vec	m_negated;
 };
 
 #endif // py_strips_problem.hxx
