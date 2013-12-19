@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/heuristic.hxx>
 #include <strips_state.hxx>
 #include <strips_prob.hxx>
+#include <boost/circular_buffer.hpp>
 #include <vector>
 #include <deque>
 
@@ -89,6 +90,7 @@ public:
 		m_best_supporters.resize(  m_strips_model.num_fluents() );
 		m_already_updated.resize( m_strips_model.num_fluents() );
 		m_allowed_actions.resize( m_strips_model.num_actions() );
+		m_updated.resize( m_strips_model.num_fluents() );
 	}
 
 	virtual ~H1_Heuristic() {
@@ -361,7 +363,8 @@ protected:
 	Fluent_Set_Eval_Func			eval_func;
 	std::vector<const Action*>		m_best_supporters;
 	std::vector<const Action*>		m_app_set;
-	std::deque<unsigned> 			m_updated;
+	//std::deque<unsigned> 			m_updated;
+	boost::circular_buffer<int>		m_updated;
 	Bit_Set					m_already_updated;
 	Bool_Vec                                m_allowed_actions;
 };
