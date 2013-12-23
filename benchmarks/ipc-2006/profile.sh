@@ -17,6 +17,7 @@
 
 # Set the target planner
 planner="$HOME/Projects/lwaptk-ICAPS-2014/examples/agnostic-examples/siw/siw"
+planner="$HOME/Projects/lwaptk-ICAPS-2014/examples/agnostic-examples/bfs_f/bfs"
 
 # Set the time limit (in seconds)
 timelimit=120
