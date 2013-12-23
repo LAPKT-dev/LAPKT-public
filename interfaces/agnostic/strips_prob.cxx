@@ -50,7 +50,7 @@ namespace aptk
 		for ( unsigned k = 0; k < actions().size(); k++ )
 			register_action_in_tables( actions()[k] );
 		
-		m_succ_gen.build();
+		//m_succ_gen.build();
 		m_succ_gen_v2.build();
 		std::cout << "\n Match tree built with " << m_succ_gen_v2.count() << " nodes.\n" << std::endl;
 	}

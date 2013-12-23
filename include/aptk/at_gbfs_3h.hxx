@@ -510,12 +510,11 @@ virtual void 			process(  Search_Node *head ) {
 		if(m_lgm)
 			head->update_land_graph( m_lgm );
 		
-		typedef typename Search_Model::Action_Iterator Iterator;
-	
-	
-		for (int a = 0; a < this->problem().num_actions(); a++ ) {		
-			if( ! this->problem().task().actions()[ a ]->can_be_applied_on( *(head->state())) ) continue;
-
+		std::vector< aptk::Action_Idx > app_set;
+		this->problem().applicable_set_v2( *(head->state()), app_set );
+		
+		for (int i = 0; i < app_set.size(); ++i ) {
+			int a = app_set[i];
 	
 			State *succ = m_problem.next( *(head->state()), a );
 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
