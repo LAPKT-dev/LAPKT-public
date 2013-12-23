@@ -43,6 +43,7 @@ namespace aptk
 	typedef		std::pair<unsigned, unsigned>			Fluent_Pair;
 	typedef		Bit_Set						Fluent_Set;
 	typedef 	std::vector<Action* >				Action_Ptr_Vec;
+	typedef 	std::vector< const Action* >			Action_Ptr_Const_Vec;
 	typedef 	std::vector<Fluent* >				Fluent_Ptr_Vec;
 	typedef		std::vector<Conditional_Effect* > 		Conditional_Effect_Vec;
 	typedef		std::vector< std::vector< const Action* > >	Fluent_Action_Table;

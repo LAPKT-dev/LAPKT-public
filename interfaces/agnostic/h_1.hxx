@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/heuristic.hxx>
 #include <strips_state.hxx>
 #include <strips_prob.hxx>
+#include <boost/circular_buffer.hpp>
 #include <vector>
 #include <deque>
 
@@ -89,6 +90,7 @@ public:
 		m_best_supporters.resize(  m_strips_model.num_fluents() );
 		m_already_updated.resize( m_strips_model.num_fluents() );
 		m_allowed_actions.resize( m_strips_model.num_actions() );
+		m_updated.resize( m_strips_model.num_fluents() );
 	}
 
 	virtual ~H1_Heuristic() {
@@ -119,6 +121,24 @@ public:
 
 	const Action*	best_supporter( unsigned f ) const {
 		return m_best_supporters[f];
+	}
+
+
+        void get_best_supporters( unsigned f, Action_Ptr_Const_Vec& bfs ) const {
+		const Action* bf = m_best_supporters[f];
+
+		if(!bf) return;
+
+		float h_val_bf = eval_func( bf->prec_vec().begin(), bf->prec_vec().end() );
+		float h_val = 0;
+
+		const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( f );		
+		for ( unsigned k = 0; k < add_acts.size(); k++ ){
+		  const Action* a = add_acts[k];
+		  h_val = eval_func( a->prec_vec().begin(), a->prec_vec().end() );
+		  if( h_val == h_val_bf)
+		    bfs.push_back(a);
+		}
 	}
 
 protected:
@@ -343,7 +363,8 @@ protected:
 	Fluent_Set_Eval_Func			eval_func;
 	std::vector<const Action*>		m_best_supporters;
 	std::vector<const Action*>		m_app_set;
-	std::deque<unsigned> 			m_updated;
+	//std::deque<unsigned> 			m_updated;
+	boost::circular_buffer<int>		m_updated;
 	Bit_Set					m_already_updated;
 	Bool_Vec                                m_allowed_actions;
 };

@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <strips_state.hxx>
 #include <strips_prob.hxx>
 #include <landmark_graph.hxx>
+#include <h_1.hxx>
 #include <action.hxx>
 #include <vector>
 #include <deque>
@@ -40,10 +41,13 @@ namespace agnostic {
 
 template <typename Search_Model >
 class Landmarks_Graph_Generator  {
+
+typedef		H1_Heuristic<Search_Model, H_Max_Evaluation_Function>	H_Max;
+
 public:
 
 	Landmarks_Graph_Generator( const Search_Model& prob ) 
-	:  m_strips_model( prob.task() ), m_only_goals( false )
+	  :  m_strips_model( prob.task() ), m_only_goals( false ), m_h1( prob )
 	{
 		m_reachability = new aptk::agnostic::Reachability_Test( prob.task() );
 	}
@@ -54,17 +58,8 @@ public:
 	
 public:
 	void   set_only_goals( bool b ){ m_only_goals = b; }
-	
-	void	compute_lm_graph_set_additive( Landmarks_Graph& graph ) {
-			
-		std::deque<unsigned> updated;
-		
-		// 1. Insert goal atoms as landmarks
-		for ( Fluent_Vec::const_iterator it = m_strips_model.goal().begin();
-			it != m_strips_model.goal().end(); it++ ) {
-			graph.add_landmark( *it );
-			updated.push_back( *it );
-		}
+  
+        void    build_goal_ordering( Landmarks_Graph& graph ){
 
 		for ( unsigned i = 0; i < m_strips_model.goal().size(); i++ ) {
 			unsigned p = m_strips_model.goal()[i];
@@ -118,7 +113,26 @@ public:
 	
 		}
 
-		if( m_only_goals ) return;
+	}
+  
+	void	compute_lm_graph_set_additive( Landmarks_Graph& graph ) {
+			
+		std::deque<unsigned> updated;
+		
+		// 1. Insert goal atoms as landmarks
+		for ( Fluent_Vec::const_iterator it = m_strips_model.goal().begin();
+		      it != m_strips_model.goal().end(); it++ ) {
+			graph.add_landmark( *it );
+			if ( ! m_strips_model.is_in_init( *it ) ) {
+				updated.push_back( *it );
+			}
+		}
+
+
+		if( m_only_goals ){
+			build_goal_ordering( graph );
+			return;
+		}
 		
 		Bit_Set lm_set( m_strips_model.num_fluents() );
 		Bit_Set processed( m_strips_model.num_fluents() );
@@ -142,7 +156,7 @@ public:
 			}
 			
 			const std::vector< std::pair< unsigned, const Action*> >& add_acts_ce = 
-				 m_strips_model.ceffs_adding( p );
+				m_strips_model.ceffs_adding( p );
 			
 			if ( !add_acts_ce.empty() ) {
 
@@ -176,16 +190,24 @@ public:
 		 */		
 		Bit_Set reach_actions;
 		m_reachability->get_reachable_actions( m_strips_model.init() , m_strips_model.goal() , reach_actions  );
+		float h_goal;
+		State init_s( m_strips_model );
+		init_s.set( m_strips_model.init() );
+		m_h1.eval( init_s, h_goal );
 
 		for(unsigned p = 1; p <  m_strips_model.num_fluents(); p++){
 			
 			if( ! graph.is_landmark(p) ) continue;
-			const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( p );
+			Action_Ptr_Const_Vec best_supp;
+				
+			m_h1.get_best_supporters( p, best_supp );
+			
+			//const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( p );
 
 			lm_set.reset();
 
-			for ( unsigned k = 0; k < add_acts.size(); k++ ){
-				const Action* a = add_acts[k];
+			for ( unsigned k = 0; k < best_supp.size(); k++ ){
+				const Action* a = best_supp[k];
 				/**
 				 * if action is reachable
 				 */
@@ -198,8 +220,13 @@ public:
 				/**
 				 * if action do contain p as landmark
 				 */
-				if( lands_a.isset(p) ) continue;				
 
+				if( lands_a.isset(p) ){ 
+					//				  std::cout << m_strips_model.actions()[a->index()]->signature() << "NOT first sup of " << m_strips_model.fluents()[p]->signature() << std::endl; 
+				  
+					continue;				
+				}
+				std::cout << m_strips_model.actions()[a->index()]->signature() << "first sup of " << m_strips_model.fluents()[p]->signature() << std::endl; 
 				
 				if(k==0)
 					lm_set.add( a->prec_set() ); 
@@ -219,7 +246,14 @@ public:
 				 */
 				if ( ! m_strips_model.is_in_init(q) ){
 					std::cout << m_strips_model.fluents()[q]->signature() << "gn land for " << m_strips_model.fluents()[p]->signature() << std::endl; 
-					graph.node(p)->add_precedent_gn( graph.node(q) );
+					Landmarks_Graph::Node* nq = graph.node(q);
+					if( nq ){
+						Landmarks_Graph::Node* np = graph.node(p);
+						if( ! np->is_preceded_by(nq) ) 
+							graph.node(p)->add_precedent_gn( graph.node(q) );
+						if( ! nq->is_required_by(np) ) 
+							graph.node(q)->add_requiring_gn( graph.node(p) );
+					}
 				}
 				q = lm_set.next(q);
 			}	
@@ -227,13 +261,13 @@ public:
 		}
 	
 
-		
+		build_goal_ordering( graph );
 	
 
-		#ifdef DEBUG
+#ifdef DEBUG
 		std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
 		graph.print( std::cout );
-		#endif
+#endif
 
 	}
 
@@ -248,7 +282,7 @@ protected:
 			unsigned fl = (*it)->fluent();
 
 			if( landmarks.isset( fl ) ) continue;
-
+			//std::cout << m_strips_model.fluents()[fl]->signature() << " " <<std::endl; 
 			landmarks.set( fl );
 			getFluentLandmarks( fl, landmarks, graph);
 		}
@@ -258,11 +292,14 @@ protected:
 	void getPCFluentLandmarks(unsigned act_idx,
 				  Bit_Set &landmarks, Landmarks_Graph& graph ) {
 
+	  // std::cout << "Action " << m_strips_model.actions()[act_idx]->signature() << " Land: ";
 		const Fluent_Vec& prec = m_strips_model.actions()[act_idx]->prec_vec();
                 for(unsigned i = 0; i < prec.size(); i++) {
                         landmarks.set( prec[i] );
+			//	std::cout << m_strips_model.fluents()[prec[i]]->signature() << " " <<std::endl; 
 			getFluentLandmarks( prec[i], landmarks, graph);
                 }
+		//	std::cout << std::endl;
 
 
         }
@@ -273,6 +310,7 @@ protected:
 	const STRIPS_Problem&			m_strips_model;
 	bool                                    m_only_goals;
 	Reachability_Test*                      m_reachability;	
+        H_Max                                   m_h1;
 };
 
 }

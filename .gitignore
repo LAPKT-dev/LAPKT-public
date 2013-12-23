@@ -17,6 +17,7 @@
 *.log
 *.graph
 *.strips
+*.*~
 
 # Python bytecodes
 *.pyc
@@ -30,6 +31,7 @@ examples/agnostic-examples/rwa-planner/planner
 examples/agnostic-examples/wa-planner/planner
 examples/ff-interface/ff-parser-example
 examples/agnostic-examples/siw/siw
+examples/agnostic-examples/bfs_f/bfs
 examples/agnostic-examples/successor_generation/succ-gen
 
 # Local directories 
