@@ -30,6 +30,8 @@ examples/agnostic-examples/h_cost_functions/h-cost-funcs
 examples/agnostic-examples/rwa-planner/planner
 examples/agnostic-examples/wa-planner/planner
 examples/ff-interface/ff-parser-example
+examples/agnostic-examples/bfs_f/bfs
+examples/agnostic-examples/successor_generation/succ-gen
 
 # Local directories 
 spikes
