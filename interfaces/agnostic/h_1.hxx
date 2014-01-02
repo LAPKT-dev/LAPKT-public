@@ -203,6 +203,78 @@ protected:
 
 	void	compute(  ) 
 	{
+
+		while ( !m_updated.empty() ) {
+
+			unsigned p = m_updated.front();
+			//std::cout << p << ". " << m_strips_model.fluents()[p]->signature() << " " << m_values[p] << std::endl;
+			m_updated.pop_front();
+			m_already_updated.unset(p);
+
+			//Successor_Generator::Heuristic_Iterator it( m_values, m_strips_model.successor_generator().nodes() );
+			//int i = it.first();
+			//std::cout << "First action: " << i << std::endl;
+			//while ( i != -1 ) {
+			for ( unsigned i = 0; i < m_strips_model.num_actions(); i++ ) {
+				const Action& a = *(m_strips_model.actions()[i]);
+
+				//std::cout << "Action considered: " << a.signature() << std::endl;
+				bool relevant =  a.prec_set().isset(p);
+
+				for ( unsigned j = 0; j < a.ceff_vec().size() && !relevant; j++ ) {
+					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
+					relevant = relevant || ceff.prec_set().isset(p);
+				}
+
+				if ( !relevant ) {
+					//i = it.next();
+					continue;
+				}
+
+				float h_pre = eval_func( a.prec_vec().begin(), a.prec_vec().end() );
+
+				if ( h_pre == infty ) continue;
+				//assert( h_pre != infty );
+
+				//std::cout << "Action " << i << ". " << a.signature() << " relevant" << std::endl;
+
+				float v = ( cost_opt == H1_Cost_Function::Ignore_Costs ?
+						1.0f + h_pre :
+						( cost_opt == H1_Cost_Function::Use_Costs ?
+							(float)a.cost() + h_pre :
+							1.0f + (float)a.cost() + h_pre
+						) );
+
+				for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
+					it != a.add_vec().end(); it++ )
+					update( *it, v, m_strips_model.actions()[i] );
+				// Conditional effects
+				for ( unsigned j = 0; j < a.ceff_vec().size(); j++ )
+				{
+					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
+					float h_cond = eval_func( ceff.prec_vec().begin(), ceff.prec_vec().end(), h_pre );
+					if ( h_cond == infty ) continue;
+					float v_eff = ( cost_opt == H1_Cost_Function::Ignore_Costs ?
+						1.0f + h_cond :
+						( cost_opt == H1_Cost_Function::Use_Costs ?
+							(float)a.cost() + h_cond :
+							1.0f + (float)a.cost() + h_cond
+						) );
+					for ( Fluent_Vec::const_iterator it = ceff.add_vec().begin();
+						it != ceff.add_vec().end(); it++ )
+						update( *it, v_eff, m_strips_model.actions()[i] );
+				}
+
+				//i = it.next();
+			}
+		}
+	}
+
+    /***************
+     * Old Version *
+     ***************/
+	/*void	compute_old(  )
+	{
 		while ( !m_updated.empty() ) {
 
 			unsigned p = m_updated.front();
@@ -267,7 +339,7 @@ protected:
 				//i = it.next();
 			}
 		}
-	}
+	}*/
 	
 	void	compute_reachability( Fluent_Vec* persist_fluents = NULL ) 
 	{
