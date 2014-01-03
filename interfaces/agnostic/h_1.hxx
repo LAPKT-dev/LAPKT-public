@@ -3,6 +3,7 @@ Lightweight Automated Planning Toolkit
 Copyright (C) 2012
 Miquel Ramirez <miquel.ramirez@rmit.edu.au>
 Nir Lipovetzky <nirlipo@gmail.com>
+Christian Muise <christian.muise@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
