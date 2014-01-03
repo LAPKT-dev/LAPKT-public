@@ -91,6 +91,30 @@ public:
 		m_already_updated.resize( m_strips_model.num_fluents() );
 		m_allowed_actions.resize( m_strips_model.num_actions() );
 		m_updated.resize( m_strips_model.num_fluents() );
+
+		// HAZ: Set up the relevant actions once here so we don't need
+		//      to iterate through all of them when evaluating.
+		m_relevant_actions.resize( m_strips_model.num_fluents() );
+
+		for ( unsigned i = 0; i < m_strips_model.num_actions(); i++ ) {
+
+			const Action& a = *(m_strips_model.actions()[i]);
+
+			// Relevant if the fluent is in the precondition
+			for ( unsigned j = 0; j < a.prec_vec().size(); ++j ) {
+				m_relevant_actions[a.prec_vec()[j]].insert(i);
+			}
+
+			// Relevant if the fluent is in the head of a conditional effect
+			for ( unsigned j = 0; j < a.ceff_vec().size(); ++j ) {
+
+				const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
+
+				for ( unsigned k = 0; k < ceff.prec_vec().size(); ++k) {
+					m_relevant_actions[ceff.prec_vec()[k]].insert(i);
+				}
+			}
+		}
 	}
 
 	virtual ~H1_Heuristic() {
@@ -215,21 +239,9 @@ protected:
 			//int i = it.first();
 			//std::cout << "First action: " << i << std::endl;
 			//while ( i != -1 ) {
-			for ( unsigned i = 0; i < m_strips_model.num_actions(); i++ ) {
-				const Action& a = *(m_strips_model.actions()[i]);
+			for ( std::set<unsigned>::iterator action_it = m_relevant_actions[p].begin(); action_it != m_relevant_actions[p].end(); ++action_it) {
 
-				//std::cout << "Action considered: " << a.signature() << std::endl;
-				bool relevant =  a.prec_set().isset(p);
-
-				for ( unsigned j = 0; j < a.ceff_vec().size() && !relevant; j++ ) {
-					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
-					relevant = relevant || ceff.prec_set().isset(p);
-				}
-
-				if ( !relevant ) {
-					//i = it.next();
-					continue;
-				}
+				const Action& a = *(m_strips_model.actions()[*action_it]);
 
 				float h_pre = eval_func( a.prec_vec().begin(), a.prec_vec().end() );
 
@@ -247,7 +259,7 @@ protected:
 
 				for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 					it != a.add_vec().end(); it++ )
-					update( *it, v, m_strips_model.actions()[i] );
+					update( *it, v, &a );
 				// Conditional effects
 				for ( unsigned j = 0; j < a.ceff_vec().size(); j++ )
 				{
@@ -262,7 +274,7 @@ protected:
 						) );
 					for ( Fluent_Vec::const_iterator it = ceff.add_vec().begin();
 						it != ceff.add_vec().end(); it++ )
-						update( *it, v_eff, m_strips_model.actions()[i] );
+						update( *it, v_eff, &a );
 				}
 
 				//i = it.next();
@@ -435,6 +447,7 @@ protected:
 	Fluent_Set_Eval_Func			eval_func;
 	std::vector<const Action*>		m_best_supporters;
 	std::vector<const Action*>		m_app_set;
+	std::vector< std::set<unsigned> > m_relevant_actions;
 	//std::deque<unsigned> 			m_updated;
 	boost::circular_buffer<int>		m_updated;
 	Bit_Set					m_already_updated;
