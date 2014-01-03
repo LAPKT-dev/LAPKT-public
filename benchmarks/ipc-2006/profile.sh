@@ -11,8 +11,9 @@
 #   - timeout
 #   - dot (graphviz)
 #
-
-
+# For the best results, compile with the following:
+#   scons -Q debug=1
+#
 
 
 # Set the target planner
