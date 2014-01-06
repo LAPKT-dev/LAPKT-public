@@ -9,6 +9,7 @@
 #   - valgrind
 #   - timeout
 #   - dot (graphviz)
+#   - krtoolkit
 #
 # For the best results with profiling, compile with the following:
 #   scons -Q debug=1
@@ -18,8 +19,6 @@
 from os import system as cmd
 from sys import argv
 import glob, os
-
-from krrt.utils import get_value, match_value, run_experiment, write_file
 
 
 USAGE = """
@@ -98,6 +97,8 @@ def profile_domain(planner, dom, domain, problem):
     
 
 def benchmark_domain(planner, dom):
+    
+    from krrt.utils import get_value, match_value, run_experiment, write_file
 
     print
     print "Benchmarking %s..." % dom
