@@ -1,9 +1,5 @@
 
 # ########################
-# Usage:
-#    ./run.sh profile <executable> [<domain pddl> <problem pddl>]
-#    ./run.sh benchmark <executable> [<domain>]
-#    ./run.sh compare <csv 1> <csv 2>
 #
 # Prerequisites:
 #   - valgrind
@@ -23,14 +19,14 @@ import glob, os
 
 USAGE = """
  Usage:
-    ./run.sh profile <executable> [<domain pddl> <problem pddl>]
-    ./run.sh benchmark <executable> [<domain>]
-    ./run.sh compare <csv 1> <csv 2>
-    ./run.sh clean
+    python run.py profile <executable> [<domain pddl> <problem pddl>]
+    python run.py benchmark <executable> [<domain>]
+    python run.py compare <csv 1> <csv 2>
+    python run.py clean
     """
 
 # Set the time limit (in seconds)
-timelimit = 10
+timelimit = 300
 memorylimit = 1000
 cores = 4 # Only used for the benchmarking
 
@@ -121,6 +117,8 @@ def benchmark_domain(planner, dom):
             data.append("%s,time,-1,-1,-1,-1" % prob)
         elif match_value("%s.err" % res.output_file, '.*std::bad_alloc.*'):
             data.append("%s,mem,-1,-1,-1,-1" % prob)
+        elif match_value("%s.err" % res.output_file, '.*Segmentation fault.*'):
+            data.append("%s,seg,-1,-1,-1,-1" % prob)
         else:
             quality = get_value(res.output_file, '.*Plan found with cost: ([0-9]+).*', int)
             generated = get_value(res.output_file, '.*Nodes generated during search: ([0-9]+).*', int)
