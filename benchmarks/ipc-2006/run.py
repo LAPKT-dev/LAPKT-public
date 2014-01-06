@@ -117,6 +117,8 @@ def benchmark_domain(planner, dom):
             data.append("%s,time,-1,-1,-1,-1" % prob)
         elif match_value("%s.err" % res.output_file, '.*std::bad_alloc.*'):
             data.append("%s,mem,-1,-1,-1,-1" % prob)
+        elif match_value("%s.err" % res.output_file, '.*Segmentation fault.*'):
+            data.append("%s,seg,-1,-1,-1,-1" % prob)
         else:
             quality = get_value(res.output_file, '.*Plan found with cost: ([0-9]+).*', int)
             generated = get_value(res.output_file, '.*Nodes generated during search: ([0-9]+).*', int)
