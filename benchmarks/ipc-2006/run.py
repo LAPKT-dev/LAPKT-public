@@ -1,9 +1,5 @@
 
 # ########################
-# Usage:
-#    ./run.sh profile <executable> [<domain pddl> <problem pddl>]
-#    ./run.sh benchmark <executable> [<domain>]
-#    ./run.sh compare <csv 1> <csv 2>
 #
 # Prerequisites:
 #   - valgrind
@@ -23,14 +19,14 @@ import glob, os
 
 USAGE = """
  Usage:
-    ./run.sh profile <executable> [<domain pddl> <problem pddl>]
-    ./run.sh benchmark <executable> [<domain>]
-    ./run.sh compare <csv 1> <csv 2>
-    ./run.sh clean
+    python run.py profile <executable> [<domain pddl> <problem pddl>]
+    python run.py benchmark <executable> [<domain>]
+    python run.py compare <csv 1> <csv 2>
+    python run.py clean
     """
 
 # Set the time limit (in seconds)
-timelimit = 10
+timelimit = 300
 memorylimit = 1000
 cores = 4 # Only used for the benchmarking
 
