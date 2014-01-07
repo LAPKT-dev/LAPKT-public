@@ -198,9 +198,11 @@ def default( domain_file, problem_file, output_task ) :
 		if len(nd_action.negated_conditions) > 0 :
 			output_task.notify_negated_conditions( nd_action.negated_conditions )
 		nd_actions[ nd_action.name ] = nd_action
-		output_task.add_action( action.name )
 
 	output_task.create_negated_fluents()
+
+	for name, _ in nd_actions.iteritems() :
+		output_task.add_action( name )
 
 	index = 0
 	for action in nd_actions.values() :
