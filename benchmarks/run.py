@@ -27,7 +27,7 @@ USAGE = """
     """
 
 # Set the time limit (in seconds)
-timelimit = 300
+timelimit = 5
 memorylimit = 1000
 cores = 4 # Only used for the benchmarking
 
@@ -39,8 +39,10 @@ def profile_domain(planner, dom, domain, problem):
 
     print
     print "Profiling %s..." % dom
-        
-    cmd("timeout %d valgrind --tool=callgrind %s/%s --domain %s --problem %s/%s > %s.out 2>&1" % (timelimit, planner, ipc, domain, ipc, problem, dom))
+
+    # First line is the old command line format
+    #cmd("timeout %d valgrind --tool=callgrind %s --domain %s/%s --problem %s/%s > %s.out 2>&1" % (timelimit, planner, ipc, domain, ipc, problem, dom))
+    cmd("timeout %d valgrind --tool=callgrind %s %s/%s %s/%s /dev/null > %s.out 2>&1" % (timelimit, planner, ipc, domain, ipc, problem, dom))
     callfile=glob.glob('callgrind.out.*')[0]
     cmd("python gprof2dot.py -f callgrind %s 2> /dev/null | dot -Tpng -o %s.png > /dev/null 2>&1" % (callfile, dom))
     cmd("rm %s" % callfile)
@@ -55,7 +57,9 @@ def benchmark_domain(planner, dom):
     
     results = run_experiment(base_directory=".",
                              base_command=planner,
-                             single_arguments={'domprob': ["--domain %s/%s/%s --problem %s/%s/%s" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]},
+                             # First line is the old command line format
+                             #single_arguments={'domprob': ["--domain %s/%s/%s --problem %s/%s/%s" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]},
+                             single_arguments={'domprob': ["%s/%s/%s %s/%s/%s /dev/null" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]},
                              time_limit=timelimit,
                              memory_limit=memorylimit,
                              results_dir="results",
@@ -166,7 +170,9 @@ if 'profile' == argv[1]:
     else:
         print "Invalid benchmark set: %s" % argv[3]
         os._exit(1)
-    
+
+    ipc = argv[3]
+
     if len(argv) < 5:
         for (dom, domain, problem) in profile_problems:
             profile_domain(argv[2], dom, domain, problem)
