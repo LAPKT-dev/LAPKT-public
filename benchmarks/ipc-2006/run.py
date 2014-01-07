@@ -21,7 +21,7 @@ USAGE = """
  Usage:
     python run.py profile <executable> [<domain pddl> <problem pddl>]
     python run.py benchmark <executable> [<domain>]
-    python run.py compare <csv 1> <csv 2>
+    python run.py compare <directory 1> <directory 2>
     python run.py clean
     """
 
@@ -134,10 +134,63 @@ def benchmark_domain(planner, dom):
     cmd("rm -rf results")
     
 
-def compare_results(file1, file2):
-
+def compare_results(dir1, dir2):
+    
+    from krrt.utils import load_CSV
     print
-    print "Comparing results for %s and %s..." % (file1, file2)
+    print "Comparing results for %s and %s..." % (dir1, dir2)
+    
+    coverage = [0,0]
+    time_better = [0,0]
+    time_score = [0,0]
+    quality_better = [0,0]
+    quality_score = [0,0]
+    
+    for dom in domains:
+        
+        data1 = load_CSV("%s/%s.csv" % (dir1, dom))[1:]
+        data2 = load_CSV("%s/%s.csv" % (dir2, dom))[1:]
+        
+        cov_1 = len(filter(lambda x: 'ok' == x[1], data1))
+        cov_2 = len(filter(lambda x: 'ok' == x[1], data2))
+        coverage[0] += cov_1
+        coverage[1] += cov_2
+        
+        shared_data = filter(lambda x: 'ok' == x[0][1] == x[1][1], zip(data1, data2))
+        
+        time_better_1 = len(filter(lambda x: float(x[0][2]) < float(x[1][2]), shared_data))
+        time_better_2 = len(filter(lambda x: float(x[0][2]) > float(x[1][2]), shared_data))
+        time_better[0] += time_better_1
+        time_better[1] += time_better_2
+        
+        time_score_1 = (cov_1 - len(shared_data)) + sum([max(1, min(float(x[0][2]), float(x[1][2]))) / max(1.0, float(x[0][2])) for x in shared_data])
+        time_score_2 = (cov_2 - len(shared_data)) + sum([max(1, min(float(x[0][2]), float(x[1][2]))) / max(1.0, float(x[1][2])) for x in shared_data])
+        time_score[0] += time_score_1
+        time_score[1] += time_score_2
+
+        quality_better_1 = len(filter(lambda x: float(x[0][3]) < float(x[1][3]), shared_data))
+        quality_better_2 = len(filter(lambda x: float(x[0][3]) > float(x[1][3]), shared_data))
+        quality_better[0] += quality_better_1
+        quality_better[1] += quality_better_2
+        
+        quality_score_1 = (cov_1 - len(shared_data)) + sum([min(float(x[0][3]), float(x[1][3])) / float(x[0][3]) for x in shared_data])
+        quality_score_2 = (cov_2 - len(shared_data)) + sum([min(float(x[0][3]), float(x[1][3])) / float(x[1][3]) for x in shared_data])
+        quality_score[0] += quality_score_1
+        quality_score[1] += quality_score_2
+
+        print "\nDomain: %s" % dom
+        print "Coverage: %d -vs- %d" % (cov_1, cov_2)
+        print "Time better: %d -vs- %d" % (time_better_1, time_better_2)
+        print "Time score: %.2f -vs- %.2f" % (time_score_1, time_score_2)
+        print "Quality better: %d -vs- %d" % (quality_better_1, quality_better_2)
+        print "Quality score: %.2f -vs- %.2f" % (quality_score_1, quality_score_2)
+    
+    print "\nDomain: all"
+    print "Coverage: %d -vs- %d" % (coverage[0], coverage[1])
+    print "Time better: %d -vs- %d" % (time_better[0], time_better[1])
+    print "Time score: %.2f -vs- %.2f" % (time_score[0], time_score[1])
+    print "Quality better: %d -vs- %d" % (quality_better[0], quality_better[1])
+    print "Quality score: %.2f -vs- %.2f" % (quality_score[0], quality_score[1])
 
 if 1 == len(argv):
     print USAGE
