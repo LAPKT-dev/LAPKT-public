@@ -7,7 +7,7 @@ common_env.Append( CCFLAGS = [ '-Wall', '-std=c++0x' ] )
 
 if int(debug) == 1 :
         common_env.Append( CCFLAGS = ['-g',  '-DDEBUG' ] )
-if int(debug) == 2 :
+elif int(debug) == 2 :
         common_env.Append( CCFLAGS = ['-g',  '-DNDEBUG' ] )
 else:
         common_env.Append( CCFLAGS = ['-O3', '-DNDEBUG'] )
