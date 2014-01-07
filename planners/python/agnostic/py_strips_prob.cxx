@@ -192,6 +192,14 @@ using namespace boost::python;
 			I.push_back( fl_idx );
 		}
 
+		// complete initial state under negation
+		for ( unsigned p = 0; p < instance()->num_fluents(); p++ ) {
+			if ( std::find( I.begin(), I.end(), p ) != I.end() ) 
+				continue;
+			if ( m_negated[p] ) 
+				I.push_back( m_negated[ p ]->index() );
+		} 	
+
 		aptk::STRIPS_Problem::set_init( *instance(), I );
 
 	}
