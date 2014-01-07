@@ -22,6 +22,7 @@ public:
 
 	int		m_iw_bound;
 	std::string	m_log_filename;
+	std::string	m_plan_filename;
 
 protected:
 	
