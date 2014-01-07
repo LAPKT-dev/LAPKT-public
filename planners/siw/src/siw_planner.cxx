@@ -9,6 +9,7 @@
 #include <aptk/string_conversions.hxx>
 
 #include <iostream>
+#include <fstream>
 
 using	aptk::agnostic::Fwd_Search_Problem;
 using 	aptk::agnostic::Landmarks_Graph_Generator;
@@ -28,11 +29,11 @@ typedef		aptk::search::brfs::Node< aptk::State >	          	IW_Node;
 //typedef		Serialized_Search< Fwd_Search_Problem, IW_Fwd, IW_Node >        SIW_Fwd;
 
 SIW_Planner::SIW_Planner()
-	: STRIPS_Problem(), m_iw_bound(2), m_log_filename( "iw.log") {
+	: STRIPS_Problem(), m_iw_bound(2), m_log_filename( "iw.log"), m_plan_filename( "plan.ipc" ) {
 }
 
 SIW_Planner::SIW_Planner( std::string domain_file, std::string instance_file )
-	: STRIPS_Problem( domain_file, instance_file ), m_iw_bound(2), m_log_filename( "iw.log" ) {
+	: STRIPS_Problem( domain_file, instance_file ), m_iw_bound(2), m_log_filename( "iw.log" ), m_plan_filename( "plan.ipc" ) {
 }
 
 SIW_Planner::~SIW_Planner() {
@@ -66,6 +67,8 @@ SIW_Planner::do_search( SIW_Fwd& engine ) {
 	unsigned expanded_0 = engine.expanded();
 	unsigned generated_0 = engine.generated();
 
+	std::ofstream	plan_stream( m_plan_filename.c_str() );
+
 	if ( engine.find_solution( cost, plan ) ) {
 		std::cout << "Plan found with cost: " << cost << std::endl;
 		for ( unsigned k = 0; k < plan.size(); k++ ) {
@@ -73,6 +76,7 @@ SIW_Planner::do_search( SIW_Fwd& engine ) {
 			const aptk::Action& a = *(instance()->actions()[ plan[k] ]);
 			std::cout << a.signature();
 			std::cout << std::endl;
+			plan_stream << a.signature() << std::endl;
 		}
 		float tf = aptk::time_used();
 		unsigned expanded_f = engine.expanded();
@@ -92,7 +96,7 @@ SIW_Planner::do_search( SIW_Fwd& engine ) {
 	std::cout << "Nodes pruned by bound: " << engine.sum_pruned_by_bound() << std::endl;
 	std::cout << "Average ef. width: " << engine.avg_B() << std::endl;
 	std::cout << "Max ef. width: " << engine.max_B() << std::endl;
-
+	plan_stream.close();
 	return total_time;	
 }
 

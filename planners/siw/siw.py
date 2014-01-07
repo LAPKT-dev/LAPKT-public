@@ -3,7 +3,7 @@ import fd.grounding
 import sys
 from libsiw import SIW_Planner 
 
-def main( domain_file, problem_file) :
+def main( domain_file, problem_file, plan_file ) :
 	task = SIW_Planner( )
 
 	fd.grounding.default( domain_file, problem_file, task )
@@ -15,10 +15,14 @@ def main( domain_file, problem_file) :
 	# MRJ: Setting planner parameters is as easy as setting the values
 	# of Python object attributes
 	
-	# MRJ: Maximum bound on width is set to 2
-	task.iw_bound = 2
+	# MRJ: Maximum bound on width is set to 1
+	task.iw_bound = 1
+
 	# MRJ: log filename set
 	task.log_filename = 'iw.log'
+
+	# MRJ: plan file
+	task.plan_filename = plan_file
 
 	# MRJ: We call the setup method in SIW_Planner
 	task.setup()
@@ -31,5 +35,5 @@ def debug() :
 		"/home/bowman/Sandboxes/Fast-Downward/benchmarks/miconic-simpleadl/s3-0.pddl" )
 
 if __name__ == "__main__":
-	main( sys.argv[1], sys.argv[2])
+	main( sys.argv[1], sys.argv[2], sys.argv[3] )
 
