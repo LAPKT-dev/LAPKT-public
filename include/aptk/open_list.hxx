@@ -64,8 +64,12 @@ class Node_Comparer_3H
 public:
 	bool operator()( Node* a, Node* b ) const {
 		if ( dless( b->h1n(), a->h1n() ) ) return true;
-		if ( dless( b->h2n(), a->h2n() ) ) return true;
-		if ( dless( b->h3n(), a->h3n() ) )  return true;
+		if( dequal( b->h1n(), a->h1n() ) ){
+			if ( dless( b->h2n(), a->h2n() ) ) return true;
+			if( dequal( b->h2n(), a->h2n() ) ){
+				if ( dless( b->h3n(), a->h3n() ) )  return true;
+			}
+		}
 		//if ( dless( b->gn(), a->gn() ) )  return true;
 		return false;
 
@@ -91,6 +95,7 @@ public:
 	bool		empty() const;
 	float		min() const;
 	void		clear();
+	Node*           top(){ return m_queue.top(); }
 
 private:
 
