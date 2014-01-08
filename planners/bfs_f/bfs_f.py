@@ -28,7 +28,7 @@ def main( domain_file, problem_file, plan_file ) :
 	task.plan_filename = plan_file
 	
 	# MRJ: Comment line below to deactivate profiling
-	profiler_start( 'bfs_f.prof' )
+	#profiler_start( 'bfs_f.prof' )
 
 	# MRJ: We call the setup method in SIW_Planner
 	task.setup()
@@ -37,11 +37,11 @@ def main( domain_file, problem_file, plan_file ) :
 	task.solve()
 
 	#MRJ: Comment lines below to deactivate profile
-	profiler_stop()	
+	#profiler_stop()	
 
-	rv = os.system( 'google-pprof --pdf libbfsf.so bfs_f.prof > bfs_f.pdf' )
-	if rv != 0 :
-		print >> sys.stderr, "An error occurred while translating google-perftools profiling information into valgrind format"
+	#rv = os.system( 'google-pprof --pdf libbfsf.so bfs_f.prof > bfs_f.pdf' )
+	#if rv != 0 :
+	#	print >> sys.stderr, "An error occurred while translating google-perftools profiling information into valgrind format"
 
 def debug() :
 	main( 	"../../benchmarks/ipc-2011/floortile/domain.pddl", 

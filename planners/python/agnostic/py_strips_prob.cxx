@@ -54,7 +54,7 @@ using namespace boost::python;
 			m_negated.at( fl_idx ) = instance()->fluents()[neg_fl_idx];
 			count++;
 		} 
-		std::cout << count << "negated fluents created" << std::endl;
+		std::cout << count << " negated fluents created" << std::endl;
 	}
 
 	void

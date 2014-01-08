@@ -129,10 +129,10 @@ class PropositionalDetAction :
 
 		if len(effs) > 0 :
 			self.effects.append( effs )
-		if len(self.cond_effs) > 0 :
-			print( "Conditional effects: \n" )
-			for cond, eff in self.cond_effs.iteritems() :
-				print( "Condition: %s %s\n"%(cond,eff) )
+		#if len(self.cond_effs) > 0 :
+		#	print( "Conditional effects: \n" )
+		#	for cond, eff in self.cond_effs.iteritems() :
+		#		print( "Condition: %s %s\n"%(cond,eff) )
 
 def encode( lits, atom_table ) :
 	encoded = []
@@ -164,7 +164,7 @@ def default( domain_file, problem_file, output_task ) :
 	relaxed_reachable, atoms, actions, axioms, reachable_action_params = explore(task)
 	print("goal relaxed reachable: %s" % relaxed_reachable)
 	if not relaxed_reachable :
-		print("No weak plan exists")
+		print("No plan exists")
 		sys.exit(2)
 	
 	print("%d atoms" % len(atoms))
@@ -177,17 +177,18 @@ def default( domain_file, problem_file, output_task ) :
 	index = 0
 	atom_table = {}
 
+	atom_names = [ atom.text() for atom in atoms ]
+	atom_names.sort()
 	
-	for atom in atoms :
-		atom.index = index
-		atom_table[ atom.text() ] = index
-		output_task.add_atom( atom.text() )
+	for atom in atom_names :
+		atom_table[ atom ] = index
+		output_task.add_atom( atom )
 		index += 1
 
 	print("Invariants %d"%len(mutex_groups))
 	for group in mutex_groups :
 		if len(group) >= 2 :
-			print("{%s}" % ", ".join(map(str, group)))
+			#print("{%s}" % ", ".join(map(str, group)))
 			output_task.add_invariant( encode( group, atom_table ) )
 			#print( encode( group, atom_table ) )
 
