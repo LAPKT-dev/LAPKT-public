@@ -55,6 +55,11 @@ public:
 	const Fluent_Vec&	        edel_vec()  const { return m_edel_vec; }
 	const Fluent_Set&	        edel_set()  const { return m_edel_set; }
 	const Conditional_Effect_Vec&   ceff_vec() const { return m_cond_effects; }
+	
+	
+	/* Added for match trees */
+	VarVal_Vec&        prec_varval() { return m_prec_varval; }
+	const VarVal_Vec&  prec_varval() const { return m_prec_varval; }
 
 
 
@@ -103,6 +108,7 @@ protected:
 	Fluent_Set			m_del_set;
 	Fluent_Vec			m_edel_vec;
 	Fluent_Set			m_edel_set;
+	VarVal_Vec			m_prec_varval;
 	Conditional_Effect_Vec		m_cond_effects;
 	float				m_cost;	
 	unsigned			m_index;

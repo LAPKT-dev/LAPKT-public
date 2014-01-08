@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <fwd_search_prob.hxx>
 #include <aptk/string_conversions.hxx>
+#include <aptk/time.hxx>
 
 using	aptk::STRIPS_Problem;
 using	aptk::State;
@@ -46,6 +47,8 @@ int main( int argc, char** argv ) {
 	int	n_goal_items = 5;
 	int 	n_goal_locs = 4;
 	int 	i = 1;
+	
+	int TRIALS = 2000;
 
 	while ( i < argc ) {
 		std::string parm = argv[i];
@@ -84,10 +87,18 @@ int main( int argc, char** argv ) {
 		if ( parm == "--num-goal-locations" ) {
 			i++;
 			std::string value = argv[i];
-			aptk::from_string( n_goal_items, value, std::dec );
+			aptk::from_string( n_goal_locs, value, std::dec );
 			std::cout << "Number of locations relevant to goal set to " << n_goal_locs << std::endl;
 			i++;
 			continue;
+		}
+		if ( parm == "--trials" ) {
+		    i++;
+		    std::string value = argv[i];
+		    aptk::from_string( TRIALS, value, std::dec );
+		    std::cout << "Number of trials set to " << TRIALS << std::endl;
+		    i++;
+		    continue;
 		}
 	}
 
@@ -97,6 +108,13 @@ int main( int argc, char** argv ) {
 	fake_nwn_situation.setup_nav_graph( dim, dim, block_prob );
 	fake_nwn_situation.add_items( n_items );
 	fake_nwn_situation.build_strips_problem( n_goal_items, n_goal_locs, plan_prob );
+	
+	Fwd_Search_Problem	search_prob( &plan_prob );
+
+	int total_action_pres = 0;
+	for ( int i = 0; i < search_prob.num_actions(); i++ ) {
+		total_action_pres += plan_prob.actions()[i]->prec_vec().size();
+	}
 
 	std::cout << "Dumping STRIPS problem on file 'problem.strips'" << std::endl;
 	std::ofstream outstream( "problem.strips" );
@@ -105,6 +123,7 @@ int main( int argc, char** argv ) {
 	std::cout << "Problem statistics:" << std::endl;
 	std::cout << "\t# Fluents: " << plan_prob.num_fluents() << std::endl;
 	std::cout << "\t# Actions: " << plan_prob.num_actions() << std::endl;
+	std::cout << "\t# Avg Prec Size: " << (float(total_action_pres) / float(search_prob.num_actions())) << std::endl;
 	std::cout << "Initial state: " << std::endl;
 	plan_prob.print_fluent_vec( std::cout, plan_prob.init() );
 	std::cout << std::endl;
@@ -112,32 +131,75 @@ int main( int argc, char** argv ) {
 	plan_prob.print_fluent_vec( std::cout, plan_prob.goal() );
 	std::cout << std::endl;
 
-
-	Fwd_Search_Problem	search_prob( &plan_prob );
+	float old_time;
 
 	// MRJ: Example of different successor generator modalities
-	std::cout << "Applicable actions at root by direct checking: " << std::endl;
+	std::cout << std::endl << "Applicable actions at root by direct checking: " << std::endl;
 	State* s0 = search_prob.init();
+	old_time = aptk::time_used();
 	
-	for ( int i = 0; i < search_prob.num_actions(); i++ ) {
-		if ( search_prob.is_applicable( *s0, i ) ) 
-			std::cout << plan_prob.actions()[i]->signature() << std::endl;		
+	for (int trial = 0; trial < TRIALS; trial++) {
+		for ( int i = 0; i < search_prob.num_actions(); i++ ) {
+			if ( search_prob.is_applicable( *s0, i ) ) {
+			    if (1 == TRIALS)
+    				std::cout << plan_prob.actions()[i]->signature() << std::endl;
+				//std::cout << '.';
+				int foo = 42;
+			}
+		}
 	}
+	//std::cout << std::endl;
+	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
+	old_time = aptk::time_used();
 
 	std::cout << "Applicable actions at root with successor generator: " << std::endl;
-	std::vector< aptk::Action_Idx > app_set;
-	search_prob.applicable_set( *s0, app_set );
-	for ( int i = 0; i < app_set.size(); i++ ) {
-		std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;		
+	for (int trial = 0; trial < TRIALS; trial++) {
+		std::vector< aptk::Action_Idx > app_set;
+		search_prob.applicable_set( *s0, app_set );
+		for ( unsigned i = 0; i < app_set.size(); i++ ) {
+		    if (1 == TRIALS)
+    			std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
+			//std::cout << '.';
+			int foo = 42;
+		}
 	}
+	//std::cout << std::endl;
+	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
+	old_time = aptk::time_used();
 
 	std::cout << "Applicable actions at root with iterator interface: " << std::endl;
-	Fwd_Search_Problem::Action_Iterator it(search_prob);
-	int a = it.start( *s0 );
-	while (a != aptk::no_op) {
-		std::cout << plan_prob.actions()[a]->signature() << std::endl;	
-		a = it.next();
+	for (int trial = 0; trial < TRIALS; trial++) {
+		Fwd_Search_Problem::Action_Iterator it(search_prob);
+		int a = it.start( *s0 );
+		while (a != aptk::no_op) {
+			if (1 == TRIALS)
+                std::cout << plan_prob.actions()[a]->signature() << std::endl;
+			//std::cout << '.';
+			int foo = 42;
+			a = it.next();
+		}
 	}
+	//std::cout << std::endl;
+	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
+	old_time = aptk::time_used();
+	
+	
+	
+	
+	std::cout << "Applicable actions at root with the new match tree: " << std::endl;
+	for (int trial = 0; trial < TRIALS; trial++) {
+		std::vector< aptk::Action_Idx > app_set;
+		search_prob.applicable_set_v2( *s0, app_set );
+		for ( unsigned i = 0; i < app_set.size(); i++ ) {
+			if (1 == TRIALS)
+                std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
+			//std::cout << '.';
+			int foo = 42;
+		}
+	}
+	//std::cout << std::endl;
+	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
+	
 
 	return 0;
 }

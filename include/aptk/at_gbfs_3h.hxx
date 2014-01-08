@@ -479,10 +479,12 @@ public:
 		if(m_lgm)
 			head->update_land_graph( m_lgm );
 		
-		typedef typename Search_Model::Action_Iterator Iterator;
-		Iterator it( this->problem() );
-		int a = it.start( *(head->state()) );
-		while ( a != no_op ) {		
+		std::vector< aptk::Action_Idx > app_set;
+		this->problem().applicable_set_v2( *(head->state()), app_set );
+		
+		for (int i = 0; i < app_set.size(); ++i ) {
+			int a = app_set[i];
+			
 			State *succ = m_problem.next( *(head->state()), a );
 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
 			#ifdef DEBUG
@@ -498,7 +500,7 @@ public:
 				std::cout << "Already in CLOSED" << std::endl;
 				#endif
 				delete n;
-				a = it.next();
+				//a = it.next();
 				continue;
 			}
 			if( previously_hashed(n) ) {
@@ -506,7 +508,7 @@ public:
 				std::cout << "Already in OPEN" << std::endl;
 				#endif
 				delete n;
-				a = it.next();		
+				//a = it.next();		
 				continue;
 			}
 		
@@ -541,7 +543,7 @@ public:
 #endif
 			open_node(n);	
 				
-			a = it.next();		
+			//a = it.next();		
 		} 
 		inc_eval();
 	}

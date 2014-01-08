@@ -74,7 +74,12 @@ bool	Fwd_Search_Problem::is_applicable( const State& s, Action_Idx a ) const {
 }
 
 void	Fwd_Search_Problem::applicable_set( const State& s, std::vector<Action_Idx>& app_set ) const {
-	m_task->applicable_actions( s, app_set ); 
+	//m_task->applicable_actions( s, app_set );
+	m_task->applicable_actions_v2( s, app_set ); 
+}
+
+void	Fwd_Search_Problem::applicable_set_v2( const State& s, std::vector<Action_Idx>& app_set ) const {
+	m_task->applicable_actions_v2( s, app_set ); 
 }
 
 float	Fwd_Search_Problem::cost( const State& s, Action_Idx a ) const {

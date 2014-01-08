@@ -117,10 +117,14 @@ public:
 				m_rp_precs.set(*it);
 		}
 	
-		Successor_Generator::Iterator it( s, m_strips_model.successor_generator().nodes() );
-		int a = it.first();
-		while ( a != -1 ) {
-			const Action& act = *(m_strips_model.actions()[a]);
+		std::vector< aptk::Action_Idx > app_set;
+		m_strips_model.applicable_actions_v2( s, app_set );
+		
+		for (int i = 0; i < app_set.size(); ++i) {
+		//Successor_Generator::Iterator it( s, m_strips_model.successor_generator().nodes() );
+		//int a = it.first();
+		//while ( a != -1 ) {
+			const Action& act = *(m_strips_model.actions()[app_set[i]]);
 			for ( Fluent_Vec::const_iterator it2 = act.add_vec().begin();
 				it2 != act.add_vec().end(); it2++ )
 				if ( m_rp_precs.isset( *it2 ) ) {
@@ -129,7 +133,7 @@ public:
 					//m_rp_precs.unset(*it2);
 					break;
 				}
-			a = it.next();
+			//a = it.next();
 		}
 	
 	}

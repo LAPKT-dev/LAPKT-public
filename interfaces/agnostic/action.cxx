@@ -44,6 +44,10 @@ void Action::define( Fluent_Vec& precs, Fluent_Vec& adds, Fluent_Vec& dels )
 	define_fluent_list( adds, add_vec(), add_set() );
 	define_fluent_list( dels, del_vec(), del_set() );
 	define_fluent_list( dels, edel_vec(), edel_set() );
+	
+	// TODO: This should be made far more complex when mutex's are properly computed
+	for ( unsigned i = 0; i < precs.size(); ++i)
+	    m_prec_varval.push_back( std::make_pair(precs[i], 0) );
 }
 
 void Action::define( Fluent_Vec& precs, Fluent_Vec& adds, Fluent_Vec& dels, Conditional_Effect_Vec& ceffs )
