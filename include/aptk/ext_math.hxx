@@ -69,6 +69,20 @@ T pow( T a, unsigned b )
         return result;
 }
 
+inline
+unsigned unrolled_pow( unsigned n, unsigned k ) {
+	assert( k >= 0 );
+	switch( k ) {
+	case 0 : return 1;
+	case 1 : return n;
+	case 2 : return n*n;
+	case 3 : return n*n*n;
+	case 4 : return n*n*n*n;
+	case 5 : return n*n*n*n*n;
+	};
+	// MRJ: Fallback
+	return aptk::pow( n, k );
+}
 
 
 }
