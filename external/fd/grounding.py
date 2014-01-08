@@ -146,6 +146,8 @@ def encode( lits, atom_table ) :
 		lits = [ p for p in lits.parts ]	
 
 	for p in lits :
+		if isinstance( p, pddl.Assign ) :
+			continue # MRJ: we don't handle assigns
 		try :
 			index = atom_table[p.text()]
 		except KeyError :
@@ -212,7 +214,8 @@ def default( domain_file, problem_file, output_task ) :
 		#if len(action.cond_effs) != 0 :
 		#	print action.name, len(action.cond_effs), "has conditional effects"
 		for cond, eff in action.cond_effs.iteritems() :
-			output_task.add_cond_effect( index, list(cond), eff ) 
+			output_task.add_cond_effect( index, list(cond), eff )
+		output_task.set_cost( index, action.cost ) 
 		index += 1
 	output_task.set_domain_name( task.domain_name )
 	output_task.set_problem_name( task.task_name )
