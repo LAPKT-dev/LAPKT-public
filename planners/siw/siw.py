@@ -1,7 +1,10 @@
 #! /usr/bin/env python
 import fd.grounding
 import sys
+import os
 from libsiw import SIW_Planner 
+# MRJ: Profiler imports
+from prof import profiler_start, profiler_stop
 
 def main( domain_file, problem_file, plan_file ) :
 	task = SIW_Planner( )
@@ -24,11 +27,22 @@ def main( domain_file, problem_file, plan_file ) :
 	# MRJ: plan file
 	task.plan_filename = plan_file
 
+	# MRJ: Comment line below to deactivate profiling
+	profiler_start( 'siw.prof' )
+
 	# MRJ: We call the setup method in SIW_Planner
 	task.setup()
 
 	# MRJ: And then we're ready to go
 	task.solve()
+
+	#MRJ: Comment lines below to deactivate profile
+	profiler_stop()	
+
+	rv = os.system( 'google-pprof --pdf libsiw.so siw.prof > siw.pdf' )
+	if rv != 0 :
+		print >> sys.stderr, "An error occurred while translating google-perftools profiling information into valgrind format"
+
 
 def debug() :
 	main( "/home/bowman/Sandboxes/Fast-Downward/benchmarks/miconic-simpleadl/domain.pddl",
