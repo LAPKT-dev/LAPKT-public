@@ -662,9 +662,10 @@ public:
 			}
 			if ( (time_used() - m_t0 ) > m_time_budget )
 				return NULL;
-
-			if( ! head->is_helpful() )
-				eval_po( head );
+			// MRJ: What if we don't compute h_add and keep using the parent's h_add value for non-helpful 
+			// nodes?
+			//if( !head->is_helpful() )
+			//	eval_po( head );
 			process(head);
 			close(head);
 			counter++;

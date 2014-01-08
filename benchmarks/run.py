@@ -126,6 +126,9 @@ def compare_results(dir1, dir2):
     time_score = [0,0]
     quality_better = [0,0]
     quality_score = [0,0]
+    nodes_expanded = [0,0]
+    nodes_generated = [0,0]
+    time_total = [0,0]
     
     for dom in domains:
         
@@ -153,11 +156,26 @@ def compare_results(dir1, dir2):
         quality_better_2 = len(filter(lambda x: float(x[0][3]) > float(x[1][3]), shared_data))
         quality_better[0] += quality_better_1
         quality_better[1] += quality_better_2
-        
+
         quality_score_1 = (cov_1 - len(shared_data)) + sum([min(float(x[0][3]), float(x[1][3])) / float(x[0][3]) for x in shared_data])
         quality_score_2 = (cov_2 - len(shared_data)) + sum([min(float(x[0][3]), float(x[1][3])) / float(x[1][3]) for x in shared_data])
         quality_score[0] += quality_score_1
         quality_score[1] += quality_score_2
+
+        n_gen_1 = sum([int(x[0][4]) for x in shared_data])
+        n_gen_2 = sum([int(x[1][4]) for x in shared_data])
+        nodes_generated[0] += n_gen_1
+        nodes_generated[1] += n_gen_2
+
+        n_exp_1 = sum([int(x[0][5]) for x in shared_data])
+        n_exp_2 = sum([int(x[1][5]) for x in shared_data])
+        nodes_expanded[0] += n_exp_1
+        nodes_expanded[1] += n_exp_2
+
+        time_1 = sum([float(x[0][2]) for x in shared_data])
+        time_2 = sum([float(x[1][2]) for x in shared_data])
+        time_total[0] += time_1
+        time_total[1] += time_2
 
         print "\nDomain: %s" % dom
         print "Coverage: %d -vs- %d" % (cov_1, cov_2)
@@ -165,13 +183,17 @@ def compare_results(dir1, dir2):
         print "Time score: %.2f -vs- %.2f" % (time_score_1, time_score_2)
         print "Quality better: %d -vs- %d" % (quality_better_1, quality_better_2)
         print "Quality score: %.2f -vs- %.2f" % (quality_score_1, quality_score_2)
-    
+        print "Time per node generated: %.6f -vs- %.6f" % ((float(time_1) / float(max(1,n_gen_1))), (float(time_2) / float(max(1,n_gen_2))))
+        print "Time per node expanded: %.6f -vs- %.6f" % ((float(time_1) / float(max(1,n_exp_1))), (float(time_2) / float(max(1,n_exp_2))))
+
     print "\nDomain: all"
     print "Coverage: %d -vs- %d" % (coverage[0], coverage[1])
     print "Time better: %d -vs- %d" % (time_better[0], time_better[1])
     print "Time score: %.2f -vs- %.2f" % (time_score[0], time_score[1])
     print "Quality better: %d -vs- %d" % (quality_better[0], quality_better[1])
     print "Quality score: %.2f -vs- %.2f" % (quality_score[0], quality_score[1])
+    print "Time per node generated: %.6f -vs- %.6f" % ((float(time_total[0]) / float(max(1,nodes_generated[0]))), (float(time_total[1]) / float(max(1,nodes_generated[1]))))
+    print "Time per node expanded: %.6f -vs- %.6f" % ((float(time_total[0]) / float(max(1,nodes_expanded[0]))), (float(time_total[1]) / float(max(1,nodes_expanded[1]))))
 
 if 1 == len(argv):
     print USAGE
