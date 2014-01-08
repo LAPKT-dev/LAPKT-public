@@ -37,7 +37,9 @@ class Node_Comparer
 public:
 	bool operator()( Node* a, Node* b ) const {
 		if ( dless( b->fn(), a->fn() ) ) return true;
-		if ( dless( b->hn(), a->hn() ) ) return true;
+		if( dequal( b->fn(), a->fn() ) ){					
+			if ( dless( b->hn(), a->hn() ) ) return true;
+		}
 		return false;
 
 		//return (dless(b->fn(), a->fn()) || (dequal(a->fn(), b->fn()) && dless(b->hn(), a->hn())));
@@ -50,8 +52,13 @@ class Node_Comparer_DH
 public:
 	bool operator()( Node* a, Node* b ) const {
 		if ( dless( b->fn(), a->fn() ) )  return true;
-		if ( dless( b->h1n(), a->h1n() ) ) return true;
-		if ( dless( b->h2n(), a->h2n() ) ) return true;
+		if( dequal( b->fn(), a->fn() ) ){
+			if ( dless( b->h1n(), a->h1n() ) ) return true;
+			if( dequal( b->h1n(), a->h1n() ) ){
+
+				if ( dless( b->h2n(), a->h2n() ) ) return true;
+			}
+		}
 		return false;
 
 		//return (dless(b->fn(), a->fn()) || (dequal(a->fn(), b->fn()) && dless(b->hn(), a->hn())));

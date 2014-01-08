@@ -12,9 +12,11 @@ libs = ['Judy', 'aptk-ff-wrap', 'aptk-base', 'aptk',  'boost_program_options', '
 common_env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
 
 if int(debug) == 1 :
+        common_env.Append( CCFLAGS = ['-g','-Wall', '-std=c++0x' ] )
+elif int(debug) == 2 :
         common_env.Append( CCFLAGS = ['-g','-Wall', '-std=c++0x', '-DDEBUG' ] )
 else:
-        common_env.Append( CCFLAGS = ['-O3','-Wall', '-std=c++0x', '-fpermissive' ,'-DNDEBUG'] )
+        common_env.Append( CCFLAGS = ['-O3','-Wall', '-std=c++0x', '-fpermissive'] )
 
 cxx_sources = Glob('*.cxx')
 c_sources = Glob('*.c')
