@@ -138,6 +138,7 @@ protected:
 					novelty = i;
 		}
 	}
+
 	
 	/**
 	 * Instead of checking the whole state, checks the new atoms permutations only!
@@ -151,13 +152,19 @@ protected:
 		
 		bool new_covers = false;
 
+		// MRJ: arity needs to be 1 or more, otherwise the line
+		// tuple[ atoms_arity ] = *it_add;
+		// will be corrupting memory
+		assert( arity > 0 );
+
 		std::vector<unsigned> tuple( arity );
 
 		const Fluent_Vec& add = m_strips_model.actions()[ n.action() ]->add_vec();
 
 		unsigned atoms_arity = arity - 1;
-		unsigned n_combinations = pow( s.fluent_vec().size() , atoms_arity );
-		
+		// MRJ: unrolled the loop inside pow
+		//unsigned n_combinations = pow( s.fluent_vec().size() , atoms_arity );
+		unsigned n_combinations = aptk::unrolled_pow( s.fluent_vec().size() , atoms_arity );
 		
 		for ( Fluent_Vec::const_iterator it_add = add.begin();
 					it_add != add.end(); it_add++ )
@@ -184,7 +191,10 @@ protected:
 					 * OR
 					 * -> n better than old_n
 					 */
-					bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ n->goals_unachieved() ][tuple_idx], s  ) ? true : false);
+					bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] ) ? 
+									true : 
+									( is_better( m_nodes_tuples_by_partition[ n->goals_unachieved() ][tuple_idx], s  ) ? 
+									true : false);
                        
 					if( cover_new_tuple ){
 						
@@ -294,18 +304,36 @@ protected:
 	{
 		unsigned next_idx, div;
 		unsigned current_idx = idx;
-		unsigned n_atoms =  s.fluent_vec().size();
+		int n_atoms =  s.fluent_vec().size();
 
-		for(unsigned i = arity-1; i >= 0 ; i--){
-			div = pow( n_atoms , i );
-			next_idx = current_idx % div;
-			// if current_idx is zero and is the last index, then take next_idx
-			current_idx = ( current_idx / div != 0 || i != 0) ? current_idx / div : next_idx;
+		for(int i = arity-1; i >= 0 ; i--) {
+			// MRJ: Let's use the fast version
+			// n_atoms = 10
+			// i = 3 (w=4) -> div = 1000
+			// i = 2 (w=3) -> div = 100
+			// i = 1 (w=2) -> div = 10
+			// i = 0 (w=1) -> div = 1
+			div = aptk::unrolled_pow( n_atoms , i );
 
+			if ( current_idx < div ) {
+				next_idx = current_idx;
+				current_idx = 0;
+			}
+			else {
+				// current index : 32
+				// i = 3 -> next_idx = 32 % 1000 = 32, 32 / 1000 = 0
+				// i = 2 -> next_idx = 32 % 100 = 32, 32 / 100 = 0
+				// i = 1 -> next_idx = 32 % 10 = 2, 32 / 10 = 3
+				// i = 0 -> next_idx = 32 % 1 = 0, 32 / 1 = 32
+				next_idx = current_idx % div;
+				const int div_res = current_idx / div;
+				// if current_idx is zero and is the last index, then take next_idx
+				// i = 3, current_idx = ( 32 / 1000 != 0 || i != 0 ) ? 32 / 1000 : 32 = ( F || T ) ? 0 : 32 = 0
+				current_idx = ( div_res != 0 || i != 0) ? div_res : next_idx;
+			}
 			tuple[ i ] = s.fluent_vec()[ current_idx ];
 
 			current_idx = next_idx;
-			if(i == 0) break;
 		}
 	}
 
