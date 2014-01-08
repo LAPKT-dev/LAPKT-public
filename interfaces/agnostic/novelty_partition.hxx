@@ -202,7 +202,7 @@ protected:
 						new_covers = true;
 
 
-#ifdef DEBUG
+#ifdef NDEBUG
 						std::cout<<"\t NEW!! : ";
 						for(unsigned i = 0; i < arity; i++){
 							std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
@@ -213,7 +213,7 @@ protected:
 					}
 					else
 						{		
-#ifdef DEBUG		
+#ifdef NDEBUG		
 							std::cout<<"\t TUPLE COVERED: ";
 							for(unsigned i = 0; i < arity; i++){
 								std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
@@ -242,7 +242,7 @@ protected:
 		unsigned n_combinations = pow( s.fluent_vec().size() , arity );
 
 
-#ifdef DEBUG
+#ifdef NDEBUG
 
 		std::cout<< s << " covers: " << std::endl;
 #endif
@@ -269,7 +269,7 @@ protected:
 				m_nodes_tuples_by_partition[ goals_unachieved ][ tuple_idx ] = (State*) &s;
 
 				new_covers = true;
-#ifdef DEBUG
+#ifdef NDEBUG
 				std::cout<<"\t";
 				for(unsigned i = 0; i < arity; i++){
 					std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";

@@ -14,7 +14,7 @@ libs = ['judy']
 common_env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
 
 if int(debug) == 1 :
-	common_env.Append( CCFLAGS = ['-g','-Wall', '-std=c++0x', '-DNDEBUG' ] )
+	common_env.Append( CCFLAGS = ['-g','-Wall', '-std=c++0x', '-DDEBUG' ] )
 else:
 	common_env.Append( CCFLAGS = ['-O3','-Wall', '-std=c++0x', '-DNDEBUG'] )
 
