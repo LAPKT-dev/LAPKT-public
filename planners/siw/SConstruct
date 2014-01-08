@@ -3,10 +3,12 @@ import os
 debug = ARGUMENTS.get( 'debug', 0 )
 common_env = Environment()
 
-common_env.Append( CCFLAGS = [ '-Wall', '-std=c++0x' ] )
+common_env.Append( CCFLAGS = [ '-Wall', '-std=c++0x', '-fPIC' ] )
 
 if int(debug) == 1 :
         common_env.Append( CCFLAGS = ['-g',  '-DDEBUG' ] )
+elif int(debug) == 2 :
+        common_env.Append( CCFLAGS = ['-g',  '-DNDEBUG' ] )
 else:
         common_env.Append( CCFLAGS = ['-O3', '-DNDEBUG'] )
 
