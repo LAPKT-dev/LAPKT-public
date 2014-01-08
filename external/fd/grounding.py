@@ -86,6 +86,7 @@ class PropositionalDetAction :
 		self.cost = cost
 		self.precondition = []
 		self.effects = []
+		self.cond_effs = {}
 		self.negated_conditions = []
 	
 	def set_precondition( self, prec, atom_table ) :
@@ -97,11 +98,41 @@ class PropositionalDetAction :
 	
 	def add_effect( self, adds, dels, atom_table ) :
 		effs = []
-		for _, lit in adds :
-			effs.append( ( atom_table[lit.text()], False )  )
-		for _, lit in dels :
-			effs.append( (atom_table[lit.text()], True) )
-		self.effects.append( effs )
+		for cond, lit in adds :
+			if len(cond) == 0 :
+				effs.append( ( atom_table[lit.text()], False )  )
+			else :
+				condition = [ ( atom_table[cond_lit.text()], cond_lit.negated ) for cond_lit in cond ]
+				for c in condition :
+					if c[1] and c[0] not in self.negated_conditions :
+						self.negated_conditions.append( c[0] )
+				condition = tuple( condition )
+				try :
+					self.cond_effs[condition].append( ( atom_table[lit.text()], False ) )
+				except KeyError :
+					self.cond_effs[condition] = [( atom_table[lit.text()], False )]
+		for cond, lit in dels :
+			if len(cond) == 0 :
+				effs.append( (atom_table[lit.text()], True) )
+			else :
+				condition = [ ( atom_table[cond_lit.text()], cond_lit.negated ) for cond_lit in cond ]
+				for c in condition :
+					if c[1] and c[0] not in self.negated_conditions :
+						self.negated_conditions.append( c[0] )
+
+				condition = tuple( condition )
+
+				try :
+					self.cond_effs[condition].append( ( atom_table[lit.text()], True ) )
+				except KeyError :
+					self.cond_effs[condition] = [( atom_table[lit.text()], True )]
+
+		if len(effs) > 0 :
+			self.effects.append( effs )
+		if len(self.cond_effs) > 0 :
+			print( "Conditional effects: \n" )
+			for cond, eff in self.cond_effs.iteritems() :
+				print( "Condition: %s %s\n"%(cond,eff) )
 
 def encode( lits, atom_table ) :
 	encoded = []
@@ -167,15 +198,21 @@ def default( domain_file, problem_file, output_task ) :
 		if len(nd_action.negated_conditions) > 0 :
 			output_task.notify_negated_conditions( nd_action.negated_conditions )
 		nd_actions[ nd_action.name ] = nd_action
-		output_task.add_action( action.name )
 
 	output_task.create_negated_fluents()
+
+	for name, _ in nd_actions.iteritems() :
+		output_task.add_action( name )
 
 	index = 0
 	for action in nd_actions.values() :
 		output_task.add_precondition( index, action.precondition )
 		for eff in action.effects :
 			output_task.add_effect( index, eff )
+		#if len(action.cond_effs) != 0 :
+		#	print action.name, len(action.cond_effs), "has conditional effects"
+		for cond, eff in action.cond_effs.iteritems() :
+			output_task.add_cond_effect( index, list(cond), eff ) 
 		index += 1
 	output_task.set_domain_name( task.domain_name )
 	output_task.set_problem_name( task.task_name )

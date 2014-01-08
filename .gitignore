@@ -40,3 +40,4 @@ spikes
 # Generated files
 benchmarks/ipc-2006/*.out
 benchmarks/ipc-2006/*.png
+planners/*/fd
