@@ -176,6 +176,12 @@ using namespace boost::python;
 	}
 
 	void
+	STRIPS_Problem::set_cost( int index, float c ) {
+		aptk::Action& action = *(m_problem->actions()[index]);
+		action.set_cost( c );
+	}
+
+	void
 	STRIPS_Problem::set_init( boost::python::list& lits ) {
 
 		aptk::Fluent_Vec I;
