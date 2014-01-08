@@ -27,9 +27,15 @@ USAGE = """
     """
 
 # Set the time limit (in seconds)
-timelimit = 5
+timelimit = 300
 memorylimit = 1000
 cores = 4 # Only used for the benchmarking
+
+OLD = 1
+NEW = 2
+
+# Set the style of planner you are using
+TYPE = OLD
 
 benchmark = None
 domains = None
@@ -40,9 +46,13 @@ def profile_domain(planner, dom, domain, problem):
     print
     print "Profiling %s..." % dom
 
-    # First line is the old command line format
-    #cmd("timeout %d valgrind --tool=callgrind %s --domain %s/%s --problem %s/%s > %s.out 2>&1" % (timelimit, planner, ipc, domain, ipc, problem, dom))
-    cmd("timeout %d valgrind --tool=callgrind %s %s/%s %s/%s /dev/null > %s.out 2>&1" % (timelimit, planner, ipc, domain, ipc, problem, dom))
+    if TYPE == OLD:
+        cmd("timeout %d valgrind --tool=callgrind %s --domain %s/%s --problem %s/%s > %s.out 2>&1" % (timelimit, planner, ipc, domain, ipc, problem, dom))
+    elif TYPE == NEW:
+        cmd("timeout %d valgrind --tool=callgrind %s %s/%s %s/%s /dev/null > %s.out 2>&1" % (timelimit, planner, ipc, domain, ipc, problem, dom))
+    else:
+        assert False, "What the deuce?"
+
     callfile=glob.glob('callgrind.out.*')[0]
     cmd("python gprof2dot.py -f callgrind %s 2> /dev/null | dot -Tpng -o %s.png > /dev/null 2>&1" % (callfile, dom))
     cmd("rm %s" % callfile)
@@ -54,12 +64,17 @@ def benchmark_domain(planner, dom):
 
     print
     print "Benchmarking %s..." % dom
-    
+
+    if TYPE == OLD:
+        domprob_args = ["--domain %s/%s/%s --problem %s/%s/%s" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]
+    elif TYPE == NEW:
+        domprob_args = ["%s/%s/%s %s/%s/%s /dev/null" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]
+    else:
+        assert False, "What the deuce?"
+
     results = run_experiment(base_directory=".",
                              base_command=planner,
-                             # First line is the old command line format
-                             #single_arguments={'domprob': ["--domain %s/%s/%s --problem %s/%s/%s" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]},
-                             single_arguments={'domprob': ["%s/%s/%s %s/%s/%s /dev/null" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]},
+                             single_arguments={'domprob': domprob_args},
                              time_limit=timelimit,
                              memory_limit=memorylimit,
                              results_dir="results",
