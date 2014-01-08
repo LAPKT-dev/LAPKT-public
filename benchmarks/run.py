@@ -84,8 +84,16 @@ def benchmark_domain(planner, dom):
     
     data = []
     for resid in results.get_ids():
+
         res = results[resid]
-        prob = res.single_args['domprob'].split(' ')[-2].split('/')[-1]
+
+        if TYPE == OLD:
+            prob = res.single_args['domprob'].split(' ')[-1].split('/')[-1]
+        elif TYPE == NEW:
+            prob = res.single_args['domprob'].split(' ')[-2].split('/')[-1]
+        else:
+            assert False, "What the deuce?"
+
         if res.timed_out:
             data.append("%s,time,-1,-1,-1,-1" % prob)
         elif match_value("%s.err" % res.output_file, '.*std::bad_alloc.*'):
