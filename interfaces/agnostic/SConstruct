@@ -11,7 +11,7 @@ libs = ['aptk', 'judy']
 env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
 
 if int(debug) == 1 :
-	env.Append( CCFLAGS = ['-g','-Wall', '-std=c++0x', '-DNDEBUG' ] )
+	env.Append( CCFLAGS = ['-g','-Wall', '-std=c++0x', '-DDEBUG' ] )
 else:
 	env.Append( CCFLAGS = ['-O3','-Wall', '-std=c++0x', '-DNDEBUG'] )
 
