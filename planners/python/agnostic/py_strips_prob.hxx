@@ -23,6 +23,8 @@ public:
 	void	add_precondition( int index, boost::python::list& lits );
 	void	add_cond_effect( int index, boost::python::list& cond_lits, boost::python::list& eff_lits );
 	void	add_effect( int index, boost::python::list& list );
+	void	set_cost( int index, float v );
+
 	void	add_invariant( boost::python::list& list );
 	void	notify_negated_conditions( boost::python::list& list );
 	void	create_negated_fluents();
@@ -32,7 +34,7 @@ public:
 	void	set_domain_name( std::string name );
 	void	set_problem_name( std::string name );
 
-	void	setup();
+	virtual	void	setup();
 
 	void	print_action( int index );
 

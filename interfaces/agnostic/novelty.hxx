@@ -141,7 +141,7 @@ protected:
 		const State& s = n.state();
 		
 		bool new_covers = false;
-
+		assert ( arity > 0 );
 		std::vector<unsigned> tuple( arity );
 
 		const Fluent_Vec& add = m_strips_model.actions()[ n.action() ]->add_vec();
