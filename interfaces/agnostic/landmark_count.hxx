@@ -66,17 +66,37 @@ public:
 		for ( std::vector< Landmarks_Graph::Node* >::const_iterator it = m_graph->nodes().begin(); it != m_graph->nodes().end(); it++ ) {
 			Landmarks_Graph::Node*n = *it;
 			if( ! n->is_consumed() ) {
-				if( n->required_by().empty() ){
-					//					std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;
 					h_val++;
-				}
-				else
-					//		for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by().begin(); it_r != n->required_by().end(); it_r++ )
-					//	if( ! (*it_r)->is_consumed() ){
-							//							std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;							
-							h_val++;
-				//	}
+				
+				// if( !n->required_by_gn().empty() )
+				// 	for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by_gn().begin(); it_r != n->required_by_gn().end(); it_r++ )
+				// 		if( ! (*it_r)->is_consumed_once() ){
+				// 			//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;							
+				// 			h_val++;
+				// 			break;
+				// 		}
+				
+				
+				// if( ! n->required_by().empty() ){
+				// 	for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by().begin(); it_r != n->required_by().end(); it_r++ )
+				// 	if( ! (*it_r)->is_consumed() ){
+				// 			//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;							
+				// 			h_val++;
+				// 			//	break;
+				// 	}
+				// }
+
+				// if( ! n->required_by_gn().empty() ){
+				// 	for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by_gn().begin(); it_r != n->required_by_gn().end(); it_r++ )
+				// 		if( ! (*it_r)->is_consumed_once() ){
+				// 			//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;							
+				// 			h_val++;
+				// 			break;
+				// 		}
+				// }
 			}
+
+
 		}
 	}
 

@@ -51,8 +51,9 @@ public:
 	typedef typename std::vector< Node<Search_Model,State>* >::iterator            Node_Vec_Ptr_It;
 
 	Node( State* s, float cost, Action_Idx action, Node<Search_Model,State>* parent, int num_actions ) 
-		: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_po( num_actions ), m_seen(false), m_helpful(false), m_land_consumed(NULL), m_land_unconsumed(NULL) {
+		: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_g_unit( 0 ), m_f(0), m_po( num_actions ), m_seen(false), m_helpful(false), m_land_consumed(NULL), m_land_unconsumed(NULL) {
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
+		m_g_unit = ( parent ? parent->m_g_unit + 1.0f : 0.0f);
 	}
 	
 	virtual ~Node() {
@@ -69,6 +70,8 @@ public:
 	unsigned&               goals_unachieved()              { return m_goals_unachieved; }                
 	float&			gn()				{ return m_g; }			
 	float			gn() const 			{ return m_g; }
+	float&			gn_unit()			{ return m_g_unit; }			
+	float			gn_unit() const 		{ return m_g_unit; }
 	float&			fn()				{ return m_f; }
 	float			fn() const			{ return m_f; }
 	Node_Ptr		parent()   			{ return m_parent; }
@@ -86,7 +89,7 @@ public:
 	Bool_Vec_Ptr*&           land_unconsumed()                 { return m_land_unconsumed; }
 
         void                    update_land_graph(Landmarks_Graph_Manager* lgm){
-		Node_Vec_Ptr path( gn()+1 );
+		Node_Vec_Ptr path( gn_unit()+1 );
 		Node_Vec_Ptr_Rit rit = path.rbegin();
 		Node_Ptr n = this;
 
@@ -95,17 +98,19 @@ public:
 			rit++;
 			n = n->parent();
 		}while( n );
-		
-		//		std::cout << "Updating Land Graph up to: ";
+		if(rit != path.rend())
+			*rit = NULL;
+		//std::cout << "Updating Land Graph up to: " << std::flush;
 		
 		lgm->reset_graph();
 		for( Node_Vec_Ptr_It it = path.begin(); it != path.end(); it++){
-			//			if( (*it)->action() != -1)
-			//std::cout << lgm->problem().actions()[ (*it)->action() ]->signature();
+			//if( (*it)->action() != -1)
+			//	std::cout << lgm->problem().actions()[ (*it)->action() ]->signature() << std::flush;
 
+			if(*it == NULL) break;
 			lgm->update_graph( (*it)->land_consumed(), (*it)->land_unconsumed() );
 		}
-		//		std::cout << std::endl;
+		//std::cout << std::endl;
 	}
 	
 	void                    undo_land_graph( Landmarks_Graph_Manager* lgm ){
@@ -146,6 +151,7 @@ public:
 	unsigned        m_goals_unachieved;
 	Action_Idx	m_action;
 	float		m_g;
+	float		m_g_unit;
 	float		m_f;
 	Bit_Set		m_po;
 	bool		m_seen;
@@ -155,14 +161,19 @@ public:
 };
 
 
-template <typename State>
+template <typename Search_Model, typename State>
 class Lazy_Node {
 public:
+	typedef aptk::agnostic::Landmarks_Graph_Manager<Search_Model>   Landmarks_Graph_Manager;
 
 	typedef State State_Type;
+	typedef Lazy_Node<Search_Model,State>*        Node_Ptr;
+	typedef typename std::vector< Lazy_Node<Search_Model,State>* >                      Node_Vec_Ptr;
+	typedef typename std::vector< Lazy_Node<Search_Model,State>* >::reverse_iterator    Node_Vec_Ptr_Rit;
+	typedef typename std::vector< Lazy_Node<Search_Model,State>* >::iterator            Node_Vec_Ptr_It;
 
-	Lazy_Node( float cost, Action_Idx action, Lazy_Node<State>* parent, int num_actions ) 
-		: m_state( NULL ), m_parent( parent ), m_action(action), m_g( 0 ), m_po( num_actions ) {
+	Lazy_Node( float cost, Action_Idx action, Lazy_Node<Search_Model, State>* parent, int num_actions ) 
+		: m_state( NULL ), m_parent( parent ), m_action(action), m_g( 0 ), m_f(0), m_po( num_actions ), m_seen(false), m_helpful(false), m_land_consumed(NULL), m_land_unconsumed(NULL)  {
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 	}
 	
@@ -176,11 +187,13 @@ public:
 	float			h2n() const 			{ return m_h2; }
 	float&			h3n()				{ return m_h3; }
 	float			h3n() const 			{ return m_h3; }
+	unsigned                goals_unachieved() const        { return m_goals_unachieved; }                
+	unsigned&               goals_unachieved()              { return m_goals_unachieved; }            
 	float&			gn()				{ return m_g; }			
 	float			gn() const 			{ return m_g; }
 	float&			fn()				{ return m_f; }
 	float			fn() const			{ return m_f; }
-	Lazy_Node<State>*	parent()   			{ return m_parent; }
+	Node_Ptr*	parent()   			{ return m_parent; }
 	Action_Idx		action() const 			{ return m_action; }
 	void			set_state( State* s )		{ m_state = s; }
 	State*			state()				{ return m_state; }
@@ -192,8 +205,37 @@ public:
 	void			set_helpful( )			{ m_helpful = true; }
 	bool                    is_helpful()                    { return m_helpful; }
 	bool			seen() const			{ return m_seen; }
+	Bool_Vec_Ptr*&           land_consumed()                 { return m_land_consumed; }
+	Bool_Vec_Ptr*&           land_unconsumed()                 { return m_land_unconsumed; }
 
-	bool			operator==( const Lazy_Node<State>& o ) const {
+	void                    update_land_graph(Landmarks_Graph_Manager* lgm){
+		Node_Vec_Ptr path( gn()+1 );
+		Node_Vec_Ptr_Rit rit = path.rbegin();
+		Node_Ptr n = this;
+
+		do{
+			*rit = n;
+			rit++;
+			n = n->parent();
+		}while( n );
+		
+		//		std::cout << "Updating Land Graph up to: ";
+		
+		lgm->reset_graph();
+		for( Node_Vec_Ptr_It it = path.begin(); it != path.end(); it++){
+			//			if( (*it)->action() != -1)
+			//std::cout << lgm->problem().actions()[ (*it)->action() ]->signature();
+
+			lgm->update_graph( (*it)->land_consumed(), (*it)->land_unconsumed() );
+		}
+		//		std::cout << std::endl;
+	}
+	
+	void                    undo_land_graph( Landmarks_Graph_Manager* lgm ){
+		lgm->undo_graph( land_consumed(), land_unconsumed() );				
+	}
+
+	bool			operator==( const Lazy_Node<Search_Model,State>& o ) const {
 		if  ( m_parent == NULL ) {
 			if ( o.m_parent == NULL ) return true;
 			return false;
@@ -222,10 +264,11 @@ public:
 public:
 
 	State*			m_state;
-	Lazy_Node<State>*	m_parent;
+	Lazy_Node<Search_Model,State>*	m_parent;
 	float			m_h1;
 	float			m_h2;
 	float			m_h3;
+	unsigned                m_goals_unachieved;
 	Action_Idx		m_action;
 	float			m_g;
 	float			m_f;
@@ -233,6 +276,8 @@ public:
 	bool			m_seen;
 	bool		        m_helpful;
 	size_t			m_hash;
+	Bool_Vec_Ptr*           m_land_consumed;
+	Bool_Vec_Ptr*           m_land_unconsumed;
 };
 
 
@@ -286,9 +331,11 @@ public:
 			eval(m_root);
 			m_root->undo_land_graph( m_lgm );
 		}
-		else
+		else			
 			eval(m_root);
-
+		
+		m_third_h->ignore_rp_h_value(true);
+		
 		#ifdef DEBUG
 		std::cout << "Initial search node: ";
 		m_root->print(std::cout);
@@ -361,14 +408,14 @@ public:
 		if(candidate->h2n() < m_max_hn )
 			{
 			m_max_hn = candidate->h2n();
-			std::cout << "[" << m_max_hn  <<"]" << std::flush;			
+			std::cout << "--[" << m_max_hn  <<"]--" << std::endl;			
 			//std::cout << "[ n:" << candidate->h1n()  <<" - hl:" << candidate->h2n() <<" - #g:" << candidate->goals_unachieved() <<" - h_a:" << candidate->h3n() <<" - gn: " << candidate->gn()  <<"]" << std::endl;
 			
 		}
 
 	}
 
-	void			eval_lazy( Search_Node* candidate ) {
+	void			eval_po( Search_Node* candidate ) {
 		std::vector<Action_Idx>	po;
 		m_third_h->eval( *(candidate->state()), candidate->h3n(), po  );
 		if(po.size()){
@@ -413,99 +460,21 @@ public:
 			m_open_hash.put(n);
 		}
 		inc_gen();
+		if( generated() % 1000 == 0){
+			std::cout << "\nGenerated " << generated() << std::endl;
+		}
 	}
 	/**
 	 * Succ Generator Process
 	 */
-	// virtual void 			process(  Search_Node *head ) {
-	// 	#ifdef DEBUG
-	// 	std::cout << "Expanding:" << std::endl;
-	// 	head->print(std::cout);
-	// 	std::cout << std::endl;
-	// 	head->state()->print( std::cout );
-	// 	std::cout << std::endl;
-	// 	#endif
-
-	// 	if(m_lgm)
-	// 		head->update_land_graph( m_lgm );
-		
-	// 	typedef typename Search_Model::Action_Iterator Iterator;
-	// 	Iterator it( this->problem() );
-	// 	int a = it.start( *(head->state()) );
-	// 	while ( a != no_op ) {		
-	// 		State *succ = m_problem.next( *(head->state()), a );
-	// 		Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
-	// 		#ifdef DEBUG
-	// 		std::cout << "Successor:" << std::endl;
-	// 		n->print(std::cout);
-	// 		std::cout << std::endl;
-	// 		n->state()->print( std::cout );
-	// 		std::cout << std::endl;
-	// 		#endif
-
-	// 		if ( is_closed( n ) ) {
-	// 			#ifdef DEBUG
-	// 			std::cout << "Already in CLOSED" << std::endl;
-	// 			#endif
-	// 			delete n;
-	// 			a = it.next();
-	// 			continue;
-	// 		}
-	// 		if(m_lgm){						
-	// 			// if( n->action() != -1)
-	// 			// 	std::cout << "Just Applied: " << m_problem.task().actions()[ n->action() ]->signature() << " resulting on: ";
-	// 			// n->state()->print(std::cout);
-	// 			// std::cout << std::endl;
-	// 			// std::cout << "Graph Changes: ";
-	// 			m_lgm->apply_action( n->action(), n->land_consumed(), n->land_unconsumed() );
-	// 			eval( n );
-	// 			n->undo_land_graph( m_lgm );
-	// 		}
-	// 		else{
-	// 			eval( n );
-	// 		}
-	// 		if( head->is_po( a ) ){
-	// 			n->h1n() += 0.5;
-	// 			n->set_helpful();
-	// 			eval_lazy(n);
-	// 			//std::cout << "[ n:" << candidate->h1n()  <<" - hl:" << candidate->h2n() <<" - #g:" << candidate->goals_unachieved() <<" - h_a:" << candidate->h3n() <<" - gn: " << candidate->gn()  <<"]" << std::endl;
-
-	// 		}
-	// 		else{
-	// 			n->h1n() += 1;
-	// 			n->h3n() = head->h3n();
-	// 		}
-
-	// 		//n->fn() = n->h1n();
-	// 		if( previously_hashed(n) ) {
-	// 			#ifdef DEBUG
-	// 			std::cout << "Already in OPEN" << std::endl;
-	// 			#endif
-	// 			delete n;
-	// 		}
-	// 		else {
-	// 			#ifdef DEBUG
-	// 			std::cout << "Inserted into OPEN" << std::endl;
-	// 			#endif
-	// 			open_node(n);	
-	// 		}
-	// 		a = it.next();		
-	// 	} 
-	// 	inc_eval();
-	// }
-
-virtual void 			process(  Search_Node *head ) {
-#ifdef DEBUG
+	virtual void 			process(  Search_Node *head ) {
+		#ifdef DEBUG
 		std::cout << "Expanding:" << std::endl;
-		//		if(head->action() != 0)
-		//	std::cout << "action leading " << m_problem.task().actions()[ head->action() ]->signature() << ": ";
-
 		head->print(std::cout);
 		std::cout << std::endl;
 		head->state()->print( std::cout );
 		std::cout << std::endl;
-		std::cout << "[ n:" << head->h1n()  <<" - hl:" << head->h2n() <<" - #g:" << head->goals_unachieved() <<" - h_a:" << head->h3n() <<" - gn: " << head->gn()  <<"]" << std::endl;
-#endif
+		#endif
 
 		if(m_lgm)
 			head->update_land_graph( m_lgm );
@@ -515,7 +484,7 @@ virtual void 			process(  Search_Node *head ) {
 		
 		for (int i = 0; i < app_set.size(); ++i ) {
 			int a = app_set[i];
-	
+			
 			State *succ = m_problem.next( *(head->state()), a );
 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
 			#ifdef DEBUG
@@ -530,9 +499,19 @@ virtual void 			process(  Search_Node *head ) {
 				#ifdef DEBUG
 				std::cout << "Already in CLOSED" << std::endl;
 				#endif
-				delete n;				
+				delete n;
+				//a = it.next();
 				continue;
 			}
+			if( previously_hashed(n) ) {
+				#ifdef DEBUG
+				std::cout << "Already in OPEN" << std::endl;
+				#endif
+				delete n;
+				//a = it.next();		
+				continue;
+			}
+		
 			if(m_lgm){						
 				// if( n->action() != -1)
 				// 	std::cout << "Just Applied: " << m_problem.task().actions()[ n->action() ]->signature() << " resulting on: ";
@@ -549,9 +528,8 @@ virtual void 			process(  Search_Node *head ) {
 			if( head->is_po( a ) ){
 				n->h1n() += 0.5;
 				n->set_helpful();
-				eval_lazy(n);
-				//				std::cout << "HA: " << m_problem.task().actions()[ n->action() ]->signature() << ": ";
-				//				std::cout << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<"]" << std::endl;
+				eval_po(n);
+				//std::cout << "[ n:" << candidate->h1n()  <<" - hl:" << candidate->h2n() <<" - #g:" << candidate->goals_unachieved() <<" - h_a:" << candidate->h3n() <<" - gn: " << candidate->gn()  <<"]" << std::endl;
 
 			}
 			else{
@@ -560,22 +538,111 @@ virtual void 			process(  Search_Node *head ) {
 			}
 
 			//n->fn() = n->h1n();
-			if( previously_hashed(n) ) {
-				#ifdef DEBUG
-				std::cout << "Already in OPEN" << std::endl;
-				#endif
-				delete n;
-			}
-			else {
-				#ifdef DEBUG
-				std::cout << "Inserted into OPEN" << std::endl;
-				#endif
-				open_node(n);	
-			}
-		
+#ifdef DEBUG
+			std::cout << "Inserted into OPEN" << std::endl;
+#endif
+			open_node(n);	
+				
+			//a = it.next();		
 		} 
 		inc_eval();
 	}
+
+// virtual void 			process(  Search_Node *head ) {
+// #ifdef DEBUG
+// 	std::cout << "\t Expanding: ";
+// 		//if(head->action() != 0)
+// 		//	std::cout << "action leading " << m_problem.task().actions()[ head->action() ]->signature() << ": ";
+// 		std::cout << "[ n:" << head->h1n()  <<" - hl:" << head->h2n() <<" - #g:" << head->goals_unachieved() <<" - h_a:" << head->h3n() <<" - gn: " << head->gn()  <<" - fn: " << head->fn()  <<"]" << std::endl;
+
+// 		// head->print(std::cout);
+// 		// std::cout << std::endl;
+// 		// head->state()->print( std::cout );
+// 		// std::cout << std::endl;
+// 		// std::cout << "[ n:" << head->h1n()  <<" - hl:" << head->h2n() <<" - #g:" << head->goals_unachieved() <<" - h_a:" << head->h3n() <<" - gn: " << head->gn()  <<"]" << std::endl;
+// #endif
+
+// 		if(m_lgm)
+// 			head->update_land_graph( m_lgm );
+		
+// 		typedef typename Search_Model::Action_Iterator Iterator;
+	
+	
+// 		for (int a = 0; a < this->problem().num_actions(); a++ ) {		
+// 			if( ! this->problem().task().actions()[ a ]->can_be_applied_on( *(head->state())) ) continue;
+
+	
+// 			State *succ = m_problem.next( *(head->state()), a );
+// 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
+// 			#ifdef DEBUG
+// 			std::cout << "Successor:" << std::endl;
+// 			n->print(std::cout);
+// 			std::cout << std::endl;
+// 			n->state()->print( std::cout );
+// 			std::cout << std::endl;
+// 			#endif
+
+// 			if ( is_closed( n ) ) {
+// 				#ifdef DEBUG
+// 				std::cout << "Already in CLOSED" << std::endl;
+// 				#endif
+// 				delete n;				
+// 				continue;
+// 			}
+// 			if( previously_hashed(n) ) {
+// 				//#ifdef DEBUG
+// 				std::cout << "Already in OPEN" << std::endl;
+// 				//				#endif
+// 				delete n;
+// 				continue;
+// 			}
+
+// 			if(m_lgm){						
+// 				// if( n->action() != -1)
+// 				// 	std::cout << "Just Applied: " << m_problem.task().actions()[ n->action() ]->signature() << " resulting on: ";
+// 				// n->state()->print(std::cout);
+// 				// std::cout << std::endl;
+// 				// std::cout << "Graph Changes: ";
+// 				m_lgm->apply_action( n->action(), n->land_consumed(), n->land_unconsumed() );
+// 				eval( n );
+// 				n->undo_land_graph( m_lgm );
+// 			}
+// 			else{
+// 				eval( n );
+// 			}
+
+// 			if( head->is_po( a ) ){
+// 				n->h1n() += 0.5;
+// 				n->set_helpful();
+// 				eval_po(n);
+// 				#ifdef DEBUG
+// 				std::cout << "HA: " << m_problem.task().actions()[ n->action() ]->signature() << ": ";
+// 				std::cout << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn() <<" - fn: " << n->fn() <<"]" << std::endl;
+// 				#endif
+				
+// 			}
+// 			else{
+// 				n->h1n() += 1;
+// 				n->h3n() = head->h3n();
+
+// 				#ifdef DEBUG
+// 				std::cout << "NON-HA: " << m_problem.task().actions()[ n->action() ]->signature() << ": ";
+// 				std::cout << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn() <<" - fn: " << n->fn()  <<"]" << std::endl;
+// 				#endif
+
+// 			}
+
+// 			//n->fn() = n->h1n();
+			
+// #ifdef DEBUG
+// 			std::cout << "Inserted into OPEN" << std::endl;
+// #endif
+// 			open_node(n);	
+	
+		
+// 		} 
+// 		inc_eval();
+// 	}
 
 	virtual Search_Node*	 	do_search() {
 		Search_Node *head = get_node();
@@ -597,7 +664,7 @@ virtual void 			process(  Search_Node *head ) {
 				return NULL;
 
 			if( ! head->is_helpful() )
-				eval_lazy( head );
+				eval_po( head );
 			process(head);
 			close(head);
 			counter++;
@@ -616,7 +683,8 @@ virtual void 			process(  Search_Node *head ) {
 				previous_copy->m_parent = n->m_parent;
 				previous_copy->m_action = n->m_action;
 				previous_copy->m_g = n->m_g;
-				previous_copy->m_f = previous_copy->m_h1;
+				previous_copy->m_g_unit = n->m_g_unit;
+				//previous_copy->m_f = previous_copy->m_h1;
 				inc_replaced_open();
 			}
 			return true;
