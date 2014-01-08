@@ -22,14 +22,14 @@ USAGE = """
  Usage:
     python run.py profile <executable> <ipc directory> [<domain pddl> <problem pddl>]
     python run.py benchmark <executable> <ipc directory> [<domain>]
-    python run.py compare <directory 1> <directory 2>
+    python run.py compare <directory 1> <directory 2> <ipc directory>
     python run.py clean
     """
 
 # Set the time limit (in seconds)
-timelimit = 300
+timelimit = 180
 memorylimit = 1000
-cores = 4 # Only used for the benchmarking
+cores = 5 # Only used for the benchmarking
 
 OLD = 1
 NEW = 2
@@ -232,6 +232,21 @@ elif 'benchmark' == argv[1]:
 
 
 elif 'compare' == argv[1]:
+
+    if 'ipc-2006' == argv[4]:
+        benchmark = benchmark_06
+        domains = domains_06
+        profile_problems = profile_problems_06
+    elif 'ipc-2011' == argv[4]:
+        benchmark = benchmark_11
+        domains = domains_11
+        profile_problems = profile_problems_11
+    else:
+        print "Invalid benchmark set: %s" % argv[4]
+        os._exit(1)
+
+    ipc = argv[4]
+
     compare_results(argv[2], argv[3])
 
 
