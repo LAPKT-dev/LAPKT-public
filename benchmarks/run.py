@@ -16,11 +16,12 @@ from os import system as cmd
 from sys import argv
 import glob, os
 
+from domains import *
 
 USAGE = """
  Usage:
-    python run.py profile <executable> [<domain pddl> <problem pddl>]
-    python run.py benchmark <executable> [<domain>]
+    python run.py profile <executable> <ipc directory> [<domain pddl> <problem pddl>]
+    python run.py benchmark <executable> <ipc directory> [<domain>]
     python run.py compare <directory 1> <directory 2>
     python run.py clean
     """
@@ -30,63 +31,28 @@ timelimit = 300
 memorylimit = 1000
 cores = 4 # Only used for the benchmarking
 
-domains = ['openstacks', 'pathways', 'pipesworld', 'rovers', 'storage', 'TPP', 'trucks']
+OLD = 1
+NEW = 2
 
+# Set the style of planner you are using
+TYPE = OLD
 
-
-# Domain and problem files
-benchmark = {}
-
-benchmark['openstacks'] = []
-for i in range(1,10):
-    benchmark['openstacks'].append(('domain.pddl', "problems/p0%d.pddl" % i))
-for i in range(10, 31):
-    benchmark['openstacks'].append(('domain.pddl', "problems/p%d.pddl" % i))
-
-benchmark['pathways'] = []
-for i in range(1,10):
-    benchmark['pathways'].append(("domain_p0%d.pddl" % i, "p0%d.pddl" % i))
-for i in range(10,31):
-    benchmark['pathways'].append(("domain_p%d.pddl" % i, "p%d.pddl" % i))
-
-benchmark['pipesworld'] = []
-for i in range(1,10):
-    benchmark['pipesworld'].append(('domain.pddl', "problems/p0%d.pddl" % i))
-for i in range(10, 51):
-    benchmark['pipesworld'].append(('domain.pddl', "problems/p%d.pddl" % i))
-
-benchmark['rovers'] = []
-for i in range(1,10):
-    benchmark['rovers'].append(('domain.pddl', "problems/p0%d.pddl" % i))
-for i in range(10, 41):
-    benchmark['rovers'].append(('domain.pddl', "problems/p%d.pddl" % i))
-
-benchmark['storage'] = []
-for i in range(1,10):
-    benchmark['storage'].append(('domain.pddl', "problems/p0%d.pddl" % i))
-for i in range(10, 31):
-    benchmark['storage'].append(('domain.pddl', "problems/p%d.pddl" % i))
-
-benchmark['TPP'] = []
-for i in range(1,10):
-    benchmark['TPP'].append(('domain.pddl', "problems/p0%d.pddl" % i))
-for i in range(10, 31):
-    benchmark['TPP'].append(('domain.pddl', "problems/p%d.pddl" % i))
-
-benchmark['trucks'] = []
-for i in range(1,10):
-    benchmark['trucks'].append(('domain.pddl', "problems/p0%d.pddl" % i))
-for i in range(10, 31):
-    benchmark['trucks'].append(('domain.pddl', "problems/p%d.pddl" % i))
-
-
+benchmark = None
+domains = None
+ipc = None
 
 def profile_domain(planner, dom, domain, problem):
 
     print
     print "Profiling %s..." % dom
-        
-    cmd("timeout %d valgrind --tool=callgrind %s --domain %s --problem %s > %s.out 2>&1" % (timelimit, planner, domain, problem, dom))
+
+    if TYPE == OLD:
+        cmd("timeout %d valgrind --tool=callgrind %s --domain %s/%s --problem %s/%s > %s.out 2>&1" % (timelimit, planner, ipc, domain, ipc, problem, dom))
+    elif TYPE == NEW:
+        cmd("timeout %d valgrind --tool=callgrind %s %s/%s %s/%s /dev/null > %s.out 2>&1" % (timelimit, planner, ipc, domain, ipc, problem, dom))
+    else:
+        assert False, "What the deuce?"
+
     callfile=glob.glob('callgrind.out.*')[0]
     cmd("python gprof2dot.py -f callgrind %s 2> /dev/null | dot -Tpng -o %s.png > /dev/null 2>&1" % (callfile, dom))
     cmd("rm %s" % callfile)
@@ -98,10 +64,17 @@ def benchmark_domain(planner, dom):
 
     print
     print "Benchmarking %s..." % dom
-    
+
+    if TYPE == OLD:
+        domprob_args = ["--domain %s/%s/%s --problem %s/%s/%s" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]
+    elif TYPE == NEW:
+        domprob_args = ["%s/%s/%s %s/%s/%s /dev/null" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]
+    else:
+        assert False, "What the deuce?"
+
     results = run_experiment(base_directory=".",
                              base_command=planner,
-                             single_arguments={'domprob': ["--domain %s/%s --problem %s/%s" % (dom,domain,dom,problem) for (domain, problem) in benchmark[dom]]},
+                             single_arguments={'domprob': domprob_args},
                              time_limit=timelimit,
                              memory_limit=memorylimit,
                              results_dir="results",
@@ -112,7 +85,7 @@ def benchmark_domain(planner, dom):
     data = []
     for resid in results.get_ids():
         res = results[resid]
-        prob = res.single_args['domprob'].split(' ')[-1].split('/')[-1]
+        prob = res.single_args['domprob'].split(' ')[-2].split('/')[-1]
         if res.timed_out:
             data.append("%s,time,-1,-1,-1,-1" % prob)
         elif match_value("%s.err" % res.output_file, '.*std::bad_alloc.*'):
@@ -197,30 +170,57 @@ if 1 == len(argv):
     os._exit(1)
 
 if 'profile' == argv[1]:
-    if len(argv) < 3:
+    if len(argv) < 4:
         print USAGE
         os._exit(1)
     
-    elif len(argv) < 4:
-        # Do everything
-        profile_domain(argv[2], 'openstacks', 'openstacks/domain.pddl', 'openstacks/problems/p15.pddl') #p30.pddl
-        profile_domain(argv[2], 'pathways', 'pathways/domain_p15.pddl', 'pathways/p15.pddl') #p30.pddl
-        profile_domain(argv[2], 'pipesworld', 'pipesworld/domain.pddl', 'pipesworld/problems/p13.pddl') #p50.pddl
-        profile_domain(argv[2], 'rovers', 'rovers/domain.pddl', 'rovers/problems/p20.pddl') #p40.pddl
-        profile_domain(argv[2], 'storage', 'storage/domain.pddl', 'storage/problems/p20.pddl') #p30.pddl
-        profile_domain(argv[2], 'TPP', 'TPP/domain.pddl', 'TPP/problems/p15.pddl #p30.pddl')
-        profile_domain(argv[2], 'trucks', 'trucks/domain.pddl', 'trucks/problems/p07.pddl') #p30.pddl
+    if 'ipc-2006' == argv[3]:
+        benchmark = benchmark_06
+        domains = domains_06
+        profile_problems = profile_problems_06
+    elif 'ipc-2011' == argv[3]:
+        benchmark = benchmark_11
+        domains = domains_11
+        profile_problems = profile_problems_11
+    else:
+        print "Invalid benchmark set: %s" % argv[3]
+        os._exit(1)
+
+    ipc = argv[3]
+
+    if len(argv) < 5:
+        for (dom, domain, problem) in profile_problems:
+            profile_domain(argv[2], dom, domain, problem)
         
     else:
-        profile_domain(argv[2], argv[3], argv[4], argv[5])
+        profile_domain(argv[2], 'custom', argv[4], argv[5])
 
 
 elif 'benchmark' == argv[1]:
+    
     if len(argv) < 4:
+        print USAGE
+        os._exit(1)
+
+    if 'ipc-2006' == argv[3]:
+        benchmark = benchmark_06
+        domains = domains_06
+        profile_problems = profile_problems_06
+    elif 'ipc-2011' == argv[3]:
+        benchmark = benchmark_11
+        domains = domains_11
+        profile_problems = profile_problems_11
+    else:
+        print "Invalid benchmark set: %s" % argv[3]
+        os._exit(1)
+    
+    ipc = argv[3]
+        
+    if len(argv) < 5:
         for dom in domains:
             benchmark_domain(argv[2], dom)
     else:
-        benchmark_domain(argv[2], argv[3])
+        benchmark_domain(argv[2], argv[4])
 
 
 elif 'compare' == argv[1]:

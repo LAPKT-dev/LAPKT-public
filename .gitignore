@@ -35,3 +35,4 @@ examples/agnostic-examples/successor_generation/succ-gen
 
 # Local directories 
 spikes
+planners/*/fd

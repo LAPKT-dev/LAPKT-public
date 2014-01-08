@@ -14,7 +14,10 @@ def main() :
 		sys.exit(1)
 
 	# 2. Call scons to build
-	rv = os.system( 'scons debug=1' )	
+        if len(sys.argv) > 1:
+                rv = os.system( "scons %s" % sys.argv[1] )
+        else:
+	        rv = os.system( 'scons debug=1' )
 	if rv != 0 :
 		print >> sys.stderr, "Build failed!"
 		sys.exit(1)
