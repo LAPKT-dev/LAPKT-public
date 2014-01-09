@@ -109,9 +109,11 @@ public:
 				m_iw_calls++;
 
 				std::vector<Action_Idx> partial_plan;
-				this->extract_plan( this->m_root, end, partial_plan, cost );	
+				float partial_cost = 0.0f;
+				this->extract_plan( this->m_root, end, partial_plan, partial_cost );	
 				plan.insert( plan.end(), partial_plan.begin(), partial_plan.end() );			
-				
+				cost += partial_cost;				
+
 				new_init_state = new State( this->problem().task() );
 				new_init_state->set( end->state()->fluent_vec() );
 				new_init_state->update_hash();
