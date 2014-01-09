@@ -97,6 +97,7 @@ void	Action::print( const STRIPS_Problem& prob, std::ostream& os ) const {
 		prob.print_fluent_vec( os, ceff_vec()[l]->del_vec() );
 		os << "}" << std::endl;
 	}	
+	os << "Cost = " << cost() << std::endl;
 }
 
 }
