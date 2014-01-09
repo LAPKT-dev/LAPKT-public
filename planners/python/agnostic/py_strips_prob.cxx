@@ -71,6 +71,7 @@ using namespace boost::python;
 
 			action.prec_vec().push_back( fl_idx );
 			action.prec_set().set( fl_idx );
+			action.prec_varval().push_back( std::make_pair(fl_idx, 0) );
 
 		}	
 	}
