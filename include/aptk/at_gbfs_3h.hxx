@@ -145,14 +145,14 @@ public:
 
 	State*		m_state;
 	Node_Ptr	m_parent;
-	float		m_h1;
-	float		m_h2;
-	float		m_h3;
 	unsigned        m_goals_unachieved;
 	Action_Idx	m_action;
 	float		m_g;
 	float		m_g_unit;
 	float		m_f;
+	float		m_h1;
+	float		m_h2;
+	float		m_h3;
 	Bit_Set		m_po;
 	bool		m_seen;
 	bool		m_helpful;
@@ -465,9 +465,9 @@ public:
 			m_open_hash.put(n);
 		}
 		inc_gen();
-		if( generated() % 1000 == 0){
-			std::cout << "\nGenerated " << generated() << std::endl;
-		}
+		// if( generated() % 1000 == 0){
+		// 	std::cout << "\nGenerated " << generated() << std::endl;
+		// }
 	}
 	/**
 	 * Succ Generator Process
