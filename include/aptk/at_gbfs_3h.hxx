@@ -51,7 +51,7 @@ public:
 	typedef typename std::vector< Node<Search_Model,State>* >::iterator            Node_Vec_Ptr_It;
 
 	Node( State* s, float cost, Action_Idx action, Node<Search_Model,State>* parent, int num_actions ) 
-		: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_g_unit( 0 ), m_f(0), m_po( num_actions ), m_seen(false), m_helpful(false), m_land_consumed(NULL), m_land_unconsumed(NULL) {
+		: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_g_unit( 0 ), m_f(0), m_h1(0), m_h2(0), m_h3(0), m_po( num_actions ), m_seen(false), m_helpful(false), m_land_consumed(NULL), m_land_unconsumed(NULL) {
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 		m_g_unit = ( parent ? parent->m_g_unit + 1.0f : 0.0f);
 	}
@@ -325,17 +325,21 @@ public:
 		m_root = new Search_Node( m_problem.init(), 0.0f, no_op, NULL, m_problem.num_actions() );	
 
 		m_first_h->init();
-
-		if(m_lgm){						
+		m_third_h->ignore_rp_h_value(true);
+		
+		if(m_lgm){				
+			eval_po(m_root);		
 			m_lgm->apply_state( m_root->state()->fluent_vec(), m_root->land_consumed(), m_root->land_unconsumed() );
 			eval(m_root);
 			m_root->undo_land_graph( m_lgm );
 		}
-		else			
+		else{		
+			eval_po(m_root);	
 			eval(m_root);
+		}
 		
-		m_third_h->ignore_rp_h_value(true);
 		
+
 		#ifdef DEBUG
 		std::cout << "Initial search node: ";
 		m_root->print(std::cout);
@@ -402,7 +406,7 @@ public:
 		}
 		else{
 			candidate->goals_unachieved()--;
-			m_first_h->eval( *(candidate->state()), candidate->h1n(), candidate->goals_unachieved() );
+			m_first_h->eval( *candidate, candidate->h1n(), candidate->goals_unachieved() );
 		}
 
 		if(candidate->h2n() < m_max_hn )
@@ -418,6 +422,7 @@ public:
 	void			eval_po( Search_Node* candidate ) {
 		std::vector<Action_Idx>	po;
 		m_third_h->eval( *(candidate->state()), candidate->h3n(), po  );
+		candidate->h3n() = 0;
 		if(po.size()){
 			for ( unsigned k = 0; k < po.size(); k++ )
 				candidate->add_po( po[k] );
@@ -482,7 +487,7 @@ public:
 		std::vector< aptk::Action_Idx > app_set;
 		this->problem().applicable_set_v2( *(head->state()), app_set );
 		
-		for (int i = 0; i < app_set.size(); ++i ) {
+		for (unsigned i = 0; i < app_set.size(); ++i ) {
 			int a = app_set[i];
 			
 			State *succ = m_problem.next( *(head->state()), a );
@@ -512,6 +517,20 @@ public:
 				continue;
 			}
 		
+
+			if( head->is_po( a ) ){
+				n->h1n() += 0.5;
+				n->set_helpful();
+				eval_po(n);
+				//std::cout << "HA[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<"]" << std::endl;
+
+			}
+			else{
+				n->h1n() += 1;
+				n->h3n() = head->h3n();
+				//				std::cout << "Non-HA[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<"]" << std::endl;
+			}
+
 			if(m_lgm){						
 				// if( n->action() != -1)
 				// 	std::cout << "Just Applied: " << m_problem.task().actions()[ n->action() ]->signature() << " resulting on: ";
@@ -525,18 +544,6 @@ public:
 			else{
 				eval( n );
 			}
-			if( head->is_po( a ) ){
-				n->h1n() += 0.5;
-				n->set_helpful();
-				eval_po(n);
-				//std::cout << "[ n:" << candidate->h1n()  <<" - hl:" << candidate->h2n() <<" - #g:" << candidate->goals_unachieved() <<" - h_a:" << candidate->h3n() <<" - gn: " << candidate->gn()  <<"]" << std::endl;
-
-			}
-			else{
-				n->h1n() += 1;
-				n->h3n() = head->h3n();
-			}
-
 			//n->fn() = n->h1n();
 #ifdef DEBUG
 			std::cout << "Inserted into OPEN" << std::endl;
@@ -664,8 +671,8 @@ public:
 				return NULL;
 			// MRJ: What if we don't compute h_add and keep using the parent's h_add value for non-helpful 
 			// nodes?
-			//if( !head->is_helpful() )
-			//	eval_po( head );
+			if( !head->is_helpful() )
+				eval_po( head );
 			process(head);
 			close(head);
 			counter++;

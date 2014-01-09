@@ -75,13 +75,14 @@ typedef         H2_Heuristic<Fwd_Search_Problem>                  H2_Fwd;
 typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>     Gen_Lms_Fwd;
 typedef         LM_Cut_Heuristic<Fwd_Search_Problem>              H_Lmcut_Fwd;
 typedef         Landmarks_Count_Heuristic<Fwd_Search_Problem>     H_Lmcount_Fwd;
-typedef         Novelty_Partition<Fwd_Search_Problem>             H_Novel_Fwd;
 typedef         Landmarks_Graph_Manager<Fwd_Search_Problem>       Land_Graph_Man;
 
 
 
 // MRJ: We start defining the type of nodes for our planner
 typedef		aptk::search::gbfs_3h::Node< Fwd_Search_Problem, aptk::State >	Search_Node;
+
+typedef         Novelty_Partition<Fwd_Search_Problem, Search_Node>             H_Novel_Fwd;
 
 // MRJ: Then we define the type of the tie-breaking algorithm
 // for the open list we are going to use
