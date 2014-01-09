@@ -226,7 +226,7 @@ public:
 				  
 					continue;				
 				}
-				std::cout << m_strips_model.actions()[a->index()]->signature() << "first sup of " << m_strips_model.fluents()[p]->signature() << std::endl; 
+				//std::cout << m_strips_model.actions()[a->index()]->signature() << "first sup of " << m_strips_model.fluents()[p]->signature() << std::endl; 
 				
 				if(k==0)
 					lm_set.add( a->prec_set() ); 
