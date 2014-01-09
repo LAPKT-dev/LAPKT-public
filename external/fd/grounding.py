@@ -195,7 +195,7 @@ def default( domain_file, problem_file, output_task ) :
 	print("Deterministic %d actions" % len(actions))
 	nd_actions = {}
 	for action in actions :
-		print( "action: %s cost: %d"%(action.name,action.cost) )
+		#print( "action: %s cost: %d"%(action.name,action.cost) )
 		nd_action = PropositionalDetAction( action.name, action.cost )
 		nd_action.set_precondition( action.precondition, atom_table )
 		nd_action.add_effect( action.add_effects, action.del_effects, atom_table )
@@ -217,7 +217,6 @@ def default( domain_file, problem_file, output_task ) :
 		#	print action.name, len(action.cond_effs), "has conditional effects"
 		for cond, eff in action.cond_effs.iteritems() :
 			output_task.add_cond_effect( index, list(cond), eff )
-		assert action.cost > 0
 		output_task.set_cost( index, action.cost ) 
 		index += 1
 	output_task.set_domain_name( task.domain_name )
