@@ -47,6 +47,19 @@ public:
 	
 	virtual void eval( const State& s, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
 		h_val = count_goals( s );
+		std::vector< aptk::Action_Idx >	app_set;
+		this->problem().applicable_set_v2( s, app_set );
+		for ( unsigned i = 0; i < app_set.size(); i++ ) {
+			int a = app_set[i];
+			const Action& act = *(m_strips_model.actions()[a]);
+			for ( 	auto g_it = m_strips_model.goal().begin(); 
+				g_it != m_strips_model.goal().end(); g_it++ ) {
+				if ( !s.entails( *g_it) && act.asserts( *g_it ) ) {
+					pref_ops.push_back( a );
+					break;
+				} 
+			}
+		}
 	}
 
 protected:
