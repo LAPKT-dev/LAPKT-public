@@ -40,13 +40,13 @@ typedef         H2_Heuristic<Fwd_Search_Problem>                  H2_Fwd;
 typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>     Gen_Lms_Fwd;
 typedef         LM_Cut_Heuristic<Fwd_Search_Problem>              H_Lmcut_Fwd;
 typedef         Landmarks_Count_Heuristic<Fwd_Search_Problem>     H_Lmcount_Fwd;
-typedef         Novelty_Partition<Fwd_Search_Problem>             H_Novel_Fwd;
 typedef         Landmarks_Graph_Manager<Fwd_Search_Problem>       Land_Graph_Man;
 
 
 
 // MRJ: We start defining the type of nodes for our planner
 typedef		aptk::search::gbfs_3h::Node< Fwd_Search_Problem, aptk::State >	Search_Node;
+typedef         Novelty_Partition<Fwd_Search_Problem, Search_Node>              H_Novel_Fwd;
 
 // MRJ: Then we define the type of the tie-breaking algorithm
 // for the open list we are going to use
@@ -56,7 +56,7 @@ typedef		Node_Comparer_3H< Search_Node >					Tie_Breaking_Algorithm;
 typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >		BFS_Open_List;
 
 // MRJ: Now we define the heuristics
-typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd;
+typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd; //, aptk::agnostic::H1_Cost_Function::Ignore_Costs
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
 
 // MRJ: Now we're ready to define the BFS algorithm we're going to use

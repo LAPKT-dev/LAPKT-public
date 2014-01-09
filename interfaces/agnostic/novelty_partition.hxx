@@ -34,9 +34,10 @@ namespace aptk {
 namespace agnostic {
 
 
-template <typename Search_Model >
+template <typename Search_Model, typename Search_Node >
 class Novelty_Partition : public Heuristic<State>{
 public:
+
 
 	Novelty_Partition( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 600 ) 
 		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB) {
@@ -50,10 +51,11 @@ public:
 
 
 	void init() {
-		for(std::vector< std::vector<State*> >::iterator it_p = m_nodes_tuples_by_partition.begin();
-		    it_p != m_nodes_tuples_by_partition.end(); it_p++)		
-			for(std::vector<State*>::iterator it = it_p->begin();
-			    it != it_p->end(); it++)		
+		typedef typename std::vector< std::vector<Search_Node*> >::iterator        Node_Vec_Ptr_It;
+		typedef typename std::vector<Search_Node*>::iterator                       Node_Ptr_It;
+				
+		for(Node_Vec_Ptr_It it_p = m_nodes_tuples_by_partition.begin();it_p != m_nodes_tuples_by_partition.end(); it_p++)
+			for(Node_Ptr_It it = it_p->begin(); it != it_p->end(); it++)		
 				*it = NULL;
 
 	}
@@ -66,11 +68,11 @@ public:
 		m_num_tuples = 1;
 		m_num_fluents = m_strips_model.num_fluents();
 
-		float size_novelty = ( (float) pow(m_num_fluents,m_arity) / 1024000.)  * (float) goal_size * sizeof(State*);
+		float size_novelty = ( (float) pow(m_num_fluents,m_arity) / 1024000.)  * (float) goal_size * sizeof(Search_Node*);
 		std::cout << "Try allocate size: "<< size_novelty<<" MB"<<std::endl;
 		if(size_novelty > m_max_memory_size_MB){
 			m_arity = 1;
-			size_novelty =  ( (float) pow(m_num_fluents,m_arity) / 1024000.) * (float) goal_size * sizeof(State*);
+			size_novelty =  ( (float) pow(m_num_fluents,m_arity) / 1024000.) * (float) goal_size * sizeof(Search_Node*);
 
 			std::cout<<"EXCEDED, m_arity downgraded to 1 --> size: "<< size_novelty<<" MB"<<std::endl;
 		}
@@ -84,54 +86,47 @@ public:
 
 	}
 	
-	virtual void eval( const State& s, float& h_val, unsigned goals_unachieved ) {
+	virtual void eval( const Search_Node& n, float& h_val, unsigned goals_unachieved ) {
 	
-		compute( s, h_val, goals_unachieved );		
+		compute( n, h_val, goals_unachieved );		
+	}
+
+	virtual void eval( const Search_Node& n, float& h_val ) {
+	
+		compute( n, h_val, 0 );		
+	}
+
+	virtual void eval( const Search_Node& n, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
+		eval( n, h_val, 0 );
 	}
 
 	virtual void eval( const State& s, float& h_val ) {
 	
-		compute( s, h_val, 0 );		
+		assert(true);
 	}
 
 	virtual void eval( const State& s, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
-		eval( s, h_val, 0 );
+		assert(true);
 	}
 
-	/**
-	 * Use Node when possible. Faster Computation!
-	 */
-	template <class Node >
-	void eval( const Node& n, float& h_val ) { 
-		if( n.action() != no_op )
-			compute( n, h_val );
-		else
-			compute( n.state(), h_val);
-	}
 
 
 protected:
 
-	
-	/**
-	 * If T == Node,  the computation is F^i-1 aprox. FASTER!!!
-	 * if T == State, the computation is F^i, SLOWER!! 
-	 * where i ranges over 1 to max_arity
-	 */
-	template< typename T >
-	void compute(  const T& ns, float& novelty, unsigned goals_unachieved = 0 ) 
+
+	void compute(  const Search_Node& n, float& novelty, unsigned goals_unachieved = 0 ) 
 	{
 
 		novelty = (float) m_arity+1;
 		for(unsigned i = 1; i <= m_arity; i++){
 #ifdef DEBUG
-			std::cout << "search state node: "<<&(ns)<<std::endl;
+			std::cout << "search state node: "<<&(n)<<std::endl;
 #endif 	
-			bool new_covers = cover_tuples( ns, i, goals_unachieved );
+			bool new_covers = cover_tuples( n, i, goals_unachieved );
 			
 #ifdef DEBUG
 			if(!new_covers)	
-				std::cout << "\t \t PRUNE! search node: "<<&(ns)<<std::endl;
+				std::cout << "\t \t PRUNE! search node: "<<&(n)<<std::endl;
 #endif 	
 			if ( new_covers )
 				if(i < novelty )
@@ -143,8 +138,8 @@ protected:
 	/**
 	 * Instead of checking the whole state, checks the new atoms permutations only!
 	 */
-	template < class Node >
-	bool    cover_tuples( const Node& n, unsigned arity )
+
+	bool    cover_tuples( const Search_Node& n, unsigned arity )
 	{
 
 
@@ -193,12 +188,12 @@ protected:
 					 */
 					bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] ) ? 
 									true : 
-									( is_better( m_nodes_tuples_by_partition[ n->goals_unachieved() ][tuple_idx], s  ) ? 
+									( is_better( m_nodes_tuples_by_partition[ n->goals_unachieved() ][tuple_idx], &n  ) ? 
 									true : false);
                        
 					if( cover_new_tuple ){
 						
-						m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] = (State*) &(n.state());
+						m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] = (Search_Node*) &n;
 						new_covers = true;
 
 
@@ -231,9 +226,10 @@ protected:
 	}
 
 
-	bool cover_tuples( const State& s, unsigned arity, unsigned goals_unachieved  )
+	bool cover_tuples( const Search_Node& n, unsigned arity, unsigned goals_unachieved  )
 	{
 
+		const State& s = n.state();
 
 		bool new_covers = false;
 
@@ -263,10 +259,10 @@ protected:
 			 * OR
 			 * -> n better than old_n
 			 */
-			bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ goals_unachieved ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ goals_unachieved ][tuple_idx], s  ) ? true : false);
+			bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ goals_unachieved ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ goals_unachieved ][tuple_idx], &n  ) ? true : false);
 			
 			if( cover_new_tuple ){
-				m_nodes_tuples_by_partition[ goals_unachieved ][ tuple_idx ] = (State*) &s;
+				m_nodes_tuples_by_partition[ goals_unachieved ][ tuple_idx ] = (Search_Node*) &n;
 
 				new_covers = true;
 #ifdef DEBUG
@@ -337,11 +333,32 @@ protected:
 		}
 	}
 
-	inline bool      is_better( State* s,const State& new_s ) const { return false; }
+	inline bool      is_better( Search_Node* n,const Search_Node* new_n ) const { 
+		//		return false;
+		bool ret = false;
+
+		float n1 = new_n->h3n() + new_n->gn();
+		float n2 = n->h3n() + n->gn();
+                ret =  n1 < n2;
+                if(ret) return ret;
+
+                if(n1 == n2){
+                        ret =  new_n->h3n() < n->h3n();
+                        if(ret) return ret;
+
+                        if(new_n->h3n() == n->h3n()){
+                                ret =  new_n->gn() < n->gn();
+                        }
+
+                }
+
+                return ret;
+		
+	}
 
 
 	const STRIPS_Problem&	m_strips_model;
-	std::vector< std::vector<State*> >     m_nodes_tuples_by_partition;
+	std::vector< std::vector<Search_Node*> >     m_nodes_tuples_by_partition;
         unsigned                m_arity;
 	unsigned long           m_num_tuples;
 	unsigned                m_num_fluents;
