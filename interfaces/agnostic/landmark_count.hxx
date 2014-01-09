@@ -125,9 +125,15 @@ public:
 			}
 		}
 
-		Successor_Generator::Iterator it( s, m_strips_model.successor_generator().nodes() );
-		int a = it.first();
-		while ( a != -1 ) {
+		std::vector< aptk::Action_Idx >	app_set;
+		this->problem().applicable_set_v2( s, app_set );
+
+		//Successor_Generator::Iterator it( s, m_strips_model.successor_generator().nodes() );
+		//int a = it.first();
+		//while ( a != -1 ) {
+		for ( unsigned i = 0; i < app_set.size(); i++ ) {
+			int a = app_set[i];
+
 			const Action& act = *(m_strips_model.actions()[a]);
 			for ( Fluent_Vec::const_iterator it2 = act.add_vec().begin();
 				it2 != act.add_vec().end(); it2++ )
@@ -137,7 +143,7 @@ public:
 					break;
 				}
 			
-			a = it.next();
+			//a = it.next();
 		}
 	}
 	

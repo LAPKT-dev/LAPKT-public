@@ -88,41 +88,55 @@ public:
 
 	virtual void 			process(  Search_Node *head ) {
 
+		std::vector< aptk::Action_Idx >	app_set;
+		this->problem().applicable_set_v2( *(head->state()), app_set );
+		/*
 		typedef typename Search_Model::Action_Iterator Iterator;
 		Iterator it( this->problem() );
 		int a = it.start( *(head->state()) );
 		while ( a != no_op ) {
+		*/
+		for ( unsigned i = 0; i < app_set.size(); i++ ) {
+			int a = app_set[i];
+
 			State *succ = this->problem().next( *(head->state()), a );
 			Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
 
 			if ( this->is_closed( n ) ) {
 				delete n;
-				a = it.next();
+				//a = it.next();
 				continue;
 			}
 
 			if ( is_open( n ) ) {
 				delete n;
-				a = it.next();
+				//a = it.next();
 				continue;
 			}
 			if ( is_seen( n ) ) {
 				delete n;
-				a = it.next();
+				//a = it.next();
 				continue;
 			}
 			n->h1n() = head->h1n();
 			n->h2n() = head->h2n();
 			n->fn() = m_W * n->h1n() + n->gn();
+			this->inc_gen();
+			if ( this->generated() % 10000 == 0 ) {
+				std::cout << "Generated: " << this->generated() << " B = " << this->bound() << " f(n) = ";
+				std::cout << head->fn() << " g(n) = " << head->gn();
+				std::cout << " h1(n) = " << n->h1n() << " h2(n) = " << n->h2n() << std::endl;
+			}
 
 			this->open_node(n, head->is_po_1(a), head->is_po_2(a));
 
-			a = it.next();
+			//a = it.next();
 		}
 		this->inc_eval();
 	}
 
 	virtual Search_Node*	 	do_search() {
+		std::cout << "RWA* search!" << std::endl;
 		Search_Node *head = this->get_node();
 		while(head) {
 			if ( head->gn() >= this->bound() )  {
@@ -144,10 +158,10 @@ public:
 			if ( ( t - this->t0() ) > this->time_budget() ) {
 				return NULL;
 			}	
-
+			
 			this->eval( head );
-
-			this->process(head);
+			if ( head->h1n() != infty && head->h2n() != infty )
+				this->process(head);
 			this->close(head);
 			head = this->get_node();
 		}
