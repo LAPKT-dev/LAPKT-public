@@ -117,7 +117,9 @@ class Action(object):
                             objects_by_type, effects)
         if effects:
             if self.cost is None:
-                cost = 0
+		# MRJ: If no cost function is mentioned in this action, I reckon
+		# we should assume it to have a cost of 1, rather than zero
+                cost = 1
             else:
                 cost = int(self.cost.instantiate(var_mapping, init_facts).expression.value)
             return PropositionalAction(name, precondition, effects, cost)
