@@ -179,6 +179,9 @@ using namespace boost::python;
 	void
 	STRIPS_Problem::set_cost( int index, float c ) {
 		aptk::Action& action = *(m_problem->actions()[index]);
+		const float min_action_cost = 1e-3;
+		if ( c < min_action_cost )
+			c = min_action_cost;
 		action.set_cost( c );
 	}
 
