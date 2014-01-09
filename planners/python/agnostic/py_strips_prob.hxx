@@ -48,7 +48,7 @@ public:
 	void	write_ground_pddl( std::string domain, std::string instance );
 
 	float	m_parsing_time;
-
+	bool	m_ignore_action_costs;
 
 protected:
 	aptk::STRIPS_Problem*	m_problem;

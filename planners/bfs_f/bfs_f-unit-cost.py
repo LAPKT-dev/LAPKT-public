@@ -2,16 +2,18 @@
 import fd.grounding
 import sys
 import os
-from libsiw import SIW_Planner 
+from libbfsf import BFS_f_Planner 
 # MRJ: Profiler imports
 from prof import profiler_start, profiler_stop
 
 def main( domain_file, problem_file, plan_file ) :
-	task = SIW_Planner( )
+	task = BFS_f_Planner( )
+
+	task.ignore_action_costs = True
 
 	fd.grounding.default( domain_file, problem_file, task )
 
-	#MRJ: Uncomment to check what actions are being loaded
+	# MRJ: Uncomment to check what actions are being loaded
 	#for i in range( 0, task.num_actions() ) :
 	#	task.print_action( i )
 
@@ -19,16 +21,16 @@ def main( domain_file, problem_file, plan_file ) :
 	# of Python object attributes
 	
 	# MRJ: Maximum bound on width is set to 1
-	task.iw_bound = 1
+	task.max_novelty = 2
 
 	# MRJ: log filename set
-	task.log_filename = 'iw.log'
+	task.log_filename = 'bfs_f.log'
 
 	# MRJ: plan file
 	task.plan_filename = plan_file
-
+	
 	# MRJ: Comment line below to deactivate profiling
-	#profiler_start( 'siw.prof' )
+	#profiler_start( 'bfs_f.prof' )
 
 	# MRJ: We call the setup method in SIW_Planner
 	task.setup()
@@ -39,14 +41,14 @@ def main( domain_file, problem_file, plan_file ) :
 	#MRJ: Comment lines below to deactivate profile
 	#profiler_stop()	
 
-	#rv = os.system( 'google-pprof --pdf libsiw.so siw.prof > siw.pdf' )
+	#rv = os.system( 'google-pprof --pdf libbfsf.so bfs_f.prof > bfs_f.pdf' )
 	#if rv != 0 :
 	#	print >> sys.stderr, "An error occurred while translating google-perftools profiling information into valgrind format"
 
-
 def debug() :
-	main( "/home/bowman/Sandboxes/Fast-Downward/benchmarks/miconic-simpleadl/domain.pddl",
-		"/home/bowman/Sandboxes/Fast-Downward/benchmarks/miconic-simpleadl/s3-0.pddl" )
+	main( 	"../../benchmarks/ipc-2011/floortile/domain.pddl", 
+		"../../benchmarks/ipc-2011/floortile/seq-p01-001.pddl",		
+		"plan.ipc" )
 
 if __name__ == "__main__":
 	main( sys.argv[1], sys.argv[2], sys.argv[3] )
