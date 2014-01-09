@@ -35,7 +35,7 @@ OLD = 1
 NEW = 2
 
 # Set the style of planner you are using
-TYPE = OLD
+TYPE = NEW
 
 benchmark = None
 domains = None
@@ -97,6 +97,10 @@ def benchmark_domain(planner, dom):
         if res.timed_out:
             data.append("%s,time,-1,-1,-1,-1" % prob)
         elif match_value("%s.err" % res.output_file, '.*std::bad_alloc.*'):
+            data.append("%s,mem,-1,-1,-1,-1" % prob)
+        elif match_value("%s.err" % res.output_file, '.*MemoryError.*'):
+            data.append("%s,mem,-1,-1,-1,-1" % prob)
+        elif match_value("%s.err" % res.output_file, '.*cannot allocate memory.*'):
             data.append("%s,mem,-1,-1,-1,-1" % prob)
         elif match_value("%s.err" % res.output_file, '.*Segmentation fault.*'):
             data.append("%s,seg,-1,-1,-1,-1" % prob)
