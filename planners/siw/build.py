@@ -17,7 +17,7 @@ def main() :
         if len(sys.argv) > 1:
                 rv = os.system( "scons %s" % sys.argv[1] )
         else:
-	        rv = os.system( 'scons debug=1' )
+	        rv = os.system( 'scons -j 8' )
 	if rv != 0 :
 		print >> sys.stderr, "Build failed!"
 		sys.exit(1)
