@@ -4,7 +4,7 @@ import sys
 import os
 from libatbfsf import AT_BFS_f_Planner 
 # MRJ: Profiler imports
-from prof import profiler_start, profiler_stop
+#from prof import profiler_start, profiler_stop
 
 def main( domain_file, problem_file, plan_file ) :
 	task = AT_BFS_f_Planner( )
