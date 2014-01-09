@@ -145,14 +145,14 @@ public:
 
 	State*		m_state;
 	Node_Ptr	m_parent;
-	float		m_h1;
-	float		m_h2;
-	float		m_h3;
-	unsigned        m_goals_unachieved;
 	Action_Idx	m_action;
 	float		m_g;
 	float		m_g_unit;
 	float		m_f;
+	float		m_h1;
+	float		m_h2;
+	float		m_h3;
+	unsigned        m_goals_unachieved;
 	Bit_Set		m_po;
 	bool		m_seen;
 	bool		m_helpful;
