@@ -121,6 +121,7 @@ public:
 
 		for(Fluent_Vec::const_iterator it_fl = fl.begin(); it_fl != fl.end(); it_fl++){
 			unsigned p = *it_fl;
+
 			if( m_graph->is_landmark(p) ){
 				
 				Landmarks_Graph::Node* n = m_graph->node(p);

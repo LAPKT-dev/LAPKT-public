@@ -144,6 +144,15 @@ public:
 		eval( s, h_val );
 	}
 
+
+	void print_values( std::ostream& os ) const {
+		for ( unsigned p = 0; p < m_strips_model.fluents().size(); p++ ){
+				os << "h1/add({ ";
+				os << m_strips_model.fluents()[p]->signature();
+				os << "}) = " << m_values[p] << std::endl;
+			}		
+	}
+
 	const Action*	best_supporter( unsigned f ) const {
 		return m_best_supporters[f];
 	}
@@ -281,6 +290,7 @@ protected:
 				//i = it.next();
 			}
 		}
+		//print_values(std::cout);
 	}
 
     /***************

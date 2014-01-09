@@ -177,7 +177,13 @@ public:
 
 					if ( !graph.is_landmark(q) )
 						graph.add_landmark( q );
+					//				if ( ! m_strips_model.is_in_goal(p) )
 					graph.add_landmark_for( p, q );
+					// else{
+					// 	graph.add_landmark_for( p, q );
+					// 	//graph.node(p)->add_precedent_gn( graph.node(q) );
+					// 	//graph.node(q)->add_requiring_gn( graph.node(p) );
+					// }
 					updated.push_back( q );
 				}
 				q = lm_set.next(q);

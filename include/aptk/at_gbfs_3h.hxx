@@ -542,13 +542,13 @@ public:
 					
 				eval( n );
 				n->h1n() += 0.5;
-				//								std::cout << "HA[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<" - gn-unit: " << n->gn_unit()   <<"]" << std::endl;
+				//std::cout << "HA " << m_problem.task().actions()[ n->action() ]->signature() << ": " << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<" - gn-unit: " << n->gn_unit()   <<"]" << std::endl;
 			}
 			else{
 				n->h3n() = head->h3n();
 				eval( n );
 				n->h1n() += 1;				
-				//	std::cout << "Non-HA[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<" - gn-unit: " << n->gn_unit()  <<"]" << std::endl;			
+				//std::cout << "Non-HA" << m_problem.task().actions()[ n->action() ]->signature() << ": " << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<" - gn-unit: " << n->gn_unit()  <<"]" << std::endl;			
 			}
 
 				

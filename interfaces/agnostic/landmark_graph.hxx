@@ -114,6 +114,13 @@ public:
 					return true;
 			return false;
 		}
+		bool		is_preceded_by_gn( Node* nq)  const {
+			if(  m_preceded_by_gn.empty() ) return false;
+			for ( std::vector<Node* >::const_iterator it = m_preceded_by_gn.begin(); it != m_preceded_by_gn.end(); it++ )
+				if( *it == nq )
+					return true;
+			return false;
+		}
 
 		bool		is_required_by( Node* nq)  const {
 			if(  m_required_by.empty() ) return false;
@@ -122,7 +129,14 @@ public:
 					return true;
 			return false;
 		}
-
+	
+		bool		is_required_by_gn( Node* nq)  const {
+			if(  m_required_by_gn.empty() ) return false;
+			for ( std::vector<Node* >::const_iterator it = m_required_by_gn.begin(); it != m_required_by_gn.end(); it++ )
+				if( *it == nq )
+					return true;
+			return false;
+		}
 		const std::vector<Node* >&
 				preceded_by_gn() const {
 			return m_preceded_by_gn;

@@ -108,10 +108,16 @@ public:
 			h_val = 0.0f;
 	
 		m_rp_precs.reset();
+		
+		for ( unsigned k = 0; k < G.size(); k++ ) 
+			m_rp_precs.set(G[k]);
+		
+		//std::cout << "\nRel Plan: ";
 		for ( unsigned k = 0; k < relaxed_plan.size(); k++ ) {
 			if(!m_ignore_rp_h_value)
 				h_val += ( cost_opt == RP_Cost_Function::Ignore_Costs ? 1.0f : relaxed_plan[k]->cost() );
 			const Fluent_Vec& precs = relaxed_plan[k]->prec_vec();
+			//std::cout << "\t "<< k <<": " << relaxed_plan[k]->signature() << std::endl;
 			for ( Fluent_Vec::const_iterator it = precs.begin();
 				it != precs.end(); it++ )
 				m_rp_precs.set(*it);
@@ -125,12 +131,14 @@ public:
 		//int a = it.first();
 		//while ( a != -1 ) {
 			const Action& act = *(m_strips_model.actions()[app_set[i]]);
+
 			for ( Fluent_Vec::const_iterator it2 = act.add_vec().begin();
 				it2 != act.add_vec().end(); it2++ )
 				if ( m_rp_precs.isset( *it2 ) ) {
 					pref_ops.push_back( act.index() );
+					//std::cout << "\t PO: " << m_strips_model.actions()[ act.index() ]->signature() << std::endl;
 					//Uncomment if just 1 pref op is preferred
-					//m_rp_precs.unset(*it2);
+					m_rp_precs.unset(*it2);
 					break;
 				}
 			//a = it.next();
