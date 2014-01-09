@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/resources_control.hxx>
 #include <aptk/closed_list.hxx>
 #include <aptk/hash_table.hxx>
+#include <aptk/open_list.hxx>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -40,70 +41,106 @@ template <typename State>
 class Node {
 public:
 
-	typedef State State_Type;
+	typedef	Fibonacci_Open_List< Node >	Open_List;
+        typedef State State_Type;
 
-	Node( State* s, float cost, Action_Idx action, Node<State>* parent, int num_actions ) 
-	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_po( num_actions), m_seen(false) {
-		m_g = ( parent ? parent->m_g + cost : 0.0f);
-	}
-	
-	virtual ~Node() {
-		if ( m_state != NULL ) delete m_state;
-	}
+        Node( State* s, float cost, Action_Idx action, Node<State>* parent, int num_actions ) 
+        : m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_po_1( num_actions ), m_po_2( num_actions), m_seen(false),
+	current( nullptr ) {
+                m_g = ( parent ? parent->m_g + cost : 0.0f);
+        }
+        
+        virtual ~Node() {
+                if ( m_state != NULL ) delete m_state;
+        }
 
-	float&			h1n()				{ return m_h1; }
-	float			h1n() const 			{ return m_h1; }
-	float&			h2n()				{ return m_h2; }
-	float			h2n() const 			{ return m_h2; }
-	float&			gn()				{ return m_g; }			
-	float			gn() const 			{ return m_g; }
-	float&			fn()				{ return m_f; }
-	float			fn() const			{ return m_f; }
-	Node<State>*		parent()   			{ return m_parent; }
-	Action_Idx		action() const 			{ return m_action; }
-	State*			state()				{ return m_state; }
-	const State&		state() const 			{ return *m_state; }
-	void			add_po( Action_Idx index )	{ m_po.set( index ); }
-	void			remove_po( Action_Idx index ) { m_po.unset( index ); }
-	bool			is_po(Action_Idx index) const	{ return m_po.isset( index ); }
-	void			set_seen( )			{ m_seen = true; }
-	bool			seen() const			{ return m_seen; }
+        float&                        h1n()                                { return m_h1; }
+        float                        h1n() const                         { return m_h1; }
+        float&                        h2n()                                { return m_h2; }
+        float                        h2n() const                         { return m_h2; }
+        float&                        gn()                                { return m_g; }                        
+        float                        gn() const                         { return m_g; }
+        float&                        fn()                                { return m_f; }
+        float                        fn() const                        { return m_f; }
+        Node<State>*                parent()                           { return m_parent; }
+        Action_Idx                action() const                         { return m_action; }
+        State*                        state()                                { return m_state; }
+        const State&                state() const                         { return *m_state; }
+        void                        add_po_1( Action_Idx index )        { m_po_1.set( index ); }
+        void                        remove_po_1( Action_Idx index ) { m_po_1.unset( index ); }
+        void                        add_po_2( Action_Idx index )        { m_po_2.set( index ); }
+        void                        remove_po_2( Action_Idx index ) { m_po_2.unset( index ); }
+        bool                        is_po_1(Action_Idx index) const        { return m_po_1.isset( index ); }
+        bool                        is_po_2(Action_Idx index) const        { return m_po_2.isset( index ); }
+        void                        set_seen( )                        { m_seen = true; }
+        bool                        seen() const                        { return m_seen; }
 
-	void			print( std::ostream& os ) const {
-		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = ";
-		os << m_g << ", h1(n) = " << m_h1 << ", h2(n) = " << m_h2 << ", f(n) = " << m_f << "}";
-	}
+        void                        print( std::ostream& os ) const {
+                os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = ";
+                os << m_g << ", h1(n) = " << m_h1 << ", h2(n) = " << m_h2 << ", f(n) = " << m_f << "}";
+        }
 
-	bool   	operator==( const Node<State>& o ) const {
-		
-		if( &(o.state()) != NULL && &(state()) != NULL)
-			return (const State&)(o.state()) == (const State&)(state());
-		/**
-		 * Lazy
-		 */
-		if  ( m_parent == NULL ) {
-			if ( o.m_parent == NULL ) return true;
-			return false;
+        bool           operator==( const Node<State>& o ) const {
+                
+                if( &(o.state()) != NULL && &(state()) != NULL)
+                        return (const State&)(o.state()) == (const State&)(state());
+                /**
+                 * Lazy
+                 */
+                if  ( m_parent == NULL ) {
+                        if ( o.m_parent == NULL ) return true;
+                        return false;
+                }
+        
+                if ( o.m_parent == NULL ) return false;
+                
+                return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
+        }
+
+	// MRJ: NOTE: return value is the answer to question "is this node worse than o?"
+	bool    operator<( const Node<State>& o ) const {
+		if ( fn() > o.fn() ) return true;
+
+		if ( dequal( fn(), o.fn() ) ) {
+			if ( h1n() > o.h1n() ) return true;
+			if ( dequal( h1n(), o.h1n() ) ) {
+				if ( h2n() > o.h2n() ) return true;
+				if ( dequal( h2n(), o.h2n() ) ) {
+					if ( gn() > o.gn() ) return true;
+				}
+			}
 		}
-	
-		if ( o.m_parent == NULL ) return false;
-		
-		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
+		return false;
 	}
 
-	size_t                  hash() const { return m_state->hash(); }
+        size_t                  hash() const { return m_state->hash(); }
+
+	void notify_update( ) {
+		assert( current != nullptr );
+		if ( current )
+			current->update( this ); 
+	}
+
+	void detach() {
+		assert( current != nullptr );
+		if ( current )
+			current->erase( this );
+	}
 
 public:
 
-	State*		m_state;
-	Node<State>*	m_parent;
-	float		m_h1;
-	float		m_h2;
-	Action_Idx	m_action;
-	float		m_g;
-	float		m_f;
-	Bit_Set		m_po;
-	bool		m_seen;
+        State*                		m_state;
+        Node<State>*        		m_parent;
+        float                		m_h1;
+        float                		m_h2;
+        Action_Idx        		m_action;
+        float                		m_g;
+        float                		m_f;
+        Bit_Set                		m_po_1;
+        Bit_Set                		m_po_2;
+        bool     	           	m_seen;
+	typename Open_List::Handle	heap_handle;
+	Open_List*			current;
 };
 
 
@@ -111,75 +148,78 @@ template <typename State>
 class Lazy_Node {
 public:
 
-	typedef State State_Type;
+        typedef State State_Type;
 
-	Lazy_Node( float cost, Action_Idx action, Lazy_Node<State>* parent, int num_actions ) 
-	: m_state( NULL ), m_parent( parent ), m_action(action), m_g( 0 ), m_po( num_actions ){
-		m_g = ( parent ? parent->m_g + cost : 0.0f);
-	}
-	
-	virtual ~Lazy_Node() {
-		if ( m_state != NULL ) delete m_state;
-	}
+        Lazy_Node( float cost, Action_Idx action, Lazy_Node<State>* parent, int num_actions ) 
+        : m_state( NULL ), m_parent( parent ), m_action(action), m_g( 0 ), m_po_1( num_actions ), m_po_2( num_actions) {
+                m_g = ( parent ? parent->m_g + cost : 0.0f);
+        }
+        
+        virtual ~Lazy_Node() {
+                if ( m_state != NULL ) delete m_state;
+        }
 
-	float&			h1n()				{ return m_h1; }
-	float			h1n() const 			{ return m_h1; }
-	float&			h2n()				{ return m_h2; }
-	float			h2n() const 			{ return m_h2; }
-	float&			gn()				{ return m_g; }			
-	float			gn() const 			{ return m_g; }
-	float&			fn()				{ return m_f; }
-	float			fn() const			{ return m_f; }
-	Lazy_Node<State>*	parent()   			{ return m_parent; }
-	Action_Idx		action() const 			{ return m_action; }
-	void			set_state( State* s )		{ m_state = s; }
-	State*			state()				{ return m_state; }
-	const State&		state() const 			{ return *m_state; }
-	void			add_po( Action_Idx index )	{ m_po.set( index ); }
-	void			remove_po( Action_Idx index ) { m_po.unset( index ); }
-	bool			is_po(Action_Idx index) const	{ return m_po.isset( index ); }
-	void			set_seen( )			{ m_seen = true; }
-	bool			seen() const			{ return m_seen; }
+        float&                        h1n()                                { return m_h1; }
+        float                        h1n() const                         { return m_h1; }
+        float&                        h2n()                                { return m_h2; }
+        float                        h2n() const                         { return m_h2; }
+        float&                        gn()                                { return m_g; }                        
+        float                        gn() const                         { return m_g; }
+        float&                        fn()                                { return m_f; }
+        float                        fn() const                        { return m_f; }
+        Lazy_Node<State>*        parent()                           { return m_parent; }
+        Action_Idx                action() const                         { return m_action; }
+        void                        set_state( State* s )                { m_state = s; }
+        State*                        state()                                { return m_state; }
+        const State&                state() const                         { return *m_state; }
+        void                        add_po_1( Action_Idx index )        { m_po_1.set( index ); }
+        void                        remove_po_1( Action_Idx index ) { m_po_1.unset( index ); }
+        void                        add_po_2( Action_Idx index )        { m_po_2.set( index ); }
+        void                        remove_po_2( Action_Idx index ) { m_po_2.unset( index ); }
+        bool                        is_po_1(Action_Idx index) const        { return m_po_1.isset( index ); }
+        bool                        is_po_2(Action_Idx index) const        { return m_po_2.isset( index ); }
+        void                        set_seen( )                        { m_seen = true; }
+        bool                        seen() const                        { return m_seen; }
 
-	bool			operator==( const Lazy_Node<State>& o ) const {
-		if  ( m_parent == NULL ) {
-			if ( o.m_parent == NULL ) return true;
-			return false;
-		}
-	
-		if ( o.m_parent == NULL ) return false;
-		
-		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
-	}
+        bool                        operator==( const Lazy_Node<State>& o ) const {
+                if  ( m_parent == NULL ) {
+                        if ( o.m_parent == NULL ) return true;
+                        return false;
+                }
+        
+                if ( o.m_parent == NULL ) return false;
+                
+                return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
+        }
 
-	void			print( std::ostream& os ) const {
-		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = ";
-		os << m_g << ", h1(n) = " << m_h1 << ", h2(n) = " << m_h2 << ", f(n) = " << m_f << "}";
-	}
+        void                        print( std::ostream& os ) const {
+                os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = ";
+                os << m_g << ", h1(n) = " << m_h1 << ", h2(n) = " << m_h2 << ", f(n) = " << m_f << "}";
+        }
 
-	size_t	hash() const { return m_hash; }
+        size_t        hash() const { return m_hash; }
 
-	void	update_hash() {
-		Hash_Key hasher;
-		hasher.add( m_action );
-		if ( m_parent != NULL )
-			hasher.add( m_parent->state()->fluent_vec() );
-		m_hash = (size_t)hasher;
-	}
+        void        update_hash() {
+                Hash_Key hasher;
+                hasher.add( m_action );
+                if ( m_parent != NULL )
+                        hasher.add( m_parent->state()->fluent_vec() );
+                m_hash = (size_t)hasher;
+        }
 
 public:
 
-	State*			m_state;
-	Lazy_Node<State>*	m_parent;
-	float			m_h1;
-	float			m_h2;
-	Action_Idx		m_action;
-	float			m_g;
-	float			m_f;
-	Bit_Set			m_po_1;
-	Bit_Set			m_po_2;
-	bool			m_seen;
-	size_t			m_hash;
+        State*                        m_state;
+        Lazy_Node<State>*        m_parent;
+        float                        m_h1;
+        float                        m_h2;
+        Action_Idx                m_action;
+        float                        m_g;
+        float                        m_f;
+        Bit_Set                        m_po_1;
+        Bit_Set                        m_po_2;
+        bool                        m_seen;
+        size_t                        m_hash;
 };
 
 // Anytime best-first search, with one single open list and one single
@@ -467,6 +507,7 @@ public:
 				previous_copy->m_action = n->m_action;
 				previous_copy->m_g = n->m_g;
 				previous_copy->m_f = previous_copy->m_h1 + previous_copy->m_g;
+				previous_copy->notify_update();
 				inc_replaced_open();
 			}
 			return true;
