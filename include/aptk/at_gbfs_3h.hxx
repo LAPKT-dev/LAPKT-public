@@ -399,7 +399,17 @@ public:
 	
 	void			eval( Search_Node* candidate ) {
 		
+		if(m_lgm){
+			if (candidate->action() != no_op)
+				m_lgm->apply_action( candidate->action(), candidate->land_consumed(), candidate->land_unconsumed() );
+			else
+				m_lgm->apply_state( m_root->state()->fluent_vec(), m_root->land_consumed(), m_root->land_unconsumed() );
+		}
 		m_second_h->eval( *(candidate->state()), candidate->h2n() );	
+
+		if(m_lgm)
+			candidate->undo_land_graph( m_lgm );
+
 		candidate->goals_unachieved() = (unsigned) candidate->h2n();
 		if ( candidate->goals_unachieved() == 0){
 			candidate->h1n()  = 0;
@@ -422,7 +432,6 @@ public:
 	void			eval_po( Search_Node* candidate ) {
 		std::vector<Action_Idx>	po;
 		m_third_h->eval( *(candidate->state()), candidate->h3n(), po  );
-		candidate->h3n() = 0;
 		if(po.size()){
 			for ( unsigned k = 0; k < po.size(); k++ )
 				candidate->add_po( po[k] );
@@ -518,39 +527,39 @@ public:
 			}
 		
 
+
 			if( head->is_po( a ) ){
-				n->h1n() += 0.5;
+
 				n->set_helpful();
-				eval_po(n);
-				//std::cout << "HA[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<"]" << std::endl;
-
+				eval_po(n);				
+				if( n->h3n() == infty ){
+#ifdef DEBUG
+					std::cout << "h_add is infinite" << std::endl;
+#endif
+					delete n;
+					continue;
+				}
+					
+				eval( n );
+				n->h1n() += 0.5;
+				//								std::cout << "HA[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<" - gn-unit: " << n->gn_unit()   <<"]" << std::endl;
 			}
 			else{
-				n->h1n() += 1;
 				n->h3n() = head->h3n();
-				//				std::cout << "Non-HA[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<"]" << std::endl;
+				eval( n );
+				n->h1n() += 1;				
+				//	std::cout << "Non-HA[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<" - gn-unit: " << n->gn_unit()  <<"]" << std::endl;			
 			}
 
-			if(m_lgm){						
-				// if( n->action() != -1)
-				// 	std::cout << "Just Applied: " << m_problem.task().actions()[ n->action() ]->signature() << " resulting on: ";
-				// n->state()->print(std::cout);
-				// std::cout << std::endl;
-				// std::cout << "Graph Changes: ";
-				m_lgm->apply_action( n->action(), n->land_consumed(), n->land_unconsumed() );
-				eval( n );
-				n->undo_land_graph( m_lgm );
-			}
-			else{
-				eval( n );
-			}
-			//n->fn() = n->h1n();
+				
+
+		       
 #ifdef DEBUG
 			std::cout << "Inserted into OPEN" << std::endl;
 #endif
 			open_node(n);	
 				
-			//a = it.next();		
+
 		} 
 		inc_eval();
 	}
@@ -671,8 +680,14 @@ public:
 				return NULL;
 			// MRJ: What if we don't compute h_add and keep using the parent's h_add value for non-helpful 
 			// nodes?
-			if( !head->is_helpful() )
+			if( !head->is_helpful() ){
 				eval_po( head );
+				if( head->h3n() == infty ){
+					close(head);
+					head = get_node();
+					continue;
+				}
+			}
 			process(head);
 			close(head);
 			counter++;

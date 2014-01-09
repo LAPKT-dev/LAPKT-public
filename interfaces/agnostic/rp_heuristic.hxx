@@ -130,7 +130,7 @@ public:
 				if ( m_rp_precs.isset( *it2 ) ) {
 					pref_ops.push_back( act.index() );
 					//Uncomment if just 1 pref op is preferred
-					m_rp_precs.unset(*it2);
+					//m_rp_precs.unset(*it2);
 					break;
 				}
 			//a = it.next();
