@@ -8,6 +8,8 @@ from prof import profiler_start, profiler_stop
 
 def main( domain_file, problem_file, plan_file ) :
 	task = SIW_Planner( )
+	
+	task.ignore_action_costs = True
 
 	fd.grounding.default( domain_file, problem_file, task )
 

@@ -28,6 +28,7 @@ BOOST_PYTHON_MODULE( libsiw )
 		.def( "setup", &SIW_Planner::setup )
 		.def( "solve", &SIW_Planner::solve )
 		.def_readwrite( "parsing_time", &SIW_Planner::m_parsing_time )
+		.def_readwrite( "ignore_action_costs", &SIW_Planner::m_ignore_action_costs )
 		.def_readwrite( "iw_bound", &SIW_Planner::m_iw_bound )
 		.def_readwrite( "log_filename", &SIW_Planner::m_log_filename )
 	;

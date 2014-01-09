@@ -7,12 +7,14 @@ using namespace boost::python;
 
 	STRIPS_Problem::STRIPS_Problem( ) {
 		m_parsing_time = 0.0f;
+		m_ignore_action_costs = false;
 		m_problem = new aptk::STRIPS_Problem;
 
 	}
 
 	STRIPS_Problem::STRIPS_Problem( std::string domain, std::string instance ) {
 		m_parsing_time = 0.0f;
+		m_ignore_action_costs = false;
 		m_problem = new aptk::STRIPS_Problem( domain, instance );
 
 	}
@@ -179,6 +181,10 @@ using namespace boost::python;
 	void
 	STRIPS_Problem::set_cost( int index, float c ) {
 		aptk::Action& action = *(m_problem->actions()[index]);
+		if ( m_ignore_action_costs ) {
+			action.set_cost( 1.0f );
+			return;
+		}
 		const float min_action_cost = 1e-3;
 		if ( c < min_action_cost )
 			c = min_action_cost;
