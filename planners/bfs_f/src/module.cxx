@@ -31,6 +31,7 @@ BOOST_PYTHON_MODULE( libbfsf )
 		.def_readwrite( "parsing_time", &BFS_f_Planner::m_parsing_time )
 		.def_readwrite( "max_novelty", &BFS_f_Planner::m_max_novelty )
 		.def_readwrite( "log_filename", &BFS_f_Planner::m_log_filename )
+		.def_readwrite( "one_ha_per_fluent", &BFS_f_Planner::m_one_ha_per_fluent )
 	;
 }
 

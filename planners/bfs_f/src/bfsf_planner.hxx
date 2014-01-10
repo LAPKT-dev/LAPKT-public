@@ -79,6 +79,7 @@ public:
 	int		m_max_novelty;
 	std::string	m_log_filename;
 	std::string	m_plan_filename;
+	bool		m_one_ha_per_fluent;
 
 protected:
 	

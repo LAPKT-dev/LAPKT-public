@@ -2,11 +2,11 @@
 #include <fstream>
 
 BFS_f_Planner::BFS_f_Planner()
-	: STRIPS_Problem(), m_max_novelty(2), m_log_filename( "iw.log"), m_plan_filename( "plan.ipc" ) {
+	: STRIPS_Problem(), m_max_novelty(2), m_log_filename( "iw.log"), m_plan_filename( "plan.ipc" ), m_one_ha_per_fluent( false ) {
 }
 
 BFS_f_Planner::BFS_f_Planner( std::string domain_file, std::string instance_file )
-	: STRIPS_Problem( domain_file, instance_file ), m_max_novelty(2), m_log_filename( "iw.log" ), m_plan_filename( "plan.ipc" ) {
+	: STRIPS_Problem( domain_file, instance_file ), m_max_novelty(2), m_log_filename( "iw.log" ), m_plan_filename( "plan.ipc" ), m_one_ha_per_fluent(false) {
 }
 
 BFS_f_Planner::~BFS_f_Planner() {
@@ -89,6 +89,9 @@ BFS_f_Planner::solve() {
 	std::cout << "Starting search with BFS (time budget is 60 secs)..." << std::endl;
 
 	Anytime_GBFS_H_Add_Rp_Fwd bfs_engine( search_prob );
+
+	// MRJ: Setting "one h.a. per fluent" flag
+	bfs_engine.h3().set_one_HA_per_fluent( m_one_ha_per_fluent );
 	
 	Land_Graph_Man lgm( search_prob, &graph);
 	bfs_engine.use_land_graph_manager( &lgm );

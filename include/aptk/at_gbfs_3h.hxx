@@ -390,7 +390,7 @@ public:
 
 	First_Heuristic&	h1()				{ return *m_first_h; }
 	Second_Heuristic&	h2()				{ return *m_second_h; }
-	Second_Heuristic&	h3()				{ return *m_third_h; }
+	Third_Heuristic&	h3()				{ return *m_third_h; }
 	
 	void                    use_land_graph_manager( Landmarks_Graph_Manager* lgm ) { 
 		m_lgm = lgm; 
