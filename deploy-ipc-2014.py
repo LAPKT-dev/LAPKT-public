@@ -62,7 +62,7 @@ def create_build_script( home_dir, planner, files ) :
 		print >> out, "cd ../.."
 		print >> out, "cd %s"%build_dir
 		print >> out, "scons -c"
-		print >> out, "python2.7 build.py"
+		print >> out, "python2.7 build.py ipc14_build=1"
 		print >> out, "cd ../.."
 		for filename in files :
 			print >> out, 'echo "Copying %s..."'%filename
