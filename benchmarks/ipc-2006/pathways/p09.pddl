@@ -1,3 +1,8 @@
+;; NOTE [Malte]: I modified this file from the original IPC file
+;; because it contained duplicate object definitions. Please check the
+;; repository log for the revision where this comment was added for
+;; details.
+
 (define (problem Pathways-09)
 (:domain Pathways-Propositional)
 (:objects
@@ -54,45 +59,45 @@
 	c-Abl-pRbp1 - complex
 	c-Abl-pRbp1p2 - complex
 	c-Abl-pRbp2 - complex
-	cdk1-cks1 - complex
-	cdk1-Gadd45 - complex
-	cdk1p1-cks1 - complex
+	;; cdk1-cks1 - complex ;; DUPLICATE
+	;; cdk1-Gadd45 - complex ;; DUPLICATE
+	;; cdk1p1-cks1 - complex ;; DUPLICATE
 	cdk1p1-Gadd45 - complex
 	cdk1p1 - complex
 	cdk1p1p2-cks1 - complex
 	cdk1p1p2-Gadd45 - complex
 	cdk1p1p2p3-cks1 - complex
-	cdk1p1p2p3-Gadd45 - complex
+	;; cdk1p1p2p3-Gadd45 - complex ;; DUPLICATE
 	cdk1p1p2p3 - complex
-	cdk1p1p3-cks1 - complex
-	cdk1p1p3-Gadd45 - complex
+	;; cdk1p1p3-cks1 - complex ;; DUPLICATE
+	;; cdk1p1p3-Gadd45 - complex ;; DUPLICATE
 	cdk1p1p3 - complex
-	cdk1 - complex
-	cdk1p2-cks1 - complex
+	;; cdk1 - complex ;; DUPLICATE
+	;; cdk1p2-cks1 - complex ;; DUPLICATE
 	cdk1p2-Gadd45 - complex
 	cdk1p2 - complex
-	cdk1p2p3-cks1 - complex
+	;; cdk1p2p3-cks1 - complex ;; DUPLICATE
 	cdc25Cp1 - complex
-	cdk1p1p2p3-cycB - complex
-	cdk1p2p3-Gadd45 - complex
-	cdk1p2p3 - complex
-	cdk1p3-cks1 - complex
-	cdk1p1p3-cycB - complex
-	cdk1p2p3-cycB - complex
-	cdk1p3-Gadd45 - complex
-	cdk1p3 - complex
+	;; cdk1p1p2p3-cycB - complex ;; DUPLICATE
+	;; cdk1p2p3-Gadd45 - complex ;; DUPLICATE
+	;; cdk1p2p3 - complex ;; DUPLICATE
+	;; cdk1p3-cks1 - complex ;; DUPLICATE
+	;; cdk1p1p3-cycB - complex ;; DUPLICATE
+	;; cdk1p2p3-cycB - complex ;; DUPLICATE
+	;; cdk1p3-Gadd45 - complex ;; DUPLICATE
+	;; cdk1p3 - complex ;; DUPLICATE
 	cdk2-cks1 - complex
 	cdk2p1-cycB - complex
 	cdk2p1-cks1 - complex
 	cdk2p1p2-cks1 - complex
 	cdk2p1p2 - complex
-	cdk2p2-cks1 - complex
+	;; cdk2p2-cks1 - complex ;; DUPLICATE
 	cdk2p1p2-cycB - complex
 	cdk2p2 - complex
 	cdk7-cycH - complex
 	cdk7p1-cycH - complex
 	CEBP-pRb - complex
-	CEBP-pRbp1 - complex
+	;; CEBP-pRbp1 - complex ;; DUPLICATE
 	CEBP-pRbp1p2 - complex
 	CEBP-pRbp2 - complex
 	APCp1 - complex
@@ -126,7 +131,7 @@
 	p16-cdk46p1p2 - complex
 	cdk46p1p2 - complex
 	p16-cdk7 - complex
-	p16-cdk7p1 - complex
+	;; p16-cdk7p1 - complex ;; DUPLICATE
 	cdk7p1 - complex
 	p21-Gadd45 - complex
 	p53-DP12 - complex
@@ -147,7 +152,7 @@
 	pRbp1 - complex
 	pRbp1p2-AP2-gE-c - complex
 	pRbp1p2-AP2 - complex
-	pRbp1p2-Jun-c-Fos - complex
+	;; pRbp1p2-Jun-c-Fos - complex ;; DUPLICATE
 	pRbp1p2-Jun - complex
 	Ecadherin - complex
 	pRbp2-AP2-gE-c - complex
@@ -159,7 +164,7 @@
 	Raf1-p130-E2F4-DP12 - complex
 	p130-E2F4-DP12 - complex
 	Raf1-p130-E2F4p1-DP12 - complex
-	Raf1-p130-E2F5-DP12 - complex
+	;; Raf1-p130-E2F5-DP12 - complex ;; DUPLICATE
 	p130-E2F5-DP12 - complex
 	Raf1-p130-E2F5p1-DP12 - complex
 	Raf1-pRb-E2F13-DP12p1 - complex
@@ -174,7 +179,7 @@
 	pRb-E2F4-DP12 - complex
 	Raf1-pRbp1-E2F13-DP12p1 - complex
 	pRbp1-E2F13-DP12p1 - complex
-	Raf1-pRbp1-E2F13-DP12 - complex
+	;; Raf1-pRbp1-E2F13-DP12 - complex ;; DUPLICATE
 	pRbp1-E2F13-DP12 - complex
 	Raf1-pRbp1-E2F13p1-DP12p1 - complex
 	pRbp1-E2F13p1-DP12p1 - complex
@@ -183,8 +188,8 @@
 	Raf1-pRbp1-E2F4-DP12 - complex
 	pRbp1-E2F4-DP12 - complex
 	Raf1-pRbp1-E2F4p1-DP12 - complex
-	SL1p1 - complex
-	cdk1p3-cycB - complex
+	;; SL1p1 - complex ;; DUPLICATE
+	;; cdk1p3-cycB - complex ;; DUPLICATE
 	l0 - level
 	l1 - level
 	l2 - level

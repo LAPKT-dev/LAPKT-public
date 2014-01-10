@@ -1,3 +1,8 @@
+;; NOTE [Malte]: I modified this file from the original IPC file
+;; because it contained duplicate object definitions. Please check the
+;; repository log for the revision where this comment was added for
+;; details.
+
 (define (problem Pathways-04)
 (:domain Pathways-Propositional)
 (:objects
@@ -24,21 +29,21 @@
 	cdc25C - simple
 	c-Abl - simple
 	c-Abl-pRbp2 - complex
-	cdk2-cycA-E2F13 - complex
+	;; cdk2-cycA-E2F13 - complex ;; DUPLICATE
 	cdk2p1-cycA-E2F13 - complex
 	CEBP-gP - complex
 	CEBP-pRbp2 - complex
 	P - complex
 	CEBP-pRbp2-gP - complex
 	DMP1-cycD - complex
-	DMP1-cycDp1 - complex
+	;; DMP1-cycDp1 - complex ;; DUPLICATE
 	E2F6-DP12p1-gE2 - complex
 	HDAC1-p107-E2F4-DP12p1 - complex
 	HDAC1-p130-E2F4p1-DP12-gE2 - complex
 	HDAC1-pRb-E2F4p1-DP12 - complex
 	m1433-cdc25Cp2 - complex
 	cdc25Cp2 - complex
-	p107-E2F4-DP12p1-gE2 - complex
+	;; p107-E2F4-DP12p1-gE2 - complex ;; DUPLICATE
 	p107-E2F4-DP12p1 - complex
 	PCNA-cycDp1 - complex
 	PCNA-cycD - complex
@@ -50,7 +55,7 @@
 	pRbp1-E2F4p1-DP12-gE2 - complex
 	RPA-cycA - complex
 	cdk2-cycA - complex
-	cdk2p1-cycA - complex
+	;; cdk2p1-cycA - complex ;; DUPLICATE
 	SP1-E2F13-gP - complex
 	SP1-E2F13 - complex
 	c-Myc - complex
@@ -58,15 +63,15 @@
 	cycD - complex
 	cycDp1 - complex
 	cycE - complex
-	cycEp1 - complex
+	;; cycEp1 - complex ;; DUPLICATE
 	p19ARF - complex
-	pol - complex
+	;; pol - complex ;; DUPLICATE
 	SP1-gP - complex
 	SP1-p107-gP - complex
 	SP1-p107p1 - complex
 	p107p1 - complex
 	SP1-p107 - complex
-	p107 - complex
+	;; p107 - complex ;; DUPLICATE
 	l0 - level
 	l1 - level
 	l2 - level

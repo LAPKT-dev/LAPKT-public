@@ -1,3 +1,8 @@
+;; NOTE [Malte]: I modified this file from the original IPC file
+;; because it contained duplicate object definitions. Please check the
+;; repository log for the revision where this comment was added for
+;; details.
+
 (define (problem Pathways-11)
 (:domain Pathways-Propositional)
 (:objects
@@ -52,7 +57,7 @@
 	cdk2-cks1 - complex
 	cdk2p1p2-cycB - complex
 	c-Myc-AP2 - complex
-	c-Myc-Max - complex
+	;; c-Myc-Max - complex ;; DUPLICATE
 	E2F13-DP12-gE2 - complex
 	E2F13p1-DP12-gE2 - complex
 	E2F1-DP12 - complex
@@ -63,7 +68,7 @@
 	E2F6-DP12 - complex
 	HDAC1-p107-E2F4p1-DP12-gE2 - complex
 	HDAC1-p130-E2F4p1-DP12-gE2 - complex
-	HDAC1-p130-E2F5-DP12-gE2 - complex
+	;; HDAC1-p130-E2F5-DP12-gE2 - complex ;; DUPLICATE
 	HDAC1-p130-E2F5-DP12 - complex
 	HDAC1-p130-E2F5p1-DP12-gE2 - complex
 	HDAC1-pRb-E2F4p1-DP12 - complex
@@ -76,39 +81,39 @@
 	Mdm2-E2F13-DP12 - complex
 	Mdm2-E2F13-DP12p1 - complex
 	Mdm2-E2F13p1-DP12 - complex
-	p130-E2F5-DP12-gE2 - complex
+	;; p130-E2F5-DP12-gE2 - complex ;; DUPLICATE
 	E2F5-DP12 - complex
 	p16-cdk46p1 - complex
 	p16-cdk7 - complex
-	p21-cdk2-cycA - complex
-	p21-cdk2-cycEp1 - complex
+	;; p21-cdk2-cycA - complex ;; DUPLICATE
+	;; p21-cdk2-cycEp1 - complex ;; DUPLICATE
 	p21-cdk2-cycE - complex
-	p21-cdk2p1-cycA - complex
+	;; p21-cdk2p1-cycA - complex ;; DUPLICATE
 	p21-cdk46p1-cycDp1 - complex
-	p21-cdk46p1-cycD - complex
+	;; p21-cdk46p1-cycD - complex ;; DUPLICATE
 	p21-Gadd45 - complex
 	p53-DP12 - complex
 	Mdm2 - complex
-	p57-cdk2-cycA - complex
-	p57-cdk2-cycEp1 - complex
-	p57-cdk2-cycE - complex
-	p57-cdk2p1-cycA - complex
-	p57-cdk46p1-cycDp1 - complex
-	p57-cdk46p1-cycD - complex
+	;; p57-cdk2-cycA - complex ;; DUPLICATE
+	;; p57-cdk2-cycEp1 - complex ;; DUPLICATE
+	;; p57-cdk2-cycE - complex ;; DUPLICATE
+	;; p57-cdk2p1-cycA - complex ;; DUPLICATE
+	;; p57-cdk46p1-cycDp1 - complex ;; DUPLICATE
+	;; p57-cdk46p1-cycD - complex ;; DUPLICATE
 	pCAF-p300 - complex
-	PCNA-cycDp1 - complex
+	;; PCNA-cycDp1 - complex ;; DUPLICATE
 	PCNA-cycD - complex
 	PCNA-Gadd45 - complex
 	Gadd45 - complex
-	PCNA-p21-cdk2-cycA - complex
-	PCNA-p21-cdk2-cycEp1 - complex
+	;; PCNA-p21-cdk2-cycA - complex ;; DUPLICATE
+	;; PCNA-p21-cdk2-cycEp1 - complex ;; DUPLICATE
 	cdk2-cycEp1 - complex
-	PCNA-p21-cdk2-cycE - complex
+	;; PCNA-p21-cdk2-cycE - complex ;; DUPLICATE
 	cdk2-cycE - complex
-	PCNA-p21-cdk2p1-cycA - complex
-	PCNA-p21-cdk46p1-cycDp1 - complex
-	cdk46p1-cycDp1 - complex
-	PCNA-p21-cdk46p1-cycD - complex
+	;; PCNA-p21-cdk2p1-cycA - complex ;; DUPLICATE
+	;; PCNA-p21-cdk46p1-cycDp1 - complex ;; DUPLICATE
+	;; cdk46p1-cycDp1 - complex ;; DUPLICATE
+	;; PCNA-p21-cdk46p1-cycD - complex ;; DUPLICATE
 	cdk46p1-cycD - complex
 	PCNA-p21 - complex
 	p21 - complex
@@ -118,7 +123,7 @@
 	c-Fos - complex
 	Raf1-p130-E2F4p1-DP12-gE2 - complex
 	Raf1-p130-E2F4p1-DP12 - complex
-	Raf1-p130-E2F5-DP12-gE2 - complex
+	;; Raf1-p130-E2F5-DP12-gE2 - complex ;; DUPLICATE
 	Raf1-p130-E2F5-DP12 - complex
 	p130-E2F5-DP12 - complex
 	Raf1-p130-E2F5p1-DP12-gE2 - complex
@@ -128,23 +133,23 @@
 	Raf1-pRbp1-E2F4p1-DP12-gE2 - complex
 	Raf1-pRbp1-E2F4p1-DP12 - complex
 	RPA-cycA - complex
-	Skp2-cdk2-cycA - complex
-	Skp2-cdk2p1-cycA - complex
+	;; Skp2-cdk2-cycA - complex ;; DUPLICATE
+	;; Skp2-cdk2p1-cycA - complex ;; DUPLICATE
 	cdk2-cycA - complex
-	cdk2p1-cycA - complex
+	;; cdk2p1-cycA - complex ;; DUPLICATE
 	c-Myc - complex
 	cycA - complex
 	cycD - complex
 	cycDp1 - complex
 	cycE - complex
 	cycEp1 - complex
-	p19ARF - complex
+	;; p19ARF - complex ;; DUPLICATE
 	pol - complex
 	SP1-gP - complex
-	SP1-p107-gP - complex
+	;; SP1-p107-gP - complex ;; DUPLICATE
 	SP1-p107p1-gP - complex
-	p107p1 - complex
-	SP1-p107 - complex
+	;; p107p1 - complex ;; DUPLICATE
+	;; SP1-p107 - complex ;; DUPLICATE
 	p107 - complex
 	l0 - level
 	l1 - level

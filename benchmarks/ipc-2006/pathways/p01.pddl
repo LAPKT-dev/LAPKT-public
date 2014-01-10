@@ -1,3 +1,8 @@
+;; NOTE [Malte]: I modified this file from the original IPC file
+;; because it contained duplicate object definitions. Please check the
+;; repository log for the revision where this comment was added for
+;; details.
+
 (define (problem Pathways-01)
 (:domain Pathways-Propositional)
 (:objects
@@ -20,7 +25,7 @@
 	DMP1p1 - complex
 	cdc25Cp2 - complex
 	p16-cdk7 - complex
-	pCAF-p300 - complex
+	;; pCAF-p300 - complex ;; DUPLICATE
 	pRbp2-AP2 - complex
 	pRbp1p2 - complex
 	Raf1-p130-E2F5p1-DP12 - complex

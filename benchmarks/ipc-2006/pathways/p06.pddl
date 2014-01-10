@@ -1,3 +1,8 @@
+;; NOTE [Malte]: I modified this file from the original IPC file
+;; because it contained duplicate object definitions. Please check the
+;; repository log for the revision where this comment was added for
+;; details.
+
 (define (problem Pathways-06)
 (:domain Pathways-Propositional)
 (:objects
@@ -41,7 +46,7 @@
 	cdk2p1p2-cycB - complex
 	c-Myc-AP2 - complex
 	E2F6-DP12 - complex
-	HDAC1-p107-E2F4-DP12 - complex
+	;; HDAC1-p107-E2F4-DP12 - complex ;; DUPLICATE
 	HDAC1-p130-E2F4-DP12 - complex
 	HDAC1-p130-E2F5-DP12 - complex
 	HDAC1-pRb-E2F13-DP12 - complex
@@ -53,16 +58,16 @@
 	p107-E2F4-DP12 - complex
 	E2F5-DP12 - complex
 	p16-cdk46p1 - complex
-	p57-cdk2p1-cycA - complex
-	p57-cdk2p1-cycEp1 - complex
-	p57-cdk2p1-cycE - complex
-	p57-cdk46p1-cycDp1 - complex
-	p57-cdk46p1-cycD - complex
-	p57p1-cdk46p1-cycDp1 - complex
-	p57p1-cdk46p1-cycD - complex
+	;; p57-cdk2p1-cycA - complex ;; DUPLICATE
+	;; p57-cdk2p1-cycEp1 - complex ;; DUPLICATE
+	;; p57-cdk2p1-cycE - complex ;; DUPLICATE
+	;; p57-cdk46p1-cycDp1 - complex ;; DUPLICATE
+	;; p57-cdk46p1-cycD - complex ;; DUPLICATE
+	;; p57p1-cdk46p1-cycDp1 - complex ;; DUPLICATE
+	;; p57p1-cdk46p1-cycD - complex ;; DUPLICATE
 	pCAF-p300 - complex
 	cdk2p1-cycEp1 - complex
-	cdk2p1-cycE - complex
+	;; cdk2p1-cycE - complex ;; DUPLICATE
 	cdk46p1-cycDp1 - complex
 	cdk46p1-cycD - complex
 	pRb-AP2-gE-c - complex
@@ -97,7 +102,7 @@
 	Raf1-pRb-E2F4-DP12 - complex
 	pRb-E2F4-DP12 - complex
 	Raf1-pRb-E2F4p1-DP12 - complex
-	Raf1-pRbp1-E2F13-DP12p1 - complex
+	;; Raf1-pRbp1-E2F13-DP12p1 - complex ;; DUPLICATE
 	pRbp1-E2F13-DP12p1 - complex
 	Raf1-pRbp1-E2F13-DP12 - complex
 	pRbp1-E2F13-DP12 - complex
@@ -105,12 +110,12 @@
 	pRbp1-E2F13p1-DP12p1 - complex
 	Raf1-pRbp1-E2F13p1-DP12 - complex
 	pRbp1-E2F13p1-DP12 - complex
-	Raf1-pRbp1-E2F4-DP12 - complex
+	;; Raf1-pRbp1-E2F4-DP12 - complex ;; DUPLICATE
 	pRbp1-E2F4-DP12 - complex
 	Raf1-pRbp1-E2F4p1-DP12 - complex
-	RPA-cycA - complex
-	Skp2-cdk2p1-cycA - complex
-	cdk2p1-cycA - complex
+	;; RPA-cycA - complex ;; DUPLICATE
+	;; Skp2-cdk2p1-cycA - complex ;; DUPLICATE
+	;; cdk2p1-cycA - complex ;; DUPLICATE
 	c-Myc - complex
 	cycA - complex
 	cycD - complex
@@ -120,7 +125,7 @@
 	p19ARF - complex
 	pol - complex
 	SP1-gP - complex
-	SP1-p107-gP - complex
+	;; SP1-p107-gP - complex ;; DUPLICATE
 	SP1-p107p1 - complex
 	p107p1 - complex
 	SP1-p107 - complex

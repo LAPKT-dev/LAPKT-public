@@ -1,3 +1,8 @@
+;; NOTE [Malte]: I modified this file from the original IPC file
+;; because it contained duplicate object definitions. Please check the
+;; repository log for the revision where this comment was added for
+;; details.
+
 (define (problem Pathways-02)
 (:domain Pathways-Propositional)
 (:objects
@@ -14,7 +19,7 @@
 	E2F13p1-DP12 - simple
 	cdk1p1p2 - simple
 	cdk1p1p2-Gadd45 - complex
-	c-Myc-Max - complex
+	;; c-Myc-Max - complex ;; DUPLICATE
 	E2F13p1-DP12-gE2 - complex
 	E2F6-DP12p1-gE2 - complex
 	HBP1-p130 - complex
@@ -22,7 +27,7 @@
 	HDAC1-pRbp1-E2F13-DP12-gE2 - complex
 	HDAC1-pRbp1-E2F4-DP12-gE2 - complex
 	Mdm2-E2F13p1-DP12 - complex
-	p107-E2F4-DP12p1 - complex
+	;; p107-E2F4-DP12p1 - complex ;; DUPLICATE
 	p130-E2F4-DP12p1-gE2 - complex
 	p130-E2F4-DP12p1 - complex
 	p21-Gadd45 - complex
@@ -33,7 +38,7 @@
 	c-Myc - complex
 	cycA - complex
 	cycD - complex
-	cycDp1 - complex
+	;; cycDp1 - complex ;; DUPLICATE
 	cycE - complex
 	cycEp1 - complex
 	p19ARF - complex
