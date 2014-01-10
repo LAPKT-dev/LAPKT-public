@@ -1,7 +1,14 @@
 import os
 Import('common_env')
 
+ipc14_build = ARGUMENTS.get( 'ipc14_build', 0 )
+
 include_paths = ['.', '/usr/include/python2.7' ]
+
+if int(ipc14_build) == 1 :
+	include_path.append( '/opt/boost/include' )		
+	common_env.Append( LIBPATH = [ '/opt/boost/lib' ] )
+
 common_env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
 
 # Python and Boost.Python settings
