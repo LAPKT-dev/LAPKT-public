@@ -9,6 +9,8 @@ import fact_groups
 import timers
 import sys
 
+import normalize
+
 USE_PARTIAL_ENCODING = True
 
 def get_fluent_facts(task, model):
@@ -93,7 +95,7 @@ class PropositionalDetAction :
 		for p in prec :
 			sym =  atom_table[p.text()]
 			if p.negated and sym not in self.negated_conditions :
-				self.negated_conditions.add( sym )
+				self.negated_conditions.append( sym )
 			self.precondition.append( ( sym, p.negated ) )
 	
 	def add_effect( self, adds, dels, atom_table ) :
@@ -160,6 +162,7 @@ def default( domain_file, problem_file, output_task ) :
 	print("Domain: %s Problem: %s"%(domain_file, problem_file) )
 
 	task = pddl.open( problem_file, domain_file)
+	normalize.normalize(task)
 
 	relaxed_reachable, atoms, actions, axioms, reachable_action_params = explore(task)
 	print("goal relaxed reachable: %s" % relaxed_reachable)
