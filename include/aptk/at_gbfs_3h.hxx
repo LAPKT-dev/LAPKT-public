@@ -75,8 +75,10 @@ public:
 	float&			fn()				{ return m_f; }
 	float			fn() const			{ return m_f; }
 	Node_Ptr		parent()   			{ return m_parent; }
+	const Node_Ptr		parent() const 			{ return m_parent; }
 	Action_Idx		action() const 			{ return m_action; }
 	State*			state()				{ return m_state; }
+	bool			has_state() const		{ return m_state != NULL; }
 	const State&		state() const 			{ return *m_state; }
 	void			add_po( Action_Idx index )	{ m_po.set( index ); }
 	void			remove_po( Action_Idx index ) { m_po.unset( index ); }
@@ -416,7 +418,7 @@ public:
 		}
 		else{
 			candidate->goals_unachieved()--;
-			m_first_h->eval( *candidate, candidate->h1n(), candidate->goals_unachieved() );
+			m_first_h->eval( candidate, candidate->h1n(), candidate->goals_unachieved() );
 		}
 
 		if(candidate->h2n() < m_max_hn )
@@ -563,102 +565,6 @@ public:
 		} 
 		inc_eval();
 	}
-
-// virtual void 			process(  Search_Node *head ) {
-// #ifdef DEBUG
-// 	std::cout << "\t Expanding: ";
-// 		//if(head->action() != 0)
-// 		//	std::cout << "action leading " << m_problem.task().actions()[ head->action() ]->signature() << ": ";
-// 		std::cout << "[ n:" << head->h1n()  <<" - hl:" << head->h2n() <<" - #g:" << head->goals_unachieved() <<" - h_a:" << head->h3n() <<" - gn: " << head->gn()  <<" - fn: " << head->fn()  <<"]" << std::endl;
-
-// 		// head->print(std::cout);
-// 		// std::cout << std::endl;
-// 		// head->state()->print( std::cout );
-// 		// std::cout << std::endl;
-// 		// std::cout << "[ n:" << head->h1n()  <<" - hl:" << head->h2n() <<" - #g:" << head->goals_unachieved() <<" - h_a:" << head->h3n() <<" - gn: " << head->gn()  <<"]" << std::endl;
-// #endif
-
-// 		if(m_lgm)
-// 			head->update_land_graph( m_lgm );
-		
-// 		typedef typename Search_Model::Action_Iterator Iterator;
-	
-	
-// 		for (int a = 0; a < this->problem().num_actions(); a++ ) {		
-// 			if( ! this->problem().task().actions()[ a ]->can_be_applied_on( *(head->state())) ) continue;
-
-	
-// 			State *succ = m_problem.next( *(head->state()), a );
-// 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
-// 			#ifdef DEBUG
-// 			std::cout << "Successor:" << std::endl;
-// 			n->print(std::cout);
-// 			std::cout << std::endl;
-// 			n->state()->print( std::cout );
-// 			std::cout << std::endl;
-// 			#endif
-
-// 			if ( is_closed( n ) ) {
-// 				#ifdef DEBUG
-// 				std::cout << "Already in CLOSED" << std::endl;
-// 				#endif
-// 				delete n;				
-// 				continue;
-// 			}
-// 			if( previously_hashed(n) ) {
-// 				//#ifdef DEBUG
-// 				std::cout << "Already in OPEN" << std::endl;
-// 				//				#endif
-// 				delete n;
-// 				continue;
-// 			}
-
-// 			if(m_lgm){						
-// 				// if( n->action() != -1)
-// 				// 	std::cout << "Just Applied: " << m_problem.task().actions()[ n->action() ]->signature() << " resulting on: ";
-// 				// n->state()->print(std::cout);
-// 				// std::cout << std::endl;
-// 				// std::cout << "Graph Changes: ";
-// 				m_lgm->apply_action( n->action(), n->land_consumed(), n->land_unconsumed() );
-// 				eval( n );
-// 				n->undo_land_graph( m_lgm );
-// 			}
-// 			else{
-// 				eval( n );
-// 			}
-
-// 			if( head->is_po( a ) ){
-// 				n->h1n() += 0.5;
-// 				n->set_helpful();
-// 				eval_po(n);
-// 				#ifdef DEBUG
-// 				std::cout << "HA: " << m_problem.task().actions()[ n->action() ]->signature() << ": ";
-// 				std::cout << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn() <<" - fn: " << n->fn() <<"]" << std::endl;
-// 				#endif
-				
-// 			}
-// 			else{
-// 				n->h1n() += 1;
-// 				n->h3n() = head->h3n();
-
-// 				#ifdef DEBUG
-// 				std::cout << "NON-HA: " << m_problem.task().actions()[ n->action() ]->signature() << ": ";
-// 				std::cout << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn() <<" - fn: " << n->fn()  <<"]" << std::endl;
-// 				#endif
-
-// 			}
-
-// 			//n->fn() = n->h1n();
-			
-// #ifdef DEBUG
-// 			std::cout << "Inserted into OPEN" << std::endl;
-// #endif
-// 			open_node(n);	
-	
-		
-// 		} 
-// 		inc_eval();
-// 	}
 
 	virtual Search_Node*	 	do_search() {
 		Search_Node *head = get_node();
