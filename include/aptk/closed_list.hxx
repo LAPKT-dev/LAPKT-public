@@ -37,12 +37,13 @@ public:
 	typedef typename std::unordered_multimap< size_t, Node* >::const_iterator	const_iterator;
 
 	Node*	retrieve( Node* n ) {
-		std::pair< iterator, iterator > range = (gen_opt == Node_Generation::Lazy ? this->equal_range( n->hash() ) : this->equal_range( n->state()->hash() ));
+
+	  std::pair< iterator, iterator > range = ( !n->state() ? this->equal_range( n->hash() ) : this->equal_range( n->state()->hash() ));
 		if ( range.first != range.second ) {
 			bool in_closed = false;
 			iterator it;
 			for ( it = range.first; it != range.second; it++ )
-				if(gen_opt == Node_Generation::Eager){
+				if( n->state() ){
 					if ( (*it->second->state()) == (*n->state()) ) {
 						in_closed = true;
 						return it->second;
@@ -56,9 +57,14 @@ public:
 				}	
 			if ( !in_closed && range.second != this->end() ) {
 			
-				if(gen_opt == Node_Generation::Eager){
+				if( n->state() ){
 					const State& lhs = *(range.second->second->state());
-					if ( lhs == *(n->state()) ) return range.second->second;
+					if(&lhs != NULL){
+					  if ( lhs == *(n->state()) ) return range.second->second;
+					} else{
+					  const Node& lhs = *(range.second->second);
+					  if ( lhs == *n ) return range.second->second;
+					}
 				}
 				else{
 					const Node& lhs = *(range.second->second);
@@ -70,13 +76,13 @@ public:
 	}
 
 	iterator retrieve_iterator( Node* n ) {
-		std::pair< iterator, iterator > range = (gen_opt == Node_Generation::Lazy ? this->equal_range( n->hash() ) : this->equal_range( n->state()->hash() ));
+	  std::pair< iterator, iterator > range = ( !n->state() ? this->equal_range( n->hash() ) : this->equal_range( n->state()->hash() ));
 		
 		if ( range.first != this->end() ) {
 			bool in_closed = false;
 			iterator it;
 			for ( it = range.first; it != range.second; it++ )
-				if(gen_opt == Node_Generation::Eager){
+				if( n->state() ){
 					if ( (*it->second->state()) == (*n->state()) ) {
 						in_closed = true;
 						return it;
@@ -89,7 +95,7 @@ public:
 					}	
 				}
 			if ( !in_closed && range.second != this->end() ) {
-				if(gen_opt == Node_Generation::Eager){
+				if( n->state() ){
 					const State& lhs = *(range.second->second->state());
 					if ( lhs == *(n->state()) ) return range.second;				
 				}
@@ -103,13 +109,13 @@ public:
 	}
 
 	const_iterator retrieve_iterator( Node* n ) const {
-			std::pair< iterator, iterator > range = (gen_opt == Node_Generation::Lazy ? this->equal_range( n->hash() ) : this->equal_range( n->state()->hash() ));
+			std::pair< iterator, iterator > range = ( ! n->state() ? this->equal_range( n->hash() ) : this->equal_range( n->state()->hash() ));
 
 		if ( range.first != this->end() ) {
 			bool in_closed = false;
 			const_iterator it;
 			for ( it = range.first; it != range.second; it++ )
-				if(gen_opt == Node_Generation::Eager){
+				if( n->state() ){
 					if ( (*it->second->state()) == (*n->state()) ) {
 						in_closed = true;
 						return it;
@@ -122,7 +128,7 @@ public:
 					}	
 				}	
 			if ( !in_closed && range.second != this->end() ) {
-				if(gen_opt == Node_Generation::Eager){
+				if( n->state() ){
 					const State& lhs = *(range.second->second->state());
 					if ( lhs == *(n->state()) ) return range.second;
 				}
@@ -136,7 +142,7 @@ public:
 	}
 
 	void	put( Node* n ) {
-		if(gen_opt == Node_Generation::Lazy)
+		if( ! n->state() )
 			this->insert( std::make_pair( n->hash(), n ) );
 		else
 			this->insert( std::make_pair( n->state()->hash(), n ) );

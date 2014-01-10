@@ -132,105 +132,18 @@ protected:
 	}
 
 	
-// 	/**
-// 	 * Instead of checking the whole state, checks the new atoms permutations only!
-// 	 */
-
-// 	bool    cover_tuples( const Search_Node& n, unsigned arity )
-// 	{
-
-// 		const bool lazy_state = n.state() != NULL;
-// 		Fluent_Vec& fl = lazy_state ? n.state()->fluent_vec() : n->parent()->state()->fluent_vec();
-		
-// 		bool new_covers = false;
-
-// 		// MRJ: arity needs to be 1 or more, otherwise the line
-// 		// tuple[ atoms_arity ] = *it_add;
-// 		// will be corrupting memory
-// 		assert( arity > 0 );
-
-// 		std::vector<unsigned> tuple( arity );
-
-// 		const Fluent_Vec& add = m_strips_model.actions()[ n.action() ]->add_vec();
-
-// 		unsigned atoms_arity = arity - 1;
-// 		// MRJ: unrolled the loop inside pow
-// 		//unsigned n_combinations = pow( s.fluent_vec().size() , atoms_arity );
-// 		unsigned n_combinations = aptk::unrolled_pow( fl.size() , atoms_arity );
-		
-// 		for ( Fluent_Vec::const_iterator it_add = add.begin();
-// 					it_add != add.end(); it_add++ )
-// 			{
-		
-// 				tuple[ atoms_arity ] = *it_add;
-
-// 				for( unsigned idx = 0; idx < n_combinations; idx++ ){
-
-// 					/**
-// 					 * get tuples from indexes
-// 					 */
-// 					if(atoms_arity > 0)
-// 						idx2tuple( tuple, fl, idx, atoms_arity );
-
-// 					/**
-// 					 * Check if tuple is covered
-// 					 */
-// 					unsigned tuple_idx = tuple2idx( tuple, arity );
-
-// 					/**
-// 					 * new_tuple if
-// 					 * -> none was registered
-// 					 * OR
-// 					 * -> n better than old_n
-// 					 */
-// 					bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] ) ? 
-// 									true : 
-// 									( is_better( m_nodes_tuples_by_partition[ n->goals_unachieved() ][tuple_idx], &n  ) ? 
-// 									true : false);
-                       
-// 					if( cover_new_tuple ){
-						
-// 						m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] = (Search_Node*) &n;
-// 						new_covers = true;
-
-
-// #ifdef DEBUG
-// 						std::cout<<"\t NEW!! : ";
-// 						for(unsigned i = 0; i < arity; i++){
-// 							std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
-// 						}
-// 						std::cout << " by state: "<< m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] << "" ;
-// 						std::cout << std::endl;
-// #endif
-// 					}
-// 					else
-// 						{		
-// #ifdef DEBUG		
-// 							std::cout<<"\t TUPLE COVERED: ";
-// 							for(unsigned i = 0; i < arity; i++){
-// 								std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
-// 							}
-				
-// 							std::cout << " by state: "<< m_nodes_tuples_by_partition[ n->goals_unachieved() ][ tuple_idx ] << "" <<std::flush;
-								
-// 							std::cout<< std::endl;
-// #endif
-// 						}
-
-// 				}
-// 			}
-// 		return new_covers;
-// 	}
        
 	bool cover_tuples( Search_Node* n, unsigned arity, unsigned goals_unachieved  )
 	{
 		const bool has_state = n->has_state();
-		Fluent_Vec& fl = has_state ? n->state()->fluent_vec() : n->parent()->state()->fluent_vec();	       
+		Fluent_Vec& fl = has_state ? n->state()->fluent_vec() : n->parent()->state()->fluent_vec();      
 
-
+		
 		if(!has_state){
 			const Action* a =  m_strips_model.actions()[ n->action() ];
 			State* s = n->parent()->state();
+			
+
 			/**
 			 * progress action
 			 */
@@ -323,14 +236,62 @@ protected:
 			}
 
 		}
-		// if(!has_state){
-		// 	const Action* a =  m_strips_model.actions()[ n->action() ];
-		// 	State* s = n->parent()->state();
-		// 	/**
-		// 	 * regress action
-		// 	 */
-		// 	Fluent_Vec::iterator it = fl.begin();
-		// }
+
+		if(!has_state){
+			const Action* a =  m_strips_model.actions()[ n->action() ];
+			State* s = n->parent()->state();
+			/**
+			 * regress action
+			 */
+			Fluent_Vec::iterator it = fl.begin();
+			
+			while(it != fl.end() ){
+			  bool s_entails = s->entails( *it );
+			  if( s_entails ){
+			    it++;
+			  }
+			  else if( a->asserts( *it ) ) //if it wasn't true in prev state
+			    it = fl.erase( it );
+			  else{
+			    //Check Conditional Effects
+			    bool asserts = false;
+			    for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
+			      Conditional_Effect* ce = a->ceff_vec()[i];
+			      if ( !ce->asserts( *it ) ) // constant-time check
+				continue;
+			      if( ce->can_be_applied_on( *s ) ){ // linear-time check
+				asserts = true;
+				break;
+			      }
+			    }
+			    if(asserts)
+			      it = fl.erase( it );
+			    else
+			      it++;					
+			  }
+			}
+			
+			Fluent_Vec::const_iterator cit = a->del_vec().begin();
+			while(cit != a->del_vec().end() ){
+			  if( s->entails( *cit ) )
+			    fl.push_back(*cit);
+			  cit++;
+			}
+
+			for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
+				Conditional_Effect* ce = a->ceff_vec()[i];
+				if( !ce->can_be_applied_on( *s ) ) continue;
+
+				cit = ce->del_vec().begin();
+				while(cit != ce->del_vec().end() ){
+					if(  s->entails(*cit) )
+						fl.push_back(*cit);
+					cit++;
+				}	
+			}
+		
+			
+		}
 		return new_covers;
 
 	}

@@ -54,6 +54,8 @@ public:
 		: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_g_unit( 0 ), m_f(0), m_h1(0), m_h2(0), m_h3(0), m_po( num_actions ), m_seen(false), m_helpful(false), m_land_consumed(NULL), m_land_unconsumed(NULL) {
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 		m_g_unit = ( parent ? parent->m_g_unit + 1.0f : 0.0f);
+		if( m_state == NULL )
+		  update_hash();
 	}
 	
 	virtual ~Node() {
@@ -78,6 +80,7 @@ public:
 	const Node_Ptr		parent() const 			{ return m_parent; }
 	Action_Idx		action() const 			{ return m_action; }
 	State*			state()				{ return m_state; }
+        void			set_state( State* s )  		{ m_state = s; }
 	bool			has_state() const		{ return m_state != NULL; }
 	const State&		state() const 			{ return *m_state; }
 	void			add_po( Action_Idx index )	{ m_po.set( index ); }
@@ -141,7 +144,15 @@ public:
 		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
 	}
 
-	size_t                  hash() const { return m_state->hash(); }
+  size_t                  hash() const { return m_state ? m_state->hash() : m_hash; }
+
+	void	update_hash() {
+		Hash_Key hasher;
+		hasher.add( m_action );
+		if ( m_parent != NULL )
+			hasher.add( m_parent->state()->fluent_vec() );
+		m_hash = (size_t)hasher;
+	}
 
 public:
 
@@ -158,6 +169,7 @@ public:
 	Bit_Set		m_po;
 	bool		m_seen;
 	bool		m_helpful;
+	size_t		m_hash;
 	Bool_Vec_Ptr*   m_land_consumed;
 	Bool_Vec_Ptr*   m_land_unconsumed;
 };
@@ -484,14 +496,17 @@ public:
 	 * Succ Generator Process
 	 */
 	virtual void 			process(  Search_Node *head ) {
-		#ifdef DEBUG
+
+		
+#ifdef DEBUG
 		std::cout << "Expanding:" << std::endl;
 		head->print(std::cout);
 		std::cout << std::endl;
 		head->state()->print( std::cout );
 		std::cout << std::endl;
-		#endif
+#endif
 
+		
 		if(m_lgm)
 			head->update_land_graph( m_lgm );
 		
@@ -500,37 +515,34 @@ public:
 		
 		for (unsigned i = 0; i < app_set.size(); ++i ) {
 			int a = app_set[i];
+
+			bool is_helpful = head->is_po(a); 
+			State *succ = is_helpful ? m_problem.next( *(head->state()), a ) : NULL; 
 			
-			State *succ = m_problem.next( *(head->state()), a );
+
 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
+			
 			#ifdef DEBUG
 			std::cout << "Successor:" << std::endl;
 			n->print(std::cout);
 			std::cout << std::endl;
-			n->state()->print( std::cout );
+			if(n->has_state())
+			  n->state()->print( std::cout );
 			std::cout << std::endl;
 			#endif
 
-			if ( is_closed( n ) ) {
-				#ifdef DEBUG
-				std::cout << "Already in CLOSED" << std::endl;
-				#endif
-				delete n;
-				//a = it.next();
-				continue;
-			}
+		
 			if( previously_hashed(n) ) {
 				#ifdef DEBUG
 				std::cout << "Already in OPEN" << std::endl;
 				#endif
-				delete n;
-				//a = it.next();		
+				delete n;	       
 				continue;
 			}
 		
 
 
-			if( head->is_po( a ) ){
+			if( is_helpful ){
 
 				n->set_helpful();
 				eval_po(n);				
@@ -576,6 +588,8 @@ public:
 				head = get_node();
 				continue;
 			}
+			if( ! head->has_state() )
+			  head->set_state( m_problem.next(*(head->parent()->state()), head->action()) );
 
 			if(m_problem.goal(*(head->state()))) {
 				close(head);
@@ -585,6 +599,15 @@ public:
 			if ( (time_used() - m_t0 ) > m_time_budget )
 				return NULL;
 			// MRJ: What if we don't compute h_add and keep using the parent's h_add value for non-helpful 
+
+			if ( is_closed( head ) ) {
+				#ifdef DEBUG
+				std::cout << "Already in CLOSED" << std::endl;
+				#endif
+				delete head;
+				head = get_node();
+				continue;
+			}
 			// nodes?
 			if( !head->is_helpful() ){
 				eval_po( head );
