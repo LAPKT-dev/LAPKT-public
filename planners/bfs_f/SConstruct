@@ -1,9 +1,9 @@
 import os
 
 debug = ARGUMENTS.get( 'debug', 0 )
-common_env = Environment()
+common_env = Environment(ENV = os.environ)
 
-common_env.Append( CCFLAGS = [ '-Wall', '-std=c++0x' ] )
+common_env.Append( CCFLAGS = [ '-Wall', '-std=c++11' ] )
 
 if int(debug) == 1 :
         common_env.Append( CCFLAGS = ['-g',  '-DDEBUG' ] )
@@ -19,4 +19,4 @@ agnostic_objs = SConscript('../../interfaces/agnostic/SConscript.agnostic')
 python_objs = SConscript('../python/agnostic/SConscript.python')
 bfsf_objs = SConscript('src/SConscript')
 
-common_env.SharedLibrary( 'bfsf.so', bfsf_objs + generic_objs + agnostic_objs + python_objs ) 
+ommon_env.SharedLibrary( 'bfsf.so', bfsf_objs + generic_objs + agnostic_objs + python_objs ) 
