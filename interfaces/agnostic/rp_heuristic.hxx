@@ -43,7 +43,7 @@ class Relaxed_Plan_Extractor
 public:
 
 	Relaxed_Plan_Extractor( const STRIPS_Problem& prob, Primary_Heuristic& h )
-		: m_base_heuristic(h), m_strips_model( prob ), m_ignore_rp_h_value(false) {
+		: m_base_heuristic(h), m_strips_model( prob ), m_ignore_rp_h_value(false), m_one_ha_per_fluent(false) {
 		m_act_seen.resize( m_strips_model.num_actions() );
 		m_init_fluents.resize( m_strips_model.num_fluents() );
 		m_po_set.resize( m_strips_model.num_actions() );
@@ -52,6 +52,10 @@ public:
 	}
 
 	virtual ~Relaxed_Plan_Extractor() {}
+
+	
+	void	set_one_HA_per_fluent( bool v) { m_one_ha_per_fluent = v; }
+	bool	one_HA_per_fluent() const { return m_one_ha_per_fluent; }
 
 	virtual void compute( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops ) {
 
@@ -138,7 +142,8 @@ public:
 					pref_ops.push_back( act.index() );
 					//std::cout << "\t PO: " << m_strips_model.actions()[ act.index() ]->signature() << std::endl;
 					//Uncomment if just 1 pref op is preferred
-					m_rp_precs.unset(*it2);
+					if ( one_HA_per_fluent() ) 
+						m_rp_precs.unset(*it2);
 					break;
 				}
 			//a = it.next();
@@ -185,6 +190,7 @@ protected:
 	Bit_Set				m_po_set;
 	Bit_Set				m_rp_precs;
 	bool                            m_ignore_rp_h_value;
+	bool				m_one_ha_per_fluent;
 };
 
 template < typename Search_Model, typename Primary_Heuristic, RP_Cost_Function cost_opt = RP_Cost_Function::Use_Costs >
@@ -209,6 +215,9 @@ public:
 	}
 	
 	void ignore_rp_h_value(bool b) {m_plan_extractor.ignore_rp_h_value(b);}
+
+	void set_one_HA_per_fluent( bool b ) { m_plan_extractor.set_one_HA_per_fluent(b); }
+
 protected:
 
 	Primary_Heuristic					m_base_heuristic;
