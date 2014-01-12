@@ -54,10 +54,15 @@ def create_build_script( home_dir, planner, files ) :
 	with open( script_filename, 'w' ) as out :
 		
 		print >> out, "#!/bin/bash"
+		print >> out, "source /opt/centos/devtoolset-1.1/x86_64/enable"
 		build_dir = os.path.join( 'planners', planner )
+		print >> out, "cd external/judy-1.0.5"
+		print >> out, "./configure --enable-64-bit"
+		print >> out, "make"
+		print >> out, "cd ../.."
 		print >> out, "cd %s"%build_dir
 		print >> out, "scons -c"
-		print >> out, "python2.7 build.py"
+		print >> out, "python2.7 build.py ipc14_build=1"
 		print >> out, "cd ../.."
 		for filename in files :
 			print >> out, 'echo "Copying %s..."'%filename

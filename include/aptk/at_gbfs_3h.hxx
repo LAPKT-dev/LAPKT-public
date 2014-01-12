@@ -54,6 +54,8 @@ public:
 		: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_g_unit( 0 ), m_f(0), m_h1(0), m_h2(0), m_h3(0), m_po( num_actions ), m_seen(false), m_helpful(false), m_land_consumed(NULL), m_land_unconsumed(NULL) {
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 		m_g_unit = ( parent ? parent->m_g_unit + 1.0f : 0.0f);
+		if( m_state == NULL )
+		  update_hash();
 	}
 	
 	virtual ~Node() {
@@ -75,8 +77,11 @@ public:
 	float&			fn()				{ return m_f; }
 	float			fn() const			{ return m_f; }
 	Node_Ptr		parent()   			{ return m_parent; }
+	const Node_Ptr		parent() const 			{ return m_parent; }
 	Action_Idx		action() const 			{ return m_action; }
 	State*			state()				{ return m_state; }
+        void			set_state( State* s )  		{ m_state = s; }
+	bool			has_state() const		{ return m_state != NULL; }
 	const State&		state() const 			{ return *m_state; }
 	void			add_po( Action_Idx index )	{ m_po.set( index ); }
 	void			remove_po( Action_Idx index ) { m_po.unset( index ); }
@@ -139,7 +144,15 @@ public:
 		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
 	}
 
-	size_t                  hash() const { return m_state->hash(); }
+  size_t                  hash() const { return m_state ? m_state->hash() : m_hash; }
+
+	void	update_hash() {
+		Hash_Key hasher;
+		hasher.add( m_action );
+		if ( m_parent != NULL )
+			hasher.add( m_parent->state()->fluent_vec() );
+		m_hash = (size_t)hasher;
+	}
 
 public:
 
@@ -156,6 +169,7 @@ public:
 	Bit_Set		m_po;
 	bool		m_seen;
 	bool		m_helpful;
+	size_t		m_hash;
 	Bool_Vec_Ptr*   m_land_consumed;
 	Bool_Vec_Ptr*   m_land_unconsumed;
 };
@@ -390,7 +404,7 @@ public:
 
 	First_Heuristic&	h1()				{ return *m_first_h; }
 	Second_Heuristic&	h2()				{ return *m_second_h; }
-	Second_Heuristic&	h3()				{ return *m_third_h; }
+	Third_Heuristic&	h3()				{ return *m_third_h; }
 	
 	void                    use_land_graph_manager( Landmarks_Graph_Manager* lgm ) { 
 		m_lgm = lgm; 
@@ -416,7 +430,7 @@ public:
 		}
 		else{
 			candidate->goals_unachieved()--;
-			m_first_h->eval( *candidate, candidate->h1n(), candidate->goals_unachieved() );
+			m_first_h->eval( candidate, candidate->h1n(), candidate->goals_unachieved() );
 		}
 
 		if(candidate->h2n() < m_max_hn )
@@ -482,14 +496,17 @@ public:
 	 * Succ Generator Process
 	 */
 	virtual void 			process(  Search_Node *head ) {
-		#ifdef DEBUG
+
+		
+#ifdef DEBUG
 		std::cout << "Expanding:" << std::endl;
 		head->print(std::cout);
 		std::cout << std::endl;
 		head->state()->print( std::cout );
 		std::cout << std::endl;
-		#endif
+#endif
 
+		
 		if(m_lgm)
 			head->update_land_graph( m_lgm );
 		
@@ -498,37 +515,34 @@ public:
 		
 		for (unsigned i = 0; i < app_set.size(); ++i ) {
 			int a = app_set[i];
+
+			bool is_helpful = head->is_po(a); 
+			State *succ = is_helpful ? m_problem.next( *(head->state()), a ) : NULL; 
 			
-			State *succ = m_problem.next( *(head->state()), a );
+
 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
+			
 			#ifdef DEBUG
 			std::cout << "Successor:" << std::endl;
 			n->print(std::cout);
 			std::cout << std::endl;
-			n->state()->print( std::cout );
+			if(n->has_state())
+			  n->state()->print( std::cout );
 			std::cout << std::endl;
 			#endif
 
-			if ( is_closed( n ) ) {
-				#ifdef DEBUG
-				std::cout << "Already in CLOSED" << std::endl;
-				#endif
-				delete n;
-				//a = it.next();
-				continue;
-			}
+		
 			if( previously_hashed(n) ) {
 				#ifdef DEBUG
 				std::cout << "Already in OPEN" << std::endl;
 				#endif
-				delete n;
-				//a = it.next();		
+				delete n;	       
 				continue;
 			}
 		
 
 
-			if( head->is_po( a ) ){
+			if( is_helpful ){
 
 				n->set_helpful();
 				eval_po(n);				
@@ -564,102 +578,6 @@ public:
 		inc_eval();
 	}
 
-// virtual void 			process(  Search_Node *head ) {
-// #ifdef DEBUG
-// 	std::cout << "\t Expanding: ";
-// 		//if(head->action() != 0)
-// 		//	std::cout << "action leading " << m_problem.task().actions()[ head->action() ]->signature() << ": ";
-// 		std::cout << "[ n:" << head->h1n()  <<" - hl:" << head->h2n() <<" - #g:" << head->goals_unachieved() <<" - h_a:" << head->h3n() <<" - gn: " << head->gn()  <<" - fn: " << head->fn()  <<"]" << std::endl;
-
-// 		// head->print(std::cout);
-// 		// std::cout << std::endl;
-// 		// head->state()->print( std::cout );
-// 		// std::cout << std::endl;
-// 		// std::cout << "[ n:" << head->h1n()  <<" - hl:" << head->h2n() <<" - #g:" << head->goals_unachieved() <<" - h_a:" << head->h3n() <<" - gn: " << head->gn()  <<"]" << std::endl;
-// #endif
-
-// 		if(m_lgm)
-// 			head->update_land_graph( m_lgm );
-		
-// 		typedef typename Search_Model::Action_Iterator Iterator;
-	
-	
-// 		for (int a = 0; a < this->problem().num_actions(); a++ ) {		
-// 			if( ! this->problem().task().actions()[ a ]->can_be_applied_on( *(head->state())) ) continue;
-
-	
-// 			State *succ = m_problem.next( *(head->state()), a );
-// 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
-// 			#ifdef DEBUG
-// 			std::cout << "Successor:" << std::endl;
-// 			n->print(std::cout);
-// 			std::cout << std::endl;
-// 			n->state()->print( std::cout );
-// 			std::cout << std::endl;
-// 			#endif
-
-// 			if ( is_closed( n ) ) {
-// 				#ifdef DEBUG
-// 				std::cout << "Already in CLOSED" << std::endl;
-// 				#endif
-// 				delete n;				
-// 				continue;
-// 			}
-// 			if( previously_hashed(n) ) {
-// 				//#ifdef DEBUG
-// 				std::cout << "Already in OPEN" << std::endl;
-// 				//				#endif
-// 				delete n;
-// 				continue;
-// 			}
-
-// 			if(m_lgm){						
-// 				// if( n->action() != -1)
-// 				// 	std::cout << "Just Applied: " << m_problem.task().actions()[ n->action() ]->signature() << " resulting on: ";
-// 				// n->state()->print(std::cout);
-// 				// std::cout << std::endl;
-// 				// std::cout << "Graph Changes: ";
-// 				m_lgm->apply_action( n->action(), n->land_consumed(), n->land_unconsumed() );
-// 				eval( n );
-// 				n->undo_land_graph( m_lgm );
-// 			}
-// 			else{
-// 				eval( n );
-// 			}
-
-// 			if( head->is_po( a ) ){
-// 				n->h1n() += 0.5;
-// 				n->set_helpful();
-// 				eval_po(n);
-// 				#ifdef DEBUG
-// 				std::cout << "HA: " << m_problem.task().actions()[ n->action() ]->signature() << ": ";
-// 				std::cout << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn() <<" - fn: " << n->fn() <<"]" << std::endl;
-// 				#endif
-				
-// 			}
-// 			else{
-// 				n->h1n() += 1;
-// 				n->h3n() = head->h3n();
-
-// 				#ifdef DEBUG
-// 				std::cout << "NON-HA: " << m_problem.task().actions()[ n->action() ]->signature() << ": ";
-// 				std::cout << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn() <<" - fn: " << n->fn()  <<"]" << std::endl;
-// 				#endif
-
-// 			}
-
-// 			//n->fn() = n->h1n();
-			
-// #ifdef DEBUG
-// 			std::cout << "Inserted into OPEN" << std::endl;
-// #endif
-// 			open_node(n);	
-	
-		
-// 		} 
-// 		inc_eval();
-// 	}
-
 	virtual Search_Node*	 	do_search() {
 		Search_Node *head = get_node();
 		int counter =0;
@@ -670,6 +588,8 @@ public:
 				head = get_node();
 				continue;
 			}
+			if( ! head->has_state() )
+			  head->set_state( m_problem.next(*(head->parent()->state()), head->action()) );
 
 			if(m_problem.goal(*(head->state()))) {
 				close(head);
@@ -679,6 +599,15 @@ public:
 			if ( (time_used() - m_t0 ) > m_time_budget )
 				return NULL;
 			// MRJ: What if we don't compute h_add and keep using the parent's h_add value for non-helpful 
+
+			if ( is_closed( head ) ) {
+				#ifdef DEBUG
+				std::cout << "Already in CLOSED" << std::endl;
+				#endif
+				delete head;
+				head = get_node();
+				continue;
+			}
 			// nodes?
 			if( !head->is_helpful() ){
 				eval_po( head );
