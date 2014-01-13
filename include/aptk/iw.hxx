@@ -96,7 +96,7 @@ protected:
 	bool   prune( Search_Node* n ){
 
 		float node_novelty = infty;
-		m_novelty->eval( *n, node_novelty );
+		m_novelty->eval( n, node_novelty );
 		if( node_novelty > bound() ) {
 			inc_pruned_bound();
 			//this->close(n);				
@@ -108,56 +108,13 @@ protected:
 	/**
 	 * Process with successor generator
 	 */
-// 	virtual Search_Node*   	process(  Search_Node *head ) {
-// 		typedef typename Search_Model::Action_Iterator Iterator;
-// 		Iterator it( this->problem() );
-// 		int a = it.start( *(head->state()) );
-// 		while ( a != no_op ) {		
-// 			State *succ = this->problem().next( *(head->state()), a );
-// 			Search_Node* n = new Search_Node( succ, a, head );
-// 			if ( this->is_closed( n ) ) {
-// 				delete n;
-// 				a = it.next();
-// 				continue;
-// 			}
-			
-// 			if( this->previously_hashed(n) ) {
-// 				delete n;
-// 			}
-// 			else{
-// 				if( prune( n ) ){
-// 					a = it.next();
-// #ifdef DEBUG
-// 					std::cout << std::endl;
-// 					std::cout << "PRUNED State: " << n->state()  << " " << n->parent()->state() << " " << n->gn() << " ";
-// 					n->state()->print( std::cout );
-// 					std::cout << this->problem().task().actions()[ n->action() ]->signature() << std::endl;
-// #endif
-// 					delete n;
-// 					continue;
-// 				}
-// #ifdef DEBUG
-// 				std::cout << std::endl;
-// 				std::cout << "State: " << n->state() << " " << n->parent()->state() << " " << n->gn() << " ";
-// 				n->state()->print( std::cout );
-// 				std::cout << this->problem().task().actions()[ n->action() ]->signature() << std::endl;
-// #endif			
-
-// 				this->open_node(n);				
-// 				if( this->is_goal( n->state() ) )
-// 					return n;
-// 			}
-
-// 			a = it.next();		
-// 		} 
-// 		this->inc_exp();
-// 		return NULL;
-// 	}
 
 	virtual Search_Node*   	process(  Search_Node *head ) {
-		for (int a = 0; a < this->problem().num_actions(); a++ ) {		
-			if( ! this->problem().task().actions()[ a ]->can_be_applied_on( *(head->state())) ) continue;
-
+		std::vector< aptk::Action_Idx > app_set;
+		this->problem().applicable_set_v2( *(head->state()), app_set );
+		
+		for (unsigned i = 0; i < app_set.size(); ++i ) {
+			int a = app_set[i];
 
 			State *succ = this->problem().next( *(head->state()), a );	       
 			Search_Node* n = new Search_Node( succ, a, head );

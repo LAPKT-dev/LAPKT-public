@@ -20,11 +20,12 @@ using 	aptk::agnostic::Novelty;
 using	aptk::search::brfs::IW;
 using	aptk::search::Serialized_Search;
 
-typedef         Novelty<Fwd_Search_Problem>                       	H_Novel_Fwd;
+typedef		aptk::search::brfs::Node< aptk::State >	          	IW_Node;
+typedef         Novelty<Fwd_Search_Problem, IW_Node>                   	H_Novel_Fwd;
 typedef         H2_Heuristic<Fwd_Search_Problem>                  	H2_Fwd;
 typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>     	Gen_Lms_Fwd;
 typedef		IW< Fwd_Search_Problem, H_Novel_Fwd >	          	IW_Fwd;
-typedef		aptk::search::brfs::Node< aptk::State >	          	IW_Node;
+
 
 //typedef		Serialized_Search< Fwd_Search_Problem, IW_Fwd, IW_Node >        SIW_Fwd;
 
@@ -88,6 +89,8 @@ SIW_Planner::do_search( SIW_Fwd& engine ) {
 		expanded_0 = expanded_f;
 		generated_0 = generated_f;
 		plan.clear();
+	} else {
+		std::cout << ";; NOT I-REACHABLE ;;" << std::endl;
 	}
  	float total_time = aptk::time_used() - ref;
 	std::cout << "Total time: " << total_time << std::endl;

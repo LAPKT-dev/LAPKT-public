@@ -34,7 +34,7 @@ namespace aptk {
 namespace agnostic {
 
 
-template <typename Search_Model >
+template <typename Search_Model, typename Search_Node >
 class Novelty : public Heuristic<State> {
 public:
 
@@ -49,9 +49,10 @@ public:
 	}
 
 
-	void init() {
-		for(std::vector<State*>::iterator it = m_nodes_tuples.begin();
-		    it != m_nodes_tuples.end(); it++)		
+	void init() {		
+		typedef typename std::vector<Search_Node*>::iterator                       Node_Ptr_It;
+
+		for(Node_Ptr_It it = m_nodes_tuples.begin(); it != m_nodes_tuples.end(); it++)		
 			*it = NULL;
 
 	}
@@ -64,11 +65,11 @@ public:
 		m_num_tuples = 1;
 		m_num_fluents = m_strips_model.num_fluents();
 
-		float size_novelty = ( (float) pow(m_num_fluents,m_arity) / 1024000.) * sizeof(State*);
+		float size_novelty = ( (float) pow(m_num_fluents,m_arity) / 1024000.) * sizeof(Search_Node*);
 		std::cout << "Try allocate size: "<< size_novelty<<" MB"<<std::endl;
 		if(size_novelty > m_max_memory_size_MB){
 			m_arity = 1;
-			size_novelty =  ( (float) pow(m_num_fluents,m_arity) / 1024000.) * sizeof(State*);
+			size_novelty =  ( (float) pow(m_num_fluents,m_arity) / 1024000.) * sizeof(Search_Node*);
 
 			std::cout<<"EXCEDED, m_arity downgraded to 1 --> size: "<< size_novelty<<" MB"<<std::endl;
 		}
@@ -80,45 +81,44 @@ public:
 
 	}
 	
-	virtual void eval( const State& s, float& h_val ) {
+	void eval(  Search_Node* n, float& h_val ) { 
+			compute( n, h_val );
+	}
+
 	
-		compute( s, h_val );		
+	void eval( Search_Node* n, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
+		eval( n, h_val );
+	}
+
+	
+	virtual void eval( const State& s, float& h_val ) {
+		assert(true);
 	}
 
 	virtual void eval( const State& s, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
-		eval( s, h_val );
+		assert(true);
 	}
 
-	/**
-	 * Use Node when possible. Faster Computation!
-	 */
-	template <class Node >
-	void eval( const Node& n, float& h_val ) { 
-		if( n.action() != no_op )
-			compute( n, h_val );
-		else
-			compute( n.state(), h_val);
-	}
 
 
 protected:
 
 	
 	/**
-	 * If T == Node,  the computation is F^i-1 aprox. FASTER!!!
-	 * if T == State, the computation is F^i, SLOWER!! 
+	 * If can use add(op), the computation is F^i-1 aprox. FASTER!!!
+	 * if action == no_op (i.e. start action), the computation is F^i, SLOWER!! 
 	 * where i ranges over 1 to max_arity
 	 */
-	template< typename T >
-	void compute(  const T& ns, float& novelty ) 
+
+	void compute(  Search_Node* n, float& novelty ) 
 	{
 
 		novelty = (float) m_arity+1;
 		for(unsigned i = 1; i <= m_arity; i++){
 #ifdef DEBUG
-			std::cout << "search state node: "<<&(ns)<<std::endl;
+			std::cout << "search node: "<< *n <<std::endl;
 #endif 	
-			bool new_covers = cover_tuples( ns, i );
+			bool new_covers = n->action() == no_op ? cover_tuples( n, i ) : cover_tuples_op( n, i );
 			
 #ifdef DEBUG
 			if(!new_covers)	
@@ -130,24 +130,143 @@ protected:
 		}
 	}
 	
+	void progress_lazy_state(Search_Node* n){
+
+		Fluent_Vec& fl =  n->parent()->state()->fluent_vec(); 
+		const Action* a =  m_strips_model.actions()[ n->action() ];
+		State* s = n->parent()->state();
+			
+		/**
+		 * progress action
+		 */
+		Fluent_Vec::iterator it = fl.begin();
+		while(it != fl.end() ){
+			if( a->retracts(*it) )
+				it = fl.erase( it );
+			else{
+				//Check Conditional Effects
+				bool retracts = false;
+				for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
+					Conditional_Effect* ce = a->ceff_vec()[i];
+					if ( !ce->retracts( *it ) ) // constant-time check
+						continue;
+					if( ce->can_be_applied_on( *s ) ){ // linear-time check
+						retracts = true;
+						break;
+					}
+				}
+
+				if( retracts )
+					it = fl.erase( it );
+				else
+					it++;					
+			}
+		}
+			
+		Fluent_Vec::const_iterator cit = a->add_vec().begin();
+		while(cit != a->add_vec().end() ){
+			if( ! s->entails(*cit) )
+				fl.push_back(*cit);
+			cit++;
+		}
+			
+		for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
+			Conditional_Effect* ce = a->ceff_vec()[i];
+			if( !ce->can_be_applied_on( *s ) ) continue;
+
+			cit = ce->add_vec().begin();
+			while(cit != ce->add_vec().end() ){
+				if( ! s->entails(*cit) )
+					fl.push_back(*cit);
+				cit++;
+			}	
+		}     
+
+	}
+
+	void regress_lazy_state(Search_Node* n){
+
+		Fluent_Vec& fl =  n->parent()->state()->fluent_vec(); 
+		const Action* a =  m_strips_model.actions()[ n->action() ];
+		State* s = n->parent()->state();
+
+		/**
+		 * regress action
+		 */
+		Fluent_Vec::iterator it = fl.begin();
+			
+		while(it != fl.end() ){
+			bool s_entails = s->entails( *it );
+			if( s_entails ){
+				it++;
+			}
+			else if( a->asserts( *it ) ) //if it wasn't true in prev state
+				it = fl.erase( it );
+			else{
+				//Check Conditional Effects
+				bool asserts = false;
+				for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
+					Conditional_Effect* ce = a->ceff_vec()[i];
+					if ( !ce->asserts( *it ) ) // constant-time check
+						continue;
+					if( ce->can_be_applied_on( *s ) ){ // linear-time check
+						asserts = true;
+						break;
+					}
+				}
+				if(asserts)
+					it = fl.erase( it );
+				else
+					it++;					
+			}
+		}
+			
+		Fluent_Vec::const_iterator cit = a->del_vec().begin();
+		while(cit != a->del_vec().end() ){
+			if( s->entails( *cit ) )
+				fl.push_back(*cit);
+			cit++;
+		}
+
+		for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
+			Conditional_Effect* ce = a->ceff_vec()[i];
+			if( !ce->can_be_applied_on( *s ) ) continue;
+
+			cit = ce->del_vec().begin();
+			while(cit != ce->del_vec().end() ){
+				if(  s->entails(*cit) )
+					fl.push_back(*cit);
+				cit++;
+			}	
+		}
+		
+
+	}
+	
 	/**
 	 * Instead of checking the whole state, checks the new atoms permutations only!
 	 */
-	template < class Node >
-	bool    cover_tuples( const Node& n, unsigned arity )
+	
+	bool    cover_tuples_op( Search_Node* n, unsigned arity )
 	{
 
+		const bool has_state = n->has_state();
+		
+		if(!has_state)
+			progress_lazy_state(n);	
 
-		const State& s = n.state();
+		Fluent_Vec& fl = has_state ? n->state()->fluent_vec() : n->parent()->state()->fluent_vec();
 		
 		bool new_covers = false;
+
 		assert ( arity > 0 );
+
 		std::vector<unsigned> tuple( arity );
 
-		const Fluent_Vec& add = m_strips_model.actions()[ n.action() ]->add_vec();
+		const Fluent_Vec& add = m_strips_model.actions()[ n->action() ]->add_vec();
 
 		unsigned atoms_arity = arity - 1;
-		unsigned n_combinations = pow( s.fluent_vec().size() , atoms_arity );
+		unsigned n_combinations = aptk::unrolled_pow(  fl.size() , atoms_arity );	       
 		
 		
 		for ( Fluent_Vec::const_iterator it_add = add.begin();
@@ -162,7 +281,7 @@ protected:
 					 * get tuples from indexes
 					 */
 					if(atoms_arity > 0)
-						idx2tuple( tuple, s, idx, atoms_arity );
+						idx2tuple( tuple, fl, idx, atoms_arity );
 
 					/**
 					 * Check if tuple is covered
@@ -175,11 +294,11 @@ protected:
 					 * OR
 					 * -> n better than old_n
 					 */
-					bool cover_new_tuple = ( !m_nodes_tuples[ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples[tuple_idx], s  ) ? true : false);
+					bool cover_new_tuple = ( !m_nodes_tuples[ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples[tuple_idx], n  ) ? true : false);
                        
 					if( cover_new_tuple ){
 						
-						m_nodes_tuples[ tuple_idx ] = (State*) &(n.state());
+						m_nodes_tuples[ tuple_idx ] = (Search_Node*) n;
 						new_covers = true;
 
 
@@ -208,18 +327,28 @@ protected:
 
 				}
 			}
+
+		if(!has_state)
+			regress_lazy_state(n);			
+		
 		return new_covers;
 	}
 
-	bool cover_tuples( const State& s, unsigned arity  )
+	bool cover_tuples( Search_Node* n, unsigned arity  )
 	{
-
+		const bool has_state = n->has_state();
+		
+		if(!has_state)
+			progress_lazy_state(n);	
+		
+		Fluent_Vec& fl = has_state ? n->state()->fluent_vec() : n->parent()->state()->fluent_vec();      
 
 		bool new_covers = false;
 
 		std::vector<unsigned> tuple( arity );
 
-		unsigned n_combinations = pow( s.fluent_vec().size() , arity );
+ 		unsigned n_combinations = aptk::unrolled_pow(  fl.size() , arity );
+
 
 
 #ifdef DEBUG
@@ -230,7 +359,7 @@ protected:
 			/**
 			 * get tuples from indexes
 			 */
-			idx2tuple( tuple, s, idx, arity );
+			idx2tuple( tuple, fl, idx, arity );
 
 			/**
 			 * Check if tuple is covered
@@ -243,10 +372,10 @@ protected:
 			 * OR
 			 * -> n better than old_n
 			 */
-			bool cover_new_tuple = ( !m_nodes_tuples[ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples[tuple_idx], s  ) ? true : false);
+			bool cover_new_tuple = ( !m_nodes_tuples[ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples[tuple_idx], n  ) ? true : false);
 			
 			if( cover_new_tuple ){
-				m_nodes_tuples[ tuple_idx ] = (State*) &s;
+				m_nodes_tuples[ tuple_idx ] = (Search_Node*) n;
 
 				new_covers = true;
 #ifdef DEBUG
@@ -259,6 +388,8 @@ protected:
 			}
 
 		}
+		if(!has_state)
+			regress_lazy_state(n);	
 
 		return new_covers;
 
@@ -280,34 +411,44 @@ protected:
 
 	}
 
-	inline void      idx2tuple( std::vector<unsigned>& tuple, const State& s, unsigned idx, unsigned arity ) const
+	inline void      idx2tuple( std::vector<unsigned>& tuple, Fluent_Vec& fl, unsigned idx, unsigned arity ) const
 	{
 		unsigned next_idx, div;
 		unsigned current_idx = idx;
-		unsigned n_atoms =  s.fluent_vec().size();
+		unsigned n_atoms = fl.size();
 
 		for(unsigned i = arity-1; i >= 0 ; i--){
-			div = pow( n_atoms , i );
-			next_idx = current_idx % div;
-			// if current_idx is zero and is the last index, then take next_idx
-			current_idx = ( current_idx / div != 0 || i != 0) ? current_idx / div : next_idx;
+			div = aptk::unrolled_pow( n_atoms , i );
 
-			tuple[ i ] = s.fluent_vec()[ current_idx ];
+			if ( current_idx < div ) {
+				next_idx = current_idx;
+				current_idx = 0;
+			}
+			else {
+				next_idx = current_idx % div;
+				// if current_idx is zero and is the last index, then take next_idx
+				current_idx = ( current_idx / div != 0 || i != 0) ? current_idx / div : next_idx;
+			}
+			
+			tuple[ i ] = fl[ current_idx ];
 
 			current_idx = next_idx;
 			if(i == 0) break;
 		}
 	}
 
-	inline bool      is_better( State* s,const State& new_s ) const { return false; }
+	inline bool      is_better( Search_Node* n, Search_Node* new_n ) const { 
+		return (new_n->gn() < n->gn() );
+		//return false; 
+	}
 
 
-	const STRIPS_Problem&	m_strips_model;
-        std::vector<State*>     m_nodes_tuples;
-        unsigned                m_arity;
-	unsigned long           m_num_tuples;
-	unsigned                m_num_fluents;
-	unsigned                m_max_memory_size_MB;
+	const STRIPS_Problem&	      m_strips_model;
+        std::vector<Search_Node*>     m_nodes_tuples;
+        unsigned                      m_arity;
+	unsigned long                 m_num_tuples;
+	unsigned                      m_num_fluents;
+	unsigned                      m_max_memory_size_MB;
 };
 
 

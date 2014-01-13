@@ -105,10 +105,21 @@ def benchmark_domain(planner, dom):
         elif match_value("%s.err" % res.output_file, '.*Segmentation fault.*'):
             data.append("%s,seg,-1,-1,-1,-1" % prob)
         else:
-            quality = get_value(res.output_file, '.*Plan found with cost: ([0-9]+).*', int)
-            generated = get_value(res.output_file, '.*Nodes generated during search: ([0-9]+).*', int)
-            expanded = get_value(res.output_file, '.*Nodes expanded during search: ([0-9]+).*', int)
-            data.append("%s,ok,%f,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded))
+            if match_value(res.output_file, '.*Plan found with cost: ([0-9]+).*'):
+                quality = get_value(res.output_file, '.*Plan found with cost: ([0-9]+).*', int)
+                generated = get_value(res.output_file, '.*Nodes generated during search: ([0-9]+).*', int)
+                expanded = get_value(res.output_file, '.*Nodes expanded during search: ([0-9]+).*', int)
+                data.append("%s,ok,%f,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded))
+            elif match_value(res.output_file, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*'):
+                quality = get_value(res.output_file, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*', float)
+                generated = get_value(res.output_file, '.*Generated: ([0-9]+).*', int)
+                expanded = get_value(res.output_file, '.*Expanded: ([0-9]+).*', int)
+                data.append("%s,ok,%f,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded))
+            elif match_value(res.output_file, '.*NOT I-REACHABLE.*'):
+                data.append("%s,not-i,%f,-1,-1,-1" % (prob, res.runtime))
+            else:
+                print "Error with %s" % prob
+                data.append("%s,err,%f,-1,-1,-1" % (prob, res.runtime))
     
     data.sort()
     
