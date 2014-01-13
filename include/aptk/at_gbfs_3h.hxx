@@ -351,7 +351,7 @@ public:
 		Search_Node *next = NULL;
 		if(! m_open.empty() ) {
 			next = m_open.pop();
-			m_open_hash.erase( m_open_hash.retrieve_iterator( next) );
+			//m_open_hash.erase( m_open_hash.retrieve_iterator( next) );
 		}
 		return next;
 	}
@@ -395,7 +395,7 @@ public:
 			int a = app_set[i];
 
 			bool is_helpful = head->is_po(a); 
-			State *succ = is_helpful ? m_problem.next( *(head->state()), a ) : NULL; 
+			State *succ = is_helpful ? m_problem.next( *(head->state()), a ) : nullptr; 
 			
 
 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
@@ -409,7 +409,7 @@ public:
 			std::cout << std::endl;
 			#endif
 
-		
+			/*	
 			if( previously_hashed(n) ) {
 				#ifdef DEBUG
 				std::cout << "Already in OPEN" << std::endl;
@@ -417,7 +417,7 @@ public:
 				delete n;	       
 				continue;
 			}
-		
+			*/	
 
 
 			if( is_helpful ){
