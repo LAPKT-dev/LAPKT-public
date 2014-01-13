@@ -117,7 +117,7 @@ protected:
 			int a = app_set[i];
 
 			State *succ = this->problem().next( *(head->state()), a );	       
-			Search_Node* n = new Search_Node( succ, a, head );
+			Search_Node* n = new Search_Node( succ, a, head, this->problem().task().actions()[ a ]->cost() );
 		
 			if ( this->is_closed( n ) ) {
 				delete n;
