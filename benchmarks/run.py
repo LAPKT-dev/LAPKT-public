@@ -94,6 +94,9 @@ def benchmark_domain(planner, dom):
         else:
             assert False, "What the deuce?"
 
+        cmd("tail -26 %s > TMP_OUTPUT" % res.output_file)
+        outfile = "TMP_OUTPUT"
+
         if res.timed_out:
             data.append("%s,time,-1,-1,-1,-1" % prob)
         elif match_value("%s.err" % res.output_file, '.*std::bad_alloc.*'):
@@ -105,22 +108,24 @@ def benchmark_domain(planner, dom):
         elif match_value("%s.err" % res.output_file, '.*Segmentation fault.*'):
             data.append("%s,seg,-1,-1,-1,-1" % prob)
         else:
-            if match_value(res.output_file, '.*Plan found with cost: ([0-9]+).*'):
-                quality = get_value(res.output_file, '.*Plan found with cost: ([0-9]+).*', int)
-                generated = get_value(res.output_file, '.*Nodes generated during search: ([0-9]+).*', int)
-                expanded = get_value(res.output_file, '.*Nodes expanded during search: ([0-9]+).*', int)
+            if match_value(outfile, '.*Plan found with cost: ([0-9]+).*'):
+                quality = get_value(outfile, '.*Plan found with cost: ([0-9]+).*', int)
+                generated = get_value(outfile, '.*Nodes generated during search: ([0-9]+).*', int)
+                expanded = get_value(outfile, '.*Nodes expanded during search: ([0-9]+).*', int)
                 data.append("%s,ok,%f,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded))
-            elif match_value(res.output_file, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*'):
-                quality = get_value(res.output_file, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*', float)
-                generated = get_value(res.output_file, '.*Generated: ([0-9]+).*', int)
-                expanded = get_value(res.output_file, '.*Expanded: ([0-9]+).*', int)
+            elif match_value(outfile, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*'):
+                quality = get_value(outfile, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*', float)
+                generated = get_value(outfile, '.*Generated: ([0-9]+).*', int)
+                expanded = get_value(outfile, '.*Expanded: ([0-9]+).*', int)
                 data.append("%s,ok,%f,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded))
-            elif match_value(res.output_file, '.*NOT I-REACHABLE.*'):
+            elif match_value(outfile, '.*NOT I-REACHABLE.*'):
                 data.append("%s,not-i,%f,-1,-1,-1" % (prob, res.runtime))
             else:
                 print "Error with %s" % prob
                 data.append("%s,err,%f,-1,-1,-1" % (prob, res.runtime))
-    
+
+        cmd("rm TMP_OUTPUT")
+
     data.sort()
     
     data = ['problem,status,runtime,quality,generated,expanded'] + data
