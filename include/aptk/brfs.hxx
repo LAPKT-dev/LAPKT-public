@@ -56,7 +56,8 @@ public:
 	Node<State>*		parent()   	{ return m_parent; }
 	Action_Idx		action() const 	{ return m_action; }
 	State*			state()		{ return m_state; }
-	void			set_state( State* s )	{  m_state = s; }
+	void			set_state( State* s )	{ m_state = s; }
+	bool			has_state() const	{ return m_state != NULL; }
 	const State&		state() const 	{ return *m_state; }
 	void			print( std::ostream& os ) const {
 		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = " << m_g  << "}";

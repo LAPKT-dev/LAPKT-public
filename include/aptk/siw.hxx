@@ -36,7 +36,10 @@ namespace search {
 
 
 template < typename Search_Model >
-class SIW : public Serialized_Search<Search_Model, brfs::IW<Search_Model, aptk::agnostic::Novelty<Search_Model>>, aptk::search::brfs::Node< aptk::State >> {
+class SIW : public Serialized_Search<Search_Model, 
+				     brfs::IW<Search_Model, 
+					      aptk::agnostic::Novelty<Search_Model, aptk::search::brfs::Node< aptk::State >>>,
+				     aptk::search::brfs::Node< aptk::State >> {
 
 public:
 
@@ -44,7 +47,7 @@ public:
 	typedef          aptk::agnostic::Landmarks_Graph                                                Landmarks_Graph;
 
 	SIW( const Search_Model& search_problem ) 
-		: Serialized_Search<Search_Model, brfs::IW<Search_Model, aptk::agnostic::Novelty<Search_Model>>, Search_Node>( search_problem ), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0) {	   	
+		: Serialized_Search<Search_Model, brfs::IW<Search_Model, aptk::agnostic::Novelty<Search_Model, Search_Node>>, Search_Node>( search_problem ), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0) {	   	
 		m_goal_agenda = NULL;
 	}
 
