@@ -98,18 +98,32 @@ public:
 		
 	}
 
-	virtual bool  is_goal( State* s ){
+	virtual bool  is_goal( Search_Node* n ){
+
+		const bool has_state = n->has_state();
+		static Fluent_Vec added_fluents;
+		static Fluent_Vec deleted_fluents;
+
+		State* s = has_state ? n->state() : n->parent()->state();
+
+		if( ! has_state ){
+			added_fluents.clear();
+			deleted_fluents.clear();
+			n->parent()->state()->progress_lazy_state(  this->problem().task().actions()[ n->action() ], &added_fluents, &deleted_fluents );	
+		}
+
 
 		for(Fluent_Vec::iterator it =  m_goals_achieved.begin(); it != m_goals_achieved.end(); it++){
-			if(  ! s->entails( *it ) )
+			if(  ! s->entails( *it ) ){
+				if( ! has_state )
+					n->parent()->state()->regress_lazy_state( this->problem().task().actions()[ n->action() ], &added_fluents, &deleted_fluents );
+
 				return false;
+			}
 					
 		}
 		
-		
-
-
-		
+				
 		bool new_goal_achieved = false; 
 		Fluent_Vec unachieved;
 		for(Fluent_Vec::iterator it = m_goal_candidates.begin(); it != m_goal_candidates.end(); it++){
@@ -133,7 +147,10 @@ public:
 			else
 				unachieved.push_back( *it );
 		}
-		
+
+		if( ! has_state )
+			n->parent()->state()->regress_lazy_state( this->problem().task().actions()[ n->action() ], &added_fluents, &deleted_fluents );
+
 		if ( new_goal_achieved ){
 			m_goal_candidates = unachieved;			
 			return true;

@@ -58,13 +58,9 @@ public:
 			if ( !in_closed && range.second != this->end() ) {
 			
 				if( n->state() ){
-					const State& lhs = *(range.second->second->state());
-					if(&lhs != NULL){
-					  if ( lhs == *(n->state()) ) return range.second->second;
-					} else{
-					  const Node& lhs = *(range.second->second);
-					  if ( lhs == *n ) return range.second->second;
-					}
+					const State& lhs = *(range.second->second->state());					
+					if ( lhs == *(n->state()) ) return range.second->second;
+					
 				}
 				else{
 					const Node& lhs = *(range.second->second);

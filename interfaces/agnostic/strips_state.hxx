@@ -62,6 +62,10 @@ public:
 
 	State*	regress_through( const Action& a ) const;
 
+	void    progress_lazy_state(const Action* a, Fluent_Vec* added = NULL, Fluent_Vec* deleted = NULL);
+
+	void    regress_lazy_state(const Action* a, Fluent_Vec* added = NULL, Fluent_Vec* deleted = NULL);
+
 	const STRIPS_Problem&		problem() const;
   
         bool operator==(const State &a) const;

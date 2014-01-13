@@ -144,9 +144,9 @@ public:
 		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
 	}
 
-  size_t                  hash() const { return m_state ? m_state->hash() : m_hash; }
+	size_t      hash() const { return m_state ? m_state->hash() : m_hash; }
 
-	void	update_hash() {
+	void        update_hash() {
 		Hash_Key hasher;
 		hasher.add( m_action );
 		if ( m_parent != NULL )
@@ -206,7 +206,7 @@ public:
 			delete n;
 		}
 		m_closed.clear();
-		m_open_hash.clear();
+		//m_open_hash.clear();
 		delete m_first_h;
 		delete m_second_h;
 		delete m_third_h;
@@ -240,7 +240,7 @@ public:
 		std::cout << std::endl;
 		#endif 
 		m_open.insert( m_root );
-		m_open_hash.put( m_root );
+		//m_open_hash.put( m_root );
 		inc_gen();
 	}
 
@@ -351,7 +351,7 @@ public:
 		Search_Node *next = NULL;
 		if(! m_open.empty() ) {
 			next = m_open.pop();
-			m_open_hash.erase( m_open_hash.retrieve_iterator( next) );
+			//			m_open_hash.erase( m_open_hash.retrieve_iterator( next) );
 		}
 		return next;
 	}
@@ -363,7 +363,7 @@ public:
 		}
 		else {
 			m_open.insert(n);
-			m_open_hash.put(n);
+			//m_open_hash.put(n);
 		}
 		inc_gen();
 		// if( generated() % 1000 == 0){
@@ -410,13 +410,13 @@ public:
 			#endif
 
 		
-			if( previously_hashed(n) ) {
-				#ifdef DEBUG
-				std::cout << "Already in OPEN" << std::endl;
-				#endif
-				delete n;	       
-				continue;
-			}
+			// if( previously_hashed(n) ) {
+			// 	#ifdef DEBUG
+			// 	std::cout << "Already in OPEN" << std::endl;
+			// 	#endif
+			// 	delete n;	       
+			// 	continue;
+			// }
 		
 
 

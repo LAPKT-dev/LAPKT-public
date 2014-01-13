@@ -130,127 +130,13 @@ protected:
 					novelty = i;
 		}
 	}
-
-	
-	void progress_lazy_state(Search_Node* n){
-
-		Fluent_Vec& fl =  n->parent()->state()->fluent_vec(); 
-		const Action* a =  m_strips_model.actions()[ n->action() ];
-		State* s = n->parent()->state();
-			
-		/**
-		 * progress action
-		 */
-		Fluent_Vec::iterator it = fl.begin();
-		while(it != fl.end() ){
-			if( a->retracts(*it) )
-				it = fl.erase( it );
-			else{
-				//Check Conditional Effects
-				bool retracts = false;
-				for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
-					Conditional_Effect* ce = a->ceff_vec()[i];
-					if ( !ce->retracts( *it ) ) // constant-time check
-						continue;
-					if( ce->can_be_applied_on( *s ) ){ // linear-time check
-						retracts = true;
-						break;
-					}
-				}
-
-				if( retracts )
-					it = fl.erase( it );
-				else
-					it++;					
-			}
-		}
-			
-		Fluent_Vec::const_iterator cit = a->add_vec().begin();
-		while(cit != a->add_vec().end() ){
-			if( ! s->entails(*cit) )
-				fl.push_back(*cit);
-			cit++;
-		}
-			
-		for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
-			Conditional_Effect* ce = a->ceff_vec()[i];
-			if( !ce->can_be_applied_on( *s ) ) continue;
-
-			cit = ce->add_vec().begin();
-			while(cit != ce->add_vec().end() ){
-				if( ! s->entails(*cit) )
-					fl.push_back(*cit);
-				cit++;
-			}	
-		}     
-
-	}
-
-	void regress_lazy_state(Search_Node* n){
-
-		Fluent_Vec& fl =  n->parent()->state()->fluent_vec(); 
-		const Action* a =  m_strips_model.actions()[ n->action() ];
-		State* s = n->parent()->state();
-
-		/**
-		 * regress action
-		 */
-		Fluent_Vec::iterator it = fl.begin();
-			
-		while(it != fl.end() ){
-			bool s_entails = s->entails( *it );
-			if( s_entails ){
-				it++;
-			}
-			else if( a->asserts( *it ) ) //if it wasn't true in prev state
-				it = fl.erase( it );
-			else{
-				//Check Conditional Effects
-				bool asserts = false;
-				for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
-					Conditional_Effect* ce = a->ceff_vec()[i];
-					if ( !ce->asserts( *it ) ) // constant-time check
-						continue;
-					if( ce->can_be_applied_on( *s ) ){ // linear-time check
-						asserts = true;
-						break;
-					}
-				}
-				if(asserts)
-					it = fl.erase( it );
-				else
-					it++;					
-			}
-		}
-			
-		Fluent_Vec::const_iterator cit = a->del_vec().begin();
-		while(cit != a->del_vec().end() ){
-			if( s->entails( *cit ) )
-				fl.push_back(*cit);
-			cit++;
-		}
-
-		for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
-			Conditional_Effect* ce = a->ceff_vec()[i];
-			if( !ce->can_be_applied_on( *s ) ) continue;
-
-			cit = ce->del_vec().begin();
-			while(cit != ce->del_vec().end() ){
-				if(  s->entails(*cit) )
-					fl.push_back(*cit);
-				cit++;
-			}	
-		}
-		
-
-	}
-       
+	       
 	bool cover_tuples( Search_Node* n, unsigned arity, unsigned goals_unachieved  )
 	{
 		const bool has_state = n->has_state();
 		
 		if(!has_state)
-			progress_lazy_state(n);	
+			n->parent()->state()->progress_lazy_state(  m_strips_model.actions()[ n->action() ] );	
 				
 
 		Fluent_Vec& fl = has_state ? n->state()->fluent_vec() : n->parent()->state()->fluent_vec();      
@@ -301,7 +187,7 @@ protected:
 		}
 
 		if(!has_state)
-			regress_lazy_state(n);			
+			n->parent()->state()->regress_lazy_state( m_strips_model.actions()[ n->action() ] );
 		
 		return new_covers;
 
