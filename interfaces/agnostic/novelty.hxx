@@ -115,15 +115,8 @@ protected:
 
 		novelty = (float) m_arity+1;
 		for(unsigned i = 1; i <= m_arity; i++){
-#ifdef DEBUG
-			std::cout << "search node: "<< *n <<std::endl;
-#endif 	
 			bool new_covers = n->action() == no_op ? cover_tuples( n, i ) : cover_tuples_op( n, i );
 			
-#ifdef DEBUG
-			if(!new_covers)	
-				std::cout << "\t \t PRUNE! search node: "<<&(ns)<<std::endl;
-#endif 	
 			if ( new_covers )
 				if(i < novelty )
 					novelty = i;
@@ -350,11 +343,6 @@ protected:
  		unsigned n_combinations = aptk::unrolled_pow(  fl.size() , arity );
 
 
-
-#ifdef DEBUG
-
-		std::cout<< s << " covers: " << std::endl;
-#endif
 		for( unsigned idx = 0; idx < n_combinations; idx++ ){
 			/**
 			 * get tuples from indexes
