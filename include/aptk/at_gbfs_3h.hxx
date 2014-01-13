@@ -334,8 +334,8 @@ public:
 		delete m_third_h;
 	}
 
-	void	start() {
-		m_B = infty;
+	void	start( float B = infty) {
+		m_B = B;
 		m_root = new Search_Node( m_problem.init(), 0.0f, no_op, NULL, m_problem.num_actions() );	
 
 		m_first_h->init();
