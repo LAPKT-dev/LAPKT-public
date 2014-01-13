@@ -229,7 +229,7 @@ class AT_BFS_DQ_MH {
 
 public:
 
-	typedef	typename Search_Model::State_Type		State;
+	typedef		typename Search_Model::State_Type		State;
 	typedef  	typename Open_List_Type::Node_Type		Search_Node;
 	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
@@ -263,8 +263,8 @@ public:
 		delete m_secondary_h;
 	}
 
-	void	start() {
-		m_B = infty;
+	virtual void	start( float B = infty) {
+		m_B = B;
 		m_root = new Search_Node( m_problem.init(), 0.0f, no_op, NULL, m_problem.num_actions() );
 		eval(m_root);
 		#ifdef DEBUG
@@ -300,7 +300,9 @@ public:
 	void			inc_gen()			{ m_gen_count++; }
 	unsigned		generated() const		{ return m_gen_count; }
 	void			inc_eval()			{ m_exp_count++; }
+	void			reset_expanded()		{ m_exp_count = 0; }
 	unsigned		expanded() const		{ return m_exp_count; }
+	void			reset_pruned_by_bound()		{ m_pruned_B_count = 0; }
 	void			inc_pruned_bound() 		{ m_pruned_B_count++; }
 	unsigned		pruned_by_bound() const		{ return m_pruned_B_count; }
 	void			inc_dead_end()			{ m_dead_end_count++; }
@@ -317,9 +319,11 @@ public:
 
 	const	Search_Model&	problem() const			{ return m_problem; }
 
-	Search_Node*		root()				{ return m_root; }	
+	Search_Node*		root()				{ return m_root; }
+	void			set_root( Search_Node* n )	{ m_root = n; }	
 
 	Closed_List_Type&		closed() 			{ return m_closed; }
+	Open_List_Type&			open()				{ return m_open; }
 	Closed_List_Type&		open_hash() 			{ return m_open_hash; }
 	std::list<Search_Node*>&	garbage()			{ return m_garbage; }
 	Primary_Heuristic&	h1()				{ return *m_primary_h; }

@@ -29,8 +29,11 @@ BOOST_PYTHON_MODULE( libatbfsf )
 		.def( "solve", &AT_BFS_f_Planner::solve )
 		.def_readwrite( "ignore_action_costs", &AT_BFS_f_Planner::m_ignore_action_costs )
 		.def_readwrite( "parsing_time", &AT_BFS_f_Planner::m_parsing_time )
+		.def_readwrite( "iw_bound", &AT_BFS_f_Planner::m_iw_bound )
 		.def_readwrite( "max_novelty", &AT_BFS_f_Planner::m_max_novelty )
 		.def_readwrite( "log_filename", &AT_BFS_f_Planner::m_log_filename )
+		.def_readwrite( "enable_siw", &AT_BFS_f_Planner::m_enable_siw )
+		.def_readwrite( "enable_bfs_f", &AT_BFS_f_Planner::m_enable_bfs_f )
 	;
 }
 
