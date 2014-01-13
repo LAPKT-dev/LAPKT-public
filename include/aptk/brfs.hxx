@@ -44,6 +44,8 @@ public:
 
 	Node( State* s, Action_Idx action, Node<State>* parent ) 
 	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ) {
+		
+		//m_g = ( parent ? parent->m_g + cost : 0.0f);
 		m_g = ( parent ? parent->m_g + 1 : 1);
 	}
 	

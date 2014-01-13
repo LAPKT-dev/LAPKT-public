@@ -437,7 +437,10 @@ protected:
 		}
 	}
 
-	inline bool      is_better( Search_Node* s,const Search_Node* new_s ) const { return false; }
+	inline bool      is_better( Search_Node* n, Search_Node* new_n ) const { 
+		return (new_n->gn() < n->gn() );
+		//return false; 
+	}
 
 
 	const STRIPS_Problem&	      m_strips_model;
