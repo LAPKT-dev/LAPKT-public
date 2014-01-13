@@ -89,6 +89,8 @@ SIW_Planner::do_search( SIW_Fwd& engine ) {
 		expanded_0 = expanded_f;
 		generated_0 = generated_f;
 		plan.clear();
+	} else {
+		std::cout << ";; NOT I-REACHABLE ;;" << std::endl;
 	}
  	float total_time = aptk::time_used() - ref;
 	std::cout << "Total time: " << total_time << std::endl;

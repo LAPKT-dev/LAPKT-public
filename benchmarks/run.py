@@ -115,6 +115,8 @@ def benchmark_domain(planner, dom):
                 generated = get_value(res.output_file, '.*Generated: ([0-9]+).*', int)
                 expanded = get_value(res.output_file, '.*Expanded: ([0-9]+).*', int)
                 data.append("%s,ok,%f,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded))
+            elif match_value(res.output_file, '.*NOT I-REACHABLE.*'):
+                data.append("%s,not-i,%f,-1,-1,-1" % (prob, res.runtime))
             else:
                 print "Error with %s" % prob
                 data.append("%s,err,%f,-1,-1,-1" % (prob, res.runtime))
