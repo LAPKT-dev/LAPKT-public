@@ -19,4 +19,4 @@ agnostic_objs = SConscript('../../interfaces/agnostic/SConscript.agnostic')
 python_objs = SConscript('../python/agnostic/SConscript.python')
 bfsf_objs = SConscript('src/SConscript')
 
-ommon_env.SharedLibrary( 'bfsf.so', bfsf_objs + generic_objs + agnostic_objs + python_objs ) 
+common_env.SharedLibrary( 'bfsf.so', bfsf_objs + generic_objs + agnostic_objs + python_objs ) 
