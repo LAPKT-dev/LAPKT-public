@@ -416,14 +416,7 @@ public:
 				*/
 				m_open_po_joint.insert(n);
 			}
-			else if ( po_1 ) {
-				/*
-				#ifdef DEBUG
-				std::cout << "Node: ";
-				n->print(std::cout);
-				std::cout << " goes to PRIMARY OPEN" << std::endl;
-				#endif
-				*/
+			else if ( po_1 && !po_2 ) {
 				m_open_po_1.insert(n);
 			}
 			else {
@@ -568,6 +561,7 @@ protected:
 	Secondary_Heuristic*			m_secondary_h;
 	Open_List_Type				m_open_po_joint;
 	Open_List_Type				m_open_po_1;
+	Open_List_Type				m_open_po_2;
 	Open_List_Type				m_open;
 	Closed_List_Type			m_closed, m_open_hash;
 	unsigned				m_exp_count;

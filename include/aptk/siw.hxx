@@ -47,7 +47,7 @@ public:
 	typedef          aptk::agnostic::Landmarks_Graph                                                Landmarks_Graph;
 
 	SIW( const Search_Model& search_problem ) 
-		: Serialized_Search<Search_Model, brfs::IW<Search_Model, aptk::agnostic::Novelty<Search_Model, Search_Node>>, Search_Node>( search_problem ), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0) {	   	
+		: Serialized_Search<Search_Model, brfs::IW<Search_Model, aptk::agnostic::Novelty<Search_Model, Search_Node>>, Search_Node>( search_problem ), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0), m_max_bound( std::numeric_limits<unsigned>::max() ) {	   	
 		m_goal_agenda = NULL;
 	}
 
@@ -92,6 +92,9 @@ public:
 				new_init_state = new State( this->problem().task() );
 				new_init_state->set( this->m_root->state()->fluent_vec() );
 				new_init_state->update_hash();				
+
+				if ( this->bound() > this->max_bound() ) // Hard cap on width exceeded
+					return false;
 
 				this->set_bound( this->bound()+1 );				
 				this->start( new_init_state );				
@@ -150,6 +153,8 @@ public:
 	unsigned		sum_pruned_by_bound() const		{ return m_pruned_sum_B_count; }
 	float                   avg_B() const { return (float)(m_sum_B_count) / m_iw_calls; }
 	unsigned                max_B() const { return m_max_B_count; }
+	void			set_max_bound( unsigned v ) { m_max_bound = v; }
+	unsigned		max_bound( ) { return m_max_bound; }
 
 protected:	       
 	unsigned		m_pruned_sum_B_count;
@@ -157,7 +162,7 @@ protected:
 	unsigned		m_max_B_count;
 	unsigned		m_iw_calls;
 	Landmarks_Graph*        m_goal_agenda;
-	
+	unsigned		m_max_bound;
 };
 
 }

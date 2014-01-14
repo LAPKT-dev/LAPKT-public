@@ -198,8 +198,10 @@ public:
 		this->open_hash().clear();
 		Search_Node *head = this->get_node();
 		while ( head ) {
-			assert( m_seen.retrieve(head) == NULL );
-			m_seen.put(head);
+			if ( !head->seen() ) 
+				delete head;
+			else 
+				m_seen.put(head);
 			head = this->get_node();
 		}
 		this->open_node( this->root(), false, false );
@@ -243,6 +245,8 @@ public:
 	}
 
 	float	weight() const { return m_W; }
+
+	Closed_List_Type&	seen() { return m_seen; }
 
 protected:
 

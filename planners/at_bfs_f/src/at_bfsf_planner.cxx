@@ -34,7 +34,7 @@ AT_BFS_f_Planner::setup() {
 
 float
 AT_BFS_f_Planner::do_stage_1(  SIW_Fwd& engine,  float& cost ) {
-	engine.set_bound( m_iw_bound );
+	engine.set_max_bound( m_iw_bound );
 	engine.start();
 
 	std::vector< aptk::Action_Idx > plan;
@@ -89,7 +89,7 @@ float
 AT_BFS_f_Planner::do_stage_3( Anytime_RWA& engine, float B, float& cost ) {
 	engine.start(B);
 	m_details << "Branch & Bound search: Initial Bound = " << B << std::endl;
-	engine.set_schedule( 10, 5, 1 );
+	engine.set_schedule( 1000, 1, 10 );
 
 	std::vector< aptk::Action_Idx > plan;
 	cost = infty;
@@ -226,10 +226,6 @@ AT_BFS_f_Planner::solve() {
 		siw_engine.set_goal_agenda( &graph );
 		float iw_t = do_stage_1( siw_engine, siw_cost );
 		m_details << "SIW search completed in " << iw_t << " secs, found plan cost = " << siw_cost << std::endl;
-		if ( siw_cost == infty ) {
-			report_no_solution( "SIW did not found a plan" );
-			return;
-		}
 	}
 
 	float bfs_f_cost = infty;
@@ -258,12 +254,12 @@ AT_BFS_f_Planner::solve() {
 			return;
 		}
 	}
-
-	if ( bfs_f_cost < infty ) {
+	bfs_f_cost = std::min( siw_cost, bfs_f_cost );
+	if ( (bfs_f_cost < infty) || (!m_enable_siw && !m_enable_bfs_f) ) {
 		// MRJ: 3rd Stage, RWA* with bound informed by BFS(f) search
 		float rwa_cost = infty;
 		m_details << "Stage #3: RWA* " << std::endl;
-		Anytime_RWA wbfs_engine( search_prob, 5.0f, 0.75f);
+		Anytime_RWA wbfs_engine( search_prob, 10.0f, 0.95f);
 		//wbfs_engine.h2().set_graph( &graph );
 		wbfs_engine.use_land_graph_manager( &lgm );
 		float at_search_t = do_stage_3( wbfs_engine, std::min(bfs_f_cost,siw_cost), rwa_cost );

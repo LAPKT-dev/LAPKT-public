@@ -143,7 +143,7 @@ namespace ipc2014 {
 				if ( dequal( h1n(), o.h1n() ) ) {
 					if ( h2n() > o.h2n() ) return true;
 					if ( dequal( h2n(), o.h2n() ) ) {
-						if ( gn() > o.gn() ) return true;
+						if ( gn() < o.gn() ) return true;
 					}
 				}
 			}
@@ -217,20 +217,21 @@ namespace bfs_dq_mh {
 		}
 
 		virtual void	eval( Search_Node* candidate ) {
-			if ( candidate->seen() ) return;
-			//std::cout << "Eval:" << std::endl;	
-
 			std::vector<Action_Idx>	po;
-			this->h1().eval( *(candidate->state()), candidate->h1n(), po );
-			for ( unsigned k = 0; k < po.size(); k++ )
-				candidate->add_po_1( po[k] );	
-			/*
-			std::cout << "Primary Helpful:" << std::endl;
-			for ( auto index : po ) {
-				std::cout << "\t" << this->problem().task().actions()[ index ]->signature() << std::endl;
+			if ( !candidate->seen() ) {
+				//std::cout << "Eval:" << std::endl;	
+	
+				this->h1().eval( *(candidate->state()), candidate->h1n(), po );
+				for ( unsigned k = 0; k < po.size(); k++ )
+					candidate->add_po_1( po[k] );	
+				/*
+				std::cout << "Primary Helpful:" << std::endl;
+				for ( auto index : po ) {
+					std::cout << "\t" << this->problem().task().actions()[ index ]->signature() << std::endl;
+				}
+				*/
+				po.clear();
 			}
-			*/
-			po.clear();
 
 			if (candidate->action() != no_op)
 				m_lgm->apply_action( candidate->action(), candidate->land_consumed(), candidate->land_unconsumed() );
@@ -257,14 +258,16 @@ namespace bfs_dq_mh {
 				if ( head->gn() >= this->bound() )  {
 					this->inc_pruned_bound();
 					this->close(head);
+					/*
 					if ( this->expanded() > 1000 && this->pruned_by_bound() > this->expanded() ) {
 						this->update_weight();
 						this->restart_search();
 					}
+					*/
 					head = this->get_node();
 					continue;
 				}
-
+				/*
 				if ( this->bound() < infty ) {
 					float h;
 					m_adm_h.eval( *(head->state()), h );
@@ -284,7 +287,7 @@ namespace bfs_dq_mh {
 						continue;
 					}
 				}
-	
+				*/
 				if(this->problem().goal(*(head->state()))) {
 					this->close(head);
 					this->set_bound( head->gn() );
@@ -312,6 +315,40 @@ namespace bfs_dq_mh {
 			this->h2().set_graph( m_lgm->graph() );
 		}
 
+		bool in_closed( Search_Node* n )  {
+			return this->closed().retrieve(n) != nullptr;
+		}
+	
+		bool in_open( Search_Node* n )  {
+			return this->open_hash().retrieve(n) != nullptr;
+		}
+	
+		bool in_seen( Search_Node* n )  {
+			return this->seen().retrieve(n) != nullptr;
+		}
+
+		void	handle_fresh( Search_Node* head, Search_Node* n, int a ) {
+			n->h1n() = head->h1n();
+			n->h2n() = head->h2n();
+			n->fn() = this->weight() * n->h1n() + n->gn();
+			this->inc_gen();
+			if ( this->generated() % 10000 == 0 ) {
+				std::cout << "Generated: " << this->generated() << " B = " << this->bound();
+				std::cout << " Expanded: " << this->expanded() << " Pruned: " << this->pruned_by_bound() << " f(n) = ";
+				std::cout << head->fn() << " g(n) = " << head->gn();
+				std::cout << " h1(n) = " << n->h1n() << " h2(n) = " << n->h2n() << std::endl;
+			}
+
+			this->open_node(n, head->is_po_1(a), head->is_po_2(a));
+			
+		}
+
+		void	handle_seen( Search_Node* head, Search_Node* n, int a ) {
+			n->h2n() = head->h2n();
+			n->fn() = this->weight() * n->h1n() + n->gn();
+			this->open_node(n, head->is_po_1(a), head->is_po_2(a));
+			
+		}
 		virtual void 			process(  Search_Node *head ) {
 			if(m_lgm)
 				head->update_land_graph( m_lgm );
@@ -323,32 +360,57 @@ namespace bfs_dq_mh {
 	
 				State *succ = this->problem().next( *(head->state()), a );
 				Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
-	
-				if ( this->is_closed( n ) ) {
+				bool is_in_closed = in_closed(n);
+				bool is_in_open = in_open(n);
+				bool is_in_seen = in_seen(n);
+
+				if ( !is_in_closed && !is_in_open && !is_in_seen ) {
+					handle_fresh( head, n, a );
+					continue;
+				}
+				
+				if ( is_in_seen ) {
+					Search_Node* n2 = this->seen().retrieve(n);
+					if ( n->gn() < n2->gn() ) {
+						n2->gn() = n->gn();
+						n2->m_parent = n->m_parent;
+						n2->m_action = n->action();
+					}
+					handle_seen( head, n2, a );
+					this->seen().erase( this->seen().retrieve_iterator(n2) );
 					delete n;
 					continue;
 				}
-	
-				if ( this->is_open( n ) ) {
+				if ( is_in_closed ) {
+					Search_Node* n2 = this->closed().retrieve(n);
+					if ( n->gn() < n2->gn() ) {
+						n2->gn() = n->gn();
+						n2->m_parent = n->m_parent;
+						n2->m_action = n->action();
+						n2->set_seen();
+						this->closed().erase( this->closed().retrieve_iterator( n2 ) );
+						handle_seen( head, n2, a );	
+					}
 					delete n;
 					continue;
 				}
-				if ( this->is_seen( n ) ) {
+				if ( is_in_open ) {
+					Search_Node* n2 = this->open_hash().retrieve(n);
+					if ( n->gn() < n2->gn() ) {
+						n2->gn() = n->gn();
+						n2->m_parent = n->m_parent;
+						n2->m_action = n->action();
+						n2->h1n() = head->h1n();
+						n2->h2n() = head->h2n();
+						n2->fn() = this->weight() * n2->h1n() + n2->gn();
+						n2->notify_update();
+						this->inc_replaced_open();
+					}
 					delete n;
 					continue;
 				}
-				n->h1n() = head->h1n();
-				n->h2n() = head->h2n();
-				n->fn() = this->weight() * n->h1n() + n->gn();
-				this->inc_gen();
-				if ( this->generated() % 10000 == 0 ) {
-					std::cout << "Generated: " << this->generated() << " B = " << this->bound();
-					std::cout << " Expanded: " << this->expanded() << " Pruned: " << this->pruned_by_bound() << " f(n) = ";
-					std::cout << head->fn() << " g(n) = " << head->gn();
-					std::cout << " h1(n) = " << n->h1n() << " h2(n) = " << n->h2n() << std::endl;
-				}
-	
-				this->open_node(n, head->is_po_1(a), head->is_po_2(a));
+				assert(false);
+
 			}
 			this->inc_eval();
 		}
