@@ -245,6 +245,38 @@ protected:
 
 		const bool has_state = n->has_state();
 		
+		static Fluent_Vec new_atom_vec;
+		const Action* a = m_strips_model.actions()[ n->action() ];
+		if( a->has_ceff() )
+		  {
+		    static Fluent_Set new_atom_set( m_strips_model.num_fluents()+1 );
+		    new_atom_set.reset();
+		    new_atom_vec.clear();
+		    for(Fluent_Vec::const_iterator it = a->add_vec().begin(); it != a->add_vec().end(); it++)
+		      {
+			if ( new_atom_set.isset( *it ) ) continue;
+			
+			new_atom_vec.push_back( *it );
+			new_atom_set.set( *it );
+			
+		      }
+		    for( unsigned i = 0; i < a->ceff_vec().size(); i++ )
+		      {
+			Conditional_Effect* ce = a->ceff_vec()[i];
+			if( ce->can_be_applied_on( *(n->parent()->state()) ) )
+			  for(Fluent_Vec::iterator it = ce->add_vec().begin(); it != ce->add_vec().end(); it++){
+				{
+				  if ( new_atom_set.isset( *it ) ) continue;
+				  
+				  new_atom_vec.push_back( *it );
+				  new_atom_set.set( *it );
+			 	}
+			  }
+			  
+		      }
+		  }
+		const Fluent_Vec& add = a->has_ceff() ? new_atom_vec : a->add_vec();
+        
 		if(!has_state)
 			progress_lazy_state(n);	
 
@@ -255,8 +287,6 @@ protected:
 		assert ( arity > 0 );
 
 		std::vector<unsigned> tuple( arity );
-
-		const Fluent_Vec& add = m_strips_model.actions()[ n->action() ]->add_vec();
 
 		unsigned atoms_arity = arity - 1;
 		unsigned n_combinations = aptk::unrolled_pow(  fl.size() , atoms_arity );	       

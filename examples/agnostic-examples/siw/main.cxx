@@ -56,11 +56,12 @@ using	aptk::search::brfs::IW;
 using	aptk::search::Serialized_Search;
 using	aptk::search::SIW;
 
-typedef         Novelty<Fwd_Search_Problem>                       H_Novel_Fwd;
+typedef		aptk::search::brfs::Node< aptk::State >	          IW_Node;
+typedef         Novelty<Fwd_Search_Problem, IW_Node>              H_Novel_Fwd;
 typedef         H2_Heuristic<Fwd_Search_Problem>                  H2_Fwd;
 typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>     Gen_Lms_Fwd;
 typedef		IW< Fwd_Search_Problem, H_Novel_Fwd >	          IW_Fwd;
-typedef		aptk::search::brfs::Node< aptk::State >	          IW_Node;
+
 
 //typedef		Serialized_Search< Fwd_Search_Problem, IW_Fwd, IW_Node >        SIW_Fwd;
 typedef		SIW< Fwd_Search_Problem >        SIW_Fwd;
