@@ -94,8 +94,11 @@ def benchmark_domain(planner, dom):
         else:
             assert False, "What the deuce?"
 
-        cmd("tail -26 %s > TMP_OUTPUT" % res.output_file)
-        outfile = "TMP_OUTPUT"
+        if 'old-' in planner:
+            cmd("tail -26 %s > TMP_OUTPUT" % res.output_file)
+            outfile = "TMP_OUTPUT"
+        else:
+            outfile = res.output_file
 
         if res.timed_out:
             data.append("%s,time,-1,-1,-1,-1" % prob)
@@ -124,7 +127,8 @@ def benchmark_domain(planner, dom):
                 print "Error with %s" % prob
                 data.append("%s,err,%f,-1,-1,-1" % (prob, res.runtime))
 
-        cmd("rm TMP_OUTPUT")
+        if 'old-' in planner:
+            cmd("rm TMP_OUTPUT")
 
     data.sort()
     
