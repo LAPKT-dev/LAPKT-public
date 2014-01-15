@@ -201,7 +201,15 @@ AT_BFS_f_Planner::solve() {
 
 	if ( !instance()->has_conditional_effects() ) {
 		H2_Fwd    h2( search_prob );
-		h2.compute_edeletes( *instance() );			
+		h2.compute_edeletes( *instance() );	
+
+		if ( h2.eval( instance()->goal() ) == infty ) {
+			m_details << "Problem has no solution!" << std::endl;
+			report_no_solution( "h2(s0) = infty" );
+			return;	
+		}
+
+		
 	}
 	else
 		instance()->compute_edeletes();
@@ -209,11 +217,7 @@ AT_BFS_f_Planner::solve() {
 
 	float siw_cost = infty;
 
-	if ( h2.eval( instance()->goal() ) == infty ) {
-		m_details << "Problem has no solution!" << std::endl;
-		report_no_solution( "h2(s0) = infty" );
-		return;	
-	}
+
 	if ( m_enable_siw )
 	{
 		// MRJ: 1st Stage, SIW search with bounded width
