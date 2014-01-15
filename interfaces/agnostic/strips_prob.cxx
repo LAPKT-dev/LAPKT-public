@@ -200,4 +200,17 @@ namespace aptk
 			if ( k < v.size()-1 ) os << ", ";
 		}		
 	}
+
+	void	STRIPS_Problem::compute_edeletes() {
+
+		for ( auto p : fluents() ) {
+			for ( auto a : actions() ) 
+				if ( a->retracts( p->index() ) ) {
+					a->edel_vec().push_back( p->index() );
+					a->edel_set().set( p->index() );
+					actions_edeleting( p->index() ).push_back( (const Action*)&a );
+				}
+		}
+
+	}
 }

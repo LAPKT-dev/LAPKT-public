@@ -199,8 +199,13 @@ AT_BFS_f_Planner::solve() {
 
 	Fwd_Search_Problem	search_prob( instance() );
 
-	H2_Fwd    h2( search_prob );
-	h2.compute_edeletes( *instance() );	
+	if ( !instance()->has_conditional_effects() ) {
+		H2_Fwd    h2( search_prob );
+		h2.compute_edeletes( *instance() );			
+	}
+	else
+		instance()->compute_edeletes();
+
 
 	float siw_cost = infty;
 
