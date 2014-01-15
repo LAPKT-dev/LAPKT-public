@@ -117,8 +117,12 @@ protected:
 			int a = app_set[i];
 
 			State *succ = this->problem().next( *(head->state()), a );	       
-			Search_Node* n = new Search_Node( succ, a, head, this->problem().task().actions()[ a ]->cost() );
-		
+			Search_Node* n = new Search_Node( succ , a, head, this->problem().task().actions()[ a ]->cost() );
+
+			//Lazy expansion
+			//Search_Node* n = new Search_Node( NULL , a, head, this->problem().task().actions()[ a ]->cost() );
+
+			
 			if ( this->is_closed( n ) ) {
 				delete n;
 				continue;
@@ -131,8 +135,12 @@ protected:
 				if( prune( n ) ){
 					#ifdef DEBUG
 					std::cout << std::endl;
-					std::cout << "PRUNED State: " << n->state()  << " " << n->parent()->state() << " " << n->gn() << " ";
-					n->state()->print( std::cout );
+					std::cout << "PRUNED State: ";
+					if( n->has_state() )
+						std::cout << n->state();
+					std::cout << " " << n->parent()->state() << " " << n->gn() << " ";
+					if( n->has_state() )
+						n->state()->print( std::cout );
 					std::cout << this->problem().task().actions()[ n->action() ]->signature() << std::endl;
 					#endif
 					delete n;
@@ -141,13 +149,17 @@ protected:
 
 				#ifdef DEBUG
 				std::cout << std::endl;
-				std::cout << "State: " << n->state() << " " << n->parent()->state() << " " << n->gn() << " ";
-				n->state()->print( std::cout );
+				std::cout << "State: ";
+				if( n->has_state() )
+					std::cout << n->state();
+				std::cout << " " << n->parent()->state() << " " << n->gn() << " ";
+				if( n->has_state() )
+					n->state()->print( std::cout );
 				std::cout << this->problem().task().actions()[ n->action() ]->signature() << std::endl;
 				#endif			
 
 				this->open_node(n);				
-				if( this->is_goal( n->state() ) )
+				if( this->is_goal( n ) )
 					return n;
 			}
 

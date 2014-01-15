@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/search_prob.hxx>
 #include <aptk/resources_control.hxx>
 #include <aptk/closed_list.hxx>
+#include <aptk/hash_table.hxx>
 
 #include <queue>
 #include <vector>
@@ -46,6 +47,9 @@ public:
 	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ) {
 		
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
+		if( m_state == NULL )
+		  update_hash();
+
 	}
 	
 	virtual ~Node() {
@@ -64,7 +68,15 @@ public:
 		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = " << m_g  << "}";
 	}
 	
-	size_t                  hash() const { return m_state->hash(); }
+	size_t      hash() const { return m_state ? m_state->hash() : m_hash; }
+
+	void        update_hash() {
+		Hash_Key hasher;
+		hasher.add( m_action );
+		if ( m_parent != NULL )
+			hasher.add( m_parent->state()->fluent_vec() );
+		m_hash = (size_t)hasher;
+	}
 
 	bool   	operator==( const Node<State>& o ) const {
 		
@@ -90,6 +102,7 @@ public:
 	float		m_h;
 	Action_Idx	m_action;
 	unsigned       	m_g;
+	size_t		m_hash;
 
 };
 
@@ -141,7 +154,17 @@ public:
 		m_max_depth=0;
 	}
 	
-	virtual bool    is_goal( State* s  ){ return m_problem.goal( *s ); }
+	virtual bool    is_goal( Search_Node* n  ){ 
+		if( n->has_state() )
+			return m_problem.goal( *(n->state()) ); 
+		else{			
+			n->parent()->state()->progress_lazy_state(  m_problem.task().actions()[ n->action() ] );	
+			const bool is_goal = m_problem.goal( *( n->state() ) ); 
+			n->parent()->state()->regress_lazy_state( m_problem.task().actions()[ n->action() ] );
+			return is_goal;
+		}
+			
+	}
 
 	void	start( State *s = NULL ) {
 	
@@ -235,7 +258,7 @@ public:
 			}
 			else{
 				open_node(n);			       
-				if( is_goal( n->state() ) )
+				if( is_goal( n ) )
 					return n;
 				
 			}
@@ -248,14 +271,21 @@ public:
 
 	virtual Search_Node*	 	do_search() {
 		Search_Node *head = get_node();
-		if( is_goal( head->state() ) )
+		if( is_goal( head ) )
 			return head;
 
 		int counter =0;
 		while(head) {	
+			if( ! head->has_state() )
+				head->set_state( m_problem.next(*(head->parent()->state()), head->action()) );
+
 			Search_Node* goal = process(head);
 			close(head);
-			if( goal ) return goal;
+			if( goal ) {
+				if( ! goal->has_state() )
+					goal->set_state( m_problem.next(*(goal->parent()->state()), goal->action()) );
+				return goal;
+			}
 			counter++;
 			head = get_node();
 		}
