@@ -134,7 +134,7 @@ public:
 					m_goals_achieved.push_back( *it );		
 
 					static Bit_Set excluded( this->problem().num_actions() );
-					//exclude_actions( excluded );
+					exclude_actions( excluded );
 
 					//debug_info( s, unachieved );
 					
