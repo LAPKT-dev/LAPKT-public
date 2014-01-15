@@ -211,9 +211,10 @@ using namespace boost::python;
 
 		// complete initial state under negation
 		for ( unsigned p = 0; p < instance()->num_fluents(); p++ ) {
+			if ( p >= m_negated.size() ) continue; // p is a negated fluent!
 			if ( std::find( I.begin(), I.end(), p ) != I.end() ) 
 				continue;
-			if ( m_negated[p] ) 
+			if ( m_negated.at(p) ) 
 				I.push_back( m_negated[ p ]->index() );
 		} 	
 
