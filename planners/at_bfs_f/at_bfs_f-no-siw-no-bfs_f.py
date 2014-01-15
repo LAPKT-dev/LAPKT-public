@@ -29,6 +29,9 @@ def main( domain_file, problem_file, plan_file ) :
 
 	# MRJ: plan file
 	task.plan_filename = plan_file
+
+	task.enable_siw = False
+	task.enable_bfs_f = False
 	
 	# MRJ: Comment line below to deactivate profiling
 	#profiler_start( 'bfs_f.prof' )
@@ -50,11 +53,8 @@ def debug() :
 	#main( 	"../../benchmarks/ipc-2011/floortile/domain.pddl", 
 	#	"../../benchmarks/ipc-2011/floortile/seq-p01-001.pddl",		
 	#	"plan.ipc" )
-	#main( "../../benchmarks/ipc-2011/woodworking/domain.pddl",
-	#	"../../benchmarks/ipc-2011/woodworking/p01.pddl",
-	#	"plan.ipc" )
-	main( 	"../../benchmarks/blocks-world/domain-blocksaips.pddl",
-		"../../benchmarks/blocks-world/blocksaips40.pddl",
+	main( "../../benchmarks/ipc-2011/woodworking/domain.pddl",
+		"../../benchmarks/ipc-2011/woodworking/p01.pddl",
 		"plan.ipc" )
 
 if __name__ == "__main__":

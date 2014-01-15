@@ -87,6 +87,8 @@ public:
 			for(; p < fsize; p++){
 				unsigned fl = m_goals_achieved.at(p);
 				if( (*it_a)->asserts( fl ) || (*it_a)->edeletes( fl ) ){
+				//if(  (*it_a)->edeletes( fl ) ){
+				//if(  (*it_a)->asserts( fl ) ){
 					excluded.set( i ); 
 					break;
 				}
@@ -132,7 +134,7 @@ public:
 					m_goals_achieved.push_back( *it );		
 
 					static Bit_Set excluded( this->problem().num_actions() );
-					exclude_actions( excluded );
+					//exclude_actions( excluded );
 
 					//debug_info( s, unachieved );
 					

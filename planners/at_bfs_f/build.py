@@ -23,10 +23,10 @@ def main() :
 		sys.exit(1)
 	
 	# 3. Build profiler
-	rv = os.system( 'make -f prof.makefile' )
-	if rv != 0 :
-		print >> sys.stderr, "Could not build profiling tools"
-		sys.exit(1)
+	#rv = os.system( 'make -f prof.makefile' )
+	#if rv != 0 :
+	#	print >> sys.stderr, "Could not build profiling tools"
+	#	sys.exit(1)
 	
 if __name__ == '__main__' :
 	main()

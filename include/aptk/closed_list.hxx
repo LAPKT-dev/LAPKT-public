@@ -105,7 +105,7 @@ public:
 	}
 
 	const_iterator retrieve_iterator( Node* n ) const {
-			std::pair< iterator, iterator > range = ( ! n->state() ? this->equal_range( n->hash() ) : this->equal_range( n->state()->hash() ));
+		std::pair< iterator, iterator > range = ( ! n->state() ? this->equal_range( n->hash() ) : this->equal_range( n->state()->hash() ));
 
 		if ( range.first != this->end() ) {
 			bool in_closed = false;

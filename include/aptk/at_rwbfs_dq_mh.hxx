@@ -54,8 +54,8 @@ template <typename Search_Model, typename Primary_Heuristic, typename Secondary_
 class AT_RWBFS_DQ_MH  : public AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type > {
 
 public:
+	typedef		typename AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type >::Search_Node	Search_Node;
 	typedef		typename Search_Model::State_Type		State;
-	typedef  	Node< State >					Search_Node;
 	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
 	AT_RWBFS_DQ_MH( 	const Search_Model& search_problem, float W = 5.0f, float decay = 0.75f ) 
@@ -123,7 +123,8 @@ public:
 			n->fn() = m_W * n->h1n() + n->gn();
 			this->inc_gen();
 			if ( this->generated() % 10000 == 0 ) {
-				std::cout << "Generated: " << this->generated() << " B = " << this->bound() << " f(n) = ";
+				std::cout << "Generated: " << this->generated() << " B = " << this->bound();
+				std::cout << " Expanded: " << this->expanded() << " Pruned: " << this->pruned_by_bound() << " f(n) = ";
 				std::cout << head->fn() << " g(n) = " << head->gn();
 				std::cout << " h1(n) = " << n->h1n() << " h2(n) = " << n->h2n() << std::endl;
 			}
@@ -142,6 +143,12 @@ public:
 			if ( head->gn() >= this->bound() )  {
 				this->inc_pruned_bound();
 				this->close(head);
+				if ( this->expanded() > 1000 && this->pruned_by_bound() > this->expanded() ) {
+					m_W *= m_decay;
+					if ( m_W < 1.0f ) m_W = 1.0f;
+					restart_search();
+					std::cout << "New W value = " << m_W << std::endl;
+				}
 				head = this->get_node();
 				continue;
 			}
@@ -152,6 +159,7 @@ public:
 				m_W *= m_decay;
 				if ( m_W < 1.0f ) m_W = 1.0f;
 				restart_search();	
+				std::cout << "New W value = " << m_W << std::endl;
 				return head;
 			}
 			float t = time_used();
@@ -168,8 +176,15 @@ public:
 		return NULL;
 	}
 
+	void	update_weight() {
+		m_W *= m_decay;
+		if ( m_W < 1.0f ) m_W = 1.0f;
+		std::cout << "New W value = " << m_W << std::endl;
+	}
+
 	void	restart_search() {
 		// MRJ: Move Closed to Seen
+		std::cout << "Restart!" << std::endl;
 		for ( typename Closed_List_Type::iterator it = this->closed().begin();
 			it != this->closed().end(); it++ ) {
 			it->second->set_seen();
@@ -183,11 +198,15 @@ public:
 		this->open_hash().clear();
 		Search_Node *head = this->get_node();
 		while ( head ) {
-			assert( m_seen.retrieve(head) == NULL );
-			m_seen.put(head);
+			if ( !head->seen() ) 
+				delete head;
+			else 
+				m_seen.put(head);
 			head = this->get_node();
 		}
 		this->open_node( this->root(), false, false );
+		this->reset_expanded();
+		this->reset_pruned_by_bound();
 	}
 
 	virtual bool is_open( Search_Node *n ) {
@@ -224,6 +243,10 @@ public:
 		this->open_node( n2, n2->parent()->is_po_1(n2->action()), n2->parent()->is_po_2(n2->action()) );
 		return true;
 	}
+
+	float	weight() const { return m_W; }
+
+	Closed_List_Type&	seen() { return m_seen; }
 
 protected:
 

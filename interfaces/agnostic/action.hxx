@@ -56,7 +56,7 @@ public:
 	const Fluent_Set&	        edel_set()  const { return m_edel_set; }
 	const Conditional_Effect_Vec&   ceff_vec() const { return m_cond_effects; }
 	
-	
+        bool                            has_ceff() const {return !m_cond_effects.empty(); }
 	/* Added for match trees */
 	VarVal_Vec&        prec_varval() { return m_prec_varval; }
 	const VarVal_Vec&  prec_varval() const { return m_prec_varval; }

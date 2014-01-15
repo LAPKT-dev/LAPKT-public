@@ -147,11 +147,6 @@ protected:
 
  		unsigned n_combinations = aptk::unrolled_pow(  fl.size() , arity );
 
-
-#ifdef DEBUG
-
-		std::cout<< s << " covers: " << std::endl;
-#endif
 		for( unsigned idx = 0; idx < n_combinations; idx++ ){
 			/**
 			 * get tuples from indexes
