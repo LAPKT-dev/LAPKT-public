@@ -30,7 +30,7 @@ def main( domain_file, problem_file, plan_file ) :
 	task.plan_filename = plan_file
 
 	# MRJ: one h.a. per fluent flag
-	task.one_ha_per_fluent = True
+	task.one_ha_per_fluent = False
 	
 	# MRJ: Comment line below to deactivate profiling
 	#profiler_start( 'bfs_f.prof' )

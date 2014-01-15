@@ -208,7 +208,8 @@ int main( int argc, char** argv ) {
 	Gen_Lms_Fwd    gen_lms( search_prob );
 	Landmarks_Graph graph( prob );
 
-	//	gen_lms.set_only_goals( true );
+	//gen_lms.set_only_goals( true );
+	
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
 	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;

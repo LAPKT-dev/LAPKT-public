@@ -54,8 +54,6 @@ public:
 		: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_g_unit( 0 ), m_f(0), m_h1(0), m_h2(0), m_h3(0), m_po( num_actions ), m_seen(false), m_helpful(false), m_land_consumed(NULL), m_land_unconsumed(NULL) {
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 		m_g_unit = ( parent ? parent->m_g_unit + 1.0f : 0.0f);
-		if( m_state == NULL )
-		  update_hash();
 	}
 	
 	virtual ~Node() {
@@ -206,7 +204,7 @@ public:
 			delete n;
 		}
 		m_closed.clear();
-		//m_open_hash.clear();
+
 		delete m_first_h;
 		delete m_second_h;
 		delete m_third_h;
@@ -240,7 +238,7 @@ public:
 		std::cout << std::endl;
 		#endif 
 		m_open.insert( m_root );
-		//m_open_hash.put( m_root );
+
 		inc_gen();
 	}
 
@@ -276,7 +274,6 @@ public:
 
 	void 			close( Search_Node* n ) 	{  m_closed.put(n); }
 	Closed_List_Type&	closed() 			{ return m_closed; }
-	Closed_List_Type&	open_hash() 			{ return m_open_hash; }
 
 	const	Search_Model&	problem() const			{ return m_problem; }
 
@@ -351,21 +348,14 @@ public:
 		Search_Node *next = NULL;
 		if(! m_open.empty() ) {
 			next = m_open.pop();
-			//m_open_hash.erase( m_open_hash.retrieve_iterator( next) );
 		}
 		return next;
 	}
 
 	void	 	open_node( Search_Node *n ) {
-		if(n->h1n() == infty ) {
-			close(n);
-			inc_dead_end();
-		}
-		else {
-			m_open.insert(n);
-			//m_open_hash.put(n);
-		}
+		m_open.insert(n);
 		inc_gen();
+
 		// if( generated() % 1000 == 0){
 		// 	std::cout << "\nGenerated " << generated() << std::endl;
 		// }
@@ -383,19 +373,24 @@ public:
 		head->state()->print( std::cout );
 		std::cout << std::endl;
 #endif
-
+		//static unsigned ha=0;
+		//static unsigned nonha=0;
 		
+		//		std::cout << "ha: "<< ha << "nonha: "<< nonha << std::endl; 
+
 		if(m_lgm)
 			head->update_land_graph( m_lgm );
 		
 		std::vector< aptk::Action_Idx > app_set;
 		this->problem().applicable_set_v2( *(head->state()), app_set );
-		
+
 		for (unsigned i = 0; i < app_set.size(); ++i ) {
 			int a = app_set[i];
 
 			bool is_helpful = head->is_po(a); 
+
 			State *succ = is_helpful ? m_problem.next( *(head->state()), a ) : nullptr; 
+			
 			
 
 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
@@ -409,17 +404,7 @@ public:
 			std::cout << std::endl;
 			#endif
 
-			/*	
-			if( previously_hashed(n) ) {
-				#ifdef DEBUG
-				std::cout << "Already in OPEN" << std::endl;
-				#endif
-				delete n;	       
-				continue;
-			}
-			*/	
-
-
+				
 			if( is_helpful ){
 
 				n->set_helpful();
@@ -428,18 +413,21 @@ public:
 #ifdef DEBUG
 					std::cout << "h_add is infinite" << std::endl;
 #endif
+					inc_dead_end();					
 					delete n;
 					continue;
 				}
 					
 				eval( n );
 				n->h1n() += 0.5;
+				//ha++;
 				//std::cout << "HA " << m_problem.task().actions()[ n->action() ]->signature() << ": " << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<" - gn-unit: " << n->gn_unit()   <<"]" << std::endl;
 			}
 			else{
 				n->h3n() = head->h3n();
 				eval( n );
 				n->h1n() += 1;				
+				//nonha++;
 				//std::cout << "Non-HA" << m_problem.task().actions()[ n->action() ]->signature() << ": " << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<" - gn-unit: " << n->gn_unit()  <<"]" << std::endl;			
 			}
 
@@ -503,25 +491,6 @@ public:
 		return NULL;
 	}
 
-	virtual bool 			previously_hashed( Search_Node *n ) {
-		Search_Node *previous_copy = NULL;
-
-		if( (previous_copy = m_open_hash.retrieve(n)) ) {
-			
-			if(n->gn() < previous_copy->gn())
-			{
-				previous_copy->m_parent = n->m_parent;
-				previous_copy->m_action = n->m_action;
-				previous_copy->m_g = n->m_g;
-				previous_copy->m_g_unit = n->m_g_unit;
-				//previous_copy->m_f = previous_copy->m_h1;
-				inc_replaced_open();
-			}
-			return true;
-		}
-
-		return false;
-	}
 
 protected:
 
@@ -554,7 +523,7 @@ protected:
 	Second_Heuristic*			m_second_h;
 	Third_Heuristic*			m_third_h;
 	Open_List_Type				m_open;
-	Closed_List_Type			m_closed, m_open_hash;
+	Closed_List_Type			m_closed;
 	unsigned				m_exp_count;
 	unsigned				m_gen_count;
 	unsigned				m_pruned_B_count;

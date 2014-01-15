@@ -28,7 +28,7 @@ def main( domain_file, problem_file, plan_file ) :
 	task.plan_filename = plan_file
 
 	# MRJ: one h.a. per fluent flag
-	task.one_ha_per_fluent = True
+	task.one_ha_per_fluent = False
 	
 	# MRJ: Comment line below to deactivate profiling
 	#profiler_start( 'bfs_f.prof' )
@@ -47,8 +47,8 @@ def main( domain_file, problem_file, plan_file ) :
 	#	print >> sys.stderr, "An error occurred while translating google-perftools profiling information into valgrind format"
 
 def debug() :
-	main( 	"../../benchmarks/ipc-2011/floortile/domain.pddl", 
-		"../../benchmarks/ipc-2011/floortile/seq-p01-001.pddl",		
+	main( 	"/home/nirlipo/Sandboxes/ipc7-data/domains/seq-sat/woodworking/domain/domain.pddl", 
+		"/home/nirlipo/Sandboxes/ipc7-data/domains/seq-sat/woodworking/problems/p06.pddl",
 		"plan.ipc" )
 
 if __name__ == "__main__":

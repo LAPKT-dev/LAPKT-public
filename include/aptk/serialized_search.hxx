@@ -77,6 +77,7 @@ public:
 		std::vector< const Action*>::const_iterator it_a =  this->problem().task().actions().begin();
 		unsigned asize = this->problem().num_actions();
 		unsigned fsize = m_goals_achieved.size();
+		const bool has_ceff = this->problem().task().has_conditional_effects();
 
 		for ( unsigned i = 0; i < asize ; i++, it_a++ ) {
 						
@@ -86,12 +87,20 @@ public:
 			unsigned p = 0;
 			for(; p < fsize; p++){
 				unsigned fl = m_goals_achieved.at(p);
-				if( (*it_a)->asserts( fl ) || (*it_a)->edeletes( fl ) ){
-				//if(  (*it_a)->edeletes( fl ) ){
-				//if(  (*it_a)->asserts( fl ) ){
+				
+				if(has_ceff){
+					if( (*it_a)->asserts( fl ) || (*it_a)->consumes( fl ) ){
+						//if(  (*it_a)->edeletes( fl ) ){
+						//if(  (*it_a)->asserts( fl ) ){
+						excluded.set( i ); 
+						break;
+					}
+				}
+				else if( (*it_a)->asserts( fl ) || (*it_a)->edeletes( fl ) ){
 					excluded.set( i ); 
 					break;
 				}
+								
 			}
 			if( p == fsize )
 				excluded.unset( i ); 

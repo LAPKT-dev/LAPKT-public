@@ -48,8 +48,7 @@ public:
 		
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 		if( m_state == NULL )
-		  update_hash();
-
+			update_hash();
 	}
 	
 	virtual ~Node() {

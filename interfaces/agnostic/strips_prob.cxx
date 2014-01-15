@@ -31,7 +31,7 @@ namespace aptk
 	STRIPS_Problem::STRIPS_Problem( std::string dom_name, std::string prob_name )
 		: m_domain_name(dom_name), m_problem_name( prob_name ), 
 		m_num_fluents( 0 ), m_num_actions( 0 ), m_end_operator_id( no_such_index ),
-		m_succ_gen( *this ), m_succ_gen_v2( *this )
+		  m_succ_gen( *this ), m_succ_gen_v2( *this ), m_has_cond_effs(false)
 	{
 	}
 
@@ -92,6 +92,10 @@ namespace aptk
 					     Fluent_Vec& pre, Fluent_Vec& add, Fluent_Vec& del,
 					     Conditional_Effect_Vec& ceffs, float cost )
 	{
+		if( ! p.has_conditional_effects() )
+			if( ! ceffs.empty() )
+				p.notify_cond_eff_in_action();
+
 		Action* new_act = new Action( p );
 		new_act->set_signature( signature );
 		new_act->define( pre, add, del, ceffs );
