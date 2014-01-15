@@ -5,6 +5,7 @@ Lightweight Automated Planning Toolkit
 
 Miquel Ramirez <miquel.ramirez@gmail.com>
 Nir Lipovetzky <nirlipo@gmail.com>
+Christian Muise <christian.muise@gmail.com>
 Last update: February 2013
 
 CONTENTS
