@@ -85,7 +85,7 @@ def get_initial_invariants(task):
 
 # Input file might be grounded, beware of too many invariant candidates
 MAX_CANDIDATES = 100000
-MAX_TIME = 300
+MAX_TIME = 3
 
 def find_invariants(task, reachable_action_params):
     candidates = deque(get_initial_invariants(task))
