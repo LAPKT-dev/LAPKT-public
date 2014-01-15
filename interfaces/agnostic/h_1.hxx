@@ -122,6 +122,8 @@ public:
 	}
 
 
+	float 	value( unsigned p ) const { return m_values[p]; }
+
 	virtual void eval( const State& s, float& h_val ) {
 
 		m_already_updated.reset();

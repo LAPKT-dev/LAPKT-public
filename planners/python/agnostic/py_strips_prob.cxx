@@ -126,7 +126,8 @@ using namespace boost::python;
 
 		aptk::Conditional_Effect* cond_eff = new aptk::Conditional_Effect( *instance() );
 		cond_eff->define( cond_fluents, add_fluents, del_fluents );
-		action.ceff_vec().push_back( cond_eff );	
+		action.ceff_vec().push_back( cond_eff );
+		m_problem->notify_cond_eff_in_action();	
 	}
 
 	void

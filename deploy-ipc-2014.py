@@ -96,30 +96,30 @@ def deploy_seq_agl_siw( base_dir ) :
 	create_run_script( planner_dir, 'siw.py' )
 
 def deploy_seq_agl_siw_unit_cost( base_dir ) :
-	planner_id = 'seq-agl-siw-unit-cost'
+	planner_id = 'seq-agl-siw_unit_cost'
 	
 	planner_dir = create_planner_dir( base_dir, planner_id )
 	
 	copy_files( planner_dir, 'siw' )	
 
-	planner_files = [ 'siw-unit-cost.py', 'libsiw.so' ]
+	planner_files = [ 'siw_unit_cost.py', 'libsiw.so' ]
 
 	create_build_script( planner_dir, 'siw', planner_files )
 	
-	create_run_script( planner_dir, 'siw-unit-cost.py' )
+	create_run_script( planner_dir, 'siw_unit_cost.py' )
 
 def deploy_seq_agl_bfs_f_unit_cost( base_dir ) :
-	planner_id = 'seq-agl-bfs-f-unit-cost'
+	planner_id = 'seq-agl-bfs-f_unit_cost'
 	
 	planner_dir = create_planner_dir( base_dir, planner_id )
 	
 	copy_files( planner_dir, 'bfs_f' )	
 
-	planner_files = [ 'bfs_f-unit-cost.py', 'libbfsf.so' ]
+	planner_files = [ 'bfs_f_unit_cost.py', 'libbfsf.so' ]
 
 	create_build_script( planner_dir, 'bfs_f', planner_files )
 	
-	create_run_script( planner_dir, 'bfs_f-unit-cost.py' )
+	create_run_script( planner_dir, 'bfs_f_unit_cost.py' )
 
 def deploy_seq_agl_bfs_f( base_dir ) :
 	planner_id = 'seq-agl-bfs-f'
