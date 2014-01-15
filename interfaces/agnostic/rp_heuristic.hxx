@@ -40,6 +40,7 @@ template < typename Primary_Heuristic, RP_Cost_Function cost_opt = RP_Cost_Funct
 class Relaxed_Plan_Extractor
 {
 	typedef std::queue<const Action* >	Action_Queue;
+	typedef std::queue< const Fluent* >	Fluent_Queue;
 public:
 
 	Relaxed_Plan_Extractor( const STRIPS_Problem& prob, Primary_Heuristic& h )
@@ -66,7 +67,7 @@ public:
 		// 0. Initialize data structures
 		actions_seen().reset();
 		init_fluents().reset();
-	
+
 		for ( unsigned k = 0; k < s.fluent_vec().size(); k++ )
 			init_fluents().set( s.fluent_vec()[k] );
 	
@@ -87,6 +88,12 @@ public:
 				std::cerr << m_strips_model.fluents()[G[k]]->signature() << std::endl;
 				return;
 			}
+			#ifdef DEBUG_RP_HEURISTIC
+			std::cout << "Goal: " << m_strips_model.fluents()[G[k]]->signature() << std::endl;
+			std::cout << "Value = " << m_base_heuristic.value( G[k] ) << std::endl;
+			std::cout << "Best supporter: " << sup->signature() << std::endl;
+			#endif
+			fluents_pending().push( m_strips_model.fluents()[G[k]] );
 			actions_pending().push( sup );
 			actions_seen().set( sup->index() );
 			relaxed_plan.push_back( sup );
@@ -94,12 +101,21 @@ public:
 	
 		while ( !actions_pending().empty() ) {
 			const Action* a = actions_pending().front();
+			const Fluent* p = fluents_pending().front();
 			actions_pending().pop();
+			fluents_pending().pop();
+			#ifdef DEBUG_RP_HEURISTIC
+			std::cout << "Gettting action: " << std::endl;
+			a->print( m_strips_model, std::cout );
+			std::cout << "into the relaxed plan" << std::endl;
+			#endif
 			if ( !extract_best_supporters_for( a->prec_vec(), relaxed_plan ) ) {
+	
 				assert( false );
 				return;
 			}
 			for ( unsigned k = 0; k < a->ceff_vec().size(); k++ ) {
+				if ( !a->ceff_vec()[k]->asserts( p->index() ) ) continue;	
 				if ( !extract_best_supporters_for( a->ceff_vec()[ k ]->prec_vec(), relaxed_plan ) )
 				{
 					assert( false );
@@ -157,6 +173,7 @@ protected:
 
 	Bit_Array&		actions_seen() { return m_act_seen; }
 	Action_Queue&		actions_pending() { return m_pending; }
+	Fluent_Queue&		fluents_pending() { return m_pending_fluents; }
 	Bit_Array&		init_fluents() { return m_init_fluents; }
 
 	bool	extract_best_supporters_for( const Fluent_Vec& C, std::vector<const Action*>& relaxed_plan ) {
@@ -168,9 +185,11 @@ protected:
 			{
 				std::cerr << "No best supporter found for fluent ";
 				std::cerr << m_strips_model.fluents()[C[k]]->signature() << std::endl;
+				std::cerr << "Value = " << m_base_heuristic.value( C[k] ) << std::endl;
 				return false;
 			}
 			if ( actions_seen().isset( sup->index() ) ) continue;
+			fluents_pending().push( m_strips_model.fluents()[C[k]] );
 			actions_pending().push( sup );
 			actions_seen().set( sup->index() );
 			relaxed_plan.push_back( sup );
@@ -186,6 +205,7 @@ protected:
 	Bit_Array			m_act_seen;
 	Bit_Array			m_init_fluents;
 	Action_Queue			m_pending;
+	Fluent_Queue			m_pending_fluents;
 	const STRIPS_Problem&		m_strips_model;
 	Bit_Set				m_po_set;
 	Bit_Set				m_rp_precs;
