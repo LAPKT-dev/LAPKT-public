@@ -214,6 +214,7 @@ using namespace boost::python;
 			if ( p >= m_negated.size() ) continue; // p is a negated fluent!
 			if ( std::find( I.begin(), I.end(), p ) != I.end() ) 
 				continue;
+			assert( p < m_negated.size() );
 			if ( m_negated.at(p) ) 
 				I.push_back( m_negated[ p ]->index() );
 		} 	
