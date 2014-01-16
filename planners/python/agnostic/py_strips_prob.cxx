@@ -271,3 +271,17 @@ using namespace boost::python;
 	STRIPS_Problem::setup() {
 		instance()->make_action_tables();
 	}
+
+	void
+	STRIPS_Problem::print_fluents() {
+		std::ofstream out( "fluents.list" );
+		instance()->print_fluents(out);
+		out.close();
+	}
+
+	void
+	STRIPS_Problem::print_actions() {
+		std::ofstream out( "actions.list" );
+		instance()->print_actions(out);
+		out.close();
+	}

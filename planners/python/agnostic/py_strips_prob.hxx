@@ -38,6 +38,9 @@ public:
 
 	void	print_action( int index );
 
+	void	print_fluents();
+	void	print_actions();
+
 	std::string	get_atom_name( int idx ) const { return m_problem->fluents()[idx]->signature(); }
 	std::string	get_domain_name() const { return m_problem->domain_name(); }
 	std::string	get_problem_name() const { return m_problem->problem_name(); }
