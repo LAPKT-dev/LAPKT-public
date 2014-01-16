@@ -213,7 +213,7 @@ int main( int argc, char** argv ) {
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
 	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
-	graph.print( std::cout );       
+	//graph.print( std::cout );       
 
 	std::cout << "Starting search with BFS (time budget is 60 secs)..." << std::endl;
 

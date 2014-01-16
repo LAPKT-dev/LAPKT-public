@@ -62,7 +62,9 @@ public:
 		State* new_init_state = NULL;
 		this->m_goals_achieved.clear();
 		this->m_goal_candidates.clear();
-		
+
+		std::cout << std::endl << "Caption\n{#goals, #UNnachieved,  #Achieved} -> IW(max_w)"<<std::endl;
+
 		if( m_goal_agenda ){
 			m_goal_agenda->get_leafs( this->m_goal_candidates );
 		}
@@ -78,6 +80,7 @@ public:
 			m_pruned_sum_B_count += this->pruned_by_bound();
 
 			if ( end == NULL ) {
+
 
 				/**
 				 * If no partial plan to achieve any goal is  found,
@@ -137,6 +140,7 @@ public:
 					
 				}
 				
+
 				//this->debug_info( new_init_state, this->m_goal_candidates );
 				
 				

@@ -89,14 +89,12 @@ public:
 				unsigned fl = m_goals_achieved.at(p);
 				
 				if(has_ceff){
-					if( (*it_a)->asserts( fl ) || (*it_a)->consumes( fl ) ){
-						//if(  (*it_a)->edeletes( fl ) ){
-						//if(  (*it_a)->asserts( fl ) ){
+					if( (*it_a)->consumes( fl ) ){
 						excluded.set( i ); 
 						break;
 					}
 				}
-				else if( (*it_a)->asserts( fl ) || (*it_a)->edeletes( fl ) ){
+				else if( (*it_a)->edeletes( fl ) ){ 
 					excluded.set( i ); 
 					break;
 				}
@@ -106,6 +104,7 @@ public:
 				excluded.unset( i ); 
 			
 		}
+
 		
 	}
 

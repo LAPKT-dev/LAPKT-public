@@ -164,7 +164,7 @@ protected:
 			}
 
 		} 
-		this->inc_exp();
+
 
 
 		return NULL;
