@@ -390,9 +390,7 @@ public:
 			bool is_helpful = head->is_po(a); 
 
 			State *succ = is_helpful ? m_problem.next( *(head->state()), a ) : nullptr; 
-			
-			
-
+						
 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
 			
 			#ifdef DEBUG

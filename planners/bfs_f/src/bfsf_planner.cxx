@@ -102,7 +102,7 @@ BFS_f_Planner::solve() {
 	
 	unsigned max_novelty = 2;
 
-	bfs_engine.set_arity( max_novelty, graph.num_landmarks() );
+	bfs_engine.set_arity( max_novelty, graph.num_landmarks_and_edges() );
 
 	float bfs_t = do_search( bfs_engine );
 	
