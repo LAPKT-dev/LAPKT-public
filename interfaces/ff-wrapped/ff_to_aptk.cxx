@@ -30,6 +30,7 @@ namespace  FF_Parser {
 void	get_problem_description( std::string pddl_domain_path,
 					std::string pddl_problem_path,
 					STRIPS_Problem& strips_problem,
+					bool ignore_action_costs,
 					bool get_detailed_fluent_names )
 {
 
@@ -67,6 +68,8 @@ void	get_problem_description( std::string pddl_domain_path,
                         with_costs = true;
                         break;
                 }
+
+	if ( ignore_action_costs ) with_costs = false;
 
         if(gconditional_effects)
 	{
