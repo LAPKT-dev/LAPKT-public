@@ -101,7 +101,9 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, 
 		expanded_0 = expanded_f;
 		generated_0 = generated_f;
 		plan.clear();
-	}
+	} else {
+                std::cout << ";; NOT I-REACHABLE ;;" << std::endl;
+        }
  	float total_time = aptk::time_used() - ref;
 	std::cout << "Total time: " << total_time << std::endl;
 	std::cout << "Nodes generated during search: " << engine.generated() << std::endl;
