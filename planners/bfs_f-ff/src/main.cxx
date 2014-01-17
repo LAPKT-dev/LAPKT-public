@@ -178,6 +178,12 @@ void process_command_line_options( int ac, char** av, po::variables_map& vars ) 
 
 }
 
+void report_no_solution( std::string reason, std::ofstream& plan_stream ) {
+	plan_stream << ";; No solution found" << std::endl;
+	plan_stream << ";; " << reason << std::endl;
+	plan_stream.close();
+}
+
 int main( int argc, char** argv ) {
 
 	po::variables_map vm;
@@ -219,6 +225,12 @@ int main( int argc, char** argv ) {
 	if ( !prob.has_conditional_effects() ) {
 		H2_Fwd    h2( search_prob );
 		h2.compute_edeletes( prob );
+		if ( h2.eval( prob.goal() ) == infty ) {
+			details << "Problem has no solution!" << std::endl;
+			report_no_solution( "h2(s0) = infty", plan_stream );
+			return 0;	
+		}
+
 	}
 	else
 		prob.compute_edeletes();	
