@@ -87,6 +87,7 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, 
 
 	if ( engine.find_solution( cost, plan ) ) {
 		details << "Plan found with cost: " << cost << std::endl;
+		std::cout << "Plan found with cost: " << cost << std::endl;
 		for ( unsigned k = 0; k < plan.size(); k++ ) {
 			details << k+1 << ". ";
 			const aptk::Action& a = *(plan_prob.actions()[ plan[k] ]);
@@ -106,6 +107,7 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, 
 		plan.clear();
 	} else {
 		details << ";; NOT I-REACHABLE ;;" << std::endl;
+		std::cout << ";; NOT I-REACHABLE ;;" << std::endl;
 	}
 
  	float total_time = aptk::time_used() - ref;
@@ -116,6 +118,9 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, 
 	details << "Average ef. width: " << engine.avg_B() << std::endl;
 	details << "Max ef. width: " << engine.max_B() << std::endl;
 	details.close();
+	std::cout << "Total time: " << total_time << std::endl;
+	std::cout << "Nodes generated during search: " << engine.generated() << std::endl;
+	std::cout << "Nodes expanded during search: " << engine.expanded() << std::endl;
 	
 	return total_time;
 }
