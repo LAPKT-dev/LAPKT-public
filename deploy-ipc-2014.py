@@ -82,6 +82,7 @@ def create_run_script( home_dir, executable ) :
 	with open( script_filename, 'w' ) as out :
 		print >> out, "#!/bin/bash"
 		print >> out, "source /opt/centos/devtoolset-1.1/x86_64/enable"
+		print >> out, "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH$:/opt/boost/lib"
 		print >> out, "./%s --domain $1 --problem $2 --output $3"%executable
 	
 	os.system( 'chmod u+x %s'%script_filename )
