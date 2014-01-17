@@ -22,12 +22,14 @@ def create_planner_dir( base_dir, planner_id ) :
 
 def copy_files( planner_dir, planner_name ) :
 	
-	dirs = [ 'include', 'interfaces', 'external', 'src', 'planners/%s'%planner_name ]
+	dirs = [ 'include', 'interfaces', 'external/libff', 'src', 'planners/%s'%planner_name ]
 
 	cmd_template = 'cp -ra %s %s'
 	print >> sys.stdout, "Creating folder %s/planners"%planner_dir
 	build_base_dir = os.path.join( planner_dir, 'planners' )
+	external_base_dir = os.path.join( planner_dir, 'external' )
 	rv = os.system( 'mkdir -p %s'%build_base_dir )
+	rv = os.system( 'mkdir -p %s'%external_base_dir )
 
 	if rv != 0 :
 		print >> sys.stderr, "Could not create %s, aborting..."%build_base_dir
@@ -36,7 +38,9 @@ def copy_files( planner_dir, planner_name ) :
 	for directory in dirs :
 	
 		if 'planners' in directory :
-			dest_dir = build_base_dir	
+			dest_dir = build_base_dir
+		elif 'external' in directory :
+			dest_dir = external_base_dir	
 		else :
 			dest_dir = planner_dir
 
@@ -92,7 +96,7 @@ def deploy_seq_agl_siw( base_dir ) :
 
 	planner_files = [ 'siw' ]
 
-	create_build_script( planner_dir, 'siw', planner_files )
+	create_build_script( planner_dir, 'siw-ff', planner_files )
 	
 	create_run_script( planner_dir, 'siw' )
 
@@ -105,7 +109,7 @@ def deploy_seq_agl_bfs_f( base_dir ) :
 
 	planner_files = [ 'bfs_f' ]
 
-	create_build_script( planner_dir, 'bfs_f', planner_files )
+	create_build_script( planner_dir, 'bfs_f-ff', planner_files )
 	
 	create_run_script( planner_dir, 'bfs_f' )
 
@@ -118,7 +122,7 @@ def deploy_sat_bfs_f( base_dir ) :
 
 	planner_files = [ 'at_bfs_f' ]
 
-	create_build_script( planner_dir, 'at_bfs_f', planner_files )
+	create_build_script( planner_dir, 'at_bfs_f-ff', planner_files )
 	
 	create_run_script( planner_dir, 'at_bfs_f' )
 
