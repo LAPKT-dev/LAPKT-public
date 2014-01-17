@@ -226,7 +226,9 @@ int main( int argc, char** argv ) {
 		H2_Fwd    h2( search_prob );
 		h2.compute_edeletes( prob );
 		if ( h2.eval( prob.goal() ) == infty ) {
+			std::ofstream	details( "execution.details" );
 			details << "Problem has no solution!" << std::endl;
+			details.close();
 			report_no_solution( "h2(s0) = infty", plan_stream );
 			return 0;	
 		}

@@ -75,6 +75,21 @@ def create_build_script( home_dir, planner, files ) :
 
 	os.system( 'chmod u+x %s'%script_filename )
 
+def create_clean_script( home_dir, planner, files ) :
+	script_filename = os.path.join( home_dir, 'clean' )
+	
+	with open( script_filename, 'w' ) as out :
+		
+		print >> out, "#!/bin/bash"
+		print >> out, "cd external/libff"
+		print >> out, "make clean"
+		print >> out, "cd ../.."
+		build_dir = os.path.join( 'planners', planner )
+		print >> out, "cd %s"%build_dir
+		print >> out, "scons -c"
+		print >> out, "cd ../.."
+	os.system( 'chmod u+x %s'%script_filename )
+
 def create_run_script( home_dir, executable ) :
 
 	script_filename = os.path.join( home_dir, 'plan' )
@@ -98,6 +113,7 @@ def deploy_seq_agl_siw( base_dir ) :
 	planner_files = [ 'siw' ]
 
 	create_build_script( planner_dir, 'siw-ff', planner_files )
+	create_clean_script( planner_dir, 'siw-ff', planner_files )
 	
 	create_run_script( planner_dir, 'siw' )
 
@@ -111,6 +127,7 @@ def deploy_seq_agl_bfs_f( base_dir ) :
 	planner_files = [ 'bfs_f' ]
 
 	create_build_script( planner_dir, 'bfs_f-ff', planner_files )
+	create_clean_script( planner_dir, 'bfs_f-ff', planner_files )
 	
 	create_run_script( planner_dir, 'bfs_f' )
 
@@ -124,6 +141,7 @@ def deploy_sat_bfs_f( base_dir ) :
 	planner_files = [ 'at_bfs_f' ]
 
 	create_build_script( planner_dir, 'at_bfs_f-ff', planner_files )
+	create_clean_script( planner_dir, 'at_bfs_f-ff', planner_files )
 	
 	create_run_script( planner_dir, 'at_bfs_f' )
 
