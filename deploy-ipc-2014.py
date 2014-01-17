@@ -129,7 +129,7 @@ def deploy_sat_bfs_f( base_dir ) :
 
 
 def main() :
-	base_dir = '~'
+	base_dir = '.'
 	if len(sys.argv) == 2 :
 		base_dir = sys.argv[1]
 		if not os.path.exists( base_dir ) :
