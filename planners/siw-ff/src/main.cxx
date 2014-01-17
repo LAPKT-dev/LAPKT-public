@@ -105,6 +105,10 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, 
 		generated_0 = generated_f;
 		plan.clear();
 	}
+	} else {
+		details << ";; NOT I-REACHABLE ;;" << std::endl;
+	}
+
  	float total_time = aptk::time_used() - ref;
 	details << "Total time: " << total_time << std::endl;
 	details << "Nodes generated during search: " << engine.generated() << std::endl;
@@ -188,8 +192,12 @@ int main( int argc, char** argv ) {
 
 	Fwd_Search_Problem	search_prob( &prob );
 
-	H2_Fwd    h2( search_prob );
-	h2.compute_edeletes( prob );	
+	if ( !prob.has_conditional_effects() ) {
+		H2_Fwd    h2( search_prob );
+		h2.compute_edeletes( prob );	
+	}
+	else
+		prob.compute_edeletes();
 
 	Gen_Lms_Fwd    gen_lms( search_prob );
 	Landmarks_Graph graph( prob );

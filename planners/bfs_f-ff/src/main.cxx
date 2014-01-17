@@ -101,9 +101,9 @@ typedef		AT_GBFS_3H< Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, H_Add_Rp_Fw
 
 
 template <typename Search_Engine>
-float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float max_novelty, std::string logfile ) {
+float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float max_novelty, std::ofstream& plan_stream ) {
 
-	
+	std::ofstream	details( "execution.details" );	
 	engine.start();
 
 	std::vector< aptk::Action_Idx > plan;
@@ -116,28 +116,29 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float max_nov
 	unsigned generated_0 = engine.generated();
 
 	if ( engine.find_solution( cost, plan ) ) {
-		std::cout << "Plan found with cost: " << cost << std::endl;
+		details << "Plan found with cost: " << cost << std::endl;
 		for ( unsigned k = 0; k < plan.size(); k++ ) {
-			std::cout << k+1 << ". ";
+			details << k+1 << ". ";
 			const aptk::Action& a = *(plan_prob.actions()[ plan[k] ]);
-			std::cout << a.signature();
-			std::cout << std::endl;
+			details << a.signature();
+			details << std::endl;
+			plan_stream << a.signature() << std::endl;
 		}
 		float tf = aptk::time_used();
 		unsigned expanded_f = engine.expanded();
 		unsigned generated_f = engine.generated();
-		std::cout << "Time: " << tf - t0 << std::endl;
-		std::cout << "Generated: " << generated_f - generated_0 << std::endl;
-		std::cout << "Expanded: " << expanded_f - expanded_0 << std::endl;
+		details << "Time: " << tf - t0 << std::endl;
+		details << "Generated: " << generated_f - generated_0 << std::endl;
+		details << "Expanded: " << expanded_f - expanded_0 << std::endl;
 		t0 = tf;
 		expanded_0 = expanded_f;
 		generated_0 = generated_f;
 		plan.clear();
 	}
  	float total_time = aptk::time_used() - ref;
-	std::cout << "Total time: " << total_time << std::endl;
-	std::cout << "Nodes generated during search: " << engine.generated() << std::endl;
-	std::cout << "Nodes expanded during search: " << engine.expanded() << std::endl;
+	details << "Total time: " << total_time << std::endl;
+	details << "Nodes generated during search: " << engine.generated() << std::endl;
+	details << "Nodes expanded during search: " << engine.expanded() << std::endl;
 
 	
 	return total_time;
@@ -152,6 +153,9 @@ void process_command_line_options( int ac, char** av, po::variables_map& vars ) 
 		( "domain", po::value<std::string>(), "Input PDDL domain description" )
 		( "problem", po::value<std::string>(), "Input PDDL problem description" )
 		( "bound", po::value<int>()->default_value(2), "Max width w for novelty (default 2)")
+		( "output", po::value<std::string>(), "Output file for plan" )
+		( "one-ha-per-fluent", po::value<bool>()->default_value(false),
+			"Extract only one helpful action per fluent" )
 	;
 	
 	try {
@@ -191,6 +195,16 @@ int main( int argc, char** argv ) {
 		std::exit(1);
 	}
 
+	std::ofstream	plan_stream;
+	
+	if ( !vm.count( "output" ) ) {
+		std::cerr << "No output plan file specified, defaulting to 'plan.ipc'" << std::endl;
+		plan_stream.open( "plan.ipc" );
+	}
+	else
+		plan_stream.open( vm["output"].as<std::string>() );
+
+
 	STRIPS_Problem	prob;
 
 	aptk::FF_Parser::get_problem_description( vm["domain"].as<std::string>(), vm["problem"].as<std::string>(), prob );
@@ -202,8 +216,12 @@ int main( int argc, char** argv ) {
 
 	Fwd_Search_Problem	search_prob( &prob );
 
-	H2_Fwd    h2( search_prob );
-	h2.compute_edeletes( prob );	
+	if ( !prob.has_conditional_effects() ) {
+		H2_Fwd    h2( search_prob );
+		h2.compute_edeletes( prob );
+	}
+	else
+		prob.compute_edeletes();	
 
 	Gen_Lms_Fwd    gen_lms( search_prob );
 	Landmarks_Graph graph( prob );
@@ -218,7 +236,9 @@ int main( int argc, char** argv ) {
 	std::cout << "Starting search with BFS (time budget is 60 secs)..." << std::endl;
 
 	Anytime_GBFS_H_Add_Rp_Fwd bfs_engine( search_prob );
-	
+
+	bfs_engine.h3().set_one_HA_per_fluent( vm["one-ha-per-fluent"].as<bool>() );
+
 	Land_Graph_Man lgm( search_prob, &graph);
 	bfs_engine.use_land_graph_manager( &lgm );
 	
@@ -226,10 +246,12 @@ int main( int argc, char** argv ) {
 
 	bfs_engine.set_arity( max_novelty, graph.num_landmarks_and_edges() );
 	
-	float bfs_t = do_search( bfs_engine, prob, max_novelty, "bfs.log" );
+	float bfs_t = do_search( bfs_engine, prob, max_novelty, plan_stream );
 
-	std::cout << "BFS search completed in " << bfs_t << " secs, check 'bfs.log' for details" << std::endl;
+	std::cout << "BFS search completed in " << bfs_t << " secs" << std::endl;
 	
+
+	plan_stream.close();
 
 	return 0;
 }
