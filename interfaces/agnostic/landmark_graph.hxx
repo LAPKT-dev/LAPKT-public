@@ -193,6 +193,29 @@ public:
 	
 
 	unsigned			num_landmarks() const			{ return m_lm_graph.size(); }
+	unsigned			num_landmarks_and_edges() const		
+	{ 
+		unsigned val=0;
+		for ( std::vector< Node* >::const_iterator it = m_lm_graph.begin(); 
+		      it != m_lm_graph.end(); it++ ) {
+			Node* n = *it;			
+			val++;
+			
+
+			if( !n->required_by_gn().empty() )
+				for( std::vector< Node* >::const_iterator it_r = n->required_by_gn().begin(); it_r != n->required_by_gn().end(); it_r++ )
+					val++;
+					
+			
+
+			if( ! n->required_by().empty() )
+				for( std::vector< Node* >::const_iterator it_r = n->required_by().begin(); it_r != n->required_by().end(); it_r++ )
+						val++;						
+				
+
+		}	
+		return val;
+	}
 	
 	void				print( std::ostream& os ) const;
 

@@ -263,7 +263,7 @@ public:
 			}
 			a = it.next();		
 		} 
-		inc_exp();
+
 		
 		return NULL;
 	}
@@ -279,6 +279,7 @@ public:
 				head->set_state( m_problem.next(*(head->parent()->state()), head->action()) );
 
 			Search_Node* goal = process(head);
+			inc_exp();
 			close(head);
 			if( goal ) {
 				if( ! goal->has_state() )

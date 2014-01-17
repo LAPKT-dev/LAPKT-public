@@ -170,6 +170,7 @@ protected:
 			  
 		      }
 		  }
+
 		const Fluent_Vec& add = a->has_ceff() ? new_atom_vec : a->add_vec();
         
 		if(!has_state)
