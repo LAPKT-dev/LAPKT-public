@@ -22,7 +22,7 @@ def create_planner_dir( base_dir, planner_id ) :
 
 def copy_files( planner_dir, planner_name ) :
 	
-	dirs = [ 'include', 'interfaces', 'external', 'src', 'planners/python', 'planners/%s'%planner_name ]
+	dirs = [ 'include', 'interfaces', 'external', 'src', 'planners/%s'%planner_name ]
 
 	cmd_template = 'cp -ra %s %s'
 	print >> sys.stdout, "Creating folder %s/planners"%planner_dir
@@ -56,18 +56,18 @@ def create_build_script( home_dir, planner, files ) :
 		print >> out, "#!/bin/bash"
 		print >> out, "source /opt/centos/devtoolset-1.1/x86_64/enable"
 		build_dir = os.path.join( 'planners', planner )
-		print >> out, "cd external/judy-1.0.5"
-		print >> out, "./configure --enable-64-bit"
+		print >> out, "cd external/libff"
+		print >> out, "make clean"
+		print >> out, "make depend"
 		print >> out, "make"
 		print >> out, "cd ../.."
 		print >> out, "cd %s"%build_dir
 		print >> out, "scons -c"
-		print >> out, "python2.7 build.py ipc14_build=1"
+		print >> out, "scons ipc14_build=1"
 		print >> out, "cd ../.."
 		for filename in files :
 			print >> out, 'echo "Copying %s..."'%filename
 			print >> out, "cp %s ."%(os.path.join( build_dir, filename ) )
-			print >> out, "cp -ra external/fd ."
 
 	os.system( 'chmod u+x %s'%script_filename )
 
@@ -77,7 +77,8 @@ def create_run_script( home_dir, executable ) :
 
 	with open( script_filename, 'w' ) as out :
 		print >> out, "#!/bin/bash"
-		print >> out, "python2.7 %s $1 $2 $3"%executable
+		print >> out, "source /opt/centos/devtoolset-1.1/x86_64/enable"
+		print >> out, "./%s --domain $1 --problem $2 --output $3"%executable
 	
 	os.system( 'chmod u+x %s'%script_filename )
 
@@ -87,65 +88,39 @@ def deploy_seq_agl_siw( base_dir ) :
 	
 	planner_dir = create_planner_dir( base_dir, planner_id )
 	
-	copy_files( planner_dir, 'siw' )	
+	copy_files( planner_dir, 'siw-ff' )	
 
-	planner_files = [ 'siw.py', 'libsiw.so' ]
-
-	create_build_script( planner_dir, 'siw', planner_files )
-	
-	create_run_script( planner_dir, 'siw.py' )
-
-def deploy_seq_agl_siw_unit_cost( base_dir ) :
-	planner_id = 'seq-agl-siw_unit_cost'
-	
-	planner_dir = create_planner_dir( base_dir, planner_id )
-	
-	copy_files( planner_dir, 'siw' )	
-
-	planner_files = [ 'siw_unit_cost.py', 'libsiw.so' ]
+	planner_files = [ 'siw' ]
 
 	create_build_script( planner_dir, 'siw', planner_files )
 	
-	create_run_script( planner_dir, 'siw_unit_cost.py' )
-
-def deploy_seq_agl_bfs_f_unit_cost( base_dir ) :
-	planner_id = 'seq-agl-bfs-f_unit_cost'
-	
-	planner_dir = create_planner_dir( base_dir, planner_id )
-	
-	copy_files( planner_dir, 'bfs_f' )	
-
-	planner_files = [ 'bfs_f_unit_cost.py', 'libbfsf.so' ]
-
-	create_build_script( planner_dir, 'bfs_f', planner_files )
-	
-	create_run_script( planner_dir, 'bfs_f_unit_cost.py' )
+	create_run_script( planner_dir, 'siw' )
 
 def deploy_seq_agl_bfs_f( base_dir ) :
 	planner_id = 'seq-agl-bfs-f'
 	
 	planner_dir = create_planner_dir( base_dir, planner_id )
 	
-	copy_files( planner_dir, 'bfs_f' )	
+	copy_files( planner_dir, 'bfs_f-ff' )	
 
-	planner_files = [ 'bfs_f.py', 'libbfsf.so' ]
+	planner_files = [ 'bfs_f' ]
 
 	create_build_script( planner_dir, 'bfs_f', planner_files )
 	
-	create_run_script( planner_dir, 'bfs_f.py' )
+	create_run_script( planner_dir, 'bfs_f' )
 
 def deploy_sat_bfs_f( base_dir ) :
 	planner_id = 'seq-sat-bfs-f'
 	
 	planner_dir = create_planner_dir( base_dir, planner_id )
 	
-	copy_files( planner_dir, 'at_bfs_f' )	
+	copy_files( planner_dir, 'at_bfs_f-ff' )	
 
-	planner_files = [ 'at_bfs_f.py', 'libatbfsf.so' ]
+	planner_files = [ 'at_bfs_f' ]
 
 	create_build_script( planner_dir, 'at_bfs_f', planner_files )
 	
-	create_run_script( planner_dir, 'at_bfs_f.py' )
+	create_run_script( planner_dir, 'at_bfs_f' )
 
 
 def main() :
@@ -157,9 +132,7 @@ def main() :
 			sys.exit(1)
 	
 	deploy_seq_agl_siw( base_dir )
-	deploy_seq_agl_siw_unit_cost( base_dir )
 	deploy_seq_agl_bfs_f( base_dir )
-	deploy_seq_agl_bfs_f_unit_cost( base_dir )
 	deploy_sat_bfs_f( base_dir )
 
 if __name__ == "__main__" :
