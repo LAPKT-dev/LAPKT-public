@@ -68,8 +68,10 @@ typedef		SIW< Fwd_Search_Problem >        SIW_Fwd;
 
 
 template <typename Search_Engine>
-float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, std::string logfile ) {
+float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, std::ofstream& plan_stream ) {
 
+
+	std::ofstream	details( "execution.details" );
 	
 	engine.set_bound(bound);
 	engine.start();
@@ -84,32 +86,33 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, 
 	unsigned generated_0 = engine.generated();
 
 	if ( engine.find_solution( cost, plan ) ) {
-		std::cout << "Plan found with cost: " << cost << std::endl;
+		details << "Plan found with cost: " << cost << std::endl;
 		for ( unsigned k = 0; k < plan.size(); k++ ) {
-			std::cout << k+1 << ". ";
+			details << k+1 << ". ";
 			const aptk::Action& a = *(plan_prob.actions()[ plan[k] ]);
-			std::cout << a.signature();
-			std::cout << std::endl;
+			details << a.signature();
+			details << std::endl;
+			plan_stream << a.signature() << std::endl;
 		}
 		float tf = aptk::time_used();
 		unsigned expanded_f = engine.expanded();
 		unsigned generated_f = engine.generated();
-		std::cout << "Time: " << tf - t0 << std::endl;
-		std::cout << "Generated: " << generated_f - generated_0 << std::endl;
-		std::cout << "Expanded: " << expanded_f - expanded_0 << std::endl;
+		details << "Time: " << tf - t0 << std::endl;
+		details << "Generated: " << generated_f - generated_0 << std::endl;
+		details << "Expanded: " << expanded_f - expanded_0 << std::endl;
 		t0 = tf;
 		expanded_0 = expanded_f;
 		generated_0 = generated_f;
 		plan.clear();
 	}
  	float total_time = aptk::time_used() - ref;
-	std::cout << "Total time: " << total_time << std::endl;
-	std::cout << "Nodes generated during search: " << engine.generated() << std::endl;
-	std::cout << "Nodes expanded during search: " << engine.expanded() << std::endl;
-	std::cout << "Nodes pruned by bound: " << engine.sum_pruned_by_bound() << std::endl;
-	std::cout << "Average ef. width: " << engine.avg_B() << std::endl;
-	std::cout << "Max ef. width: " << engine.max_B() << std::endl;
-
+	details << "Total time: " << total_time << std::endl;
+	details << "Nodes generated during search: " << engine.generated() << std::endl;
+	details << "Nodes expanded during search: " << engine.expanded() << std::endl;
+	details << "Nodes pruned by bound: " << engine.sum_pruned_by_bound() << std::endl;
+	details << "Average ef. width: " << engine.avg_B() << std::endl;
+	details << "Max ef. width: " << engine.max_B() << std::endl;
+	details.close();
 	
 	return total_time;
 }
@@ -123,6 +126,7 @@ void process_command_line_options( int ac, char** av, po::variables_map& vars ) 
 		( "domain", po::value<std::string>(), "Input PDDL domain description" )
 		( "problem", po::value<std::string>(), "Input PDDL problem description" )
 		( "bound", po::value<int>()->default_value(1), "Max width w for IW(w)")
+		( "output", po::value<std::string>(), "Output plan file" )
 	;
 	
 	try {
@@ -163,6 +167,16 @@ int main( int argc, char** argv ) {
 		std::exit(1);
 	}
 
+	std::ofstream plan_stream;
+
+	if ( !vm.count( "output" ) ) {	
+		std::cerr << "No plan output file specified, defaulting to 'plan.ipc'" << std::endl;
+		plan_stream.open( "plan.ipc" );
+	}
+	else
+		plan_stream.open( vm["output"].as<std::string>().c_str() );
+		
+
 	STRIPS_Problem	prob;
 
 	aptk::FF_Parser::get_problem_description( vm["domain"].as<std::string>(), vm["problem"].as<std::string>(), prob );
@@ -193,10 +207,11 @@ int main( int argc, char** argv ) {
 	
 	float iw_bound = vm["bound"].as<int>();
 
-	float iw_t = do_search( siw_engine, prob, iw_bound, "iw.log" );
+	float iw_t = do_search( siw_engine, prob, iw_bound, plan_stream );
 	
-	std::cout << "IW search completed in " << iw_t << " secs, check 'iw.log' for details" << std::endl;
+	std::cout << "IW search completed in " << iw_t << " secs" << std::endl;
 
+	plan_stream.close();
 
 	return 0;
 }
