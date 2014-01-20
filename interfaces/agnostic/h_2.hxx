@@ -150,8 +150,8 @@ public:
 		compute_mutexes_only();
 
 
-		for ( unsigned p = 0 ; p < prob.num_fluents(); p++ ){
-			for ( unsigned a = 0; a < prob.num_actions(); a++ ){
+		for ( unsigned p = 0 ; p < m_strips_model.num_fluents(); p++ ){
+			for ( unsigned a = 0; a < m_strips_model.num_actions(); a++ ){
 				bool is_edelete = false;
 				Action& action = *(prob.actions()[a]);
 
@@ -159,8 +159,8 @@ public:
 					unsigned q = action.add_vec()[i];
 					if ( value(p,q) == infty ){
 						is_edelete = true;
-						action.edel_vec().push_back( p );					
-						action.edel_set().set( p );
+						prob.actions()[a]->edel_vec().push_back( p );					
+						prob.actions()[a]->edel_set().set( p );
 						prob.actions_edeleting( p ).push_back( (const Action*) &action );
 						break;
 					}
@@ -171,16 +171,16 @@ public:
 				for ( unsigned i = 0; i < action.prec_vec().size(); i++ ){
 					unsigned r = action.prec_vec()[i];
 					if ( !action.add_set().isset(p) && value( p, r ) == infty ){
-						action.edel_vec().push_back( p );
-						action.edel_set().set( p );
+						prob.actions()[a]->edel_vec().push_back( p );
+						prob.actions()[a]->edel_set().set( p );
 						prob.actions_edeleting( p ).push_back( (const Action*) &action );
 						break;
 					}
 				}
 
 				if ( !action.edel_set().isset(p) && action.del_set().isset(p) ){
-					action.edel_vec().push_back( p );
-					action.edel_set().set( p );
+					prob.actions()[a]->edel_vec().push_back( p );
+					prob.actions()[a]->edel_set().set( p );
 					prob.actions_edeleting( p ).push_back( (const Action*) &action );
 				}
 

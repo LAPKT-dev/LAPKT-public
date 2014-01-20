@@ -89,8 +89,8 @@ namespace aptk
 	}
 	
 	unsigned STRIPS_Problem::add_action( STRIPS_Problem& p, std::string signature,
-					     Fluent_Vec& pre, Fluent_Vec& add, Fluent_Vec& del,
-					     Conditional_Effect_Vec& ceffs, float cost )
+					     const Fluent_Vec& pre, const Fluent_Vec& add, const Fluent_Vec& del,
+					     const Conditional_Effect_Vec& ceffs, float cost )
 	{
 		if( ! p.has_conditional_effects() )
 			if( ! ceffs.empty() )
@@ -119,7 +119,7 @@ namespace aptk
 		return p.fluents().size()-1;
 	}
 
-	void	STRIPS_Problem::set_init( STRIPS_Problem& p, Fluent_Vec& init_vec )
+	void	STRIPS_Problem::set_init( STRIPS_Problem& p, const Fluent_Vec& init_vec )
 	{
 #ifdef DEBUG
 		for ( unsigned k = 0; k < init_vec.size(); k++ )
@@ -137,12 +137,33 @@ namespace aptk
 			p.m_in_init[ init_vec[k] ] = true;
 	}
 
-	void	STRIPS_Problem::set_goal( STRIPS_Problem& p, Fluent_Vec& goal_vec, bool create_end_op )
+	void	STRIPS_Problem::set_goal( STRIPS_Problem& p, const Fluent_Vec& goal_vec, bool create_end_op )
 	{
 #ifdef DEBUG
 		for ( unsigned k = 0; k < goal_vec.size(); k++ )
 			assert( goal_vec[k] < p.num_fluents() );
-#endif
+#endif		
+		if ( create_end_op )
+		{
+			unsigned dummy_goal = STRIPS_Problem::add_fluent( p, "(goal-achieved)" );
+			// MRJ: dummy goal action
+			Fluent_Vec dummy_goal_vec;
+			Fluent_Vec empty_vec;
+			Conditional_Effect_Vec	empty_ceff_vec;
+			dummy_goal_vec.push_back( dummy_goal );
+			p.m_end_operator_id = STRIPS_Problem::add_action( 	p, std::string("(achieve-goal)"), 
+										goal_vec, dummy_goal_vec, empty_vec, empty_ceff_vec, 0.0f );
+			if ( p.m_in_goal.empty() )
+			p.m_in_goal.resize( p.num_fluents(), false );
+			else
+				for ( unsigned k = 0; k < p.num_fluents(); k++ )
+					p.m_in_goal[k] = false;
+
+			p.goal().push_back( dummy_goal );
+
+			p.m_in_goal[ dummy_goal ] = true;
+			return;
+		}
 		if ( p.m_in_goal.empty() )
 			p.m_in_goal.resize( p.num_fluents(), false );
 		else
@@ -153,14 +174,7 @@ namespace aptk
 
 		for ( unsigned k = 0; k < goal_vec.size(); k++ )
 			p.m_in_goal[ goal_vec[k] ] = true;
-		
-		if ( create_end_op )
-		{
-			Fluent_Vec dummy;
-			Conditional_Effect_Vec dummy_ceffs;
-			p.m_end_operator_id = add_action( p, "(END)", goal_vec, dummy, dummy, dummy_ceffs);
-			p.actions()[ p.m_end_operator_id ]->set_cost( 0 );
-		}
+
 	}
 
 	void STRIPS_Problem::print_fluent_vec(const Fluent_Vec &a) {
@@ -217,4 +231,31 @@ namespace aptk
 		}
 
 	}
+
+	void 	STRIPS_Problem::make_delete_relaxation( const STRIPS_Problem& orig, STRIPS_Problem& relaxed ) {
+		// MRJ: Copy fluents 
+
+		for ( auto f : orig.fluents() )
+			STRIPS_Problem::add_fluent( relaxed, f->signature() );
+		
+
+		// MRJ: Copy actions
+
+		for ( auto a : orig.actions() ) {
+			Fluent_Vec		dummy_deletes;
+			Conditional_Effect_Vec	df_ceffs;
+			for ( auto cond_eff : a->ceff_vec() ) {
+				Conditional_Effect* df_copy = new Conditional_Effect( relaxed );
+				df_copy->define( cond_eff->prec_vec(), cond_eff->add_vec(), dummy_deletes );
+				df_ceffs.push_back( df_copy );
+			}
+			STRIPS_Problem::add_action( 	relaxed, a->signature(), a->prec_vec(), a->add_vec(), dummy_deletes,
+							df_ceffs, a->cost() );
+		}
+
+		// MRJ: Set initial state & goal
+		STRIPS_Problem::set_init( relaxed, orig.init() );
+		STRIPS_Problem::set_goal( relaxed, orig.goal()  );
+	}
+
 }

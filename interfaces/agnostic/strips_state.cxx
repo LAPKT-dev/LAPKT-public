@@ -50,9 +50,12 @@ State* State::progress_through_df( const Action& a ) const
 
 	State* succ = new State( problem() );
 
-
 	succ->set( fluent_vec() );
-	succ->set( a.add_vec() );
+
+	for ( auto p : a.add_vec() ) {
+		if ( succ->entails(p) ) continue;
+		succ->set(p);
+	}
 
 	//Add Conditional Effects
 	if( !a.ceff_vec().empty() )
@@ -60,8 +63,11 @@ State* State::progress_through_df( const Action& a ) const
 		for( unsigned i = 0; i < a.ceff_vec().size(); i++ )
 		{
 			Conditional_Effect* ce = a.ceff_vec()[i];
-			if( ce->can_be_applied_on( *this ) )
-				succ->set( ce->add_vec() );
+			if( ce->can_be_applied_on( *this ) ) {
+				for ( auto p : ce->add_vec() ) 
+					if ( !succ->entails(p) )
+						succ->set(p);
+			}
 		}
 	}
 

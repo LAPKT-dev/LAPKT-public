@@ -72,10 +72,10 @@ public:
 	unsigned	           	index() const { return m_index; }
 	void		           	set_index( unsigned idx ) { m_index = idx; }
 
-	void		           	define( Fluent_Vec& precs, Fluent_Vec& adds, Fluent_Vec& dels );
-	void		           	define( Fluent_Vec& precs, Fluent_Vec& adds, Fluent_Vec& dels, Conditional_Effect_Vec& ceffs );
+	void		           	define( const Fluent_Vec& precs, const Fluent_Vec& adds, const Fluent_Vec& dels );
+	void		           	define( const Fluent_Vec& precs, const Fluent_Vec& adds, const Fluent_Vec& dels, const Conditional_Effect_Vec& ceffs );
 
-	void		           	define_fluent_list( Fluent_Vec& in, Fluent_Vec& list, Fluent_Set& set );
+	void		           	define_fluent_list( const Fluent_Vec& in, Fluent_Vec& list, Fluent_Set& set );
 
 	bool		           	requires( unsigned f ) const;
 	bool		           	asserts( unsigned f ) const;

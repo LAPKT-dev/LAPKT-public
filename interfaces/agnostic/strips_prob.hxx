@@ -50,13 +50,15 @@ namespace aptk
 		void			set_num_actions( unsigned na ) { m_num_actions = na; }
 
 		static unsigned 	add_action( STRIPS_Problem& p, std::string signature,
-						    Fluent_Vec& pre, Fluent_Vec& add, Fluent_Vec& del,
-						    Conditional_Effect_Vec& ceffs, float cost = 1.0f );
+						    const Fluent_Vec& pre, const Fluent_Vec& add, const Fluent_Vec& del,
+						    const Conditional_Effect_Vec& ceffs, float cost = 1.0f );
 
 		static unsigned 	add_fluent( STRIPS_Problem& p, std::string signature );
 
-		static void		set_init( STRIPS_Problem& p, Fluent_Vec& init );
-		static void		set_goal( STRIPS_Problem& p, Fluent_Vec& goal, bool createEndOp = false );
+		static void		set_init( STRIPS_Problem& p, const Fluent_Vec& init );
+		static void		set_goal( STRIPS_Problem& p, const Fluent_Vec& goal, bool createEndOp = false );
+
+		static void		make_delete_relaxation( const STRIPS_Problem& orig, STRIPS_Problem& relaxed );
 
 	  	
 		Fluent_Ptr_Vec&		fluents() 			{ return m_fluents; }
