@@ -1,0 +1,22 @@
+import os
+
+debug = ARGUMENTS.get( 'debug', 0 )
+common_env = Environment(ENV = os.environ)
+
+common_env.Append( CCFLAGS = [ '-Wall', '-std=c++11', '-fPIC' ] )
+
+if int(debug) == 1 :
+        common_env.Append( CCFLAGS = ['-g',  '-DDEBUG' ] )
+elif int(debug) == 2 :
+        common_env.Append( CCFLAGS = ['-g',  '-DNDEBUG' ] )
+else:
+        common_env.Append( CCFLAGS = ['-O3', '-DNDEBUG'] )
+
+Export( 'common_env' )
+
+generic_objs = SConscript('../../src/SConscript.aptk')
+agnostic_objs = SConscript('../../interfaces/agnostic/SConscript.agnostic')
+python_objs = SConscript('../python/agnostic/SConscript.python')
+siw_objs = SConscript('src/SConscript')
+
+common_env.SharedLibrary( 'siw.so', siw_objs + generic_objs + agnostic_objs + python_objs ) 
