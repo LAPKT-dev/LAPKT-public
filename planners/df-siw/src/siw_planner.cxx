@@ -125,7 +125,7 @@ SIW_Planner::solve() {
 	Landmarks_Graph graph( m_df_relaxation );
 
 	//gen_lms.set_only_goals( true );
-	//gen_lms.set_goal_ordering( false );
+	gen_lms.set_goal_ordering( false );
 
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
