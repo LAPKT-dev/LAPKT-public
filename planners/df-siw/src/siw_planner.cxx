@@ -125,15 +125,18 @@ SIW_Planner::solve() {
 	Landmarks_Graph graph( m_df_relaxation );
 
 	//gen_lms.set_only_goals( true );
+	//gen_lms.set_goal_ordering( false );
+
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
 	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
-	//graph.print( std::cout );
+	graph.print( std::cout );
 	
 	std::cout << "Starting search with IW (time budget is 60 secs)..." << std::endl;
 
 	SIW_Fwd siw_engine( search_prob );
 	siw_engine.set_goal_agenda( &graph );
+	siw_engine.set_consistency_test( false );
 	
 	float iw_t = do_search( siw_engine );
 	

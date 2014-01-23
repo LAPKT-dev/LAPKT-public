@@ -116,7 +116,16 @@ protected:
 		for (unsigned i = 0; i < app_set.size(); ++i ) {
 			int a = app_set[i];
 
-			State *succ = this->problem().next( *(head->state()), a );	       
+			/**
+			 * Prune actions that do not add anything new compared to prev state.
+			 * Big impact in del-free tasks, as states grow monotonically
+			 */
+			if( head->state()->entails(this->problem().task().actions()[a]->add_vec()) )
+				continue;
+			
+
+			State *succ = this->problem().next( *(head->state()), a );	       			
+
 			Search_Node* n = new Search_Node( succ , a, head, this->problem().task().actions()[ a ]->cost() );
 
 			//Lazy expansion

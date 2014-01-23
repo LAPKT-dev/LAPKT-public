@@ -47,7 +47,7 @@ typedef		H1_Heuristic<Search_Model, H_Max_Evaluation_Function>	H_Max;
 public:
 
 	Landmarks_Graph_Generator( const Search_Model& prob ) 
-	  :  m_strips_model( prob.task() ), m_only_goals( false ), m_h1( prob )
+	:  m_strips_model( prob.task() ), m_only_goals( false ), m_goal_ordering(true), m_h1( prob )
 	{
 		m_reachability = new aptk::agnostic::Reachability_Test( prob.task() );
 	}
@@ -58,6 +58,8 @@ public:
 	
 public:
 	void   set_only_goals( bool b ){ m_only_goals = b; }
+
+	void   set_goal_ordering( bool b ){ m_goal_ordering = b; }
   
         void    build_goal_ordering( Landmarks_Graph& graph ){
 
@@ -131,7 +133,8 @@ public:
 
 
 		if( m_only_goals ){
-			build_goal_ordering( graph );
+			if(m_goal_ordering)
+				build_goal_ordering( graph );
 			return;
 		}
 		
@@ -268,7 +271,8 @@ public:
 		}
 	
 
-		build_goal_ordering( graph );
+		if(m_goal_ordering)
+			build_goal_ordering( graph );
 	
 
 #ifdef DEBUG
@@ -316,6 +320,7 @@ protected:
 
 	const STRIPS_Problem&			m_strips_model;
 	bool                                    m_only_goals;
+	bool                                    m_goal_ordering;
 	Reachability_Test*                      m_reachability;	
         H_Max                                   m_h1;
 };

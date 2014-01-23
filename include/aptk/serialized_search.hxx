@@ -44,13 +44,15 @@ public:
 	typedef 	Closed_List< Search_Node >			                          Closed_List_Type;
 
 	Serialized_Search( 	const Search_Model& search_problem ) 
-	: Search_Strategy( search_problem ) {	   
+	: Search_Strategy( search_problem ), m_consistency_test(true) {	   
 		m_reachability = new aptk::agnostic::Reachability_Test( this->problem().task() );
 	}
 
 	virtual ~Serialized_Search() {
 		delete m_reachability;
 	}
+
+	void set_consistency_test( bool b ){ m_consistency_test = b; }
 
 	void debug_info( State*s, Fluent_Vec& unachieved ){
 			
@@ -141,6 +143,12 @@ public:
 				{
 					m_goals_achieved.push_back( *it );		
 
+
+					if(!m_consistency_test){
+						new_goal_achieved = true;
+						continue;
+					}
+
 					static Bit_Set excluded( this->problem().num_actions() );
 					exclude_actions( excluded );
 
@@ -208,6 +216,7 @@ protected:
 
 	Fluent_Vec                              m_goals_achieved;
 	Fluent_Vec                              m_goal_candidates;
+	bool                                    m_consistency_test;
 };
 
 }
