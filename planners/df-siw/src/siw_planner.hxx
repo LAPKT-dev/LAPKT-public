@@ -28,6 +28,10 @@ protected:
 	
 	float	do_search( SIW_Fwd& engine);
 
+protected:
+
+	aptk::STRIPS_Problem	m_df_relaxation;
+
 };
 
 #endif

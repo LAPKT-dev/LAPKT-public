@@ -51,6 +51,11 @@ SIW_Planner::setup() {
 	std::cout << "\t#Actions: " << instance()->num_actions() << std::endl;
 	std::cout << "\t#Fluents: " << instance()->num_fluents() << std::endl;
 
+	std::string new_name = "df_" + instance()->domain_name();
+	aptk::STRIPS_Problem::make_delete_relaxation( *instance(), m_df_relaxation );
+	m_df_relaxation.set_domain_name( new_name );
+	m_df_relaxation.set_problem_name( instance()->problem_name() );
+	m_df_relaxation.make_action_tables(); 
 }
 
 float
@@ -74,7 +79,7 @@ SIW_Planner::do_search( SIW_Fwd& engine ) {
 		std::cout << "Plan found with cost: " << cost << std::endl;
 		for ( unsigned k = 0; k < plan.size(); k++ ) {
 			std::cout << k+1 << ". ";
-			const aptk::Action& a = *(instance()->actions()[ plan[k] ]);
+			const aptk::Action& a = *(m_df_relaxation.actions()[ plan[k] ]);
 			std::cout << a.signature();
 			std::cout << std::endl;
 			plan_stream << a.signature() << std::endl;
@@ -106,19 +111,20 @@ SIW_Planner::do_search( SIW_Fwd& engine ) {
 void	
 SIW_Planner::solve() {
 
-	Fwd_Search_Problem	search_prob( instance() );
+	Fwd_Search_Problem	search_prob( &m_df_relaxation );
 
 	if ( !instance()->has_conditional_effects() ) {
-		H2_Fwd    h2( search_prob );
-		h2.compute_edeletes( *instance() );
+		Fwd_Search_Problem actual( instance() );
+		H2_Fwd    h2( actual );
+		h2.compute_edeletes( m_df_relaxation );
 	}
 	else 
 		instance()->compute_edeletes();	
 
 	Gen_Lms_Fwd    gen_lms( search_prob );
-	Landmarks_Graph graph( *instance() );
+	Landmarks_Graph graph( m_df_relaxation );
 
-	gen_lms.set_only_goals( true );
+	//gen_lms.set_only_goals( true );
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
 	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
