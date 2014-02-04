@@ -243,7 +243,7 @@ AT_BFS_f_Planner::solve() {
 
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
-	m_details << "Landmarks found: " << graph.num_landmarks() << std::endl;
+	m_details << "Landmarks and edges found: " << graph.num_landmarks_and_edges() << std::endl;
 	graph.print( m_details );
 
 	Land_Graph_Man lgm( search_prob, &graph);
@@ -254,7 +254,7 @@ AT_BFS_f_Planner::solve() {
 	
 		Anytime_GBFS_H_Add_Rp_Fwd bfs_engine( search_prob );
 		bfs_engine.use_land_graph_manager( &lgm );
-		bfs_engine.set_arity( m_max_novelty, graph.num_landmarks() );
+		bfs_engine.set_arity( m_max_novelty, graph.num_landmarks_and_edges() );
 		
 		float bfs_t = do_stage_2( bfs_engine, siw_cost, bfs_f_cost  );
 		m_details << "BFS(f) search completed in " << bfs_t << " secs, found plan cost = " << bfs_f_cost << std::endl;

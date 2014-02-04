@@ -394,7 +394,7 @@ int main( int argc, char** argv ) {
 
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
-	details << "Landmarks found: " << graph.num_landmarks() << std::endl;
+	details << "Landmarks and edges found: " << graph.num_landmarks_and_edges() << std::endl;
 	graph.print( details );
 
 	Land_Graph_Man lgm( search_prob, &graph);
@@ -405,7 +405,7 @@ int main( int argc, char** argv ) {
 	
 		Anytime_GBFS_H_Add_Rp_Fwd bfs_engine( search_prob );
 		bfs_engine.use_land_graph_manager( &lgm );
-		bfs_engine.set_arity( vm["max-novelty"].as<int>(), graph.num_landmarks() );
+		bfs_engine.set_arity( vm["max-novelty"].as<int>(), graph.num_landmarks_and_edges() );
 		
 		float bfs_t = do_stage_2(prob,  bfs_engine, siw_cost, bfs_f_cost, details, plan_filename  );
 		details << "BFS(f) search completed in " << bfs_t << " secs, found plan cost = " << bfs_f_cost << std::endl;
