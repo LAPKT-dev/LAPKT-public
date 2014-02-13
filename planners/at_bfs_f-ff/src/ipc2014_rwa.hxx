@@ -103,10 +103,11 @@ namespace ipc2014 {
 			
 			lgm->reset_graph();
 			for( Node_Vec_Ptr_It it = path.begin(); it != path.end(); it++){
-				//if( (*it)->action() != -1)
-				//	std::cout << lgm->problem().actions()[ (*it)->action() ]->signature() << std::flush;
-	
 				if(*it == NULL) break;
+			
+				// if( (*it)->action() != -1)
+				// 	std::cout << lgm->problem().actions()[ (*it)->action() ]->signature() << std::flush;
+	
 				lgm->update_graph( (*it)->land_consumed(), (*it)->land_unconsumed() );
 			}
 			//std::cout << std::endl;

@@ -380,12 +380,13 @@ int main( int argc, char** argv ) {
 		gen_lms.compute_lm_graph_set_additive( graph );
 		
 		details << "Landmarks found: " << graph.num_landmarks() << std::endl;
-		graph.print( details );
+		//graph.print( details );
 	
 		SIW_Fwd siw_engine( search_prob );
 		siw_engine.set_goal_agenda( &graph );
 		float iw_t = do_stage_1(prob, siw_engine, siw_cost, vm["iw-bound"].as<int>(), details, plan_filename  );
 		details << "SIW search completed in " << iw_t << " secs, found plan cost = " << siw_cost << std::endl;
+		std::cout << "SIW search completed in " << iw_t << " secs \nfound plan cost = " << siw_cost << std::endl;
 	}
 
 	float bfs_f_cost = infty;
