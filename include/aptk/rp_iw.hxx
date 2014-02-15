@@ -36,8 +36,8 @@ namespace search {
 namespace brfs {
 
 
-template < typename Search_Model, typename Abstract_Novelty >
-class IW : public BRFS< Search_Model > {
+  template < typename Search_Model, typename Abstract_Novelty, typename RP_Heuristic >
+class RP_IW : public BRFS< Search_Model > {
 
 public:
 
@@ -45,13 +45,49 @@ public:
 	typedef  	Node< State >					Search_Node;
 	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
-	IW( 	const Search_Model& search_problem ) 
+	RP_IW( 	const Search_Model& search_problem ) 
 	: BRFS< Search_Model >(search_problem), m_pruned_B_count(0), m_B( infty ) {	   
 		m_novelty = new Abstract_Novelty( search_problem );
+		m_rp_h = new RP_Heuristic( search_problem );
+		m_rp_h->ignore_rp_h_value(true);
+		m_rp_fl_set.resize( this->problem().task().num_fluents() );
+
 	}
 
-	virtual ~IW() {
+	virtual ~RP_IW() {
 		delete m_novelty;
+		delete m_rp_h;
+	}
+	
+	void reset() {
+		BRFS<Search_Model>::reset();
+		m_rp_fl_vec.clear();
+		m_rp_fl_set.reset();
+			
+	}
+
+        void    set_relplan( State* s ){
+      		std::vector<Action_Idx>	po;
+      		std::vector<Action_Idx>	rel_plan;
+		float h_value;
+		m_rp_h->eval( *s, h_value, po, rel_plan );
+ 		
+		//std::cout << "rel_plan size: "<< rel_plan.size() << std::endl;
+		for(std::vector<Action_Idx>::iterator it_a = rel_plan.begin(); 
+		    it_a != rel_plan.end(); it_a++ ){
+			const Fluent_Vec& add = this->problem().task().actions()[*it_a]->add_vec();
+
+			//std::cout << this->problem().task().actions()[*it_a]->signature() << std::endl;
+			for ( unsigned i = 0; i < add.size(); i++ )
+			{
+				if ( ! m_rp_fl_set.isset( add[i] ) )
+				{
+					m_rp_fl_vec.push_back( add[i] );
+					m_rp_fl_set.set( add[i] );
+					//std::cout << this->problem().task().fluents()[add[i]]->signature() << std::endl;
+				}
+			}		       
+		}
 	}
 
 	void	start(State*s = NULL) {
@@ -63,10 +99,14 @@ public:
 			this->m_root = new Search_Node( s, no_op, NULL );
 
 
+		
 		m_pruned_B_count = 0;
-		this->reset();
-
+		reset();
 		m_novelty->init();
+
+		set_relplan( this->m_root->state() );
+		m_novelty->set_arity( m_B, m_rp_fl_vec.size() );
+		std::cout << "#RP_fluents "<< m_rp_fl_vec.size() << std::endl;
 		
 		if ( prune( this->m_root ) )  {
 			std::cout<<"Initial State pruned! No Solution found."<<std::endl;
@@ -86,17 +126,42 @@ public:
 	float			bound() const			{ return m_B; }
 	void			set_bound( float v ) 		{ 
 		m_B = v;
-		m_novelty->set_arity( m_B );
+		m_novelty->set_arity( m_B,1 );
 	}
 
 	void			inc_pruned_bound() 		{ m_pruned_B_count++; }
 	unsigned		pruned_by_bound() const		{ return m_pruned_B_count; }
 
 protected:
+       unsigned  rp_fl_achieved( Search_Node* n ){
+	       unsigned count = 0;
+	       static Fluent_Set counted( this->problem().task().num_fluents() );
+	       while( n->action()!= no_op ){
+		       const Fluent_Vec& add = this->problem().task().actions()[ n->action() ]->add_vec();
+		       
+		       //std::cout << this->problem().task().actions()[*it_a]->signature() << std::endl;
+		       for ( unsigned i = 0; i < add.size(); i++ ){
+			       const unsigned p = add[i];
+			       if( m_rp_fl_set.isset( p ) && ! counted.isset(p) ){
+				       count++;
+				       counted.set( p );
+			       }
+		       }
+		
+		       n = n->parent();
+	       }
+	       counted.reset();
+	       return count;
+		       
+       }
+
 	bool   prune( Search_Node* n ){
 
 		float node_novelty = infty;
-		m_novelty->eval( n, node_novelty );
+		//unsigned count = rp_fl_achieved( n );
+		//std::cout << this->problem().task().actions()[ n->action() ]->signature() << " achieved: " << count << std::endl;
+		m_novelty->eval( n, node_novelty, rp_fl_achieved( n ) );
+		//m_novelty->eval( n, node_novelty );
 		if( node_novelty > bound() ) {
 			inc_pruned_bound();
 			//this->close(n);				
@@ -181,9 +246,12 @@ protected:
 	
 protected:
 
-	Abstract_Novelty*      			m_novelty;
-	unsigned				m_pruned_B_count;
-	float					m_B;
+	  Abstract_Novelty*    			m_novelty;
+	  RP_Heuristic*      			m_rp_h;
+	  Fluent_Vec                            m_rp_fl_vec;
+	  Fluent_Set                            m_rp_fl_set;
+	  unsigned				m_pruned_B_count;
+	  float					m_B;
 };
 
 }

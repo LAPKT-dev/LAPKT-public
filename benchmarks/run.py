@@ -35,7 +35,7 @@ OLD = 1
 NEW = 2
 
 # Set the style of planner you are using
-TYPE = NEW
+TYPE = OLD
 
 benchmark = None
 domains = None

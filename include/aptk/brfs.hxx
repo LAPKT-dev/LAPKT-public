@@ -66,10 +66,14 @@ public:
 	void			print( std::ostream& os ) const {
 		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = " << m_g  << "}";
 	}
-	
+
+	bool    is_better( Node* n ) const {
+		return false;
+	}
+
 	size_t      hash() const { return m_state ? m_state->hash() : m_hash; }
 
-	void        update_hash() {
+	void    update_hash() {
 		Hash_Key hasher;
 		hasher.add( m_action );
 		if ( m_parent != NULL )

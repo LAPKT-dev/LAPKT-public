@@ -80,8 +80,8 @@ public:
 		for(unsigned k = 0; k < m_arity; k++)
 			m_num_tuples *= m_num_fluents;
 
-		m_nodes_tuples_by_partition.resize( goal_size );
-		for( unsigned i = 0; i < goal_size; i++ )
+		m_nodes_tuples_by_partition.resize( goal_size+1 );
+		for( unsigned i = 0; i < goal_size+1; i++ )
 			m_nodes_tuples_by_partition[i].resize(m_num_tuples, NULL);
 
 	}
@@ -242,26 +242,7 @@ protected:
 	}
 
 	inline bool      is_better( Search_Node* n,const Search_Node* new_n ) const { 
-		//		return false;
-		bool ret = false;
-
-		float n1 = new_n->h3n() + new_n->gn();
-		float n2 = n->h3n() + n->gn();
-                ret =  n1 < n2;
-                if(ret) return ret;
-
-                if(n1 == n2){
-                        ret =  new_n->h3n() < n->h3n();
-                        if(ret) return ret;
-
-                        if(new_n->h3n() == n->h3n()){
-                                ret =  new_n->gn() < n->gn();
-                        }
-
-                }
-
-                return ret;
-		
+	  return new_n->is_better( n );		
 	}
 
 

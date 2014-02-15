@@ -58,7 +58,7 @@ public:
 	void	set_one_HA_per_fluent( bool v) { m_one_ha_per_fluent = v; }
 	bool	one_HA_per_fluent() const { return m_one_ha_per_fluent; }
 
-	virtual void compute( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops ) {
+	virtual void compute( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>* copy_rel_plan = NULL ) {
 
 		m_base_heuristic.eval( s, h_val );
 		if ( h_val == infty )
@@ -97,6 +97,7 @@ public:
 			actions_pending().push( sup );
 			actions_seen().set( sup->index() );
 			relaxed_plan.push_back( sup );
+
 		}	
 	
 		while ( !actions_pending().empty() ) {
@@ -123,7 +124,11 @@ public:
 				}
 			}
 		}
-	
+
+		if(copy_rel_plan) 
+			for(unsigned i = 0; i < relaxed_plan.size(); i++)
+				copy_rel_plan->push_back( relaxed_plan[i]->index() );
+
 		if(!m_ignore_rp_h_value)
 			h_val = 0.0f;
 	
@@ -232,6 +237,10 @@ public:
 	
 	virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops ) {
 		m_plan_extractor.compute( s, h_val, pref_ops );
+	}
+  
+	virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>& rel_plan ) {
+		m_plan_extractor.compute( s, h_val, pref_ops, &rel_plan );
 	}
 	
 	void ignore_rp_h_value(bool b) {m_plan_extractor.ignore_rp_h_value(b);}

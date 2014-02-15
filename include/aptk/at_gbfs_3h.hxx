@@ -91,6 +91,28 @@ public:
 	Bool_Vec_Ptr*&           land_consumed()                 { return m_land_consumed; }
 	Bool_Vec_Ptr*&           land_unconsumed()                 { return m_land_unconsumed; }
 
+        bool                  is_better( Node* n ) const{
+	        bool ret = false;
+		
+		float n1 = this->h3n() + this->gn();
+		float n2 = n->h3n() + n->gn();
+                ret =  n1 < n2;
+                if(ret) return ret;
+
+                if(n1 == n2){
+                        ret =  new_n->h3n() < n->h3n();
+                        if(ret) return ret;
+
+                        if(new_n->h3n() == n->h3n()){
+                                ret =  new_n->gn() < n->gn();
+                        }
+
+                }
+
+                return ret;
+		
+	}
+  
         void                    update_land_graph(Landmarks_Graph_Manager* lgm){
 		Node_Vec_Ptr path( gn_unit()+1 );
 		Node_Vec_Ptr_Rit rit = path.rbegin();
