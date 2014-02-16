@@ -21,15 +21,15 @@ from domains import *
 USAGE = """
  Usage:
     python run.py profile <executable> <ipc directory> [<domain pddl> <problem pddl>]
-    python run.py benchmark <executable> <ipc directory> [<domain>]
+    python run.py benchmark <executable> <ipc directory> <results directory> [<domain>]
     python run.py compare <directory 1> <directory 2> <ipc directory>
     python run.py clean
     """
 
 # Set the time limit (in seconds)
-timelimit = 180
+timelimit = 300
 memorylimit = 1000
-cores = 5 # Only used for the benchmarking
+cores = 6 # Only used for the benchmarking
 
 OLD = 1
 NEW = 2
@@ -40,6 +40,7 @@ TYPE = OLD
 benchmark = None
 domains = None
 ipc = None
+results_directory = "results"
 
 def profile_domain(planner, dom, domain, problem):
 
@@ -72,12 +73,15 @@ def benchmark_domain(planner, dom):
     else:
         assert False, "What the deuce?"
 
+    if os.path.exists(results_directory) is False:
+        os.mkdir(results_directory)
+
     results = run_experiment(base_directory=".",
                              base_command=planner,
                              single_arguments={'domprob': domprob_args},
                              time_limit=timelimit,
                              memory_limit=memorylimit,
-                             results_dir="results",
+                             results_dir=results_directory,
                              progress_file=None,
                              processors=cores,
                              sandbox=None)
@@ -252,7 +256,7 @@ if 'profile' == argv[1]:
 
 elif 'benchmark' == argv[1]:
     
-    if len(argv) < 4:
+    if len(argv) < 5:
         print USAGE
         os._exit(1)
 
@@ -268,13 +272,14 @@ elif 'benchmark' == argv[1]:
         print "Invalid benchmark set: %s" % argv[3]
         os._exit(1)
     
+    results_directory = argv[4]
     ipc = argv[3]
         
-    if len(argv) < 5:
+    if len(argv) < 6:
         for dom in domains:
             benchmark_domain(argv[2], dom)
     else:
-        benchmark_domain(argv[2], argv[4])
+        benchmark_domain(argv[2], argv[5])
 
 
 elif 'compare' == argv[1]:
