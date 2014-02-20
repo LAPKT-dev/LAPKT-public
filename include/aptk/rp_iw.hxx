@@ -46,7 +46,7 @@ public:
 	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
 	RP_IW( 	const Search_Model& search_problem ) 
-	: BRFS< Search_Model >(search_problem), m_pruned_B_count(0), m_B( infty ) {	   
+	: BRFS< Search_Model >(search_problem), m_pruned_B_count(0), m_B( infty ), m_use_relplan(true) {	   
 		m_novelty = new Abstract_Novelty( search_problem );
 		m_rp_h = new RP_Heuristic( search_problem );
 		m_rp_h->ignore_rp_h_value(true);
@@ -88,8 +88,22 @@ public:
 				}
 			}		       
 		}
-	}
 
+		// if( m_rp_fl_vec.size() == this->problem().task().num_fluents() ){
+		// 	m_rp_fl_vec.clear();
+		// 	m_rp_fl_set.reset();
+		// }
+		
+		// for(unsigned i = 0; i < this->problem().task().num_fluents(); i++){
+		// 	if( !m_rp_fl_set.isset(i) )
+		// 		std::cout << "not in RP: "<< this->problem().task().fluents()[i]->signature() << std::endl;
+		// }
+		
+	}
+	  
+	void    set_use_relplan( bool b ) { m_use_relplan = b; }
+	bool    use_relplan(  ) { return m_use_relplan; }
+	  
 	void	start(State*s = NULL) {
 
 
@@ -103,10 +117,12 @@ public:
 		m_pruned_B_count = 0;
 		reset();
 		m_novelty->init();
+		
+		if( use_relplan() )
+			set_relplan( this->m_root->state() );
 
-		set_relplan( this->m_root->state() );
 		m_novelty->set_arity( m_B, m_rp_fl_vec.size() );
-		std::cout << "#RP_fluents "<< m_rp_fl_vec.size() << std::endl;
+		std::cout << "#RP_fluents "<< m_rp_fl_vec.size() << std::flush;
 		
 		if ( prune( this->m_root ) )  {
 			std::cout<<"Initial State pruned! No Solution found."<<std::endl;
@@ -122,7 +138,7 @@ public:
 		this->m_open_hash.put( this->m_root );
 		this->inc_gen();
 	}
-
+	float			arity() 	                { return m_novelty->arity( ); }	
 	float			bound() const			{ return m_B; }
 	void			set_bound( float v ) 		{ 
 		m_B = v;
@@ -243,7 +259,8 @@ protected:
 
 		return NULL;
 	}
-	
+
+
 protected:
 
 	  Abstract_Novelty*    			m_novelty;
@@ -252,6 +269,7 @@ protected:
 	  Fluent_Set                            m_rp_fl_set;
 	  unsigned				m_pruned_B_count;
 	  float					m_B;
+	  bool                                  m_use_relplan;
 };
 
 }

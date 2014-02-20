@@ -28,8 +28,8 @@ USAGE = """
 
 # Set the time limit (in seconds)
 timelimit = 300
-memorylimit = 1000
-cores = 6 # Only used for the benchmarking
+memorylimit = 2000
+cores = 3 # Only used for the benchmarking
 
 OLD = 1
 NEW = 2
@@ -104,6 +104,8 @@ def benchmark_domain(planner, dom):
         else:
             outfile = res.output_file
 
+        os.system("cp %s %s"%(outfile, outfile+dom))
+
         if res.timed_out:
             data.append("%s,time,-1,-1,-1,-1" % prob)
         elif match_value("%s.err" % res.output_file, '.*std::bad_alloc.*'):
@@ -115,18 +117,38 @@ def benchmark_domain(planner, dom):
         elif match_value("%s.err" % res.output_file, '.*Segmentation fault.*'):
             data.append("%s,seg,-1,-1,-1,-1" % prob)
         else:
-            if match_value(outfile, '.*Plan found with cost: ([0-9]+).*'):
+            if match_value(outfile, '.*Effective Width during search*'):                
+                lines = open(outfile)
+                quality = 0
+                generated = 0
+                expanded = 0
+                width = 0
+                for line in lines:
+                    if 'Plan found with cost:' in line:
+                        quality = int(line.split(':')[-1])
+                    if 'Nodes generated during search:' in line:
+                        generated = int(line.split(':')[-1])
+                    if 'Nodes expanded during search:' in line:
+                        expanded = int(line.split(':')[-1])
+                    if 'Effective Width during search:' in line:
+                        width = int(line.split(':')[-1])
+                        data.append("%s,ok,%f,%d,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded, width))
+                
+            elif match_value(outfile, '.*Plan found with cost: ([0-9]+).*'):
                 quality = get_value(outfile, '.*Plan found with cost: ([0-9]+).*', int)
                 generated = get_value(outfile, '.*Nodes generated during search: ([0-9]+).*', int)
                 expanded = get_value(outfile, '.*Nodes expanded during search: ([0-9]+).*', int)
-                data.append("%s,ok,%f,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded))
+                backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
+                data.append("%s,ok,%f,%d,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded, backtracks))
             elif match_value(outfile, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*'):
                 quality = get_value(outfile, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*', float)
                 generated = get_value(outfile, '.*Generated: ([0-9]+).*', int)
                 expanded = get_value(outfile, '.*Expanded: ([0-9]+).*', int)
-                data.append("%s,ok,%f,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded))
+                backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
+                data.append("%s,ok,%f,%d,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded, backtracks))
             elif match_value(outfile, '.*NOT I-REACHABLE.*'):
-                data.append("%s,not-i,%f,-1,-1,-1" % (prob, res.runtime))
+                backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
+                data.append("%s,not-i,%f,-1,-1,-1,%d" % (prob, res.runtime, backtracks))
             else:
                 print "Error with %s" % prob
                 data.append("%s,err,%f,-1,-1,-1" % (prob, res.runtime))
@@ -138,9 +160,10 @@ def benchmark_domain(planner, dom):
     
     data = ['problem,status,runtime,quality,generated,expanded'] + data
     
-    write_file("%s.csv" % dom, data)
     
-    cmd("rm -rf results")
+    write_file("%s/%s.csv" %( results_directory, dom), data)
+    
+    #cmd("rm -rf %s"%results_directoy)
     
 
 def compare_results(dir1, dir2):
@@ -277,6 +300,8 @@ elif 'benchmark' == argv[1]:
         
     if len(argv) < 6:
         for dom in domains:
+           # if dom in {'openstacks','floortile','elevators','barman'}:
+           #     continue
             benchmark_domain(argv[2], dom)
     else:
         benchmark_domain(argv[2], argv[5])

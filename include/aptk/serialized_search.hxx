@@ -209,7 +209,9 @@ public:
 		return true;
 	}
 
-
+	
+	Fluent_Vec&        goal_candidates(){ return m_goal_candidates; }
+	Fluent_Vec&        goals_achieved(){ return m_goals_achieved; }
 	
 protected:	       
 	aptk::agnostic::Reachability_Test*      m_reachability;	

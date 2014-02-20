@@ -176,6 +176,7 @@ public:
 	void				add_landmark_for( unsigned p, unsigned q );
 
 	void                            consume_node( unsigned p ){  m_fl_to_node[p]->consume(); }
+	void                            unconsume_node( unsigned p ){  m_fl_to_node[p]->unconsume(); }
 
 	void                            unconsume_all() {
 		for ( std::vector< Node* >::const_iterator it = m_lm_graph.begin(); it != m_lm_graph.end(); it++ )

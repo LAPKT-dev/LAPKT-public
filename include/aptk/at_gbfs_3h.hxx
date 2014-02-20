@@ -100,11 +100,11 @@ public:
                 if(ret) return ret;
 
                 if(n1 == n2){
-                        ret =  new_n->h3n() < n->h3n();
+                        ret =  this->h3n() < n->h3n();
                         if(ret) return ret;
 
-                        if(new_n->h3n() == n->h3n()){
-                                ret =  new_n->gn() < n->gn();
+                        if(this->h3n() == n->h3n()){
+                                ret =  this->gn() < n->gn();
                         }
 
                 }

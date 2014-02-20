@@ -69,7 +69,7 @@ public:
 		m_num_fluents = m_strips_model.num_fluents();
 
 		float size_novelty = ( (float) pow(m_num_fluents,m_arity) / 1024000.)  * (float) goal_size * sizeof(Search_Node*);
-		std::cout << "Try allocate size: "<< size_novelty<<" MB"<<std::endl;
+		//std::cout << "Try allocate size: "<< size_novelty<<" MB"<<std::endl;
 		if(size_novelty > m_max_memory_size_MB){
 			m_arity = 1;
 			size_novelty =  ( (float) pow(m_num_fluents,m_arity) / 1024000.) * (float) goal_size * sizeof(Search_Node*);
@@ -186,6 +186,128 @@ protected:
 		
 		return new_covers;
 
+	}
+
+	/**
+	 * Instead of checking the whole state, checks the new atoms permutations only!
+	 */
+	
+	bool    cover_tuples_op( Search_Node* n, unsigned arity, unsigned goals_unachieved  )
+	{
+
+		const bool has_state = n->has_state();
+		
+		static Fluent_Vec new_atom_vec;
+		const Action* a = m_strips_model.actions()[ n->action() ];
+		if( a->has_ceff() )
+		  {
+		    static Fluent_Set new_atom_set( m_strips_model.num_fluents()+1 );
+		    new_atom_set.reset();
+		    new_atom_vec.clear();
+		    for(Fluent_Vec::const_iterator it = a->add_vec().begin(); it != a->add_vec().end(); it++)
+		      {
+			if ( new_atom_set.isset( *it ) ) continue;
+			
+			new_atom_vec.push_back( *it );
+			new_atom_set.set( *it );
+			
+		      }
+		    for( unsigned i = 0; i < a->ceff_vec().size(); i++ )
+		      {
+			Conditional_Effect* ce = a->ceff_vec()[i];
+			if( ce->can_be_applied_on( *(n->parent()->state()) ) )
+			  for(Fluent_Vec::iterator it = ce->add_vec().begin(); it != ce->add_vec().end(); it++){
+				{
+				  if ( new_atom_set.isset( *it ) ) continue;
+				  
+				  new_atom_vec.push_back( *it );
+				  new_atom_set.set( *it );
+			 	}
+			  }
+			  
+		      }
+		  }
+
+		const Fluent_Vec& add = a->has_ceff() ? new_atom_vec : a->add_vec();
+        
+		if(!has_state)
+			n->parent()->state()->progress_lazy_state(  m_strips_model.actions()[ n->action() ] );	
+
+		Fluent_Vec& fl = has_state ? n->state()->fluent_vec() : n->parent()->state()->fluent_vec();
+		
+		bool new_covers = false;
+
+		assert ( arity > 0 );
+
+		std::vector<unsigned> tuple( arity );
+
+		unsigned atoms_arity = arity - 1;
+		unsigned n_combinations = aptk::unrolled_pow(  fl.size() , atoms_arity );	       
+		
+		
+		for ( Fluent_Vec::const_iterator it_add = add.begin();
+					it_add != add.end(); it_add++ )
+			{
+		
+				tuple[ atoms_arity ] = *it_add;
+
+				for( unsigned idx = 0; idx < n_combinations; idx++ ){
+
+					/**
+					 * get tuples from indexes
+					 */
+					if(atoms_arity > 0)
+						idx2tuple( tuple, fl, idx, atoms_arity );
+
+					/**
+					 * Check if tuple is covered
+					 */
+					unsigned tuple_idx = tuple2idx( tuple, arity );
+
+					/**
+					 * new_tuple if
+					 * -> none was registered
+					 * OR
+					 * -> n better than old_n
+					 */
+					bool cover_new_tuple = ( !m_nodes_tuples[ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples[tuple_idx], n  ) ? true : false);
+                       
+					if( cover_new_tuple ){
+						
+						m_nodes_tuples[ tuple_idx ] = (Search_Node*) n;
+						new_covers = true;
+
+
+#ifdef DEBUG
+						std::cout<<"\t NEW!! : ";
+						for(unsigned i = 0; i < arity; i++){
+							std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+						}
+						std::cout << " by state: "<< m_nodes_tuples[ tuple_idx ] << "" ;
+						std::cout << std::endl;
+#endif
+					}
+					else
+						{		
+#ifdef DEBUG		
+							std::cout<<"\t TUPLE COVERED: ";
+							for(unsigned i = 0; i < arity; i++){
+								std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+							}
+				
+							std::cout << " by state: "<< m_nodes_tuples[ tuple_idx ] << "" <<std::flush;
+								
+							std::cout<< std::endl;
+#endif
+						}
+
+				}
+			}
+
+		if(!has_state)
+			n->parent()->state()->regress_lazy_state( m_strips_model.actions()[ n->action() ] );
+		
+		return new_covers;
 	}
 
 

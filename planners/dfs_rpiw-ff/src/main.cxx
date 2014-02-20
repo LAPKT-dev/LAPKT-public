@@ -30,19 +30,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <cond_eff.hxx>
 #include <strips_state.hxx>
 #include <fwd_search_prob.hxx>
-
+#include <novelty.hxx>
 #include <novelty_partition.hxx>
-#include <lm_cut_heuristic.hxx>
 #include <landmark_graph.hxx>
 #include <landmark_graph_generator.hxx>
-#include <landmark_graph_manager.hxx>
-#include <landmark_count.hxx>
 #include <h_2.hxx>
 #include <h_1.hxx>
 #include <rp_heuristic.hxx>
 
-#include <aptk/open_list.hxx>
-#include <aptk/at_gbfs_3h.hxx>
+#include <aptk/rp_iw.hxx>
+#include <aptk/dfs_rpiw.hxx>
+#include <aptk/serialized_search.hxx>
 #include <aptk/string_conversions.hxx>
 
 #include <boost/program_options.hpp>
@@ -51,59 +49,41 @@ namespace po = boost::program_options;
 
 using	aptk::STRIPS_Problem;
 using	aptk::agnostic::Fwd_Search_Problem;
-using	aptk::Action;
 
-using 	aptk::agnostic::Landmarks_Graph;
 using 	aptk::agnostic::Landmarks_Graph_Generator;
-using   aptk::agnostic::Landmarks_Graph_Manager;
-using 	aptk::agnostic::Landmarks_Count_Heuristic;
-using 	aptk::agnostic::LM_Cut_Heuristic;
+using 	aptk::agnostic::Landmarks_Graph;
 using 	aptk::agnostic::H2_Heuristic;
 using 	aptk::agnostic::H1_Heuristic;
 using	aptk::agnostic::H_Add_Evaluation_Function;
 using	aptk::agnostic::Relaxed_Plan_Heuristic;
+
+using 	aptk::agnostic::Novelty;
 using 	aptk::agnostic::Novelty_Partition;
+using	aptk::search::brfs::RP_IW;
+using	aptk::search::Serialized_Search;
+using	aptk::search::DFS_RPIW;
 
-
-using 	aptk::search::Open_List;
-using	aptk::search::Node_Comparer_3H;
-using	aptk::search::gbfs_3h::AT_GBFS_3H;
-//using	aptk::search::gbfs_mh::Node;
-
-
+typedef		aptk::search::brfs::Node< aptk::State >	          IW_Node;
+typedef         Novelty_Partition<Fwd_Search_Problem, IW_Node>    H_Novel_Fwd;
 typedef         H2_Heuristic<Fwd_Search_Problem>                  H2_Fwd;
-typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>     Gen_Lms_Fwd;
-typedef         LM_Cut_Heuristic<Fwd_Search_Problem>              H_Lmcut_Fwd;
-typedef         Landmarks_Count_Heuristic<Fwd_Search_Problem>     H_Lmcount_Fwd;
-typedef         Landmarks_Graph_Manager<Fwd_Search_Problem>       Land_Graph_Man;
-
-
-
-// MRJ: We start defining the type of nodes for our planner
-typedef		aptk::search::gbfs_3h::Node< Fwd_Search_Problem, aptk::State >	Search_Node;
-
-typedef         Novelty_Partition<Fwd_Search_Problem, Search_Node>             H_Novel_Fwd;
-
-// MRJ: Then we define the type of the tie-breaking algorithm
-// for the open list we are going to use
-typedef		Node_Comparer_3H< Search_Node >					Tie_Breaking_Algorithm;
-
-// MRJ: Now we define the Open List type by combining the types we have defined before
-typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >		BFS_Open_List;
-
-// MRJ: Now we define the heuristics
-typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd;
+typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd; 
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
 
-// MRJ: Now we're ready to define the BFS algorithm we're going to use
-typedef		AT_GBFS_3H< Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List >    Anytime_GBFS_H_Add_Rp_Fwd;
+typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>     Gen_Lms_Fwd;
+typedef		RP_IW< Fwd_Search_Problem, H_Novel_Fwd, H_Add_Rp_Fwd >	  RP_IW_Fwd;
 
+
+typedef		DFS_RPIW< Fwd_Search_Problem, RP_IW_Fwd, IW_Node >        DFS_RPIW_Fwd;
+//typedef		DFS_RPIW< Fwd_Search_Problem >        DFS_RPIW_Fwd;
 
 
 template <typename Search_Engine>
-float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float max_novelty, std::ofstream& plan_stream ) {
+float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, std::ofstream& plan_stream ) {
 
-	std::ofstream	details( "execution.details" );	
+
+	std::ofstream	details( "execution.details" );
+	
+	engine.set_bound(bound);
 	engine.start();
 
 	std::vector< aptk::Action_Idx > plan;
@@ -117,6 +97,7 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float max_nov
 
 	if ( engine.find_solution( cost, plan ) ) {
 		details << "Plan found with cost: " << cost << std::endl;
+		std::cout << "Plan found with cost: " << cost << std::endl;
 		for ( unsigned k = 0; k < plan.size(); k++ ) {
 			details << k+1 << ". ";
 			const aptk::Action& a = *(plan_prob.actions()[ plan[k] ]);
@@ -134,16 +115,24 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float max_nov
 		expanded_0 = expanded_f;
 		generated_0 = generated_f;
 		plan.clear();
+	} else {
+		details << ";; NOT I-REACHABLE ;;" << std::endl;
+		std::cout << ";; NOT I-REACHABLE ;;" << std::endl;
 	}
+
  	float total_time = aptk::time_used() - ref;
+	details << "Total time: " << total_time << std::endl;
+	details << "Nodes generated during search: " << engine.generated() << std::endl;
+	details << "Nodes expanded during search: " << engine.expanded() << std::endl;
+	details << "Backtracks during search: " << engine.backtracks() << std::endl;
+	//details << "Nodes pruned by bound: " << engine.sum_pruned_by_bound() << std::endl;
+	//details << "Average ef. width: " << engine.avg_B() << std::endl;
+	//details << "Max ef. width: " << engine.max_B() << std::endl;
+	details.close();
 	std::cout << "Total time: " << total_time << std::endl;
 	std::cout << "Nodes generated during search: " << engine.generated() << std::endl;
 	std::cout << "Nodes expanded during search: " << engine.expanded() << std::endl;
-	std::cout << "Plan found with cost: " << cost << std::endl;
-	details.close();
-	
-	
-	
+	std::cout << "Backtracks during search: " << engine.backtracks() << std::endl;
 	
 	return total_time;
 }
@@ -156,10 +145,8 @@ void process_command_line_options( int ac, char** av, po::variables_map& vars ) 
 		( "help", "Show help message" )
 		( "domain", po::value<std::string>(), "Input PDDL domain description" )
 		( "problem", po::value<std::string>(), "Input PDDL problem description" )
-		( "bound", po::value<int>()->default_value(2), "Max width w for novelty (default 2)")
-		( "output", po::value<std::string>(), "Output file for plan" )
-		( "one-ha-per-fluent", po::value<bool>()->default_value(false),
-			"Extract only one helpful action per fluent" )
+		( "bound", po::value<int>()->default_value(2), "Max width w for IW(w)")
+		( "output", po::value<std::string>(), "Output plan file" )
 	;
 	
 	try {
@@ -182,11 +169,6 @@ void process_command_line_options( int ac, char** av, po::variables_map& vars ) 
 
 }
 
-void report_no_solution( std::string reason, std::ofstream& plan_stream ) {
-	plan_stream << ";; No solution found" << std::endl;
-	plan_stream << ";; " << reason << std::endl;
-	plan_stream.close();
-}
 
 int main( int argc, char** argv ) {
 
@@ -205,20 +187,19 @@ int main( int argc, char** argv ) {
 		std::exit(1);
 	}
 
-	std::ofstream	plan_stream;
-	
-	if ( !vm.count( "output" ) ) {
-		std::cerr << "No output plan file specified, defaulting to 'plan.ipc'" << std::endl;
+	std::ofstream plan_stream;
+
+	if ( !vm.count( "output" ) ) {	
+		std::cerr << "No plan output file specified, defaulting to 'plan.ipc'" << std::endl;
 		plan_stream.open( "plan.ipc" );
 	}
 	else
-		plan_stream.open( vm["output"].as<std::string>() );
-
+		plan_stream.open( vm["output"].as<std::string>().c_str() );
+		
 
 	STRIPS_Problem	prob;
-	bool ignore_costs = true;
 
-	aptk::FF_Parser::get_problem_description( vm["domain"].as<std::string>(), vm["problem"].as<std::string>(), prob, ignore_costs  );
+	aptk::FF_Parser::get_problem_description( vm["domain"].as<std::string>(), vm["problem"].as<std::string>(), prob, true );
 	std::cout << "PDDL problem description loaded: " << std::endl;
 	std::cout << "\tDomain: " << prob.domain_name() << std::endl;
 	std::cout << "\tProblem: " << prob.problem_name() << std::endl;
@@ -229,46 +210,31 @@ int main( int argc, char** argv ) {
 
 	if ( !prob.has_conditional_effects() ) {
 		H2_Fwd    h2( search_prob );
-		h2.compute_edeletes( prob );
-		if ( h2.eval( prob.goal() ) == infty ) {
-			std::ofstream	details( "execution.details" );
-			details << "Problem has no solution!" << std::endl;
-			details.close();
-			report_no_solution( "h2(s0) = infty", plan_stream );
-			return 0;	
-		}
-
+		h2.compute_edeletes( prob );	
 	}
 	else
-		prob.compute_edeletes();	
+		prob.compute_edeletes();
 
 	Gen_Lms_Fwd    gen_lms( search_prob );
 	Landmarks_Graph graph( prob );
 
-	//gen_lms.set_only_goals( true );
-	
+	gen_lms.set_only_goals( true );
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
 	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
-	//graph.print( std::cout );       
-
-	std::cout << "Starting search with BFS (time budget is 60 secs)..." << std::endl;
-
-	Anytime_GBFS_H_Add_Rp_Fwd bfs_engine( search_prob );
-
-	bfs_engine.h3().set_one_HA_per_fluent( vm["one-ha-per-fluent"].as<bool>() );
-
-	Land_Graph_Man lgm( search_prob, &graph);
-	bfs_engine.use_land_graph_manager( &lgm );
+	//graph.print( std::cout );
 	
-	unsigned max_novelty = 2;
+	std::cout << "Starting search with IW (time budget is 60 secs)..." << std::endl;
 
-	bfs_engine.set_arity( max_novelty, graph.num_landmarks_and_edges() );
+	//RP_IW_Fwd siw_engine( search_prob );
+	DFS_RPIW_Fwd engine( search_prob );
+	engine.set_goal_agenda( &graph );
 	
-	float bfs_t = do_search( bfs_engine, prob, max_novelty, plan_stream );
+	float iw_bound = vm["bound"].as<int>();
 
-	std::cout << "BFS search completed in " << bfs_t << " secs" << std::endl;
+	float iw_t = do_search( engine, prob, iw_bound, plan_stream );
 	
+	std::cout << "IW search completed in " << iw_t << " secs" << std::endl;
 
 	plan_stream.close();
 

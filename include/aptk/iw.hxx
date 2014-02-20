@@ -89,6 +89,8 @@ public:
 		m_novelty->set_arity( m_B );
 	}
 
+	float			arity() 	                { return m_novelty->arity( ); }
+
 	void			inc_pruned_bound() 		{ m_pruned_B_count++; }
 	unsigned		pruned_by_bound() const		{ return m_pruned_B_count; }
 

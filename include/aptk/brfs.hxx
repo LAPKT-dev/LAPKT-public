@@ -217,6 +217,8 @@ public:
 		
 		return false;
 	}
+	
+	bool          search_exhausted(){ return m_open.empty(); }
 
 	Search_Node* 		get_node() {
 		Search_Node *next = NULL;
@@ -233,7 +235,7 @@ public:
 		m_open_hash.put(n);
 		inc_gen();
 		if(n->gn() + 1 > m_max_depth){
-			if( m_max_depth == 0 ) std::cout << std::endl;  
+			//if( m_max_depth == 0 ) std::cout << std::endl;  
 			m_max_depth = n->gn() + 1 ;
 			std::cout << "[" << m_max_depth  <<"]" << std::flush;			
 		}
@@ -271,13 +273,14 @@ public:
 		
 		return NULL;
 	}
-
+	
+	
 	virtual Search_Node*	 	do_search() {
 		Search_Node *head = get_node();
 		if( is_goal( head ) )
 			return head;
 
-		int counter =0;
+		int counter = 0;
 		while(head) {	
 			if( ! head->has_state() )
 				head->set_state( m_problem.next(*(head->parent()->state()), head->action()) );
@@ -305,9 +308,8 @@ public:
 		return false;
 	}
 
-protected:
-
-	void	extract_plan( Search_Node* s, Search_Node* t, std::vector<Action_Idx>& plan, float& cost ) {
+	Search_Node* root() { return m_root; }
+	void	extract_plan( Search_Node* s, Search_Node* t, std::vector<Action_Idx>& plan, float& cost, bool reverse = true ) {
 		Search_Node *tmp = t;
 		cost = 0.0f;
 		while( tmp != s) {
@@ -316,8 +318,12 @@ protected:
 			tmp = tmp->parent();
 		}
 		
-		std::reverse(plan.begin(), plan.end());		
+		if(reverse)
+			std::reverse(plan.begin(), plan.end());		
 	}
+
+
+protected:
 
 	void	extract_path( Search_Node* s, Search_Node* t, std::vector<Search_Node*>& plan ) {
 		Search_Node* tmp = t;
