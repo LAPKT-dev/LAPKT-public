@@ -24,7 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/search_prob.hxx>
 #include <aptk/resources_control.hxx>
 #include <aptk/closed_list.hxx>
-#include <aptk/brfs.hxx>
+#include <aptk/hash_table.hxx>
+
+#include <queue>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -33,11 +35,85 @@ namespace aptk {
 
 namespace search {
 
-namespace brfs {
+namespace novelty_spaces {
 
+template <typename State>
+class Node {
+public:
 
-  template < typename Search_Model, typename Abstract_Novelty, typename RP_Heuristic >
-class RP_IW : public BRFS< Search_Model > {
+	typedef State State_Type;
+
+	Node( State* s, Action_Idx action, Node<State>* parent = nullptr, float cost = 1.0f) 
+	  : m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_partition(0) {
+		
+		m_g = ( parent ? parent->m_g + cost : 0.0f);
+		if( m_state == NULL )
+			update_hash();
+	}
+	
+	virtual ~Node() {
+		if ( m_state != NULL ) delete m_state;
+	}
+
+	unsigned&      		gn()		  { return m_g; }			
+	unsigned       		gn() const 	  { return m_g; }
+	unsigned&      		partition()    	  { return m_partition; }			
+	unsigned       		partition() const { return m_partition; }
+	Node<State>*		parent()   	  { return m_parent; }
+	Action_Idx		action() const 	  { return m_action; }
+	State*			state()		  { return m_state; }
+	void			set_state( State* s )	{ m_state = s; }
+	bool			has_state() const	{ return m_state != NULL; }
+	const State&		state() const 	{ return *m_state; }
+	void			print( std::ostream& os ) const {
+		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = " << m_g  << "}";
+	}
+
+	bool    is_better( Node* n ) const {
+		return false;
+	}
+
+	size_t      hash() const { return m_state ? m_state->hash() : m_hash; }
+
+	void    update_hash() {
+		Hash_Key hasher;
+		hasher.add( m_action );
+		if ( m_parent != NULL )
+			hasher.add( m_parent->state()->fluent_vec() );
+		m_hash = (size_t)hasher;
+	}
+
+	bool   	operator==( const Node<State>& o ) const {
+		
+		if( &(o.state()) != NULL && &(state()) != NULL)
+			return (const State&)(o.state()) == (const State&)(state());
+		/**
+		 * Lazy
+		 */
+		if  ( m_parent == NULL ) {
+			if ( o.m_parent == NULL ) return true;
+			return false;
+		}
+	
+		if ( o.m_parent == NULL ) return false;
+		
+		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
+	}
+
+public:
+
+	State*		m_state;
+	Node<State>*	m_parent;
+	float		m_h;
+	Action_Idx	m_action;
+	unsigned       	m_g;
+	unsigned        m_partition;
+	size_t		m_hash;
+
+};
+
+template < typename Search_Model, typename Abstract_Novelty, typename RP_Heuristic >
+class RP_IW  {
 
 public:
 
@@ -46,7 +122,7 @@ public:
 	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
 	RP_IW( 	const Search_Model& search_problem ) 
-	: BRFS< Search_Model >(search_problem), m_pruned_B_count(0), m_B( infty ), m_use_relplan(true) {	   
+		: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_cl_count(0), m_max_depth(0), m_pruned_B_count(0), m_B( infty ), m_use_relplan(true), m_goals(NULL) {	   
 		m_novelty = new Abstract_Novelty( search_problem );
 		m_rp_h = new RP_Heuristic( search_problem );
 		m_rp_h->ignore_rp_h_value(true);
@@ -55,22 +131,56 @@ public:
 	}
 
 	virtual ~RP_IW() {
+		for ( typename Closed_List_Type::iterator i = m_closed.begin();
+			i != m_closed.end(); i++ ) {
+			delete i->second;
+		}
+		
+		while	(!m_open.empty() ) 
+		{	
+			Search_Node* n = m_open.front();
+			m_open.pop();
+			delete n;
+		}
+		
+		m_closed.clear();
+		m_open_hash.clear();
+
 		delete m_novelty;
 		delete m_rp_h;
 	}
 	
 	void reset() {
-		BRFS<Search_Model>::reset();
+		for ( typename Closed_List_Type::iterator i = m_closed.begin();
+			i != m_closed.end(); i++ ) {
+			delete i->second;
+		}
+		
+		while	(!m_open.empty() ) 
+		{	
+			Search_Node* n = m_open.front();
+			m_open.pop();
+			delete n;
+		}
+		
+		m_closed.clear();
+		m_open_hash.clear();
 		m_rp_fl_vec.clear();
 		m_rp_fl_set.reset();
-			
+		
+		m_max_depth=0;       			
 	}
+
+	void    set_goals( Fluent_Vec* g ){ m_goals = g; }
 
         void    set_relplan( State* s ){
       		std::vector<Action_Idx>	po;
       		std::vector<Action_Idx>	rel_plan;
 		float h_value;
-		m_rp_h->eval( *s, h_value, po, rel_plan );
+		if(m_goals)
+			m_rp_h->eval( *s, h_value, po, rel_plan, m_goals );
+		else
+			m_rp_h->eval( *s, h_value, po, rel_plan  );
  		
 		//std::cout << "rel_plan size: "<< rel_plan.size() << std::endl;
 		for(std::vector<Action_Idx>::iterator it_a = rel_plan.begin(); 
@@ -138,6 +248,28 @@ public:
 		this->m_open_hash.put( this->m_root );
 		this->inc_gen();
 	}
+	
+	virtual bool    is_goal( Search_Node* n  ){ 
+		if( n->has_state() )
+			return m_problem.goal( *(n->state()) ); 
+		else{			
+			n->parent()->state()->progress_lazy_state(  m_problem.task().actions()[ n->action() ] );	
+			const bool is_goal = m_problem.goal( *( n->state() ) ); 
+			n->parent()->state()->regress_lazy_state( m_problem.task().actions()[ n->action() ] );
+			return is_goal;
+		}
+			
+	}
+
+
+	virtual bool	find_solution( float& cost, std::vector<Action_Idx>& plan ) {
+		Search_Node* end = do_search();
+		if ( end == NULL ) return false;
+		extract_plan( m_root, end, plan, cost );	
+		
+		return true;
+	}
+
 	float			arity() 	                { return m_novelty->arity( ); }	
 	float			bound() const			{ return m_B; }
 	void			set_bound( float v ) 		{ 
@@ -147,8 +279,110 @@ public:
 
 	void			inc_pruned_bound() 		{ m_pruned_B_count++; }
 	unsigned		pruned_by_bound() const		{ return m_pruned_B_count; }
+void			inc_gen()			{ m_gen_count++; }
+	unsigned		generated() const		{ return m_gen_count; }
+	void			inc_exp()			{ m_exp_count++; }
+	unsigned		expanded() const		{ return m_exp_count; }
+
+	void			inc_closed()			{ m_cl_count++; }
+	unsigned		pruned_closed() const		{ return m_cl_count; }
+
+	void 			close( Search_Node* n ) 	{  m_closed.put(n); }
+	Closed_List_Type&	closed() 			{ return m_closed; }
+	Closed_List_Type&	open_hash() 			{ return m_open_hash; }
+
+	const	Search_Model&	problem() const			{ return m_problem; }
+
+	bool 		is_closed( Search_Node* n ) 	{ 
+		Search_Node* n2 = this->closed().retrieve(n);
+
+		if ( n2 != NULL ) 
+			return true;
+		
+		return false;
+	}
+	
+	bool          search_exhausted(){ return m_open.empty(); }
+
+	Search_Node* 		get_node() {
+		Search_Node *next = NULL;
+		if(! m_open.empty() ) {
+			next = m_open.front();
+			m_open.pop();
+			m_open_hash.erase( m_open_hash.retrieve_iterator( next) );
+		}
+		return next;
+	}
+
+	void	 	open_node( Search_Node *n ) {		
+		m_open.push(n);
+		m_open_hash.put(n);
+		inc_gen();
+		if(n->gn() + 1 > m_max_depth){
+			//if( m_max_depth == 0 ) std::cout << std::endl;  
+			m_max_depth = n->gn() + 1 ;
+			std::cout << "[" << m_max_depth  <<"]" << std::flush;			
+		}
+
+	}
+	virtual Search_Node*	 	do_search() {
+		Search_Node *head = get_node();
+		if( is_goal( head ) )
+			return head;
+
+		int counter = 0;
+		while(head) {	
+			if( ! head->has_state() )
+				head->set_state( m_problem.next(*(head->parent()->state()), head->action()) );
+
+			Search_Node* goal = process(head);
+			inc_exp();
+			close(head);
+			if( goal ) {
+				if( ! goal->has_state() )
+					goal->set_state( m_problem.next(*(goal->parent()->state()), goal->action()) );
+				return goal;
+			}
+			counter++;
+			head = get_node();
+		}
+		return NULL;
+	}
+
+	virtual bool 			previously_hashed( Search_Node *n ) {
+		Search_Node *previous_copy = m_open_hash.retrieve(n);
+
+		if( previous_copy != NULL ) 
+			return true;
+		
+		return false;
+	}
+
+	Search_Node* root() { return m_root; }
+	void	extract_plan( Search_Node* s, Search_Node* t, std::vector<Action_Idx>& plan, float& cost, bool reverse = true ) {
+		Search_Node *tmp = t;
+		cost = 0.0f;
+		while( tmp != s) {
+			cost += m_problem.cost( *(tmp->state()), tmp->action() );
+			plan.push_back(tmp->action());
+			tmp = tmp->parent();
+		}
+		
+		if(reverse)
+			std::reverse(plan.begin(), plan.end());		
+	}
 
 protected:
+	void	extract_path( Search_Node* s, Search_Node* t, std::vector<Search_Node*>& plan ) {
+		Search_Node* tmp = t;
+		while( tmp != s) {
+			plan.push_back(tmp);
+			tmp = tmp->parent();
+		}
+		
+		std::reverse(plan.begin(), plan.end());				
+	}
+
        unsigned  rp_fl_achieved( Search_Node* n ){
 	       unsigned count = 0;
 	       static Fluent_Set counted( this->problem().task().num_fluents() );
@@ -176,7 +410,8 @@ protected:
 		float node_novelty = infty;
 		//unsigned count = rp_fl_achieved( n );
 		//std::cout << this->problem().task().actions()[ n->action() ]->signature() << " achieved: " << count << std::endl;
-		m_novelty->eval( n, node_novelty, rp_fl_achieved( n ) );
+		n->partition() = rp_fl_achieved( n );
+		m_novelty->eval( n, node_novelty );
 		//m_novelty->eval( n, node_novelty );
 		if( node_novelty > bound() ) {
 			inc_pruned_bound();
@@ -263,6 +498,15 @@ protected:
 
 protected:
 
+	  const Search_Model&			m_problem;
+	  std::queue<Search_Node*>		m_open;
+	  Closed_List_Type			m_closed, m_open_hash;
+	  unsigned				m_exp_count;
+	  unsigned				m_gen_count;
+	  unsigned				m_cl_count;
+	  unsigned                              m_max_depth;
+	  Search_Node*				m_root;
+	  
 	  Abstract_Novelty*    			m_novelty;
 	  RP_Heuristic*      			m_rp_h;
 	  Fluent_Vec                            m_rp_fl_vec;
@@ -270,6 +514,7 @@ protected:
 	  unsigned				m_pruned_B_count;
 	  float					m_B;
 	  bool                                  m_use_relplan;
+  	  Fluent_Vec*                           m_goals;
 };
 
 }

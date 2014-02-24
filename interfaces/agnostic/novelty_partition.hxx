@@ -86,14 +86,10 @@ public:
 
 	}
 	
-	virtual void eval( Search_Node* n, float& h_val, unsigned goals_unachieved ) {
-	
-		compute( n, h_val, goals_unachieved );		
-	}
 
 	virtual void eval( Search_Node* n, float& h_val ) {
 	
-		compute( n, h_val, 0 );		
+		compute( n, h_val );		
 	}
 
 
@@ -110,8 +106,11 @@ public:
 
 protected:
 
-
-	void compute(  Search_Node* n, float& novelty, unsigned goals_unachieved = 0 ) 
+	/**
+	 * If parent node is in the same space partition, check only new atoms,
+	 * otherwise check all atoms in state
+	 */
+	void compute(  Search_Node* n, float& novelty ) 
 	{
 
 		novelty = (float) m_arity+1;
@@ -119,8 +118,13 @@ protected:
 #ifdef DEBUG
 			std::cout << "search state node: "<<&(n)<<std::endl;
 #endif 	
-			bool new_covers = cover_tuples( n, i, goals_unachieved );
 			
+			bool new_covers;
+			if(n->parent() == nullptr)
+				new_covers = cover_tuples( n, i );
+			else
+//				new_covers = cover_tuples( n, i );
+				new_covers = (n->partition() == n->parent()->partition()) ?  cover_tuples_op( n, i ) : cover_tuples( n, i );			
 #ifdef DEBUG
 			if(!new_covers)	
 				std::cout << "\t \t PRUNE! search node: "<<&(n)<<std::endl;
@@ -131,7 +135,7 @@ protected:
 		}
 	}
 	       
-	bool cover_tuples( Search_Node* n, unsigned arity, unsigned goals_unachieved  )
+	bool cover_tuples( Search_Node* n, unsigned arity  )
 	{
 		const bool has_state = n->has_state();
 		
@@ -164,10 +168,10 @@ protected:
 			 * OR
 			 * -> n better than old_n
 			 */
-			bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ goals_unachieved ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ goals_unachieved ][tuple_idx], n  ) ? true : false);
+			bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ n->partition() ][tuple_idx], n  ) ? true : false);
 			
 			if( cover_new_tuple ){
-				m_nodes_tuples_by_partition[ goals_unachieved ][ tuple_idx ] = (Search_Node*) n;
+				m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] = (Search_Node*) n;
 
 				new_covers = true;
 #ifdef DEBUG
@@ -192,123 +196,109 @@ protected:
 	 * Instead of checking the whole state, checks the new atoms permutations only!
 	 */
 	
-	// bool    cover_tuples_op( Search_Node* n, unsigned arity, unsigned goals_unachieved  )
-// 	{
+	bool    cover_tuples_op( Search_Node* n, unsigned arity  )
+	{
 
-// 		const bool has_state = n->has_state();
+		const bool has_state = n->has_state();
 		
-// 		static Fluent_Vec new_atom_vec;
-// 		const Action* a = m_strips_model.actions()[ n->action() ];
-// 		if( a->has_ceff() )
-// 		  {
-// 		    static Fluent_Set new_atom_set( m_strips_model.num_fluents()+1 );
-// 		    new_atom_set.reset();
-// 		    new_atom_vec.clear();
-// 		    for(Fluent_Vec::const_iterator it = a->add_vec().begin(); it != a->add_vec().end(); it++)
-// 		      {
-// 			if ( new_atom_set.isset( *it ) ) continue;
+		static Fluent_Vec new_atom_vec;
+		const Action* a = m_strips_model.actions()[ n->action() ];
+		if( a->has_ceff() )
+		  {
+		    static Fluent_Set new_atom_set( m_strips_model.num_fluents()+1 );
+		    new_atom_set.reset();
+		    new_atom_vec.clear();
+		    for(Fluent_Vec::const_iterator it = a->add_vec().begin(); it != a->add_vec().end(); it++)
+		      {
+			if ( new_atom_set.isset( *it ) ) continue;
 			
-// 			new_atom_vec.push_back( *it );
-// 			new_atom_set.set( *it );
+			new_atom_vec.push_back( *it );
+			new_atom_set.set( *it );
 			
-// 		      }
-// 		    for( unsigned i = 0; i < a->ceff_vec().size(); i++ )
-// 		      {
-// 			Conditional_Effect* ce = a->ceff_vec()[i];
-// 			if( ce->can_be_applied_on( *(n->parent()->state()) ) )
-// 			  for(Fluent_Vec::iterator it = ce->add_vec().begin(); it != ce->add_vec().end(); it++){
-// 				{
-// 				  if ( new_atom_set.isset( *it ) ) continue;
+		      }
+		    for( unsigned i = 0; i < a->ceff_vec().size(); i++ )
+		      {
+			Conditional_Effect* ce = a->ceff_vec()[i];
+			if( ce->can_be_applied_on( *(n->parent()->state()) ) )
+			  for(Fluent_Vec::iterator it = ce->add_vec().begin(); it != ce->add_vec().end(); it++){
+				{
+				  if ( new_atom_set.isset( *it ) ) continue;
 				  
-// 				  new_atom_vec.push_back( *it );
-// 				  new_atom_set.set( *it );
-// 			 	}
-// 			  }
+				  new_atom_vec.push_back( *it );
+				  new_atom_set.set( *it );
+			 	}
+			  }
 			  
-// 		      }
-// 		  }
+		      }
+		  }
 
-// 		const Fluent_Vec& add = a->has_ceff() ? new_atom_vec : a->add_vec();
+		const Fluent_Vec& add = a->has_ceff() ? new_atom_vec : a->add_vec();
         
-// 		if(!has_state)
-// 			n->parent()->state()->progress_lazy_state(  m_strips_model.actions()[ n->action() ] );	
+		if(!has_state)
+			n->parent()->state()->progress_lazy_state(  m_strips_model.actions()[ n->action() ] );	
 
-// 		Fluent_Vec& fl = has_state ? n->state()->fluent_vec() : n->parent()->state()->fluent_vec();
+		Fluent_Vec& fl = has_state ? n->state()->fluent_vec() : n->parent()->state()->fluent_vec();
 		
-// 		bool new_covers = false;
+		bool new_covers = false;
 
-// 		assert ( arity > 0 );
+		assert ( arity > 0 );
 
-// 		std::vector<unsigned> tuple( arity );
+		std::vector<unsigned> tuple( arity );
 
-// 		unsigned atoms_arity = arity - 1;
-// 		unsigned n_combinations = aptk::unrolled_pow(  fl.size() , atoms_arity );	       
+		unsigned atoms_arity = arity - 1;
+		unsigned n_combinations = aptk::unrolled_pow(  fl.size() , atoms_arity );	       
 		
 		
-// 		for ( Fluent_Vec::const_iterator it_add = add.begin();
-// 					it_add != add.end(); it_add++ )
-// 			{
+		for ( Fluent_Vec::const_iterator it_add = add.begin();
+					it_add != add.end(); it_add++ )
+			{
 		
-// 				tuple[ atoms_arity ] = *it_add;
+				tuple[ atoms_arity ] = *it_add;
 
-// 				for( unsigned idx = 0; idx < n_combinations; idx++ ){
+				for( unsigned idx = 0; idx < n_combinations; idx++ ){
 
-// 					/**
-// 					 * get tuples from indexes
-// 					 */
-// 					if(atoms_arity > 0)
-// 						idx2tuple( tuple, fl, idx, atoms_arity );
+					/**
+					 * get tuples from indexes
+					 */
+					if(atoms_arity > 0)
+						idx2tuple( tuple, fl, idx, atoms_arity );
 
-// 					/**
-// 					 * Check if tuple is covered
-// 					 */
-// 					unsigned tuple_idx = tuple2idx( tuple, arity );
+					/**
+					 * Check if tuple is covered
+					 */
+					unsigned tuple_idx = tuple2idx( tuple, arity );
 
-// 					/**
-// 					 * new_tuple if
-// 					 * -> none was registered
-// 					 * OR
-// 					 * -> n better than old_n
-// 					 */
-// 					bool cover_new_tuple = ( !m_nodes_tuples[ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples[tuple_idx], n  ) ? true : false);
+					/**
+					 * new_tuple if
+					 * -> none was registered
+					 * OR
+					 * -> n better than old_n
+					 */
+					bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ n->partition() ][tuple_idx], n  ) ? true : false);
                        
-// 					if( cover_new_tuple ){
+					if( cover_new_tuple ){
 						
-// 						m_nodes_tuples[ tuple_idx ] = (Search_Node*) n;
-// 						new_covers = true;
+						m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] = (Search_Node*) n;
+						new_covers = true;
 
 
-// #ifdef DEBUG
-// 						std::cout<<"\t NEW!! : ";
-// 						for(unsigned i = 0; i < arity; i++){
-// 							std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
-// 						}
-// 						std::cout << " by state: "<< m_nodes_tuples[ tuple_idx ] << "" ;
-// 						std::cout << std::endl;
-// #endif
-// 					}
-// 					else
-// 						{		
-// #ifdef DEBUG		
-// 							std::cout<<"\t TUPLE COVERED: ";
-// 							for(unsigned i = 0; i < arity; i++){
-// 								std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
-// 							}
-				
-// 							std::cout << " by state: "<< m_nodes_tuples[ tuple_idx ] << "" <<std::flush;
-								
-// 							std::cout<< std::endl;
-// #endif
-// 						}
+#ifdef DEBUG
+						std::cout<<"\t NEW!! : ";
+						for(unsigned i = 0; i < arity; i++){
+							std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+						}
+						std::cout << std::endl;
+#endif
+					}
 
-// 				}
-// 			}
+				}
+			}
 
-// 		if(!has_state)
-// 			n->parent()->state()->regress_lazy_state( m_strips_model.actions()[ n->action() ] );
+		if(!has_state)
+			n->parent()->state()->regress_lazy_state( m_strips_model.actions()[ n->action() ] );
 		
-// 		return new_covers;
-//	}
+		return new_covers;
+	}
 
 
 	inline unsigned  tuple2idx( std::vector<unsigned>& indexes, unsigned arity) const

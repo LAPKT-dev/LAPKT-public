@@ -51,7 +51,7 @@ public:
 	typedef typename std::vector< Node<Search_Model,State>* >::iterator            Node_Vec_Ptr_It;
 
 	Node( State* s, float cost, Action_Idx action, Node<Search_Model,State>* parent, int num_actions ) 
-		: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_g_unit( 0 ), m_f(0), m_h1(0), m_h2(0), m_h3(0), m_po( num_actions ), m_seen(false), m_helpful(false), m_land_consumed(NULL), m_land_unconsumed(NULL) {
+	  : m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_g_unit( 0 ), m_f(0), m_h1(0), m_h2(0), m_h3(0), m_partition(0), m_po( num_actions ), m_seen(false), m_helpful(false), m_land_consumed(NULL), m_land_unconsumed(NULL) {
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 		m_g_unit = ( parent ? parent->m_g_unit + 1.0f : 0.0f);
 	}
@@ -66,6 +66,8 @@ public:
 	float			h2n() const 			{ return m_h2; }
 	float&			h3n()				{ return m_h3; }
 	float			h3n() const 			{ return m_h3; }
+	unsigned&      		partition()    	  { return m_partition; }			
+	unsigned       		partition() const { return m_partition; }
 	unsigned                goals_unachieved() const        { return m_goals_unachieved; }                
 	unsigned&               goals_unachieved()              { return m_goals_unachieved; }                
 	float&			gn()				{ return m_g; }			
@@ -185,6 +187,7 @@ public:
 	float		m_h1;
 	float		m_h2;
 	float		m_h3;
+        unsigned        m_partition;
 	unsigned        m_goals_unachieved;
 	Bit_Set		m_po;
 	bool		m_seen;
@@ -322,12 +325,14 @@ public:
 			candidate->undo_land_graph( m_lgm );
 
 		candidate->goals_unachieved() = (unsigned) candidate->h2n();
+		candidate->partition() = candidate->goals_unachieved();
 		if ( candidate->goals_unachieved() == 0){
 			candidate->h1n()  = 0;
 		}
 		else{
 			candidate->goals_unachieved()--;
-			m_first_h->eval( candidate, candidate->h1n(), candidate->goals_unachieved() );
+			candidate->partition()--;
+			m_first_h->eval( candidate, candidate->h1n() );
 		}
 
 		if(candidate->h2n() < m_max_hn )

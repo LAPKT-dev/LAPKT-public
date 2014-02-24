@@ -58,7 +58,7 @@ public:
 	void	set_one_HA_per_fluent( bool v) { m_one_ha_per_fluent = v; }
 	bool	one_HA_per_fluent() const { return m_one_ha_per_fluent; }
 
-	virtual void compute( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>* copy_rel_plan = NULL ) {
+  virtual void compute( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>* copy_rel_plan = NULL, Fluent_Vec* goals = NULL ) {
 
 		m_base_heuristic.eval( s, h_val );
 		if ( h_val == infty )
@@ -75,7 +75,7 @@ public:
 			actions_pending().pop();
 	
 		std::vector<const Action*> relaxed_plan;
-		const Fluent_Vec& G = m_strips_model.goal();
+		const Fluent_Vec& G = goals ? *goals : m_strips_model.goal();
 	
 		// 1. Add to the pending queue best supporters for goal fluents
 		for ( unsigned k = 0; k < G.size(); k++ ) {
@@ -241,6 +241,14 @@ public:
   
 	virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>& rel_plan ) {
 		m_plan_extractor.compute( s, h_val, pref_ops, &rel_plan );
+	}
+		
+	  virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, Fluent_Vec* goals ) {
+		  m_plan_extractor.compute( s, h_val, pref_ops, NULL, goals );
+	}
+  
+	virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>& rel_plan, Fluent_Vec* goals ) {
+		m_plan_extractor.compute( s, h_val, pref_ops, &rel_plan, goals );
 	}
 	
 	void ignore_rp_h_value(bool b) {m_plan_extractor.ignore_rp_h_value(b);}

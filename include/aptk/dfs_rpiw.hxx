@@ -34,6 +34,9 @@ namespace aptk {
 
 namespace search {
 
+namespace novelty_spaces{
+
+
 
 template < typename Search_Model, typename Search_Strategy, typename Search_Node  >
 class DFS_RPIW {
@@ -68,7 +71,8 @@ public:
 
 		if( m_goal_agenda ){
 			m_goal_agenda->get_leafs( iw_engine.goal_candidates() );
-			iw_engine.goals_achieved() = goals_achieved;
+			iw_engine.goals_achieved() = goals_achieved;			
+			iw_engine.set_goals( &(iw_engine.goal_candidates()) );			
 		}
 		
 								       
@@ -273,6 +277,8 @@ protected:
 
 
 };
+
+}
 
 }
 		
