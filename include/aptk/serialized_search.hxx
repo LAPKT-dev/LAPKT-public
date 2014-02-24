@@ -44,7 +44,7 @@ public:
 	typedef 	Closed_List< Search_Node >			                          Closed_List_Type;
 
 	Serialized_Search( 	const Search_Model& search_problem ) 
-	: Search_Strategy( search_problem ), m_consistency_test(true) {	   
+		: Search_Strategy( search_problem ), m_consistency_test(true), m_closed_goal_states( NULL ) {	   
 		m_reachability = new aptk::agnostic::Reachability_Test( this->problem().task() );
 	}
 
@@ -52,7 +52,24 @@ public:
 		delete m_reachability;
 	}
 
-	void set_consistency_test( bool b ){ m_consistency_test = b; }
+	void                    set_consistency_test( bool b )           { m_consistency_test = b; }	
+	void            	set_closed_goal_states( Closed_List_Type* c ){ m_closed_goal_states = c; }
+       	void 			close_goal_state( Search_Node* n ) 	 { if( closed_goal_states() ) m_closed_goal_states->put(n); }
+	void                    reset_closed_goal_states( ) { if( closed_goal_states() ) m_closed_goal_states->clear(); }
+
+	Closed_List_Type*	closed_goal_states() 			 { return m_closed_goal_states; }
+
+
+	bool 		        is_goal_state_closed( Search_Node* n ) 	 {
+		if( !closed_goal_states() ) return false;
+
+		Search_Node* n2 = this->closed_goal_states()->retrieve(n);
+
+		if ( n2 != NULL ) 
+			return true;
+		
+		return false;
+	}
 
 	void debug_info( State*s, Fluent_Vec& unachieved ){
 			
@@ -135,6 +152,9 @@ public:
 					
 		}
 		
+		
+		if( is_goal_state_closed( n ) ) 
+			return false;
 				
 		bool new_goal_achieved = false; 
 		Fluent_Vec unachieved;
@@ -170,7 +190,8 @@ public:
 			n->parent()->state()->regress_lazy_state( this->problem().task().actions()[ n->action() ], &added_fluents, &deleted_fluents );
 
 		if ( new_goal_achieved ){
-			m_goal_candidates = unachieved;			
+			m_goal_candidates = unachieved;		
+			close_goal_state( n );
 			return true;
 		}
 		else
@@ -219,6 +240,8 @@ protected:
 	Fluent_Vec                              m_goals_achieved;
 	Fluent_Vec                              m_goal_candidates;
 	bool                                    m_consistency_test;
+	Closed_List_Type*			m_closed_goal_states;
+	
 };
 
 }
