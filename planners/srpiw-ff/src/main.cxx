@@ -59,11 +59,12 @@ using	aptk::agnostic::Relaxed_Plan_Heuristic;
 
 using 	aptk::agnostic::Novelty;
 using 	aptk::agnostic::Novelty_Partition;
-using	aptk::search::brfs::RP_IW;
+using	aptk::search::novelty_spaces::RP_IW;
+using	aptk::search::novelty_spaces::SRPIW;
 using	aptk::search::Serialized_Search;
-using	aptk::search::SRPIW;
 
-typedef		aptk::search::brfs::Node< aptk::State >	          IW_Node;
+
+typedef		aptk::search::novelty_spaces::Node< aptk::State >	          IW_Node;
 typedef         Novelty_Partition<Fwd_Search_Problem, IW_Node>    H_Novel_Fwd;
 typedef         H2_Heuristic<Fwd_Search_Problem>                  H2_Fwd;
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd; 

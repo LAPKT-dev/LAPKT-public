@@ -300,8 +300,8 @@ elif 'benchmark' == argv[1]:
         
     if len(argv) < 6:
         for dom in domains:
-            if dom in {'floortile'}:
-                continue
+            #if dom in {'floortile'}:
+            #    continue
             benchmark_domain(argv[2], dom)
     else:
         benchmark_domain(argv[2], argv[5])

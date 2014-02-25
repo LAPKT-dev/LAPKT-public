@@ -61,14 +61,14 @@ public:
 
 		static const unsigned gsize = this->problem().task().goal().size();
 		Closed_List_Type   closed_goal_states;
-		bool use_relplan = false;
+		//bool use_relplan = false;
 		unsigned bound = 1;
 		Search_Node* end = NULL;
 		State* new_init_state = NULL;
 
 		m_iw_engine.set_closed_goal_states( &closed_goal_states );
 		m_iw_engine.set_bound( bound );
-		m_iw_engine.set_use_relplan( use_relplan ); 
+		//m_iw_engine.set_use_relplan( use_relplan ); 
 
 		new_init_state = NULL;
 		if( init ){
@@ -93,8 +93,8 @@ public:
 		do{
 			
 			std::cout << std::endl << "{" << gsize << "/" << m_iw_engine.goal_candidates().size() << "/" << m_iw_engine.goals_achieved().size() << "}:IW";
-			if(use_relplan)
-				std::cout << "+";
+			//if(use_relplan)
+			//	std::cout << "+";
 			std::cout << "(" << m_iw_engine.bound() << ") -> " << std::flush;
 		
 
@@ -119,20 +119,21 @@ public:
 					return false;
 				}
 				
-				if( !use_relplan )
-					m_iw_engine.set_use_relplan( true );
-				else{
+				//				if( !use_relplan )
+				//	m_iw_engine.set_use_relplan( true );
+				//else
+				{
 					bound++;
 					m_iw_engine.set_bound( bound );				
-					m_iw_engine.set_use_relplan( false );
-
+					//m_iw_engine.set_use_relplan( false );
+					
 					if(m_iw_engine.arity() == 1){ // couldn't reserve space in memory.
 						return false;
 					}
 					
 				}
 
-				use_relplan = use_relplan ? false : true;
+				//use_relplan = use_relplan ? false : true;
 
 				if ( bound > this->max_bound() ){ // Hard cap on width exceeded
 					
@@ -231,34 +232,39 @@ public:
 				//this->debug_info( new_init_state, this->m_goal_candidates );
 
 				if(m_iw_engine.search_exhausted() && bound < this->max_bound() ){
-					if( !use_relplan )
-						m_iw_engine.set_use_relplan( true );
-					else{
+					//if( !use_relplan )
+					//	m_iw_engine.set_use_relplan( true );
+					//else
+					{
 						bound++;
 						m_iw_engine.set_bound( bound );				
-						m_iw_engine.set_use_relplan( false );
+						//m_iw_engine.set_use_relplan( false );
 						
 					}
 					
-					use_relplan = use_relplan ? false : true;
+					//use_relplan = use_relplan ? false : true;
 
-
-					new_init_state = new State( this->problem().task() );
-					new_init_state->set( init->fluent_vec() );
-					new_init_state->update_hash();
+					new_init_state = NULL;
+					if( init ){
+						new_init_state = new State( this->problem().task() );
+						new_init_state->set( init->fluent_vec() );
+						new_init_state->update_hash();
+					}
 
 					m_iw_engine.set_closed_goal_states( &closed_goal_states );
 					m_iw_engine.reset_closed_goal_states();
 					m_iw_engine.start( new_init_state );	
 				}
 				else{
-					new_init_state = new State( this->problem().task() );
-					new_init_state->set( init->fluent_vec() );
-					new_init_state->update_hash();
-
+					new_init_state = NULL;
+					if( init ){
+						new_init_state = new State( this->problem().task() );
+						new_init_state->set( init->fluent_vec() );
+						new_init_state->update_hash();
+					}
 					m_iw_engine.set_closed_goal_states( &closed_goal_states );
 					m_iw_engine.set_bound( bound );
-					m_iw_engine.set_use_relplan( use_relplan ); 
+					//m_iw_engine.set_use_relplan( use_relplan ); 
 					m_iw_engine.start( new_init_state );	
 					
 				}

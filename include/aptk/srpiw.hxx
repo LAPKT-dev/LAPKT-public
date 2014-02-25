@@ -34,22 +34,23 @@ namespace aptk {
 
 namespace search {
 
+namespace novelty_spaces {
 
 template < typename Search_Model >
 class SRPIW : public Serialized_Search<Search_Model, 
-				       brfs::RP_IW<Search_Model, 
-						   aptk::agnostic::Novelty_Partition<Search_Model, aptk::search::brfs::Node< aptk::State >>,
-						   aptk::agnostic::Relaxed_Plan_Heuristic< Search_Model, aptk::agnostic::H1_Heuristic<Search_Model, aptk::agnostic::H_Add_Evaluation_Function> > >,
-				       aptk::search::brfs::Node< aptk::State >> {
+				       RP_IW<Search_Model, 
+					     aptk::agnostic::Novelty_Partition<Search_Model, Node< aptk::State >>,
+					     aptk::agnostic::Relaxed_Plan_Heuristic< Search_Model, aptk::agnostic::H1_Heuristic<Search_Model, aptk::agnostic::H_Add_Evaluation_Function> > >,
+				       Node< aptk::State >> {
 
 public:
 
-	typedef  	 aptk::search::brfs::Node< aptk::State >					Search_Node;
+	typedef  	 Node< aptk::State >                            				Search_Node;
 	typedef          aptk::agnostic::Landmarks_Graph                                                Landmarks_Graph;
 	typedef          aptk::agnostic::Relaxed_Plan_Heuristic< Search_Model, aptk::agnostic::H1_Heuristic<Search_Model, aptk::agnostic::H_Add_Evaluation_Function> >                                          RP_Heuristic;
 
 	SRPIW( const Search_Model& search_problem ) 
-	  : Serialized_Search<Search_Model, brfs::RP_IW<Search_Model, aptk::agnostic::Novelty_Partition<Search_Model, Search_Node>, RP_Heuristic>, Search_Node>( search_problem ), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0), m_max_bound( std::numeric_limits<unsigned>::max() ) {	   	
+	  : Serialized_Search<Search_Model, RP_IW<Search_Model, aptk::agnostic::Novelty_Partition<Search_Model, Search_Node>, RP_Heuristic>, Search_Node>( search_problem ), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0), m_max_bound( std::numeric_limits<unsigned>::max() ) {	   	
 		m_goal_agenda = NULL;
 	}
 
@@ -174,7 +175,8 @@ protected:
 }
 		
 }
-
+		
+}
 
 
 #endif // siw.hxx
