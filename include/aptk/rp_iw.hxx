@@ -167,7 +167,10 @@ public:
 		m_open_hash.clear();
 		m_rp_fl_vec.clear();
 		m_rp_fl_set.reset();
-		
+		m_exp_count = 0;
+		m_gen_count = 0;
+		m_cl_count = 0;
+		m_pruned_B_count = 0;
 		m_max_depth=0;       			
 	}
 
