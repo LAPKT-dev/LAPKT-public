@@ -57,12 +57,13 @@ public:
 	void            	set_closed_goal_states( Closed_List_Type* c ){ m_closed_goal_states = c; }
 	void 			close_goal_state( Search_Node* n ) 	 { 
 			if( closed_goal_states() ){
-				
+				//m_closed_goal_states->put( n ); 
 				State* new_state = new State( this->problem().task() );
 				new_state->set( n->state()->fluent_vec() );
 				new_state->update_hash();				
-
-				m_closed_goal_states->put( new Search_Node( new_state, n->action() ) ); 
+				Search_Node* new_node = new Search_Node( new_state, n->action() );
+				new_node->gn() = n->gn();
+				m_closed_goal_states->put( new_node ); 
 			}
 	}
 	Closed_List_Type*	closed_goal_states() 			 { return m_closed_goal_states; }

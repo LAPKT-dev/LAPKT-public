@@ -27,7 +27,7 @@ USAGE = """
     """
 
 # Set the time limit (in seconds)
-timelimit = 300
+timelimit = 1800
 memorylimit = 2000
 cores = 3 # Only used for the benchmarking
 
@@ -300,8 +300,8 @@ elif 'benchmark' == argv[1]:
         
     if len(argv) < 6:
         for dom in domains:
-           # if dom in {'openstacks','floortile','elevators','barman'}:
-           #     continue
+            if dom in {'floortile'}:
+                continue
             benchmark_domain(argv[2], dom)
     else:
         benchmark_domain(argv[2], argv[5])

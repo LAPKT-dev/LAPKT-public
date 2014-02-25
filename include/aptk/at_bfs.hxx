@@ -107,7 +107,7 @@ public:
 	AT_BFS_SQ_SH( 	const Search_Model& search_problem ) 
 	: m_problem( search_problem ), m_heuristic_func(NULL), 
 	m_exp_count(0), m_gen_count(0), m_pruned_B_count(0), m_dead_end_count(0), m_open_repl_count(0),
-	m_B( infty ), m_time_budget(infty) {
+	  m_B( infty ), m_time_budget(infty), m_greedy(false) {
 		m_heuristic_func = new Abstract_Heuristic( search_problem );
 	}
 
@@ -153,7 +153,8 @@ public:
 
 	float			bound() const			{ return m_B; }
 	void			set_bound( float v ) 		{ m_B = v; }
-
+	void                    set_greedy( bool b )            { m_greedy = b; }
+	
 	void			inc_gen()			{ m_gen_count++; }
 	unsigned		generated() const		{ return m_gen_count; }
 	void			inc_eval()			{ m_exp_count++; }
@@ -217,20 +218,30 @@ public:
 		inc_gen();
 	}
 
+	/**
+	 * Succ Generator Process
+	 */
 	virtual void 			process(  Search_Node *head ) {
-		#ifdef DEBUG
+
+		
+#ifdef DEBUG
 		std::cout << "Expanding:" << std::endl;
 		head->print(std::cout);
 		std::cout << std::endl;
 		head->state()->print( std::cout );
 		std::cout << std::endl;
-		#endif
-		typedef typename Search_Model::Action_Iterator Iterator;
-		Iterator it( this->problem() );
-		int a = it.start( *(head->state()) );
-		while ( a != no_op ) {		
-			State *succ = m_problem.next( *(head->state()), a );
-			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head );
+#endif
+		
+		std::vector< aptk::Action_Idx > app_set;
+		this->problem().applicable_set_v2( *(head->state()), app_set );
+
+		for (unsigned i = 0; i < app_set.size(); ++i ) {
+			int a = app_set[i];
+
+			State *succ = m_problem.next( *(head->state()), a ); 
+						
+			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head );			
+			
 			#ifdef DEBUG
 			std::cout << "Successor:" << std::endl;
 			n->print(std::cout);
@@ -244,11 +255,16 @@ public:
 				std::cout << "Already in CLOSED" << std::endl;
 				#endif
 				delete n;
-				a = it.next();
 				continue;
 			}
 			n->hn() = head->hn();
-			n->fn() = n->hn() + n->gn();
+			
+			if(m_greedy)
+				n->fn() = n->hn();
+			else
+				n->fn() = n->hn() + n->gn();
+
+				
 			if( previously_hashed(n) ) {
 				#ifdef DEBUG
 				std::cout << "Already in OPEN" << std::endl;
@@ -261,7 +277,11 @@ public:
 				#endif
 				open_node(n);	
 			}
-			a = it.next();		
+		       
+
+
+				
+
 		} 
 		inc_eval();
 	}
@@ -300,14 +320,15 @@ public:
 
 		if( (previous_copy = m_open_hash.retrieve(n)) ) {
 			
-			if(n->gn() < previous_copy->gn())
-			{
-				previous_copy->m_parent = n->m_parent;
-				previous_copy->m_action = n->m_action;
-				previous_copy->m_g = n->m_g;
-				previous_copy->m_f = previous_copy->m_h + previous_copy->m_g;
-				inc_replaced_open();
-			}
+			if(!m_greedy)
+				if(n->gn() < previous_copy->gn())
+					{
+						previous_copy->m_parent = n->m_parent;
+						previous_copy->m_action = n->m_action;				
+						previous_copy->m_g = n->m_g;
+						previous_copy->m_f = previous_copy->m_h + previous_copy->m_g;
+						inc_replaced_open();
+					}
 			return true;
 		}
 
@@ -354,6 +375,7 @@ protected:
 	float					m_t0;
 	Search_Node*				m_root;
 	std::vector<Action_Idx> 		m_app_set;
+	bool                                    m_greedy;
 };
 
 }

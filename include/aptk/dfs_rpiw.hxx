@@ -69,7 +69,14 @@ public:
 		m_iw_engine.set_closed_goal_states( &closed_goal_states );
 		m_iw_engine.set_bound( bound );
 		m_iw_engine.set_use_relplan( use_relplan ); 
-		m_iw_engine.start( init );
+
+		new_init_state = NULL;
+		if( init ){
+			new_init_state = new State( this->problem().task() );
+			new_init_state->set( init->fluent_vec() );
+			new_init_state->update_hash();	
+		}	
+		m_iw_engine.start( new_init_state );
 
 
 		if( m_goal_agenda ){
@@ -85,7 +92,10 @@ public:
 
 		do{
 			
-			std::cout << std::endl << "{" << gsize << "/" << m_iw_engine.goal_candidates().size() << "/" << m_iw_engine.goals_achieved().size() << "}:IW(" << m_iw_engine.bound() << ") -> " << std::flush;
+			std::cout << std::endl << "{" << gsize << "/" << m_iw_engine.goal_candidates().size() << "/" << m_iw_engine.goals_achieved().size() << "}:IW";
+			if(use_relplan)
+				std::cout << "+";
+			std::cout << "(" << m_iw_engine.bound() << ") -> " << std::flush;
 		
 
 			end = m_iw_engine.do_search();		
@@ -162,7 +172,7 @@ public:
 					return true;
 				}
 				
-				closed_goal_states.put(end);
+				//closed_goal_states.put(end);
 
 				new_init_state = new State( this->problem().task() );
 				new_init_state->set( end->state()->fluent_vec() );
@@ -178,6 +188,16 @@ public:
 
 				}
 
+				std::vector<Action_Idx> partial_plan;
+				float partial_cost = 0.0f;
+				m_iw_engine.extract_plan( m_iw_engine.root(), end, partial_plan, partial_cost, false );	
+
+				
+				// for ( typename Closed_List_Type::iterator i = m_iw_engine.closed_goal_states()->begin();
+				//       i != m_iw_engine.closed_goal_states()->end(); i++ ) {
+				// 	i->second->print(std::cout);
+				// }
+
 				if( dfs_search( new_init_state, plan, cost, m_iw_engine.goals_achieved() ) ){
 					/**
 					 * If a partial plan extending the achieved goals set is found,
@@ -185,15 +205,14 @@ public:
 					 */
 					
 					
-					std::vector<Action_Idx> partial_plan;
-					float partial_cost = 0.0f;
-					m_iw_engine.extract_plan( m_iw_engine.root(), end, partial_plan, partial_cost, false );	
 					plan.insert( plan.end(), partial_plan.begin(), partial_plan.end() );			
 					cost += partial_cost;
-					//m_iw_engine.reset_closed_goal_states();				
+					delete new_init_state;
 					return true;
 				}
-				
+				else
+					delete new_init_state;
+
 				if( m_goal_agenda ){					
 					for(Fluent_Vec::iterator it = m_iw_engine.goals_achieved().begin(); 
 					    it != m_iw_engine.goals_achieved().end(); it++){					
@@ -211,7 +230,7 @@ public:
 				}
 				//this->debug_info( new_init_state, this->m_goal_candidates );
 
-				if(m_iw_engine.search_exhausted() && m_iw_engine.bound() <= this->max_bound() ){
+				if(m_iw_engine.search_exhausted() && bound <= this->max_bound() ){
 					if( !use_relplan )
 						m_iw_engine.set_use_relplan( true );
 					else{
@@ -225,7 +244,7 @@ public:
 
 
 					new_init_state = new State( this->problem().task() );
-					new_init_state->set( m_iw_engine.root()->state()->fluent_vec() );
+					new_init_state->set( init->fluent_vec() );
 					new_init_state->update_hash();
 
 					m_iw_engine.set_closed_goal_states( &closed_goal_states );
@@ -234,7 +253,7 @@ public:
 				}
 				else{
 					new_init_state = new State( this->problem().task() );
-					new_init_state->set( m_iw_engine.root()->state()->fluent_vec() );
+					new_init_state->set( init->fluent_vec() );
 					new_init_state->update_hash();
 
 					m_iw_engine.set_closed_goal_states( &closed_goal_states );
@@ -249,10 +268,16 @@ public:
 					m_backtracks++;
 				}
 				
+
+				// for ( typename Closed_List_Type::iterator i = m_iw_engine.closed_goal_states()->begin();
+				//       i != m_iw_engine.closed_goal_states()->end(); i++ ) {
+				// 	i->second->print(std::cout);
+				// }
 				
 			}
 			
 		}while( ! m_iw_engine.search_exhausted()   );
+		
 		
 		return false;
 	}
