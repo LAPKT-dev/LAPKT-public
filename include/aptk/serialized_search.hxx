@@ -50,14 +50,33 @@ public:
 
 	virtual ~Serialized_Search() {
 		delete m_reachability;
+		m_closed_goal_states = NULL;
 	}
 
 	void                    set_consistency_test( bool b )           { m_consistency_test = b; }	
 	void            	set_closed_goal_states( Closed_List_Type* c ){ m_closed_goal_states = c; }
-       	void 			close_goal_state( Search_Node* n ) 	 { if( closed_goal_states() ) m_closed_goal_states->put(n); }
-	void                    reset_closed_goal_states( ) { if( closed_goal_states() ) m_closed_goal_states->clear(); }
+	void 			close_goal_state( Search_Node* n ) 	 { 
+			if( closed_goal_states() ){
+				
+				State* new_state = new State( this->problem().task() );
+				new_state->set( n->state()->fluent_vec() );
+				new_state->update_hash();				
 
+				m_closed_goal_states->put( new Search_Node( new_state, n->action() ) ); 
+			}
+	}
 	Closed_List_Type*	closed_goal_states() 			 { return m_closed_goal_states; }
+
+
+	void                    reset_closed_goal_states( ) { 
+		if( closed_goal_states() ){
+			// for ( typename Closed_List_Type::iterator i = m_closed_goal_states->begin();
+			//       i != m_closed_goal_states->end(); i++ ) {
+			// 	i->second = NULL;
+			// }
+			m_closed_goal_states->clear(); 
+		}
+	}
 
 
 	bool 		        is_goal_state_closed( Search_Node* n ) 	 {

@@ -190,7 +190,7 @@ public:
 					m_iw_engine.extract_plan( m_iw_engine.root(), end, partial_plan, partial_cost, false );	
 					plan.insert( plan.end(), partial_plan.begin(), partial_plan.end() );			
 					cost += partial_cost;
-					m_iw_engine.reset_closed_goal_states();				
+					//m_iw_engine.reset_closed_goal_states();				
 					return true;
 				}
 				
