@@ -19,4 +19,4 @@ agnostic_objs = SConscript('../../interfaces/agnostic/SConscript.agnostic')
 python_objs = SConscript('../python/agnostic/SConscript.python')
 siw_objs = SConscript('src/SConscript')
 
-common_env.SharedLibrary( 'iw.so', siw_objs + generic_objs + agnostic_objs + python_objs ) 
+common_env.SharedLibrary( 'rpiw.so', siw_objs + generic_objs + agnostic_objs + python_objs ) 

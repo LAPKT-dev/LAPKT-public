@@ -51,11 +51,11 @@ using	aptk::agnostic::H_Add_Evaluation_Function;
 using	aptk::agnostic::Relaxed_Plan_Heuristic;
 
 using 	aptk::agnostic::Novelty_Partition;
-using	aptk::search::brfs::RP_IW;
+using	aptk::search::novelty_spaces::RP_IW;
 
 
 
-typedef		aptk::search::brfs::Node< aptk::State >	          IW_Node;
+typedef		aptk::search::novelty_spaces::Node< aptk::State >	          IW_Node;
 typedef         Novelty_Partition<Fwd_Search_Problem, IW_Node>    H_Novel_Fwd;
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd; 
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
@@ -275,7 +275,7 @@ int main( int argc, char** argv ) {
 
 	Fwd_Search_Problem	search_prob( &prob );
 	
-	std::cout << "Starting search with IW (time budget is 60 secs)..." << std::endl;
+	std::cout << "Starting search with RPIW ..." << std::endl;
 
 	RP_IW_Fwd engine( search_prob );
 
@@ -286,7 +286,7 @@ int main( int argc, char** argv ) {
 	//float iw_t = do_search( engine, prob, iw_bound, plan_stream );
 	float iw_t = do_search_single_goal( engine, prob, iw_bound, plan_stream );
 	
-	std::cout << "IW search completed in " << iw_t << " secs" << std::endl;
+	std::cout << "RPIW search completed in " << iw_t << " secs" << std::endl;
 
 	plan_stream.close();
 

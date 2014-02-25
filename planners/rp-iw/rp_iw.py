@@ -2,12 +2,12 @@
 import fd.grounding
 import sys
 import os
-from libiw import IW_Planner 
+from librpiw import RPIW_Planner 
 # MRJ: Profiler imports
 #from prof import profiler_start, profiler_stop
 
 def main( domain_file, problem_file, plan_file ) :
-	task = IW_Planner( )
+	task = RPIW_Planner( )
 
 	fd.grounding.default( domain_file, problem_file, task )
 
@@ -19,10 +19,10 @@ def main( domain_file, problem_file, plan_file ) :
 	# of Python object attributes
 	
 	# MRJ: Maximum bound on width is set to 1
-	task.iw_bound = 1
+	task.iw_bound = 2
 
 	# MRJ: log filename set
-	task.log_filename = 'iw.log'
+	task.log_filename = 'rpiw.log'
 
 	# MRJ: plan file
 	task.plan_filename = plan_file
