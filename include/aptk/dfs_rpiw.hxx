@@ -230,7 +230,7 @@ public:
 				}
 				//this->debug_info( new_init_state, this->m_goal_candidates );
 
-				if(m_iw_engine.search_exhausted() && bound <= this->max_bound() ){
+				if(m_iw_engine.search_exhausted() && bound < this->max_bound() ){
 					if( !use_relplan )
 						m_iw_engine.set_use_relplan( true );
 					else{
