@@ -40,7 +40,7 @@ public:
 
 
 	Novelty_Partition( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 600 ) 
-		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB) {
+		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB), m_always_full_state(true) {
 		
 		set_arity(max_arity, 1);
 		
@@ -61,6 +61,7 @@ public:
 	}
 
 	unsigned arity() const { return m_arity; }
+	void set_full_state_computation( bool b )  { m_always_full_state = b; }
 
 	void set_arity( unsigned max_arity, unsigned goal_size ){
 	
@@ -120,10 +121,9 @@ protected:
 #endif 	
 			
 			bool new_covers;
-			if(n->parent() == nullptr)
+			if(n->parent() == nullptr || m_always_full_state)
 				new_covers = cover_tuples( n, i );
 			else
-//				new_covers = cover_tuples( n, i );
 				new_covers = (n->partition() == n->parent()->partition()) ?  cover_tuples_op( n, i ) : cover_tuples( n, i );			
 #ifdef DEBUG
 			if(!new_covers)	
@@ -364,6 +364,7 @@ protected:
 	unsigned long           m_num_tuples;
 	unsigned                m_num_fluents;
 	unsigned                m_max_memory_size_MB;
+	bool                    m_always_full_state;
 };
 
 

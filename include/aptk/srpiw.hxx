@@ -50,7 +50,7 @@ public:
 	typedef          aptk::agnostic::Relaxed_Plan_Heuristic< Search_Model, aptk::agnostic::H1_Heuristic<Search_Model, aptk::agnostic::H_Add_Evaluation_Function> >                                          RP_Heuristic;
 
 	SRPIW( const Search_Model& search_problem ) 
-	  : Serialized_Search<Search_Model, RP_IW<Search_Model, aptk::agnostic::Novelty_Partition<Search_Model, Search_Node>, RP_Heuristic>, Search_Node>( search_problem ), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0), m_max_bound( std::numeric_limits<unsigned>::max() ) {	   	
+	  : Serialized_Search<Search_Model, RP_IW<Search_Model, aptk::agnostic::Novelty_Partition<Search_Model, Search_Node>, RP_Heuristic>, Search_Node>( search_problem ), m_sum_exp_count(0), m_sum_gen_count(0), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0), m_max_bound( std::numeric_limits<unsigned>::max() ) {	   	
 		m_goal_agenda = NULL;
 	}
 
@@ -81,6 +81,8 @@ public:
 			std::cout << std::endl << "{" << gsize << "/" << this->m_goal_candidates.size() << "/" << this->m_goals_achieved.size() << "}:IW(" << this->bound() << ") -> ";
 			end = this->do_search();		
 			m_pruned_sum_B_count += this->pruned_by_bound();
+			m_sum_exp_count += this->expanded();
+			m_sum_gen_count += this->generated();
 
 			if ( end == NULL ) {
 
@@ -157,6 +159,8 @@ public:
 		return true;
 	}
 
+	unsigned		sum_expanded() const		{ return m_sum_exp_count; }
+	unsigned		sum_generated() const		{ return m_sum_gen_count; }
 	unsigned		sum_pruned_by_bound() const		{ return m_pruned_sum_B_count; }
 	float                   avg_B() const { return (float)(m_sum_B_count) / m_iw_calls; }
 	unsigned                max_B() const { return m_max_B_count; }
@@ -164,6 +168,8 @@ public:
 	unsigned		max_bound( ) { return m_max_bound; }
 
 protected:	       
+	unsigned                m_sum_exp_count;
+	unsigned                m_sum_gen_count;
 	unsigned		m_pruned_sum_B_count;
 	unsigned		m_sum_B_count;
 	unsigned		m_max_B_count;

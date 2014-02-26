@@ -124,6 +124,7 @@ public:
 	RP_IW( 	const Search_Model& search_problem ) 
 		: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_cl_count(0), m_max_depth(0), m_pruned_B_count(0), m_B( infty ), m_use_relplan(true), m_goals(NULL) {	   
 		m_novelty = new Abstract_Novelty( search_problem );
+		m_novelty->set_full_state_computation( false );
 		m_rp_h = new RP_Heuristic( search_problem );
 		m_rp_h->ignore_rp_h_value(true);
 		m_rp_fl_set.resize( this->problem().task().num_fluents() );
@@ -167,6 +168,7 @@ public:
 		m_open_hash.clear();
 		m_rp_fl_vec.clear();
 		m_rp_fl_set.reset();
+		
 		m_exp_count = 0;
 		m_gen_count = 0;
 		m_cl_count = 0;
@@ -282,7 +284,7 @@ public:
 
 	void			inc_pruned_bound() 		{ m_pruned_B_count++; }
 	unsigned		pruned_by_bound() const		{ return m_pruned_B_count; }
-void			inc_gen()			{ m_gen_count++; }
+	void			inc_gen()			{ m_gen_count++; }
 	unsigned		generated() const		{ return m_gen_count; }
 	void			inc_exp()			{ m_exp_count++; }
 	unsigned		expanded() const		{ return m_exp_count; }

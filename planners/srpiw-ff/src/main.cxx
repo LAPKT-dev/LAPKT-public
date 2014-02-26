@@ -123,15 +123,15 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, 
 
  	float total_time = aptk::time_used() - ref;
 	details << "Total time: " << total_time << std::endl;
-	details << "Nodes generated during search: " << engine.generated() << std::endl;
-	details << "Nodes expanded during search: " << engine.expanded() << std::endl;
+	details << "Nodes generated during search: " << engine.sum_generated() << std::endl;
+	details << "Nodes expanded during search: " << engine.sum_expanded() << std::endl;
 	//details << "Nodes pruned by bound: " << engine.sum_pruned_by_bound() << std::endl;
 	//details << "Average ef. width: " << engine.avg_B() << std::endl;
 	//details << "Max ef. width: " << engine.max_B() << std::endl;
 	details.close();
 	std::cout << "Total time: " << total_time << std::endl;
-	std::cout << "Nodes generated during search: " << engine.generated() << std::endl;
-	std::cout << "Nodes expanded during search: " << engine.expanded() << std::endl;
+	std::cout << "Nodes generated during search: " << engine.sum_generated() << std::endl;
+	std::cout << "Nodes expanded during search: " << engine.sum_expanded() << std::endl;
 	
 	return total_time;
 }
