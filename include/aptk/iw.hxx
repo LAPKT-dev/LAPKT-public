@@ -122,8 +122,9 @@ protected:
 			 * Prune actions that do not add anything new compared to prev state.
 			 * Big impact in del-free tasks, as states grow monotonically
 			 */
-			if( head->state()->entails(this->problem().task().actions()[a]->add_vec()) )
-				continue;
+			//need to check COND EFF TOO!!
+			// if( head->state()->entails(this->problem().task().actions()[a]->add_vec()) )
+			// 	continue;
 			
 
 			State *succ = this->problem().next( *(head->state()), a );	       			

@@ -190,7 +190,23 @@ public:
 		//std::cout << "rel_plan size: "<< rel_plan.size() << std::endl;
 		for(std::vector<Action_Idx>::iterator it_a = rel_plan.begin(); 
 		    it_a != rel_plan.end(); it_a++ ){
-			const Fluent_Vec& add = this->problem().task().actions()[*it_a]->add_vec();
+			const Action* a = this->problem().task().actions()[*it_a];
+
+			//Add Conditional Effects
+			if( !a->ceff_vec().empty() ){		
+				for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
+					Conditional_Effect* ce = a->ceff_vec()[i];
+					for ( auto p : ce->add_vec() ) {
+						if ( ! m_rp_fl_set.isset( p ) ){
+							m_rp_fl_vec.push_back( p );
+							m_rp_fl_set.set( p );
+							//std::cout << this->problem().task().fluents()[add[i]]->signature() << std::endl;
+						}
+					}
+				}
+			}
+
+			const Fluent_Vec& add = a->add_vec();
 
 			//std::cout << this->problem().task().actions()[*it_a]->signature() << std::endl;
 			for ( unsigned i = 0; i < add.size(); i++ )
@@ -392,7 +408,23 @@ protected:
 	       unsigned count = 0;
 	       static Fluent_Set counted( this->problem().task().num_fluents() );
 	       while( n->action()!= no_op ){
-		       const Fluent_Vec& add = this->problem().task().actions()[ n->action() ]->add_vec();
+
+		       const Action* a = this->problem().task().actions()[ n->action() ];
+
+			//Add Conditional Effects
+			if( !a->ceff_vec().empty() ){		
+				for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
+					Conditional_Effect* ce = a->ceff_vec()[i];
+					for ( auto p : ce->add_vec() ) {
+						if( m_rp_fl_set.isset( p ) && ! counted.isset(p) ){
+							count++;
+							counted.set( p );	
+						}
+					}
+				}
+			}
+
+		       const Fluent_Vec& add = a->add_vec();
 		       
 		       //std::cout << this->problem().task().actions()[*it_a]->signature() << std::endl;
 		       for ( unsigned i = 0; i < add.size(); i++ ){
@@ -441,8 +473,9 @@ protected:
 			 * Prune actions that do not add anything new compared to prev state.
 			 * Big impact in del-free tasks, as states grow monotonically
 			 */
-			if( head->state()->entails(this->problem().task().actions()[a]->add_vec()) )
-				continue;
+			//need to check COND EFF TOO!!
+			// if( head->state()->entails(this->problem().task().actions()[a]->add_vec()) )
+			// 	continue;
 			
 
 			State *succ = this->problem().next( *(head->state()), a );	       			
