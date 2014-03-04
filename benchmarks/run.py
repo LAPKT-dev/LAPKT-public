@@ -22,7 +22,7 @@ USAGE = """
  Usage:
     python run.py profile <executable> <ipc directory> [<domain pddl> <problem pddl>]
     python run.py benchmark <executable> <ipc directory> <results directory> [<domain>]
-    python run.py compare <directory 1> <directory 2> <ipc directory>
+    python run.py compare <directories with , separated> <ipc directory>
     python run.py clean
     """
 
@@ -35,7 +35,7 @@ OLD = 1
 NEW = 2
 
 # Set the style of planner you are using
-TYPE = OLD
+TYPE = NEW
 
 benchmark = None
 domains = None
@@ -66,6 +66,7 @@ def benchmark_domain(planner, dom):
     print
     print "Benchmarking %s..." % dom
 
+    
     if TYPE == OLD:
         domprob_args = ["--domain %s/%s/%s --problem %s/%s/%s" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]
     elif TYPE == NEW:
@@ -165,86 +166,92 @@ def benchmark_domain(planner, dom):
     
     #cmd("rm -rf %s"%results_directoy)
     
-
-def compare_results(dir1, dir2):
+def compare_results(dirs):
     
     from krrt.utils import load_CSV
     print
-    print "Comparing results for %s and %s..." % (dir1, dir2)
+    print "Comparing results for %s..." % (dirs)
     
-    coverage = [0,0]
-    time_better = [0,0]
-    time_score = [0,0]
-    quality_better = [0,0]
-    quality_score = [0,0]
-    nodes_expanded = [0,0]
-    nodes_generated = [0,0]
-    time_total = [0,0]
+    coverage = [0] * len(dirs)
+    time_better = [0] * len(dirs)
+    time_score = [0] * len(dirs)
+    quality_better = [0] * len(dirs)
+    quality_score = [0] * len(dirs)
+    nodes_expanded = [0] * len(dirs)
+    nodes_generated = [0] * len(dirs)
+    time_total = [0] * len(dirs)
     
     for dom in domains:
         
-        data1 = load_CSV("%s/%s.csv" % (dir1, dom))[1:]
-        data2 = load_CSV("%s/%s.csv" % (dir2, dom))[1:]
+
+        data = []
+        cov = []
+        t_score = []
+        q_score = []
         
-        cov_1 = len(filter(lambda x: 'ok' == x[1], data1))
-        cov_2 = len(filter(lambda x: 'ok' == x[1], data2))
-        coverage[0] += cov_1
-        coverage[1] += cov_2
+        for i in range(len(dirs)):
+            direc = dirs[i]
+            data.append(load_CSV("%s/%s.csv" % (direc, dom))[1:])
+            cov.append(len(filter(lambda x: 'ok' == x[1], data[-1])))
+            coverage[i] += cov[-1]
         
-        shared_data = filter(lambda x: 'ok' == x[0][1] == x[1][1], zip(data1, data2))
+        shared_data = []
         
-        time_better_1 = len(filter(lambda x: float(x[0][2]) < float(x[1][2]), shared_data))
-        time_better_2 = len(filter(lambda x: float(x[0][2]) > float(x[1][2]), shared_data))
-        time_better[0] += time_better_1
-        time_better[1] += time_better_2
+        for prob in zip(*data):
+            if 0 != len(filter(lambda x: 'ok' == x[1], prob)):                
+                for x in prob:
+                    if x[1] != 'ok':
+                        x[2] = sys.maxint
+                    if x[1] != 'ok':
+                        x[3] = sys.maxint
+                
+                shared_data.append(list(prob))
         
-        time_score_1 = (cov_1 - len(shared_data)) + sum([max(1, min(float(x[0][2]), float(x[1][2]))) / max(1.0, float(x[0][2])) for x in shared_data])
-        time_score_2 = (cov_2 - len(shared_data)) + sum([max(1, min(float(x[0][2]), float(x[1][2]))) / max(1.0, float(x[1][2])) for x in shared_data])
-        time_score[0] += time_score_1
-        time_score[1] += time_score_2
 
-        quality_better_1 = len(filter(lambda x: float(x[0][3]) < float(x[1][3]), shared_data))
-        quality_better_2 = len(filter(lambda x: float(x[0][3]) > float(x[1][3]), shared_data))
-        quality_better[0] += quality_better_1
-        quality_better[1] += quality_better_2
+        for i in range(len(dirs)):
+            t_score.append(sum([ max(1.0, min([float(x[j][2]) for j in range(len(x))])) / \
+                         max(1.0, float(x[i][2])) \
+                             for x in shared_data \
+                         ]))
+            time_score[i] += t_score[i]
 
-        quality_score_1 = (cov_1 - len(shared_data)) + sum([min(float(x[0][3]), float(x[1][3])) / float(x[0][3]) for x in shared_data])
-        quality_score_2 = (cov_2 - len(shared_data)) + sum([min(float(x[0][3]), float(x[1][3])) / float(x[1][3]) for x in shared_data])
-        quality_score[0] += quality_score_1
-        quality_score[1] += quality_score_2
+        for i in range(len(dirs)):
+            q_score.append( sum([ min([float(x[j][3]) for j in range(len(x)) ]) / float(x[i][3]) for x in shared_data ]))
+            quality_score[i] += q_score[i]
 
-        n_gen_1 = sum([int(x[0][4]) for x in shared_data])
-        n_gen_2 = sum([int(x[1][4]) for x in shared_data])
-        nodes_generated[0] += n_gen_1
-        nodes_generated[1] += n_gen_2
+        #n_gen_1 = sum([int(x[0][4]) for x in shared_data])
+        #n_gen_2 = sum([int(x[1][4]) for x in shared_data])
+        #nodes_generated[0] += n_gen_1
+        #nodes_generated[1] += n_gen_2
 
-        n_exp_1 = sum([int(x[0][5]) for x in shared_data])
-        n_exp_2 = sum([int(x[1][5]) for x in shared_data])
-        nodes_expanded[0] += n_exp_1
-        nodes_expanded[1] += n_exp_2
+        #n_exp_1 = sum([int(x[0][5]) for x in shared_data])
+        #n_exp_2 = sum([int(x[1][5]) for x in shared_data])
+        #nodes_expanded[0] += n_exp_1
+        #nodes_expanded[1] += n_exp_2
 
-        time_1 = sum([float(x[0][2]) for x in shared_data])
-        time_2 = sum([float(x[1][2]) for x in shared_data])
-        time_total[0] += time_1
-        time_total[1] += time_2
+        #time_1 = sum([float(x[0][2]) for x in shared_data])
+        #time_2 = sum([float(x[1][2]) for x in shared_data])
+        #time_total[0] += time_1
+        #time_total[1] += time_2
 
         print "\nDomain: %s" % dom
-        print "Coverage: %d -vs- %d" % (cov_1, cov_2)
-        print "Time better: %d -vs- %d" % (time_better_1, time_better_2)
-        print "Time score: %.2f -vs- %.2f" % (time_score_1, time_score_2)
-        print "Quality better: %d -vs- %d" % (quality_better_1, quality_better_2)
-        print "Quality score: %.2f -vs- %.2f" % (quality_score_1, quality_score_2)
-        print "Time per node generated: %.6f -vs- %.6f" % ((float(time_1) / float(max(1,n_gen_1))), (float(time_2) / float(max(1,n_gen_2))))
-        print "Time per node expanded: %.6f -vs- %.6f" % ((float(time_1) / float(max(1,n_exp_1))), (float(time_2) / float(max(1,n_exp_2))))
+        print "Coverage: %s" % ' -vs- '.join(["%d" % c for c in cov])
+        #print "Time better: %d -vs- %d" % (time_better_1, time_better_2)
+        print "Time score: %s" % ' -vs- '.join(["%.2f" % t for t in t_score])
+        #print "Quality better: %d -vs- %d" % (quality_better_1, quality_better_2)
+        print "Quality score: %s" % ' -vs- '.join(["%.2f" % t for t in q_score])
+        #print "Time per node generated: %.6f -vs- %.6f" % ((float(time_1) / float(max(1,n_gen_1))), (float(time_2) / float(max(1,n_gen_2))))
+        #print "Time per node expanded: %.6f -vs- %.6f" % ((float(time_1) / float(max(1,n_exp_1))), (float(time_2) / float(max(1,n_exp_2))))
 
     print "\nDomain: all"
-    print "Coverage: %d -vs- %d" % (coverage[0], coverage[1])
-    print "Time better: %d -vs- %d" % (time_better[0], time_better[1])
-    print "Time score: %.2f -vs- %.2f" % (time_score[0], time_score[1])
-    print "Quality better: %d -vs- %d" % (quality_better[0], quality_better[1])
-    print "Quality score: %.2f -vs- %.2f" % (quality_score[0], quality_score[1])
-    print "Time per node generated: %.6f -vs- %.6f" % ((float(time_total[0]) / float(max(1,nodes_generated[0]))), (float(time_total[1]) / float(max(1,nodes_generated[1]))))
-    print "Time per node expanded: %.6f -vs- %.6f" % ((float(time_total[0]) / float(max(1,nodes_expanded[0]))), (float(time_total[1]) / float(max(1,nodes_expanded[1]))))
+    print "Coverage: %s" % ' -vs- '.join(["%d" % c for c in coverage])
+    #print "Time better: %d -vs- %d" % (time_better[0], time_better[1])
+    print "Time score: %s" % ' -vs- '.join(["%.2f" % t for t in time_score])
+    #print "Quality better: %d -vs- %d" % (quality_better[0], quality_better[1])
+    print "Quality score: %s" % ' -vs- '.join(["%.2f" % t for t in quality_score])
+    #print "Time per node generated: %.6f -vs- %.6f" % ((float(time_total[0]) / float(max(1,nodes_generated[0]))), (float(time_total[1]) / float(max(1,nodes_generated[1]))))
+    #print "Time per node expanded: %.6f -vs- %.6f" % ((float(time_total[0]) / float(max(1,nodes_expanded[0]))), (float(time_total[1]) / float(max(1,nodes_expanded[1]))))
+
 
 if 1 == len(argv):
     print USAGE
@@ -299,9 +306,10 @@ elif 'benchmark' == argv[1]:
     ipc = argv[3]
         
     if len(argv) < 6:
+        domains = {'tidybot','transport','visitall','woodworking','scanalyzer','pegsol'}#{'elevators', 'floortile', 'nomystery', 'openstacks', 'parcprinter', 'parking', 'pegsol'}
         for dom in domains:
             #if dom in {'floortile'}:
-            #    continue
+            #    continue            
             benchmark_domain(argv[2], dom)
     else:
         benchmark_domain(argv[2], argv[5])
@@ -309,21 +317,21 @@ elif 'benchmark' == argv[1]:
 
 elif 'compare' == argv[1]:
 
-    if 'ipc-2006' == argv[4]:
+    if 'ipc-2006' == argv[3]:
         benchmark = benchmark_06
         domains = domains_06
         profile_problems = profile_problems_06
-    elif 'ipc-2011' == argv[4]:
+    elif 'ipc-2011' == argv[3]:
         benchmark = benchmark_11
         domains = domains_11
         profile_problems = profile_problems_11
     else:
-        print "Invalid benchmark set: %s" % argv[4]
+        print "Invalid benchmark set: %s" % argv[3]
         os._exit(1)
 
-    ipc = argv[4]
+    ipc = argv[3]
 
-    compare_results(argv[2], argv[3])
+    compare_results(argv[2].split(','))
 
 
 elif 'clean' == argv[1]:

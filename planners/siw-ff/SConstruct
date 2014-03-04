@@ -2,7 +2,7 @@ import os
 
 debug = ARGUMENTS.get( 'debug', 0 )
 common_env = Environment(ENV = os.environ)
-
+common_env.Append( LINKFLAGS = ['--static'] )
 common_env.Append( CCFLAGS = [ '-Wall', '-std=c++11' ] )
 
 if int(debug) == 1 :

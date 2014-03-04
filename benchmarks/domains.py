@@ -1,6 +1,6 @@
 
 domains_06 = ['openstacks', 'pathways', 'pipesworld', 'rovers', 'storage', 'TPP', 'trucks']
-domains_11 = ['barman', 'elevators', 'floortile', 'openstacks', 'parcprinter', 'parking', 'pegsol', 'scanalyzer', 'sokoban', 'tidybot', 'transport', 'visitall', 'woodworking']
+domains_11 = ['barman', 'elevators', 'floortile', 'nomystery','openstacks', 'parcprinter', 'parking', 'pegsol', 'scanalyzer', 'sokoban', 'tidybot', 'transport', 'visitall', 'woodworking']
 
 # Domain and problem files
 benchmark_06 = {}
@@ -60,6 +60,9 @@ benchmark_11['elevators'] = [('domain.pddl', prob) for prob in prob_list]
 prob_list = ['seq-p06-011.pddl', 'seq-p05-009.pddl', 'seq-p08-016.pddl', 'seq-p09-017.pddl', 'seq-p01-001.pddl', 'seq-p06-012.pddl', 'seq-p07-014.pddl', 'seq-p05-010.pddl', 'seq-p02-004.pddl', 'seq-p02-003.pddl', 'seq-p03-005.pddl', 'seq-p01-002.pddl', 'seq-p03-006.pddl', 'seq-p10-020.pddl', 'seq-p04-007.pddl', 'seq-p07-013.pddl', 'seq-p10-019.pddl', 'seq-p09-018.pddl', 'seq-p08-015.pddl', 'seq-p04-008.pddl']
 benchmark_11['floortile'] = [('domain.pddl', prob) for prob in prob_list]
 
+prob_list = ['p06.pddl', 'p13.pddl', 'p15.pddl', 'p09.pddl', 'p17.pddl', 'p11.pddl', 'p12.pddl', 'p02.pddl', 'p14.pddl', 'p05.pddl', 'p08.pddl', 'p10.pddl', 'p19.pddl', 'p04.pddl', 'p03.pddl', 'p07.pddl', 'p16.pddl', 'p18.pddl', 'p20.pddl', 'p01.pddl']
+benchmark_11['nomystery'] = [('domain.pddl', prob) for prob in prob_list]
+
 benchmark_11['openstacks'] = []
 for i in range(1,10):
     benchmark_11['openstacks'].append(("p0%d-domain.pddl" % i, "p0%d.pddl" % i))
@@ -77,6 +80,7 @@ benchmark_11['parking'] = [('domain.pddl', prob) for prob in prob_list]
 
 prob_list = ['p06.pddl', 'p13.pddl', 'p15.pddl', 'p09.pddl', 'p17.pddl', 'p11.pddl', 'p12.pddl', 'p02.pddl', 'p14.pddl', 'p05.pddl', 'p08.pddl', 'p10.pddl', 'p19.pddl', 'p04.pddl', 'p03.pddl', 'p07.pddl', 'p16.pddl', 'p18.pddl', 'p20.pddl', 'p01.pddl']
 benchmark_11['pegsol'] = [('domain.pddl', prob) for prob in prob_list]
+
 
 prob_list = ['p06.pddl', 'p13.pddl', 'p15.pddl', 'p09.pddl', 'p17.pddl', 'p11.pddl', 'p12.pddl', 'p02.pddl', 'p14.pddl', 'p05.pddl', 'p08.pddl', 'p10.pddl', 'p19.pddl', 'p04.pddl', 'p03.pddl', 'p07.pddl', 'p16.pddl', 'p18.pddl', 'p20.pddl', 'p01.pddl']
 benchmark_11['scanalyzer'] = [('domain.pddl', prob) for prob in prob_list]

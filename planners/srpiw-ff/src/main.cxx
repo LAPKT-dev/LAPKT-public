@@ -205,6 +205,8 @@ int main( int argc, char** argv ) {
 	std::cout << "\t#Actions: " << prob.num_actions() << std::endl;
 	std::cout << "\t#Fluents: " << prob.num_fluents() << std::endl;
 
+	//prob.print_actions(std::cout);
+
 	Fwd_Search_Problem	search_prob( &prob );
 
 	if ( !prob.has_conditional_effects() ) {
