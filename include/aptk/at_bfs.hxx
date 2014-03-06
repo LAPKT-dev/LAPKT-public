@@ -107,7 +107,7 @@ public:
 	AT_BFS_SQ_SH( 	const Search_Model& search_problem ) 
 	: m_problem( search_problem ), m_heuristic_func(NULL), 
 	m_exp_count(0), m_gen_count(0), m_pruned_B_count(0), m_dead_end_count(0), m_open_repl_count(0),
-	  m_B( infty ), m_time_budget(infty), m_greedy(false) {
+	  m_B( infty ), m_time_budget(infty), m_greedy(false), m_delay_eval(true) {
 		m_heuristic_func = new Abstract_Heuristic( search_problem );
 	}
 
@@ -154,6 +154,7 @@ public:
 	float			bound() const			{ return m_B; }
 	void			set_bound( float v ) 		{ m_B = v; }
 	void                    set_greedy( bool b )            { m_greedy = b; }
+	void                    set_delay_eval( bool b )            { m_delay_eval = b; }
 	
 	void			inc_gen()			{ m_gen_count++; }
 	unsigned		generated() const		{ return m_gen_count; }
@@ -257,7 +258,10 @@ public:
 				delete n;
 				continue;
 			}
-			n->hn() = head->hn();
+			if(m_delay_eval)
+				n->hn() = head->hn();
+			else
+				eval(n);
 			
 			if(m_greedy)
 				n->fn() = n->hn();
@@ -271,7 +275,8 @@ public:
 				#endif
 				delete n;
 			}
-			else {
+			else 
+				{
 				#ifdef DEBUG
 				std::cout << "Inserted into OPEN" << std::endl;
 				#endif
@@ -376,6 +381,7 @@ protected:
 	Search_Node*				m_root;
 	std::vector<Action_Idx> 		m_app_set;
 	bool                                    m_greedy;
+	bool                                    m_delay_eval;
 };
 
 }
