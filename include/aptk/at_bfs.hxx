@@ -139,7 +139,7 @@ public:
 		#endif 
 		m_open.insert( m_root );
 		m_open_hash.put( m_root );
-		if (m_delay_eval)
+		if (!m_delay_eval)
 			eval(m_root);
 		inc_gen();
 	}
@@ -196,6 +196,15 @@ public:
 			// Otherwise, we put it into Open and remove
 			// n2 from closed
 			this->closed().erase( this->closed().retrieve_iterator( n2 ) );
+		
+			// MRJ: This solves the memory leak and updates children nodes
+			// incrementally	
+			n2->m_parent = n->m_parent;
+			n2->gn() = n->gn();
+			if(!m_greedy)
+				n2->fn() = n2->hn() + n2->gn();
+			open_node(n2);
+			return true;
 		}
 		return false;
 	}
@@ -277,17 +286,12 @@ public:
 				delete n;
 			}
 			else 
-				{
+			{
 				#ifdef DEBUG
 				std::cout << "Inserted into OPEN" << std::endl;
 				#endif
 				open_node(n);	
 			}
-		       
-
-
-				
-
 		} 
 		inc_eval();
 	}
