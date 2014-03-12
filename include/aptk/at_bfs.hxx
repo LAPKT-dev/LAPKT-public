@@ -139,6 +139,8 @@ public:
 		#endif 
 		m_open.insert( m_root );
 		m_open_hash.put( m_root );
+		if (m_delay_eval)
+			eval(m_root);
 		inc_gen();
 	}
 
@@ -232,7 +234,6 @@ public:
 		head->state()->print( std::cout );
 		std::cout << std::endl;
 #endif
-		
 		std::vector< aptk::Action_Idx > app_set;
 		this->problem().applicable_set_v2( *(head->state()), app_set );
 
@@ -309,8 +310,9 @@ public:
 			}
 			if ( (time_used() - m_t0 ) > m_time_budget )
 				return NULL;
-	
-			eval( head );
+
+			if ( m_delay_eval )	
+				eval( head );
 
 			process(head);
 			close(head);
@@ -325,15 +327,15 @@ public:
 
 		if( (previous_copy = m_open_hash.retrieve(n)) ) {
 			
-			if(!m_greedy)
-				if(n->gn() < previous_copy->gn())
-					{
-						previous_copy->m_parent = n->m_parent;
-						previous_copy->m_action = n->m_action;				
-						previous_copy->m_g = n->m_g;
-						previous_copy->m_f = previous_copy->m_h + previous_copy->m_g;
-						inc_replaced_open();
-					}
+			if(n->gn() < previous_copy->gn())
+			{
+				previous_copy->m_parent = n->m_parent;
+				previous_copy->m_action = n->m_action;				
+				previous_copy->m_g = n->m_g;
+				if(!m_greedy)
+					previous_copy->m_f = previous_copy->m_h + previous_copy->m_g;
+				inc_replaced_open();
+			}
 			return true;
 		}
 
