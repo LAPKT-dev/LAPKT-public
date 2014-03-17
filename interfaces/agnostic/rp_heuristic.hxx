@@ -136,13 +136,17 @@ public:
 		
 		for ( unsigned k = 0; k < G.size(); k++ ) 
 			m_rp_precs.set(G[k]);
-		
-		//std::cout << "\nRel Plan: ";
+	
+		#ifdef DEBUG	
+		std::cout << "\nRel Plan: ";
+		#endif
 		for ( unsigned k = 0; k < relaxed_plan.size(); k++ ) {
 			if(!m_ignore_rp_h_value)
 				h_val += ( cost_opt == RP_Cost_Function::Ignore_Costs ? 1.0f : relaxed_plan[k]->cost() );
 			const Fluent_Vec& precs = relaxed_plan[k]->prec_vec();
-			//std::cout << "\t "<< k <<": " << relaxed_plan[k]->signature() << std::endl;
+			#ifdef DEBUG
+			std::cout << "\t "<< k <<": " << relaxed_plan[k]->signature() << std::endl;
+			#endif
 			for ( Fluent_Vec::const_iterator it = precs.begin();
 				it != precs.end(); it++ )
 				m_rp_precs.set(*it);
