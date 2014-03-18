@@ -129,7 +129,6 @@ public:
 	void	start() {
 		m_B = infty;
 		m_root = new Search_Node( m_problem.init(), 0.0f, no_op, NULL );	
-		eval(m_root);
 		#ifdef DEBUG
 		std::cout << "Initial search node: ";
 		m_root->print(std::cout);
@@ -203,6 +202,8 @@ public:
 			n2->gn() = n->gn();
 			if(!m_greedy)
 				n2->fn() = n2->hn() + n2->gn();
+			else
+				n2->fn() = n2->hn();
 			open_node(n2);
 			return true;
 		}
@@ -278,14 +279,16 @@ public:
 			else
 				n->fn() = n->hn() + n->gn();
 
-				
+			/*	
 			if( previously_hashed(n) ) {
 				#ifdef DEBUG
 				std::cout << "Already in OPEN" << std::endl;
 				#endif
 				delete n;
 			}
+	
 			else 
+			*/
 			{
 				#ifdef DEBUG
 				std::cout << "Inserted into OPEN" << std::endl;
@@ -297,6 +300,10 @@ public:
 	}
 
 	virtual Search_Node*	 	do_search() {
+		std::cout << "Search starts: " << std::endl;
+		std::cout << "\t Bound: " << bound() << std::endl;
+		float	min_h = infty;
+
 		Search_Node *head = get_node();
 		int counter =0;
 		while(head) {
@@ -318,6 +325,11 @@ public:
 			if ( m_delay_eval )	
 				eval( head );
 
+			if ( head->hn() < min_h ) {
+				min_h = head->hn();
+				std::cout << "\t Best h(n) = " << min_h << ", expanded: " << expanded() << ", generated: " << generated() << std::endl;
+			}
+
 			process(head);
 			close(head);
 			counter++;
@@ -330,7 +342,7 @@ public:
 		Search_Node *previous_copy = NULL;
 
 		if( (previous_copy = m_open_hash.retrieve(n)) ) {
-			
+			/*	
 			if(n->gn() < previous_copy->gn())
 			{
 				previous_copy->m_parent = n->m_parent;
@@ -340,6 +352,7 @@ public:
 					previous_copy->m_f = previous_copy->m_h + previous_copy->m_g;
 				inc_replaced_open();
 			}
+			*/
 			return true;
 		}
 
