@@ -38,7 +38,10 @@ public:
 	bool operator()( Node* a, Node* b ) const {
 		if ( dless( b->fn(), a->fn() ) ) return true;
 		if( dequal( b->fn(), a->fn() ) ){					
-			if ( dless( b->hn(), a->hn() ) ) return true;
+			if ( dequal( b->hn(), a->hn() ) ) {
+				if (dless(b->gn(),a->gn())) return true;
+				return false;
+			}
 		}
 		return false;
 
