@@ -51,6 +51,7 @@ using	aptk::Action;
 
 using 	aptk::agnostic::H1_Heuristic;
 using	aptk::agnostic::H_Add_Evaluation_Function;
+using	aptk::agnostic::H_Max_Evaluation_Function;
 using	aptk::agnostic::Relaxed_Plan_Heuristic;
 using 	aptk::search::Open_List;
 
@@ -72,9 +73,12 @@ typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >		BFS_Open_List;
 
 // MRJ: Now we define the heuristics
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd; //, aptk::agnostic::H1_Cost_Function::Ignore_Costs
+typedef 	H1_Heuristic<Fwd_Search_Problem, H_Max_Evaluation_Function>	H_Max_Fwd;
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
+typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Max_Fwd >		H_Max_Rp_Fwd;
 
 // MRJ: Now we're ready to define the BFS algorithm we're going to use
+typedef		AT_BFS_SQ_SH< Fwd_Search_Problem, H_Max_Rp_Fwd, BFS_Open_List >		GBFS_H_Max_Rp_Fwd;
 typedef		AT_BFS_SQ_SH< Fwd_Search_Problem, H_Add_Rp_Fwd, BFS_Open_List >    	GBFS_H_Add_Rp_Fwd;
 typedef		AT_BFS_SQ_SH< Fwd_Search_Problem, H_Add_Fwd, BFS_Open_List >    	GBFS_H_Add_Fwd;
 
@@ -147,8 +151,62 @@ float do_search(  Fwd_Search_Problem& search_prob, float& cost,std::ofstream& de
 		
 	
 	}
-	else{
+	else if ( heuristic == 2 ) {
 		GBFS_H_Add_Rp_Fwd engine( search_prob );
+		engine.set_greedy( true );
+		engine.set_delay_eval( false );
+		engine.start();
+
+		unsigned expanded_0 = engine.expanded();
+		unsigned generated_0 = engine.generated();
+
+		while ( engine.find_solution( cost, plan ) ) {
+			if ( !plan.empty() ) {
+				details << "Plan found with cost: " << cost << std::endl;
+				if( anytime ) std::cout << "Plan found with cost: " << cost << std::endl;
+				std::ofstream plan_stream( plan_filename.c_str() );
+				for ( unsigned k = 0; k < plan.size(); k++ ) {
+					details << k+1 << ". ";
+					const aptk::Action& a = *(search_prob.task().actions()[ plan[k] ]);
+					details << a.signature();
+					details << std::endl;
+					plan_stream << a.signature() << std::endl;
+				}
+				plan_stream.close();
+			}
+			else
+				details << "No plan found" << std::endl;
+			float tf = aptk::time_used();
+			unsigned expanded_f = engine.expanded();
+			unsigned generated_f = engine.generated();
+			details << "Time: " << tf - t0 << std::endl;
+			details << "Generated: " << generated_f - generated_0 << std::endl;
+			details << "Expanded: " << expanded_f - expanded_0 << std::endl;
+			if(anytime){
+				std::cout << "Time: " << tf - t0 << std::endl;
+				std::cout << "Generated: " << generated_f - generated_0 << std::endl;
+				std::cout << "Expanded: " << expanded_f - expanded_0 << std::endl << std::endl;
+			}
+			t0 = tf;
+			expanded_0 = expanded_f;
+			generated_0 = generated_f;
+			plan.clear();
+
+			if(!anytime) break;
+		}
+
+		float total_time = aptk::time_used() - ref;
+		std::cout << "Total time: " << total_time << std::endl;
+		std::cout << "Nodes generated during search: " << engine.generated() << std::endl;
+		std::cout << "Nodes expanded during search: " << engine.expanded() << std::endl;
+		std::cout << "Nodes pruned by bound: " << engine.pruned_by_bound() << std::endl;
+		std::cout  << "Dead-end nodes: " << engine.dead_ends() << std::endl;
+
+		return total_time;
+	
+	}
+	else if ( heuristic == 3 ) {
+		GBFS_H_Max_Rp_Fwd engine( search_prob );
 		engine.set_greedy( true );
 		engine.set_delay_eval( false );
 		engine.start();
@@ -222,7 +280,7 @@ void process_command_line_options( int ac, char** av, po::variables_map& vars ) 
 		( "help", "Show help message" )
 		( "domain", po::value<std::string>(), "Input PDDL domain description" )
 		( "problem", po::value<std::string>(), "Input PDDL problem description" )
-		( "heuristic", po::value<int>()->default_value(1), "1: H_add (default 1)\n2: H_add_Rp" )
+		( "heuristic", po::value<int>()->default_value(1), "1: H_add (default 1)\n2: H_add_Rp\n3: H_max_Rp" )
 		( "anytime", po::value<bool>()->default_value(false), "Anytime (default False)" )
 		( "output", po::value<std::string>(), "Output file for plan" )
 	;
@@ -286,8 +344,10 @@ int main( int argc, char** argv ) {
 
 	if(heuristic == 1)
 		details << " H_add: ";
-	else
+	else if (heuristic == 2)
 		details << " H_add_Rp: ";
+	else if ( heuristic == 3 )
+		details << " H_max_Rp: ";
 	details << std::endl;
 
 	details << "\tDomain: " << prob.domain_name() << std::endl;
@@ -300,15 +360,19 @@ int main( int argc, char** argv ) {
 	float cost = 0;
 	float at_search_t = do_search(search_prob, cost, details, plan_filename, heuristic, anytime );		
 	
-	if( heuristic ){
+	if( heuristic == 1 ){
 		details << "Best First H_add search completed in " << at_search_t << " secs, found plan cost = " << cost << std::endl;
 		std::cout << "Best First H_add search completed in " << at_search_t << " secs, found plan cost = " << cost << std::endl;
 	}
-	else{
+	else if ( heuristic == 2 ) {
 		details << "Best First H_add_RP search completed in " << at_search_t << " secs, found plan cost = " << cost << std::endl;
 		std::cout << "Best First H_add_RP search completed in " << at_search_t << " secs, found plan cost = " << cost << std::endl;
 	}
-	
+	else if ( heuristic == 3 ) {
+		details << "Best First H_max_RP search completed in " << at_search_t << " secs, found plan cost = " << cost << std::endl;
+		std::cout << "Best First H_max_RP search completed in " << at_search_t << " secs, found plan cost = " << cost << std::endl;
+
+	}
 	
 
 
