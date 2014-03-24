@@ -1,0 +1,434 @@
+%%% AAAI
+\documentclass[letterpaper]{article}
+
+\usepackage{aaai}
+\usepackage{times}
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{graphics}
+
+\begin{document}
+
+\title{Width and Inference Based Planners: SIW, BFS(f), and PROBE}
+
+% \author{Name1 Surname1 \and Name2 Surname2 \and Name3 Surname3\institute{University of Leipzig,
+% Germany, email: somename@informatik.uni-leipzig.de} }
+
+%%% AAAI
+\author{Nir Lipovetzky \\
+      University of Melbourne \\
+   Melbourne, Australia\\ 
+   {\normalsize\url{@unimelb.edu.au}}
+   \And
+   Miquel Ramirez \\
+   RMIT University \\
+   Melbourne, Australia\\ 
+   {\normalsize\url{@rmit.edu.au}}
+   \And
+   Christian Muise \\
+   University of Melbourne \\
+   Melbourne, Australia\\ 
+   {\normalsize\url{@unimelb.edu.au}}
+   \And
+        Hector Geffner \\
+        ICREA \&  Universitat Pompeu Fabra \\
+        Barcelona, SPAIN \\
+        {\normalsize\url{@upf.edu}}\footnote{firstname.lastname}
+}
+
+\maketitle
+
+
+\newcommand{\tuple}[1]{{\langle #1\rangle}}
+\newcommand{\triple}[1]{{\langle #1\rangle}}
+\newcommand{\pair}[1]{{\langle #1\rangle}}
+
+\newcommand{\Omit}[1]{}
+
+\newcommand{\OmitEcai}[1]{}
+
+\newcommand{\eqdef}{\stackrel{\hbox{\tiny{def}}}{=}}
+% \newcommand{\IR}{{\textit{IR}}}
+% \newcommand{\SR}{{\textit{SR}}}
+\newcommand{\IR}{{\textit{IW}}}
+\newcommand{\SR}{{\textit{SIW}}}
+\newcommand{\ID}{{\textit{ID}}}
+
+\newcommand{\BRFS}{{\textit{BrFS}}}
+
+ \newtheorem{theorem}{Theorem}
+
+
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+
+
+
+\maketitle
+
+\begin{abstract}
+\begin{quote}
+We have recently shown that classical planning problems can be
+characterized in terms of a width measure that is bounded and small
+for most planning benchmark domains when goals are restricted to
+single atoms. Two simple algorithms have been devised for exploiting
+this structure: Iterated Width (IW) for achieving atomic goals, that
+runs in time exponential in the problem width by performing a sequence
+of pruned breadth first searches, and Serialized IW (SIW) that uses IW
+in a greedy search for achieving conjunctive goals one goal at a time.
+While SIW does not use heuristic estimators of any sort, it manages to
+solve more problemas that a Greedy BFS with heuristics like
+$h_{add}$. Yet, it does not approach the peformance of more recent
+planners like LAMA. In addition, ideas like helpful actions and
+landmarks can be integrated as well, producing a planner with
+state-of-the-art performance.
+\end{quote}
+\end{abstract}
+
+% AAAI
+\section{Introduction}
+
+The main approach for domain independent planning is based on 
+heuristic search with heuristics derived automatically from problems
+\cite{mcdermott:unpop,bonet:aij-hsp}. To this, recent planners 
+add other ideas like helpful actions,  landmarks, and
+multiqueue best-first  search for  combining  different heuristics
+\cite{hoffmann:ff,helmert:fd,richter:lama:aij}. 
+From a different angle, we have recently shown that most of the benchmark 
+domains are easy when the goals contain single atoms,
+and that otherwise, they can be easily serialized
+\cite{nir:ecai12}. More precisely, we showed that the former
+problems have a low width, and developed  an algorithm, 
+Iterative Width (IW) that runs in time that
+is exponential in the problem width by performing
+a sequence of pruned breadth first searches. 
+This  algorithm is used in the context of another algorithm,
+Serialized IW (SIW),  that achieves conjunctive goals
+by using IW greedily for achieving one goal at a time.
+Surprisingnly,  the blind-search algorithm SIW
+which has no heuristic guidance of any sort, performs better
+than a greedy best-first search guided by delete-relaxation
+heuristics.
+
+The aim of this planners is to exploit the new width notion and
+propose a different approach to search in planning. All planners are
+based in a new toolkit for automated planning \cite{} aiming at ...
+
+
+
+
+The organization of the paper follows this structure
+
+
+
+% AAAI
+\section{Iterated Width Search}
+
+We assume a STRIPS problem $P = \langle F,I,O,G\rangle$, where $F$ is
+the set of atoms, $I$ is the set of atoms characterizing the initial
+state, $O$ is the set of actions, and $G$ is the set of goal atoms.
+
+The  algorithm, called  \emph{Iterated Width} search or \IR, 
+consists of a sequence of calls  $\IR(i)$ for $i=0, 1, 2, \ldots$
+over a problem $P$ until the problem is solved.
+Each iteration $\IR(i)$ is an $i$-width search that is complete for problems whose width is bounded by $i$
+and whose  complexity is $O(n^{i})$,  where $n$ is the number of problem variables.
+If $P$ is solvable and its  width is $w$,  \IR\ will solve $P$ in at most $w+1$ iterations
+with a   complexity  $O(n^w)$.  $\IR(i)$ is 
+\emph{a plain forward-state breadth-first search} with just one change: right after a state $s$ is generated, 
+the state is  pruned if it doesn't pass a simple \emph{novelty test} that depends on $i$.
+
+\begin{definition}
+A newly generated state $s$  \emph{generates a  new tuple of atoms} $t$
+iff $s$ is the first state generated in the search  that makes $t$ true. The size of the smallest new tuple
+of atoms generated by $s$ is called the \emph{novelty} of $s$. When $s$ does not generate a new
+tuple, it's novelty is set to $n+1$ where $n$ is the number of problem variables.
+\end{definition}
+
+In other words, if  $s$ is the first state generated in all the search that makes an atom $p$ true,
+its novelty is  $1$. If $s$ does not generate a new atom but generates a new pair $(p,q)$,
+its novelty is $2$, and so on.  Likewise, if $s$ does not generate a new tuple at all
+because the same state has been generated before, then its novelty is set to $n+1$.
+The higher the  novelty measure, the less novel the state.
+The iterations $\IR(i)$ are  plain \emph{breadth-first searches} that treat newly generated
+states with novelty measure greater than $i$ as if they were  `duplicate' states:
+
+
+\begin{definition}
+$\IR(i)$ is a breadth-first search that prunes newly generated states when their novelty measure
+is greater than $i$.
+\end{definition}
+
+Notice that $\IR(n)$, when $n$ is the number of atoms in the problem, just prunes truly duplicate states
+and it  is therefore complete.
+On the other hand, $\IR(i)$ for lower $i$ values prunes many states and is not.
+Indeed, the number of states \emph{not} pruned in $\IR(1)$  is $O(n)$
+and similarly, the number of states not pruned in $\IR(i)$ is $O(n^i)$.
+Likewise, since the novelty of a state is never $0$, $\IR(0)$ prunes all the children
+states of the initial state $s_0$, and thus $\IR(0)$  solves  $P$ iff
+the goal is true in the initial situation.  The resulting planning algorithm $\IR$
+is just a series of $i$-width searches $\IR(i)$, for increasing values of $i$:
+
+\begin{definition}
+Iterated Width  (\IR) calls $\IR(i)$ sequentially for $i=0,1,2,\ldots$ until
+the problem is solved or $i$ exceeds the number of problem variables.
+\end{definition}
+
+
+
+Iterated  Width (\IR) is thus a \emph{blind-search algorithm} similar to Iterative Deepening (\ID)
+except for two differences. First, each iteration  is a pruned \emph{depth-first} search in \ID,
+and  a pruned \emph{breadth-first} search in \IR. Second,  each iteration increases pruning  depth
+in \ID, and pruning width or novelty in \IR.
+
+
+From the considerations above it is straightforward to show that
+\IR\ like \ID\ is \emph{sound} and \emph{complete.}  On the other
+hand, while $\IR(w)$ is \emph{optimal} for a problem $P$ of width $w$,
+$\IR$ is not necessarily so. The reason is that $\IR$ may solve $P$ in
+an iteration $\IR(i)$ for $i$ smaller than $w$.%%%%
+
+
+Nonetheless the completeness and optimality of $\IR(w)$ for problems
+with width $w$ provides the right complexity bound for $\IR$:
+%
+\begin{theorem}
+For solvable problems $P$, the time and space complexity of $\IR$
+are  exponential in $w(P)$.
+\end{theorem}
+%
+It's important to realize that this bound is achieved without knowing the
+actual width of $P$. This follows from the result below, whose
+proof we omit for lack of space:
+
+\begin{theorem}
+For a  solvable problem $P$ with width $w$,  $\IR(w)$ solves $P$ optimally
+in time exponential in $w$.
+\end{theorem}
+
+
+
+The  algorithm $\IR(w)$ is guaranteed to solve $P$ if $w(P)=w$,
+yet as discussed above, the algorithm $\IR$ does not assume
+that this width is known  and thus makes the $\IR(i)$ calls in order
+starting from $i=0$. We  refer to the min value of $i$
+for which $\IR(i)$ solves $P$ as the \emph{effective width} of $P$,
+$w_e(P)$, which is never higher than the real width $w(P)$.
+
+
+
+The effective width $w_e(P)$ provides an approximation of the actual
+width $w(P)$.  While proving formally that most benchmark domains have
+bounded width \emph{for single atom goals} is tedious, we have run the
+algorithm $\IR$ to compute the \emph{effective width} of such
+goals. Over all domains of Previous IPC: $37\%$ with $w_e=1$, $51\%$
+with $w_e=2$, and less than $12\%$ with $w_e > 2$. \emph{That is, on
+  average, less than $12\%$ of the instances have effective width
+  greater than $2$.}  Actually, in most domains \emph{all} the
+instances have effective width at most $2$, and in four domains, all
+the instances have effective width $1$. We will see below that a
+simple extension suffices to make \IR\ competitive with a
+\emph{heuristic} planner over the standard benchmark instances that
+feature \emph{joint goals}.
+
+% AAAI
+\section{Serialized Iterated Width}
+
+
+The fact that single goal atoms can be achieved quite effectively in
+most benchmarks domains by a pruned breadth-first search that does not
+look at the goal in any way, suggests that the complexity of
+benchmarks comes from conjunctive goals. Indeed, this has been the
+intuition in the field of planning since its beginnings where goal
+decomposition was deemed as a crucial and characteristic
+technique. The analysis above formalizes this intuition by showing
+that the effective width of single atom goals in existing benchmarks
+is low.  This old intuition also suggests that the power of planners
+that can handle single goals efficiently can be exploited for
+conjunctive goals through some form of decomposition.
+
+
+\emph{Serialized Iterated Width} is a search algorithm that uses the
+iterated width searches both for constructing a serialization of the
+problem $P = \langle F,I,O,G\rangle$ and for solving the resulting
+subproblems. While $\IR$ is a sequence of $i$-width searches $\IR(i)$,
+$i=0,1,\ldots$ over the same problem $P$, $\SR$ is a sequence of $\IR$
+calls over $|G|$ subproblems $P_k$, $k=1, \ldots, |G|$.  The
+definition of $\SR$ takes advantage of the fact that $\IR$ is a
+blind-search procedure that doesn't need to know the goals of the
+problem in advance; it just needs to recognize them in order to stop.
+Thanks to this feature $\IR$ is used both for decomposing $P$ into the
+sequence of subproblems $P_k$ and for solving each one of them. The
+plan for $P$ is the concatenation of the plans obtained for the
+subproblems.
+
+\begin{definition}
+Serialized Iterated Width (\SR) over $P=\langle F,I,O,G\rangle$
+consists of a sequence of calls to $\IR$ over the problems $P_k
+=\langle F,I_k,O,G_k\rangle$, $k=1, \ldots, |G|$, where
+
+\begin{enumerate}
+\item $I_1=I$,
+\item $G_{k}$ is first \emph{consistent}  set of atoms  achieved from $I_k$
+ such that $G_{k-1} \subset G_k \subseteq G$ and $|G_k|=k$; $G_0 = \emptyset$
+\item $I_{k+1}$ represents the   state where  $G_k$ is  achieved, $1 < k < |G|$.
+\end{enumerate}
+\end{definition}
+
+
+In other words, the $k$-th subcall of $\SR$ stops when $\IR$ generates
+a state $s_k$ that consistently achieves $k$ goals from $G$: those
+achieved in the previous subcall and a new goal from $G$. The same is
+required from the next subcall that starts at $s_k$.  The state $s_k$
+\emph{consistently} achieves $G_k \subseteq G$ if $s_k$ achieves
+$G_k$, and $G_k$ does not need to be undone in order to achieve
+$G$. This last condition is checked by testing whether
+$h_{max}(s_k)=\infty$ is true in $P$ once the actions that delete
+atoms from $G_k$ are excluded \cite{bonet:aij-hsp}.  Notice that $\SR$
+does not use heuristic estimators to the goal, and does not even know
+what goal $G_k$ is when $\IR$ is invoked on subproblem $P_k$: it finds
+this out when $\IR$ generates a set of atoms $G'$ such that $G_{k-1}
+\subset G' \subseteq G$ and $|G'|=k$. It then sets $G_k$ to $G'$. This
+is how $\SR$ manages to use $\IR$ for both constructing the
+serialization and solving the subproblems.
+
+The $\SR$ algorithm is sound and the solution to $P$ can be obtained by concatenating the
+solutions to the problems $P_1$, \ldots, $P_m$, where $m = |G|$. Like $\IR$, however,
+$\SR$ does not guarantee the optimality of the plans found.
+Likewise, while the $\IR$ algorithm is complete, $\SR$ is not.  The reason is that the subgoal
+mechanism implicit in $\SR$ commits to intermediate states from which the goal may not be reachable.
+Of course, if there are no dead-ends in the problem, $\SR$ is complete.
+
+
+
+%%
+% AAAI
+\section{Novelty Best-First Search}
+
+
+While the blind-search \SR\ procedure competes well with a greedy
+best-first planner using the additive heuristic, neither planner is
+state-of-the-art. Since state-of-the-art performance is important in
+classical planning, we show next that it is possible to deliver such
+performance by integrating the idea of novelty that arises from width
+considerations, with known techniques such as helpful actions,
+landmarks, and heuristics. For this we switch to a \emph{plain
+  forward-search best-first planner} guided by an evaluation function
+$f(n)$ over the nodes $n$ given by
+
+\begin{equation}
+%  f(n) =   h_{add}(n) +  k \cdot usg(n)  + k' \cdot novelha(n) \ ,
+ f(n) =   novelha(n) 
+\label{f}
+\end{equation}
+
+\noindent where $novelha(n)$ is a measure that combines novelty and
+helpful actions, as defined below.  In addition, ties are broken
+lexicographically by two other measures: first, $usg(n)$, that counts
+the number of subgoals not yet achieved up to $n$, and second,
+$h_{add}(n)$, that is the additive heuristic.
+
+
+The subgoals are the problem landmarks \cite{hoffmann:landmarks}\  derived using a
+standard polynomial  algorithm over the delete-relaxation \cite{givan:landmarks,keyder:ecai10}.
+% The term $k \cdot usg(n)$ provides a `reward'  $k$ (a discount in the evaluation function)
+% when a subgoal is achieved. 
+The count $usg(n)$ is similar to the landmark heuristic in LAMA \cite{richter:lama},
+simplified  a bit:  we use only atomic landmarks (no disjunctions), sound orderings, 
+and count a top goal $p$ as achieved when goals $q$ that must be established before
+$q$ have been achieved \cite{nir:icaps11}.
+
+
+
+The $novelha(n)$ measure combines the novelty of $n$ and whether the action leading to $n$
+is helpful or not \cite{hoffmann:ff}. The novelty of $n$ is
+defined as the size of the smallest tuple $t$ of atoms that is true in  $n$ and
+false in  \emph{all previously generated nodes $n'$ in the search
+with the  same number of unachieved goals $usg(n') = usg(n)$.}
+Basically, nodes $n$ and $n'$ in the search with different number of unachieved goals,
+$usg(n) \not= usg(n')$, are treated as being about different subproblems,
+and are not compared for determining their novelty.
+The novelty of a node $novel(n)$ is computed approximately, being set to $3$
+when it's neither $1$ nor $2$. Similarly, if $help(n)$ is set  to $1$ or $2$
+according to whether the action leading to $n$ was helpful or not,
+then $novelha(n)$ is set to  a  number between 1 and 6 defined as
+
+\begin{equation}
+novelha(n) = 2 [novel(n)-1] + help(n) \ .
+\label{novelha}
+\end{equation}
+
+\noindent That is, $novelha(n)$ is $1$ if the novelty of $n$ is $1$
+and the action leading to $n$ is helpful, $2$ if the novelty is $1$
+and the action is not helpful, $3$ if the novelty is $2$ and the
+action is helpful, and so on. Basically, novel states (lower
+$novel(n)$ measure) are preferred to less novel states, and helpful
+actions are preferred to non-helpful, with the former criterion
+carrying more weight.  Once again, the criterion is simple and follows
+from performance considerations.
+
+
+
+\section{Automated Planning Toolkit}
+.
+.
+.
+.
+.
+
+Miquel, Christian, here we can explain the implementation details
+
+\section{PROBE: The Planner}
+
+PROBE is a complete, standard greedy best first search (GBFS) STRIPS
+planner using the standard {additive heuristic}~\cite{bonet:aij-hsp}
+($h_{ff}$ if conditional effects are present ~\cite{hoffmann:ff}),
+with just \emph{one change}: when a state is selected for expansion,
+it first launches a \emph{probe} from the state to the goal. If the
+probe reaches the goal, the problem is solved and the solution is
+returned. Otherwise, the states expanded by probe are added to the
+open list, and control returns to the GBFS loop.  \emph{The crucial
+  and only novel part in the planning algorithm is the definition and
+  computation of the probes}~\cite{nir:icaps11}.
+
+PROBE is based on an early-version of the toolkit. The only difference
+with respect to PROBE-IPC7 is that the anytime procedure is disabled,
+as we are only concerned with the first solution.
+
+
+\section{Experiments}
+
+We call the resulting best-first search planner, BFS($f$), and compare
+it with three state-of-the-art planners: FF, LAMA, and PROBE
+\cite{hoffmann:ff,richter:lama,nir:icaps11}.\footnote{FF is FF2.3,
+  while PROBE and LAMA are from the 2011 IPC.}  Like LAMA, BFS($f$)
+uses delayed evaluation, a technique that is useful for problems with
+large branching factors \cite{richter:preferred-ops-and-deferred}.
+
+.  .  .  .  I can generate a table with results over the last IPC
+taking 5min max, (agile track) and keeping just the time score.
+
+On the other hand, runing the 30min anytime-algorithm will take ages..., and
+we should run lama-anytime as well for compare comparison. we may skip this,
+unless you think it's really meaningful...
+
+% AAAI
+\section{Discussion}
+.
+.
+.
+.
+
+\subsubsection{Acknowledgments}
+
+\bibliographystyle{aaai}
+
+\bibliography{thesisbib,crossref}
+
+
+\end{document}
+
