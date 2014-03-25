@@ -10,7 +10,7 @@ if int(debug) == 1 :
 elif int(debug) == 2 :
         common_env.Append( CCFLAGS = ['-g',  '-DNDEBUG' ] )
 else:
-        common_env.Append( CCFLAGS = ['-O3', '-DNDEBUG'] )
+        common_env.Append( CCFLAGS = ['-g', '-DNDEBUG'] )
 
 Export( 'common_env' )
 
