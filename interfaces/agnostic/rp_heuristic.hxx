@@ -106,7 +106,7 @@ public:
 			actions_pending().pop();
 			fluents_pending().pop();
 			#ifdef DEBUG_RP_HEURISTIC
-			std::cout << "Gettting action: " << std::endl;
+			std::cout << "Getting action: " << std::endl;
 			a->print( m_strips_model, std::cout );
 			std::cout << "into the relaxed plan" << std::endl;
 			#endif
