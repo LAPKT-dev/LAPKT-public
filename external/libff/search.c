@@ -886,6 +886,7 @@ Bool do_best_first_search( void )
   State S;
   int i, min = INFINITY;
   Bool start = TRUE;
+  int exp = 0;
 
   make_state( &S, gnum_ft_conn, gnum_fl_conn );
 
@@ -905,7 +906,7 @@ Bool do_best_first_search( void )
       }
       return FALSE;
     }
-
+    exp++;
     lbfs_space_head->next = first->next;
     if ( first->next ) {
       first->next->prev = lbfs_space_head;
@@ -915,13 +916,13 @@ Bool do_best_first_search( void )
       min = first->h;
       if ( start ) {
 	if ( gcmd_line.display_info ) {
-	  printf("\n\nadvancing to distance: %4d", min);
+	  printf("\n\nadvancing to distance: %4d, expanded: %4d", min, exp);
 	  fflush(stdout);
 	}
 	start = FALSE;
       } else {
 	if ( gcmd_line.display_info ) {
-	  printf("\n                       %4d", min);
+	  printf("\n                       %4d, expanded: %4d", min, exp);
 	  fflush(stdout);
 	}
       }
@@ -931,19 +932,25 @@ Bool do_best_first_search( void )
       break;
     }
 
+    printf("\nState:" );
+    print_state( &(first->S) );
+    printf(" ->\n");
     for ( i = 0; i < first->num_H; i++ ) {
       if ( result_to_dest( &S, &(first->S), first->H[i] ) ) {
 	/* we must include a check here whether the numerical part of the action
 	 * is entirely fulfilled; only those actions are applied.
 	 */
+	print_op_name( first->H[i] );
+	printf( "[%d], ", first->H[i]);
 	add_to_bfs_space( &S, first->H[i], first );
       }
     }
+    printf("\n");
 
     first->next = lbfs_space_had;
     lbfs_space_had = first;
   }
-
+  printf( "\nExpanded nodes: %4d\n", exp );
   extract_plan( first );
   return TRUE;
 
