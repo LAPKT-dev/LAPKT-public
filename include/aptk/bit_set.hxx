@@ -60,6 +60,10 @@ public:
 	
 	friend bool		do_intersect( const Bit_Set& lhs, const Bit_Set& rhs );
 
+	bool			operator==( const Bit_Set& other ) const {
+		return m_fset == other.m_fset;
+	}
+
 protected:
 
 	Bit_Array		m_fset;

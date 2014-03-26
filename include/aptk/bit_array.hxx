@@ -131,7 +131,12 @@ public:
 			if ( isset( i ) ) count++;			
 		return count;
 		
-	}	
+	}
+
+	bool	operator==( const Bit_Array& arr ) const {
+		return equal(arr);
+	}
+	
 protected:
 	unsigned*      m_packs;
 	unsigned       m_n_packs;

@@ -85,7 +85,7 @@ inline	size_t State::hash() const {
 }
 
 inline bool State::operator==(const State &a) const {
-  return fluent_vec() == a.fluent_vec();
+  return fluent_set() == a.fluent_set();
 }
 
 inline const STRIPS_Problem& State::problem() const
