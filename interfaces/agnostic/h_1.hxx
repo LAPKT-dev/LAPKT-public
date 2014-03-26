@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <aptk/search_prob.hxx>
 #include <aptk/heuristic.hxx>
+#include <aptk/ext_math.hxx>
 #include <strips_state.hxx>
 #include <strips_prob.hxx>
 #include <boost/circular_buffer.hpp>
@@ -124,6 +125,10 @@ public:
 
 	float 	value( unsigned p ) const { return m_values[p]; }
 
+	virtual void eval( const Fluent_Vec& s, float& h_val ) {
+		h_val = eval_func( s.begin(), s.end() );
+	}
+
 	virtual void eval( const State& s, float& h_val ) {
 
 		m_already_updated.reset();
@@ -189,7 +194,19 @@ protected:
 	}
 
 	void	update( unsigned p, float v, const Action* a ) {
-		if ( v >= m_values[p] ) return;
+		if ( v > m_values[p] ) return;
+		if ( v > 0.0f && dequal( v, m_values[p] ) ) {
+			float curr_diff = infty;
+			for ( auto q : m_best_supporters[p]->prec_vec() )
+				curr_diff = curr_diff > m_values[q] ? m_values[q] : curr_diff;
+			float new_diff = infty;
+			for ( auto q : a->prec_vec() )
+				new_diff = new_diff > m_values[q] ? m_values[q] : new_diff;
+			if ( new_diff < curr_diff ) {
+				m_best_supporters[p] = a;
+			}
+			return;
+		}
 		m_values[p] = v;
 		if ( !m_already_updated.isset( p ) ) {
 			m_updated.push_back( p );
