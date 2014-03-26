@@ -38,7 +38,7 @@ public:
 
 	Node*	retrieve( Node* n ) {
 
-	  std::pair< iterator, iterator > range = ( !n->state() ? this->equal_range( n->hash() ) : this->equal_range( n->state()->hash() ));
+		std::pair< iterator, iterator > range = ( !n->state() ? this->equal_range( n->hash() ) : this->equal_range( n->state()->hash() ));
 		if ( range.first != range.second ) {
 			bool in_closed = false;
 			iterator it;
