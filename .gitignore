@@ -18,6 +18,7 @@
 *.graph
 *.strips
 *.*~
+*.res
 
 # Python bytecodes
 *.pyc
