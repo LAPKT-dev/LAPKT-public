@@ -279,7 +279,6 @@ public:
 			else
 				n->fn() = n->hn() + n->gn();
 
-			/*	
 			if( previously_hashed(n) ) {
 				#ifdef DEBUG
 				std::cout << "Already in OPEN" << std::endl;
@@ -288,7 +287,6 @@ public:
 			}
 	
 			else 
-			*/
 			{
 				#ifdef DEBUG
 				std::cout << "Inserted into OPEN" << std::endl;
@@ -342,17 +340,22 @@ public:
 		Search_Node *previous_copy = NULL;
 
 		if( (previous_copy = m_open_hash.retrieve(n)) ) {
-			/*	
 			if(n->gn() < previous_copy->gn())
 			{
+				// MRJ: Updates are only possible if we're using a dynamic heap
+				// like boost::fibonacci_heap, otherwise, if we generate a better
+				// node we need to suck it up and put it into OPEN
+
+				/*
 				previous_copy->m_parent = n->m_parent;
 				previous_copy->m_action = n->m_action;				
 				previous_copy->m_g = n->m_g;
 				if(!m_greedy)
 					previous_copy->m_f = previous_copy->m_h + previous_copy->m_g;
 				inc_replaced_open();
+				*/
+				return false;
 			}
-			*/
 			return true;
 		}
 
