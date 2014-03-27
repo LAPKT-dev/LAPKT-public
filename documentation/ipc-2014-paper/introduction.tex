@@ -1,12 +1,12 @@
 
-We have entered the planners $\SR$, $BFS(f)$, and $PROBE$ to the
+We entered the planners $\SR$, $BFS(f)$, and $PROBE$ to the
 \emph{agile-track} of the 2014 International Planning Competition, and an anytime
 planner for the \emph{satisficing track} that runs both $\SR$ and $BFS(f)$.
-SIW and BFS(f) are planners that make use of width-considerations \cite{nir:ecai12}, while PROBE is a standard best-first search planner that before expanding a node, it throws a probe  that
+SIW and $BFS(f)$ are planners that make use of a notion of width for classical planning \cite{nir:ecai12}, while PROBE is a standard best-first search planner that augments the expansion of a node by throwing a probe which
 either reaches the goal or terminates in low polynomial time~\cite{nir:icaps11}.
 
 The basic building block of $\SR$ is the Iterative Width Procedure
-($\IR$) for achieving atomic goals, that runs in time exponential in
+($\IR$) for achieving atomic goals. $\IR$ runs in time exponential in
 the problem width by performing a sequence of pruned breadth first
 searches.  The planner $BFS(f)$ integrates a \emph{novelty} measure
 borrowed from $\IR$ with helpful-actions, landmarks and
@@ -14,7 +14,7 @@ delete-relaxation heuristics in a Greedy Best-Fist
 search.  
 
 In the following sections we introduce the basic notions of the
-algortihms and the implementation. We assume a STRIPS problem $P =
+algorithms and the implementation. We assume a STRIPS problem $P =
 \langle F,I,O,G\rangle$, where $F$ is the set of atoms, $I$ is the set
 of atoms characterizing the initial state, $O$ is the set of actions,
 and $G$ is the set of goal atoms.

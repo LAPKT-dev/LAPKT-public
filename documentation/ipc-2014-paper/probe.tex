@@ -4,11 +4,11 @@ with just \emph{one change}: when a state is selected for expansion,
 it first launches a \emph{probe} from the state to the goal. If the
 probe reaches the goal, the problem is solved and the solution is
 returned. Otherwise, the states expanded by probe are added to the
-open list, and control returns to the GBFS loop.  \emph{The crucial
+open list, and control returns to the GBFS loop. The crucial
   and only novel part in the planning algorithm is the definition and
-  computation of the probes}~\cite{nir:icaps11}.
+  computation of the probes \cite{nir:icaps11}.
 
-PROBE is based on an early-version of the automated planning toolkit
+PROBE is built using an early-version of an automated planning toolkit
 that supports the implementation details of the width-based
 algorithms. The only difference with respect to PROBE-IPC7 is that the
 anytime procedure is disabled, as we are only concerned with the first

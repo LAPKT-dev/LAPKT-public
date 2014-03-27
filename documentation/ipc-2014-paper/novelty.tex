@@ -6,10 +6,10 @@ state-of-the-art. Since state-of-the-art performance is important in
 classical planning, we show next that it is possible to deliver such
 performance by integrating the idea of novelty that arises from width
 considerations, with known techniques such as helpful actions,
-landmarks, and heuristics. For this we switch to a \emph{plain
-  forward-search best-first planner} guided by an evaluation function
-$f(n)$ over the nodes $n$ that combines novelty and
-helpful actions \cite{nir:ecai12}.  In addition, ties are broken
-lexicographically by two other measures: first, $usg(n)$, that counts
-the number of subgoals not yet achieved up to $n$, and second,
-$h_{add}(n)$, that is the additive heuristic.
+landmarks, and heuristics. For this, we switch to a standard
+\emph{forward-search best-first planner} guided by an evaluation function
+that combines the notions of novelty and
+helpful actions \cite{nir:ecai12,hoffmann:ff}. Additionally, ties are broken
+lexicographically by two other measures:
+(1) the number of subgoals not yet achieved up to a node in the search, and
+(2) the additive heuristic, $h_{add}$.
