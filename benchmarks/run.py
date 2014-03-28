@@ -14,7 +14,7 @@
 
 from os import system as cmd
 from sys import argv
-import glob, os
+import glob, os, sys
 
 from domains import *
 
@@ -35,7 +35,7 @@ OLD = 1
 NEW = 2
 
 # Set the style of planner you are using
-TYPE = NEW
+TYPE = OLD
 
 benchmark = None
 domains = None
@@ -70,7 +70,7 @@ def benchmark_domain(planner, dom):
     if TYPE == OLD:
         domprob_args = ["--domain %s/%s/%s --problem %s/%s/%s" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]
     elif TYPE == NEW:
-        domprob_args = ["%s/%s/%s %s/%s/%s /dev/null" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]
+        domprob_args = ["%s/%s/%s %s/%s/%s o/dev/null" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]
     else:
         assert False, "What the deuce?"
 
@@ -306,7 +306,8 @@ elif 'benchmark' == argv[1]:
     ipc = argv[3]
         
     if len(argv) < 6:
-        domains = {'tidybot','transport','visitall','woodworking','scanalyzer','pegsol'}#{'elevators', 'floortile', 'nomystery', 'openstacks', 'parcprinter', 'parking', 'pegsol'}
+        #domains = {'tidybot','transport','visitall','woodworking','scanalyzer','pegsol'}#{'elevators', 'floortile', 'nomystery', 'openstacks', 'parcprinter', 'parking', 'pegsol'}
+        #domains = {'sokoban'}
         for dom in domains:
             #if dom in {'floortile'}:
             #    continue            

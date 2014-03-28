@@ -73,7 +73,10 @@ void	Landmarks_Graph::add_landmark_for( unsigned p, unsigned q ) {
 void	Landmarks_Graph::print( std::ostream& os ) const {
 	for ( unsigned k = 0; k < m_lm_graph.size(); k++ ) {
 		Node* n = m_lm_graph[k];
-		std::cout << k + 1 << ". " << m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;
+		std::cout << k + 1 << ". " << m_strips_model.fluents()[ n->fluent() ]->signature();
+		if( n->is_consumed() )
+			std::cout << "*";
+		std::cout << std::endl;
 		std::cout << "\tPreceded by: ";
 		for ( unsigned i = 0; i < n->preceded_by().size(); i++ ) {
 			Node* pred = n->preceded_by()[i];

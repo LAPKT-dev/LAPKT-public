@@ -131,12 +131,14 @@ public:
 		
 		lgm->reset_graph();
 		for( Node_Vec_Ptr_It it = path.begin(); it != path.end(); it++){
-			//if( (*it)->action() != -1)
-			//	std::cout << lgm->problem().actions()[ (*it)->action() ]->signature() << std::flush;
 
 			if(*it == NULL) break;
 			lgm->update_graph( (*it)->land_consumed(), (*it)->land_unconsumed() );
+			//	if( (*it)->action() != -1 && lgm->graph()->node(150)->is_consumed())
+			//	std::cout << lgm->problem().actions()[ (*it)->action() ]->signature() << std::flush;
+
 		}
+		//std::cout << std::endl;
 		//std::cout << std::endl;
 	}
 	
@@ -146,7 +148,7 @@ public:
 	
 	void			print( std::ostream& os ) const {
 		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = ";
-		os << m_g << ", h1(n) = " << m_h1 << ", h2(n) = " << m_h3 << ", h3(n) = " << m_h3 << ", f(n) = " << m_f << "}";
+		os << m_g << ", h1(n) = " << m_h1 << ", h2(n) = " << m_h2 << ", h3(n) = " << m_h3 << ", f(n) = " << m_f << "}";
 	}
 
 	bool   	operator==( const Node<Search_Model,State>& o ) const {
@@ -211,11 +213,11 @@ public:
 
 	AT_GBFS_3H( 	const Search_Model& search_problem ) 
 	: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_pruned_B_count(0),
-	  m_dead_end_count(0), m_open_repl_count(0),m_B( infty ), m_time_budget(infty), m_lgm(NULL), m_max_hn(infty) {	
+	  m_dead_end_count(0), m_open_repl_count(0),m_B( infty ), m_time_budget(infty), m_lgm(NULL), m_max_h2n(infty), m_max_h3n(infty) {	
 		m_first_h = new First_Heuristic( search_problem );
 		m_second_h = new Second_Heuristic( search_problem );
 		m_third_h = new Third_Heuristic( search_problem );
-		//m_third_h->ignore_rp_h_value(true);
+		m_third_h->ignore_rp_h_value(true);
 	}
 
 	virtual ~AT_GBFS_3H() {
@@ -312,17 +314,25 @@ public:
 	}
 	
 	void			eval( Search_Node* candidate ) {
+
 		
 		if(m_lgm){
+
+			if(candidate->parent())
+				candidate->parent()->update_land_graph( m_lgm );
+
 			if (candidate->action() != no_op)
 				m_lgm->apply_action( candidate->action(), candidate->land_consumed(), candidate->land_unconsumed() );
 			else
 				m_lgm->apply_state( m_root->state()->fluent_vec(), m_root->land_consumed(), m_root->land_unconsumed() );
 		}
+
 		m_second_h->eval( *(candidate->state()), candidate->h2n() );	
 
-		if(m_lgm)
-			candidate->undo_land_graph( m_lgm );
+
+		// if(m_lgm)
+		// 	candidate->undo_land_graph( m_lgm );
+
 
 		candidate->goals_unachieved() = (unsigned) candidate->h2n();
 		candidate->partition() = candidate->goals_unachieved();
@@ -335,10 +345,9 @@ public:
 			m_first_h->eval( candidate, candidate->h1n() );
 		}
 
-		if(candidate->h2n() < m_max_hn )
-			{
-			m_max_hn = candidate->h2n();
-			std::cout << "--[" << m_max_hn  <<"]--" << std::endl;			
+		if(candidate->h2n() < m_max_h2n ){
+			m_max_h2n = candidate->h2n();
+			std::cout << "--[" << m_max_h2n  <<" / " << m_max_h3n <<"]--" << std::endl;			
 			//std::cout << "[ n:" << candidate->h1n()  <<" - hl:" << candidate->h2n() <<" - #g:" << candidate->goals_unachieved() <<" - h_a:" << candidate->h3n() <<" - gn: " << candidate->gn()  <<"]" << std::endl;
 			
 		}
@@ -348,6 +357,12 @@ public:
 	void			eval_po( Search_Node* candidate ) {
 		std::vector<Action_Idx>	po;
 		m_third_h->eval( *(candidate->state()), candidate->h3n(), po  );
+		if(candidate->h3n() < m_max_h3n ){
+			m_max_h3n = candidate->h3n();
+			std::cout << "--[" << m_max_h2n  <<" / " << m_max_h3n <<"]--" << std::endl;			
+			
+		}
+
 		if(po.size()){
 			for ( unsigned k = 0; k < po.size(); k++ )
 				candidate->add_po( po[k] );
@@ -411,6 +426,7 @@ public:
 		std::vector< aptk::Action_Idx > app_set;
 		this->problem().applicable_set_v2( *(head->state()), app_set );
 
+			
 		for (unsigned i = 0; i < app_set.size(); ++i ) {
 			int a = app_set[i];
 
@@ -428,7 +444,6 @@ public:
 			  n->state()->print( std::cout );
 			std::cout << std::endl;
 			#endif
-
 				
 			if( is_helpful ){
 
@@ -456,9 +471,7 @@ public:
 				//std::cout << "Non-HA" << m_problem.task().actions()[ n->action() ]->signature() << ": " << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<" - gn-unit: " << n->gn_unit()  <<"]" << std::endl;			
 			}
 
-				
-
-		       
+						       
 #ifdef DEBUG
 			std::cout << "Inserted into OPEN" << std::endl;
 #endif
@@ -560,7 +573,8 @@ protected:
 	Search_Node*				m_root;
 	std::vector<Action_Idx> 		m_app_set;
 	Landmarks_Graph_Manager*                m_lgm;
-	float                                   m_max_hn;
+	float                                   m_max_h2n;
+	float                                   m_max_h3n;
 };
 
 }

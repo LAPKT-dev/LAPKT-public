@@ -96,8 +96,8 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, 
 	unsigned generated_0 = engine.generated();
 
 	if ( engine.find_solution( cost, plan ) ) {
-		details << "Plan found with cost: " << cost << std::endl;
-		std::cout << "Plan found with cost: " << cost << std::endl;
+		details << std::endl << "Plan found with cost: " << cost << std::endl;
+		std::cout  << std::endl << "Plan found with cost: " << cost << std::endl;
 		for ( unsigned k = 0; k < plan.size(); k++ ) {
 			details << k+1 << ". ";
 			const aptk::Action& a = *(plan_prob.actions()[ plan[k] ]);
