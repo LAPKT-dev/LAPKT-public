@@ -358,7 +358,7 @@ public:
 
 			Search_Node* goal = process(head);
 			inc_exp();
-			close(head);
+			//close(head);
 			if( goal ) {
 				if( ! goal->has_state() )
 					goal->set_state( m_problem.next(*(goal->parent()->state()), goal->action()) );
@@ -486,10 +486,10 @@ protected:
 			//Search_Node* n = new Search_Node( NULL , a, head, this->problem().task().actions()[ a ]->cost() );
 
 			
-			if ( this->is_closed( n ) ) {
-				delete n;
-				continue;
-			}
+			// if ( this->is_closed( n ) ) {
+			// 	delete n;
+			// 	continue;
+			// }
 			
 			if( this->previously_hashed(n) ) {
 				delete n;
