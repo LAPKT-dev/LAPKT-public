@@ -43,7 +43,7 @@ public:
 
 	typedef State State_Type;
 
-	Node( State* s, Action_Idx action, Node<State>* parent = nullptr, float cost = 1.0f) 
+  Node( State* s, Action_Idx action, Node<State>* parent = nullptr, float cost = 1.0f, bool compute_hash = true) 
 	  : m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_partition(0) {
 		
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
@@ -77,16 +77,21 @@ public:
 
 	void    update_hash() {
 		Hash_Key hasher;
-		hasher.add( m_action );
-		if ( m_parent != NULL )
-			hasher.add( m_parent->state()->fluent_vec() );
+		if( m_state == NULL){
+		  hasher.add( m_action );
+		  if ( m_parent != NULL )
+		    hasher.add( m_parent->state()->fluent_vec() );
+		}
+		else
+		    hasher.add( state()->fluent_vec() );
+		hasher.add( partition() );
 		m_hash = (size_t)hasher;
 	}
 
 	bool   	operator==( const Node<State>& o ) const {
 		
 		if( &(o.state()) != NULL && &(state()) != NULL)
-			return (const State&)(o.state()) == (const State&)(state());
+		  return ( (const State&)(o.state()) == (const State&)(state())) && ( o.partition() == partition() );
 		/**
 		 * Lazy
 		 */
@@ -97,7 +102,7 @@ public:
 	
 		if ( o.m_parent == NULL ) return false;
 		
-		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
+		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) ) && ( o.partition() == partition() );
 	}
 
 public:
@@ -243,8 +248,6 @@ public:
 		else
 			this->m_root = new Search_Node( s, no_op, NULL );
 
-
-		
 		m_pruned_B_count = 0;
 		reset();
 		m_novelty->init();
@@ -358,10 +361,12 @@ public:
 
 			Search_Node* goal = process(head);
 			inc_exp();
-			//close(head);
+			close(head);
 			if( goal ) {
 				if( ! goal->has_state() )
 					goal->set_state( m_problem.next(*(goal->parent()->state()), goal->action()) );
+				goal->partition() = 0;
+				goal->update_hash();
 				return goal;
 			}
 			counter++;
@@ -448,6 +453,17 @@ protected:
 		//unsigned count = rp_fl_achieved( n );
 		//std::cout << this->problem().task().actions()[ n->action() ]->signature() << " achieved: " << count << std::endl;
 		n->partition() = rp_fl_achieved( n );
+		n->update_hash();
+		
+
+		if ( this->is_closed( n ) ) {
+		  return true;
+		}
+				
+		if( this->previously_hashed(n) ) {
+		return true;
+		} 
+
 		m_novelty->eval( n, node_novelty );
 		//m_novelty->eval( n, node_novelty );
 		if( node_novelty > bound() ) {
@@ -455,6 +471,7 @@ protected:
 			//this->close(n);				
 			return true;
 		}	
+		
 		return false;
 	}
 
@@ -480,21 +497,12 @@ protected:
 
 			State *succ = this->problem().next( *(head->state()), a );	       			
 
-			Search_Node* n = new Search_Node( succ , a, head, this->problem().task().actions()[ a ]->cost() );
+			Search_Node* n = new Search_Node( succ , a, head, this->problem().task().actions()[ a ]->cost(), false );
 
 			//Lazy expansion
 			//Search_Node* n = new Search_Node( NULL , a, head, this->problem().task().actions()[ a ]->cost() );
 
-			
-			// if ( this->is_closed( n ) ) {
-			// 	delete n;
-			// 	continue;
-			// }
-			
-			if( this->previously_hashed(n) ) {
-				delete n;
-			}
-			else{
+			{
 				if( prune( n ) ){
 					#ifdef DEBUG
 					std::cout << std::endl;

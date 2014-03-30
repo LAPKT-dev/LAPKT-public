@@ -135,10 +135,10 @@ protected:
 			//Search_Node* n = new Search_Node( NULL , a, head, this->problem().task().actions()[ a ]->cost() );
 
 			
-			// if ( this->is_closed( n ) ) {
-			// 	delete n;
-			// 	continue;
-			// }
+			if ( this->is_closed( n ) ) {
+				delete n;
+				continue;
+			}
 			
 			if( this->previously_hashed(n) ) {
 				delete n;

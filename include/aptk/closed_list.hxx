@@ -43,13 +43,14 @@ public:
 			bool in_closed = false;
 			iterator it;
 			for ( it = range.first; it != range.second; it++ )
-				if( n->state() ){
-					if ( (*it->second->state()) == (*n->state()) ) {
-						in_closed = true;
-						return it->second;
-					}
-				}	
-				else{
+				// if( n->state() ){
+				// 	if ( (*it->second->state()) == (*n->state()) ) {
+				// 		in_closed = true;
+				// 		return it->second;
+				// 	}
+				// }	
+				// else
+				  {
 					if ( (*it->second) == *n ) {
 						in_closed = true;
 						return it->second;
@@ -57,12 +58,13 @@ public:
 				}	
 			if ( !in_closed && range.second != this->end() ) {
 			
-				if( n->state() ){
-					const State& lhs = *(range.second->second->state());					
-					if ( lhs == *(n->state()) ) return range.second->second;
+				// if( n->state() ){
+				// 	const State& lhs = *(range.second->second->state());					
+				// 	if ( lhs == *(n->state()) ) return range.second->second;
 					
-				}
-				else{
+				// }
+				// else
+			        {
 					const Node& lhs = *(range.second->second);
 					if ( lhs == *n ) return range.second->second;
 				}
@@ -78,24 +80,26 @@ public:
 			bool in_closed = false;
 			iterator it;
 			for ( it = range.first; it != range.second; it++ )
-				if( n->state() ){
-					if ( (*it->second->state()) == (*n->state()) ) {
-						in_closed = true;
-						return it;
-					}
-				}	
-				else{
+				// if( n->state() ){
+				// 	if ( (*it->second->state()) == (*n->state()) ) {
+				// 		in_closed = true;
+				// 		return it;
+				// 	}
+				// }	
+			        //else
+			        {
 					if ( (*it->second) == *n ) {
 						in_closed = true;
 						return it;
 					}	
 				}
 			if ( !in_closed && range.second != this->end() ) {
-				if( n->state() ){
-					const State& lhs = *(range.second->second->state());
-					if ( lhs == *(n->state()) ) return range.second;				
-				}
-				else{
+				// if( n->state() ){
+				// 	const State& lhs = *(range.second->second->state());
+				// 	if ( lhs == *(n->state()) ) return range.second;				
+				// }
+				//else
+				{
 					const Node& lhs = *(range.second->second);
 					if ( lhs == *n ) return range.second;
 				}
@@ -111,24 +115,26 @@ public:
 			bool in_closed = false;
 			const_iterator it;
 			for ( it = range.first; it != range.second; it++ )
-				if( n->state() ){
-					if ( (*it->second->state()) == (*n->state()) ) {
-						in_closed = true;
-						return it;
-					}
-				}	
-				else{
+				// if( n->state() ){
+				// 	if ( (*it->second->state()) == (*n->state()) ) {
+				// 		in_closed = true;
+				// 		return it;
+				// 	}
+				// }	
+			        //else
+			        {
 					if ( (*it->second) == *n ) {
 						in_closed = true;
 						return it;
 					}	
 				}	
 			if ( !in_closed && range.second != this->end() ) {
-				if( n->state() ){
-					const State& lhs = *(range.second->second->state());
-					if ( lhs == *(n->state()) ) return range.second;
-				}
-				else{
+				// if( n->state() ){
+				// 	const State& lhs = *(range.second->second->state());
+				// 	if ( lhs == *(n->state()) ) return range.second;
+				// }
+				//else
+			       {
 					const Node& lhs = *(range.second->second);
 					if ( lhs == *n ) return range.second;
 				}
