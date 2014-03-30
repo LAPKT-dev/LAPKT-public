@@ -56,7 +56,7 @@ public:
 	class Action_Iterator {
 	public:
 		Action_Iterator( const Fwd_Search_Problem& p )
-		:	m_it_impl(nullptr), m_problem(*(p.m_task)) {
+		  :       m_problem(*(p.m_task)), m_it_impl(nullptr) {
 		}
         
 		~Action_Iterator() {

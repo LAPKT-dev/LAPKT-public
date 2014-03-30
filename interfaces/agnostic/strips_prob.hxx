@@ -75,7 +75,7 @@ namespace aptk
 		const Fluent_Vec&	goal() const  			{ return m_goal; }
 
 		std::vector<const Action*>&		
-					actions_adding( unsigned f )		{ return m_adding[f]; }
+		 			actions_adding( unsigned f )		{ return m_adding[f]; }
 
 		std::vector< std::pair< unsigned, const Action*> >&
 					ceffs_adding( unsigned f )		{ return m_ceffs_adding[f]; }
@@ -84,7 +84,8 @@ namespace aptk
 					ceffs_adding( unsigned f ) const	{ return m_ceffs_adding[f]; }
 
 		std::vector<const Action*>&		
-					actions_deleting( unsigned f )		{ return m_deleting[f]; }
+		 			actions_deleting( unsigned f )		{ return m_deleting[f]; }
+
 
 		std::vector<const Action*>&		
 					actions_edeleting( unsigned f )		{ return m_edeleting[f]; }

@@ -258,4 +258,5 @@ namespace aptk
 		STRIPS_Problem::set_goal( relaxed, orig.goal()  );
 	}
 
+
 }

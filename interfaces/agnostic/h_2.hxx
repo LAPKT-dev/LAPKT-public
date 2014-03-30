@@ -192,6 +192,44 @@ public:
 		prob.print_actions(std::cout);
 #endif
 	}
+	void 	goal_mutex_closure( STRIPS_Problem& prob ){
+		unsigned fsize = prob.num_fluents();
+		Fluent_Vec new_goal;
+		for( auto g : prob.goal()  )
+			new_goal.push_back(g);
+
+		for( unsigned f_idx = 0; f_idx != fsize; f_idx++ ){
+			Fluent* p =  prob.fluents()[f_idx];
+
+			if( ! prob.is_in_init( p->index() ) ) continue;
+
+			for( auto g : prob.goal()  ){
+				if( is_mutex(p->index(),g) ){ 
+					unsigned notp_idx = STRIPS_Problem::add_fluent( prob,"not-"+p->signature());
+					new_goal.push_back(notp_idx);
+
+					for( auto const_a : prob.actions_adding( p->index() ) ){
+						Action* a = prob.actions()[const_a->index()];
+						a->del_vec().push_back(notp_idx);
+						a->del_set().set( notp_idx );
+						//prob.actions_deleting( notp_idx ).push_back( a );
+					}
+					for( auto const_a : prob.actions_deleting( p->index() ) ){
+						Action* a = prob.actions()[const_a->index()];
+						a->add_vec().push_back(notp_idx);
+						a->add_set().set( notp_idx );
+						//prob.actions_adding( notp_idx ).push_back( a );
+					}
+					
+					
+					break;
+				}			       
+			}
+		}
+		//STRIPS_Problem::set_goal( prob, new_goal );
+		prob.make_action_tables();
+		
+	}
 
 protected:
 
