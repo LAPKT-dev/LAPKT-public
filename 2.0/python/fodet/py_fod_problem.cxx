@@ -8,12 +8,14 @@ using namespace boost::python;
 
 	FOD_Problem::FOD_Problem( ) {
 		m_parsing_time = 0.0f;
+		m_ignore_action_costs = false;
 		m_problem = new aptk::FOD_Problem;
 
 	}
 
 	FOD_Problem::FOD_Problem( std::string domain, std::string instance ) {
 		m_parsing_time = 0.0f;
+		m_ignore_action_costs = false;
 		m_problem = new aptk::FOD_Problem( domain, instance );
 
 	}
@@ -92,6 +94,19 @@ using namespace boost::python;
 			axiom_head.add( aptk::mkLit( extract<int>(li[0]), extract<bool>(li[1]) ) );
 		}	
 		instance()->add_axiom( axiom_body, axiom_head );
+	}
+
+	void
+	FOD_Problem::set_cost( int index, float c ) {
+		aptk::FOD_Problem::Action& action = *(const_cast<aptk::FOD_Problem::Action*>(m_problem->actions[index]));
+		if ( m_ignore_action_costs ) {
+			action.cost = 1.0f ;
+			return;
+		}
+		const float min_action_cost = 1e-3;
+		if ( c < min_action_cost )
+			c = min_action_cost;
+		action.cost = c;
 	}
 
 	void

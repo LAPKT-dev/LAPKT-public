@@ -2,7 +2,7 @@
 import os
 import sys
 
-LWAPTK_ROOT = '../../..'
+LWAPTK_ROOT = '../../../../'
 
 def main() :
 	

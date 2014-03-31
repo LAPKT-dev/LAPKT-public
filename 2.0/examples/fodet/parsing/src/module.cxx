@@ -16,6 +16,7 @@ BOOST_PYTHON_MODULE( libaptk )
 		.def( "get_problem_name", &FOD_Problem::get_problem_name )
 		.def( "add_precondition", &FOD_Problem::add_precondition )
 		.def( "add_effect", &FOD_Problem::add_effect )
+		.def( "set_cost", &FOD_Problem::set_cost )
 		.def( "set_init", &FOD_Problem::set_init )
 		.def( "set_goal", &FOD_Problem::set_goal )
 		.def( "set_domain_name", &FOD_Problem::set_domain_name )
@@ -23,6 +24,7 @@ BOOST_PYTHON_MODULE( libaptk )
 		.def( "write_ground_pddl", &FOD_Problem::write_ground_pddl )
 		.def( "print_action", &FOD_Problem::print_action )
 		.def_readwrite( "parsing_time", &FOD_Problem::m_parsing_time )
+		.def_readwrite( "ignore_action_costs", &FOD_Problem::m_ignore_action_costs )
 	;
 }
 

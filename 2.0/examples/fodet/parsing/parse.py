@@ -6,7 +6,7 @@ from libaptk import FOD_Problem
 def main( domain_file, problem_file) :
 	task = FOD_Problem( )
 
-	fd.grounding.default( domain_file, problem_file, task )
+	fd.grounding.fodet( domain_file, problem_file, task )
 
 	for i in range( 0, task.num_actions() ) :
 		task.print_action( i )

@@ -13,6 +13,7 @@ namespace aptk {
 		struct Atom {
 			std::string	name;
 			unsigned	index;
+			float		cost;
 			
 			Atom( const std::string& _name, unsigned i = 0 ) 
 			: name( _name ), index(i) {

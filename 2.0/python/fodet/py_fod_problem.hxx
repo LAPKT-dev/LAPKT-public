@@ -23,6 +23,8 @@ public:
 	void	add_invariant( boost::python::list& list );
 	void	add_axiom( boost::python::list& condition, boost::python::list& effect );
 
+	void	set_cost( int index, float v );
+
 	void	set_init( boost::python::list& list );
 	void	set_goal( boost::python::list& list );
 	void	set_domain_name( std::string name );
@@ -42,6 +44,7 @@ public:
 	void	write_ground_pddl( std::string domain, std::string instance );
 
 	float	m_parsing_time;
+	bool	m_ignore_action_costs;
 
 
 protected:
