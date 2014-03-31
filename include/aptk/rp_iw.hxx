@@ -44,7 +44,7 @@ public:
 	typedef State State_Type;
 
   Node( State* s, Action_Idx action, Node<State>* parent = nullptr, float cost = 1.0f, bool compute_hash = true) 
-	  : m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_partition(0) {
+	  : m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_partition(0), m_compare_only_state( false ) {
 		
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 		if( m_state == NULL )
@@ -65,6 +65,9 @@ public:
 	void			set_state( State* s )	{ m_state = s; }
 	bool			has_state() const	{ return m_state != NULL; }
 	const State&		state() const 	{ return *m_state; }
+	void                    compare_only_state( bool b ){ m_compare_only_state = b; }
+	
+
 	void			print( std::ostream& os ) const {
 		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = " << m_g  << "}";
 	}
@@ -84,14 +87,21 @@ public:
 		}
 		else
 		    hasher.add( state()->fluent_vec() );
-		hasher.add( partition() );
+
 		m_hash = (size_t)hasher;
 	}
 
+	
+	
 	bool   	operator==( const Node<State>& o ) const {
 		
-		if( &(o.state()) != NULL && &(state()) != NULL)
-		  return ( (const State&)(o.state()) == (const State&)(state())) && ( o.partition() == partition() );
+		if(m_compare_only_state || o.m_compare_only_state ){
+			if( &(o.state()) != NULL && &(state()) != NULL)
+				return ( (const State&)(o.state()) == (const State&)(state()));
+		}
+		else
+			if( &(o.state()) != NULL && &(state()) != NULL)
+				return ( (const State&)(o.state()) == (const State&)(state())) && ( o.partition() == partition() );
 		/**
 		 * Lazy
 		 */
@@ -102,7 +112,10 @@ public:
 	
 		if ( o.m_parent == NULL ) return false;
 		
-		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) ) && ( o.partition() == partition() );
+		if(m_compare_only_state || o.m_compare_only_state )
+			return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
+		else
+			return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) ) && ( o.partition() == partition() );
 	}
 
 public:
@@ -114,7 +127,7 @@ public:
 	unsigned       	m_g;
 	unsigned        m_partition;
 	size_t		m_hash;
-
+	bool            m_compare_only_state;
 };
 
 template < typename Search_Model, typename Abstract_Novelty, typename RP_Heuristic >
@@ -365,8 +378,6 @@ public:
 			if( goal ) {
 				if( ! goal->has_state() )
 					goal->set_state( m_problem.next(*(goal->parent()->state()), goal->action()) );
-				goal->partition() = 0;
-				goal->update_hash();
 				return goal;
 			}
 			counter++;

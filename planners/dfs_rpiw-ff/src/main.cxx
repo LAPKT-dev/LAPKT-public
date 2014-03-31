@@ -211,7 +211,7 @@ int main( int argc, char** argv ) {
 	if ( !prob.has_conditional_effects() ) {
 		H2_Fwd    h2( search_prob );
 		h2.compute_edeletes( prob );	
-		h2.goal_mutex_closure( prob );
+		//h2.goal_mutex_closure( prob );
 	}
 	else
 		prob.compute_edeletes();
