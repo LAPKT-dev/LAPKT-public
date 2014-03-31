@@ -82,9 +82,11 @@ public:
 
 	bool 		        is_goal_state_closed( Search_Node* n ) 	 {
 		if( !closed_goal_states() ) return false;
-
+			       
+		n->compare_only_state( true );
 		Search_Node* n2 = this->closed_goal_states()->retrieve(n);
-
+		n->compare_only_state( false );
+		
 		if ( n2 != NULL ) 
 			return true;
 		
