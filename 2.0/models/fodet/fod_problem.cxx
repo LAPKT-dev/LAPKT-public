@@ -35,18 +35,28 @@ namespace aptk {
 	FOD_Problem::Action::print( std::ostream& os, const FOD_Problem& model ) const {
 		os << name << std::endl;
 		os << "Precondition: ";
-		precondition.write( os, model );
+		precondition.write_pddl( os, model );
 		os << std::endl;
 		os << "Effects: " << std::endl;
 		for ( const Effect& eff : effects ) {
-			eff.condition.write( os, model );
+			eff.condition.write_pddl( os, model );
 			os << " -> " << std::endl;
 			os << "\t";
-			eff.effect.write( os, model );
+			eff.effect.write_pddl( os, model );
 			os << std::endl;
 		}
 		os << std::endl;
 		
+	}
+
+	void
+	FOD_Problem::Axiom::print( std::ostream& os, const FOD_Problem& model ) const {
+		os << "Axiom: ";
+		os << "Head: ";
+		head.write( os, model, true );
+		os << " Body: ";
+		body.write( os, model, true );
+		os << std::endl;
 	}
 
 	void
@@ -74,4 +84,36 @@ namespace aptk {
 
 		compute_var_to_action_table();
 	}
+
+	void
+	FOD_Problem::add_axiom( const Clause& body, const Clause& head ) {
+		Axiom* ax = new Axiom;
+		ax->body = body;
+		ax->head = head;
+		axioms.push_back( ax );
+	}
+
+	void
+	FOD_Problem::close_under_axioms( const Clause& situation, Clause& closed ) const {
+		
+		bool changed;
+		Clause  current = situation;
+		
+		do {
+			changed = false;
+			for ( auto axiom : axioms ) {
+				if ( current.satisfies(  axiom->head ) )
+					continue;
+				if ( current.satisfies( axiom->body ) ) {
+					changed = true;
+					current.add( axiom->head );	
+				}
+			}
+
+		} while( changed );
+	
+		closed = current;
+	}
+	
+
 }

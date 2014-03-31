@@ -79,6 +79,22 @@ using namespace boost::python;
 	}
 
 	void
+        FOD_Problem::add_axiom( boost::python::list& condition, boost::python::list& effect ) {
+		aptk::Clause axiom_body;
+		aptk::Clause axiom_head;
+		for ( int i = 0; i < len(condition); i++ ) {
+			boost::python::tuple li = extract< tuple >( condition[i] );
+			axiom_body.add( aptk::mkLit( extract<int>(li[0]), extract<bool>(li[1]) ) );
+		}
+		
+		for ( int i = 0; i < len(effect); i++ ) {
+			boost::python::tuple li = extract< tuple >( effect[i] );
+			axiom_head.add( aptk::mkLit( extract<int>(li[0]), extract<bool>(li[1]) ) );
+		}	
+		instance()->add_axiom( axiom_body, axiom_head );
+	}
+
+	void
 	FOD_Problem::set_init( boost::python::list& lits ) {
 		for ( int i = 0; i < len(lits); i++ ) {
 			boost::python::tuple li = extract< tuple >( lits[i] );

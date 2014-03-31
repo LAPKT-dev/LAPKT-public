@@ -95,10 +95,21 @@ namespace aptk {
 			}
 		};
 
+		struct Axiom
+		{
+			Clause	body;
+			Clause	head;
+			
+			void		print( std::ostream& os, const FOD_Problem& model ) const;
+		};
+
+		typedef	std::vector< Axiom* >		Axiom_Vec;
+
 		std::string			domain_name;
 		std::string			problem_name;
 		Atom_Vec			atoms;
 		Action_Vec			actions;
+		Axiom_Vec			axioms;
 		std::vector< Action_Vec >	actions_requiring_var;
 		Clause				init;
 		Clause				goal;
@@ -125,6 +136,9 @@ namespace aptk {
 		Action&		new_action( const std::string& name );
 		
 		void		add_invariant( const Clause& inv );
+
+		void		add_axiom( const Clause& body, const Clause& head );
+		void		close_under_axioms( const Clause& situation, Clause& closed_situation ) const;
 
 		void		setup();
 

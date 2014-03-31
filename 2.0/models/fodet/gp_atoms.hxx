@@ -221,7 +221,9 @@ class Clause {
 
 		void	write( std::ostream& os ) const;
 
-		void	write( std::ostream& os, const FOD_Problem& i, bool write_negated = true ) const; 
+		void	write( std::ostream& os, const FOD_Problem& i, bool write_negated = true ) const;
+
+		void	write_pddl(  std::ostream& os, const FOD_Problem& i ) const; 
  
 		void	clear() 			{ m_lits_bits.reset(); m_lits.clear(); }
 		void	reserve( size_t sz ) 		{ m_lits.reserve( sz ); }

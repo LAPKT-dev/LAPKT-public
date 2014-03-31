@@ -61,6 +61,26 @@ namespace aptk {
 
 	}
 
+	void	Clause::write_pddl( std::ostream& os, const FOD_Problem& task ) const {
+		if ( m_lits.size() > 1 )
+			os << "(and ";
+		for ( unsigned i = 0; i < (unsigned)m_lits.size(); i++ ) {
+			Atom idx = atom(m_lits[i]);
+			assert( idx < (int)task.n_atoms() );
+			const FOD_Problem::Atom& a = *(task.atoms[idx]);
+			if ( sign(m_lits[i]) ) {
+				os << "(not (" << a.name <<  "))";
+			}
+			else
+				os << "(" << a.name << ")";
+			if ( i < m_lits.size()-1 )
+				os << " ";
+		}
+		if ( m_lits.size() > 1 )
+			os << ")";
+
+	}
+
 	bool	Clause::inconsistent() const { 
 
 		for ( unsigned i = 0; i < size(); i++ ) {

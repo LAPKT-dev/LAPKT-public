@@ -21,6 +21,7 @@ public:
 	void	add_cond_effect( int index, boost::python::list& cond_lits, boost::python::list& eff_lits );
 	void	add_effect( int index, boost::python::list& list );
 	void	add_invariant( boost::python::list& list );
+	void	add_axiom( boost::python::list& condition, boost::python::list& effect );
 
 	void	set_init( boost::python::list& list );
 	void	set_goal( boost::python::list& list );
