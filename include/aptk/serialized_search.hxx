@@ -214,7 +214,8 @@ public:
 		if ( new_goal_achieved ){
 			m_goal_candidates = unachieved;				
 
-			n->set_state( n->parent()->state()->progress_through( *(this->problem().task().actions()[ n->action() ]) ));
+			if( ! has_state )
+				n->set_state( n->parent()->state()->progress_through( *(this->problem().task().actions()[ n->action() ]) ));
 
 			close_goal_state( n );
 			return true;
