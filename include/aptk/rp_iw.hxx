@@ -74,6 +74,7 @@ public:
 
 	bool    is_better( Node* n ) const {
 		return false;
+		//return this->partition() > n->partition();
 	}
 
 	size_t      hash() const { return m_state ? m_state->hash() : m_hash; }
@@ -332,7 +333,6 @@ public:
 
 	bool 		is_closed( Search_Node* n ) 	{ 
 		Search_Node* n2 = this->closed().retrieve(n);
-
 		if ( n2 != NULL ) 
 			return true;
 		
@@ -464,7 +464,7 @@ protected:
 		//unsigned count = rp_fl_achieved( n );
 		//std::cout << this->problem().task().actions()[ n->action() ]->signature() << " achieved: " << count << std::endl;
 		n->partition() = rp_fl_achieved( n );
-		n->update_hash();
+		//n->update_hash();
 		
 
 		if ( this->is_closed( n ) ) {
@@ -511,7 +511,7 @@ protected:
 			Search_Node* n = new Search_Node( succ , a, head, this->problem().task().actions()[ a ]->cost(), false );
 
 			//Lazy expansion
-			//Search_Node* n = new Search_Node( NULL , a, head, this->problem().task().actions()[ a ]->cost() );
+			//Search_Node* n = new Search_Node( NULL , a, head, this->problem().task().actions()[ a ]->cost(), false );
 
 			{
 				if( prune( n ) ){

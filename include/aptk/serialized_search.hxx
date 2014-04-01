@@ -212,7 +212,10 @@ public:
 			n->parent()->state()->regress_lazy_state( this->problem().task().actions()[ n->action() ], &added_fluents, &deleted_fluents );
 
 		if ( new_goal_achieved ){
-			m_goal_candidates = unachieved;		
+			m_goal_candidates = unachieved;				
+
+			n->set_state( n->parent()->state()->progress_through( *(this->problem().task().actions()[ n->action() ]) ));
+
 			close_goal_state( n );
 			return true;
 		}

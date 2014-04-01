@@ -43,7 +43,7 @@ public:
 
 	typedef State State_Type;
 
-	Node( State* s, Action_Idx action, Node<State>* parent = nullptr, float cost = 1.0f) 
+	Node( State* s, Action_Idx action, Node<State>* parent = nullptr, float cost = 1.0f, bool compute_hash = true) 
 	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ) {
 		
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
@@ -72,6 +72,7 @@ public:
 	}
 
 	size_t      hash() const { return m_state ? m_state->hash() : m_hash; }
+	void        compare_only_state( bool b ){ m_compare_only_state = b; }
 
 	void    update_hash() {
 		Hash_Key hasher;
@@ -106,6 +107,8 @@ public:
 	Action_Idx	m_action;
 	unsigned       	m_g;
 	size_t		m_hash;
+	bool            m_compare_only_state;
+
 
 };
 
