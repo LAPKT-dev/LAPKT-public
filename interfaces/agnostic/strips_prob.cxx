@@ -39,7 +39,7 @@ namespace aptk
 	{
 	}
 
-	void	STRIPS_Problem::make_action_tables()
+	void	STRIPS_Problem::make_action_tables( bool generate_match_tree )
 	{
 		m_requiring.resize( fluents().size() );
 		m_deleting.resize( fluents().size() );
@@ -51,8 +51,10 @@ namespace aptk
 			register_action_in_tables( actions()[k] );
 		
 		//m_succ_gen.build();
-		m_succ_gen_v2.build();
-		std::cout << "\n Match tree built with " << m_succ_gen_v2.count() << " nodes.\n" << std::endl;
+		if(generate_match_tree){
+			m_succ_gen_v2.build();
+			std::cout << "\n Match tree built with " << m_succ_gen_v2.count() << " nodes.\n" << std::endl;
+		}
 	}
 
 	void	STRIPS_Problem::register_action_in_tables( Action* a )

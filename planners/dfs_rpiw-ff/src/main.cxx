@@ -212,6 +212,8 @@ int main( int argc, char** argv ) {
 		H2_Fwd    h2( search_prob );
 		h2.compute_edeletes( prob );	
 		//h2.goal_mutex_closure( prob );
+		//std::cout << "\t#Fluents: " << prob.num_fluents() << std::endl;
+
 	}
 	else
 		prob.compute_edeletes();

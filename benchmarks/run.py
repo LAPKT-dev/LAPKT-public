@@ -306,8 +306,7 @@ elif 'benchmark' == argv[1]:
     ipc = argv[3]
         
     if len(argv) < 6:
-        #domains = {'tidybot','transport','visitall','woodworking','scanalyzer','pegsol'}#{'elevators', 'floortile', 'nomystery', 'openstacks', 'parcprinter', 'parking', 'pegsol'}
-        #domains = {'sokoban'}
+        #domains = {'transport','parking', 'sokoban'}
         for dom in domains:
             #if dom in {'floortile'}:
             #    continue            

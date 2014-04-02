@@ -227,7 +227,7 @@ public:
 			}
 		}
 		//STRIPS_Problem::set_goal( prob, new_goal );
-		prob.make_action_tables();
+		prob.make_action_tables(false);
 		
 	}
 

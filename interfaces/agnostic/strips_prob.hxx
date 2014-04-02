@@ -128,7 +128,7 @@ namespace aptk
 		unsigned                end_operator() { return m_end_operator_id; }
 	        unsigned                get_fluent_index(std::string signature);
 
-		void			make_action_tables();
+		void			make_action_tables(bool generate_match_tree = true);
 
 		void			print( std::ostream& os ) const;
 		void			print_fluents( std::ostream& os ) const;
