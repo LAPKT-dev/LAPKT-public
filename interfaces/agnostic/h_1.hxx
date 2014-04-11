@@ -173,7 +173,8 @@ public:
 		float h_val_bf = eval_func( bf->prec_vec().begin(), bf->prec_vec().end() );
 		float h_val = 0;
 
-		const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( f );		
+		const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( f );   
+
 		for ( unsigned k = 0; k < add_acts.size(); k++ ){
 		  const Action* a = add_acts[k];
 		  h_val = eval_func( a->prec_vec().begin(), a->prec_vec().end() );

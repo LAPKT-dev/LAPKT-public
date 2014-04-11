@@ -7,7 +7,7 @@ def create_planner_dir( base_dir, planner_id ) :
 
 	if os.path.exists( planner_folder ) :
 		print >> sys.stdout, "Folder", planner_folder, "already exists, deleting..."
-		rv = os.system( 'rm -rf %s'%planner_folder )
+		rv = os.system( 'rm -Rf %s'%planner_folder )
 		if rv != 0 :
 			print >> sys.stderr, "\tFolder", planner_folder, "could not be deleted, aborting!"
 			sys.exit(1)
@@ -24,7 +24,7 @@ def copy_files( planner_dir, planner_name ) :
 	
 	dirs = [ 'include', 'interfaces', 'external/libff', 'src', 'planners/%s'%planner_name ]
 
-	cmd_template = 'cp -ra %s %s'
+	cmd_template = 'cp -Ra %s %s'
 	print >> sys.stdout, "Creating folder %s/planners"%planner_dir
 	build_base_dir = os.path.join( planner_dir, 'planners' )
 	external_base_dir = os.path.join( planner_dir, 'external' )

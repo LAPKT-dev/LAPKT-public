@@ -321,8 +321,20 @@ public:
 			if(candidate->parent())
 				candidate->parent()->update_land_graph( m_lgm );
 
-			if (candidate->action() != no_op)
-				m_lgm->apply_action( candidate->action(), candidate->land_consumed(), candidate->land_unconsumed() );
+			if (candidate->action() != no_op){
+				const bool has_cond_eff = !(m_problem.task().actions()[ candidate->action() ]->ceff_vec().empty());
+				if( !candidate->has_state() && has_cond_eff ){
+					candidate->parent()->state()->progress_lazy_state(  m_problem.task().actions()[ candidate->action() ] );	
+
+					m_lgm->apply_action( candidate->parent()->state(), candidate->action(), candidate->land_consumed(), candidate->land_unconsumed() );
+
+					candidate->parent()->state()->regress_lazy_state( m_problem.task().actions()[ candidate->action() ] );
+		
+				}else{
+					
+					m_lgm->apply_action( candidate->state(), candidate->action(), candidate->land_consumed(), candidate->land_unconsumed() );
+				}
+			}
 			else
 				m_lgm->apply_state( m_root->state()->fluent_vec(), m_root->land_consumed(), m_root->land_unconsumed() );
 		}

@@ -73,10 +73,66 @@ public:
 				**it = true;
 	}
 
-	void apply_action( Action_Idx a_idx, Bool_Vec_Ptr*& keep_consumed, Bool_Vec_Ptr*& keep_unconsumed ){
+	void apply_action( State* s, Action_Idx a_idx, Bool_Vec_Ptr*& keep_consumed, Bool_Vec_Ptr*& keep_unconsumed ){
+		const Action* a = m_strips_model.actions()[ a_idx ];
+		const Fluent_Vec& add = a->add_vec();
+		const Fluent_Vec& del = a->del_vec();		
 
-		const Fluent_Vec& add = m_strips_model.actions()[ a_idx ]->add_vec();
-		const Fluent_Vec& del = m_strips_model.actions()[ a_idx ]->del_vec();		
+		for(Fluent_Vec::const_iterator it_add = add.begin(); it_add != add.end(); it_add++){
+			unsigned p = *it_add;
+			
+			if( m_graph->is_landmark(p) ){
+				Landmarks_Graph::Node* n = m_graph->node(p);
+				if( !n->is_consumed() )
+					if( n->are_precedences_consumed()  && n->are_gn_precedences_consumed() ){
+						if( !keep_consumed ) keep_consumed = new Bool_Vec_Ptr;
+						//std::cout << "\t -- "<<p <<" - " << m_strips_model.fluents()[ p ]->signature() << std::endl;														       
+						n->consume( );
+						keep_consumed->push_back( n->is_consumed_ptr() );
+					}
+			}
+		}
+
+		for(Fluent_Vec::const_iterator it_del = del.begin(); it_del != del.end(); it_del++){
+			unsigned p = *it_del;
+						
+			if( m_graph->is_landmark(p) ){
+				bool unconsume = false;
+				Landmarks_Graph::Node* n = m_graph->node(p);
+
+				if( n->is_consumed() )
+					if(  m_strips_model.is_in_goal(p) || (! n->are_requirements_consumed() ) || (! n->are_gn_requirements_consumed() ) )
+						unconsume = true;
+				
+
+				if(unconsume){
+					//std::cout << "\t ++ "<<p <<" - " << m_strips_model.fluents()[ p ]->signature() << std::endl;					
+					if( !keep_unconsumed  ) keep_unconsumed = new Bool_Vec_Ptr;
+
+					n->unconsume( );
+					keep_unconsumed->push_back( n->is_consumed_ptr() );
+					
+
+				
+				}
+			}
+		}
+
+		if( !a->ceff_vec().empty() ){		
+			for( unsigned i = 0; i < a->ceff_vec().size(); i++ ){
+				Conditional_Effect* ce = a->ceff_vec()[i];
+				if( ce->can_be_applied_on( *s ) )
+					apply_cond_eff(s,ce, keep_consumed, keep_unconsumed);
+			}
+		}
+
+	}
+
+	void apply_cond_eff( State* s, Conditional_Effect* ce, Bool_Vec_Ptr*& keep_consumed, Bool_Vec_Ptr*& keep_unconsumed ){
+
+	  
+		const Fluent_Vec& add = ce->add_vec();
+		const Fluent_Vec& del = ce->del_vec();		
 
 		for(Fluent_Vec::const_iterator it_add = add.begin(); it_add != add.end(); it_add++){
 			unsigned p = *it_add;

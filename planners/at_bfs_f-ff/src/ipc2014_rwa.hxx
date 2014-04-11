@@ -96,17 +96,19 @@ namespace ipc2014 {
 				*rit = n;
 				rit++;
 				n = n->parent();
+				
 			}while( n );
+
 			if(rit != path.rend())
 				*rit = NULL;
-			//std::cout << "Updating Land Graph up to: " << std::flush;
-			
+			//std::cout << "Updating Land Graph up to: " << path.size() << std::flush;
+			  
 			lgm->reset_graph();
 			for( Node_Vec_Ptr_It it = path.begin(); it != path.end(); it++){
 				if(*it == NULL) break;
-			
-				// if( (*it)->action() != -1)
-				// 	std::cout << lgm->problem().actions()[ (*it)->action() ]->signature() << std::flush;
+				
+				//if( (*it)->action() != -1)
+				// std::cout << lgm->problem().actions()[ (*it)->action() ]->signature() << std::flush;
 	
 				lgm->update_graph( (*it)->land_consumed(), (*it)->land_unconsumed() );
 			}
@@ -234,8 +236,11 @@ namespace bfs_dq_mh {
 				po.clear();
 			}
 
+			if(candidate->parent())
+				candidate->parent()->update_land_graph( m_lgm );
+
 			if (candidate->action() != no_op)
-				m_lgm->apply_action( candidate->action(), candidate->land_consumed(), candidate->land_unconsumed() );
+				m_lgm->apply_action( candidate->state(), candidate->action(), candidate->land_consumed(), candidate->land_unconsumed() );
 			else
 				m_lgm->apply_state( this->root()->state()->fluent_vec(), this->root()->land_consumed(), this->root()->land_unconsumed() );
 
@@ -249,7 +254,7 @@ namespace bfs_dq_mh {
 				std::cout << "\t" << this->problem().task().actions()[ index ]->signature() << std::endl;
 			}
 			*/
-			candidate->undo_land_graph( m_lgm );
+			//candidate->undo_land_graph( m_lgm );
 		}
 
 		virtual Search_Node*	 	do_search() {
@@ -294,6 +299,7 @@ namespace bfs_dq_mh {
 					this->set_bound( head->gn() );
 					this->update_weight();
 					this->restart_search();	
+					m_lgm->graph()->print( std::cout );
 					return head;
 				}
 				float t = time_used();
@@ -374,6 +380,7 @@ namespace bfs_dq_mh {
 					Search_Node* n2 = this->seen().retrieve(n);
 					if ( n->gn() < n2->gn() ) {
 						n2->gn() = n->gn();
+						n2->gn_unit() = n->gn_unit();
 						n2->m_parent = n->m_parent;
 						n2->m_action = n->action();
 					}
@@ -386,6 +393,7 @@ namespace bfs_dq_mh {
 					Search_Node* n2 = this->closed().retrieve(n);
 					if ( n->gn() < n2->gn() ) {
 						n2->gn() = n->gn();
+						n2->gn_unit() = n->gn_unit();
 						n2->m_parent = n->m_parent;
 						n2->m_action = n->action();
 						n2->set_seen();
@@ -399,6 +407,7 @@ namespace bfs_dq_mh {
 					Search_Node* n2 = this->open_hash().retrieve(n);
 					if ( n->gn() < n2->gn() ) {
 						n2->gn() = n->gn();
+						n2->gn_unit() = n->gn_unit();
 						n2->m_parent = n->m_parent;
 						n2->m_action = n->action();
 						n2->h1n() = head->h1n();

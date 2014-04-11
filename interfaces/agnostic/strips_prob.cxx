@@ -77,7 +77,7 @@ namespace aptk
 			actions_deleting(a->del_vec()[k]).push_back(a);	
 		
 		//register conditional effects
-		/*
+		
 		for ( unsigned i = 0; i < a->ceff_vec().size(); i++ )
 		{
 			for ( unsigned k = 0; k < a->ceff_vec()[i]->prec_vec().size(); k++ )
@@ -87,7 +87,7 @@ namespace aptk
 			for ( unsigned k = 0; k < a->ceff_vec()[i]->del_vec().size(); k++ )
 				actions_deleting(a->ceff_vec()[i]->del_vec()[k]).push_back(a);	
 		}
-		*/
+		
 	}
 	
 	unsigned STRIPS_Problem::add_action( STRIPS_Problem& p, std::string signature,
