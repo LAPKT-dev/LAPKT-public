@@ -174,19 +174,17 @@ public:
 		float h_val = 0;
 
 		if ( !bf->asserts(f) ) { // added by conditional effect
-			#ifdef DEBUG
-			bool found = false;
-			#endif
+			float min_cond_h = infty;
 			for ( auto ceff : bf->ceff_vec() ) {
 				if ( ceff->asserts( f ) ) {
-					h_val_bf = eval_func( ceff->prec_vec().begin(), ceff->prec_vec().end(), h_val_bf );
-					#ifdef DEBUG
-					found = true;
-					#endif
-					break;
+					float h_cond = eval_func( ceff->prec_vec().begin(), ceff->prec_vec().end(), h_val_bf );
+					if ( h_cond < min_cond_h )
+						min_cond_h = h_cond;
 				}
-			} 
-			assert( found );
+			}
+
+			assert( !dequal(min_cond_h,infty) );
+			h_val_bf = min_cond_h; 
 		}
 
 		const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( f );   
@@ -195,19 +193,16 @@ public:
 			const Action* a = add_acts[k];
 			h_val = eval_func( a->prec_vec().begin(), a->prec_vec().end() );
 			if ( !a->asserts( f ) ) { // added by conditional effect
-				#ifdef DEBUG
-				bool found = false;
-				#endif
+				float min_cond_h = infty;
 				for ( auto ceff : a->ceff_vec() ) {
 					if ( ceff->asserts(f) ) {
-						h_val = eval_func( ceff->prec_vec().begin(), ceff->prec_vec().end(), h_val );
-						#ifdef DEBUG
-						found = true;
-						#endif
-						break;
+						float h_cond = eval_func( ceff->prec_vec().begin(), ceff->prec_vec().end(), h_val );
+						if ( h_cond < min_cond_h )
+							min_cond_h = h_cond;
 					}
 				}
-				assert( found );
+				assert( !dequal(min_cond_h,infty) );
+				h_val = min_cond_h;			
 			}
 			if ( dequal(h_val, h_val_bf ) )
 				bfs.push_back(a);

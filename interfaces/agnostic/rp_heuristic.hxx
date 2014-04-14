@@ -110,19 +110,32 @@ public:
 			a->print( m_strips_model, std::cout );
 			std::cout << "into the relaxed plan" << std::endl;
 			#endif
-			if ( !extract_best_supporters_for( a->prec_vec(), relaxed_plan ) ) {
-	
-				assert( false );
-				return;
-			}
-			for ( unsigned k = 0; k < a->ceff_vec().size(); k++ ) {
-				if ( !a->ceff_vec()[k]->asserts( p->index() ) ) continue;	
-				if ( !extract_best_supporters_for( a->ceff_vec()[ k ]->prec_vec(), relaxed_plan ) )
-				{
+			if ( a->asserts( p->index() ) ) { // fluent asserted by action main effect
+				if ( !extract_best_supporters_for( a->prec_vec(), relaxed_plan ) ) {
+					h_val = infty;
 					assert( false );
 					return;
 				}
+				continue;
 			}
+			float min_cond_h = infty;
+			unsigned best_eff_index = no_such_index;
+			for ( unsigned k = 0; k < a->ceff_vec().size(); k++ ) {
+				if ( !a->ceff_vec()[k]->asserts( p->index() ) ) continue;	
+				float h_cond;
+				m_base_heuristic.eval( a->ceff_vec()[k]->prec_vec(), h_cond );
+				if ( h_cond < min_cond_h ) {
+					min_cond_h = h_cond;
+					best_eff_index = k;
+				}
+			}
+			assert( best_eff_index != no_such_index );
+			if ( !extract_best_supporters_for( a->ceff_vec()[ best_eff_index ]->prec_vec(), relaxed_plan ) )
+			{
+				h_val = infty;
+				assert( false );
+				return;
+			}			
 		}
 
 		if(copy_rel_plan) 
@@ -159,18 +172,35 @@ public:
 		//Successor_Generator::Iterator it( s, m_strips_model.successor_generator().nodes() );
 		//int a = it.first();
 		//while ( a != -1 ) {
+			bool is_helpful = false;
 			const Action& act = *(m_strips_model.actions()[app_set[i]]);
-
 			for ( Fluent_Vec::const_iterator it2 = act.add_vec().begin();
 				it2 != act.add_vec().end(); it2++ )
 				if ( m_rp_precs.isset( *it2 ) ) {
 					pref_ops.push_back( act.index() );
+					is_helpful = true;
 					//std::cout << "\t PO: " << m_strips_model.actions()[ act.index() ]->signature() << std::endl;
 					//Uncomment if just 1 pref op is preferred
 					if ( one_HA_per_fluent() ) 
 						m_rp_precs.unset(*it2);
 					break;
 				}
+			if ( is_helpful ) continue;	
+			// Check conditional effects
+			for ( auto ceff : act.ceff_vec() ) {
+				if ( !s.entails( ceff->prec_vec() ) ) continue;
+				for ( auto p : ceff->add_vec() ) {
+					if ( m_rp_precs.isset( p ) ) {
+						pref_ops.push_back( act.index() );
+						is_helpful = true;
+						if ( one_HA_per_fluent() )
+							m_rp_precs.unset( p );
+						break;
+					}
+				}
+				if ( is_helpful ) break;
+			}
+
 			//a = it.next();
 		}
 	
