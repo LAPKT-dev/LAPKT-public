@@ -145,6 +145,8 @@ namespace aptk
 		// prevents the stronger inference that requires computing h^2
 		void			compute_edeletes();
 
+		void			set_verbose( bool v ) { m_verbose = v; }
+
 	protected:
 	
 		void			increase_num_fluents()        	{ m_num_fluents++; }
@@ -176,6 +178,7 @@ namespace aptk
 		std::vector< const  Action* >   					m_empty_precs;
 		std::vector< std::vector< std::pair< unsigned, const Action* > > >	m_ceffs_adding;
 		bool									m_has_cond_effs;
+		bool									m_verbose;
 	  };
 
 }

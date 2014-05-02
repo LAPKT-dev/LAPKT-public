@@ -47,7 +47,7 @@ typedef		H1_Heuristic<Search_Model, H_Max_Evaluation_Function>	H_Max;
 public:
 
 	Landmarks_Graph_Generator( const Search_Model& prob ) 
-	:  m_strips_model( prob.task() ), m_only_goals( false ), m_goal_ordering(true), m_h1( prob )
+	:  m_strips_model( prob.task() ), m_only_goals( false ), m_goal_ordering(true), m_h1( prob ), m_verbose( true )
 	{
 		m_reachability = new aptk::agnostic::Reachability_Test( prob.task() );
 	}
@@ -55,6 +55,8 @@ public:
 	virtual ~Landmarks_Graph_Generator() {
 		delete m_reachability;
 	}
+
+	void	set_verbose( bool v ) { m_verbose = v; }
 	
 public:
 	void   set_only_goals( bool b ){ m_only_goals = b; }
@@ -255,7 +257,8 @@ public:
 				 * Do not add gn of lands in intial state
 				 */
 				if ( ! m_strips_model.is_in_init(q) ){
-					std::cout << m_strips_model.fluents()[q]->signature() << "gn land for " << m_strips_model.fluents()[p]->signature() << std::endl; 
+					if ( m_verbose )
+						std::cout << m_strips_model.fluents()[q]->signature() << "gn land for " << m_strips_model.fluents()[p]->signature() << std::endl; 
 					Landmarks_Graph::Node* nq = graph.node(q);
 					if( nq ){
 						Landmarks_Graph::Node* np = graph.node(p);
@@ -277,7 +280,8 @@ public:
 
 #ifdef DEBUG
 		std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
-		graph.print( std::cout );
+		if ( m_verbose )
+			graph.print( std::cout );
 #endif
 
 	}
@@ -323,6 +327,7 @@ protected:
 	bool                                    m_goal_ordering;
 	Reachability_Test*                      m_reachability;	
         H_Max                                   m_h1;
+	bool					m_verbose;
 };
 
 }

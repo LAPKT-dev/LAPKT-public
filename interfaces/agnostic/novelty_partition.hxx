@@ -40,7 +40,7 @@ public:
 
 
 	Novelty_Partition( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 600 ) 
-		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB), m_always_full_state(true) {
+		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB), m_always_full_state(true), m_verbose( true ) {
 		
 		set_arity(max_arity, 1);
 		
@@ -62,6 +62,8 @@ public:
 
 	unsigned arity() const { return m_arity; }
 	void set_full_state_computation( bool b )  { m_always_full_state = b; }
+
+	void set_verbose( bool v ) { m_verbose = v; }
 
 	void set_arity( unsigned max_arity, unsigned goal_size ){
 	
@@ -117,7 +119,8 @@ protected:
 		novelty = (float) m_arity+1;
 		for(unsigned i = 1; i <= m_arity; i++){
 #ifdef DEBUG
-			std::cout << "search state node: "<<&(n)<<std::endl;
+			if ( m_verbose )
+				std::cout << "search state node: "<<&(n)<<std::endl;
 #endif 	
 			
 			bool new_covers;
@@ -126,7 +129,7 @@ protected:
 			else
 				new_covers = (n->partition() == n->parent()->partition()) ?  cover_tuples_op( n, i ) : cover_tuples( n, i );			
 #ifdef DEBUG
-			if(!new_covers)	
+			if(m_verbose && !new_covers)	
 				std::cout << "\t \t PRUNE! search node: "<<&(n)<<std::endl;
 #endif 	
 			if ( new_covers )
@@ -175,11 +178,13 @@ protected:
 
 				new_covers = true;
 #ifdef DEBUG
-				std::cout<<"\t";
-				for(unsigned i = 0; i < arity; i++){
-					std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+				if ( m_verbose ) {
+					std::cout<<"\t";
+					for(unsigned i = 0; i < arity; i++){
+						std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+					}
+					std::cout << std::endl;
 				}
-				std::cout << std::endl;
 #endif
 			}
 
@@ -283,11 +288,13 @@ protected:
 
 
 #ifdef DEBUG
-						std::cout<<"\t NEW!! : ";
-						for(unsigned i = 0; i < arity; i++){
-							std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+						if ( m_verbose ) {
+							std::cout<<"\t NEW!! : ";
+							for(unsigned i = 0; i < arity; i++){
+								std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+							}
+							std::cout << std::endl;
 						}
-						std::cout << std::endl;
 #endif
 					}
 
@@ -365,6 +372,7 @@ protected:
 	unsigned                m_num_fluents;
 	unsigned                m_max_memory_size_MB;
 	bool                    m_always_full_state;
+	bool			m_verbose;
 };
 
 

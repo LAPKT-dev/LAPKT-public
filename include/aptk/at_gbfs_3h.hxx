@@ -93,6 +93,7 @@ public:
 	Bool_Vec_Ptr*&           land_consumed()                 { return m_land_consumed; }
 	Bool_Vec_Ptr*&           land_unconsumed()                 { return m_land_unconsumed; }
 
+
         bool                  is_better( Node* n ) const{
 	        bool ret = false;
 		
@@ -213,7 +214,7 @@ public:
 
 	AT_GBFS_3H( 	const Search_Model& search_problem ) 
 	: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_pruned_B_count(0),
-	  m_dead_end_count(0), m_open_repl_count(0),m_B( infty ), m_time_budget(infty), m_lgm(NULL), m_max_h2n(infty), m_max_h3n(infty) {	
+	  m_dead_end_count(0), m_open_repl_count(0),m_B( infty ), m_time_budget(infty), m_lgm(NULL), m_max_h2n(infty), m_max_h3n(infty), m_verbose( true ) {	
 		m_first_h = new First_Heuristic( search_problem );
 		m_second_h = new Second_Heuristic( search_problem );
 		m_third_h = new Third_Heuristic( search_problem );
@@ -258,11 +259,13 @@ public:
 		
 
 		#ifdef DEBUG
-		std::cout << "Initial search node: ";
-		m_root->print(std::cout);
-		std::cout << std::endl;
-		m_root->state()->print( std::cout );
-		std::cout << std::endl;
+		if ( m_verbose ) {
+			std::cout << "Initial search node: ";
+			m_root->print(std::cout);
+			std::cout << std::endl;
+			m_root->state()->print( std::cout );
+			std::cout << std::endl;
+		}
 		#endif 
 		m_open.insert( m_root );
 
@@ -308,6 +311,8 @@ public:
 	Second_Heuristic&	h2()				{ return *m_second_h; }
 	Third_Heuristic&	h3()				{ return *m_third_h; }
 	
+	void			set_verbose( bool v ) 		{ m_verbose = v; }
+
 	void                    use_land_graph_manager( Landmarks_Graph_Manager* lgm ) { 
 		m_lgm = lgm; 
 		m_second_h->set_graph( m_lgm->graph() );
@@ -359,9 +364,10 @@ public:
 
 		if(candidate->h2n() < m_max_h2n ){
 			m_max_h2n = candidate->h2n();
-			std::cout << "--[" << m_max_h2n  <<" / " << m_max_h3n <<"]--" << std::endl;			
-			//std::cout << "[ n:" << candidate->h1n()  <<" - hl:" << candidate->h2n() <<" - #g:" << candidate->goals_unachieved() <<" - h_a:" << candidate->h3n() <<" - gn: " << candidate->gn()  <<"]" << std::endl;
-			
+			if ( m_verbose ) {
+				std::cout << "--[" << m_max_h2n  <<" / " << m_max_h3n <<"]--" << std::endl;			
+				//std::cout << "[ n:" << candidate->h1n()  <<" - hl:" << candidate->h2n() <<" - #g:" << candidate->goals_unachieved() <<" - h_a:" << candidate->h3n() <<" - gn: " << candidate->gn()  <<"]" << std::endl;
+			}
 		}
 
 	}
@@ -371,7 +377,8 @@ public:
 		m_third_h->eval( *(candidate->state()), candidate->h3n(), po  );
 		if(candidate->h3n() < m_max_h3n ){
 			m_max_h3n = candidate->h3n();
-			std::cout << "--[" << m_max_h2n  <<" / " << m_max_h3n <<"]--" << std::endl;			
+			if ( m_verbose ) 
+				std::cout << "--[" << m_max_h2n  <<" / " << m_max_h3n <<"]--" << std::endl;			
 			
 		}
 
@@ -421,11 +428,13 @@ public:
 
 		
 #ifdef DEBUG
-		std::cout << "Expanding:" << std::endl;
-		head->print(std::cout);
-		std::cout << std::endl;
-		head->state()->print( std::cout );
-		std::cout << std::endl;
+		if ( m_verbose ) {
+			std::cout << "Expanding:" << std::endl;
+			head->print(std::cout);
+			std::cout << std::endl;
+			head->state()->print( std::cout );
+			std::cout << std::endl;
+		}
 #endif
 		//static unsigned ha=0;
 		//static unsigned nonha=0;
@@ -449,12 +458,14 @@ public:
 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
 			
 			#ifdef DEBUG
-			std::cout << "Successor:" << std::endl;
-			n->print(std::cout);
-			std::cout << std::endl;
-			if(n->has_state())
-			  n->state()->print( std::cout );
-			std::cout << std::endl;
+			if ( m_verbose ) {
+				std::cout << "Successor:" << std::endl;
+				n->print(std::cout);
+				std::cout << std::endl;
+				if(n->has_state())
+				n->state()->print( std::cout );
+				std::cout << std::endl;
+			}
 			#endif
 				
 			if( is_helpful ){
@@ -463,7 +474,9 @@ public:
 				eval_po(n);				
 				if( n->h3n() == infty ){
 #ifdef DEBUG
-					std::cout << "h_add is infinite" << std::endl;
+					if ( m_verbose ) {
+						std::cout << "h_add is infinite" << std::endl;
+					}
 #endif
 					inc_dead_end();					
 					delete n;
@@ -485,7 +498,8 @@ public:
 
 						       
 #ifdef DEBUG
-			std::cout << "Inserted into OPEN" << std::endl;
+			if ( m_verbose )
+				std::cout << "Inserted into OPEN" << std::endl;
 #endif
 			open_node(n);	
 				
@@ -518,7 +532,8 @@ public:
 
 			if ( is_closed( head ) ) {
 				#ifdef DEBUG
-				std::cout << "Already in CLOSED" << std::endl;
+				if ( m_verbose )
+					std::cout << "Already in CLOSED" << std::endl;
 				#endif
 				delete head;
 				head = get_node();
@@ -587,6 +602,7 @@ protected:
 	Landmarks_Graph_Manager*                m_lgm;
 	float                                   m_max_h2n;
 	float                                   m_max_h3n;
+	bool					m_verbose;
 };
 
 }
