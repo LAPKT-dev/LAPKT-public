@@ -38,12 +38,14 @@ template <typename Search_Model, typename Search_Node >
 class Novelty : public Heuristic<State> {
 public:
 
-	Novelty( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 600 ) 
-		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB) {
+	Novelty( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 2048 ) 
+		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB), m_verbose( true ) {
 		
 		set_arity(max_arity);
 		
 	}
+
+	void	set_verbose( bool v ) { m_verbose = v; }
 
 	virtual ~Novelty() {
 	}
@@ -66,12 +68,13 @@ public:
 		m_num_fluents = m_strips_model.num_fluents();
 
 		float size_novelty = ( (float) pow(m_num_fluents,m_arity) / 1024000.) * sizeof(Search_Node*);
-		std::cout << "Try allocate size: "<< size_novelty<<" MB"<<std::endl;
+		if ( m_verbose )
+			std::cout << "Try allocate size: "<< size_novelty<<" MB"<<std::endl;
 		if(size_novelty > m_max_memory_size_MB){
 			m_arity = 1;
 			size_novelty =  ( (float) pow(m_num_fluents,m_arity) / 1024000.) * sizeof(Search_Node*);
-
-			std::cout<<"EXCEDED, m_arity downgraded to 1 --> size: "<< size_novelty<<" MB"<<std::endl;
+			if ( m_verbose )
+				std::cout<<"EXCEDED, m_arity downgraded to 1 --> size: "<< size_novelty<<" MB"<<std::endl;
 		}
 
 		for(unsigned k = 0; k < m_arity; k++)
@@ -117,12 +120,13 @@ protected:
 		for(unsigned i = 1; i <= m_arity; i++){
 
 #ifdef DEBUG
-			std::cout << "search node: "<< n <<std::endl;
+			if ( m_verbose )
+				std::cout << "search node: "<< n <<std::endl;
 #endif 	
 			bool new_covers = n->action() == no_op ? cover_tuples( n, i ) : cover_tuples_op( n, i );
 			
 #ifdef DEBUG
-			if(!new_covers)	
+			if(m_verbose && !new_covers)	
 				std::cout << "\t \t PRUNE! search node: "<< n <<std::endl;
 #endif 	
 			if ( new_covers )
@@ -222,25 +226,29 @@ protected:
 
 
 #ifdef DEBUG
-						std::cout<<"\t NEW!! : ";
-						for(unsigned i = 0; i < arity; i++){
-							std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+						if ( m_verbose ) {
+							std::cout<<"\t NEW!! : ";
+							for(unsigned i = 0; i < arity; i++){
+								std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+							}
+							std::cout << " by state: "<< m_nodes_tuples[ tuple_idx ] << "" ;
+							std::cout << std::endl;
 						}
-						std::cout << " by state: "<< m_nodes_tuples[ tuple_idx ] << "" ;
-						std::cout << std::endl;
 #endif
 					}
 					else
 						{		
 #ifdef DEBUG		
-							std::cout<<"\t TUPLE COVERED: ";
-							for(unsigned i = 0; i < arity; i++){
-								std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+							if ( m_verbose ) {
+								std::cout<<"\t TUPLE COVERED: ";
+								for(unsigned i = 0; i < arity; i++){
+									std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+								}
+					
+								std::cout << " by state: "<< m_nodes_tuples[ tuple_idx ] << "" <<std::flush;
+									
+								std::cout<< std::endl;
 							}
-				
-							std::cout << " by state: "<< m_nodes_tuples[ tuple_idx ] << "" <<std::flush;
-								
-							std::cout<< std::endl;
 #endif
 						}
 
@@ -270,7 +278,8 @@ protected:
 
 
 #ifdef DEBUG
-		std::cout<< n << " covers: " << std::endl;
+		if ( m_verbose )
+			std::cout<< n << " covers: " << std::endl;
 #endif
 
 		for( unsigned idx = 0; idx < n_combinations; idx++ ){
@@ -297,11 +306,13 @@ protected:
 
 				new_covers = true;
 #ifdef DEBUG
-				std::cout<<"\t";
-				for(unsigned i = 0; i < arity; i++){
-					std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+				if ( m_verbose ) {
+					std::cout<<"\t";
+					for(unsigned i = 0; i < arity; i++){
+						std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
+					}
+					std::cout << std::endl;
 				}
-				std::cout << std::endl;
 #endif
 			}
 
@@ -367,6 +378,7 @@ protected:
 	unsigned long                 m_num_tuples;
 	unsigned                      m_num_fluents;
 	unsigned                      m_max_memory_size_MB;
+	bool			      m_verbose;
 };
 
 
