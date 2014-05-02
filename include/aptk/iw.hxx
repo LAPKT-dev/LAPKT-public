@@ -46,13 +46,16 @@ public:
 	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
 	IW( 	const Search_Model& search_problem ) 
-	: BRFS< Search_Model >(search_problem), m_pruned_B_count(0), m_B( infty ) {	   
+	: BRFS< Search_Model >(search_problem), m_pruned_B_count(0), m_B( infty ), m_verbose( true ) {	   
 		m_novelty = new Abstract_Novelty( search_problem );
 	}
 
 	virtual ~IW() {
 		delete m_novelty;
 	}
+
+	void	set_verbose( bool v ) { m_verbose = v; }
+	bool	verbose() const { return m_verbose; }
 
 	void	start(State*s = NULL) {
 
@@ -69,14 +72,17 @@ public:
 		m_novelty->init();
 		
 		if ( prune( this->m_root ) )  {
-			std::cout<<"Initial State pruned! No Solution found."<<std::endl;
+			if ( verbose() ) 
+				std::cout<<"Initial State pruned! No Solution found."<<std::endl;
 			return;
 		}
 	
 #ifdef DEBUG
-		std::cout << "Initial search node: ";
-		this->m_root->print(std::cout);
-		std::cout << std::endl;
+		if ( verbose() ) {
+			std::cout << "Initial search node: ";
+			this->m_root->print(std::cout);
+			std::cout << std::endl;
+		}
 #endif 
 		this->m_open.push( this->m_root );
 		this->m_open_hash.put( this->m_root );
@@ -146,28 +152,32 @@ protected:
 			else{
 				if( prune( n ) ){
 					#ifdef DEBUG
-					std::cout << std::endl;
-					std::cout << "PRUNED State: ";
-					if( n->has_state() )
-						std::cout << n->state();
-					std::cout << " " << n->parent()->state() << " " << n->gn() << " ";
-					if( n->has_state() )
-						n->state()->print( std::cout );
-					std::cout << this->problem().task().actions()[ n->action() ]->signature() << std::endl;
+					if ( verbose() ) {
+						std::cout << std::endl;
+						std::cout << "PRUNED State: ";
+						if( n->has_state() )
+							std::cout << n->state();
+						std::cout << " " << n->parent()->state() << " " << n->gn() << " ";
+						if( n->has_state() )
+							n->state()->print( std::cout );
+						std::cout << this->problem().task().actions()[ n->action() ]->signature() << std::endl;
+					}
 					#endif
 					delete n;
 					continue;
 				}
 
 				#ifdef DEBUG
-				std::cout << std::endl;
-				std::cout << "State: ";
-				if( n->has_state() )
-					std::cout << n->state();
-				std::cout << " " << n->parent()->state() << " " << n->gn() << " ";
-				if( n->has_state() )
-					n->state()->print( std::cout );
-				std::cout << this->problem().task().actions()[ n->action() ]->signature() << std::endl;
+				if ( verbose() ) {
+					std::cout << std::endl;
+					std::cout << "State: ";
+					if( n->has_state() )
+						std::cout << n->state();
+					std::cout << " " << n->parent()->state() << " " << n->gn() << " ";
+					if( n->has_state() )
+						n->state()->print( std::cout );
+					std::cout << this->problem().task().actions()[ n->action() ]->signature() << std::endl;
+				}
 				#endif			
 
 				this->open_node(n);				
@@ -187,6 +197,7 @@ protected:
 	Abstract_Novelty*      			m_novelty;
 	unsigned				m_pruned_B_count;
 	float					m_B;
+	bool					m_verbose;
 };
 
 }

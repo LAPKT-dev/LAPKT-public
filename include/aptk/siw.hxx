@@ -63,7 +63,8 @@ public:
 		this->m_goals_achieved.clear();
 		this->m_goal_candidates.clear();
 
-		std::cout << std::endl << "Caption\n{#goals, #UNnachieved,  #Achieved} -> IW(max_w)"<<std::endl;
+		if ( this->verbose() )
+			std::cout << std::endl << "Caption\n{#goals, #UNnachieved,  #Achieved} -> IW(max_w)"<<std::endl;
 
 		if( m_goal_agenda ){
 			m_goal_agenda->get_leafs( this->m_goal_candidates );
@@ -74,8 +75,8 @@ public:
 		}
 
 		do{
-			
-			std::cout << std::endl << "{" << gsize << "/" << this->m_goal_candidates.size() << "/" << this->m_goals_achieved.size() << "}:IW(" << this->bound() << ") -> ";
+			if ( this->verbose() )	
+				std::cout << std::endl << "{" << gsize << "/" << this->m_goal_candidates.size() << "/" << this->m_goals_achieved.size() << "}:IW(" << this->bound() << ") -> ";
 			end = this->do_search();		
 			m_pruned_sum_B_count += this->pruned_by_bound();
 
