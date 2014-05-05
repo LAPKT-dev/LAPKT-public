@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <strips_state.hxx>
 #include <strips_prob.hxx>
 #include <vector>
+#include <list>
 #include <iosfwd>
 
 namespace aptk {
@@ -145,53 +146,29 @@ public:
 	}
 
 	void compute_edeletes( STRIPS_Problem& prob ){
-
 		initialize( prob.init() );
 		compute_mutexes_only();
+		extract_edeletes( prob );
 
-
-		for ( unsigned p = 0 ; p < m_strips_model.num_fluents(); p++ ){
-			for ( unsigned a = 0; a < m_strips_model.num_actions(); a++ ){
-				bool is_edelete = false;
-				Action& action = *(prob.actions()[a]);
-
-				for ( unsigned i = 0; i < action.add_vec().size(); i++ ){
-					unsigned q = action.add_vec()[i];
-					if ( value(p,q) == infty ){
-						is_edelete = true;
-						prob.actions()[a]->edel_vec().push_back( p );					
-						prob.actions()[a]->edel_set().set( p );
-						prob.actions_edeleting( p ).push_back( (const Action*) &action );
-						break;
-					}
-				}
-
-				if ( is_edelete ) continue;
-
-				for ( unsigned i = 0; i < action.prec_vec().size(); i++ ){
-					unsigned r = action.prec_vec()[i];
-					if ( !action.add_set().isset(p) && value( p, r ) == infty ){
-						prob.actions()[a]->edel_vec().push_back( p );
-						prob.actions()[a]->edel_set().set( p );
-						prob.actions_edeleting( p ).push_back( (const Action*) &action );
-						break;
-					}
-				}
-
-				if ( !action.edel_set().isset(p) && action.del_set().isset(p) ){
-					prob.actions()[a]->edel_vec().push_back( p );
-					prob.actions()[a]->edel_set().set( p );
-					prob.actions_edeleting( p ).push_back( (const Action*) &action );
-				}
-
-			}
-		}
 		
 #ifdef DEBUG
 		print_values(std::cout);
 		prob.print_actions(std::cout);
 #endif
 	}
+
+	void compute_edeletes_aij( STRIPS_Problem& prob ){
+		compute_mutexes_only_aij();
+		extract_edeletes( prob );
+
+		
+#ifdef DEBUG
+		print_values(std::cout);
+		prob.print_actions(std::cout);
+#endif
+	}
+
+
 	void 	goal_mutex_closure( STRIPS_Problem& prob ){
 		unsigned fsize = prob.num_fluents();
 		Fluent_Vec new_goal;
@@ -231,7 +208,135 @@ public:
 		
 	}
 
+	void
+	compute_mutexes_only_aij() {
+		for ( unsigned k = 0; k < m_values.size(); k++ )
+			m_values[k] = 0.0f;
+		typedef std::pair< unsigned, unsigned > Fluent_Pair;
+		typedef std::list< Fluent_Pair > Pair_List;
+		Pair_List M;
+
+		// M_A set: pairs p,q s.t. there is at least one a where Add(a) = p and Del(a) = q
+
+		for ( auto a : m_strips_model.actions() ) 
+			for ( auto p : a->add_vec() )
+				for ( auto q : a->del_vec() ) {
+					if ( value(p,q) == infty ) continue;
+					M.push_back( Fluent_Pair(p,q) );
+					value(p,q) = infty;
+				}
+		
+		Pair_List M_B;
+		// M_B set: 
+		
+		for ( auto P : M ) {
+			for ( auto a : m_strips_model.actions() ) {
+				unsigned p = P.first;
+				unsigned q = P.second;
+				if ( !a->asserts(p) ) continue;
+				for ( auto r : a->prec_vec() ) {
+					if ( value(r,q) == infty ) continue;
+					M_B.push_back( Fluent_Pair(r,q) );
+					value(r, q) = infty;
+				}
+			}
+		}
+
+		for ( auto P : M_B )
+			M.push_back( P );
+
+
+		bool changed;
+	
+		do {
+			changed = false;
+			
+			Pair_List M2;
+
+			for ( auto P : M ) {
+				unsigned p = P.first;
+				unsigned q = P.second;
+				if ( m_strips_model.is_in_init( p ) && m_strips_model.is_in_init(q) ) {
+					value(p,q) = 0.0f;
+					changed = true;
+					continue;
+				} 
+
+				bool needs_to_be_removed = false;
+				for ( auto adding : m_strips_model.actions_adding( p ) ) {
+					bool is_deleting = adding->retracts(q);
+					bool is_not_adding = !adding->asserts(q);
+					if ( !is_deleting && !is_not_adding ) {
+						needs_to_be_removed = true;
+						break;
+					}
+					bool r_q_in_M = false;
+					for ( auto r : adding->prec_vec() ) {
+						if ( value(r,q) == infty ) {
+							r_q_in_M = true;
+							break;
+						}
+					}
+					if ( !r_q_in_M ) {
+						needs_to_be_removed = true;
+						break;
+					}
+				}
+				if ( needs_to_be_removed ) {
+					value(p,q) = 0.0f;
+					changed = true;
+				}
+				else {
+					M2.push_back( P );
+				}
+			}
+			M = M2;
+ 
+		} while (changed);
+
+	}
+
 protected:
+
+	void extract_edeletes( STRIPS_Problem& prob ){
+		for ( unsigned p = 0 ; p < m_strips_model.num_fluents(); p++ ){
+			for ( unsigned a = 0; a < m_strips_model.num_actions(); a++ ){
+				bool is_edelete = false;
+				Action& action = *(prob.actions()[a]);
+
+				for ( unsigned i = 0; i < action.add_vec().size(); i++ ){
+					unsigned q = action.add_vec()[i];
+					if ( value(p,q) == infty ){
+						is_edelete = true;
+						prob.actions()[a]->edel_vec().push_back( p );					
+						prob.actions()[a]->edel_set().set( p );
+						prob.actions_edeleting( p ).push_back( (const Action*) &action );
+						break;
+					}
+				}
+
+				if ( is_edelete ) continue;
+
+				for ( unsigned i = 0; i < action.prec_vec().size(); i++ ){
+					unsigned r = action.prec_vec()[i];
+					if ( !action.add_set().isset(p) && value( p, r ) == infty ){
+						prob.actions()[a]->edel_vec().push_back( p );
+						prob.actions()[a]->edel_set().set( p );
+						prob.actions_edeleting( p ).push_back( (const Action*) &action );
+						break;
+					}
+				}
+
+				if ( !action.edel_set().isset(p) && action.del_set().isset(p) ){
+					prob.actions()[a]->edel_vec().push_back( p );
+					prob.actions()[a]->edel_set().set( p );
+					prob.actions_edeleting( p ).push_back( (const Action*) &action );
+				}
+
+			}
+		}
+	
+	}
 
 	void initialize( const State& s ) {
 		for ( unsigned k = 0; k < m_values.size(); k++ )
