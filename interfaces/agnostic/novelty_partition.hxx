@@ -39,7 +39,7 @@ class Novelty_Partition : public Heuristic<State>{
 public:
 
 
-	Novelty_Partition( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 600 ) 
+	Novelty_Partition( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 2048 ) 
 		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB), m_always_full_state(true), m_verbose( true ) {
 		
 		set_arity(max_arity, 1);
