@@ -120,6 +120,7 @@ public:
 			}
 			float min_cond_h = infty;
 			unsigned best_eff_index = no_such_index;
+			Fluent_Vec tmp_cond;
 			for ( unsigned k = 0; k < a->ceff_vec().size(); k++ ) {
 				if ( !a->ceff_vec()[k]->asserts( p->index() ) ) continue;	
 				float h_cond;
@@ -127,10 +128,13 @@ public:
 				if ( h_cond < min_cond_h ) {
 					min_cond_h = h_cond;
 					best_eff_index = k;
+					tmp_cond = a->ceff_vec()[k]->prec_vec();
+					for ( auto p : a->prec_vec() )
+						tmp_cond.push_back( p );
 				}
 			}
 			assert( best_eff_index != no_such_index );
-			if ( !extract_best_supporters_for( a->ceff_vec()[ best_eff_index ]->prec_vec(), relaxed_plan ) )
+			if ( !extract_best_supporters_for( tmp_cond, relaxed_plan ) )
 			{
 				h_val = infty;
 				assert( false );
