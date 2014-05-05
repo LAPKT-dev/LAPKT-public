@@ -100,6 +100,7 @@ public:
 
 		}	
 	
+		m_rp_precs.reset();
 		while ( !actions_pending().empty() ) {
 			const Action* a = actions_pending().front();
 			const Fluent* p = fluents_pending().front();
@@ -111,6 +112,8 @@ public:
 			std::cout << "into the relaxed plan" << std::endl;
 			#endif
 			if ( a->asserts( p->index() ) ) { // fluent asserted by action main effect
+				for ( auto q : a->prec_vec() )
+					m_rp_precs.set(q);
 				if ( !extract_best_supporters_for( a->prec_vec(), relaxed_plan ) ) {
 					h_val = infty;
 					assert( false );
@@ -134,6 +137,8 @@ public:
 				}
 			}
 			assert( best_eff_index != no_such_index );
+			for ( auto q : tmp_cond )
+				m_rp_precs.set(q);
 			if ( !extract_best_supporters_for( tmp_cond, relaxed_plan ) )
 			{
 				h_val = infty;
@@ -149,7 +154,6 @@ public:
 		if(!m_ignore_rp_h_value)
 			h_val = 0.0f;
 	
-		m_rp_precs.reset();
 		
 		for ( unsigned k = 0; k < G.size(); k++ ) 
 			m_rp_precs.set(G[k]);
@@ -160,13 +164,10 @@ public:
 		for ( unsigned k = 0; k < relaxed_plan.size(); k++ ) {
 			if(!m_ignore_rp_h_value)
 				h_val += ( cost_opt == RP_Cost_Function::Ignore_Costs ? 1.0f : relaxed_plan[k]->cost() );
-			const Fluent_Vec& precs = relaxed_plan[k]->prec_vec();
+			//const Fluent_Vec& precs = relaxed_plan[k]->prec_vec();
 			#ifdef DEBUG_RP_HEURISTIC
 			std::cout << "\t "<< k <<": " << relaxed_plan[k]->signature() << std::endl;
 			#endif
-			for ( Fluent_Vec::const_iterator it = precs.begin();
-				it != precs.end(); it++ )
-				m_rp_precs.set(*it);
 		}
 	
 		std::vector< aptk::Action_Idx > app_set;
@@ -229,6 +230,7 @@ protected:
 				std::cerr << "No best supporter found for fluent ";
 				std::cerr << m_strips_model.fluents()[C[k]]->signature() << std::endl;
 				std::cerr << "Value = " << m_base_heuristic.value( C[k] ) << std::endl;
+				exit(1);
 				return false;
 			}
 			if ( actions_seen().isset( sup->index() ) ) continue;
