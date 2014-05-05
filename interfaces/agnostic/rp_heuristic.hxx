@@ -58,7 +58,12 @@ public:
 	void	set_one_HA_per_fluent( bool v) { m_one_ha_per_fluent = v; }
 	bool	one_HA_per_fluent() const { return m_one_ha_per_fluent; }
 
-  virtual void compute( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>* copy_rel_plan = NULL, Fluent_Vec* goals = NULL ) {
+	bool	is_relaxed_plan_relevant( unsigned p ) const {
+		return m_rp_precs.isset(p);
+	}
+
+  	virtual void 
+	compute( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>* copy_rel_plan = NULL, Fluent_Vec* goals = NULL ) {
 
 		m_base_heuristic.eval( s, h_val );
 		if ( h_val == infty )
@@ -294,6 +299,8 @@ public:
 	void ignore_rp_h_value(bool b) {m_plan_extractor.ignore_rp_h_value(b);}
 
 	void set_one_HA_per_fluent( bool b ) { m_plan_extractor.set_one_HA_per_fluent(b); }
+	
+	bool is_relaxed_plan_relevant( unsigned p ) { return m_plan_extractor.is_relaxed_plan_relevant(p); }
 
 protected:
 
