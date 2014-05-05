@@ -141,7 +141,7 @@ public:
 	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
 	RP_IW( 	const Search_Model& search_problem ) 
-		: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_cl_count(0), m_max_depth(0), m_pruned_B_count(0), m_B( infty ), m_use_relplan(true), m_goals(NULL) {	   
+		: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_cl_count(0), m_max_depth(0), m_pruned_B_count(0), m_B( infty ), m_use_relplan(true), m_goals(NULL), m_verbose(true) {	   
 		m_novelty = new Abstract_Novelty( search_problem );
 		m_novelty->set_full_state_computation( false );
 		m_rp_h = new RP_Heuristic( search_problem );
@@ -150,6 +150,9 @@ public:
 
 	}
 
+	bool	verbose( ) const { return m_verbose; }
+	void 	set_verbose( bool v ) { m_verbose = v; }
+	
 	virtual ~RP_IW() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
 			i != m_closed.end(); i++ ) {
@@ -206,7 +209,14 @@ public:
 		else
 			m_rp_h->eval( *s, h_value, po, rel_plan  );
  		
+		for ( unsigned p = 0; p < this->problem().task().num_fluents(); p++ ) {
+			if (!m_rp_h->is_relaxed_plan_relevant(p)) continue;
+			m_rp_fl_vec.push_back( p );
+			m_rp_fl_set.set( p );
+		}
+
 		//std::cout << "rel_plan size: "<< rel_plan.size() << std::endl;
+		/*
 		for(std::vector<Action_Idx>::iterator it_a = rel_plan.begin(); 
 		    it_a != rel_plan.end(); it_a++ ){
 			const Action* a = this->problem().task().actions()[*it_a];
@@ -238,7 +248,7 @@ public:
 				}
 			}		       
 		}
-
+		*/
 		// if( m_rp_fl_vec.size() == this->problem().task().num_fluents() ){
 		// 	m_rp_fl_vec.clear();
 		// 	m_rp_fl_set.reset();
@@ -572,6 +582,7 @@ protected:
 	  float					m_B;
 	  bool                                  m_use_relplan;
   	  Fluent_Vec*                           m_goals;
+	  bool					m_verbose;
 };
 
 }
