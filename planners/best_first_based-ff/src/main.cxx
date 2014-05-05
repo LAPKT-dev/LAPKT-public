@@ -155,7 +155,7 @@ float do_search(  Fwd_Search_Problem& search_prob, float& cost,std::ofstream& de
 
 		float total_time = aptk::time_used() - ref;
 		std::cout << "Total time: " << total_time << std::endl;
-		std::cout << "Nodes generated during search: " << engine.generated() << std::endl;
+		std::cout << "Nodes generated during search: " << engine.generated() << " speed: " << engine.generated()/total_time << " nodes/sec" << std::endl;
 		std::cout << "Nodes expanded during search: " << engine.expanded() << std::endl;
 		std::cout << "Nodes pruned by bound: " << engine.pruned_by_bound() << std::endl;
 		std::cout  << "Dead-end nodes: " << engine.dead_ends() << std::endl;
