@@ -104,10 +104,9 @@ bool do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, s
 	    }
 	    std::cout << std::endl;
 
-	} else {
-	    std::cout << "\n;; NOT "<< bound <<"-REACHABLE ;;" << std::endl;
+	} else
 	    return false;
-	}
+	
 
  	return true;
 }
@@ -217,6 +216,7 @@ int main( int argc, char** argv ) {
 		original_goal.push_back(g);
 	    
 	    for( auto g : original_goal ){
+		float ref = aptk::time_used();
 		aptk::Fluent_Vec atomic_goal;
 		atomic_goal.push_back(g);
 		STRIPS_Problem::set_goal( prob, atomic_goal );
@@ -226,6 +226,7 @@ int main( int argc, char** argv ) {
 
 		bool solved = false;
 		int b=0;
+
 		do{
 		    b++;
 		    solved = do_search( iw_engine, prob, b, plan_stream, details );
@@ -239,7 +240,20 @@ int main( int argc, char** argv ) {
 		std::cout << "h1: "<< h1_val << std::endl;
 		std::cout << "h2: "<< h2_val << std::endl;
 		if(!solved){
+		    float total_time = aptk::time_used() - ref;
+		    details << "Total time: " << total_time << std::endl;
+		    details << "Nodes generated during search: " << iw_engine.generated() << std::endl;
+		    details << "Nodes expanded during search: " << iw_engine.expanded() << std::endl;
+		    details << "Nodes pruned by bound: " << iw_engine.pruned_by_bound() << std::endl;
+		    details << "Effective width: "<<iw_bound+1 << std::endl;
 		    details << ";; NOT "<< iw_bound <<"-REACHABLE ;;" << std::endl;
+
+		    std::cout << "\nTotal time: " << total_time << std::endl;
+		    std::cout << "Nodes generated during search: " << iw_engine.generated() << std::endl;
+		    std::cout << "Nodes expanded during search: " << iw_engine.expanded() << std::endl;
+		    std::cout << "Nodes pruned by bound: " << iw_engine.pruned_by_bound() << std::endl;
+		    std::cout << "Effective width: "<<iw_bound+1 << std::endl;
+		    std::cout << ";; NOT "<< iw_bound <<"-REACHABLE ;;" << std::endl;
 		}
 		std::cout << "\n****\n";
 	    }

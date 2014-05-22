@@ -1,6 +1,6 @@
 
 domains_06 = ['openstacks', 'pathways', 'pipesworld', 'rovers', 'storage', 'TPP', 'trucks']
-domains_11 = ['barman', 'elevators', 'floortile', 'nomystery','openstacks', 'parcprinter', 'parking', 'pegsol', 'scanalyzer', 'sokoban', 'tidybot', 'transport', 'visitall', 'woodworking']
+domains_11 = ['blocksworld','barman', 'elevators', 'floortile', 'nomystery','openstacks', 'parcprinter', 'parking', 'pegsol', 'scanalyzer', 'sokoban', 'tidybot', 'transport', 'visitall', 'woodworking']
 
 # Domain and problem files
 benchmark_06 = {}
@@ -49,10 +49,22 @@ for i in range(10, 31):
     benchmark_06['trucks'].append(('domain.pddl', "problems/p%d.pddl" % i))
 
 
+benchmark_11['blocksworld']=[]
+for i in range(1, 10):
+    benchmark_11['blocksworld'].append(('domain.pddl', "instances/blocksaips0%d.pddl" % i))
+
+for i in range(10, 51):
+    benchmark_11['blocksworld'].append(('domain.pddl', "instances/blocksaips%d.pddl" % i))
+
+benchmark_11['blocksworld'].append(('domain.pddl', "instances/widthH^m.pddl"))
+benchmark_11['blocksworld'].append(('domain.pddl', "instances/HectorWidthHint.pddl"))
+benchmark_11['blocksworld'].append(('domain.pddl', "instances/susman.pddl"))
+
 
 
 prob_list = ['pfile10-040.pddl', 'pfile07-028.pddl', 'pfile06-024.pddl', 'pfile06-021.pddl', 'pfile09-034.pddl', 'pfile09-035.pddl', 'pfile07-026.pddl', 'pfile08-029.pddl', 'pfile08-030.pddl', 'pfile09-036.pddl', 'pfile08-031.pddl', 'pfile10-038.pddl', 'pfile10-037.pddl', 'pfile08-032.pddl', 'pfile06-022.pddl', 'pfile06-023.pddl', 'pfile07-027.pddl', 'pfile09-033.pddl', 'pfile10-039.pddl', 'pfile07-025.pddl']
 benchmark_11['barman'] = [('domain.pddl', prob) for prob in prob_list]
+
 
 prob_list = ['p06.pddl', 'p13.pddl', 'p15.pddl', 'p09.pddl', 'p17.pddl', 'p11.pddl', 'p12.pddl', 'p02.pddl', 'p14.pddl', 'p05.pddl', 'p08.pddl', 'p10.pddl', 'p19.pddl', 'p04.pddl', 'p03.pddl', 'p07.pddl', 'p16.pddl', 'p18.pddl', 'p20.pddl', 'p01.pddl']
 benchmark_11['elevators'] = [('domain.pddl', prob) for prob in prob_list]

@@ -20,10 +20,10 @@ from domains import *
 
 USAGE = """
  Usage:
-    python run.py profile <executable> <ipc directory> [<domain pddl> <problem pddl>]
-    python run.py benchmark <executable> <ipc directory> <results directory> [<domain>]
-    python run.py compare <directories with , separated> <ipc directory>
-    python run.py clean
+    python run_iw_single_goals.py profile <executable> <ipc directory> [<domain pddl> <problem pddl>]
+    python run_iw_single_goals.py benchmark <executable> <ipc directory> <results directory> <max_bound> [<domain>]
+    python run_iw_single_goals.py compare <directories with , separated> <ipc directory>
+    python run_iw_single_goals.py clean
     """
 
 # Set the time limit (in seconds)
@@ -59,7 +59,7 @@ def profile_domain(planner, dom, domain, problem):
     cmd("rm %s" % callfile)
     
 
-def benchmark_domain(planner, dom):
+def benchmark_domain(planner, bound, dom):
     
     from krrt.utils import get_value, match_value, run_experiment, write_file
 
@@ -68,7 +68,7 @@ def benchmark_domain(planner, dom):
 
     
     if TYPE == OLD:
-        domprob_args = ["--domain %s/%s/%s --problem %s/%s/%s" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]
+        domprob_args = [" --bound %s --domain %s/%s/%s --problem %s/%s/%s" % (bound,ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]
     elif TYPE == NEW:
         domprob_args = ["%s/%s/%s %s/%s/%s o/dev/null" % (ipc,dom,domain,ipc,dom,problem) for (domain, problem) in benchmark[dom]]
     else:
@@ -76,6 +76,7 @@ def benchmark_domain(planner, dom):
 
     if os.path.exists(results_directory) is False:
         os.mkdir(results_directory)
+
 
     results = run_experiment(base_directory=".",
                              base_command=planner,
@@ -104,8 +105,9 @@ def benchmark_domain(planner, dom):
             outfile = "TMP_OUTPUT"
         else:
             outfile = res.output_file
-
-        os.system("cp %s %s"%(outfile, outfile+dom))
+        
+        path, filename = os.path.split(outfile)
+        os.system("cp %s %s"%(outfile, path+"/"+dom+"_"+prob+".log"))
 
         if res.timed_out:
             data.append("%s,time,-1,-1,-1,-1" % prob)
@@ -117,68 +119,62 @@ def benchmark_domain(planner, dom):
             data.append("%s,mem,-1,-1,-1,-1" % prob)
         elif match_value("%s.err" % res.output_file, '.*Segmentation fault.*'):
             data.append("%s,seg,-1,-1,-1,-1" % prob)
-        else:
-            if match_value(outfile, '.*Effective Width during search*'):                
-                lines = open(outfile)
+        
+        lines = open(outfile)
+        quality = 0
+        generated = 0
+        expanded = 0
+        pruned = 0
+        width = 0
+        h2=0
+        h1=0
+        time=0.0
+        plan=""
+        goal=""
+        for line in lines:
+            if 'Plan found with cost:' in line:
+                quality = int(line.split(':')[-1])
+            if 'Nodes generated during search:' in line:
+                generated = int(line.split(':')[-1])
+            if 'Nodes expanded during search:' in line:
+                expanded = int(line.split(':')[-1])
+            if 'Nodes pruned by bound:' in line:
+                pruned = int(line.split(':')[-1])
+            if 'Effective width:' in line:
+                width = int(line.split(':')[-1])
+            if 'Total time:' in line:
+                time = float(line.split(':')[-1])    
+            if 'h1:' in line:
+                h1 = int(line.split(':')[-1])
+            if 'h2:' in line:
+                h2 = int(line.split(':')[-1])    
+            if 'plan:' in line:
+                plan = (line.split(':')[-1]).strip()
+            if 'Goal:' in line:
+                goal = (line.split(':')[-1]).strip()
+            if '****' in line:    
+                data.append("%s,%s,ok,%f,%d,%d,%d,%d,%d,%d,%d,%s" % (prob, goal, time, generated, pruned, expanded, width, quality,h1,h2,plan))
                 quality = 0
                 generated = 0
                 expanded = 0
+                pruned = 0
                 width = 0
                 h2=0
                 h1=0
                 time=0.0
                 plan=""
                 goal=""
-                for line in lines:
-                    if 'Plan found with cost:' in line:
-                        quality = int(line.split(':')[-1])
-                    if 'Nodes generated during search:' in line:
-                        generated = int(line.split(':')[-1])
-                    if 'Nodes expanded during search:' in line:
-                        expanded = int(line.split(':')[-1])
-                    if 'Effective width:' in line:
-                        width = int(line.split(':')[-1])
-                    if 'Total time:' in line:
-                        time = float(line.split(':')[-1])    
-                    if 'h1:' in line:
-                        h1 = int(line.split(':')[-1])
-                    if 'h2:' in line:
-                        h2 = int(line.split(':')[-1])    
-                    if 'plan:' in line:
-                        plan = (line.split(':')[-1])
-                    if 'Goal:' in line:
-                        goal = (line.split(':')[-1])
-                    if '****' in line:    
-                        data.append("%s,%s,ok,%f,%d,%d,%d,%d,%s" % (prob, goal, time, generated, expanded, width, quality,h1,h2,plan))
-                
-            elif match_value(outfile, '.*Plan found with cost: ([0-9]+).*'):
-                quality = get_value(outfile, '.*Plan found with cost: ([0-9]+).*', int)
-                generated = get_value(outfile, '.*Nodes generated during search: ([0-9]+).*', int)
-                expanded = get_value(outfile, '.*Nodes expanded during search: ([0-9]+).*', int)
-                backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
-                data.append("%s,ok,%f,%d,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded, backtracks))
-            elif match_value(outfile, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*'):
-                quality = get_value(outfile, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*', float)
-                generated = get_value(outfile, '.*Generated: ([0-9]+).*', int)
-                expanded = get_value(outfile, '.*Expanded: ([0-9]+).*', int)
-                backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
-                data.append("%s,ok,%f,%d,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded, backtracks))
-            elif match_value(outfile, '.*NOT I-REACHABLE.*'):
-                backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
-                data.append("%s,not-i,%f,-1,-1,-1,%d" % (prob, res.runtime, backtracks))
-            else:
-                print "Error with %s" % prob
-                data.append("%s,err,%f,-1,-1,-1" % (prob, res.runtime))
 
-        if 'old-' in planner:
-            cmd("rm TMP_OUTPUT")
-
+            
+        os.system("rm "+res.output_file)
+        os.system("rm %s.err"%res.output_file)
     data.sort()
     
-    data = ['problem,status,runtime,quality,generated,expanded'] + data
+    data = ['problem,status,goal,runtime,generated,pruned,expanded,width,quality,h1,h2,plan'] + data
     
     
     write_file("%s/%s.csv" %( results_directory, dom), data)
+    
     
     #cmd("rm -rf %s"%results_directoy)
     
@@ -316,15 +312,13 @@ elif 'benchmark' == argv[1]:
     
     results_directory = argv[4]
     ipc = argv[3]
-        
-    if len(argv) < 6:
-        #domains = {'transport','parking', 'sokoban'}
+    bound = argv[5]
+
+    if len(argv) < 7:
         for dom in domains:
-            #if dom in {'floortile'}:
-            #    continue            
-            benchmark_domain(argv[2], dom)
+            benchmark_domain(argv[2], bound , dom)
     else:
-        benchmark_domain(argv[2], argv[5])
+        benchmark_domain(argv[2], argv[6])
 
 
 elif 'compare' == argv[1]:
