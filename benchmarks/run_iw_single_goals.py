@@ -15,6 +15,7 @@
 from os import system as cmd
 from sys import argv
 import glob, os, sys
+import csv
 
 from domains import *
 
@@ -170,7 +171,7 @@ def benchmark_domain(planner, bound, dom):
         os.system("rm %s.err"%res.output_file)
     data.sort()
     
-    data = ['problem,status,goal,runtime,generated,pruned,expanded,width,quality,h1,h2,plan'] + data
+    data = ['problem,goal,status,runtime,generated,pruned,expanded,width,quality,h1,h2,plan'] + data
     
     
     write_file("%s/%s.csv" %( results_directory, dom), data)
@@ -260,6 +261,137 @@ def compare_results(dirs):
     #print "Time per node generated: %.6f -vs- %.6f" % ((float(time_total[0]) / float(max(1,nodes_generated[0]))), (float(time_total[1]) / float(max(1,nodes_generated[1]))))
     #print "Time per node expanded: %.6f -vs- %.6f" % ((float(time_total[0]) / float(max(1,nodes_expanded[0]))), (float(time_total[1]) / float(max(1,nodes_expanded[1]))))
 
+def analyze_results(direc):
+    
+    print "Analyzing IW results for %s..." % (direc)
+        
+    global_iw_eq_h = 0
+    global_iw_neq_h = 0
+    global_iw_great_h = 0
+    global_width_unk = 0
+    global_width_count_1 = 0.0
+    global_width_count_2 = 0
+    global_iw_eq_hplus1 = 0
+    global_iw_great_hplus1 = 0
+    global_iw_less_hplus1 = 0
+    global_runtime_1 = 0
+    global_runtime_2 = 0
+    global_iw1_eq_h1 = 0
+
+    for dom in domains:
+        input_file = csv.DictReader( open( "%s/%s.csv" % (direc, dom), 'rU'  ) )
+        iw_eq_h = 0
+        iw_neq_h = 0
+        iw_great_h = 0
+        width_unk = 0
+        width_count_1 = 0.0
+        width_count_2 = 0
+        iw_eq_hplus1 = 0
+        iw_great_hplus1 = 0
+        iw_less_hplus1 = 0
+        runtime_1 = 0
+        runtime_2 = 0
+        iw1_eq_h1 = 0
+
+        for row in input_file:    
+            if 'ok' == row['status']:
+                width = int(row['width'])
+                if width < 3:
+                    
+                    h_val = int(row['h%d'%width])
+                    qual = int(row['quality'])
+                    if qual == h_val:
+                        iw_eq_h+=1
+                    else:
+                        iw_neq_h+=1
+                        if qual > h_val:
+                            iw_great_h+=1
+
+                    if width == 1:
+                        width_count_1 += 1 
+                        runtime_1+= float(row['runtime'])
+                        if qual == int(row['h%d'%(width)]) and  qual == int(row['h%d'%(width+1)]):
+                            iw1_eq_h1+=1
+                        if qual == int(row['h%d'%(width+1)]):
+                            iw_eq_hplus1+=1
+                        elif qual > int(row['h%d'%(width+1)]):
+                            iw_great_hplus1+=1                        
+                        else:
+                            iw_less_hpuls1+=1
+                    else:
+                        width_count_2 += 1 
+                        runtime_2+= float(row['runtime'])
+
+
+                else:
+                    width_unk+=1
+                
+                            
+        
+        #n_gen_1 = sum([int(x[0][4]) for x in shared_data])
+        #n_gen_2 = sum([int(x[1][4]) for x in shared_data])
+        #nodes_generated[0] += n_gen_1
+        #nodes_generated[1] += n_gen_2
+
+        #n_exp_1 = sum([int(x[0][5]) for x in shared_data])
+        #n_exp_2 = sum([int(x[1][5]) for x in shared_data])
+        #nodes_expanded[0] += n_exp_1
+        #nodes_expanded[1] += n_exp_2
+
+        #time_1 = sum([float(x[0][2]) for x in shared_data])
+        #time_2 = sum([float(x[1][2]) for x in shared_data])
+        #time_total[0] += time_1
+        #time_total[1] += time_2
+
+        global_iw_eq_h += iw_eq_h
+        global_iw_neq_h += iw_neq_h
+        global_iw_great_h += iw_great_h 
+        global_width_unk += width_unk
+        global_width_count_1 += width_count_1
+        global_width_count_2 += width_count_2 
+        global_iw_eq_hplus1 += iw_eq_hplus1
+        global_iw_great_hplus1 += iw_great_hplus1  
+        global_iw_less_hplus1 += iw_less_hplus1
+        global_runtime_1 += runtime_1
+        global_runtime_2 += runtime_2
+        global_iw1_eq_h1 += iw1_eq_h1
+
+
+        total_solved = float(iw_eq_h + iw_neq_h)
+        total = float(iw_eq_h + iw_neq_h + width_unk)
+
+        print "\nDomain: %s" % dom
+        if width_count_1 != 0:
+            print "w(1): %.2f%%, avg runtime %.3f sec. "%(float( width_count_1 / total  )*100.0, float( runtime_1 /  width_count_1 )) 
+            if iw1_eq_h1 != 0: print "\tplan length iw(1) == h^1 == h^2: \t%.2f%% "%(float( iw1_eq_h1 /  width_count_1 )*100.0) 
+            if iw_eq_hplus1 != 0: print "\tplan length iw(1) == h^2: \t\t%.2f%% "%(float( iw_eq_hplus1 /  width_count_1 )*100.0) 
+            if iw_great_hplus1 != 0: print "\tplan length iw(1) > h^2: \t\t%.2f%% "%(float( iw_great_hplus1 / width_count_1 )*100.0) 
+            if iw_less_hplus1 != 0: print "\tplan length iw(1) < h^2: \t\t%.2f%% "%(float( iw_less_hplus1 / width_count_1 )*100.0) 
+        if width_count_2 != 0:
+            print "w(2): %.2f%%, avg runtime %.3f sec. "%(float( width_count_2 / total )*100.0, float( runtime_2 /  width_count_2 )) 
+        if width_unk != 0:
+            print "w(>2): %.2f%% "%(float( width_unk / total )*100.0) 
+        print "\tplan length iw(i) == h^i: \t\t%.2f%% "%(float( iw_eq_h /  total_solved )*100.0) 
+        if iw_great_h != 0: print "\tplan length iw(i) > h^i: \t\t%.2f%% "%(float( iw_great_h / total_solved )*100.0) 
+        
+        
+
+    total_solved = float(global_iw_eq_h + global_iw_neq_h)
+    total = float(global_iw_eq_h + global_iw_neq_h + global_width_unk)
+
+    print "\nDomain: all"    
+    if global_width_count_1 != 0:
+        print "w(1): %.2f%%, avg runtime %.3f sec. "%(float( global_width_count_1 / total  )*100.0, float( global_runtime_1 /  global_width_count_1 )) 
+        if global_iw1_eq_h1 != 0: print "\tplan length iw(1) == h^1 == h^2: \t%.2f%% "%(float( global_iw1_eq_h1 /  global_width_count_1 )*100.0) 
+        if global_iw_eq_hplus1 != 0: print "\tplan length iw(1) == h^2: \t\t%.2f%% "%(float( global_iw_eq_hplus1 /  global_width_count_1 )*100.0) 
+        if global_iw_great_hplus1 != 0: print "\tplan length iw(1) > h^2: \t\t%.2f%% "%(float( global_iw_great_hplus1 / global_width_count_1 )*100.0) 
+        if global_iw_less_hplus1 != 0: print "\tplan length iw(1) < h^2: \t\t%.2f%% "%(float( global_iw_less_hplus1 / global_width_count_1 )*100.0) 
+    if global_width_count_2 != 0:
+        print "w(2): %.2f%%, avg runtime %.3f sec. "%(float( global_width_count_2 / total )*100.0, float( global_runtime_2 /  global_width_count_2 )) 
+    if global_width_unk != 0: print "w(>2): %.2f%% "%(float( global_width_unk / total )*100.0) 
+    print "\tplan length iw(i) == h^i: \t\t%.2f%% "%(float( global_iw_eq_h /  total_solved )*100.0) 
+    if global_iw_great_h != 0: print "\tplan length iw(i) > h^i: \t\t%.2f%% "%(float( global_iw_great_h / total_solved )*100.0) 
+        
 
 if 1 == len(argv):
     print USAGE
@@ -338,6 +470,24 @@ elif 'compare' == argv[1]:
     ipc = argv[3]
 
     compare_results(argv[2].split(','))
+
+elif 'analyze' == argv[1]:
+
+    if 'ipc-2006' == argv[3]:
+        benchmark = benchmark_06
+        domains = domains_06
+        profile_problems = profile_problems_06
+    elif 'ipc-2011' == argv[3]:
+        benchmark = benchmark_11
+        domains = domains_11
+        profile_problems = profile_problems_11
+    else:
+        print "Invalid benchmark set: %s" % argv[3]
+        os._exit(1)
+
+    ipc = argv[3]
+
+    analyze_results(argv[2].split(',')[0])
 
 
 elif 'clean' == argv[1]:
