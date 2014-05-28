@@ -37,6 +37,19 @@ int	Fwd_Search_Problem::num_actions() const {
 	return task().num_actions();	
 }
 
+State*	Fwd_Search_Problem::make_state( const Fluent_Vec& v ) const {
+	State* s = new State( task() );
+
+ 	for(unsigned i = 0; i < v.size(); i++)
+      		s->set(v[i]);
+
+	std::sort( s->fluent_vec().begin(), s->fluent_vec().end() );
+
+	s->update_hash();
+
+	return s;
+}
+
 State*	Fwd_Search_Problem::init() const {
 
 	State* s0 = new State( task() );
