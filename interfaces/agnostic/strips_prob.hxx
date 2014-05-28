@@ -36,7 +36,7 @@ namespace aptk
 	public:
 	
 		STRIPS_Problem( std::string dom_name = "Unnamed", std::string prob_name = "Unnamed ");
-		~STRIPS_Problem();
+		virtual ~STRIPS_Problem();
 
 		void			set_domain_name( std::string name ) { m_domain_name = name; }
 		void			set_problem_name( std::string name ) { m_problem_name = name; }
