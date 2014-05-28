@@ -15,7 +15,7 @@
 from os import system as cmd
 from sys import argv
 import glob, os, sys
-
+from math import log10
 from domains import *
 
 USAGE = """
@@ -209,10 +209,15 @@ def compare_results(dirs):
         
 
         for i in range(len(dirs)):
-            t_score.append(sum([ max(1.0, min([float(x[j][2]) for j in range(len(x))])) / \
-                         max(1.0, float(x[i][2])) \
-                             for x in shared_data \
-                         ]))
+            tsum = 0
+            for x in shared_data:
+                tstar = max(1.0, min([float(x[j][2]) for j in range(len(x))]))
+                t = max(1.0, float(x[i][2]))
+                tsum += float(tstar/t)
+                #tsum += 1/(1+log10(t/tstar))
+                #tsum += log10(1+tstar)/log10(1+t)
+            t_score.append(tsum)
+            
             time_score[i] += t_score[i]
 
         for i in range(len(dirs)):
