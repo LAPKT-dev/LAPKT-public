@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <ff_to_aptk.hxx>
 #include <action.hxx>
 #include <iostream>
+#include <algorithm>
 
 namespace aptk
 {
@@ -84,6 +85,7 @@ void	get_problem_description( std::string pddl_domain_path,
 			for( int j = 0; j < gop_conn[i].action->num_preconds; j++)
 				op_precs.push_back( gop_conn[i].action->preconds[j] );
 			
+			bool inconsistent = false;
 			float op_cost = 0;
 			Conditional_Effect_Vec cond_effects;
 			for( int j = 0; j < gop_conn[i].num_E; j++)
@@ -116,12 +118,35 @@ void	get_problem_description( std::string pddl_domain_path,
 				}
 				else
 					op_cost = 1;
-				
+				for ( auto p : op_adds ) 
+					if ( std::find( op_dels.begin(), op_dels.end(), p ) != op_dels.end() ) {
+						inconsistent = true;
+						break;
+					}
+				if ( inconsistent ) {
+					std::cout << "WARNING: FF Parser: Operator " << op_name << " has inconsistent adds and deletes in conditional effect #" << ef+1 << std::endl;
+					break;
+				}
+	
+				for ( auto p : op_dels ) 
+					if ( std::find( op_adds.begin(), op_adds.end(), p ) != op_adds.end() ) {
+						inconsistent = true;
+						break;
+					}
+				if ( inconsistent ) {
+					std::cout << "WARNING: FF Parser: Operator " << op_name << " has inconsistent adds and deletes in conditional effect #" << ef+1 << std::endl;
+					break;
+				}
+		
 				Conditional_Effect* new_cef = new Conditional_Effect( strips_problem );
 				new_cef->define( op_conds, op_adds, op_dels );
 				cond_effects.push_back( new_cef );
 			}
 			
+			if ( inconsistent ) {
+				continue;
+			}
+
 			unsigned op_idx;
 			Fluent_Vec op_adds, op_dels;
 
@@ -161,6 +186,27 @@ void	get_problem_description( std::string pddl_domain_path,
 			}
 			else
 				op_cost = 1;
+
+			bool inconsistent = false;
+			for ( auto p : op_adds ) 
+				if ( std::find( op_dels.begin(), op_dels.end(), p ) != op_dels.end() ) {
+					inconsistent = true;
+					break;
+				}
+			if ( inconsistent ) {
+				std::cout << "WARNING: FF Parser: Operator " << op_name << " has inconsistent adds and deletes" << std::endl;
+				continue;
+			}
+
+			for ( auto p : op_dels ) 
+				if ( std::find( op_adds.begin(), op_adds.end(), p ) != op_adds.end() ) {
+					inconsistent = true;
+					break;
+				}
+			if ( inconsistent ) {
+				std::cout << "WARNING: FF Parser: Operator " << op_name << " has inconsistent adds and deletes" << std::endl;
+				continue;
+			}
 
 			unsigned op_idx;
 			op_idx = STRIPS_Problem::add_action( strips_problem, op_name, op_precs, op_adds, op_dels, cond_effects );
