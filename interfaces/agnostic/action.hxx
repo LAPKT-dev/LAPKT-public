@@ -89,6 +89,10 @@ public:
 	void		           	set_cost( float c ) { m_cost = c; }
 	float		           	cost() const { return m_cost; }
 
+	bool				active() const { return m_active; }
+	void				activate() { m_active = true; }
+	void				deactivate() { m_active = false; }
+
 	void				print( const STRIPS_Problem& prob, std::ostream& ) const;		
 
 	static bool	           	are_effect_interfering( const Action& a1, const Action& a2 );
@@ -112,8 +116,11 @@ protected:
 	Conditional_Effect_Vec		m_cond_effects;
 	float				m_cost;	
 	unsigned			m_index;
+	bool				m_active;
 
 };
+
+
 
 inline bool	Action::possible_supporter( const Action& a1, const Action& a2, Fluent_Vec& pvec )
 {

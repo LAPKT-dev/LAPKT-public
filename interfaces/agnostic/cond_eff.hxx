@@ -59,6 +59,10 @@ public:
 
 	bool	        can_be_applied_on( const State& s, bool regress=false ) const;
 
+	bool				active() const { return m_active; }
+	void				activate() { m_active = true; }
+	void				deactivate() { m_active = false; }
+
 
 protected:
 	Fluent_Vec			m_prec_vec;
@@ -67,6 +71,7 @@ protected:
 	Fluent_Set			m_add_set;
 	Fluent_Vec			m_del_vec;
 	Fluent_Set			m_del_set;
+	bool				m_active;
 
 };
 
