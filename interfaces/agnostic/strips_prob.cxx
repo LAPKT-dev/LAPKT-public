@@ -273,7 +273,7 @@ namespace aptk
 			if ( !a.add_vec().empty() ) {
 				Best_Supporter eff( i, no_such_index );
 				m_effects.push_back( eff );
-				m_triggers.push_back( Trigger( a.prec_vec() ) );
+				m_triggers.push_back( Trigger( num_fluents(), a.prec_vec(), a.add_vec() ) );
 	
 				// Relevant if the fluent is in the precondition
 				for ( unsigned j = 0; j < a.prec_vec().size(); ++j ) {
@@ -288,7 +288,7 @@ namespace aptk
 				// Make action conditional effect
 				Best_Supporter eff( i, j );
 				m_effects.push_back( eff );
-				m_triggers.push_back( Trigger( a.prec_vec(), ceff.prec_vec() ) );
+				m_triggers.push_back( Trigger( num_fluents(), a.prec_vec(), ceff.prec_vec(), ceff.add_vec() ) );
 				for ( unsigned k = 0; k < a.prec_vec().size(); k++ ) {
 					m_relevant_effects[a.prec_vec()[k]].insert(m_effects.size()-1);
 				}

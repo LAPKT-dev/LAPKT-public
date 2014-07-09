@@ -56,30 +56,52 @@ namespace aptk
 		class Trigger {
 		public:
 
-			Trigger( const Fluent_Vec& prec )
+			Trigger( unsigned nf, const Fluent_Vec& prec, const Fluent_Vec& eff )
 			: m_last( 0 ) {
 				m_condition = prec;
+				m_effect = eff;
 				m_last = m_condition.size()-1;
+				m_cond_pending = m_condition.size();
+				m_cond_status.resize( nf );
 			}
 
-			Trigger( const Fluent_Vec& prec, const Fluent_Vec& cond )
+			Trigger( unsigned nf, const Fluent_Vec& prec, const Fluent_Vec& cond, const Fluent_Vec& eff )
 			: m_last( 0 ) {
 				m_condition = prec;
 				for ( auto p : cond )
 					if ( std::find( m_condition.begin(), m_condition.end(), p ) == m_condition.end() ) 
 						m_condition.push_back( p );
+				m_effect = eff;
 				m_last = m_condition.size()-1;
+				m_cond_pending = m_condition.size();
+				m_cond_status.resize( nf );
+			}
+
+			Trigger( Trigger&& other ) {
+				m_condition = std::move( other.m_condition );
+				m_effect = std::move( other.m_effect );
+				m_last = other.m_last;
+				m_cond_pending = other.m_cond_pending;
+				m_cond_status = std::move( other.m_cond_status );
+			}
+
+			~Trigger() {
 			}
 
 			void	reset() {
-				m_last = m_condition.size()-1;
+				//m_last = m_condition.size()-1;
+				for ( unsigned c : m_condition )
+					m_cond_status.set( c );
+				m_cond_pending = m_condition.size();
 			}
 
 			bool	satisfied() const { 
-				return m_last == -1;
+				//return m_last == -1;
+				return m_cond_pending == 0;
 			}
 
 			void	update( unsigned p ) {
+				/*
 				for ( int k = 0; k <= m_last ; k++ ) {
 					if ( m_condition[k] == p ) {
 						std::swap( m_condition[k], m_condition[m_last] );
@@ -87,10 +109,19 @@ namespace aptk
 						return;
 					} 
 				}
+				*/
+				if ( !m_cond_status.isset(p) ) return;
+				m_cond_pending--;
+				m_cond_status.unset(p);
 			}
 
+			const Fluent_Vec& effect() const { return m_effect; }
+
 			Fluent_Vec	m_condition;
+			Fluent_Vec	m_effect;
 			int		m_last;
+			Bit_Array	m_cond_status;
+			int		m_cond_pending;
 
 		};
 
