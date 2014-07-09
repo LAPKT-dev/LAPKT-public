@@ -1,6 +1,6 @@
 /*
 Lightweight Automated Planning Toolkit
-Copyright (C) 2012
+Copyright (C) 2014
 Miquel Ramirez <miquel.ramirez@rmit.edu.au>
 Nir Lipovetzky <nirlipo@gmail.com>
 Christian Muise <christian.muise@gmail.com>
@@ -46,6 +46,7 @@ class Layered_H_Max : public Heuristic<State> {
 	Layered_H_Max( const Search_Model& prob ) 
 	: Heuristic<State>(prob), m_strips_model( prob.task() ) {
 		m_values.resize( m_strips_model.num_fluents() );
+		m_difficulties.resize( m_strips_model.num_fluents() );
 		m_best_supporters.resize( m_strips_model.num_fluents() );
 		m_reached.resize( m_strips_model.num_fluents() );
 	}
@@ -88,16 +89,40 @@ protected:
 		update( p, v, bs.act_idx, bs.eff_idx );
 	}
 
+	unsigned eval_diff( const Best_Supporter& bs ) const {
+		unsigned min_val = infinity();
+		if ( bs.act_idx == no_such_index )
+			return 0;
+		const Action* a =  m_strips_model.actions()[bs.act_idx];
+		for ( auto p : a->prec_vec() )
+			min_val = std::min( min_val, m_values[p] );
+		if ( bs.eff_idx == no_such_index ) return min_val;
+		for ( auto p : a->ceff_vec()[bs.eff_idx]->prec_vec() )
+			min_val = std::min( min_val, m_values[p] );
+		return min_val;
+	}
+
 	void	update( unsigned p, unsigned v, unsigned act_idx, unsigned eff_idx ) {
 		#ifdef DEBUG_LAYERED_H_MAX
 		std::cout << "Updating: " << m_strips_model.fluents()[p]->signature() << std::endl;
 		#endif
-		if ( m_reached.isset(p) ) return;
+		if ( m_reached.isset(p) ) {
+			if ( v > m_values[p] ) return;
+			// difficulty
+			Best_Supporter candidate( act_idx, eff_idx );
+			unsigned candidate_diff = eval_diff( candidate );
+			if ( candidate_diff < m_difficulties[p] ) {
+				m_best_supporters[p] = candidate;
+				m_difficulties[p] = candidate_diff;
+			}
+			return;
+		}
 		m_changed = true;
 		m_reached.set(p);
 		m_values[p] = v;
 		m_best_supporters[p].act_idx = act_idx;
 		m_best_supporters[p].eff_idx = eff_idx;
+		m_difficulties[p] = eval_diff( m_best_supporters[p] );
 		#ifdef DEBUG_LAYERED_H_MAX
 		std::cout << "\t v = " << v << std::endl;
 		std::cout << "\t bs: action = " << ( act_idx == no_such_index ? "(init)" : m_strips_model.actions()[act_idx]->signature() );
@@ -123,11 +148,10 @@ protected:
 
 	void	compute(const State& s) {
 		unsigned current_level = 0;
-		std::list< unsigned >	current_effects;	
 
 		m_reached.reset();
 		for ( unsigned k = 0; k < m_strips_model.num_fluents(); k++ ) {
-			m_values[k] = infinity();
+			m_values[k] = m_difficulties[k] = infinity();
 			m_best_supporters[k] = Best_Supporter( no_such_index, no_such_index );
 		}
 
@@ -140,9 +164,6 @@ protected:
 
 		for ( unsigned p : s.fluent_vec() )
 			update( p, current_level, no_such_index, no_such_index  );
-
-
-
 
 		do {
 			m_changed = false;
@@ -164,9 +185,9 @@ protected:
 				
 			}
 
-			current_effects.clear();
-			std::swap( m_triggered_effects, current_effects );
-			for ( auto eff_index : current_effects ) {
+			m_current_effects.clear();
+			std::swap( m_triggered_effects, m_current_effects );
+			for ( auto eff_index : m_current_effects ) {
 				#ifdef DEBUG_LAYERED_H_MAX
 				std::cout << "Processing effect: ";
 				std::cout << "action = " << ( m_strips_model.effects()[eff_index].act_idx == no_such_index ? 
@@ -174,29 +195,41 @@ protected:
 				std::cout << "effect = " << ( m_strips_model.effects()[eff_index].eff_idx == no_such_index ? -1 : m_strips_model.effects()[eff_index].eff_idx ) << std::endl;
 				#endif
 				const Best_Supporter& bs = m_strips_model.effects()[eff_index];
+				/*
 				const Action* a = m_strips_model.actions()[ bs.act_idx ];
 				for ( unsigned a_p : a->add_vec() ) 
 					update( a_p, current_level + 1, bs );
 				if ( bs.eff_idx == no_such_index ) continue;
 				for ( unsigned a_p : a->ceff_vec()[bs.eff_idx]->add_vec() )
 					update( a_p, current_level + 1, bs );	
+				*/
+				for ( unsigned a_p : m_strips_model.triggers()[eff_index].effect() )
+					update( a_p, current_level + 1, bs );
 			}
 			#ifdef DEBUG_LAYERED_H_MAX
 			std::cout << "Triggered effects: " << m_triggered_effects.size() << std::endl;
 			#endif
 			current_level++;	
-		} while ( m_changed );
+		} while ( m_changed && !goal_reached() );
 
 	}	
+
+	bool	goal_reached() const {
+		for ( unsigned g : m_strips_model.goal() )
+			if (!m_reached.isset(g)) return false;
+		return true;
+	}
 
 protected:
 
 	const STRIPS_Problem&				m_strips_model;
 	std::vector<unsigned>				m_values;
+	std::vector<unsigned>				m_difficulties;
 	Bit_Set						m_reached;
 	std::vector< Best_Supporter >			m_best_supporters;
 	bool						m_changed = false;
 	std::list< unsigned >				m_triggered_effects;
+	std::list< unsigned >				m_current_effects;	
 };
 
 }
