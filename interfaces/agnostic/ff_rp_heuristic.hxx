@@ -381,6 +381,8 @@ public:
 
 	bool deletes_goal( ) const	{ return m_plan_extractor.deletes_goal(); }
 
+	Primary_Heuristic&	base_h() { return m_base_heuristic; }
+
 protected:
 
 	Primary_Heuristic							m_base_heuristic;
