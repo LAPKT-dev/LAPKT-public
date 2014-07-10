@@ -48,6 +48,13 @@ namespace aptk
 			bool operator==( const Best_Supporter& other ) const {
 				return act_idx == other.act_idx && eff_idx == other.eff_idx;
 			}
+
+			bool operator<( const Best_Supporter& other ) const {
+				if( act_idx < other.act_idx ) return true;
+				if( act_idx == other.act_idx )
+					return eff_idx < other.eff_idx;
+				return false;
+			}
 	
 			unsigned act_idx;
 			unsigned eff_idx;
@@ -114,7 +121,8 @@ namespace aptk
 				m_cond_pending--;
 				m_cond_status.unset(p);
 			}
-
+			
+			const Fluent_Vec& condition() const { return m_condition; }
 			const Fluent_Vec& effect() const { return m_effect; }
 
 			Fluent_Vec	m_condition;
