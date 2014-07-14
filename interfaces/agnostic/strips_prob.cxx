@@ -262,4 +262,42 @@ namespace aptk
 	}
 
 
+	void	STRIPS_Problem::make_effect_tables() {
+		m_relevant_effects.resize( num_fluents() );
+
+		for ( unsigned i = 0; i < num_actions(); i++ ) {
+
+			const Action& a = *(actions()[i]);
+			
+			// Make action inconditional effect
+			if ( !a.add_vec().empty() ) {
+				Best_Supporter eff( i, no_such_index );
+				m_effects.push_back( eff );
+				m_triggers.push_back( Trigger( num_fluents(), a.prec_vec(), a.add_vec() ) );
+	
+				// Relevant if the fluent is in the precondition
+				for ( unsigned j = 0; j < a.prec_vec().size(); ++j ) {
+					m_relevant_effects[a.prec_vec()[j]].insert(m_effects.size()-1);
+				}
+			}
+
+			// Relevant if the fluent is in the head of a conditional effect
+			for ( unsigned j = 0; j < a.ceff_vec().size(); ++j ) {
+
+				const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
+				// Make action conditional effect
+				Best_Supporter eff( i, j );
+				m_effects.push_back( eff );
+				m_triggers.push_back( Trigger( num_fluents(), a.prec_vec(), ceff.prec_vec(), ceff.add_vec() ) );
+				for ( unsigned k = 0; k < a.prec_vec().size(); k++ ) {
+					m_relevant_effects[a.prec_vec()[k]].insert(m_effects.size()-1);
+				}
+
+				for ( unsigned k = 0; k < ceff.prec_vec().size(); ++k) {
+					m_relevant_effects[ceff.prec_vec()[k]].insert(m_effects.size()-1);
+				}
+			}
+		}
+		
+	}
 }

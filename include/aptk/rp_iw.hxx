@@ -209,14 +209,14 @@ public:
 		else
 			m_rp_h->eval( *s, h_value, po, rel_plan  );
  		
-		for ( unsigned p = 0; p < this->problem().task().num_fluents(); p++ ) {
+		/*for ( unsigned p = 0; p < this->problem().task().num_fluents(); p++ ) {
 			if (!m_rp_h->is_relaxed_plan_relevant(p)) continue;
 			m_rp_fl_vec.push_back( p );
 			m_rp_fl_set.set( p );
 		}
-
-		//std::cout << "rel_plan size: "<< rel_plan.size() << std::endl;
-		/*
+		*/
+		std::cout << "rel_plan size: "<< rel_plan.size() << std::endl;
+		
 		for(std::vector<Action_Idx>::iterator it_a = rel_plan.begin(); 
 		    it_a != rel_plan.end(); it_a++ ){
 			const Action* a = this->problem().task().actions()[*it_a];
@@ -248,7 +248,7 @@ public:
 				}
 			}		       
 		}
-		*/
+		
 		// if( m_rp_fl_vec.size() == this->problem().task().num_fluents() ){
 		// 	m_rp_fl_vec.clear();
 		// 	m_rp_fl_set.reset();

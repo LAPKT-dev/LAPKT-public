@@ -47,7 +47,7 @@ public:
 		float v = v2;
 		for ( Fluent_Vec::const_iterator it = begin; it != end; it++ ) {
 			v = ( v < m_values[*it] ? m_values[*it] : v );
-			if ( v == infty ) return v;
+			//if ( v == infty ) return v;
 		}
 		return v;	
 	}

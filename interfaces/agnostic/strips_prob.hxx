@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <types.hxx>
 #include <succ_gen.hxx>
 #include <match_tree.hxx>
+#include <algorithm>
 
 namespace aptk
 {
@@ -34,9 +35,106 @@ namespace aptk
 	class STRIPS_Problem
 	{
 	public:
+		class Best_Supporter {
+		public:
+			Best_Supporter() 
+				: act_idx( no_such_index ), eff_idx ( no_such_index ) {
+			}
 	
+			Best_Supporter( unsigned a_index, unsigned e_index ) 
+				: act_idx( a_index ), eff_idx( e_index ) {
+			}
+	
+			bool operator==( const Best_Supporter& other ) const {
+				return act_idx == other.act_idx && eff_idx == other.eff_idx;
+			}
+
+			bool operator<( const Best_Supporter& other ) const {
+				if( act_idx < other.act_idx ) return true;
+				if( act_idx == other.act_idx )
+					return eff_idx < other.eff_idx;
+				return false;
+			}
+	
+			unsigned act_idx;
+			unsigned eff_idx;
+		};
+
+		class Trigger {
+		public:
+
+			Trigger( unsigned nf, const Fluent_Vec& prec, const Fluent_Vec& eff )
+			: m_last( 0 ) {
+				m_condition = prec;
+				m_effect = eff;
+				m_last = m_condition.size()-1;
+				m_cond_pending = m_condition.size();
+				m_cond_status.resize( nf );
+			}
+
+			Trigger( unsigned nf, const Fluent_Vec& prec, const Fluent_Vec& cond, const Fluent_Vec& eff )
+			: m_last( 0 ) {
+				m_condition = prec;
+				for ( auto p : cond )
+					if ( std::find( m_condition.begin(), m_condition.end(), p ) == m_condition.end() ) 
+						m_condition.push_back( p );
+				m_effect = eff;
+				m_last = m_condition.size()-1;
+				m_cond_pending = m_condition.size();
+				m_cond_status.resize( nf );
+			}
+
+			Trigger( Trigger&& other ) {
+				m_condition = std::move( other.m_condition );
+				m_effect = std::move( other.m_effect );
+				m_last = other.m_last;
+				m_cond_pending = other.m_cond_pending;
+				m_cond_status = std::move( other.m_cond_status );
+			}
+
+			~Trigger() {
+			}
+
+			void	reset() {
+				//m_last = m_condition.size()-1;
+				for ( unsigned c : m_condition )
+					m_cond_status.set( c );
+				m_cond_pending = m_condition.size();
+			}
+
+			bool	satisfied() const { 
+				//return m_last == -1;
+				return m_cond_pending == 0;
+			}
+
+			void	update( unsigned p ) {
+				/*
+				for ( int k = 0; k <= m_last ; k++ ) {
+					if ( m_condition[k] == p ) {
+						std::swap( m_condition[k], m_condition[m_last] );
+						m_last--;
+						return;
+					} 
+				}
+				*/
+				if ( !m_cond_status.isset(p) ) return;
+				m_cond_pending--;
+				m_cond_status.unset(p);
+			}
+			
+			const Fluent_Vec& condition() const { return m_condition; }
+			const Fluent_Vec& effect() const { return m_effect; }
+
+			Fluent_Vec	m_condition;
+			Fluent_Vec	m_effect;
+			int		m_last;
+			Bit_Array	m_cond_status;
+			int		m_cond_pending;
+
+		};
+
 		STRIPS_Problem( std::string dom_name = "Unnamed", std::string prob_name = "Unnamed ");
-		~STRIPS_Problem();
+		virtual ~STRIPS_Problem();
 
 		void			set_domain_name( std::string name ) { m_domain_name = name; }
 		void			set_problem_name( std::string name ) { m_problem_name = name; }
@@ -147,6 +245,12 @@ namespace aptk
 
 		void			set_verbose( bool v ) { m_verbose = v; }
 
+		const std::vector< Best_Supporter >&	effects() const { return m_effects; }
+		std::vector< Trigger >&			triggers()  const	{ return m_triggers; }
+		const std::set< unsigned >&		relevant_effects( unsigned p ) const { return m_relevant_effects[p]; }
+
+		void					make_effect_tables();
+
 	protected:
 	
 		void			increase_num_fluents()        	{ m_num_fluents++; }
@@ -179,6 +283,9 @@ namespace aptk
 		std::vector< std::vector< std::pair< unsigned, const Action* > > >	m_ceffs_adding;
 		bool									m_has_cond_effs;
 		bool									m_verbose;
+		std::vector< Best_Supporter >						m_effects;
+		mutable std::vector< Trigger >						m_triggers;
+		std::vector< std::set< unsigned> >					m_relevant_effects;
 	  };
 
 }

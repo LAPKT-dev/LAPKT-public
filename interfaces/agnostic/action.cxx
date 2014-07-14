@@ -25,7 +25,7 @@ namespace aptk
 {
 
 Action::Action( STRIPS_Problem& p )
-	: m_cost( 1 )
+	: m_cost( 1 ), m_active( true )
 {
 	prec_set().resize( p.num_fluents() );
 	add_set().resize( p.num_fluents() );
