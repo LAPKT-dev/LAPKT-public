@@ -168,7 +168,7 @@ using namespace boost::python;
 	}
 
 	void
-	STRIPS_Problem::add_invariant( boost::python::list& lits ) {
+	STRIPS_Problem::add_mutex_group( boost::python::list& lits ) {
 		/*
 		aptk::Clause invariant;
 		for ( int i = 0; i < len(lits); i++ ) {

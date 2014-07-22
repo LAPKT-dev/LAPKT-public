@@ -47,6 +47,13 @@ void	Landmarks_Graph::preceding( unsigned p, Fluent_Vec& preceding  ) const {
 		preceding.push_back( n->preceded_by()[k]->fluent() );
 }
 
+void	Landmarks_Graph::greedy_preceding( unsigned p, Fluent_Vec& preceding  ) const {
+	Node* n = m_fl_to_node[p];
+	if ( n == NULL ) return;
+	for ( unsigned k = 0; k < n->preceded_by_gn().size(); k++ )
+		preceding.push_back( n->preceded_by_gn()[k]->fluent() );
+}
+
 void	Landmarks_Graph::following( unsigned p, Fluent_Vec& following  ) const {
 	Node* n = m_fl_to_node[p];
 	if ( n == NULL ) return;

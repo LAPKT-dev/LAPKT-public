@@ -170,6 +170,7 @@ public:
 	Node*   			node( unsigned p )      		{ return m_fl_to_node[p]; }
 	const std::vector< Node* >&	nodes(  )          		        { return m_lm_graph; }
 	void				preceding( unsigned p, Fluent_Vec& preceding ) const;
+	void				greedy_preceding( unsigned p, Fluent_Vec& greedy_preceding ) const;
 	void				following( unsigned p, Fluent_Vec& following ) const;
 	
 	void				add_landmark( unsigned p );

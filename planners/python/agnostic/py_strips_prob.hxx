@@ -25,7 +25,8 @@ public:
 	void	add_effect( int index, boost::python::list& list );
 	void	set_cost( int index, float v );
 
-	void	add_invariant( boost::python::list& list );
+	virtual 
+	void	add_mutex_group( boost::python::list& list );
 	void	notify_negated_conditions( boost::python::list& list );
 	void	create_negated_fluents();
 
