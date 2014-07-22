@@ -261,12 +261,6 @@ def default( domain_file, problem_file, output_task ) :
 		output_task.add_atom( atom )
 		index += 1
 
-	print("Invariants %d"%len(mutex_groups))
-	for group in mutex_groups :
-		if len(group) >= 2 :
-			#print("{%s}" % ", ".join(map(str, group)))
-			output_task.add_invariant( encode( group, atom_table ) )
-			#print( encode( group, atom_table ) )
 
 	print("Deterministic %d actions" % len(actions))
 	nd_actions = {}
@@ -295,6 +289,16 @@ def default( domain_file, problem_file, output_task ) :
 			output_task.add_cond_effect( index, list(cond), eff )
 		output_task.set_cost( index, action.cost ) 
 		index += 1
+
+	# MRJ: Mutex groups processing needs to go after negations are compiled away
+	print("Invariants %d"%len(mutex_groups))
+	for group in mutex_groups :
+		if len(group) >= 2 :
+			print("{%s}" % ", ".join(map(str, group)))
+			output_task.add_mutex_group( encode( group, atom_table ) )
+			print( encode( group, atom_table ) )
+
+
 	output_task.set_domain_name( task.domain_name )
 	output_task.set_problem_name( task.task_name )
 	output_task.set_init( encode( task.init, atom_table ) )
