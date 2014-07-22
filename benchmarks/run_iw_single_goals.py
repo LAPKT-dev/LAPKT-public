@@ -1,6 +1,6 @@
 
 # ########################
-#
+# SCRIPT TO RUN IW over SINGLE/atomic goals
 # Prerequisites:
 #   - valgrind
 #   - timeout
@@ -23,7 +23,8 @@ USAGE = """
  Usage:
     python run_iw_single_goals.py profile <executable> <ipc directory> [<domain pddl> <problem pddl>]
     python run_iw_single_goals.py benchmark <executable> <ipc directory> <results directory> <max_bound> [<domain>]
-    python run_iw_single_goals.py analyze <directory> <ipc directory>
+
+    python run_iw_single_goals.py analyze <results directory>  <ipc directory> 
     python run_iw_single_goals.py clean
     """
 
@@ -79,6 +80,7 @@ def benchmark_domain(planner, bound, dom):
         os.mkdir(results_directory)
 
 
+
     results = run_experiment(base_directory=".",
                              base_command=planner,
                              single_arguments={'domprob': domprob_args},
@@ -89,10 +91,12 @@ def benchmark_domain(planner, bound, dom):
                              processors=cores,
                              sandbox=None)
     
+
     data = []
     for resid in results.get_ids():
 
         res = results[resid]
+
 
         if TYPE == OLD:
             prob = res.single_args['domprob'].split(' ')[-1].split('/')[-1]
@@ -100,12 +104,13 @@ def benchmark_domain(planner, bound, dom):
             prob = res.single_args['domprob'].split(' ')[-2].split('/')[-1]
         else:
             assert False, "What the deuce?"
-
+            
         if 'old-' in planner:
             cmd("tail -26 %s > TMP_OUTPUT" % res.output_file)
             outfile = "TMP_OUTPUT"
         else:
             outfile = res.output_file
+        
         
         path, filename = os.path.split(outfile)
         os.system("cp %s %s"%(outfile, path+"/"+dom+"_"+prob+".log"))
@@ -179,88 +184,6 @@ def benchmark_domain(planner, bound, dom):
     
     #cmd("rm -rf %s"%results_directoy)
     
-def compare_results(dirs):
-    
-    from krrt.utils import load_CSV
-    print
-    print "Comparing results for %s..." % (dirs)
-    
-    coverage = [0] * len(dirs)
-    time_better = [0] * len(dirs)
-    time_score = [0] * len(dirs)
-    quality_better = [0] * len(dirs)
-    quality_score = [0] * len(dirs)
-    nodes_expanded = [0] * len(dirs)
-    nodes_generated = [0] * len(dirs)
-    time_total = [0] * len(dirs)
-    
-    for dom in domains:
-        
-
-        data = []
-        cov = []
-        t_score = []
-        q_score = []
-        
-        for i in range(len(dirs)):
-            direc = dirs[i]
-            data.append(load_CSV("%s/%s.csv" % (direc, dom))[1:])
-            cov.append(len(filter(lambda x: 'ok' == x[1], data[-1])))
-            coverage[i] += cov[-1]
-        
-        shared_data = []
-        
-        for prob in zip(*data):
-            if 0 != len(filter(lambda x: 'ok' == x[1], prob)):                
-                for x in prob:
-                    if x[1] != 'ok':
-                        x[2] = sys.maxint
-                    if x[1] != 'ok':
-                        x[3] = sys.maxint
-                
-                shared_data.append(list(prob))
-        
-
-        for i in range(len(dirs)):
-            t_score.append(sum([ max(1.0, min([float(x[j][2]) for j in range(len(x))])) / \
-                         max(1.0, float(x[i][2])) \
-                             for x in shared_data \
-                         ]))
-            time_score[i] += t_score[i]
-
-        for i in range(len(dirs)):
-            q_score.append( sum([ min([float(x[j][3]) for j in range(len(x)) ]) / float(x[i][3]) for x in shared_data ]))
-            quality_score[i] += q_score[i]
-
-        #n_gen_1 = sum([int(x[0][4]) for x in shared_data])
-        #n_gen_2 = sum([int(x[1][4]) for x in shared_data])
-        #nodes_generated[0] += n_gen_1
-        #nodes_generated[1] += n_gen_2
-
-        #n_exp_1 = sum([int(x[0][5]) for x in shared_data])
-        #n_exp_2 = sum([int(x[1][5]) for x in shared_data])
-        #nodes_expanded[0] += n_exp_1
-        #nodes_expanded[1] += n_exp_2
-
-        #time_1 = sum([float(x[0][2]) for x in shared_data])
-        #time_2 = sum([float(x[1][2]) for x in shared_data])
-        #time_total[0] += time_1
-        #time_total[1] += time_2
-
-        print "\nDomain: %s" % dom
-        print "Coverage: %s" % ' -vs- '.join(["%d" % c for c in cov])
-        print "Time score: %s" % ' -vs- '.join(["%.2f" % t for t in t_score])
-        print "Quality score: %s" % ' -vs- '.join(["%.2f" % t for t in q_score])
-        #print "Time per node generated: %.6f -vs- %.6f" % ((float(time_1) / float(max(1,n_gen_1))), (float(time_2) / float(max(1,n_gen_2))))
-        #print "Time per node expanded: %.6f -vs- %.6f" % ((float(time_1) / float(max(1,n_exp_1))), (float(time_2) / float(max(1,n_exp_2))))
-
-    print "\nDomain: all"
-    print "Coverage: %s" % ' -vs- '.join(["%d" % c for c in coverage])
-    print "Time score: %s" % ' -vs- '.join(["%.2f" % t for t in time_score])
-    print "Quality score: %s" % ' -vs- '.join(["%.2f" % t for t in quality_score])
-    #print "Time per node generated: %.6f -vs- %.6f" % ((float(time_total[0]) / float(max(1,nodes_generated[0]))), (float(time_total[1]) / float(max(1,nodes_generated[1]))))
-    #print "Time per node expanded: %.6f -vs- %.6f" % ((float(time_total[0]) / float(max(1,nodes_expanded[0]))), (float(time_total[1]) / float(max(1,nodes_expanded[1]))))
-
 def analyze_results(direc):
     
     print "Analyzing IW results for %s..." % (direc)
@@ -364,21 +287,6 @@ def analyze_results(direc):
                     width_unk+=1
                 
                             
-        
-        #n_gen_1 = sum([int(x[0][4]) for x in shared_data])
-        #n_gen_2 = sum([int(x[1][4]) for x in shared_data])
-        #nodes_generated[0] += n_gen_1
-        #nodes_generated[1] += n_gen_2
-
-        #n_exp_1 = sum([int(x[0][5]) for x in shared_data])
-        #n_exp_2 = sum([int(x[1][5]) for x in shared_data])
-        #nodes_expanded[0] += n_exp_1
-        #nodes_expanded[1] += n_exp_2
-
-        #time_1 = sum([float(x[0][2]) for x in shared_data])
-        #time_2 = sum([float(x[1][2]) for x in shared_data])
-        #time_total[0] += time_1
-        #time_total[1] += time_2
 
 
         total_solved = float(width_count_1 + width_count_2)#float(iw_eq_h + iw_neq_h)
@@ -475,6 +383,11 @@ if 'profile' == argv[1]:
         benchmark = benchmark_11
         domains = domains_11
         profile_problems = profile_problems_11
+    elif 'ipc-2014/seq-sat' == argv[3]:
+        benchmark = benchmark_14
+        domains = domains_14
+        profile_problems = profile_problems_14
+    
     else:
         print "Invalid benchmark set: %s" % argv[3]
         os._exit(1)
@@ -503,6 +416,11 @@ elif 'benchmark' == argv[1]:
         benchmark = benchmark_11
         domains = domains_11
         profile_problems = profile_problems_11
+    elif 'ipc-2014/seq-sat' == argv[3]:
+        benchmark = benchmark_14
+        domains = domains_14
+        profile_problems = profile_problems_14
+    
     else:
         print "Invalid benchmark set: %s" % argv[3]
         os._exit(1)
@@ -510,6 +428,7 @@ elif 'benchmark' == argv[1]:
     results_directory = argv[4]
     ipc = argv[3]
     bound = argv[5]
+    
 
     if len(argv) < 7:
         for dom in domains:
@@ -517,24 +436,6 @@ elif 'benchmark' == argv[1]:
     else:
         benchmark_domain(argv[2], argv[6])
 
-
-elif 'compare' == argv[1]:
-
-    if 'ipc-2006' == argv[3]:
-        benchmark = benchmark_06
-        domains = domains_06
-        profile_problems = profile_problems_06
-    elif 'ipc-2011' == argv[3]:
-        benchmark = benchmark_11
-        domains = domains_11
-        profile_problems = profile_problems_11
-    else:
-        print "Invalid benchmark set: %s" % argv[3]
-        os._exit(1)
-
-    ipc = argv[3]
-
-    compare_results(argv[2].split(','))
 
 elif 'analyze' == argv[1]:
 
@@ -546,6 +447,10 @@ elif 'analyze' == argv[1]:
         benchmark = benchmark_11
         domains = domains_11
         profile_problems = profile_problems_11
+    elif 'ipc-2014/seq-sat' == argv[3]:
+        benchmark = benchmark_14
+        domains = domains_14
+        profile_problems = profile_problems_14
     else:
         print "Invalid benchmark set: %s" % argv[3]
         os._exit(1)
