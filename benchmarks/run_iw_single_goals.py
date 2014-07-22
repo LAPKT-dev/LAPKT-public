@@ -80,6 +80,7 @@ def benchmark_domain(planner, bound, dom):
         os.mkdir(results_directory)
 
 
+
     results = run_experiment(base_directory=".",
                              base_command=planner,
                              single_arguments={'domprob': domprob_args},
@@ -90,10 +91,12 @@ def benchmark_domain(planner, bound, dom):
                              processors=cores,
                              sandbox=None)
     
+
     data = []
     for resid in results.get_ids():
 
         res = results[resid]
+
 
         if TYPE == OLD:
             prob = res.single_args['domprob'].split(' ')[-1].split('/')[-1]
@@ -101,12 +104,13 @@ def benchmark_domain(planner, bound, dom):
             prob = res.single_args['domprob'].split(' ')[-2].split('/')[-1]
         else:
             assert False, "What the deuce?"
-
+            
         if 'old-' in planner:
             cmd("tail -26 %s > TMP_OUTPUT" % res.output_file)
             outfile = "TMP_OUTPUT"
         else:
             outfile = res.output_file
+        
         
         path, filename = os.path.split(outfile)
         os.system("cp %s %s"%(outfile, path+"/"+dom+"_"+prob+".log"))
@@ -379,6 +383,11 @@ if 'profile' == argv[1]:
         benchmark = benchmark_11
         domains = domains_11
         profile_problems = profile_problems_11
+    elif 'ipc-2014/seq-sat' == argv[3]:
+        benchmark = benchmark_14
+        domains = domains_14
+        profile_problems = profile_problems_14
+    
     else:
         print "Invalid benchmark set: %s" % argv[3]
         os._exit(1)
@@ -407,6 +416,11 @@ elif 'benchmark' == argv[1]:
         benchmark = benchmark_11
         domains = domains_11
         profile_problems = profile_problems_11
+    elif 'ipc-2014/seq-sat' == argv[3]:
+        benchmark = benchmark_14
+        domains = domains_14
+        profile_problems = profile_problems_14
+    
     else:
         print "Invalid benchmark set: %s" % argv[3]
         os._exit(1)
@@ -414,6 +428,7 @@ elif 'benchmark' == argv[1]:
     results_directory = argv[4]
     ipc = argv[3]
     bound = argv[5]
+    
 
     if len(argv) < 7:
         for dom in domains:
@@ -432,6 +447,10 @@ elif 'analyze' == argv[1]:
         benchmark = benchmark_11
         domains = domains_11
         profile_problems = profile_problems_11
+    elif 'ipc-2014/seq-sat' == argv[3]:
+        benchmark = benchmark_14
+        domains = domains_14
+        profile_problems = profile_problems_14
     else:
         print "Invalid benchmark set: %s" % argv[3]
         os._exit(1)

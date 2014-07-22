@@ -1,10 +1,14 @@
+from os import walk
 
 domains_06 = ['openstacks', 'pathways', 'pipesworld', 'rovers', 'storage', 'TPP', 'trucks']
 domains_11 = ['blocksworld','barman', 'elevators', 'floortile', 'nomystery','openstacks', 'parcprinter', 'parking', 'pegsol', 'scanalyzer', 'sokoban', 'tidybot', 'transport', 'visitall', 'woodworking']
 
+domains_14 = []
+
 # Domain and problem files
 benchmark_06 = {}
 benchmark_11 = {}
+benchmark_14 = {}
 
 benchmark_06['openstacks'] = []
 for i in range(1,10):
@@ -127,3 +131,21 @@ profile_problems_06 = [
         ]
 
 profile_problems_11 = []
+profile_problems_14 = []
+
+
+domains_14 = walk('ipc-2014/seq-sat').next()[1]
+print domains_14
+for d in domains_14:
+    for (dirpath, dirnames, filenames) in walk('ipc-2014/seq-sat/'+d):
+        domains = [f for f in filenames if "domain" in f]
+        problems = [f for f in filenames if "domain" not in f]
+        if len(domains) == 1:
+            benchmark_14[d]=[ (domains[0], prob) for prob in problems]
+        else:
+            if len(domains) != len(problems):
+                raise Exception( "missmatching domain and problem files" )
+                
+            benchmark_14[d] = zip( domains, problems )
+    
+    
