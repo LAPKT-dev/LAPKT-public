@@ -127,7 +127,7 @@ public:
 				continue;
 			}
 			float min_cond_h = infty;
-			unsigned best_eff_index = no_such_index;
+			//unsigned best_eff_index = no_such_index;
 			Fluent_Vec tmp_cond;
 			for ( unsigned k = 0; k < a->ceff_vec().size(); k++ ) {
 				if ( !a->ceff_vec()[k]->asserts( p->index() ) ) continue;	
@@ -135,13 +135,13 @@ public:
 				m_base_heuristic.eval( a->ceff_vec()[k]->prec_vec(), h_cond );
 				if ( h_cond < min_cond_h ) {
 					min_cond_h = h_cond;
-					best_eff_index = k;
+					//best_eff_index = k;
 					tmp_cond = a->ceff_vec()[k]->prec_vec();
 					for ( auto p : a->prec_vec() )
 						tmp_cond.push_back( p );
 				}
 			}
-			assert( best_eff_index != no_such_index );
+			//assert( best_eff_index != no_such_index );
 			for ( auto q : tmp_cond )
 				m_rp_precs.set(q);
 			if ( !extract_best_supporters_for( tmp_cond, relaxed_plan ) )
@@ -275,26 +275,42 @@ public:
 
 	virtual ~Relaxed_Plan_Heuristic() {}
 
-	virtual void eval( const State& s, float& h_val ) {
+	template <typename Cost_Type>
+	void eval( const State& s, Cost_Type& h_out ) {
+		float h;
 		std::vector<Action_Idx> po;
-		eval( s, h_val, po );
+		eval( s, h, po);         
+		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
 	}
+
 	
-	virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops ) {
-		m_plan_extractor.compute( s, h_val, pref_ops );
+	template <typename Cost_Type>
+	void eval( const State& s, Cost_Type& h_out, std::vector<Action_Idx>& pref_ops ) {
+		float h;
+		m_plan_extractor.compute( s, h, pref_ops );
+		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
 	}
-  
-	virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>& rel_plan ) {
-		m_plan_extractor.compute( s, h_val, pref_ops, &rel_plan );
+
+	template <typename Cost_Type>
+	void eval( const State& s, Cost_Type& h_out, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>& rel_plan ) {
+		float h;
+		m_plan_extractor.compute( s, h, pref_ops, &rel_plan );		
+		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
 	}
-		
-	  virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, Fluent_Vec* goals ) {
-		  m_plan_extractor.compute( s, h_val, pref_ops, NULL, goals );
-	}
-  
-	virtual void eval( const State& s, float& h_val, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>& rel_plan, Fluent_Vec* goals ) {
-		m_plan_extractor.compute( s, h_val, pref_ops, &rel_plan, goals );
-	}
+
+  	template <typename Cost_Type>
+	void eval( const State& s, Cost_Type& h_out, std::vector<Action_Idx>& pref_ops, Fluent_Vec* goals ) {
+		float h;
+		m_plan_extractor.compute( s, h, pref_ops, NULL, goals );		
+		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
+	}		
+
+    	template <typename Cost_Type>
+	void eval( const State& s, Cost_Type& h_out, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>& rel_plan, Fluent_Vec* goals ) {
+		float h;
+		m_plan_extractor.compute( s, h, pref_ops, &rel_plan, goals );		
+		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
+	}		
 	
 	void ignore_rp_h_value(bool b) {m_plan_extractor.ignore_rp_h_value(b);}
 

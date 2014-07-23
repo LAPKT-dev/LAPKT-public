@@ -1,6 +1,6 @@
 /*
 Lightweight Automated Planning Toolkit
-Copyright (C) 2012
+Copyright (C) 2013
 Miquel Ramirez <miquel.ramirez@rmit.edu.au>
 Nir Lipovetzky <nirlipo@gmail.com>
 
@@ -60,12 +60,12 @@ public:
 		if ( m_state != NULL ) delete m_state;
 	}
 
-	float&			h1n()				{ return m_h1; }
-	float			h1n() const 			{ return m_h1; }
-	float&			h2n()				{ return m_h2; }
-	float			h2n() const 			{ return m_h2; }
-	float&			h3n()				{ return m_h3; }
-	float			h3n() const 			{ return m_h3; }
+	unsigned&		h1n()				{ return m_h1; }
+	unsigned		h1n() const 			{ return m_h1; }
+	unsigned&		h2n()				{ return m_h2; }
+	unsigned		h2n() const 			{ return m_h2; }
+	unsigned&		h3n()				{ return m_h3; }
+	unsigned		h3n() const 			{ return m_h3; }
 	unsigned&      		partition()    	  { return m_partition; }			
 	unsigned       		partition() const { return m_partition; }
 	unsigned                goals_unachieved() const        { return m_goals_unachieved; }                
@@ -187,9 +187,9 @@ public:
 	float		m_g;
 	float		m_g_unit;
 	float		m_f;
-	float		m_h1;
-	float		m_h2;
-	float		m_h3;
+	unsigned	m_h1;
+	unsigned	m_h2;
+	unsigned	m_h3;
         unsigned        m_partition;
 	unsigned        m_goals_unachieved;
 	Bit_Set		m_po;
@@ -214,7 +214,7 @@ public:
 
 	AT_GBFS_3H( 	const Search_Model& search_problem ) 
 	: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_pruned_B_count(0),
-	  m_dead_end_count(0), m_open_repl_count(0),m_B( infty ), m_time_budget(infty), m_lgm(NULL), m_max_h2n(infty), m_max_h3n(infty), m_verbose( true ) {	
+	  m_dead_end_count(0), m_open_repl_count(0),m_B( infty ), m_time_budget(infty), m_lgm(NULL), m_max_h2n(no_such_index), m_max_h3n(no_such_index), m_verbose( true ) {	
 		m_first_h = new First_Heuristic( search_problem );
 		m_second_h = new Second_Heuristic( search_problem );
 		m_third_h = new Third_Heuristic( search_problem );
@@ -242,8 +242,7 @@ public:
 		m_B = B;
 		m_root = new Search_Node( m_problem.init(), 0.0f, no_op, NULL, m_problem.num_actions() );	
 
-		m_first_h->init();
-		m_third_h->ignore_rp_h_value(true);
+		m_first_h->init();		
 		
 		if(m_lgm){				
 			eval_po(m_root);		
@@ -351,10 +350,10 @@ public:
 		// 	candidate->undo_land_graph( m_lgm );
 
 
-		candidate->goals_unachieved() = (unsigned) candidate->h2n();
+		candidate->goals_unachieved() =  candidate->h2n();
 		candidate->partition() = candidate->goals_unachieved();
 		if ( candidate->goals_unachieved() == 0){
-			candidate->h1n()  = 0;
+			candidate->h1n()  = 1;
 		}
 		else{
 			candidate->goals_unachieved()--;
@@ -365,7 +364,7 @@ public:
 		if(candidate->h2n() < m_max_h2n ){
 			m_max_h2n = candidate->h2n();
 			if ( m_verbose ) {
-				std::cout << "--[" << m_max_h2n  <<" / " << m_max_h3n <<"]--" << std::endl;			
+				std::cout << "--[" << m_max_h2n  <<" / " << m_max_h3n <<"]--" << std::endl;
 				//std::cout << "[ n:" << candidate->h1n()  <<" - hl:" << candidate->h2n() <<" - #g:" << candidate->goals_unachieved() <<" - h_a:" << candidate->h3n() <<" - gn: " << candidate->gn()  <<"]" << std::endl;
 			}
 		}
@@ -472,7 +471,7 @@ public:
 
 				n->set_helpful();
 				eval_po(n);				
-				if( n->h3n() == infty ){
+				if( n->h3n() == no_such_index ){
 #ifdef DEBUG
 					if ( m_verbose ) {
 						std::cout << "h_add is infinite" << std::endl;
@@ -484,14 +483,14 @@ public:
 				}
 					
 				eval( n );
-				n->h1n() += 0.5;
+				n->h1n() = (2 * ( n->h1n() - 1 ) ) + 1;
 				//ha++;
 				//std::cout << "HA " << m_problem.task().actions()[ n->action() ]->signature() << ": " << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<" - gn-unit: " << n->gn_unit()   <<"]" << std::endl;
 			}
 			else{
 				n->h3n() = head->h3n();
 				eval( n );
-				n->h1n() += 1;				
+				n->h1n() = (2 * ( n->h1n() - 1 ) ) + 2;
 				//nonha++;
 				//std::cout << "Non-HA" << m_problem.task().actions()[ n->action() ]->signature() << ": " << "[ n:" << n->h1n()  <<" - hl:" << n->h2n() <<" - #g:" << n->goals_unachieved() <<" - h_a:" << n->h3n() <<" - gn: " << n->gn()  <<" - gn-unit: " << n->gn_unit()  <<"]" << std::endl;			
 			}
@@ -542,7 +541,7 @@ public:
 			// nodes?
 			if( !head->is_helpful() ){
 				eval_po( head );
-				if( head->h3n() == infty ){
+				if( head->h3n() == no_such_index ){
 					close(head);
 					head = get_node();
 					continue;
@@ -600,8 +599,8 @@ protected:
 	Search_Node*				m_root;
 	std::vector<Action_Idx> 		m_app_set;
 	Landmarks_Graph_Manager*                m_lgm;
-	float                                   m_max_h2n;
-	float                                   m_max_h3n;
+	unsigned                                m_max_h2n;
+	unsigned                                m_max_h3n;
 	bool					m_verbose;
 };
 

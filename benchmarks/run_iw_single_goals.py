@@ -298,6 +298,11 @@ def analyze_results(direc):
         total_solved = float(width_count_1 + width_count_2)#float(iw_eq_h + iw_neq_h)
         total = float(iw_eq_h + iw_neq_h + width_unk)
 
+        if total_solved == 0:
+            print "\nDomain: %s" % (dom) 
+            print "SOMETHING IS WRONG, NOTHING HAS BEEN SOLVED"
+            continue
+
         global_iw_eq_h += iw_eq_h / total_solved
         global_iw_neq_h += iw_neq_h / total_solved
         global_iw_great_h += iw_great_h / total_solved

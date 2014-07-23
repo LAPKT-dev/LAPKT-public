@@ -257,8 +257,8 @@ public:
 				 * Do not add gn of lands in intial state
 				 */
 				if ( ! m_strips_model.is_in_init(q) ){
-					if ( m_verbose )
-						std::cout << m_strips_model.fluents()[q]->signature() << "gn land for " << m_strips_model.fluents()[p]->signature() << std::endl; 
+					//if ( m_verbose )
+					//	std::cout << m_strips_model.fluents()[q]->signature() << "gn land for " << m_strips_model.fluents()[p]->signature() << std::endl; 
 					Landmarks_Graph::Node* nq = graph.node(q);
 					if( nq ){
 						Landmarks_Graph::Node* np = graph.node(p);

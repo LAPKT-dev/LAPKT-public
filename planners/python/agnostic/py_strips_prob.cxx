@@ -270,6 +270,7 @@ using namespace boost::python;
 	void
 	STRIPS_Problem::setup() {
 		instance()->make_action_tables();
+		instance()->make_effect_tables();
 	}
 
 	void
