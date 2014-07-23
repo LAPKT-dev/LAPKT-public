@@ -151,9 +151,15 @@ def benchmark_domain(planner, bound, dom):
             if 'Total time:' in line:
                 time = float(line.split(':')[-1])    
             if 'h1:' in line:
-                h1 = int(line.split(':')[-1])
+                if "inf" in line:
+                    h1 = 99999
+                else:
+                    h1 = int(line.split(':')[-1])
             if 'h2:' in line:
-                h2 = int(line.split(':')[-1])    
+                if "inf" in line:
+                    h2 = 99999
+                else:
+                    h2 = int(line.split(':')[-1])    
             if 'plan:' in line:
                 plan = (line.split(':')[-1]).strip()
             if 'Goal:' in line:
