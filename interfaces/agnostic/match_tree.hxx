@@ -87,9 +87,9 @@ class Match_Tree {
 
 public:
 
-	Match_Tree ( const STRIPS_Problem& prob ) : m_problem( prob ) {}
+	Match_Tree ( const STRIPS_Problem& prob ) : m_problem( prob ), root_node(nullptr) {}
 
-	~Match_Tree() { delete root_node; };
+	~Match_Tree() { if ( root_node != nullptr ) delete root_node; };
 
 	void build();
 	void retrieve_applicable( const State& s, std::vector<int>& actions ) const;
