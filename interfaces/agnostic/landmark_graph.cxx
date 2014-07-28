@@ -117,6 +117,32 @@ void	Landmarks_Graph::print( std::ostream& os ) const {
 	}	
 }
 
+void	Landmarks_Graph::print_dot( std::ostream& os ) const {
+
+	os << "digraph L {" << std::endl;
+	
+	for ( unsigned k = 0; k < m_lm_graph.size(); k++ ) {
+		Node* n = m_lm_graph[k];
+		os << n->fluent()  << " [label=\"" << m_strips_model.fluents()[ n->fluent() ]->signature() << "\"];" << std::endl;
+	}
+
+	for ( unsigned k = 0; k < m_lm_graph.size(); k++ ) {
+		Node* n = m_lm_graph[k];
+		for ( unsigned i = 0; i < n->preceded_by().size(); i++ ) {
+			Node* pred = n->preceded_by()[i];
+			os << pred->fluent() << " -> " << n->fluent() << " [label=\"n\"];" << std::endl;
+		}
+		for ( unsigned i = 0; i < n->preceded_by_gn().size(); i++ ) {
+			Node* pred = n->preceded_by_gn()[i];
+			os << pred->fluent() << " -> " << n->fluent() << " [label=\"gn\"];" << std::endl;
+		}
+	}	
+
+	os << "}" << std::endl;
+
+}
+
+
 }
 
 }

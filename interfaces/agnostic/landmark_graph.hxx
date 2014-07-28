@@ -221,6 +221,8 @@ public:
 	
 	void				print( std::ostream& os ) const;
 
+	void				print_dot( std::ostream& os ) const;
+
 protected:
 	
 	const STRIPS_Problem&			m_strips_model;

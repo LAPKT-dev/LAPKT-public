@@ -47,7 +47,7 @@ typedef		H1_Heuristic<Search_Model, H_Max_Evaluation_Function>	H_Max;
 public:
 
 	Landmarks_Graph_Generator( const Search_Model& prob ) 
-	:  m_strips_model( prob.task() ), m_only_goals( false ), m_goal_ordering(true), m_h1( prob ), m_verbose( true )
+	:  m_strips_model( prob.task() ), m_only_goals( false ), m_goal_ordering(true), m_h1( prob ), m_verbose( true ), m_collect_lm_in_init(false)
 	{
 		m_reachability = new aptk::agnostic::Reachability_Test( prob.task() );
 	}
@@ -59,6 +59,10 @@ public:
 	void	set_verbose( bool v ) { m_verbose = v; }
 	
 public:
+
+	void	allow_lm_in_init() { m_collect_lm_in_init = true; }
+	void	disallow_lm_in_init() { m_collect_lm_in_init = false; }
+
 	void   set_only_goals( bool b ){ m_only_goals = b; }
 
 	void   set_goal_ordering( bool b ){ m_goal_ordering = b; }
@@ -147,8 +151,8 @@ public:
 			unsigned p = updated.front();
 			updated.pop_front(); 
 
-			//if ( processed.isset(p) ) continue; 
-			//processed.set(p);
+			if ( processed.isset(p) ) continue; 
+			processed.set(p);
 
 			//std::cout << "Processing landmark: " << m_strips_model.fluents()[ p ]->signature() << std::endl;
 			const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( p );
@@ -179,19 +183,21 @@ public:
 			unsigned q = lm_set.first();
 			while ( q != lm_set.end() ) {
 
-				if ( ! m_strips_model.is_in_init(q) ) {
-
-					if ( !graph.is_landmark(q) )
-						graph.add_landmark( q );
-					//				if ( ! m_strips_model.is_in_goal(p) )
-					graph.add_landmark_for( p, q );
-					// else{
-					// 	graph.add_landmark_for( p, q );
-					// 	//graph.node(p)->add_precedent_gn( graph.node(q) );
-					// 	//graph.node(q)->add_requiring_gn( graph.node(p) );
-					// }
-					updated.push_back( q );
+				if ( !m_collect_lm_in_init && m_strips_model.is_in_init(q) ) {
+					q = lm_set.next(q);
+					continue;
 				}
+
+				if ( !graph.is_landmark(q) )
+					graph.add_landmark( q );
+				//				if ( ! m_strips_model.is_in_goal(p) )
+				graph.add_landmark_for( p, q );
+				// else{
+				// 	graph.add_landmark_for( p, q );
+				// 	//graph.node(p)->add_precedent_gn( graph.node(q) );
+				// 	//graph.node(q)->add_requiring_gn( graph.node(p) );
+				// }
+				updated.push_back( q );
 				q = lm_set.next(q);
 			}	
 		}
@@ -256,17 +262,20 @@ public:
 				/**
 				 * Do not add gn of lands in intial state
 				 */
-				if ( ! m_strips_model.is_in_init(q) ){
-					if ( m_verbose )
-						std::cout << m_strips_model.fluents()[q]->signature() << "gn land for " << m_strips_model.fluents()[p]->signature() << std::endl; 
-					Landmarks_Graph::Node* nq = graph.node(q);
-					if( nq ){
-						Landmarks_Graph::Node* np = graph.node(p);
-						if( ! np->is_preceded_by(nq) ) 
-							graph.node(p)->add_precedent_gn( graph.node(q) );
-						if( ! nq->is_required_by(np) ) 
-							graph.node(q)->add_requiring_gn( graph.node(p) );
-					}
+				if ( !m_collect_lm_in_init && m_strips_model.is_in_init(q) ) {
+					q = lm_set.next(q);
+					continue;
+				}
+
+				if ( m_verbose )
+					std::cout << m_strips_model.fluents()[q]->signature() << "gn land for " << m_strips_model.fluents()[p]->signature() << std::endl; 
+				Landmarks_Graph::Node* nq = graph.node(q);
+				if( nq ){
+					Landmarks_Graph::Node* np = graph.node(p);
+					if( ! np->is_preceded_by(nq) ) 
+						graph.node(p)->add_precedent_gn( graph.node(q) );
+					if( ! nq->is_required_by(np) ) 
+						graph.node(q)->add_requiring_gn( graph.node(p) );
 				}
 				q = lm_set.next(q);
 			}	
@@ -328,6 +337,7 @@ protected:
 	Reachability_Test*                      m_reachability;	
         H_Max                                   m_h1;
 	bool					m_verbose;
+	bool					m_collect_lm_in_init;
 };
 
 }
