@@ -90,18 +90,25 @@ public:
 	}
 	
 
-	virtual void eval( Search_Node* n, float& h_val ) {
+	virtual void eval( Search_Node* n, unsigned& h_val ) {
 	
 		compute( n, h_val );		
 	}
 
+	
+	virtual void eval( Search_Node* n, float& h_val ) {
+		unsigned h;
+		compute( n, h );		
+		h_val = h;
+	}
 
-	virtual void eval( const State& s, float& h_val ) {
+
+	virtual void eval( const State& s, unsigned& h_val ) {
 	
 		assert(true);
 	}
 
-	virtual void eval( const State& s, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
+	virtual void eval( const State& s, unsigned& h_val,  std::vector<Action_Idx>& pref_ops ) {
 		assert(true);
 	}
 
@@ -113,7 +120,7 @@ protected:
 	 * If parent node is in the same space partition, check only new atoms,
 	 * otherwise check all atoms in state
 	 */
-	void compute(  Search_Node* n, float& novelty ) 
+	void compute(  Search_Node* n, unsigned& novelty ) 
 	{
 
 		novelty = (float) m_arity+1;

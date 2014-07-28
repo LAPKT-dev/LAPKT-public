@@ -39,7 +39,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <landmark_count.hxx>
 #include <h_2.hxx>
 #include <h_1.hxx>
+#include <layered_h_max.hxx>
+
 #include <rp_heuristic.hxx>
+#include <ff_rp_heuristic.hxx>
 
 #include <aptk/open_list.hxx>
 #include <aptk/at_gbfs_3h.hxx>
@@ -60,9 +63,12 @@ using 	aptk::agnostic::Landmarks_Count_Heuristic;
 using 	aptk::agnostic::LM_Cut_Heuristic;
 using 	aptk::agnostic::H2_Heuristic;
 using 	aptk::agnostic::H1_Heuristic;
+using   aptk::agnostic::Layered_H_Max;
+
 using	aptk::agnostic::H_Add_Evaluation_Function;
 using	aptk::agnostic::H_Max_Evaluation_Function;
 using	aptk::agnostic::Relaxed_Plan_Heuristic;
+using   aptk::agnostic::FF_Relaxed_Plan_Heuristic;
 using 	aptk::agnostic::Novelty_Partition;
 
 
@@ -96,8 +102,12 @@ typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >		BFS_Open_List;
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd;
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
 
+typedef         Layered_H_Max< Fwd_Search_Problem >				      Alt_H_Max;
+typedef         FF_Relaxed_Plan_Heuristic< Fwd_Search_Problem, Alt_H_Max, unsigned >     Classic_FF_H_Max;
+
 // MRJ: Now we're ready to define the BFS algorithm we're going to use
 typedef		AT_GBFS_3H< Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List >    Anytime_GBFS_H_Add_Rp_Fwd;
+typedef		AT_GBFS_3H< Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, Classic_FF_H_Max, BFS_Open_List >    Anytime_GBFS_FF_Rp_Fwd;
 
 
 
@@ -161,6 +171,8 @@ void process_command_line_options( int ac, char** av, po::variables_map& vars ) 
 		( "output", po::value<std::string>(), "Output file for plan" )
 		( "one-ha-per-fluent", po::value<bool>()->default_value(false),
 			"Extract only one helpful action per fluent" )
+		( "use-original-ff-heur", po::value<bool>()->default_value(false),
+			"Use original FF heuristic computed by layers" )
 	;
 	
 	try {
@@ -228,20 +240,20 @@ int main( int argc, char** argv ) {
 
 	Fwd_Search_Problem	search_prob( &prob );
 
-	if ( !prob.has_conditional_effects() ) {
-		H2_Fwd    h2( search_prob );
-		h2.compute_edeletes( prob );
-		if ( h2.eval( prob.goal() ) == infty ) {
-			std::ofstream	details( "execution.details" );
-			details << "Problem has no solution!" << std::endl;
-			details.close();
-			report_no_solution( "h2(s0) = infty", plan_stream );
-			return 0;	
-		}
+	// if ( !prob.has_conditional_effects() ) {
+	// 	H2_Fwd    h2( search_prob );
+	// 	h2.compute_edeletes( prob );
+	// 	if ( h2.eval( prob.goal() ) == infty ) {
+	// 		std::ofstream	details( "execution.details" );
+	// 		details << "Problem has no solution!" << std::endl;
+	// 		details.close();
+	// 		report_no_solution( "h2(s0) = infty", plan_stream );
+	// 		return 0;	
+	// 	}
 
-	}
-	else
-		prob.compute_edeletes();	
+	// }
+	// else
+	// 	prob.compute_edeletes();	
 
 	Gen_Lms_Fwd    gen_lms( search_prob );
 	Landmarks_Graph graph( prob );
@@ -251,25 +263,51 @@ int main( int argc, char** argv ) {
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
 	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
-	graph.print( std::cout );       
+	//graph.print( std::cout );       
 
-	std::cout << "Starting search with BFS (time budget is 60 secs)..." << std::endl;
-
-	Anytime_GBFS_H_Add_Rp_Fwd bfs_engine( search_prob );
-
-	bfs_engine.h3().set_one_HA_per_fluent( vm["one-ha-per-fluent"].as<bool>() );
-
-	Land_Graph_Man lgm( search_prob, &graph);
-	bfs_engine.use_land_graph_manager( &lgm );
 	
-	unsigned max_novelty = 2;
 
-	bfs_engine.set_arity( max_novelty, graph.num_landmarks_and_edges() );
-	
-	float bfs_t = do_search( bfs_engine, prob, max_novelty, plan_stream );
 
-	std::cout << "BFS search completed in " << bfs_t << " secs" << std::endl;
+
+
+
+	if(vm["use-original-ff-heur"].as<bool>()){
+		std::cout << "Starting search with BFS(novel,land,h_ff)..." << std::endl;
+
+		Anytime_GBFS_FF_Rp_Fwd bfs_engine( search_prob );		
 	
+		bfs_engine.h3().set_one_HA_per_fluent( vm["one-ha-per-fluent"].as<bool>() );
+		bfs_engine.h3().ignore_rp_h_value(false);
+
+		Land_Graph_Man lgm( search_prob, &graph);
+		bfs_engine.use_land_graph_manager( &lgm );
+		
+		unsigned max_novelty = 2;
+		
+		bfs_engine.set_arity( max_novelty, graph.num_landmarks_and_edges() );
+		
+		float bfs_t = do_search( bfs_engine, prob, max_novelty, plan_stream );
+		
+		std::cout << "BFS search completed in " << bfs_t << " secs" << std::endl;
+	
+	}
+	else{
+		std::cout << "Starting search with BFS(novel,land,h_add)..." << std::endl;
+
+		Anytime_GBFS_H_Add_Rp_Fwd bfs_engine( search_prob );	
+		bfs_engine.h3().set_one_HA_per_fluent( vm["one-ha-per-fluent"].as<bool>() );
+		
+		Land_Graph_Man lgm( search_prob, &graph);
+		bfs_engine.use_land_graph_manager( &lgm );
+		
+		unsigned max_novelty = 2;
+		
+		bfs_engine.set_arity( max_novelty, graph.num_landmarks_and_edges() );
+		
+		float bfs_t = do_search( bfs_engine, prob, max_novelty, plan_stream );
+		
+		std::cout << "BFS search completed in " << bfs_t << " secs" << std::endl;
+	}
 
 	plan_stream.close();
 

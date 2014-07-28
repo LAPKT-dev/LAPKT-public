@@ -214,6 +214,8 @@ void	get_problem_description( std::string pddl_domain_path,
 		}
 	}
 	strips_problem.make_action_tables();
+	strips_problem.make_effect_tables();
+	
 }
 
 }

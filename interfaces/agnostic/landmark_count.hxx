@@ -60,7 +60,12 @@ public:
 
 	void set_graph( Landmarks_Graph* lg ){ m_graph = lg; }
 	
-	virtual void eval( const State& s, float& h_val ) {
+	void eval( const State& s, float& h_val ) {
+		unsigned h;
+		eval(s,h);
+		h_val = h;
+	}
+	virtual void eval( const State& s, unsigned& h_val ) {
 		if (!m_graph) return;
 		h_val = 0;
 		for ( std::vector< Landmarks_Graph::Node* >::const_iterator it = m_graph->nodes().begin(); it != m_graph->nodes().end(); it++ ) {
@@ -93,7 +98,14 @@ public:
 		}
 	}
 
-	virtual void eval( const State& s, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
+
+	void eval( const State& s, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
+		unsigned h;
+		eval(s,h,pref_ops);
+		h_val = h;
+	}
+	
+	virtual void eval( const State& s, unsigned& h_val,  std::vector<Action_Idx>& pref_ops ) {
 
 		if (!m_graph) return;
 		m_in_leafs.reset();

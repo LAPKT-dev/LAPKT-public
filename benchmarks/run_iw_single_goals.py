@@ -151,9 +151,15 @@ def benchmark_domain(planner, bound, dom):
             if 'Total time:' in line:
                 time = float(line.split(':')[-1])    
             if 'h1:' in line:
-                h1 = int(line.split(':')[-1])
+                if "inf" in line:
+                    h1 = 99999
+                else:
+                    h1 = int(line.split(':')[-1])
             if 'h2:' in line:
-                h2 = int(line.split(':')[-1])    
+                if "inf" in line:
+                    h2 = 99999
+                else:
+                    h2 = int(line.split(':')[-1])    
             if 'plan:' in line:
                 plan = (line.split(':')[-1]).strip()
             if 'Goal:' in line:
@@ -291,6 +297,11 @@ def analyze_results(direc):
 
         total_solved = float(width_count_1 + width_count_2)#float(iw_eq_h + iw_neq_h)
         total = float(iw_eq_h + iw_neq_h + width_unk)
+
+        if total_solved == 0:
+            print "\nDomain: %s" % (dom) 
+            print "SOMETHING IS WRONG, NOTHING HAS BEEN SOLVED"
+            continue
 
         global_iw_eq_h += iw_eq_h / total_solved
         global_iw_neq_h += iw_neq_h / total_solved

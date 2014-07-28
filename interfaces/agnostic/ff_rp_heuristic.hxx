@@ -312,7 +312,7 @@ public:
 	}
 
 	void ignore_rp_h_value(bool b) {m_ignore_rp_h_value = b;}
-	void set_one_HA_per_fluent( ) { m_one_ha_per_fluent = true; }
+	void set_one_HA_per_fluent( bool b ) { m_one_ha_per_fluent = b; }
 	bool one_HA_per_fluent() const { return m_one_ha_per_fluent; }
 	Primary_Heuristic& base_h() { return m_base_heuristic; }
 
