@@ -167,7 +167,50 @@ public:
 	Best_Supporter	get_best_supporter( unsigned f ) const {
 		return m_best_supporters[f];
 	}
+    
+        void get_best_supporters( unsigned f, Action_Ptr_Const_Vec& bfs ) const {
+	        const Action* bf = m_strips_model.actions()[ m_best_supporters[f].act_idx ];
 
+		if(!bf) return;
+
+		float h_val_bf = eval_func( bf->prec_vec().begin(), bf->prec_vec().end() ); 
+		float h_val = 0;
+
+		if ( !bf->asserts(f) ) { // added by conditional effect
+			float min_cond_h = infty;
+			for ( auto ceff : bf->ceff_vec() ) {
+				if ( ceff->asserts( f ) ) {
+					float h_cond = eval_func( ceff->prec_vec().begin(), ceff->prec_vec().end(), h_val_bf );
+					if ( h_cond < min_cond_h )
+						min_cond_h = h_cond;
+				}
+			}
+
+			assert( !dequal(min_cond_h,infty) );
+			h_val_bf = min_cond_h; 
+		}
+
+		const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( f );   
+
+		for ( unsigned k = 0; k < add_acts.size(); k++ ){
+			const Action* a = add_acts[k];
+			h_val = eval_func( a->prec_vec().begin(), a->prec_vec().end() );
+			if ( !a->asserts( f ) ) { // added by conditional effect
+				float min_cond_h = infty;
+				for ( auto ceff : a->ceff_vec() ) {
+					if ( ceff->asserts(f) ) {
+						float h_cond = eval_func( ceff->prec_vec().begin(), ceff->prec_vec().end(), h_val );
+						if ( h_cond < min_cond_h )
+							min_cond_h = h_cond;
+					}
+				}
+				assert( !dequal(min_cond_h,infty) );
+				h_val = min_cond_h;			
+			}
+			if ( dequal(h_val, h_val_bf ) )
+				bfs.push_back(a);
+		}
+	}
 
 protected:
 
