@@ -86,7 +86,8 @@ public:
 		for ( unsigned k = 0; k < G.size(); k++ ) {
 	
 			if ( init_fluents().isset( G[k] ) ) continue;
-			const Action* sup = m_base_heuristic.best_supporter( G[k] );
+			const unsigned act_idx = m_base_heuristic.get_best_supporter( G[k] ).act_idx;
+			const Action* sup = m_strips_model.actions()[ act_idx ];
 			if ( sup == NULL ) // No best supporter for fluent
 			{
 				std::cerr << "No best supporter found for goal fluent ";
@@ -229,7 +230,8 @@ protected:
 		for ( unsigned k = 0; k < C.size(); k++ ) {
 	
 			if ( init_fluents().isset( C[k] ) ) continue;
-			const Action* sup = m_base_heuristic.best_supporter( C[k] );
+			const unsigned act_idx = m_base_heuristic.get_best_supporter( C[k] ).act_idx;
+			const Action* sup = m_strips_model.actions()[ act_idx ];
 			if ( sup == NULL )
 			{
 				std::cerr << "No best supporter found for fluent ";

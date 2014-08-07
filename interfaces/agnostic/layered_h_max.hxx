@@ -79,7 +79,7 @@ class Layered_H_Max : public Heuristic<State> {
 			}		
 	}
 
-	Best_Supporter	get_best_supporters( unsigned p ) const {
+	Best_Supporter	get_best_supporter( unsigned p ) const {
 		return m_best_supporters[p];
 	}
 
