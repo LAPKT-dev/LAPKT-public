@@ -33,8 +33,8 @@ public:
 
 	typedef State State_Type;
 
-	FF_GBFS_Node( State* s, float cost, Action_Idx action, FF_GBFS_Node<State>* parent, bool is_ha = false ) 
-	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_is_ha(is_ha) {
+	FF_GBFS_Node( State* s, float cost, Action_Idx action, FF_GBFS_Node<State>* parent ) 
+	: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ) {
 		m_g = ( parent ? parent->m_g + cost : 0.0f);
 	}
 	
@@ -52,8 +52,6 @@ public:
 	Action_Idx		action() const 	{ return m_action; }
 	State*			state()		{ return m_state; }
 	const State&		state() const 	{ return *m_state; }
-	bool			is_ha() const	{ return m_is_ha;}
-	std::vector<Action_Idx>&	ha()	{ return m_ha;}
 
 	void			print( std::ostream& os ) const {
 		os << "{@ = " << this << ", s = " << m_state << ", parent = " << m_parent << ", g(n) = " << m_g << ", h(n) = " << m_h << ", f(n) = " << m_f << "}";
@@ -74,8 +72,6 @@ public:
 	Action_Idx			m_action;
 	float				m_g;
 	float				m_f;
-	bool				m_is_ha;
-	std::vector<Action_Idx>		m_ha;
 };
 
 template <typename Search_Model, typename Abstract_Heuristic, typename Open_List_Type >
@@ -160,7 +156,8 @@ public:
 	const	Search_Model&	problem() const			{ return m_problem; }
 
 	void			eval( Search_Node* candidate ) {
-		m_heuristic_func->eval( *(candidate->state()), candidate->hn(), candidate->ha() );
+	    const State& s = *(candidate->state());
+	    m_heuristic_func->eval( s, candidate->hn() );
 	}
 
 	bool 		is_closed( Search_Node* n ) 	{
@@ -230,8 +227,7 @@ public:
 			int a = app_set[i];
 			
 			State *succ = m_problem.next( *(head->state()), a ); 
-			bool is_ha = std::find( head->ha().begin(), head->ha().end(), a ) != head->ha().end();
-			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, is_ha );			
+			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head );			
 			
 
 			#ifdef DEBUG

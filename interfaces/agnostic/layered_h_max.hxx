@@ -65,10 +65,24 @@ class Layered_H_Max : public Heuristic<State> {
 		}
 	}
 
+        virtual void	eval( const Fluent_Vec& s, float & h_out ) {
+		unsigned h;
+		eval( s, h );
+		h_out = (h == infinity()) ? std::numeric_limits<float>::max() : (float)h;		
+	}
+
 	virtual void	eval( const State& s, unsigned & h ) {
 		m_reached.reset();
 		compute(s);
 		eval( m_strips_model.goal(), h );
+	}
+
+
+	virtual void	eval( const State& s, float & h_out ) {
+		unsigned h;
+		eval( s, h );
+		h_out = (h == infinity()) ? std::numeric_limits<float>::max() : (float)h;
+		
 	}
 
 	void print_values( std::ostream& os ) const {
