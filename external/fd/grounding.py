@@ -193,13 +193,6 @@ def fodet( domain_file, problem_file, output_task ) :
 		axiom.dump()
 		output_task.add_axiom( encode( axiom.condition, atom_table), encode( [ axiom.effect ], atom_table ))
 
-	print("Invariants %d"%len(mutex_groups))
-	for group in mutex_groups :
-		if len(group) >= 2 :
-			#print("{%s}" % ", ".join(map(str, group)))
-			output_task.add_invariant( encode( group, atom_table ) )
-			#print( encode( group, atom_table ) )
-
 	print("Deterministic %d actions" % len(actions))
 	nd_actions = {}
 	for action in actions :
@@ -294,9 +287,9 @@ def default( domain_file, problem_file, output_task ) :
 	print("Invariants %d"%len(mutex_groups))
 	for group in mutex_groups :
 		if len(group) >= 2 :
-			print("{%s}" % ", ".join(map(str, group)))
+			#print("{%s}" % ", ".join(map(str, group)))
 			output_task.add_mutex_group( encode( group, atom_table ) )
-			print( encode( group, atom_table ) )
+			#print( encode( group, atom_table ) )
 
 
 	output_task.set_domain_name( task.domain_name )

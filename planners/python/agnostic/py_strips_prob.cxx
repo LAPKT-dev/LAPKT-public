@@ -169,14 +169,18 @@ using namespace boost::python;
 
 	void
 	STRIPS_Problem::add_mutex_group( boost::python::list& lits ) {
-		/*
-		aptk::Clause invariant;
-		for ( int i = 0; i < len(lits); i++ ) {
-			boost::python::tuple li = extract< tuple >( lits[i] );
-			invariant.add( aptk::mkLit( extract<int>(li[0]), extract<bool>(li[1]) ) );
-			instance()->add_invariant( invariant );
-		}
-		*/
+	    aptk::Fluent_Vec	group;
+	    for ( int i = 0; i < len(lits); i++ ) {
+		boost::python::tuple li = extract< tuple >( lits[i] );
+		int 	fl_idx 		= extract<int>(li[0]);
+		bool	negated 	= extract<bool>(li[1]);
+		
+		if ( negated)
+		    fl_idx = m_negated[ fl_idx ]->index();
+		group.push_back( fl_idx );	
+	    }
+	    	    
+	    m_problem->mutexes().add( group );
 	}
 
 	void
