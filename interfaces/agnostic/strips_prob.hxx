@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <succ_gen.hxx>
 #include <match_tree.hxx>
 #include <algorithm>
+#include <mutex_set.hxx>
 
 namespace aptk
 {
@@ -171,7 +172,7 @@ namespace aptk
 		Fluent_Vec&		goal()	  			{ return m_goal; }
 		const Fluent_Vec&	init() const  			{ return m_init; }
 		const Fluent_Vec&	goal() const  			{ return m_goal; }
-
+	        agnostic::Mutex_Set&    mutexes()                       { return m_mutexes; }
 		std::vector<const Action*>&		
 		 			actions_adding( unsigned f )		{ return m_adding[f]; }
 
@@ -286,6 +287,7 @@ namespace aptk
 		std::vector< Best_Supporter >						m_effects;
 		mutable std::vector< Trigger >						m_triggers;
 		std::vector< std::set< unsigned> >					m_relevant_effects;
+	        agnostic::Mutex_Set             	                                m_mutexes;
 	  };
 
 }

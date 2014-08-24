@@ -127,7 +127,7 @@ public:
 		return m_packs[i/32] & 1 << (i%32);
 	}
 
-	int count_elements()
+	int count_elements() const
 	{
 		int count = 0;
 		for ( unsigned i = 0; i < m_max_idx; i++ )

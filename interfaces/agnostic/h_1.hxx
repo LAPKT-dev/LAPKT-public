@@ -86,9 +86,12 @@ template <typename Search_Model, typename Fluent_Set_Eval_Func, H1_Cost_Function
 class H1_Heuristic : public Heuristic<State> {
 public:
 
+	typedef STRIPS_Problem::Best_Supporter 	Best_Supporter;
+
 	H1_Heuristic( const Search_Model& prob ) 
 	: Heuristic<State>( prob ), m_strips_model( prob.task() ), eval_func(m_values) {
 		m_values.resize( m_strips_model.num_fluents() );
+		m_difficulties.resize( m_strips_model.num_fluents() );
 		m_best_supporters.resize(  m_strips_model.num_fluents() );
 		m_already_updated.resize( m_strips_model.num_fluents() );
 		m_allowed_actions.resize( m_strips_model.num_actions() );
@@ -122,6 +125,7 @@ public:
 	virtual ~H1_Heuristic() {
 	}
 
+	static unsigned infinity() { return std::numeric_limits<float>::max(); }
 
 	float 	value( unsigned p ) const { return m_values[p]; }
 
@@ -160,13 +164,12 @@ public:
 			}		
 	}
 
-	const Action*	best_supporter( unsigned f ) const {
+	Best_Supporter	get_best_supporter( unsigned f ) const {
 		return m_best_supporters[f];
 	}
-
-
+    
         void get_best_supporters( unsigned f, Action_Ptr_Const_Vec& bfs ) const {
-		const Action* bf = m_best_supporters[f];
+	        const Action* bf = m_strips_model.actions()[ m_best_supporters[f].act_idx ];
 
 		if(!bf) return;
 
@@ -220,17 +223,32 @@ protected:
 		}		
 	}
 
-	void	update( unsigned p, float v, const Action* a ) {
+	void	update( unsigned p, unsigned v, Best_Supporter bs ) {
+		update( p, v, bs.act_idx, bs.eff_idx );
+	}
+
+	float eval_diff( const Best_Supporter& bs ) const {
+		float min_val = infinity();
+		if ( bs.act_idx == no_such_index )
+			return 0;
+		const Action* a =  m_strips_model.actions()[bs.act_idx];
+		for ( auto p : a->prec_vec() )
+			min_val = std::min( min_val, m_values[p] );
+		if ( bs.eff_idx == no_such_index ) return min_val;
+		for ( auto p : a->ceff_vec()[bs.eff_idx]->prec_vec() )
+			min_val = std::min( min_val, m_values[p] );
+		return min_val;
+	}
+
+
+	void	update( unsigned p, float v, unsigned act_idx, unsigned eff_idx ) {
 		if ( v > m_values[p] ) return;
 		if ( v > 0.0f && dequal( v, m_values[p] ) ) {
-			float curr_diff = infty;
-			for ( auto q : m_best_supporters[p]->prec_vec() )
-				curr_diff = curr_diff > m_values[q] ? m_values[q] : curr_diff;
-			float new_diff = infty;
-			for ( auto q : a->prec_vec() )
-				new_diff = new_diff > m_values[q] ? m_values[q] : new_diff;
-			if ( new_diff < curr_diff ) {
-				m_best_supporters[p] = a;
+			Best_Supporter candidate( act_idx, eff_idx );
+			float candidate_diff = eval_diff( candidate );
+			if ( candidate_diff < m_difficulties[p] ) {
+				m_best_supporters[p] = candidate;
+				m_difficulties[p] = candidate_diff;
 			}
 			return;
 		}
@@ -239,7 +257,9 @@ protected:
 			m_updated.push_back( p );
 			m_already_updated.set( p );
 		}
-		m_best_supporters[p] = a;
+		m_best_supporters[p].act_idx = act_idx;
+		m_best_supporters[p].eff_idx = eff_idx;
+		m_difficulties[p] = eval_diff( m_best_supporters[p] );
 	}
 
 	void	set( unsigned p, float v ) {
@@ -253,8 +273,8 @@ protected:
 	void	initialize( const State& s ) 
 	{
 		for ( unsigned k = 0; k < m_strips_model.num_fluents(); k++ ) {
-			m_values[k] = infty;
-			m_best_supporters[k] = nullptr;
+		        m_values[k] = m_difficulties[k] = infinity();
+			m_best_supporters[k] = Best_Supporter( no_such_index, no_such_index );
 		}
 
 		for ( unsigned k = 0; k < m_strips_model.empty_prec_actions().size(); k++ ) {
@@ -263,7 +283,7 @@ protected:
 					( cost_opt == H1_Cost_Function::Use_Costs ? (float)a.cost()  : 1.0f + (float)a.cost()) );
 			for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 				it != a.add_vec().end(); it++ )
-				update( *it, v );
+			    update( *it, v, a.index(), no_such_index );
 			// Conditional effects
 			for ( unsigned j = 0; j < a.ceff_vec().size(); j++ )
 			{
@@ -272,7 +292,7 @@ protected:
 				float v_eff = v;
 				for ( Fluent_Vec::const_iterator it = ceff.add_vec().begin();
 					it != ceff.add_vec().end(); it++ )
-					update( *it, v_eff );
+				    update( *it, v_eff, a.index(), j );
 			}
 		}
 	
@@ -315,13 +335,13 @@ protected:
 
 				for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 					it != a.add_vec().end(); it++ )
-					update( *it, v, &a );
+				    update( *it, v, a.index(), no_such_index );
 				// Conditional effects
 				for ( unsigned j = 0; j < a.ceff_vec().size(); j++ )
 				{
 					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
 					float h_cond = eval_func( ceff.prec_vec().begin(), ceff.prec_vec().end(), h_pre );
-					if ( h_cond == infty ) continue;
+					if ( h_cond == infinity() ) continue;
 					float v_eff = ( cost_opt == H1_Cost_Function::Ignore_Costs ?
 						1.0f + h_cond :
 						( cost_opt == H1_Cost_Function::Use_Costs ?
@@ -330,7 +350,7 @@ protected:
 						) );
 					for ( Fluent_Vec::const_iterator it = ceff.add_vec().begin();
 						it != ceff.add_vec().end(); it++ )
-						update( *it, v_eff, &a );
+					    update( *it, v_eff, a.index(), j );
 				}
 
 				//i = it.next();
@@ -479,7 +499,7 @@ protected:
 
 				for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 					it != a.add_vec().end(); it++ )
-					update( *it, v, m_strips_model.actions()[i] );
+					update( *it, v );
 				// Conditional effects
 				for ( unsigned j = 0; j < a.ceff_vec().size(); j++ )
 				{
@@ -489,7 +509,7 @@ protected:
 					float v_eff = 0.0f;
 					for ( Fluent_Vec::const_iterator it = ceff.add_vec().begin();
 						it != ceff.add_vec().end(); it++ )
-						update( *it, v_eff, m_strips_model.actions()[i] );
+						update( *it, v_eff );
 				}
 
 				//i = it.next();
@@ -501,8 +521,9 @@ protected:
 
 	const STRIPS_Problem&			m_strips_model;
 	std::vector<float>			m_values;
+	std::vector<float>			m_difficulties;
 	Fluent_Set_Eval_Func			eval_func;
-	std::vector<const Action*>		m_best_supporters;
+	std::vector< Best_Supporter >		m_best_supporters;
 	std::vector<const Action*>		m_app_set;
 	std::vector< std::set<unsigned> > m_relevant_actions;
 	//std::deque<unsigned> 			m_updated;

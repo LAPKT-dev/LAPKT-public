@@ -77,7 +77,7 @@ class FF_Relaxed_Plan_Extractor
 	};
 
 	typedef std::priority_queue<Goal_Node>				Goal_Queue;
-	typedef typename Primary_Heuristic::Best_Supporter		Best_Supporter;
+	typedef typename STRIPS_Problem::Best_Supporter  		Best_Supporter;
 public:
 
 	FF_Relaxed_Plan_Extractor( const STRIPS_Problem& prob, Primary_Heuristic& h )
@@ -133,7 +133,7 @@ public:
 		while ( !m_goal_queue.empty() ) {
 			Goal_Node n = m_goal_queue.top();
 			m_goal_queue.pop();
-			auto rp_entry = m_base_heuristic.get_best_supporters( n.m_fluent );
+			auto rp_entry = m_base_heuristic.get_best_supporter( n.m_fluent );
 			if ( rp_entry.act_idx == no_such_index ) // No best supporter for fluent
 			{
 				std::cerr << "No best supporter found for goal fluent ";
@@ -297,10 +297,10 @@ public:
 					if ( m_rp_goals.isset(p) ) d++;
 			}
 			
-			int j;
+			unsigned j;
 			for (j = 0; j < processed_index; j++ )
 				if ( po_dels[j] > d ) break;
-			for ( int k = processed_index; k > j; k-- ) {
+			for ( unsigned k = processed_index; k > j; k-- ) {
 				pref_ops[k] = pref_ops[k-1];
 				po_dels[k] = po_dels[k-1];	
 			}

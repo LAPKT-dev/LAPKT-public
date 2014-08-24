@@ -43,6 +43,7 @@ Bit_Array::Bit_Array( const Bit_Array& other )
 	m_pack_sz = 32;
 	m_n_packs = other.m_n_packs;
 	m_packs = new unsigned [m_n_packs];
+	m_max_idx = other.m_max_idx;
 	memcpy( m_packs, other.m_packs, m_n_packs*sizeof(unsigned) );
 }
 
