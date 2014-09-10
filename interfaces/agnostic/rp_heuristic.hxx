@@ -87,13 +87,13 @@ public:
 	
 			if ( init_fluents().isset( G[k] ) ) continue;
 			const unsigned act_idx = m_base_heuristic.get_best_supporter( G[k] ).act_idx;
-			const Action* sup = m_strips_model.actions()[ act_idx ];
-			if ( sup == NULL ) // No best supporter for fluent
+			if ( act_idx == no_such_index ) // No best supporter for fluent
 			{
 				std::cerr << "No best supporter found for goal fluent ";
 				std::cerr << m_strips_model.fluents()[G[k]]->signature() << std::endl;
 				return;
 			}
+			const Action* sup = m_strips_model.actions()[ act_idx ];
 			#ifdef DEBUG_RP_HEURISTIC
 			std::cout << "Goal: " << m_strips_model.fluents()[G[k]]->signature() << std::endl;
 			std::cout << "Value = " << m_base_heuristic.value( G[k] ) << std::endl;
@@ -231,8 +231,8 @@ protected:
 	
 			if ( init_fluents().isset( C[k] ) ) continue;
 			const unsigned act_idx = m_base_heuristic.get_best_supporter( C[k] ).act_idx;
-			const Action* sup = m_strips_model.actions()[ act_idx ];
-			if ( sup == NULL )
+			
+			if ( act_idx == no_such_index )
 			{
 				std::cerr << "No best supporter found for fluent ";
 				std::cerr << m_strips_model.fluents()[C[k]]->signature() << std::endl;
@@ -240,6 +240,7 @@ protected:
 				exit(1);
 				return false;
 			}
+			const Action* sup = m_strips_model.actions()[ act_idx ];
 			if ( actions_seen().isset( sup->index() ) ) continue;
 			fluents_pending().push( m_strips_model.fluents()[C[k]] );
 			actions_pending().push( sup );

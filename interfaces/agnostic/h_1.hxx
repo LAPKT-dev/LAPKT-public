@@ -125,8 +125,6 @@ public:
 	virtual ~H1_Heuristic() {
 	}
 
-	static unsigned infinity() { return std::numeric_limits<float>::max(); }
-
 	float 	value( unsigned p ) const { return m_values[p]; }
 
 	virtual void eval( const Fluent_Vec& s, float& h_val ) {
@@ -137,7 +135,7 @@ public:
 
 		m_already_updated.reset();
 		m_updated.clear();
-		initialize(s);
+		initialize(s);				
 		compute();
 		h_val = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );
 	}
@@ -169,9 +167,10 @@ public:
 	}
     
         void get_best_supporters( unsigned f, Action_Ptr_Const_Vec& bfs ) const {
-	        const Action* bf = m_strips_model.actions()[ m_best_supporters[f].act_idx ];
+		
+		if(m_best_supporters[f].act_idx == no_such_index ) return;
 
-		if(!bf) return;
+	        const Action* bf = m_strips_model.actions()[ m_best_supporters[f].act_idx ];
 
 		float h_val_bf = eval_func( bf->prec_vec().begin(), bf->prec_vec().end() ); 
 		float h_val = 0;
@@ -223,12 +222,12 @@ protected:
 		}		
 	}
 
-	void	update( unsigned p, unsigned v, Best_Supporter bs ) {
+	void	update( unsigned p, float v, Best_Supporter bs ) {
 		update( p, v, bs.act_idx, bs.eff_idx );
 	}
 
 	float eval_diff( const Best_Supporter& bs ) const {
-		float min_val = infinity();
+		float min_val = infty;
 		if ( bs.act_idx == no_such_index )
 			return 0;
 		const Action* a =  m_strips_model.actions()[bs.act_idx];
@@ -273,7 +272,7 @@ protected:
 	void	initialize( const State& s ) 
 	{
 		for ( unsigned k = 0; k < m_strips_model.num_fluents(); k++ ) {
-		        m_values[k] = m_difficulties[k] = infinity();
+		        m_values[k] = m_difficulties[k] = infty;
 			m_best_supporters[k] = Best_Supporter( no_such_index, no_such_index );
 		}
 
@@ -281,6 +280,7 @@ protected:
 			const Action& a = *(m_strips_model.empty_prec_actions()[k]);
 			float v =  ( cost_opt == H1_Cost_Function::Ignore_Costs ? 1.0f : 
 					( cost_opt == H1_Cost_Function::Use_Costs ? (float)a.cost()  : 1.0f + (float)a.cost()) );
+			
 			for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 				it != a.add_vec().end(); it++ )
 			    update( *it, v, a.index(), no_such_index );
@@ -341,7 +341,7 @@ protected:
 				{
 					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
 					float h_cond = eval_func( ceff.prec_vec().begin(), ceff.prec_vec().end(), h_pre );
-					if ( h_cond == infinity() ) continue;
+					if ( h_cond == infty ) continue;
 					float v_eff = ( cost_opt == H1_Cost_Function::Ignore_Costs ?
 						1.0f + h_cond :
 						( cost_opt == H1_Cost_Function::Use_Costs ?
