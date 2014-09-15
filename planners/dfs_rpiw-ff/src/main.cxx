@@ -208,14 +208,14 @@ int main( int argc, char** argv ) {
 
 	Fwd_Search_Problem	search_prob( &prob );
 
-	if ( !prob.has_conditional_effects() ) {
-		H2_Fwd    h2( search_prob );
-		h2.compute_edeletes( prob );	
+	//if ( !prob.has_conditional_effects() ) {
+	//	H2_Fwd    h2( search_prob );
+	//	h2.compute_edeletes( prob );	
 		//h2.goal_mutex_closure( prob );
 		//std::cout << "\t#Fluents: " << prob.num_fluents() << std::endl;
 
-	}
-	else
+	//}
+	//else
 		prob.compute_edeletes();
 	
 	

@@ -97,7 +97,7 @@ public:
 		m_base_heuristic.eval( s, h_val );
 		//float tf = time_used();
 		//std::cout << tf - t0 << std::endl;
-		if ( h_val == Primary_Heuristic::infinity() )
+		if ( h_val == std::numeric_limits<Cost_Type>::infinity() )
 			return;
 
 		// 0. Initialize data structures

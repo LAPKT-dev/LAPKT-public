@@ -209,11 +209,11 @@ int main( int argc, char** argv ) {
 
 	Fwd_Search_Problem	search_prob( &prob );
 
-	if ( !prob.has_conditional_effects() ) {
-		H2_Fwd    h2( search_prob );
-		h2.compute_edeletes( prob );	
-	}
-	else
+	//if ( !prob.has_conditional_effects() ) {
+	//	H2_Fwd    h2( search_prob );
+	//	h2.compute_edeletes( prob );	
+	//}
+	//else
 		prob.compute_edeletes();
 
 	Gen_Lms_Fwd    gen_lms( search_prob );
