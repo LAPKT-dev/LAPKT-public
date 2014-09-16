@@ -27,7 +27,7 @@ USAGE = """
     """
 
 # Set the time limit (in seconds)
-timelimit = 1800
+timelimit = 300
 memorylimit = 2000
 cores = 3 # Only used for the benchmarking
 
@@ -135,20 +135,42 @@ def benchmark_domain(planner, dom):
                         width = int(line.split(':')[-1])
                         data.append("%s,ok,%f,%d,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded, width))
                 
+            elif match_value(outfile, '([0-9]+).* .*actions in the plan.'):
+                quality = get_value(outfile, '([0-9]+).* .*actions in the plan.', int)
+                generated = 0
+                expanded = 0
+                backtracks = 0
+                if match_value(outfile, '.*Backtracks during search: ([0-9]+).*'):
+                    backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
+                data.append("%s,ok,%f,%d,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded, backtracks))
             elif match_value(outfile, '.*Plan found with cost: ([0-9]+).*'):
                 quality = get_value(outfile, '.*Plan found with cost: ([0-9]+).*', int)
                 generated = get_value(outfile, '.*Nodes generated during search: ([0-9]+).*', int)
                 expanded = get_value(outfile, '.*Nodes expanded during search: ([0-9]+).*', int)
-                backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
+                backtracks = 0
+                if match_value(outfile, '.*Backtracks during search: ([0-9]+).*'):
+                    backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
+                data.append("%s,ok,%f,%d,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded, backtracks))
+            elif match_value(outfile, '.*Length : ([0-9]+).*'):
+                quality = get_value(outfile, '.*Length : ([0-9]+).*', int)
+                generated = get_value(outfile, '.*Expanded nodes : ([0-9]+).*', int)
+                expanded = get_value(outfile, '.*Evaluated nodes : ([0-9]+).*', int)
+                backtracks = 0
+                if match_value(outfile, '.*Backtracks during search: ([0-9]+).*'):
+                    backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
                 data.append("%s,ok,%f,%d,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded, backtracks))
             elif match_value(outfile, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*'):
                 quality = get_value(outfile, '.*Plan cost: ([0-9]+\.[0-9]+), steps.*', float)
                 generated = get_value(outfile, '.*Generated: ([0-9]+).*', int)
                 expanded = get_value(outfile, '.*Expanded: ([0-9]+).*', int)
-                backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
+                backtracks = 0
+                if match_value(outfile, '.*Backtracks during search: ([0-9]+).*'):
+                    backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
                 data.append("%s,ok,%f,%d,%d,%d,%d" % (prob, res.runtime, quality, generated, expanded, backtracks))
             elif match_value(outfile, '.*NOT I-REACHABLE.*'):
-                backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
+                backtracks = 0
+                if match_value(outfile, '.*Backtracks during search: ([0-9]+).*'):
+                    backtracks = get_value(outfile, '.*Backtracks during search: ([0-9]+).*', int)
                 data.append("%s,not-i,%f,-1,-1,-1,%d" % (prob, res.runtime, backtracks))
             else:
                 print "Error with %s" % prob
@@ -211,11 +233,15 @@ def compare_results(dirs):
         for i in range(len(dirs)):
             tsum = 0
             for x in shared_data:
+                if x[i][1] != 'ok': continue
                 tstar = max(1.0, min([float(x[j][2]) for j in range(len(x))]))
-                t = max(1.0, float(x[i][2]))
-                tsum += float(tstar/t)
-                #tsum += 1/(1+log10(t/tstar))
-                #tsum += log10(1+tstar)/log10(1+t)
+                t = float(x[i][2])
+                if float(x[i][2]) < 1.0:
+                    tsum+=1.0
+                else:
+                    tsum += 1/(1+log10(t/tstar))
+                    #tsum += float(tstar/t)
+                    #tsum += log10(1+tstar)/log10(1+t)
             t_score.append(tsum)
             
             time_score[i] += t_score[i]
@@ -303,6 +329,14 @@ elif 'benchmark' == argv[1]:
         benchmark = benchmark_11
         domains = domains_11
         profile_problems = profile_problems_11
+    elif 'ipc-2014/seq-sat' == argv[3]:
+        benchmark = benchmark_14_sat
+        domains = domains_14_sat
+        profile_problems = profile_problems_14
+    elif 'ipc-2014/seq-agl' == argv[3]:
+        benchmark = benchmark_14_agl
+        domains = domains_14_agl
+        profile_problems = profile_problems_14
     else:
         print "Invalid benchmark set: %s" % argv[3]
         os._exit(1)
@@ -330,6 +364,14 @@ elif 'compare' == argv[1]:
         benchmark = benchmark_11
         domains = domains_11
         profile_problems = profile_problems_11
+    elif 'ipc-2014/seq-sat' == argv[3]:
+        benchmark = benchmark_14_sat
+        domains = domains_14_sat
+        profile_problems = profile_problems_14
+    elif 'ipc-2014/seq-agl' == argv[3]:
+        benchmark = benchmark_14_agl
+        domains = domains_14_agl
+        profile_problems = profile_problems_14
     else:
         print "Invalid benchmark set: %s" % argv[3]
         os._exit(1)

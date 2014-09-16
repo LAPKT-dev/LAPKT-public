@@ -240,7 +240,7 @@ int main( int argc, char** argv ) {
 
 	Fwd_Search_Problem	search_prob( &prob );
 
-	// if ( !prob.has_conditional_effects() ) {
+	//if ( !prob.has_conditional_effects() ) {
 	// 	H2_Fwd    h2( search_prob );
 	// 	h2.compute_edeletes( prob );
 	// 	if ( h2.eval( prob.goal() ) == infty ) {
@@ -250,9 +250,9 @@ int main( int argc, char** argv ) {
 	// 		report_no_solution( "h2(s0) = infty", plan_stream );
 	// 		return 0;	
 	// 	}
-
-	// }
-	// else
+	//
+	//}
+	//else
 	// 	prob.compute_edeletes();	
 
 	Gen_Lms_Fwd    gen_lms( search_prob );

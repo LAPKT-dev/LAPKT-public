@@ -201,7 +201,7 @@ int main( int argc, char** argv ) {
 	// 	h2.compute_edeletes( prob );	
 	// }
 	// else
-	prob.compute_edeletes();
+	//prob.compute_edeletes();
 
 	Gen_Lms_Fwd    gen_lms( search_prob );
 	Landmarks_Graph graph( prob );
