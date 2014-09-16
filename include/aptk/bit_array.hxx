@@ -36,6 +36,7 @@ public:
 	Bit_Array( const Bit_Array& other );
 	Bit_Array( Bit_Array&& other );
 	const Bit_Array& operator=( Bit_Array&& other );
+	const Bit_Array& operator=( const Bit_Array& other );
 
 	~Bit_Array();
 
