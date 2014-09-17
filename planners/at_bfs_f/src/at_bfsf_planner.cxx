@@ -199,20 +199,20 @@ AT_BFS_f_Planner::solve() {
 
 	Fwd_Search_Problem	search_prob( instance() );
 
-	if ( !instance()->has_conditional_effects() ) {
-		H2_Fwd    h2( search_prob );
-		h2.compute_edeletes( *instance() );	
+	// if ( !instance()->has_conditional_effects() ) {
+	// 	H2_Fwd    h2( search_prob );
+	// 	h2.compute_edeletes( *instance() );	
 
-		if ( h2.eval( instance()->goal() ) == infty ) {
-			m_details << "Problem has no solution!" << std::endl;
-			report_no_solution( "h2(s0) = infty" );
-			return;	
-		}
+	// 	if ( h2.eval( instance()->goal() ) == infty ) {
+	// 		m_details << "Problem has no solution!" << std::endl;
+	// 		report_no_solution( "h2(s0) = infty" );
+	// 		return;	
+	// 	}
 
 		
-	}
-	else
-		instance()->compute_edeletes();
+	// }
+	// else
+	// 	instance()->compute_edeletes();
 
 
 	float siw_cost = infty;

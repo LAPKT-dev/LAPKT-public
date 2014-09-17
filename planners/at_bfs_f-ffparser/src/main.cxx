@@ -353,17 +353,17 @@ int main( int argc, char** argv ) {
 
 	Fwd_Search_Problem	search_prob( &prob );
 
-	if ( !prob.has_conditional_effects() ) {
-		H2_Fwd    h2( search_prob );
-		h2.compute_edeletes( prob );
-		if ( h2.eval( prob.goal() ) == infty ) {
-			details << "Problem has no solution!" << std::endl;
-			report_no_solution( "h2(s0) = infty", plan_filename );
-			return 0;	
-		}
-	}
-	else
-		prob.compute_edeletes();	
+	// if ( !prob.has_conditional_effects() ) {
+	// 	H2_Fwd    h2( search_prob );
+	// 	h2.compute_edeletes( prob );
+	// 	if ( h2.eval( prob.goal() ) == infty ) {
+	// 		details << "Problem has no solution!" << std::endl;
+	// 		report_no_solution( "h2(s0) = infty", plan_filename );
+	// 		return 0;	
+	// 	}
+	// }
+	// else
+	// 	prob.compute_edeletes();	
 
 
 	float siw_cost = infty;

@@ -11,7 +11,7 @@
     N0 N1 N2 N3 N4 N5
  - num
     C D H S
- - suit
+ - suittype
 )
 (:init
 (VALUE C0 N0)

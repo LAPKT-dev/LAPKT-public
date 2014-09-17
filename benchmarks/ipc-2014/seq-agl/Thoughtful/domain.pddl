@@ -4,7 +4,7 @@
 
 (define (domain thoughtful-typed)
 	(:requirements :typing)
-	(:types card colnum num suit)
+	(:types card colnum num suittype)
 	(:predicates (on ?c1 - card ?c2 - card)
 		(ace ?c - card)
 		(king ?c - card)
@@ -18,7 +18,7 @@
 		(home ?c - card)
 		(faceup ?c - card)
 		(bottomcol ?c - card)
-		(suit ?c - card ?s - suit)
+		(suit ?c - card ?s - suittype)
 		(value ?c - card ?v - num)
 		(successor ?n1 - num ?n0 - num)
 		(canstack ?c1 - card ?c2 - card)
@@ -86,7 +86,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	(:action col-to-home
-		:parameters (?card ?oldcard - card ?suit - suit ?vcard - num
+		:parameters (?card ?oldcard - card ?suit - suittype ?vcard - num
 				?homecard - card ?vhomecard - num)
 		:precondition (and
 			(clear ?card)
@@ -110,7 +110,7 @@
 ;; Move card from column to home - create an empty column
 
 	(:action col-to-home-b
-		:parameters (?card ?homecard - card ?suit - suit ?vcard - num 
+		:parameters (?card ?homecard - card ?suit - suittype ?vcard - num 
 			?vhomecard - num ?cols ?ncols - colnum)
 		:precondition (and
 			(clear ?card)
@@ -314,7 +314,7 @@
 ;; move card from talon to home
 
 	(:action tal-to-home
-		:parameters (?card ?cardabove ?cardbelow ?homecard - card ?cardsuit - suit
+		:parameters (?card ?cardabove ?cardbelow ?homecard - card ?cardsuit - suittype
 			?vcard ?vhomecard - num)
 		:precondition (and
 			(talonplayable ?card)
@@ -338,7 +338,7 @@
 ;; move card from talon to home - card is bottom card in talon
 
 	(:action tal-to-home-b
-		:parameters (?card ?cardabove ?homecard  - card ?cardsuit - suit
+		:parameters (?card ?cardabove ?homecard  - card ?cardsuit - suittype
 			?vcard ?vhomecard - num)
 		:precondition (and
 			(talonplayable ?card)
@@ -362,7 +362,7 @@
 ;; move card from talon to home - card is top card in talon
 
 	(:action tal-to-home-c
-		:parameters (?card ?cardbelow ?homecard - card ?cardsuit - suit
+		:parameters (?card ?cardbelow ?homecard - card ?cardsuit - suittype
 			?vcard ?vhomecard - num)
 		:precondition (and
 			(ontalon ?card ?cardbelow)
@@ -386,7 +386,7 @@
 ;; move card from talon to home - card is the only card in talon
 
 	(:action tal-to-home-d
-		:parameters (?card ?homecard - card ?cardsuit - suit
+		:parameters (?card ?homecard - card ?cardsuit - suittype
 			?vcard ?vhomecard - num)
 		:precondition (and
 			(bottomtalon ?card)
@@ -413,7 +413,7 @@
 ;; move card from home to column
 	
 	(:action home-to-col
-		:parameters (?card ?cardbelow ?newcard - card ?cardsuit - suit
+		:parameters (?card ?cardbelow ?newcard - card ?cardsuit - suittype
 			?vcard ?vcardbelow - num)
 		:precondition (and
 			(home ?card)
@@ -435,7 +435,7 @@
 ;; move king from home to column
 	
 	(:action home-to-col-a
-		:parameters (?card ?cardbelow - card ?cardsuit - suit
+		:parameters (?card ?cardbelow - card ?cardsuit - suittype
 			?vcard ?vcardbelow - num ?cols ?ncols - colnum)
 		:precondition (and
 			(home ?card)
