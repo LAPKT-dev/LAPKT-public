@@ -1,3 +1,4 @@
+
 /*
 Lightweight Automated Planning Toolkit
 Copyright (C) 2012
@@ -84,6 +85,15 @@ namespace aptk
 				m_cond_pending = m_condition.size();
 				m_cond_status.resize( nf );
 			}
+
+
+                        Trigger (const Trigger & other) {
+                                m_condition = std::move( other.m_condition );
+				m_effect = std::move( other.m_effect );
+				m_last = other.m_last;
+				m_cond_pending = other.m_cond_pending;
+				m_cond_status = std::move( other.m_cond_status );
+                        }
 
 			Trigger( Trigger&& other ) {
 				m_condition = std::move( other.m_condition );

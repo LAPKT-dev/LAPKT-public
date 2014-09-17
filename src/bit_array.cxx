@@ -66,6 +66,17 @@ const Bit_Array&	Bit_Array::operator=( Bit_Array&& other ) {
 	return *this;
 }
 
+
+const Bit_Array&	Bit_Array::operator=( const Bit_Array& other ) {
+	m_pack_sz = sizeof( unsigned );
+	m_n_packs = other.m_n_packs;
+	if ( m_packs != nullptr ) delete m_packs;
+	m_packs = new unsigned [m_n_packs];
+	m_max_idx = other.m_max_idx;
+	memcpy( m_packs, other.m_packs, m_n_packs*sizeof(unsigned) );
+	return *this;
+}
+
 void Bit_Array::resize( unsigned dim )
 {
 	m_max_idx = dim+1;
