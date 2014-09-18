@@ -18,8 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __DFS_RPIW__
-#define __DFS_RPIW__
+#ifndef __DFS_PLUS__
+#define __DFS_PLUS__
 
 #include <aptk/search_prob.hxx>
 #include <aptk/resources_control.hxx>
@@ -39,7 +39,7 @@ namespace novelty_spaces{
 
 
 template < typename Search_Model, typename Search_Strategy, typename Search_Node  >
-class DFS_RPIW {
+class DFS_Plus {
 
 public:
 
@@ -48,11 +48,11 @@ public:
 	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
 
-	DFS_RPIW( const Search_Model& search_problem ) : m_problem( search_problem ), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0), m_expanded(0), m_generated(0), m_goal_agenda(NULL), m_max_bound( std::numeric_limits<unsigned>::max() ), m_backtracks(0), m_root(NULL), m_iw_engine( search_problem ) {	   	
+	DFS_Plus( const Search_Model& search_problem ) : m_problem( search_problem ), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0), m_expanded(0), m_generated(0), m_goal_agenda(NULL), m_max_bound( std::numeric_limits<unsigned>::max() ), m_backtracks(0), m_root(NULL), m_iw_engine( search_problem ) {	   	
 		m_goal_agenda = NULL;
 	}
 
-	virtual ~DFS_RPIW() {
+	virtual ~DFS_Plus() {
 	}
 
 	void            set_goal_agenda( Landmarks_Graph* lg ) { m_goal_agenda = lg; }

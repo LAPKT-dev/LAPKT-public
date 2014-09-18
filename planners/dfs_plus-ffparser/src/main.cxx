@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <rp_heuristic.hxx>
 
 #include <aptk/rp_iw.hxx>
-#include <aptk/dfs_rpiw.hxx>
+#include <aptk/dfs_plus.hxx>
 #include <aptk/serialized_search.hxx>
 #include <aptk/string_conversions.hxx>
 
@@ -52,7 +52,7 @@ using	aptk::agnostic::Fwd_Search_Problem;
 
 using 	aptk::agnostic::Landmarks_Graph_Generator;
 using 	aptk::agnostic::Landmarks_Graph;
-using 	aptk::agnostic::H2_Heuristic;
+
 using 	aptk::agnostic::H1_Heuristic;
 using	aptk::agnostic::H_Add_Evaluation_Function;
 using	aptk::agnostic::Relaxed_Plan_Heuristic;
@@ -61,11 +61,10 @@ using 	aptk::agnostic::Novelty;
 using 	aptk::agnostic::Novelty_Partition;
 using	aptk::search::Serialized_Search;
 using	aptk::search::novelty_spaces::RP_IW;
-using	aptk::search::novelty_spaces::DFS_RPIW;
+using	aptk::search::novelty_spaces::DFS_Plus;
 
 typedef		aptk::search::novelty_spaces::Node< aptk::State > IW_Node;
 typedef         Novelty_Partition<Fwd_Search_Problem, IW_Node>    H_Novel_Fwd;
-typedef         H2_Heuristic<Fwd_Search_Problem>                  H2_Fwd;
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd; 
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
 
@@ -73,8 +72,8 @@ typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>     Gen_Lms_Fwd;
 typedef		RP_IW< Fwd_Search_Problem, H_Novel_Fwd, H_Add_Rp_Fwd >	  RP_IW_Fwd;
 
 
-typedef		DFS_RPIW< Fwd_Search_Problem, RP_IW_Fwd, IW_Node >        DFS_RPIW_Fwd;
-//typedef		DFS_RPIW< Fwd_Search_Problem >        DFS_RPIW_Fwd;
+typedef		DFS_Plus< Fwd_Search_Problem, RP_IW_Fwd, IW_Node >        DFS_Plus_Fwd;
+
 
 
 template <typename Search_Engine>
@@ -207,20 +206,7 @@ int main( int argc, char** argv ) {
 	std::cout << "\t#Fluents: " << prob.num_fluents() << std::endl;
 
 	Fwd_Search_Problem	search_prob( &prob );
-
-	//if ( !prob.has_conditional_effects() ) {
-	//	H2_Fwd    h2( search_prob );
-	//	h2.compute_edeletes( prob );	
-		//h2.goal_mutex_closure( prob );
-		//std::cout << "\t#Fluents: " << prob.num_fluents() << std::endl;
-
-	//}
-	//else
-		prob.compute_edeletes();
-	
-	
-	
-
+		       
 	Gen_Lms_Fwd    gen_lms( search_prob );
 	Landmarks_Graph graph( prob );
 
@@ -228,12 +214,10 @@ int main( int argc, char** argv ) {
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
 	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
-	//graph.print( std::cout );
 	
 	std::cout << "Starting search with IW (time budget is 60 secs)..." << std::endl;
 
-	//RP_IW_Fwd siw_engine( search_prob );
-	DFS_RPIW_Fwd engine( search_prob );
+	DFS_Plus_Fwd engine( search_prob );
 	engine.set_goal_agenda( &graph );
 	
 	float iw_bound = vm["bound"].as<int>();

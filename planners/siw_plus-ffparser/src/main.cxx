@@ -30,19 +30,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <cond_eff.hxx>
 #include <strips_state.hxx>
 #include <fwd_search_prob.hxx>
+
 #include <novelty.hxx>
 #include <novelty_partition.hxx>
 #include <landmark_graph.hxx>
 #include <landmark_graph_generator.hxx>
-#include <h_2.hxx>
+
 #include <h_1.hxx>
 #include <rp_heuristic.hxx>
 
 #include <aptk/rp_iw.hxx>
-#include <aptk/srpiw.hxx>
+#include <aptk/siw_plus.hxx>
 #include <aptk/serialized_search.hxx>
-#include <aptk/string_conversions.hxx>
 
+#include <aptk/string_conversions.hxx>
 #include <boost/program_options.hpp>
 
 namespace po = boost::program_options;
@@ -52,7 +53,7 @@ using	aptk::agnostic::Fwd_Search_Problem;
 
 using 	aptk::agnostic::Landmarks_Graph_Generator;
 using 	aptk::agnostic::Landmarks_Graph;
-using 	aptk::agnostic::H2_Heuristic;
+
 using 	aptk::agnostic::H1_Heuristic;
 using	aptk::agnostic::H_Add_Evaluation_Function;
 using	aptk::agnostic::Relaxed_Plan_Heuristic;
@@ -60,22 +61,20 @@ using	aptk::agnostic::Relaxed_Plan_Heuristic;
 using 	aptk::agnostic::Novelty;
 using 	aptk::agnostic::Novelty_Partition;
 using	aptk::search::novelty_spaces::RP_IW;
-using	aptk::search::novelty_spaces::SRPIW;
+using	aptk::search::novelty_spaces::SIW_Plus;
 using	aptk::search::Serialized_Search;
 
 
 typedef		aptk::search::novelty_spaces::Node< aptk::State >	          IW_Node;
 typedef         Novelty_Partition<Fwd_Search_Problem, IW_Node>    H_Novel_Fwd;
-typedef         H2_Heuristic<Fwd_Search_Problem>                  H2_Fwd;
+
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd; 
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
 
 typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>     Gen_Lms_Fwd;
+
 typedef		RP_IW< Fwd_Search_Problem, H_Novel_Fwd, H_Add_Rp_Fwd >	  RP_IW_Fwd;
-
-
-//typedef		Serialized_Search< Fwd_Search_Problem, IW_Fwd, IW_Node >        SRPIW_Fwd;
-typedef		SRPIW< Fwd_Search_Problem >        SRPIW_Fwd;
+typedef		SIW_Plus< Fwd_Search_Problem >        SIW_Plus_Fwd;
 
 
 template <typename Search_Engine>
@@ -125,9 +124,6 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, 
 	details << "Total time: " << total_time << std::endl;
 	details << "Nodes generated during search: " << engine.sum_generated() << std::endl;
 	details << "Nodes expanded during search: " << engine.sum_expanded() << std::endl;
-	//details << "Nodes pruned by bound: " << engine.sum_pruned_by_bound() << std::endl;
-	//details << "Average ef. width: " << engine.avg_B() << std::endl;
-	//details << "Max ef. width: " << engine.max_B() << std::endl;
 	details.close();
 	std::cout << "Total time: " << total_time << std::endl;
 	std::cout << "Nodes generated during search: " << engine.sum_generated() << std::endl;
@@ -205,16 +201,7 @@ int main( int argc, char** argv ) {
 	std::cout << "\t#Actions: " << prob.num_actions() << std::endl;
 	std::cout << "\t#Fluents: " << prob.num_fluents() << std::endl;
 
-	//prob.print_actions(std::cout);
-
-	Fwd_Search_Problem	search_prob( &prob );
-
-	//if ( !prob.has_conditional_effects() ) {
-	//	H2_Fwd    h2( search_prob );
-	//	h2.compute_edeletes( prob );	
-	//}
-	//else
-		prob.compute_edeletes();
+	Fwd_Search_Problem	search_prob( &prob );		
 
 	Gen_Lms_Fwd    gen_lms( search_prob );
 	Landmarks_Graph graph( prob );
@@ -223,12 +210,12 @@ int main( int argc, char** argv ) {
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
 	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
-	//graph.print( std::cout );
+	
 	
 	std::cout << "Starting search with IW (time budget is 60 secs)..." << std::endl;
 
-	//RP_IW_Fwd siw_engine( search_prob );
-	SRPIW_Fwd siw_engine( search_prob );
+
+	SIW_Plus_Fwd siw_engine( search_prob );
 	siw_engine.set_goal_agenda( &graph );
 	
 	float iw_bound = vm["bound"].as<int>();

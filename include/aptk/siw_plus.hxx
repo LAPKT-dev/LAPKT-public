@@ -18,8 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __SRPIW__
-#define __SRPIW__
+#ifndef __SIW_PLUS__
+#define __SIW_PLUS__
 
 #include <aptk/search_prob.hxx>
 #include <aptk/resources_control.hxx>
@@ -37,7 +37,7 @@ namespace search {
 namespace novelty_spaces {
 
 template < typename Search_Model >
-class SRPIW : public Serialized_Search<Search_Model, 
+class SIW_Plus : public Serialized_Search<Search_Model, 
 				       RP_IW<Search_Model, 
 					     aptk::agnostic::Novelty_Partition<Search_Model, Node< aptk::State >>,
 					     aptk::agnostic::Relaxed_Plan_Heuristic< Search_Model, aptk::agnostic::H1_Heuristic<Search_Model, aptk::agnostic::H_Add_Evaluation_Function> > >,
@@ -49,12 +49,12 @@ public:
 	typedef          aptk::agnostic::Landmarks_Graph                                                Landmarks_Graph;
 	typedef          aptk::agnostic::Relaxed_Plan_Heuristic< Search_Model, aptk::agnostic::H1_Heuristic<Search_Model, aptk::agnostic::H_Add_Evaluation_Function> >                                          RP_Heuristic;
 
-	SRPIW( const Search_Model& search_problem ) 
+	SIW_Plus( const Search_Model& search_problem ) 
 	  : Serialized_Search<Search_Model, RP_IW<Search_Model, aptk::agnostic::Novelty_Partition<Search_Model, Search_Node>, RP_Heuristic>, Search_Node>( search_problem ), m_sum_exp_count(0), m_sum_gen_count(0), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0), m_max_bound( std::numeric_limits<unsigned>::max() ) {	   	
 		m_goal_agenda = NULL;
 	}
 
-	virtual ~SRPIW() {
+	virtual ~SIW_Plus() {
 	}
 	void            set_goal_agenda( Landmarks_Graph* lg ) { m_goal_agenda = lg; }
 
