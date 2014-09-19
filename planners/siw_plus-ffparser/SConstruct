@@ -10,6 +10,8 @@ if int(debug) == 1 :
         common_env.Append( CCFLAGS = ['-g',  '-DDEBUG' ] )
 elif int(debug) == 2 :
         common_env.Append( CCFLAGS = ['-g',  '-DNDEBUG' ] )
+elif int(debug) == 3 :
+        common_env.Append( CCFLAGS = ['-g',  '-DDEBUG_RP_HEURISTIC' ] )
 else:
         common_env.Append( CCFLAGS = ['-O3', '-DNDEBUG'] )
 

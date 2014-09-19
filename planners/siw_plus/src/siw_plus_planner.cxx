@@ -9,7 +9,7 @@
 #include <fstream>
 
 
-using	aptk::agnostic::Fwd_Search_Problem;
+
 using 	aptk::agnostic::Landmarks_Graph_Generator;
 using 	aptk::agnostic::Landmarks_Graph;
 
@@ -106,6 +106,7 @@ SIW_Plus_Planner::solve() {
 	
 	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
 
+	//instance()->print_actions(std::cout);
 	
 	std::cout << "Starting search with IW (time budget is 60 secs)..." << std::endl;
 

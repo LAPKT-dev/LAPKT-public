@@ -39,16 +39,16 @@ def main( domain_file, problem_file, plan_file ) :
 	task.solve()
 
 	#MRJ: Comment lines below to deactivate profile
-	#profiler_stop()	
+# 	profiler_stop()	
 
-	#rv = os.system( 'google-pprof --pdf libsiw_plus.so siw_plus.prof > siw_plus.pdf' )
-	#if rv != 0 :
-	#	print >> sys.stderr, "An error occurred while translating google-perftools profiling information into valgrind format"
+# 	rv = os.system( 'google-pprof --pdf libsiw_plus.so siw_plus.prof > siw_plus.pdf' )
+# 	if rv != 0 :
+# 		print >> sys.stderr, "An error occurred while translating google-perftools profiling information into valgrind format"
 
 
-def debug() :
-	main( "/home/bowman/Sandboxes/Fast-Downward/benchmarks/miconic-simpleadl/domain.pddl",
-		"/home/bowman/Sandboxes/Fast-Downward/benchmarks/miconic-simpleadl/s3-0.pddl" )
+# def debug() :
+# 	main( "/home/nirlipo/Sandboxes/lwaptk-ICAPS-2014/ipc-2011/blocksworld/domain.pddl",
+# 		"/home/nirlipo/Sandboxes/lwaptk-ICAPS-2014/benchmarks/ipc-2011/blocksworld/instances/blocksaips01.pddl","p" )
 
 if __name__ == "__main__":
 	main( sys.argv[1], sys.argv[2], sys.argv[3] )

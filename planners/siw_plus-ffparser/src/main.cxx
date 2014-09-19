@@ -65,16 +65,16 @@ using	aptk::search::novelty_spaces::SIW_Plus;
 using	aptk::search::Serialized_Search;
 
 
-typedef		aptk::search::novelty_spaces::Node< aptk::State >	          IW_Node;
-typedef         Novelty_Partition<Fwd_Search_Problem, IW_Node>    H_Novel_Fwd;
+typedef		aptk::search::novelty_spaces::Node< aptk::State >	        IW_Node;
+typedef         Novelty_Partition<Fwd_Search_Problem, IW_Node>                  H_Novel_Fwd;
 
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd; 
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
 
-typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>     Gen_Lms_Fwd;
+typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>                   Gen_Lms_Fwd;
 
-typedef		RP_IW< Fwd_Search_Problem, H_Novel_Fwd, H_Add_Rp_Fwd >	  RP_IW_Fwd;
-typedef		SIW_Plus< Fwd_Search_Problem >        SIW_Plus_Fwd;
+typedef		RP_IW< Fwd_Search_Problem, H_Novel_Fwd, H_Add_Rp_Fwd >	        RP_IW_Fwd;
+typedef		SIW_Plus< Fwd_Search_Problem >                                  SIW_Plus_Fwd;
 
 
 template <typename Search_Engine>
@@ -190,7 +190,7 @@ int main( int argc, char** argv ) {
 	}
 	else
 		plan_stream.open( vm["output"].as<std::string>().c_str() );
-		
+
 
 	STRIPS_Problem	prob;
 
@@ -203,6 +203,9 @@ int main( int argc, char** argv ) {
 
 	Fwd_Search_Problem	search_prob( &prob );		
 
+	
+	//prob.print_actions(std::cout);
+	
 	Gen_Lms_Fwd    gen_lms( search_prob );
 	Landmarks_Graph graph( prob );
 
