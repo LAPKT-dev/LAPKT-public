@@ -143,6 +143,8 @@ using namespace boost::python;
 				if ( negated ) {
 					action.del_vec().push_back( fl_idx );
 					action.del_set().set( fl_idx );
+					action.edel_vec().push_back( fl_idx );
+					action.edel_set().set( fl_idx );
 				}
 				else {
 					action.add_vec().push_back( fl_idx );
@@ -157,11 +159,15 @@ using namespace boost::python;
 				action.add_set().set( neg_fl_idx );
 				action.del_vec().push_back( fl_idx );
 				action.del_set().set( fl_idx );
+				action.edel_vec().push_back( fl_idx );
+				action.edel_set().set( fl_idx );
 				continue; 
 			}
 
 			action.del_vec().push_back( neg_fl_idx );
 			action.del_set().set( neg_fl_idx );
+			action.edel_vec().push_back( neg_fl_idx );
+			action.edel_set().set( neg_fl_idx );
 			action.add_vec().push_back( fl_idx );
 			action.add_set().set( fl_idx );
 		}	
