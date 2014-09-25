@@ -1,4 +1,4 @@
-lwaptk
+LAPKT
 ======
 
 Lightweight Automated Planning Toolkit
@@ -12,7 +12,7 @@ CONTENTS
 ========
 
 1. Overview of toolkit components
-2. Building lwaptk
+2. Building LAPKT
 3. Search algorithms implemented
 4. Examples
 5. Contributing
@@ -21,7 +21,7 @@ CONTENTS
 1. OVERVIEW
 ===========
 
-lwaptk separates search engines from the data structures used to represent
+LAPKT separates search engines from the data structures used to represent
 planning tasks. This second component receives the name of 'interface' since
 it is indeed the interface that provides the search model to be solved.
 
@@ -45,20 +45,20 @@ of PDDL 3.0 features.
 there is no SAS-based planning language, this will probably be useful to integrate
 planners into applications that are able to define SAS planning tasks programatically.
 
-Search engine components are meant to be modular, allowing users of lwaptk to
+Search engine components are meant to be modular, allowing users of LAPKT to
 assemble and combine features of different search engines to come up with customized
 search strategies, within reason and without sacrificing (much) efficiency. In order to
-do so, lwaptk makes heavy use of C++ templates and the Static Strategy design pattern.
+do so, LAPKT makes heavy use of C++ templates and the Static Strategy design pattern.
 At the time of writing this, the modularity and decoupling of components isn't as high 
 as I would like, there's still a lot of work to do :)
 
-lwaptk is bound to change rapidly and dramatically over the next months, so please keep
+LAPKT is bound to change rapidly and dramatically over the next months, so please keep
 this in mind when using this library.
 
-2. BUILDING lwaptk
+2. BUILDING LAPKT
 ==================
 
-In order to build lwaptk you need to install scons (a GNU Makefile replacement)
+In order to build LAPKT you need to install scons (a GNU Makefile replacement)
 in your system. Refer to http://www.scons.org for directions on how to achieve
 this.
 
@@ -67,7 +67,7 @@ You can check the version you have either manually by looking at the macro defin
 `dpkg -s libboost-dev`.
 Be aware that systems such as the Ubuntu 12.04LTS release ship with older versions of Boost.
 
-Finally, lwaptk requires the Judy library (http://judy.sourceforge.net/index.html) to
+Finally, LAPKT requires the Judy library (http://judy.sourceforge.net/index.html) to
 support the bitmap array class 'Varset Judy'. NOTE: This dependency will be optional
 or entirely deprecated in the future.
 
@@ -129,7 +129,7 @@ and cover the following topics:
 4. CONTRIBUTING
 ===============
 
-Anybody can contribute to lwaptk by submitting code or patches to
+Anybody can contribute to LAPKT by submitting code or patches to
 
 miquel.ramirez@gmail.com
 
@@ -141,11 +141,11 @@ commit permissions upon request.
 5. REQUIREMENTS
 ==============
 
-lwaptk requires the following libraries:
+LAPKT requires the following libraries:
 	* boost::program_options
 	* varjudy
 
-In order to compile lwaptk, we recommend need g++ 4.6 or better. However, any 
+In order to compile LAPKT, we recommend need g++ 4.6 or better. However, any 
 compiler able to handle both boost libraries and C++0x standard new features, 
 should also be usable (we have been able to compile it under Visual Studio 
 2010 and llvm).
