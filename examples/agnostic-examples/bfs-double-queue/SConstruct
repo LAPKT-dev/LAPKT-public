@@ -15,9 +15,13 @@ if int(debug) == 1 :
 else:
 	common_env.Append( CCFLAGS = ['-O3','-Wall', '-std=c++0x', '-DNDEBUG'] )
 
+Export('common_env')
 cxx_sources = Glob('*.cxx')
 c_sources = Glob('*.c')
 src_objs = [ common_env.Object(s) for s in cxx_sources ] + [ common_env.Object(s) for s in c_sources ]
+generic_objs = SConscript('../../../src/SConscript.aptk')
+agnostic_objs = SConscript('../../../interfaces/agnostic/SConscript.agnostic')
+ff_wrapper_objs = SConscript('../../../interfaces/ff-wrapped/SConscript.ff')
 
 Export('common_env')
 src_objs += SConscript( '../../common/SConscript', 'common_env' )
@@ -25,4 +29,4 @@ src_objs += SConscript( '../../common/SConscript', 'common_env' )
 common_env.Append( LIBS=libs)
 common_env.Append( LIBPATH=[ os.path.abspath(p) for p in lib_paths ] )
 
-common_env.Program( 'bfs-dq', src_objs )
+common_env.Program( 'bfs-dq', src_objs + generic_objs + agnostic_objs + ff_wrapper_objs )

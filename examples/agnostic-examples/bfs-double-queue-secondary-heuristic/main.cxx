@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <h_1.hxx>
 #include <rp_heuristic.hxx>
-#include <simple_landmarks.hxx>
+#include <h_unsat.hxx>
 
 #include <aptk/open_list.hxx>
 #include <aptk/at_bfs_dq_mh.hxx>
@@ -51,7 +51,7 @@ using	aptk::agnostic::Fwd_Search_Problem;
 using 	aptk::agnostic::H1_Heuristic;
 using	aptk::agnostic::H_Add_Evaluation_Function;
 using	aptk::agnostic::Relaxed_Plan_Heuristic;
-using	aptk::agnostic::Simple_Landmarks_Heuristic;
+using	aptk::agnostic::Unsat_Goals_Heuristic;
 
 using 	aptk::search::Open_List;
 using	aptk::search::Node_Comparer_DH;
@@ -73,12 +73,12 @@ typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >			BFS_Open_List;
 // MRJ: Now we define the heuristics
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd;
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
-typedef		Simple_Landmarks_Heuristic< Fwd_Search_Problem >		H_LM;
+typedef		Unsat_Goals_Heuristic< Fwd_Search_Problem >		H_Unsat;
 
 // MRJ: Now we're ready to define the BFS algorithm we're going to use
-typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_LM, BFS_Open_List >		Anytime_BFS_H_Add_Rp_Fwd;
-typedef		AT_WBFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_LM, BFS_Open_List >		Anytime_WBFS_H_Add_Rp_Fwd;
-typedef		AT_RWBFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_LM, BFS_Open_List >		Anytime_RWBFS_H_Add_Rp_Fwd;
+typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Unsat, BFS_Open_List >		Anytime_BFS_H_Add_Rp_Fwd;
+typedef		AT_WBFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Unsat, BFS_Open_List >		Anytime_WBFS_H_Add_Rp_Fwd;
+typedef		AT_RWBFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Unsat, BFS_Open_List >		Anytime_RWBFS_H_Add_Rp_Fwd;
 
 template <typename Search_Engine>
 float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float budget, std::string logfile ) {

@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <fwd_search_prob.hxx>
 
 #include <novelty_partition.hxx>
-#include <lm_cut_heuristic.hxx>
 #include <landmark_graph.hxx>
 #include <landmark_graph_generator.hxx>
 #include <landmark_graph_manager.hxx>
@@ -60,7 +59,6 @@ using 	aptk::agnostic::Landmarks_Graph;
 using 	aptk::agnostic::Landmarks_Graph_Generator;
 using   aptk::agnostic::Landmarks_Graph_Manager;
 using 	aptk::agnostic::Landmarks_Count_Heuristic;
-using 	aptk::agnostic::LM_Cut_Heuristic;
 using 	aptk::agnostic::H2_Heuristic;
 using 	aptk::agnostic::H1_Heuristic;
 using   aptk::agnostic::Layered_H_Max;
@@ -80,7 +78,6 @@ using	aptk::search::gbfs_3h::AT_GBFS_3H;
 
 typedef         H2_Heuristic<Fwd_Search_Problem>                  H2_Fwd;
 typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>     Gen_Lms_Fwd;
-typedef         LM_Cut_Heuristic<Fwd_Search_Problem>              H_Lmcut_Fwd;
 typedef         Landmarks_Count_Heuristic<Fwd_Search_Problem>     H_Lmcount_Fwd;
 typedef         Landmarks_Graph_Manager<Fwd_Search_Problem>       Land_Graph_Man;
 
