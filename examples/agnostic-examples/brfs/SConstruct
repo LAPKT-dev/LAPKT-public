@@ -7,8 +7,8 @@ common_env = Environment()
 
 
 include_paths = ['../../../include', '../../../interfaces/agnostic', '../../../interfaces/ff-wrapped',  '../../../external', '/usr/local/include' ]
-lib_paths = [ '../../..', '../../../interfaces/agnostic', '../../../interfaces/ff-wrapped', '../../../external/libff', '/usr/local/lib' ]
-libs = ['Judy', 'aptk-ff-wrap', 'aptk-base', 'aptk',  'boost_program_options', 'ff']
+lib_paths = [ ]
+libs = [ 'boost_program_options']
 
 common_env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
 
