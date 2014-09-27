@@ -100,6 +100,18 @@ int main( int argc, char** argv ) {
 		    i++;
 		    continue;
 		}
+		if( parm == "--help"){
+		    std::cout << "::Options::" << std::endl;
+		    std::cout << "\t--dim <int> \t\t\t default 10" << std::endl;
+		    std::cout << "\t--block-prob <float> \t\t default 0.1f" << std::endl;
+		    std::cout << "\t--num-items <int> \t\t default 12" << std::endl;
+		    std::cout << "\t--num-goal-items <int> \t\t default 5" << std::endl;
+		    std::cout << "\t--num-goal-locations <int> \t default 4" << std::endl;
+		    std::cout << "\t--trials <int> \t\t\t default 2000" << std::endl;
+		    return 0;
+		 
+		}
+		    
 	}
 
 	NWN_Mockup fake_nwn_situation;
@@ -150,6 +162,12 @@ int main( int argc, char** argv ) {
 	}
 	//std::cout << std::endl;
 	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
+	
+	/** NIR: currently by default we use match tree, 
+	 * therefore we have to explicitly initialize the old successor generator
+	 */
+	plan_prob.initialize_successor_generator();
+
 	old_time = aptk::time_used();
 
 	std::cout << "Applicable actions at root with successor generator: " << std::endl;
@@ -165,26 +183,27 @@ int main( int argc, char** argv ) {
 	}
 	//std::cout << std::endl;
 	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
+	
+	// std::cout << "Applicable actions at root with iterator interface: " << std::endl;
+	// for (int trial = 0; trial < TRIALS; trial++) {
+	// 	Fwd_Search_Problem::Action_Iterator it(search_prob);
+	// 	int a = it.start( *s0 );
+	// 	while (a != aptk::no_op) {
+	// 		if (1 == TRIALS)
+	// 		    std::cout << plan_prob.actions()[a]->signature() << std::endl;
+	// 		//std::cout << '.';
+	// 		int foo = 42;
+	// 		a = it.next();
+	// 	}
+	// }
+	// //std::cout << std::endl;
+	// std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
+	// old_time = aptk::time_used();
+	
+	plan_prob.make_action_tables();
+
 	old_time = aptk::time_used();
 
-	std::cout << "Applicable actions at root with iterator interface: " << std::endl;
-	for (int trial = 0; trial < TRIALS; trial++) {
-		Fwd_Search_Problem::Action_Iterator it(search_prob);
-		int a = it.start( *s0 );
-		while (a != aptk::no_op) {
-			if (1 == TRIALS)
-                std::cout << plan_prob.actions()[a]->signature() << std::endl;
-			//std::cout << '.';
-			int foo = 42;
-			a = it.next();
-		}
-	}
-	//std::cout << std::endl;
-	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
-	old_time = aptk::time_used();
-	
-	
-	
 	
 	std::cout << "Applicable actions at root with the new match tree: " << std::endl;
 	for (int trial = 0; trial < TRIALS; trial++) {

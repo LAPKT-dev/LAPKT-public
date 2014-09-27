@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/search_prob.hxx>
 #include <aptk/heuristic.hxx>
 #include <strips_state.hxx>
+#include <aptk/ext_math.hxx>
 #include <conj_comp_prob.hxx>
 #include <vector>
 #include <deque>
@@ -61,10 +62,14 @@ template <typename Fluent_Set_Eval_Func = HC_Max_Evaluation_Function, HC_Cost_Fu
 class HC_Heuristic {
 
 public:
+	typedef STRIPS_Problem::Best_Supporter 	Best_Supporter;
+
 	HC_Heuristic( const CC_Problem& prob ) 
 	: m_model( prob ), eval_func(m_values) {
 		m_values.resize( m_model.num_fluents() );
+		m_difficulties.resize( m_model.num_fluents() );
 		m_best_supporters.resize(  m_model.num_fluents() );
+		m_best_cc_supporters.resize(  m_model.num_fluents() );
 		m_already_updated.resize( m_model.num_fluents() );
 	}
 
@@ -94,17 +99,22 @@ public:
 		eval( s, h_val );
 	}
 
+	virtual void eval( const Fluent_Vec& s, float& h_val ) {
+		h_val = eval_func( s.begin(), s.end() );
+	}
+
 	float	eval( const Fluent_Vec& f ) const {
 		return eval_func( f.begin(), f.end() );
 	}
 
-	const Action*	best_supporter( unsigned f ) const {
-		if ( m_best_supporters[f].first == nullptr ) return nullptr;
-		return &(m_best_supporters[f].first->original());
-	}
+	float 	value( unsigned p ) const { return m_values[p]; }
 
+	Best_Supporter	get_best_supporter( unsigned f ) const {	        
+		return m_best_supporters[f];
+	}
+	    
 	const std::pair< const CC_Problem::CC_Action*, unsigned >& best_effect( unsigned p ) const {
-		return m_best_supporters[p];
+		return m_best_cc_supporters[p];
 	} 
 
 	void	print_values( std::ofstream& os ) const {
@@ -113,9 +123,9 @@ public:
 			m_model.print_fluent( p, os );
 			os << ") = " << m_values[p] << ", ";
 			os << "a_{p,q} = ";
-			if ( m_best_supporters[p].first != nullptr ) {
-				os << m_best_supporters[p].first->signature() << ", ";
-				os << "via cond. eff.? " << ( m_best_supporters[p].second ? "yes" : "no" )  << std::endl;
+			if ( m_best_supporters[p].act_idx != no_such_index ) {
+			    os << m_model.actions()[m_best_supporters[p].act_idx]->signature() << ", ";
+				os << "via cond. eff.? " << ( m_best_supporters[p].eff_idx != no_such_index ? "yes" : "no" )  << std::endl;
 			}
 			else 
 				os << "NONE" << std::endl;
@@ -132,15 +142,47 @@ protected:
 			m_already_updated.set( p );
 		}		
 	}
+	float eval_diff( const Best_Supporter& bs ) const {
+		float min_val = infty;
+		if ( bs.act_idx == no_such_index )
+			return 0;
+		const CC_Problem::CC_Action* a =  m_model.actions()[bs.act_idx];
+		for ( auto p : a->pre() )
+			min_val = std::min( min_val, m_values[p] );
+		if ( bs.eff_idx == no_such_index ) return min_val;
+		for ( auto p : a->cond_effs()[bs.eff_idx].first )
+			min_val = std::min( min_val, m_values[p] );
+		return min_val;
+	}
 
-	void	update( unsigned p, float v, const CC_Problem::CC_Action* a, unsigned eff_index = 0 ) {
+	void	update( unsigned p, float v, Best_Supporter bs ) {
+		update( p, v, bs.act_idx, bs.eff_idx );
+	}
+
+
+	void	update( unsigned p, float v,  const CC_Problem::CC_Action* a,  unsigned eff_idx = 0 ) {
 		if ( v >= m_values[p] ) return;
+		unsigned act_idx = a->original().index();
+		if ( v > 0.0f && dequal( v, m_values[p] ) ) {
+			Best_Supporter candidate( act_idx, eff_idx );
+			float candidate_diff = eval_diff( candidate );
+			if ( candidate_diff < m_difficulties[p] ) {
+				m_best_supporters[p] = candidate;
+				m_best_cc_supporters[p] = std::make_pair(a, eff_idx+1);
+				m_difficulties[p] = candidate_diff;
+			}
+			return;
+		}
+
 		m_values[p] = v;
 		if ( !m_already_updated.isset( p ) ) {
 			m_updated.push_back( p );
 			m_already_updated.set( p );
 		}
-		m_best_supporters[p] = std::make_pair(a, eff_index);
+		m_best_cc_supporters[p] = std::make_pair(a, eff_idx+1);
+		m_best_supporters[p].act_idx = act_idx;
+		m_best_supporters[p].eff_idx = eff_idx;
+		m_difficulties[p] = eval_diff( m_best_supporters[p] );
 	}
 
 	void	set( unsigned p, float v ) {
@@ -158,8 +200,9 @@ protected:
 	void	initialize( const State& s ) 
 	{
 		for ( unsigned k = 0; k < m_model.num_fluents(); k++ ) {
-			m_values[k] = infty;
-			m_best_supporters[k] = std::make_pair( nullptr, false );
+			m_values[k] = m_difficulties[k] = infty;
+			m_best_supporters[k] = Best_Supporter( no_such_index, no_such_index );
+			m_best_cc_supporters[k] = std::make_pair( nullptr, false );
 		}
 
 		for ( unsigned k = 0; k < m_model.empty_prec_actions().size(); k++ ) {
@@ -175,7 +218,7 @@ protected:
 				float v_eff = v;
 				for ( auto it = ceff.second.begin();
 					it != ceff.second.end(); it++ )
-					update( *it, v_eff, &a, j+1 );
+				    update( *it, v_eff, &a, j );
 			}
 		}
 
@@ -226,7 +269,7 @@ protected:
 				float v = action_cost(a) + h_pre; 
 
 				for ( auto it = a.add().begin(); it != a.add().end(); it++ )
-					update( *it, v, m_model.actions()[i] );
+				    update( *it, v, m_model.actions()[i], no_such_index );
 				// Conditional effects
 				for ( unsigned j = 0; j < a.cond_effs().size(); j++ )
 				{
@@ -236,7 +279,7 @@ protected:
 					float v_eff = action_cost(a) + h_cond;
 					for ( auto it = ceff.second.begin();
 						it != ceff.second.end(); it++ )
-						update( *it, v_eff, m_model.actions()[i], j + 1 );
+					    update( *it, v_eff, m_model.actions()[i], j );
 				}
 
 				//i = it.next();
@@ -250,7 +293,9 @@ protected:
 	const CC_Problem&								m_model;
 	std::vector<float>								m_values;
 	Fluent_Set_Eval_Func								eval_func;
-	std::vector< std::pair< const CC_Problem::CC_Action*, unsigned > >		m_best_supporters;
+	std::vector<float>			                                        m_difficulties;
+	std::vector< Best_Supporter >		                                        m_best_supporters;
+	std::vector< std::pair< const CC_Problem::CC_Action*, unsigned > >		m_best_cc_supporters;
 	std::vector<const CC_Problem::CC_Action*>					m_app_set;
 	std::deque<unsigned> 								m_updated;
 	Bit_Set										m_already_updated;

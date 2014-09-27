@@ -5,8 +5,8 @@ debug = ARGUMENTS.get('debug', 0)
 common_env = Environment()
 
 include_paths = ['../../../include', '../../../interfaces/agnostic', '../..' ]
-lib_paths = [ '../../..', '../../../interfaces/agnostic'  ]
-libs = ['aptk-base','Judy', 'aptk']
+lib_paths = [ ]
+libs = [ ]
 
 common_env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
 

@@ -247,6 +247,8 @@ namespace aptk
 		const agnostic::Successor_Generator&
 					successor_generator() const { return m_succ_gen; }
 
+	    void			initialize_successor_generator()  { m_succ_gen.build(); }
+
 		bool			has_conditional_effects() const { return m_has_cond_effs; }
 		void			notify_cond_eff_in_action() { m_has_cond_effs = true; }	
 

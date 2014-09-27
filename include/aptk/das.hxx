@@ -91,6 +91,24 @@ public:
 	}
 
 	unsigned		exp_nr() const			{ return m_exp_nr; }
+	bool   	operator==( const Node<State>& o ) const {
+		
+		if( &(o.state()) != NULL && &(state()) != NULL)
+			return (const State&)(o.state()) == (const State&)(state());
+		/**
+		 * Lazy
+		 */
+		if  ( m_parent == NULL ) {
+			if ( o.m_parent == NULL ) return true;
+			return false;
+		}
+	
+		if ( o.m_parent == NULL ) return false;
+		
+		return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
+	}
+
+	size_t                  hash() const { return m_state->hash(); }
 
 public:
 
