@@ -168,6 +168,9 @@ int main( int argc, char** argv ) {
 	 */
 	plan_prob.initialize_successor_generator();
 
+	//NIR: Initialize both successor generators
+	plan_prob.make_action_tables();
+
 	old_time = aptk::time_used();
 
 	std::cout << "Applicable actions at root with successor generator: " << std::endl;
@@ -184,23 +187,25 @@ int main( int argc, char** argv ) {
 	//std::cout << std::endl;
 	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
 	
-	// std::cout << "Applicable actions at root with iterator interface: " << std::endl;
-	// for (int trial = 0; trial < TRIALS; trial++) {
-	// 	Fwd_Search_Problem::Action_Iterator it(search_prob);
-	// 	int a = it.start( *s0 );
-	// 	while (a != aptk::no_op) {
-	// 		if (1 == TRIALS)
-	// 		    std::cout << plan_prob.actions()[a]->signature() << std::endl;
-	// 		//std::cout << '.';
-	// 		int foo = 42;
-	// 		a = it.next();
-	// 	}
-	// }
-	// //std::cout << std::endl;
-	// std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
-	// old_time = aptk::time_used();
 	
-	plan_prob.make_action_tables();
+	std::cout << "Applicable actions at root with iterator interface: " << std::endl;
+	old_time = aptk::time_used();
+
+	Fwd_Search_Problem::Action_Iterator it(search_prob);
+	int a = it.start( *s0 );
+	for (int trial = 0; trial < TRIALS; trial++) {
+		while (a != aptk::no_op) {
+			if (1 == TRIALS)
+			    std::cout << plan_prob.actions()[a]->signature() << std::endl;
+			//std::cout << '.';
+			int foo = 42;
+			a = it.next();
+		}
+	}
+	//std::cout << std::endl;
+	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
+	old_time = aptk::time_used();
+	
 
 	old_time = aptk::time_used();
 

@@ -150,6 +150,9 @@ int main( int argc, char** argv ) {
 	std::cout << "\t#Actions: " << prob.num_actions() << std::endl;
 	std::cout << "\t#Fluents: " << prob.num_fluents() << std::endl;
 
+	prob.initialize_successor_generator();
+	//prob.make_action_tables();
+	
 	Fwd_Search_Problem	search_prob( &prob );
 
 	std::cout << "Starting search with BrFS (time budget is 60 secs)..." << std::endl;
