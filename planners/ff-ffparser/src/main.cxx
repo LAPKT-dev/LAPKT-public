@@ -18,8 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// MRJ: In this example, we'll show how to create a search problem out of
-// a planning problem we acquired from some external source
 #include <iostream>
 #include <fstream>
 
