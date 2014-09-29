@@ -108,12 +108,12 @@ def deploy_seq_agl_siw( base_dir ) :
 	
 	planner_dir = create_planner_dir( base_dir, planner_id )
 	
-	copy_files( planner_dir, 'siw-ff' )	
+	copy_files( planner_dir, 'siw-ffparser' )	
 
 	planner_files = [ 'siw' ]
 
-	create_build_script( planner_dir, 'siw-ff', planner_files )
-	create_clean_script( planner_dir, 'siw-ff', planner_files )
+	create_build_script( planner_dir, 'siw-ffparser', planner_files )
+	create_clean_script( planner_dir, 'siw-ffparser', planner_files )
 	
 	create_run_script( planner_dir, 'siw' )
 
@@ -122,12 +122,12 @@ def deploy_seq_agl_bfs_f( base_dir ) :
 	
 	planner_dir = create_planner_dir( base_dir, planner_id )
 	
-	copy_files( planner_dir, 'bfs_f-ff' )	
+	copy_files( planner_dir, 'bfs_f-ffparser' )	
 
 	planner_files = [ 'bfs_f' ]
 
-	create_build_script( planner_dir, 'bfs_f-ff', planner_files )
-	create_clean_script( planner_dir, 'bfs_f-ff', planner_files )
+	create_build_script( planner_dir, 'bfs_f-ffparser', planner_files )
+	create_clean_script( planner_dir, 'bfs_f-ffparser', planner_files )
 	
 	create_run_script( planner_dir, 'bfs_f' )
 
@@ -136,12 +136,12 @@ def deploy_sat_bfs_f( base_dir ) :
 	
 	planner_dir = create_planner_dir( base_dir, planner_id )
 	
-	copy_files( planner_dir, 'at_bfs_f-ff' )	
+	copy_files( planner_dir, 'at_bfs_f-ffparser' )	
 
 	planner_files = [ 'at_bfs_f' ]
 
-	create_build_script( planner_dir, 'at_bfs_f-ff', planner_files )
-	create_clean_script( planner_dir, 'at_bfs_f-ff', planner_files )
+	create_build_script( planner_dir, 'at_bfs_f-ffparser', planner_files )
+	create_clean_script( planner_dir, 'at_bfs_f-ffparser', planner_files )
 	
 	create_run_script( planner_dir, 'at_bfs_f' )
 

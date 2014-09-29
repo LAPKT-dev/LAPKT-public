@@ -187,7 +187,9 @@ int main( int argc, char** argv ) {
 
 	STRIPS_Problem	prob;
 
+	//NIR: remove last true to account for action costs
 	aptk::FF_Parser::get_problem_description( vm["domain"].as<std::string>(), vm["problem"].as<std::string>(), prob, true );
+	
 	std::cout << "PDDL problem description loaded: " << std::endl;
 	std::cout << "\tDomain: " << prob.domain_name() << std::endl;
 	std::cout << "\tProblem: " << prob.problem_name() << std::endl;
