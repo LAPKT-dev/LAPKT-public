@@ -350,6 +350,18 @@ public:
 
 	virtual ~FF_Relaxed_Plan_Heuristic() {}
 	
+	template <typename Search_Node>
+        void eval( const Search_Node* n, Cost_Type& h_val, std::vector<Action_Idx>& pref_ops) {
+		eval(n->state(), h_val, pref_ops);				
+	}
+
+	
+	template <typename Search_Node>
+        void eval( const Search_Node* n, Cost_Type& h_val ) {
+		
+		eval(n->state(),h_val);
+	}
+
 	virtual void eval( const Fluent_Vec& s, Cost_Type& h_val ) {
 		m_plan_extractor.base_h().eval( s, h_val );
 	}

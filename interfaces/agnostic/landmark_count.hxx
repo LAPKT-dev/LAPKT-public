@@ -29,9 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <strips_prob.hxx>
 #include <action.hxx>
 
+#include <stack>
 #include <vector>
 #include <deque>
-#include <queue>
 #include <iosfwd>
 
 namespace aptk {
@@ -70,37 +70,57 @@ public:
      * If it's undefined, a land manager has to be used externally by the search algorithm to update
      * the state of the graph before counting
      */
-	void set_graph_manager( Landmarks_Graph_Manager* lg ){ m_lgm = lg; }
-    
+	void set_graph_manager( Landmarks_Graph_Manager* lg ){ 
+		m_lgm = lg;
+		set_graph( m_lgm->graph() );
+	}
+
+	template <typename Search_Node>
+	void update_graph( const Search_Node* n ){
+
+		static std::stack<const Search_Node*> path;
+		
+		//NIR: recover path
+		const Search_Node* tmp = n;
+		while( tmp ){
+			path.push( tmp );
+			tmp = tmp->m_parent;
+		}
+		
+		//NIR: reset graph
+		m_lgm->reset_graph();
+		
+		while(!path.empty()){
+			tmp = path.top();
+			path.pop();
+			
+			//NIR: In the root state initialize the graph with the state information, otherwise use action
+			if( ! tmp->m_parent )
+				m_lgm->apply_state( tmp->state().fluent_vec() );
+			else
+				m_lgm->apply_action( &(tmp->state()), tmp->action() );
+		}
+
+	}
+	
+	
+        template <typename Search_Node>
+        void eval( const Search_Node* n, float& h_val, std::vector<Action_Idx>& pref_ops) {
+		update_graph(n);
+		unsigned h;
+		eval(n->state(), h, pref_ops);
+		h_val = h;
+		
+	}
+
+	
         template <typename Search_Node>
         void eval( const Search_Node* n, float& h_val ) {
-
-	    static std::queue<Search_Node*> path;
-
-	    //NIR: recover path
-	    Search_Node* tmp = n;
-	    while( tmp ){
-		path.push( tmp );
-		tmp = n->parent;
-	    }
-
-	    //NIR: reset graph
-	    m_lgm->reset_graph();
-	    
-	    while(!path.empty()){
-		tmp = path.top();
-		path.pop();
 		
-		//NIR: In the root state initialize the graph with the state information, otherwise use action
-		if( ! tmp->parent() )
-		    m_lgm->apply_state( tmp->state()->fluent_vec() );
-		else
-		    m_lgm->apply_action( tmp->state(), tmp->action() );
-	    }
-	   
-	    unsigned h;
-	    eval(n->state(),h);
-	    h_val = h;
+		update_graph(n);
+		unsigned h;
+		eval(n->state(),h);
+		h_val = h;
 	}
 	
 	void eval( const State& s, float& h_val ) {
@@ -149,8 +169,10 @@ public:
 		h_val = h;
 	}
 	
-	virtual void eval( const State& s, unsigned& h_val,  std::vector<Action_Idx>& pref_ops ) {
-
+	/**
+	 * Graph should be updated already, otherwise use eval(Node,...)
+	 */
+	virtual void eval( const State& s, unsigned& h_val,  std::vector<Action_Idx>& pref_ops ) {		
 		if (!m_graph) return;
 		m_in_leafs.reset();
 
@@ -160,12 +182,12 @@ public:
 			Landmarks_Graph::Node*n = *it;
 			if( ! n->is_consumed() ) {
 				if( n->required_by().empty() ){
-					//					std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;
+					//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;
 					h_val++;
 				}
 				else
-					//					for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by().begin(); it_r != n->required_by().end(); it_r++ )
-					//	if( ! (*it_r)->is_consumed() )
+					//for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by().begin(); it_r != n->required_by().end(); it_r++ )
+					//if( ! (*it_r)->is_consumed() )
 							h_val++;
 
 				if(  n->are_precedences_consumed() )
@@ -177,9 +199,6 @@ public:
 		std::vector< aptk::Action_Idx >	app_set;
 		this->problem().applicable_set_v2( s, app_set );
 
-		//Successor_Generator::Iterator it( s, m_strips_model.successor_generator().nodes() );
-		//int a = it.first();
-		//while ( a != -1 ) {
 		for ( unsigned i = 0; i < app_set.size(); i++ ) {
 			int a = app_set[i];
 
@@ -192,7 +211,6 @@ public:
 					break;
 				}
 			
-			//a = it.next();
 		}
 	}
 	

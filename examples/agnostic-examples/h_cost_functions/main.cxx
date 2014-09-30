@@ -235,22 +235,28 @@ int main( int argc, char** argv ) {
 	plan_prob.print_fluent_vec( std::cout, plan_prob.goal() );
 	std::cout << std::endl;
 
+	plan_prob.initialize_successor_generator();
+	plan_prob.make_action_tables();
+
 
 	Fwd_Search_Problem	search_prob( &plan_prob );
 
 	Gen_Lms_Fwd    gen_lms( search_prob );
-	Landmarks_Graph graph( prob );
-	//NIR: uncomment if you want to do goal counting instead of landmark counting
+	Landmarks_Graph graph( plan_prob );
+	Land_Graph_Man lgm( search_prob, &graph);
+	/**
+	 * NIR: uncomment if you want to do goal counting instead of landmark counting
+	 */
         //gen_lms.set_only_goals( true );       
 	gen_lms.compute_lm_graph_set_additive( graph );
 	
-
 	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
 
 
 	std::cout << "Starting search with plain BFS, using action costs in the heuristic (time budget is 5 secs)..." << std::endl;
 
 	Anytime_BFS_H_Add_Rp_Fwd bfs_engine( search_prob );
+	bfs_engine.h2().set_graph_manager( &lgm );
 	bfs_engine.set_schedule( 10, 5, 1 );
 	float bfs_t = do_search( bfs_engine, plan_prob, 5.0f, "bfs-dq-mh.log" );
 
@@ -259,6 +265,7 @@ int main( int argc, char** argv ) {
 	std::cout << "Starting search with plain BFS, using LAMA's scheme (1 + cost(a)) (time budget is 5 secs)" << std::endl;
 
 	Anytime_BFS_LAMA_H_Add_Rp_Fwd rwbfs_engine( search_prob );
+	rwbfs_engine.h2().set_graph_manager( &lgm );
 	rwbfs_engine.set_schedule( 10, 5, 1 );
 	
 	float rwbfs_t = do_search( rwbfs_engine, plan_prob, 5.0f, "bfs-dq-mh-lama.log" );

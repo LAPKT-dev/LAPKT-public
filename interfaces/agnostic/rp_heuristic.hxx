@@ -278,6 +278,18 @@ public:
 
 	virtual ~Relaxed_Plan_Heuristic() {}
 
+	template <typename Search_Node, typename Cost_Type>
+        void eval( const Search_Node* n, Cost_Type& h_val, std::vector<Action_Idx>& pref_ops) {
+		eval(n->state(), h_val, pref_ops);				
+	}
+
+	
+	template <typename Search_Node, typename Cost_Type>
+        void eval( const Search_Node* n, Cost_Type& h_val ) {
+		
+		eval(n->state(),h_val);
+	}
+	
 	template <typename Cost_Type>
 	void eval( const State& s, Cost_Type& h_out ) {
 		float h;

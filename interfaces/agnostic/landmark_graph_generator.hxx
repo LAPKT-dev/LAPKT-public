@@ -47,7 +47,7 @@ typedef		H1_Heuristic<Search_Model, H_Max_Evaluation_Function>	H_Max;
 public:
 
 	Landmarks_Graph_Generator( const Search_Model& prob ) 
-	:  m_strips_model( prob.task() ), m_only_goals( false ), m_goal_ordering(true), m_h1( prob ), m_verbose( true ), m_collect_lm_in_init(false)
+	:  m_strips_model( prob.task() ), m_only_goals( false ), m_goal_ordering(true), m_h1( prob ), m_verbose( false ), m_collect_lm_in_init(false)
 	{
 		m_reachability = new aptk::agnostic::Reachability_Test( prob.task() );
 	}

@@ -331,11 +331,11 @@ public:
 
 	virtual void	eval( Search_Node* candidate ) {
 		std::vector<Action_Idx>	po;
-		m_primary_h->eval( *(candidate->state()), candidate->h1n(), po );
+		m_primary_h->eval( candidate, candidate->h1n(), po );
 		for ( unsigned k = 0; k < po.size(); k++ )
 			candidate->add_po_1( po[k] );
 		po.clear();
-		m_secondary_h->eval( *(candidate->state()), candidate->h2n(), po );
+		m_secondary_h->eval( candidate, candidate->h2n(), po );
 		for ( unsigned k = 0; k < po.size(); k++ )
 			candidate->add_po_2( po[k] );
 			

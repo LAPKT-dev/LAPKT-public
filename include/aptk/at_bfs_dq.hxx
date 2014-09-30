@@ -201,7 +201,7 @@ public:
 
 	virtual void	eval( Search_Node* candidate ) {
 		std::vector<Action_Idx>	po;
-		m_heuristic_func->eval( *(candidate->state()), candidate->hn(), po );
+		m_heuristic_func->eval( candidate, candidate->hn(), po );
 		for ( unsigned k = 0; k < po.size(); k++ )
 			candidate->add_po( po[k] );	
 	}

@@ -175,7 +175,7 @@ public:
 		}
 	}
 
-	void apply_action( State* s, Action_Idx a_idx ){
+	void apply_action( const State* s, Action_Idx a_idx ){
 		const Action* a = m_strips_model.actions()[ a_idx ];
 		const Fluent_Vec& add = a->add_vec();
 		const Fluent_Vec& del = a->del_vec();		
@@ -220,7 +220,7 @@ public:
 
 	}
 
-	void apply_cond_eff( State* s, Conditional_Effect* ce ){
+	void apply_cond_eff( const State* s, Conditional_Effect* ce ){
 
 	  
 		const Fluent_Vec& add = ce->add_vec();

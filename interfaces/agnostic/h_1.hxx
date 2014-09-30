@@ -127,6 +127,20 @@ public:
 
 	float 	value( unsigned p ) const { return m_values[p]; }
 
+	
+
+        template <typename Search_Node>
+        void eval( const Search_Node* n, float& h_val, std::vector<Action_Idx>& pref_ops) {
+		eval(n->state(), h_val, pref_ops);				
+	}
+
+	
+        template <typename Search_Node>
+        void eval( const Search_Node* n, float& h_val ) {
+		
+		eval(n->state(),h_val);
+	}
+	
 	virtual void eval( const Fluent_Vec& s, float& h_val ) {
 		h_val = eval_func( s.begin(), s.end() );
 	}

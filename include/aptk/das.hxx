@@ -209,7 +209,7 @@ public:
 
 
 	virtual	void 		eval( Search_Node* n ) {
-		heuristic().eval( *(n->state()), n->hn() );
+		heuristic().eval( n, n->hn() );
 		depth_estimator().eval( *(n->state()), n->dn() );
 		n->correct_depth_estimate();
 	}

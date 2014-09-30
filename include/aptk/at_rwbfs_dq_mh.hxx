@@ -75,13 +75,13 @@ public:
 		if ( candidate->seen() ) return;
 
 		std::vector<Action_Idx>	po;
-		this->h1().eval( *(candidate->state()), candidate->h1n(), po );
+		this->h1().eval( candidate, candidate->h1n(), po );
 		for ( unsigned k = 0; k < po.size(); k++ )
 			candidate->add_po_1( po[k] );	
 
 		po.clear();
 
-		this->h2().eval( *(candidate->state()), candidate->h2n(), po );
+		this->h2().eval( candidate, candidate->h2n(), po );
 		for ( unsigned k = 0; k < po.size(); k++ )
 			candidate->add_po_2( po[k] );	
 	}
@@ -122,7 +122,7 @@ public:
 			n->h2n() = head->h2n();
 			n->fn() = m_W * n->h1n() + n->gn();
 			this->inc_gen();
-			if ( this->generated() % 10000 == 0 ) {
+			if ( this->generated() % 100000 == 0 ) {
 				std::cout << "Generated: " << this->generated() << " B = " << this->bound();
 				std::cout << " Expanded: " << this->expanded() << " Pruned: " << this->pruned_by_bound() << " f(n) = ";
 				std::cout << head->fn() << " g(n) = " << head->gn();

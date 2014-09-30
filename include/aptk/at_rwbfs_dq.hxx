@@ -77,7 +77,7 @@ public:
 	virtual void	eval( Search_Node* candidate ) {
 		if ( candidate->seen() ) return;
 		std::vector<Action_Idx>	po;
-		this->heuristic().eval( *(candidate->state()), candidate->hn(), po );
+		this->heuristic().eval( candidate, candidate->hn(), po );
 		for ( unsigned k = 0; k < po.size(); k++ )
 			candidate->add_po( po[k] );	
 	}

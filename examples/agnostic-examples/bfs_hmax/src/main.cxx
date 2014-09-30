@@ -19,7 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-/** NIR: In this example, we'll show how to create a search problem out of
+/**
+ * NIR: In this example, we'll show how to create a search problem out of
  * a planning problem we acquired from a PDDL file using FF-parser, 
  * and how to create a simple bfs (delayed/greedy/anytime) + h_max
  */

@@ -215,6 +215,9 @@ int main( int argc, char** argv ) {
 	plan_prob.print_fluent_vec( std::cout, plan_prob.goal() );
 	std::cout << std::endl;
 
+	plan_prob.initialize_successor_generator();
+	plan_prob.make_action_tables();
+
 
 	Fwd_Search_Problem	search_prob( &plan_prob );
 

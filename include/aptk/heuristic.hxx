@@ -43,6 +43,7 @@ public:
 
 	const Search_Problem<State>&	problem() const { return m_problem; }
 
+
 private:
 	const Search_Problem<State>& m_problem; 
 

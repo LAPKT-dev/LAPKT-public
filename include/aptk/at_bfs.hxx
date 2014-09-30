@@ -180,7 +180,7 @@ public:
 	const	Search_Model&	problem() const			{ return m_problem; }
 
 	void			eval( Search_Node* candidate ) {
-		m_heuristic_func->eval( *(candidate->state()), candidate->hn() );
+		m_heuristic_func->eval( candidate, candidate->hn() );
 	}
 
 	bool 		is_closed( Search_Node* n ) 	{ 

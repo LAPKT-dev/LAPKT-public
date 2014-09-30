@@ -34,7 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <h_1.hxx>
 #include <rp_heuristic.hxx>
-#include <simple_landmarks.hxx>
+
+#include <landmark_graph.hxx>
+#include <landmark_graph_generator.hxx>
+#include <landmark_graph_manager.hxx>
+#include <landmark_count.hxx>
 
 #include <aptk/open_list.hxx>
 #include <aptk/at_bfs_dq_mh.hxx>
@@ -51,7 +55,11 @@ using	aptk::agnostic::Fwd_Search_Problem;
 using 	aptk::agnostic::H1_Heuristic;
 using	aptk::agnostic::H_Add_Evaluation_Function;
 using	aptk::agnostic::Relaxed_Plan_Heuristic;
-using	aptk::agnostic::Simple_Landmarks_Heuristic;
+using 	aptk::agnostic::Landmarks_Graph;
+using 	aptk::agnostic::Landmarks_Graph_Generator;
+using   aptk::agnostic::Landmarks_Graph_Manager;
+using 	aptk::agnostic::Landmarks_Count_Heuristic;
+
 
 using 	aptk::search::Open_List;
 using 	aptk::search::Fibonacci_Open_List;
@@ -70,16 +78,18 @@ typedef		Node_Comparer_DH< Search_Node >					Tie_Breaking_Algorithm;
 
 // MRJ: Now we define the Open List type by combining the types we have defined before
 typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >			BFS_Open_List;
-typedef		Fibonacci_Open_List< Tie_Breaking_Algorithm, Search_Node >		Fibo_BFS_Open_List;
+typedef		Fibonacci_Open_List<  Search_Node >	                        	Fibo_BFS_Open_List;
 
 // MRJ: Now we define the heuristics
 typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd;
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
-typedef		Simple_Landmarks_Heuristic< Fwd_Search_Problem >		H_LM;
+typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>                   Gen_Lms_Fwd;
+typedef         Landmarks_Count_Heuristic<Fwd_Search_Problem>                   H_Lmcount_Fwd;
+typedef         Landmarks_Graph_Manager<Fwd_Search_Problem>                     Land_Graph_Man;
 
 // MRJ: Now we're ready to define the BFS algorithm we're going to use
-typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_LM, BFS_Open_List >		Anytime_BFS_H_Add_Rp_Fwd;
-typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_LM, Fibo_BFS_Open_List >	Anytime_BFS_Fibo_H_Add_Rp_Fwd;
+typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Lmcount_Fwd, BFS_Open_List >		Anytime_BFS_H_Add_Rp_Fwd;
+typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Lmcount_Fwd, Fibo_BFS_Open_List >	Anytime_BFS_Fibo_H_Add_Rp_Fwd;
 
 template <typename Search_Engine>
 float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float budget, std::string logfile ) {
@@ -220,13 +230,26 @@ int main( int argc, char** argv ) {
 	plan_prob.print_fluent_vec( std::cout, plan_prob.goal() );
 	std::cout << std::endl;
 
+	plan_prob.initialize_successor_generator();
+	plan_prob.make_action_tables();
 
 	Fwd_Search_Problem	search_prob( &plan_prob );
 
+	Gen_Lms_Fwd    gen_lms( search_prob );
+	Landmarks_Graph graph( plan_prob );
+	Land_Graph_Man lgm( search_prob, &graph);
+	/**
+	 * NIR: uncomment if you want to do goal counting instead of landmark counting
+	 */
+        //gen_lms.set_only_goals( true );       
+	gen_lms.compute_lm_graph_set_additive( graph );
+	
+	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
 
 	std::cout << "Starting search with plain BFS, using action costs in the heuristic (time budget is 5 secs)..." << std::endl;
 
 	Anytime_BFS_H_Add_Rp_Fwd bfs_engine( search_prob );
+	bfs_engine.h2().set_graph_manager( &lgm );
 	bfs_engine.set_schedule( 10, 5, 1 );
 	float bfs_t = do_search( bfs_engine, plan_prob, 5.0f, "bfs-dq-mh.log" );
 
@@ -235,6 +258,7 @@ int main( int argc, char** argv ) {
 	std::cout << "Starting search with plain BFS, using Fibonacci heaps for Open lists (time budget is 5 secs)" << std::endl;
 
 	Anytime_BFS_Fibo_H_Add_Rp_Fwd rwbfs_engine( search_prob );
+	rwbfs_engine.h2().set_graph_manager( &lgm );
 	rwbfs_engine.set_schedule( 10, 5, 1 );
 	
 	float rwbfs_t = do_search( rwbfs_engine, plan_prob, 5.0f, "bfs-dq-mh-fibo.log" );
