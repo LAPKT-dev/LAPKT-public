@@ -24,12 +24,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/search_prob.hxx>
 #include <aptk/heuristic.hxx>
 #include <landmark_graph.hxx>
+#include <landmark_graph_manager.hxx>
 #include <strips_state.hxx>
 #include <strips_prob.hxx>
 #include <action.hxx>
 
 #include <vector>
 #include <deque>
+#include <queue>
 #include <iosfwd>
 
 namespace aptk {
@@ -39,11 +41,13 @@ namespace agnostic {
 template <typename Search_Model >
 class Landmarks_Count_Heuristic : public Heuristic<State> {
 public:
+	typedef         aptk::agnostic::Landmarks_Graph_Manager<Search_Model>   Landmarks_Graph_Manager;
 
 	Landmarks_Count_Heuristic( const Search_Model& prob ) 
 	: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_value(0)
 	{
 		m_graph = NULL;
+		m_lgm = NULL;
 		m_in_leafs.resize( m_strips_model.num_fluents() );
 	}
 
@@ -58,13 +62,53 @@ public:
 		
 	}
 
+
 	void set_graph( Landmarks_Graph* lg ){ m_graph = lg; }
+
+    /**
+     * If manager is defined, landmark graph is recomputed at every node. 
+     * If it's undefined, a land manager has to be used externally by the search algorithm to update
+     * the state of the graph before counting
+     */
+	void set_graph_manager( Landmarks_Graph_Manager* lg ){ m_lgm = lg; }
+    
+        template <typename Search_Node>
+        void eval( const Search_Node* n, float& h_val ) {
+
+	    static std::queue<Search_Node*> path;
+
+	    //NIR: recover path
+	    Search_Node* tmp = n;
+	    while( tmp ){
+		path.push( tmp );
+		tmp = n->parent;
+	    }
+
+	    //NIR: reset graph
+	    m_lgm->reset_graph();
+	    
+	    while(!path.empty()){
+		tmp = path.top();
+		path.pop();
+		
+		//NIR: In the root state initialize the graph with the state information, otherwise use action
+		if( ! tmp->parent() )
+		    m_lgm->apply_state( tmp->state()->fluent_vec() );
+		else
+		    m_lgm->apply_action( tmp->state(), tmp->action() );
+	    }
+	   
+	    unsigned h;
+	    eval(n->state(),h);
+	    h_val = h;
+	}
 	
 	void eval( const State& s, float& h_val ) {
 		unsigned h;
 		eval(s,h);
 		h_val = h;
 	}
+
 	virtual void eval( const State& s, unsigned& h_val ) {
 		if (!m_graph) return;
 		h_val = 0;
@@ -182,6 +226,7 @@ protected:
 
 	const STRIPS_Problem&			m_strips_model;
 	Landmarks_Graph*			m_graph;
+	Landmarks_Graph_Manager*                m_lgm;
 	Bit_Set					m_in_leafs;
 	unsigned                                m_max_value;
 };

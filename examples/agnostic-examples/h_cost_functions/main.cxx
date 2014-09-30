@@ -34,7 +34,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <h_1.hxx>
 #include <rp_heuristic.hxx>
-#include <simple_landmarks.hxx>
+
+#include <landmark_graph.hxx>
+#include <landmark_graph_generator.hxx>
+#include <landmark_graph_manager.hxx>
+#include <landmark_count.hxx>
+
 
 #include <aptk/open_list.hxx>
 #include <aptk/at_bfs_dq_mh.hxx>
@@ -51,7 +56,11 @@ using	aptk::agnostic::Fwd_Search_Problem;
 using 	aptk::agnostic::H1_Heuristic;
 using	aptk::agnostic::H_Add_Evaluation_Function;
 using	aptk::agnostic::Relaxed_Plan_Heuristic;
-using	aptk::agnostic::Simple_Landmarks_Heuristic;
+using 	aptk::agnostic::Landmarks_Graph;
+using 	aptk::agnostic::Landmarks_Graph_Generator;
+using   aptk::agnostic::Landmarks_Graph_Manager;
+using 	aptk::agnostic::Landmarks_Count_Heuristic;
+
 
 using 	aptk::search::Open_List;
 using	aptk::search::Node_Comparer_DH;
@@ -79,11 +88,13 @@ typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function,
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, LAMA_H_Add_Fwd >	LAMA_H_Add_Rp_Fwd;
 
 
-typedef		Simple_Landmarks_Heuristic< Fwd_Search_Problem >		H_LM;
+typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>                   Gen_Lms_Fwd;
+typedef         Landmarks_Count_Heuristic<Fwd_Search_Problem>                   H_Lmcount_Fwd;
+typedef         Landmarks_Graph_Manager<Fwd_Search_Problem>                     Land_Graph_Man;
 
 // MRJ: Now we're ready to define the BFS algorithm we're going to use
-typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_LM, BFS_Open_List >		Anytime_BFS_H_Add_Rp_Fwd;
-typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, LAMA_H_Add_Rp_Fwd, H_LM, BFS_Open_List >	Anytime_BFS_LAMA_H_Add_Rp_Fwd;
+typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Lmcount_Fwd, BFS_Open_List >		Anytime_BFS_H_Add_Rp_Fwd;
+typedef		AT_BFS_DQ_MH< Fwd_Search_Problem, LAMA_H_Add_Rp_Fwd, H_Lmcount_Fwd, BFS_Open_List >	Anytime_BFS_LAMA_H_Add_Rp_Fwd;
 
 template <typename Search_Engine>
 float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float budget, std::string logfile ) {
@@ -226,6 +237,15 @@ int main( int argc, char** argv ) {
 
 
 	Fwd_Search_Problem	search_prob( &plan_prob );
+
+	Gen_Lms_Fwd    gen_lms( search_prob );
+	Landmarks_Graph graph( prob );
+	//NIR: uncomment if you want to do goal counting instead of landmark counting
+        //gen_lms.set_only_goals( true );       
+	gen_lms.compute_lm_graph_set_additive( graph );
+	
+
+	std::cout << "Landmarks found: " << graph.num_landmarks() << std::endl;
 
 
 	std::cout << "Starting search with plain BFS, using action costs in the heuristic (time budget is 5 secs)..." << std::endl;
