@@ -187,11 +187,13 @@ public:
 		Search_Node* n2 = this->closed().retrieve(n);
 
 		if ( n2 != NULL ) {
+			
 			if ( n2->gn() <= n->gn() ) {
 				// The node we generated is a worse path than
 				// the one we already found
 				return true;
 			}
+
 			// Otherwise, we put it into Open and remove
 			// n2 from closed
 			this->closed().erase( this->closed().retrieve_iterator( n2 ) );
@@ -200,6 +202,8 @@ public:
 			// incrementally	
 			n2->m_parent = n->m_parent;
 			n2->gn() = n->gn();
+			n2->m_action = n->action();
+
 			if(!m_greedy)
 				n2->fn() = n2->hn() + n2->gn();
 			else
