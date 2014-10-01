@@ -1,3 +1,4 @@
+#include <planner.hxx>
 #include <strips_state.hxx>
 #include <aptk/string_conversions.hxx>
 
@@ -32,7 +33,7 @@ Planner::setup() {
 
 float
 Planner::do_search(  ) {
-	
+    return 0.0;
 }
 
 void	

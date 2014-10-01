@@ -9,7 +9,7 @@
 	       (ontable ?x - block)
 	       (clear ?x - block)
 	       (handempty)
-	       (holding ?x -block)
+	       (holding ?x - block)
 	       )
 
   (:action pick-up

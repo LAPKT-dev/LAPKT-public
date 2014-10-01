@@ -29,7 +29,6 @@ BOOST_PYTHON_MODULE( libfdplanner )
 		.def( "solve", &Planner::solve )
 		.def_readwrite( "parsing_time", &Planner::m_parsing_time )
 		.def_readwrite( "ignore_action_costs", &Planner::m_ignore_action_costs )
-		.def_readwrite( "iw_bound", &Planner::m_iw_bound )
 		.def_readwrite( "log_filename", &Planner::m_log_filename )
 	;
 }
