@@ -57,26 +57,30 @@ public:
 	class Action_Iterator {
 	public:
 		Action_Iterator( const Fwd_Search_Problem& p )
-		  :       m_problem(*(p.m_task)), m_it_impl(nullptr) {
+		  :       m_problem(p) {
 		}
         
 		~Action_Iterator() {
-			if (m_it_impl) delete m_it_impl;
 		}
 
 		int	start( const State& s ) {
-			m_it_impl = new Successor_Generator::Iterator( s, m_problem.successor_generator().nodes() );
-			return m_it_impl->first();
+			m_problem.applicable_set_v2( s, m_app_set );
+			m_it = m_app_set.begin();
+			if ( m_it == m_app_set.end() ) return no_op;
+			return *m_it;
 		}
 	
 		int	next() {
-			return m_it_impl->next();
+			m_it++;
+			if ( m_it == m_app_set.end() ) return no_op;
+			return *m_it;
 		}	
 	
 	private:
-		const STRIPS_Problem& 		m_problem;
-		Successor_Generator::Iterator*	m_it_impl;
-	};
+		const Fwd_Search_Problem& 		m_problem;
+		std::vector<Action_Idx>			m_app_set;
+		std::vector<Action_Idx>::iterator	m_it;
+ 	};
 
 private:
 
