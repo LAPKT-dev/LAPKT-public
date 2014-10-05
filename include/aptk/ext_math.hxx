@@ -71,7 +71,6 @@ T pow( T a, unsigned b )
 
 inline
 unsigned unrolled_pow( unsigned n, unsigned k ) {
-	assert( k >= 0 );
 	switch( k ) {
 	case 0 : return 1;
 	case 1 : return n;
