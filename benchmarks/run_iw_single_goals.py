@@ -182,7 +182,7 @@ def benchmark_domain(planner, bound, dom):
         os.system("rm %s.err"%res.output_file)
     data.sort()
     
-    data = ['problem,goal,status,runtime,generated,pruned,expanded,width,quality,h1,h2,plan'] + data
+    data = ['problem,status,goal,runtime,generated,pruned,expanded,width,quality,h1,h2,plan'] + data
     
     
     write_file("%s/%s.csv" %( results_directory, dom), data)
