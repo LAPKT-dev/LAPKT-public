@@ -32,6 +32,11 @@ namespace aptk {
 	}
 
 	void
+	FOD_Problem::Atom::print( std::ostream& os, const FOD_Problem& model ) const {
+		os << name << std::endl;
+	}
+
+	void
 	FOD_Problem::Action::print( std::ostream& os, const FOD_Problem& model ) const {
 		os << name << std::endl;
 		os << "Precondition: ";

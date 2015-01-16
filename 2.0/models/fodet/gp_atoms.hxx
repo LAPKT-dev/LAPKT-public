@@ -261,6 +261,14 @@ class Clause {
 			m_lits.resize( m_lits.size() - 1 );
 		}
 
+
+		lbool	
+		value( Atom v ) const {
+			if ( entails( mkLit( v ) ) ) return l_True;
+			if ( entails( mkLit( v, true) ) ) return l_False;
+			return l_Undef;	
+		}
+
 		void			add( const Clause& c );
 
 		template <typename Container>

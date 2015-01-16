@@ -34,7 +34,7 @@ namespace aptk {
 				return index == other.index;
 			}
 
-			void	print( std::ostream& os, FOD_Problem& model ) const;
+			void	print( std::ostream& os, const FOD_Problem& model ) const;
 		};
 
 		typedef	std::vector< Atom* >	Atom_Vec;
