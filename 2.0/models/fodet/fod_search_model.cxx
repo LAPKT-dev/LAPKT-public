@@ -17,7 +17,7 @@ namespace aptk {
 	}
 
 	FOD_Search_Model::State
-	FOD_Search_Model::init() {
+	FOD_Search_Model::init() const {
 		return State( m_task.init );
 	}
 

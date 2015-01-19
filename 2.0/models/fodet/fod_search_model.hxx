@@ -17,7 +17,7 @@ namespace aptk {
 		virtual ~FOD_Search_Model();
 
 		virtual int		num_actions() const;
-		virtual State		init();
+		virtual State		init() const;
 		virtual bool		goal( const State& s ) const;
 		virtual bool		is_applicable( const State& s, Action_Idx a ) const;
 		virtual void		applicable_set( const State& s, std::vector<Action_Idx>& app_set ) const;
@@ -31,7 +31,8 @@ namespace aptk {
 
 		// MRJ: Outputs a description of the problem
 		virtual void 		print(std::ostream &os) const;
-		
+	
+	
 	protected:
 
 		const	FOD_Problem&	m_task;
