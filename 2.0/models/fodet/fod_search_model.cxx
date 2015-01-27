@@ -79,6 +79,16 @@ namespace aptk {
 	}
 
 	void
+	FOD_Search_Model::print( const State& s, std::ostream& os ) const {
+		s.write( os, m_task, false );	
+	}
+
+	void
+	FOD_Search_Model::print_action( Action_Idx a, std::ostream& os ) const {
+		m_task.actions[a]->print( os, m_task );
+	}
+
+	void
 	FOD_Search_Model::print( std::ostream& os ) const {
 		os << "Fluents (" << m_task.atoms.size() << ")" << std::endl;
 		for ( auto f : m_task.atoms ) {

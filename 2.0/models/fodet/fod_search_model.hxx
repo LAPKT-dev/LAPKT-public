@@ -31,7 +31,9 @@ namespace aptk {
 
 		// MRJ: Outputs a description of the problem
 		virtual void 		print(std::ostream &os) const;
-	
+
+		void			print( const State& s, std::ostream& os ) const;	
+		void			print_action( Action_Idx a, std::ostream& os ) const;
 	
 	protected:
 

@@ -33,7 +33,7 @@ namespace aptk {
 
 	void
 	FOD_Problem::Atom::print( std::ostream& os, const FOD_Problem& model ) const {
-		os << name << std::endl;
+		os << name;
 	}
 
 	void

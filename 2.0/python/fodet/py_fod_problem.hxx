@@ -30,7 +30,7 @@ public:
 	void	set_domain_name( std::string name );
 	void	set_problem_name( std::string name );
 
-	void	setup();
+	virtual void	setup();
 
 	void	print_action( int index );
 

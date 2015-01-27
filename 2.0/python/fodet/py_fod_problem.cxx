@@ -120,10 +120,20 @@ using namespace boost::python;
 			aptk::Lit l = aptk::mkLit( p, false );
 			if ( !instance()->init.entails( l ) )
 				instance()->init.add( ~l );
-			l = aptk::mkLit( p, true );
-			if ( !instance()->init.entails(~l) )
-				instance()->init.add( l );
+			//l = aptk::mkLit( p, true );
+			//if ( !instance()->init.entails(~l) )
+			//	instance()->init.add( l );
 		}
+		// Check undefined vars in initial state
+		unsigned count_undefined = 0;
+		std::cout << "Undefined vars in initial state:" << std::endl;
+		for ( aptk::Atom p = 0; p  < (int)instance()->n_atoms(); p++ ) {
+			if ( instance()->init.value(p) == aptk::l_Undef ) {
+				std::cout << "\t" << instance()->atoms[p]->name << std::endl;
+				count_undefined++;
+			}
+		}
+		assert( count_undefined == 0 );
 	}
 
 	void

@@ -106,16 +106,16 @@ namespace aptk {
 
 		typedef	std::vector< Axiom* >		Axiom_Vec;
 
-		std::string			domain_name;
-		std::string			problem_name;
-		Atom_Vec			atoms;
-		Action_Vec			actions;
-		Axiom_Vec			axioms;
-		std::vector< Action_Vec >	actions_requiring_var;
-		Clause				init;
-		Clause				goal;
-		std::vector<Clause>		invariants;
-		size_t				max_precondition_size;
+		std::string				domain_name;
+		std::string				problem_name;
+		Atom_Vec				atoms;
+		Action_Vec				actions;
+		Axiom_Vec				axioms;
+		std::vector< Action_Vec >		actions_requiring_var;
+		Clause					init;
+		Clause					goal;
+		std::vector<Clause>			invariants;
+		size_t					max_precondition_size;
 
 		FOD_Problem( ) 
 			: max_precondition_size(0) {
