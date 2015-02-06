@@ -26,6 +26,16 @@ namespace aptk {
 		return s.satisfies( m_task.goal );	
 	}
 
+	unsigned
+	FOD_Search_Model::num_goals_achieved( const State& s ) const {
+		unsigned count = 0;
+		for ( Lit l : s ) {
+			if ( m_task.goal.entails(l) )
+				count++;
+		}
+		return count;
+	}
+
 	bool
 	FOD_Search_Model::is_applicable( const State& s, Action_Idx a ) const {
 		assert( a >= 0 );
@@ -54,6 +64,19 @@ namespace aptk {
 		assert( a >= 0 );
 		assert( a < m_task.actions.size() );
 		return m_task.actions[a]->cost;
+	}
+
+	FOD_Search_Model::State
+	FOD_Search_Model::goals_achieved( const State& s ) const {
+		State G;		
+
+		for ( Lit l : s ) {
+			if ( m_task.goal.entails(l) )
+				G.add(l);
+		}
+
+		return G;
+
 	}
 
 	FOD_Search_Model::State

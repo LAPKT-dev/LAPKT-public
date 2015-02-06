@@ -32,6 +32,9 @@ namespace aptk {
 		// MRJ: Outputs a description of the problem
 		virtual void 		print(std::ostream &os) const;
 
+		State			goals_achieved( const State& s ) const;
+		unsigned		num_goals_achieved( const State& s ) const;
+
 		void			print( const State& s, std::ostream& os ) const;	
 		void			print_action( Action_Idx a, std::ostream& os ) const;
 	
