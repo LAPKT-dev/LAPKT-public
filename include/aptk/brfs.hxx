@@ -122,7 +122,7 @@ public:
 	typedef 	Closed_List< Search_Node >      		Closed_List_Type;
 
 	BRFS( 	const Search_Model& search_problem ) 
-	: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_cl_count(0), m_max_depth(0) {		
+		: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_cl_count(0), m_max_depth(0), m_verbose(true) {		
 	}
 
 	virtual ~BRFS() {
@@ -141,6 +141,11 @@ public:
 		m_closed.clear();
 		m_open_hash.clear();
 	}
+
+
+	void	set_verbose( bool v ) { m_verbose = v; }
+	bool	verbose() const { return m_verbose; }
+
 
 	void reset() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
@@ -240,7 +245,8 @@ public:
 		if(n->gn() + 1 > m_max_depth){
 			//if( m_max_depth == 0 ) std::cout << std::endl;  
 			m_max_depth = n->gn() + 1 ;
-			std::cout << "[" << m_max_depth  <<"]" << std::flush;			
+			if ( verbose() ) 
+				std::cout << "[" << m_max_depth  <<"]" << std::flush;			
 		}
 
 	}
@@ -349,6 +355,7 @@ protected:
 	unsigned                                m_max_depth;
 	Search_Node*				m_root;
 	std::vector<Action_Idx> 		m_app_set;
+	bool					m_verbose;
 };
 
 }

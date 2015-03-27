@@ -311,7 +311,6 @@ public:
 				return NULL;
 	
 			eval( head );
-
 			process(head);
 			close(head);
 			counter++;

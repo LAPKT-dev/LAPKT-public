@@ -162,7 +162,8 @@ public:
 	
 		
 		for ( unsigned k = 0; k < G.size(); k++ ) 
-			m_rp_precs.set(G[k]);
+			//if ( !init_fluents().isset( G[k] ) )
+				m_rp_precs.set(G[k]);
 	
 		#ifdef DEBUG_RP_HEURISTIC	
 		std::cout << "\nRel Plan: ";

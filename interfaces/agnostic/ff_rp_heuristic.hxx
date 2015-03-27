@@ -136,8 +136,11 @@ public:
 			auto rp_entry = m_base_heuristic.get_best_supporter( n.m_fluent );
 			if ( rp_entry.act_idx == no_such_index ) // No best supporter for fluent
 			{
-				std::cerr << "No best supporter found for goal fluent ";
-				std::cerr << m_strips_model.fluents()[n.m_fluent]->signature() << std::endl;
+				if(n.m_h > 0){
+					std::cerr << "No best supporter (neither START) found for goal fluent ";
+					std::cerr << m_strips_model.fluents()[n.m_fluent]->signature() << std::endl;
+				}
+				
 				return;
 			}
 			const Action* sup = m_strips_model.actions()[ rp_entry.act_idx ];
