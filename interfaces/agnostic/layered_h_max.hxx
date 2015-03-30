@@ -41,7 +41,7 @@ class Layered_H_Max : public Heuristic<State> {
 
 	typedef STRIPS_Problem::Best_Supporter 	Best_Supporter;
 
-	static unsigned infinity() { return std::numeric_limits<unsigned>::infinity(); }
+	static unsigned infinity() { return std::numeric_limits<unsigned>::max(); }
 
 	Layered_H_Max( const Search_Model& prob ) 
 	: Heuristic<State>(prob), m_strips_model( prob.task() ) {
@@ -68,7 +68,7 @@ class Layered_H_Max : public Heuristic<State> {
         virtual void	eval( const Fluent_Vec& s, float & h_out ) {
 		unsigned h;
 		eval( s, h );
-		h_out = (h == infinity()) ? std::numeric_limits<float>::max() : (float)h;		
+		h_out = (h == infinity()) ? std::numeric_limits<float>::infinity() : (float)h;		
 	}
 
 	virtual void	eval( const State& s, unsigned & h ) {
@@ -81,7 +81,7 @@ class Layered_H_Max : public Heuristic<State> {
 	virtual void	eval( const State& s, float & h_out ) {
 		unsigned h;
 		eval( s, h );
-		h_out = (h == infinity()) ? std::numeric_limits<float>::max() : (float)h;
+		h_out = (h == infinity()) ? std::numeric_limits<float>::infinity() : (float)h;
 		
 	}
 
