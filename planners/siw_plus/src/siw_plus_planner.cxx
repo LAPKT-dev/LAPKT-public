@@ -47,8 +47,8 @@ SIW_Plus_Planner::setup() {
 float
 SIW_Plus_Planner::do_search( SIW_Plus_Fwd& engine ) {
 
-
-	engine.set_bound(m_iw_bound);
+        engine.set_bound(1);
+        engine.set_max_bound(m_iw_bound-1);
 	engine.start();
 
 	std::vector< aptk::Action_Idx > plan;
