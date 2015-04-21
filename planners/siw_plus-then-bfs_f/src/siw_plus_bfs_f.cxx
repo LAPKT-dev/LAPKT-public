@@ -50,6 +50,7 @@ SIW_PLUS_BFS_F_Planner::do_stage_1(  SIW_Plus_Fwd& engine,  float& cost ) {
 
 	if ( engine.find_solution( cost, plan ) ) {
 		m_details << "Plan found with cost: " << cost << std::endl;
+		std::cout << "Plan found with cost: " << cost << std::endl;
 		std::ofstream	plan_stream( m_plan_filename.c_str() );
 
 		for ( unsigned k = 0; k < plan.size(); k++ ) {
@@ -81,6 +82,13 @@ SIW_PLUS_BFS_F_Planner::do_stage_1(  SIW_Plus_Fwd& engine,  float& cost ) {
 	m_details << "Nodes pruned by bound: " << engine.sum_pruned_by_bound() << std::endl;
 	m_details << "Average ef. width: " << engine.avg_B() << std::endl;
 	m_details << "Max ef. width: " << engine.max_B() << std::endl;
+
+	std::cout << "Total time: " << total_time << std::endl;
+	std::cout << "Nodes generated during search: " << engine.generated() << std::endl;
+	std::cout << "Nodes expanded during search: " << engine.expanded() << std::endl;
+	std::cout << "Nodes pruned by bound: " << engine.sum_pruned_by_bound() << std::endl;
+	std::cout << "Average ef. width: " << engine.avg_B() << std::endl;
+	std::cout << "Max ef. width: " << engine.max_B() << std::endl;
 	plan_stream.close();
 	return total_time;	
 }
@@ -103,6 +111,7 @@ SIW_PLUS_BFS_F_Planner::do_stage_2( Anytime_GBFS_H_Add_Rp_Fwd& engine, float B, 
 
 	if ( engine.find_solution( cost, plan ) ) {
 		m_details << "Plan found with cost: " << cost << std::endl;
+		std::cout << "Plan found with cost: " << cost << std::endl;
 		std::ofstream	plan_stream( m_plan_filename.c_str() );
 		for ( unsigned k = 0; k < plan.size(); k++ ) {
 			m_details << k+1 << ". ";
@@ -131,6 +140,11 @@ SIW_PLUS_BFS_F_Planner::do_stage_2( Anytime_GBFS_H_Add_Rp_Fwd& engine, float B, 
 	m_details << "Nodes generated during search: " << engine.generated() << std::endl;
 	m_details << "Nodes expanded during search: " << engine.expanded() << std::endl;
 	m_details << "Nodes pruned by bound: " << engine.pruned_by_bound() << std::endl;
+	
+	std::cout << "Total time: " << total_time << std::endl;
+	std::cout << "Nodes generated during search: " << engine.generated() << std::endl;
+	std::cout << "Nodes expanded during search: " << engine.expanded() << std::endl;
+	std::cout << "Nodes pruned by bound: " << engine.pruned_by_bound() << std::endl;
 	return total_time;	
 }
 
