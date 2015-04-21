@@ -34,6 +34,7 @@ AT_LAPKT_Planner::setup() {
 
 float
 AT_LAPKT_Planner::do_stage_1(  SIW_Plus_Fwd& engine,  float& cost ) {
+        engine.set_bound(1);
 	engine.set_max_bound( m_iw_bound-1 );
 	engine.start();
 

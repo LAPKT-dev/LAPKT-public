@@ -34,6 +34,8 @@ SIW_PLUS_BFS_F_Planner::setup() {
 
 float
 SIW_PLUS_BFS_F_Planner::do_stage_1(  SIW_Plus_Fwd& engine,  float& cost ) {
+
+        engine.set_bound(1);
 	engine.set_max_bound( m_iw_bound-1 );
 	engine.start();
 
