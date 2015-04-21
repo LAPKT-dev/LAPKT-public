@@ -56,8 +56,8 @@ def debug() :
 	# main( 	"../../benchmarks/blocks-world/domain-blocksaips.pddl",
 	# 	"../../benchmarks/blocks-world/blocksaips40.pddl",
 	# 	"plan.ipc" )
-	main( 	"~/Sandboxes/projects/codmap/results_siw_plus/k-elevators08_domain.pddl",
-		"~/Sandboxes/projects/codmap/results_siw_plus/k-elevators08_p18.pddl",
+	main( 	"../../../projects/codmap/results_siw_plus/k-elevators08_domain.pddl",
+		"../../../projects/codmap/results_siw_plus/k-elevators08_p18.pddl",
 		"plan.ipc" )
 
 if __name__ == "__main__":

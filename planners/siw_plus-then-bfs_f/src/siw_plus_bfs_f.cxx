@@ -187,6 +187,9 @@ SIW_PLUS_BFS_F_Planner::solve() {
 		std::cout << "\nSIW+ search completed in " << iw_t << " secs, found plan cost = " << siw_cost << std::endl;
 	}
 
+	if(siw_cost != infty )
+	    return;
+
 	float bfs_f_cost = infty;
 	Gen_Lms_Fwd    gen_lms( search_prob );
 	Landmarks_Graph graph( *instance() );
