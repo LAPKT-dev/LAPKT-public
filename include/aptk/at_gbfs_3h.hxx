@@ -117,7 +117,7 @@ public:
 	}
   
         void                    update_land_graph(Landmarks_Graph_Manager* lgm){
-		Node_Vec_Ptr path( gn_unit()+1 );
+		Node_Vec_Ptr path( gn_unit()+2 );
 		Node_Vec_Ptr_Rit rit = path.rbegin();
 		Node_Ptr n = this;
 
