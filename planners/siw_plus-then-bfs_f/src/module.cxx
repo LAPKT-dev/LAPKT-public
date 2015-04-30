@@ -32,6 +32,7 @@ BOOST_PYTHON_MODULE( libatlapkt )
 		.def_readwrite( "iw_bound", &SIW_PLUS_BFS_F_Planner::m_iw_bound )
 		.def_readwrite( "max_novelty", &SIW_PLUS_BFS_F_Planner::m_max_novelty )
 		.def_readwrite( "log_filename", &SIW_PLUS_BFS_F_Planner::m_log_filename )
+		.def_readwrite( "plan_filename", &SIW_PLUS_BFS_F_Planner::m_plan_filename )
 		.def_readwrite( "enable_siw_plus", &SIW_PLUS_BFS_F_Planner::m_enable_siw_plus )
 		.def_readwrite( "enable_bfs_f", &SIW_PLUS_BFS_F_Planner::m_enable_bfs_f )
 	;
