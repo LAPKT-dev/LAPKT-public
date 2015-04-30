@@ -1,6 +1,6 @@
 /*
 Lightweight Automated Planning Toolkit
-Copyright (C) 2012
+Copyright (C) 2012, 2015
 Miquel Ramirez <miquel.ramirez@rmit.edu.au>
 Nir Lipovetzky <nirlipo@gmail.com>
 
