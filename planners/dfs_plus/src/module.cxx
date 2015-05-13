@@ -31,6 +31,7 @@ BOOST_PYTHON_MODULE( libdfs_plus )
 		.def_readwrite( "ignore_action_costs", &DFS_Plus_Planner::m_ignore_action_costs )
 		.def_readwrite( "iw_bound", &DFS_Plus_Planner::m_iw_bound )
 		.def_readwrite( "log_filename", &DFS_Plus_Planner::m_log_filename )
+		.def_readwrite( "plan_filename", &DFS_Plus_Planner::m_plan_filename )
 	;
 }
 

@@ -194,7 +194,7 @@ SIW_PLUS_BFS_F_Planner::solve() {
 		gen_lms.compute_lm_graph_set_additive( graph );
 		
 		m_details << "Landmarks found: " << graph.num_landmarks() << std::endl;
-		graph.print( m_details );
+		//graph.print( m_details );
 	
 		SIW_Plus_Fwd siw_plus_engine( search_prob );
 		siw_plus_engine.set_goal_agenda( &graph );

@@ -50,8 +50,6 @@ public:
 	virtual bool	goal( const State& s ) const = 0;
 	// MRJ: Returns true if a is applicable on state s
 	virtual bool	is_applicable( const State& s, Action_Idx a ) const = 0;
-	virtual void	applicable_set( const State& s, std::vector<Action_Idx>& app_set ) const = 0;
-	virtual void	applicable_set_v2( const State& s, std::vector<Action_Idx>& app_set ) const = 0;	
 	// MRJ: Returns cost of executing action a on state s
 	virtual float	cost( const State& s, Action_Idx a ) const = 0;
 	// MRJ: Returns the state resulting from applying action a on state s
