@@ -38,9 +38,9 @@ class DetStateModel {
 public:
 
 	typedef  		State			StateType;
-	typedef 		Action			ActionType:
+	typedef 		Action			ActionType;
 
-	const	typename Action::IdType	no_op = Action::invalid_action_id;
+	const	typename Action::IdType	invalid_action = Action::invalid_action_id;
 
 	DetStateModel() {}
 	virtual ~DetStateModel() {}
