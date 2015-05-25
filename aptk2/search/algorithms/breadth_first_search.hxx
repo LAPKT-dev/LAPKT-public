@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef __BREADTH_FIRST_SEARCH__
 #define __BREADTH_FIRST_SEARCH__
 
-#include <aptk2/search/algorithms/blind_search.hxx>
+#include <aptk2/search/algorithms/generic_search.hxx>
 #include <aptk2/search/components/unsorted_open_list_impl.hxx>
 #include <aptk2/search/components/closed_list_impl.hxx>
 
@@ -30,10 +30,16 @@ namespace aptk {
 
 	//! Partial specialization, type of node and state model are left to be defined
 	template < typename NodeType, typename StateModel >
-	class StlBreadthFirstSearch : public BlindSearch< NodeType, StlUnsortedFIFO, StlUnorderedMapClosedList, StateModel > {
+	class StlBreadthFirstSearch : public GenericSearch<	NodeType, 
+								StlUnsortedFIFO< NodeType >, 
+								StlUnorderedMapClosedList< NodeType > , 
+								StateModel > {
 
 	public:
-		typedef BlindSearch< NodeType, StlUnsortedFIFO, StlUnorderedMapClosedList, StateModel >	BaseClass;
+		typedef GenericSearch< 	NodeType, 
+					StlUnsortedFIFO< NodeType >, 
+					StlUnorderedMapClosedList< NodeType >, 
+					StateModel >	BaseClass;
 		
 		StlBreadthFirstSearch( const StateModel& model ) :
 			BaseClass(model) {

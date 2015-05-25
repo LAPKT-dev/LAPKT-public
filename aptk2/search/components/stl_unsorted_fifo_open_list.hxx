@@ -32,18 +32,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace aptk {
 	
 	template < typename NodeType >
-	class StlUnsortedFIFO : public OpenList< std::deque< NodeType > > {
+	class StlUnsortedFIFO : public OpenList< NodeType, std::deque< std::shared_ptr<NodeType> > > {
 	public:
+
+		typedef std::shared_ptr< NodeType > NodePtrType;
 
 		virtual ~StlUnsortedFIFO() { }
 
-		virtual	void 	insert( NodeType&& n ) {
-			this->emplace_back( n );
+		virtual	void 	insert( NodePtrType n ) {
+			this->push_back( n );
 		}
 
-		virtual NodeType get_next( ) {
+		virtual NodePtrType get_next( ) {
 			assert( !is_empty() );
-			NodeType next = std::move(this->front());
+			NodePtrType next = this->front();
 			this->pop_front();
 			return next;
 		}

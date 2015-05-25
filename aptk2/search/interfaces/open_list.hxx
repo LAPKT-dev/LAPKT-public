@@ -27,28 +27,27 @@ Concepts borrowed from Ethan Burns' heuristic search framework.
 #ifndef __OPEN_LIST__
 #define __OPEN_LIST__
 
+#include <memory>
+
 namespace aptk {
 
-	template < typename ContainerType >
+	template < typename NodeType, typename ContainerType >
 	class OpenList : public ContainerType {
 
 	public :
-		// MRJ: this is for compatibility with stl-like containers,
-		// I think it is a reasonable interface constraint...
-		typedef typename ContainerType::value_type 	NodeType; 
-
+		typedef std::shared_ptr<NodeType>		NodePtrType;
 
 		virtual	~OpenList() { }
 
 		//! Add a node to the open list. Note that this requires
 		//! a rvalue, i.e. the caller is passing ownership of the
 		//! node to the OpenList
-		virtual void insert( NodeType&& n ) = 0;
+		virtual void insert( NodePtrType n ) = 0;
 			
 		//! Gets the next node from the open list. Note that this
 		//! returns a rvalue, so the caller gets ownership of the
 		//! node
-		virtual NodeType get_next( ) = 0;
+		virtual NodePtrType get_next( ) = 0;
 
 		//! Returns true if there are no more nodes to be processed
 		virtual bool	is_empty() = 0;

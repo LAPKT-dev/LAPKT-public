@@ -22,32 +22,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-#ifndef __STL_UNSORTED_FIFO_OPEN_LIST__
-#define __STL_UNSORTED_FIFO_OPEN_LIST__
+#ifndef __STL_UNSORTED_LIFO_OPEN_LIST__
+#define __STL_UNSORTED_LIFO_OPEN_LIST__
 
 #include <aptk2/search/interfaces/open_list.hxx>
 #include <deque>
-#include <assert>
+#include <cassert>
 
 namespace aptk {
 	
 	template < typename NodeType >
-	class StlUnsortedFIFO : public OpenList< std::deque< NodeType > > {
+	class StlUnsortedLIFO : public OpenList< NodeType, std::deque< std::shared_ptr<NodeType> > > {
 	public:
 
-		virtual ~OpenList() { }
+		typedef std::shared_ptr< NodeType >	NodePtrType;
 
-		virtual	void 	insert( NodeType&& n ) {
-			push_back( n );
+		virtual ~StlUnsortedLIFO() { }
+
+		virtual	void 	insert( NodePtrType n ) {
+			this->push_back( n );
 		}
 
-		virtual NodeType&& get_next( ) {
+		virtual NodePtrType get_next( ) {
 			assert( !empty() );
-			return pop_back();
+			return this->pop_back();
 		}
 
 		virtual bool empty() { 
-			return empty();
+			return this->empty();
 		}
 	};
 

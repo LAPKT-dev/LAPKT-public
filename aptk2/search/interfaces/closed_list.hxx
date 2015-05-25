@@ -25,23 +25,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define __CLOSED_LIST__
 
 #include <utility>
+#include <memory>
 
 namespace aptk {
 
-	template <typename ContainerType>
+	template <typename NodeType, typename ContainerType>
 	class ClosedList : public ContainerType {
 	public:
-		
-		// MRJ: this is for compatibility with stl-like containers
-		typedef typename ContainerType::key_type	KeyType;
-		typedef typename ContainerType::mapped_type	NodeType;
+		typedef std::shared_ptr< NodeType >		NodePtrType;
 
 		virtual	~ClosedList() {}
 
 		//! Add a node to the open list. Note that this requires
 		//! a rvalue, i.e. the caller is passing ownership of the
 		//! node to the ClosedList
-		virtual void	put( NodeType&& n ) = 0;
+		virtual void	put( NodePtrType n ) = 0;
 
 		//! Checks whether there's an entry for the given node
 		virtual	bool		check( const NodeType& n ) = 0;

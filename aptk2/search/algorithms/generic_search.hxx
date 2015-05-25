@@ -24,64 +24,78 @@ Additional note:
 Concepts borrowed from Ethan Burn's heuristic search framework.
 */
 
-#ifndef __BLIND_SEARCH__
-#define __BLIND_SEARCH__
+#ifndef __GENERIC_SEARCH__
+#define __GENERIC_SEARCH__
 
 #include <aptk2/search/interfaces/search_algorithm.hxx>
 #include <algorithm>
+#include <memory>
+#ifdef DEBUG
+	#include <iostream>	
+#endif
 
 namespace aptk {
 
-	//! This class implements the classic blind search algorithm, BlindSearch
+	//! This class implements the classic blind search algorithm, GenericSearch
 	template < 	typename NodeType, 
-			template < typename NodeType > class OpenList, 
-			template < typename NodeType > class ClosedList, 
+			typename OpenList,
+			typename ClosedList,
 			typename StateModel >
-	class BlindSearch : public SearchAlgorithm< StateModel > {
+	class GenericSearch : public SearchAlgorithm< StateModel > {
 	public:
 		typedef	SearchAlgorithm< StateModel >	BaseClass;
-		typedef OpenList< NodeType >		OpenListType;
-		typedef ClosedList< NodeType >		ClosedListType;
+		typedef OpenList			OpenListType;
+		typedef ClosedList			ClosedListType;
 		typedef typename StateModel::StateType	State;
 
-		BlindSearch( const StateModel& _model ) : 
+		typedef std::shared_ptr<NodeType>	NodePtrType;
+
+		GenericSearch( const StateModel& _model ) : 
 			BaseClass( _model ) {
 		}
 
-		virtual ~BlindSearch() {}
+		virtual ~GenericSearch() {}
 
 		virtual bool search( const State& s, typename BaseClass::Plan& solution ) {
-			NodeType n( s );
-			open.insert( std::move(n) );
+			NodePtrType n = std::make_shared<NodeType>( s );
+			open.insert( n );
 			BaseClass::generated++;
 
 			while ( !open.is_empty() ) {
-				NodeType current = open.get_next( );
-				if ( closed.check( current ) )	
+				NodePtrType current = open.get_next( );
+				#ifdef DEBUG
+				current->print( std::cout );
+				std::cout << std::endl;
+				#endif
+				if ( closed.check( *current ) )	
 					continue;
 				
-				if ( BaseClass::model.goal( current.state ) ) {
+				if ( BaseClass::model.goal( current->state ) ) {
 					// Solution found, we're done
+					#ifdef DEBUG
+					std::cout << "Goal found!" << std::endl;
+					#endif
 					retrieve_solution( current, solution );
 					return true;
 				}
 					
-				for ( auto a : BaseClass::model.applicable_actions( current.state ) ) {
-					State s_a = BaseClass::model.next( current.state, a );
-					NodeType succ( std::move(s_a), a, current );
-					open.insert( std::move(succ) );
+				for ( auto a : BaseClass::model.applicable_actions( current->state ) ) {
+					State s_a = BaseClass::model.next( current->state, a );
+					NodePtrType succ= std::make_shared<NodeType>( std::move(s_a), a, current );
+					if ( closed.check( *succ ) ) continue;
+					open.insert( succ );
 					BaseClass::generated++;
 				}
 				
 	
 				BaseClass::expanded++; // Count as an expansion
-				closed.put( std::move(current) ); // This needs to go last, since we transfer ownership	
+				closed.put( current ); // This needs to go last, since we transfer ownership	
 			}
 			return false;
 		}
 
-		virtual	void retrieve_solution( const NodeType& n, typename BaseClass::Plan& solution ) {
-			const NodeType* tmp = &n;
+		virtual	void retrieve_solution( NodePtrType n, typename BaseClass::Plan& solution ) {
+			NodePtrType tmp = n;
 			while ( tmp->has_parent() ) {
 				solution.push_back( tmp->action );
 				tmp = tmp->parent;
@@ -97,4 +111,4 @@ namespace aptk {
 
 }
 
-#endif // blind_search.hxx
+#endif // generic_search.hxx

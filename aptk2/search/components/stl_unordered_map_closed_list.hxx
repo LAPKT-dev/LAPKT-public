@@ -30,24 +30,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace aptk {
 	
 	template < typename NodeType >
-	class StlUnorderedMapClosedList : public ClosedList< std::unordered_multimap< std::size_t, NodeType > > {
+	class StlUnorderedMapClosedList : public ClosedList< 
+							NodeType,
+							std::unordered_multimap< 
+								std::size_t, 
+								std::shared_ptr<NodeType> > > {
 	public:
+
+		typedef		std::shared_ptr< NodeType >	NodePtrType;
 
 		virtual ~StlUnorderedMapClosedList() {}
 
-		virtual void put( NodeType&& n ) {
-			this->insert( std::make_pair( n.hash(), NodeType(n) ) );
+		virtual void put( NodePtrType n ) {
+			this->insert( std::make_pair( n->hash(), n ) );
 		}
 
 		virtual bool check( const NodeType& n ) {
 			auto range = this->equal_range( n.hash() );
 			if  (range.first == range.second) return false; // Empty range
 			for ( auto entry_it = range.first; entry_it != range.second; entry_it++ ) {
-				const NodeType& other = entry_it->second;
+				const NodeType& other = *(entry_it->second);
 				if ( other == n ) return true;
 			}
 			if ( range.second == this->end() ) return false;
-			if ( range.second->second == n ) return true;
+			if ( *(range.second->second) == n ) return true;
 			return false;
 		}
 		
