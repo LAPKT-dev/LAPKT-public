@@ -53,4 +53,4 @@ namespace aptk {
 
 }
 
-#endif // breadth_first_search.hxx
+#endif // best_first_search.hxx
