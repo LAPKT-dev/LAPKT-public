@@ -34,21 +34,21 @@ namespace aptk {
 	template < typename StateType >
 	class FiniteDomainNoveltyEvaluator : public NoveltyEvaluator< StateType > {
 	public:
-		typedef std::vector< std::set< ValuesTuple > >	NoveltyTables;	
+		typedef std::vector< std::set< ValuesTuple > >	NoveltyTables;
 		typedef NoveltyEvaluator< StateType >		BaseClass;
-	
-		FiniteDomainNoveltyEvaluator() 
+
+		FiniteDomainNoveltyEvaluator()
 			: BaseClass() {
 		}
 		virtual ~FiniteDomainNoveltyEvaluator() { }
-		
+
 		virtual unsigned	initialize( const StateType& s ) {
 			return 1;
 		}
 
 		virtual unsigned	evaluate( const StateType& s ) {
 			assert( _tables.size() > 0 );
-			
+
 			s.get_valuation( _varnames, _valuation );
 
 			unsigned current_novelty = 0;
@@ -64,18 +64,18 @@ namespace aptk {
 			}
 			if ( current_novelty == 1 ) {
 				_counts[1]++;
-				return current_novelty;		
+				return current_novelty;
 			}
 
 			unsigned min_novelty = 2;
-		
+
 			while ( min_novelty <= BaseClass::max_novelty() ) {
 				ValuesTupleIterator it( _varnames, _valuation, min_novelty );
 				ValuesTuple t( min_novelty );
 				bool updated_tables = false;
 				while ( it.next(t) ) {
 					auto result = _tables[min_novelty].insert( t );
-					updated_tables = result.second;
+					updated_tables |= result.second;
 				}
 				if ( updated_tables ) {
 					_counts[min_novelty]++;
@@ -83,7 +83,7 @@ namespace aptk {
 				}
 				min_novelty++;
 			}
-	
+
 			_counts[0]++;
 			return _varnames.size() + 1;
 		}
@@ -93,18 +93,18 @@ namespace aptk {
 			_counts.resize( BaseClass::max_novelty() + 1 );
 			for ( unsigned k = 0; k <= BaseClass::max_novelty(); k++ )
 				_counts[k] = 0;
-		} 
+		}
 
 		void	get_num_states( unsigned novelty ) { return _counts[novelty]; }
 
 	protected:
-		
+
 		NoveltyTables			_tables;
 		std::vector< VariableIndex >	_varnames;
 		std::vector< ValueIndex >	_valuation;
 		std::vector< unsigned >		_counts;
 
-	};	
+	};
 
 }
 
