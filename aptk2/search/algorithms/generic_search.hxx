@@ -31,13 +31,13 @@ Concepts borrowed from Ethan Burn's heuristic search framework.
 #include <algorithm>
 #include <memory>
 #ifdef DEBUG
-	#include <iostream>	
+	#include <iostream>
 #endif
 
 namespace aptk {
 
 	//! This class implements the classic blind search algorithm, GenericSearch
-	template < 	typename NodeType, 
+	template < 	typename NodeType,
 			typename OpenList,
 			typename ClosedList,
 			typename StateModel >
@@ -50,7 +50,7 @@ namespace aptk {
 
 		typedef std::shared_ptr<NodeType>	NodePtrType;
 
-		GenericSearch( const StateModel& _model ) : 
+		GenericSearch( const StateModel& _model ) :
 			BaseClass( _model ) {
 		}
 
@@ -67,8 +67,6 @@ namespace aptk {
 				current->print( std::cout );
 				std::cout << std::endl;
 				#endif
-				if ( closed.check( *current ) )	
-					continue;
 				
 				if ( BaseClass::model.goal( current->state ) ) {
 					// Solution found, we're done
@@ -78,7 +76,7 @@ namespace aptk {
 					retrieve_solution( current, solution );
 					return true;
 				}
-					
+
 				for ( auto a : BaseClass::model.applicable_actions( current->state ) ) {
 					State s_a = BaseClass::model.next( current->state, a );
 					NodePtrType succ= std::make_shared<NodeType>( std::move(s_a), a, current );
@@ -86,10 +84,10 @@ namespace aptk {
 					open.insert( succ );
 					BaseClass::generated++;
 				}
-				
-	
+
+
 				BaseClass::expanded++; // Count as an expansion
-				closed.put( current ); // This needs to go last, since we transfer ownership	
+				closed.put( current ); // This needs to go last, since we transfer ownership
 			}
 			return false;
 		}
@@ -99,7 +97,7 @@ namespace aptk {
 			while ( tmp->has_parent() ) {
 				solution.push_back( tmp->action );
 				tmp = tmp->parent;
-			} 
+			}
 			std::reverse( solution.begin(), solution.end() );
 		}
 
