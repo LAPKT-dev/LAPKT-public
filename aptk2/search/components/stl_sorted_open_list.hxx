@@ -59,14 +59,18 @@ namespace aptk {
 		class ReplaceWhen {
 		public:
 
-			bool	operator()( const NodeType& n1, const NodeType& n2 ) const {
-				return n1.g < n2.g;
+			bool	operator()( const NodeType& node_to_be_inserted, const NodeType& node_already_inserted ) const {
+				return node_to_be_inserted.g < node_already_inserted.g;
 			}
 		};
 
 		class ReplaceOperation {
 		public:
 			void operator()(NodePtrType replacee, NodePtrType replaced) const {
+				//@TODO: Very important: updating g is correct provided that
+				// the order of the nodes in the open list is not changed by
+				// updating it. This is an open problem with the design,
+				// and a more definitive solution needs to be found (soon).
 				replaced->g = replacee->g;
 				replaced->parent = replacee->parent;
 			}
