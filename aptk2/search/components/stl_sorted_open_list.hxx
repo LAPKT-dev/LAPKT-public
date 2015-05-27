@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define __STL_SORTED_OPEN_LIST__
 
 #include <aptk2/search/interfaces/open_list.hxx>
+#include <aptk2/search/components/stl_unordered_map_closed_list.hxx>
 #include <queue>
 #include <vector>
 #include <cassert>
@@ -40,43 +41,71 @@ namespace aptk {
 			return (*p1) > (*p2) ;
 		}
 	};
-	
-	template < 	typename NodeType, 
-			typename Heuristic, 
-			typename Container = std::vector< std::shared_ptr< NodeType > >, 
+
+	template < 	typename NodeType,
+			typename Heuristic,
+			typename Container = std::vector< std::shared_ptr< NodeType > >,
 			typename Comparer = StlNodePointerAdapter< std::shared_ptr< NodeType > > >
-	class StlSortedOpenList : public OpenList< 	NodeType, 
-							std::priority_queue< 	std::shared_ptr<NodeType>, 
-										Container, 
+	class StlSortedOpenList : public OpenList< 	NodeType,
+							std::priority_queue< 	std::shared_ptr<NodeType>,
+										Container,
 										Comparer > > {
 	public:
-
 		typedef std::shared_ptr< NodeType >	NodePtrType;
+
+
+		//! This binary predicate is used to decide when we need to update
+		//! an already existing entry on Open
+		class ReplaceWhen {
+		public:
+
+			bool	operator()( const NodeType& n1, const NodeType& n2 ) const {
+				return n1.g < n2.g;
+			}
+		};
+
+		class ReplaceOperation {
+		public:
+			void operator()(NodePtrType replacee, NodePtrType replaced) const {
+				replaced->g = replacee->g;
+				replaced->parent = replacee->parent;
+			}
+		};
 
 		virtual ~StlSortedOpenList() { }
 
 		virtual void 	set_heuristic ( Heuristic* h ) {
-			heuristic = h;
+			_heuristic = h;
 		}
 
 		virtual	void 	insert( NodePtrType n ) {
-			n->evaluate_with( *heuristic );
+			// Check whether there is n' in the open list
+			// such that state(n) == state(n').
+			// If it is the case, we just need to replace the
+			// entry on the hash table if g(n) < g(n')
+
+			if ( _already_in_open.update(n, ReplaceWhen(), ReplaceOperation() ) )
+				return;
+
+			n->evaluate_with( *_heuristic );
 			this->push( n );
+			_already_in_open.put( n );
 		}
 
 		virtual NodePtrType get_next( ) {
 			assert( !is_empty() );
 			NodePtrType next = this->top();
 			this->pop();
+			_already_in_open.remove( *next );
 			return next;
 		}
 
-		virtual bool is_empty() { 
+		virtual bool is_empty() {
 			return this->empty();
 		}
 
-		Heuristic*	heuristic;
-
+		Heuristic*																		_heuristic;
+		StlUnorderedMapClosedList< NodeType >					_already_in_open;
 	};
 
 }

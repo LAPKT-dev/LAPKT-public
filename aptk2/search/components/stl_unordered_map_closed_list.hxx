@@ -28,12 +28,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk2/search/interfaces/closed_list.hxx>
 
 namespace aptk {
-	
+
 	template < typename NodeType >
-	class StlUnorderedMapClosedList : public ClosedList< 
+	class StlUnorderedMapClosedList : public ClosedList<
 							NodeType,
-							std::unordered_multimap< 
-								std::size_t, 
+							std::unordered_multimap<
+								std::size_t,
 								std::shared_ptr<NodeType> > > {
 	public:
 
@@ -43,6 +43,22 @@ namespace aptk {
 
 		virtual void put( NodePtrType n ) {
 			this->insert( std::make_pair( n->hash(), n ) );
+		}
+
+		virtual void remove( const NodeType& n ) {
+			auto range = this->equal_range( n.hash() );
+			assert( range.first != range.second); // This checks that n was in closed list
+
+			for ( auto entry_it = range.first; entry_it != range.second; entry_it++ ) {
+				if ( *(entry_it->second) == n ) {
+					this->erase( entry_it ); // This is safe to do here because of the return below!
+					return;
+				}
+
+			}
+			assert( range.second != this->end() );
+			if ( *(range.second->second) == n )
+				this->erase( range.second);
 		}
 
 		virtual bool check( const NodeType& n ) {
@@ -56,23 +72,34 @@ namespace aptk {
 			if ( *(range.second->second) == n ) return true;
 			return false;
 		}
-		
-		/*
-		virtual NodeType* 
-		retrieve( const NodeType& n ) { 
-			auto range = this->equal_range( n.hash );
-			if  (range.first == range.second) return nullptr; // Empty range
+
+		//! This method checks if there's already a node referring
+		//! to the same state in the hash table. When that is the case, and
+		//! pred evaluates to true for n and n', where n' is the other node
+		//! found to be referring to the same state, n' is replaced and
+		//! we return true to signal that n can be discarded by the caller.
+		template < typename ReplacementPredicate, typename ReplacementOp >
+		bool update( NodePtrType n, ReplacementPredicate pred, ReplacementOp op ) {
+			auto range = this->equal_range( n->hash() );
+			if  (range.first == range.second) return false; // Empty range
 			for ( auto entry_it = range.first; entry_it != range.second; entry_it++ ) {
-				const NodeType& other = entry_it->second;
-				if ( other == n ) return &other;
+				NodePtrType other = entry_it->second;
+				if ( *(other) == *(n)  ) {
+					if ( pred( *n, *other) ) op( n, other);
+					return true;
+				}
 			}
-			if ( range.second == this->end() ) return nullptr;
-			if ( range.second->second == n ) return &(range.second->second);
-			return nullptr;
+			if ( range.second == this->end() ) return false;
+			NodePtrType last_guy = range.second->second;
+			if ( *(last_guy) == *n ) {
+					if ( pred(*n, *last_guy) ) op( n, last_guy );
+					return true;
+			}
+			return false;
 		}
-		*/
+
 	};
-	
+
 
 }
 
