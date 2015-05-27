@@ -1,7 +1,7 @@
 #include <tuples.hxx>
 #include <iostream>
 
-namespace aptk 
+namespace aptk
 {
 
 	ValuesTuple::ValuesTuple() {
@@ -28,10 +28,14 @@ namespace aptk
 	std::ostream&
 	operator<<( std::ostream& stream, const ValuesTuple& t ) {
 		stream << "[";
-		for ( const ValuesTuple::Entry& e : t.elements )
-			stream << "(" << e.x << "," << e.v << ")";
+		for ( const ValuesTuple::Entry& e : t.elements ) {
+			VariableIndex x;
+			ValueIndex v;
+			std::tie( x, v ) = e;
+			stream << "(" << x << "," << v << ")";
+		}
 		stream << "]";
-		return stream; 
+		return stream;
 	}
 
 	ValuesTupleIterator::ValuesTupleIterator( const std::vector<VariableIndex>& X, const std::vector<ValueIndex>& v, size_t sz )
@@ -40,7 +44,7 @@ namespace aptk
 		offsets.resize( tuple_sz );
 		index.resize( tuple_sz );
 		for ( unsigned k = 0; k < tuple_sz; k++ ) {
-			offsets[k] = k;	
+			offsets[k] = k;
 			index[k] = offsets[k];
 		}
 	}

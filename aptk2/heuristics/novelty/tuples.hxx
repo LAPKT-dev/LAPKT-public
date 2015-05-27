@@ -6,8 +6,9 @@
 #include <cassert>
 #include <iostream>
 #include <algorithm>
+#include <tuple>
 
-namespace aptk 
+namespace aptk
 {
 
 	typedef		unsigned 	VariableIndex;
@@ -16,36 +17,8 @@ namespace aptk
 	class ValuesTuple {
 	public:
 
-		struct Entry {
-			
-			VariableIndex 	x;
-			ValueIndex	v;
-			
-			bool	operator<( const Entry& other ) const {
-				if ( x < other.x ) return true;
-				if ( x == other.x ) 
-					return v < other.v;
-				return false;
-			}
-
-			bool	operator>( const Entry& other ) const {
-				if ( x > other.x ) return true;
-				if ( x == other.x ) 
-					return v > other.v;
-				return false;
-			}
-	
-			bool	operator==( const Entry& other ) const {
-				return x == other.x && v == other.v;
-			}
-
-			bool	operator!=( const Entry& other ) const {
-				return x != other.x || v != other.v;
-			}
-
-		};
-		
-		typedef		std::vector< Entry >	Container;
+		typedef 	std::tuple< VariableIndex, ValueIndex > Entry;
+		typedef		std::vector< Entry >										Container;
 
 		ValuesTuple();
 		ValuesTuple( size_t sz, bool preallocate = true );
@@ -53,11 +26,13 @@ namespace aptk
 		ValuesTuple( ValuesTuple&& other );
 
 		ValuesTuple&	operator=( ValuesTuple&& other ) {
+			if ( this == &other ) return *this;
 			elements = other.elements;
 			return *this;
 		}
 
 		const ValuesTuple&	operator=( const ValuesTuple& other ) {
+			if ( this == &other ) return *this;
 			elements = other.elements;
 			return *this;
 		}
@@ -65,12 +40,11 @@ namespace aptk
 		~ValuesTuple();
 
 		void	add( VariableIndex x, ValueIndex v ) {
-			Entry e = {x,v};
-			elements.push_back( e );
+			elements.push_back( std::make_tuple(x,v) );
 		}
 
 		void	set( unsigned i, VariableIndex x, ValueIndex v ) {
-			elements[i] = {x,v};
+			elements[i] = std::make_tuple(x,v);
 		}
 
 		void	finish() {
@@ -78,36 +52,37 @@ namespace aptk
 		}
 
 		bool	operator==( const ValuesTuple& t ) const {
-			assert( elements.size() == t.elements.size() );
-			for ( unsigned i = 0; i < elements.size(); i++ )
-				if ( elements[i] != t.elements[i] ) return false;
-			return true; 
+			return elements == t.elements;
+		}
+
+		bool 	operator!=( const ValuesTuple& t ) const {
+			return !(operator==(t));
 		}
 
 		bool	operator<( const ValuesTuple& t ) const {
-			for ( unsigned i = 0; i < elements.size(); i++ ) {
-				if ( elements[i] < t.elements[i]) return true;
-				if ( elements[i] > t.elements[i]) return false;
-			}
-			return false;
+			return elements < t.elements;
+		}
+
+		bool 	operator>( const ValuesTuple& t) const {
+			return !(operator<(t));
 		}
 
 		Container::iterator
 		begin()	{ return elements.begin(); }
-		
+
 		Container::iterator
 		end() { return elements.end(); }
 
-		Container::const_iterator 
+		Container::const_iterator
 		begin() const { return elements.begin(); }
-	
+
 		Container::const_iterator
 		end() const { return elements.end(); }
 
 		friend std::ostream& 	operator<<( std::ostream& stream, const ValuesTuple& t );
 
 	protected:
-		
+
 		Container	elements;
 	};
 
@@ -120,14 +95,14 @@ namespace aptk
 	public:
 
 		ValuesTupleIterator( const std::vector<VariableIndex>& X, const std::vector<ValueIndex>& v, size_t sz );
- 
+
 		~ValuesTupleIterator();
 
 		void	reset() {
 			for ( unsigned k = 0; k < tuple_sz; k++ ) {
-				offsets[k] = k;	
+				offsets[k] = k;
 				index[k] = offsets[k];
-			}			
+			}
 			count = 0;
 		}
 
@@ -146,9 +121,9 @@ namespace aptk
 					break;
 				index[k-1]++;
 				for ( unsigned j = k; j < tuple_sz; j++ )
-					index[j] = index[j-1]+1;//offsets[j];		
+					index[j] = index[j-1]+1;//offsets[j];
 			}
-			count++;	
+			count++;
 			return index[0] < vars.size();
 		}
 
@@ -163,7 +138,7 @@ namespace aptk
 		unsigned						count;
 	};
 
-	
+
 
 }
 
