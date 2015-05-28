@@ -51,21 +51,13 @@ namespace aptk
 			std::sort( elements.begin(), elements.end() );
 		}
 
-		bool	operator==( const ValuesTuple& t ) const {
-			return elements == t.elements;
-		}
-
-		bool 	operator!=( const ValuesTuple& t ) const {
-			return !(operator==(t));
-		}
-
-		bool	operator<( const ValuesTuple& t ) const {
-			return elements < t.elements;
-		}
-
-		bool 	operator>( const ValuesTuple& t) const {
-			return !(operator<(t));
-		}
+		//! Comparison operators
+		inline bool operator==( const ValuesTuple& t ) const { return elements == t.elements; }
+		inline bool operator!=( const ValuesTuple& t ) const { return !(operator==(t)); }
+		inline bool operator< ( const ValuesTuple& t ) const { return elements < t.elements; }
+		inline bool operator> ( const ValuesTuple& t ) const { return t.operator<(*this); }
+		inline bool operator<=( const ValuesTuple& t ) const { return !(operator>(t)); }
+		inline bool operator>=( const ValuesTuple& t ) const { return !(operator<(t)); }
 
 		Container::iterator
 		begin()	{ return elements.begin(); }
