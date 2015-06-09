@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define __FD_NOVELTY_EVALUATOR__
 
 #include <vector>
-#include <set>
+#include <boost/container/flat_set.hpp>
 #include <aptk2/heuristics/interfaces/novelty_evaluator.hxx>
 #include <aptk2/heuristics/novelty/tuples.hxx>
 #include <cassert>
@@ -34,7 +34,7 @@ namespace aptk {
 	template < typename StateType >
 	class FiniteDomainNoveltyEvaluator : public NoveltyEvaluator< StateType > {
 	public:
-		typedef std::vector< std::set< ValuesTuple > >	NoveltyTables;
+		typedef std::vector< boost::container::flat_set< ValuesTuple > >	NoveltyTables;
 		typedef NoveltyEvaluator< StateType >		BaseClass;
 
 		FiniteDomainNoveltyEvaluator()
