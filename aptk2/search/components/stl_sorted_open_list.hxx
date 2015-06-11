@@ -92,10 +92,10 @@ namespace aptk {
 				return;
 
 			n->evaluate_with( *_heuristic );
-			if ( !n->dead_end() ) {
-				this->push( n );
-				_already_in_open.put( n );
-			}
+			if ( n->dead_end() ) return;
+			this->push( n );
+			_already_in_open.put( n );
+
 		}
 
 		virtual NodePtrType get_next( ) {
