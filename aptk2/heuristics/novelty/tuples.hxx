@@ -7,6 +7,7 @@
 #include <iostream>
 #include <algorithm>
 #include <tuple>
+#include <aptk2/tools/jenkins_12bit.hxx>
 
 namespace aptk
 {
@@ -72,6 +73,22 @@ namespace aptk
 		end() const { return elements.end(); }
 
 		friend std::ostream& 	operator<<( std::ostream& stream, const ValuesTuple& t );
+
+		class Hasher {
+		public:
+			std::size_t operator()( const ValuesTuple& t ) const {
+				std::size_t hashcode = 0;
+				for ( const Entry& e : t.elements ) {
+					VariableIndex x;
+					ValueIndex v;
+					std::tie( x, v ) = e;
+					hashcode = jenkins_hash( (ub1*)(&x), sizeof(VariableIndex), hashcode );
+					hashcode = jenkins_hash( (ub1*)(&v), sizeof(ValueIndex), hashcode );
+				}
+
+				return hashcode;
+			}
+		};
 
 	protected:
 
