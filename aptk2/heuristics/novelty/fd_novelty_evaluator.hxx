@@ -95,7 +95,7 @@ namespace aptk {
 				_counts[k] = 0;
 		}
 
-		void	get_num_states( unsigned novelty ) { return _counts[novelty]; }
+		unsigned	get_num_states( unsigned novelty ) { return _counts[novelty]; }
 
 	protected:
 
