@@ -51,7 +51,7 @@ namespace aptk {
 
 			s.get_valuation( _varnames, _valuation );
 
-			unsigned current_novelty = 0;
+			unsigned current_novelty = _varnames.size() + 1;
 
 			for ( unsigned i = 0; i < _varnames.size(); i++  ) {
 				VariableIndex X = _varnames[i];
@@ -61,10 +61,6 @@ namespace aptk {
 				auto result = _tables[1].insert(t);
 				if (! result.second) continue; // This tuple was already accounted for
 				current_novelty=1; // It wasn't
-			}
-			if ( current_novelty == 1 ) {
-				_counts[1]++;
-				return current_novelty;
 			}
 
 			unsigned min_novelty = 2;
@@ -78,14 +74,17 @@ namespace aptk {
 					updated_tables |= result.second;
 				}
 				if ( updated_tables ) {
-					_counts[min_novelty]++;
-					return min_novelty;
+					if ( min_novelty < current_novelty )
+						current_novelty = min_novelty;
 				}
 				min_novelty++;
 			}
 
-			_counts[0]++;
-			return _varnames.size() + 1;
+			if ( current_novelty < ( _varnames.size() + 1 ) )
+				_counts[current_novelty]++;
+			else
+				_counts[0]++;
+			return current_novelty;
 		}
 
 		virtual void		reset() {
