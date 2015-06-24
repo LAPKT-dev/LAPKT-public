@@ -64,6 +64,7 @@ public:
 		}
 
 		int	start( const State& s ) {
+			m_app_set.clear();
 			m_problem.applicable_set_v2( s, m_app_set );
 			m_it = m_app_set.begin();
 			if ( m_it == m_app_set.end() ) return no_op;

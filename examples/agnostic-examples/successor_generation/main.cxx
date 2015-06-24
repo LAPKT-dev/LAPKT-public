@@ -22,9 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // a planning problem we acquired from some external source
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <common/nwn.hxx>
 
 #include <strips_prob.hxx>
+#include <watched_lit_succ_gen.hxx>
 #include <fluent.hxx>
 #include <action.hxx>
 #include <cond_eff.hxx>
@@ -38,6 +40,8 @@ using	aptk::STRIPS_Problem;
 using	aptk::State;
 using	aptk::Action;
 using	aptk::agnostic::Fwd_Search_Problem;
+
+using aptk::WatchedLitSuccGen;
 
 int main( int argc, char** argv ) {
 
@@ -149,18 +153,20 @@ int main( int argc, char** argv ) {
 	std::cout << std::endl << "Applicable actions at root by direct checking: " << std::endl;
 	State* s0 = search_prob.init();
 	old_time = aptk::time_used();
+	int n = 0;
 	
 	for (int trial = 0; trial < TRIALS; trial++) {
 		for ( int i = 0; i < search_prob.num_actions(); i++ ) {
 			if ( search_prob.is_applicable( *s0, i ) ) {
+				n++;
 			    if (1 == TRIALS)
     				std::cout << plan_prob.actions()[i]->signature() << std::endl;
 				//std::cout << '.';
-				int foo = 42;
 			}
 		}
 	}
 	//std::cout << std::endl;
+	std::cout << "Generated: " << n << std::endl;
 	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
 	
 	/** NIR: currently by default we use match tree, 
@@ -171,38 +177,44 @@ int main( int argc, char** argv ) {
 	//NIR: Initialize both successor generators
 	plan_prob.make_action_tables();
 
+	WatchedLitSuccGen w_succ_gen(plan_prob);
+
 	old_time = aptk::time_used();
 
 	std::cout << "Applicable actions at root with successor generator: " << std::endl;
+	n = 0;
 	for (int trial = 0; trial < TRIALS; trial++) {
 		std::vector< aptk::Action_Idx > app_set;
 		search_prob.applicable_set( *s0, app_set );
 		for ( unsigned i = 0; i < app_set.size(); i++ ) {
+			n++;
 		    if (1 == TRIALS)
     			std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
 			//std::cout << '.';
-			int foo = 42;
 		}
 	}
 	//std::cout << std::endl;
+	std::cout << "Generated: " << n << std::endl;
 	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
 	
 	
 	std::cout << "Applicable actions at root with iterator interface: " << std::endl;
 	old_time = aptk::time_used();
-
 	Fwd_Search_Problem::Action_Iterator it(search_prob);
-	int a = it.start( *s0 );
+	n = 0;
 	for (int trial = 0; trial < TRIALS; trial++) {
+		int a = it.start( *s0 );
 		while (a != aptk::no_op) {
+			n++;
 			if (1 == TRIALS)
 			    std::cout << plan_prob.actions()[a]->signature() << std::endl;
 			//std::cout << '.';
-			int foo = 42;
 			a = it.next();
 		}
 	}
 	//std::cout << std::endl;
+	std::cout << "Generated: " << n << std::endl;
+
 	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
 	old_time = aptk::time_used();
 	
@@ -211,19 +223,38 @@ int main( int argc, char** argv ) {
 
 	
 	std::cout << "Applicable actions at root with the new match tree: " << std::endl;
+	n = 0;
 	for (int trial = 0; trial < TRIALS; trial++) {
 		std::vector< aptk::Action_Idx > app_set;
 		search_prob.applicable_set_v2( *s0, app_set );
 		for ( unsigned i = 0; i < app_set.size(); i++ ) {
+			n++;
 			if (1 == TRIALS)
                 std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
 			//std::cout << '.';
-			int foo = 42;
 		}
 	}
 	//std::cout << std::endl;
+	std::cout << "Generated: " << n << std::endl;
 	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
-	
+
+
+	old_time = aptk::time_used();
+
+
+	n = 0;	
+	std::cout << "Applicable actions at root with watched literals: " << std::endl;
+	for (int trial = 0; trial < TRIALS; trial++) {
+		for (auto i = w_succ_gen.applicable_actions(*s0) ; !i.finished(); ++i){
+			n++;
+			if (1 == TRIALS)
+                std::cout << plan_prob.actions()[*i]->signature() << std::endl;
+			// std::cout << '.';
+		}
+	}
+	//std::cout << std::endl;
+	std::cout << "Generated: " << n << std::endl;
+	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
 
 	return 0;
 }
