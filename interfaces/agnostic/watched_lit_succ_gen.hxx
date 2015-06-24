@@ -37,11 +37,18 @@ class WatchedLitSuccGen {
 	STRIPS_Problem& prob;
 	std::vector< std::vector<aptk::Action_Idx> > watchers;
 
-public:
-WatchedLitSuccGen(STRIPS_Problem& prob): prob(prob), watchers(prob.num_fluents()) {
+    public:
+
+    WatchedLitSuccGen(STRIPS_Problem& prob): prob(prob), watchers(prob.num_fluents()) {
 		for(unsigned op = 0; op < prob.num_actions(); ++op){
-			auto act = prob.actions()[op];
-			watchers[act->prec_vec()[0]].push_back(act->index());
+            auto act = prob.actions()[op];
+			auto& precs = act->prec_vec();
+			unsigned f = precs[0];
+            for(unsigned i = 1; i < precs.size(); ++i){
+				if(watchers[precs[i]].size() < watchers[f].size())
+					f = precs[i];
+			}
+			watchers[f].push_back(act->index());
 		}
 	}
 	
@@ -51,43 +58,47 @@ WatchedLitSuccGen(STRIPS_Problem& prob): prob(prob), watchers(prob.num_fluents()
 
 	struct iterator {
 		WatchedLitSuccGen& w;
-		std::vector<unsigned> q;
 		const State& s;
-		unsigned w_offset;
+		unsigned s_offset;
+		unsigned w_offset;	// 
 
-		iterator(WatchedLitSuccGen& w, std::vector<unsigned> q, const State& s)
-			: w(w), q(q), s(s), w_offset(0){ if(!finished() && !applicable()) ++*this; }
+		iterator(WatchedLitSuccGen& w, const State& s)
+			: w(w), s(s), s_offset(0), w_offset(0){ if(!finished() && !applicable()) ++*this; }
 
-		iterator& operator++(){
+		inline unsigned current_f() const {
+			return s.fluent_vec()[s_offset];
+		}
+
+		inline iterator& operator++(){
 			++w_offset;
 			while(!finished() && !applicable()){
 				++w_offset;
-				if(w_offset >= w[q.back()].size()){
+				if(w_offset >= w[current_f()].size()){
 					w_offset = 0;
-					q.pop_back();
+					++s_offset;
 				}
 			}
 			return *this;
 		}
 
-		bool applicable(){
-			if(w[q.back()].size() <= w_offset)
+		inline bool applicable(){
+			if(w[current_f()].size() <= w_offset)
 				return false;
-			aptk::Action_Idx op = w[q.back()][w_offset];
+			aptk::Action_Idx op = w[current_f()][w_offset];
 			return s.entails(w.prob.actions()[op]->prec_vec());
 		}
 		
-		aptk::Action_Idx operator*(){
-			return w[q.back()][w_offset];
+		inline aptk::Action_Idx operator*() const{
+			return w[current_f()][w_offset];
 		}
 
 		bool finished(){
-			return q.empty();
+			return s_offset >= s.fluent_vec().size();
 		};
 	};
 
 	iterator applicable_actions(aptk::State s){
-		return iterator(*this, s.fluent_vec(), s);
+		return iterator(*this, s);
 	}
 
 };
