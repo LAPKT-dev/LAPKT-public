@@ -19,55 +19,43 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <vector>
+#ifndef WATCHED_LIT_SUCC_GEN_HXX
+#define WATCHED_LIT_SUCC_GEN_HXX
 
-#include <strips_prob.hxx>
-#include <action.hxx>
-#include <strips_state.hxx>
-#include <fwd_search_prob.hxx>
+#include <vector>
 
 namespace aptk {
 
-using	aptk::STRIPS_Problem;
-using	aptk::State;
-using	aptk::Action;
-using	aptk::Action_Idx;
+class STRIPS_Problem;
+class State;
+
 
 class WatchedLitSuccGen {
 	STRIPS_Problem& prob;
-	std::vector< std::vector<aptk::Action_Idx> > watchers;
+	std::vector< std::vector<unsigned> > watchers;
 
     public:
 
-    WatchedLitSuccGen(STRIPS_Problem& prob): prob(prob), watchers(prob.num_fluents()) {
-		for(unsigned op = 0; op < prob.num_actions(); ++op){
-            auto act = prob.actions()[op];
-			auto& precs = act->prec_vec();
-			unsigned f = precs[0];
-            for(unsigned i = 1; i < precs.size(); ++i){
-				if(watchers[precs[i]].size() < watchers[f].size())
-					f = precs[i];
-			}
-			watchers[f].push_back(act->index());
-		}
+    WatchedLitSuccGen(STRIPS_Problem& prob): prob(prob), watchers() {
+		init();
 	}
+
+	void init();
 	
-	const std::vector<aptk::Action_Idx>& operator[](unsigned f){
+	const std::vector<unsigned>& operator[](unsigned f) const{
 		return watchers[f];
 	}
 
 	struct iterator {
-		WatchedLitSuccGen& w;
+		const WatchedLitSuccGen& w;
 		const State& s;
 		unsigned s_offset;
-		unsigned w_offset;	// 
+		unsigned w_offset;
 
-		iterator(WatchedLitSuccGen& w, const State& s)
+		iterator(const WatchedLitSuccGen& w, const State& s, unsigned s_offset = 0)
 			: w(w), s(s), s_offset(0), w_offset(0){ if(!finished() && !applicable()) ++*this; }
 
-		inline unsigned current_f() const {
-			return s.fluent_vec()[s_offset];
-		}
+		unsigned current_f() const; 
 
 		inline iterator& operator++(){
 			++w_offset;
@@ -81,25 +69,21 @@ class WatchedLitSuccGen {
 			return *this;
 		}
 
-		inline bool applicable(){
-			if(w[current_f()].size() <= w_offset)
-				return false;
-			aptk::Action_Idx op = w[current_f()][w_offset];
-			return s.entails(w.prob.actions()[op]->prec_vec());
-		}
+		bool applicable();
 		
-		inline aptk::Action_Idx operator*() const{
+		inline unsigned operator*() const{
 			return w[current_f()][w_offset];
 		}
 
-		bool finished(){
-			return s_offset >= s.fluent_vec().size();
-		};
+		bool finished() const;
 	};
 
-	iterator applicable_actions(aptk::State s){
+	iterator applicable_actions(const aptk::State& s) const {
 		return iterator(*this, s);
 	}
 
+	void applicable_actions(const State& s, std::vector<int> actions) const;
+
 };
 }
+#endif

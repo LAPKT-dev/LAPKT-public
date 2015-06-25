@@ -224,8 +224,10 @@ int main( int argc, char** argv ) {
 	
 	std::cout << "Applicable actions at root with the new match tree: " << std::endl;
 	n = 0;
+	std::vector< aptk::Action_Idx > app_set;
+
 	for (int trial = 0; trial < TRIALS; trial++) {
-		std::vector< aptk::Action_Idx > app_set;
+		app_set.clear();
 		search_prob.applicable_set_v2( *s0, app_set );
 		for ( unsigned i = 0; i < app_set.size(); i++ ) {
 			n++;
@@ -243,13 +245,30 @@ int main( int argc, char** argv ) {
 
 
 	n = 0;	
-	std::cout << "Applicable actions at root with watched literals: " << std::endl;
+	std::cout << "Applicable actions at root with watched literals iterator: " << std::endl;
 	for (int trial = 0; trial < TRIALS; trial++) {
 		for (auto i = w_succ_gen.applicable_actions(*s0) ; !i.finished(); ++i){
 			n++;
 			if (1 == TRIALS)
                 std::cout << plan_prob.actions()[*i]->signature() << std::endl;
 			// std::cout << '.';
+		}
+	}
+	//std::cout << std::endl;
+	std::cout << "Generated: " << n << std::endl;
+	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
+
+	std::cout << "Applicable actions at root with watched literals: " << std::endl;
+	n = 0;
+
+	for (int trial = 0; trial < TRIALS; trial++) {
+		app_set.clear();
+		w_succ_gen.applicable_actions(*s0, app_set);
+		for ( unsigned i = 0; i < app_set.size(); i++ ) {
+			n++;
+			if (1 == TRIALS)
+                std::cout << plan_prob.actions()[app_set[i]]->signature() << std::endl;
+			//std::cout << '.';
 		}
 	}
 	//std::cout << std::endl;
