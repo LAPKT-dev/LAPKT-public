@@ -82,7 +82,7 @@ class WatchedLitSuccGen {
 		return iterator(*this, s);
 	}
 
-	void applicable_actions(const State& s, std::vector<int> actions) const;
+	void applicable_actions(const State& s, std::vector<int>& actions) const;
 
 };
 }
