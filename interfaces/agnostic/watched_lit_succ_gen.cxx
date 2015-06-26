@@ -13,29 +13,37 @@ void WatchedLitSuccGen::init(){
 		auto& precs = act->prec_vec();
 		unsigned f = precs[0];
 		for(unsigned i = 1; i < precs.size(); ++i){
-			if(watchers[precs[i]].size() < watchers[f].size())
+			if(watchers[precs[i]].size() <= watchers[f].size())
 				f = precs[i];
 		}
 		watchers[f].push_back(act->index());
 	}
 }
 
-bool WatchedLitSuccGen::iterator::applicable(){
-	if(w[current_f()].size() <= w_offset)
-		return false;
-	unsigned op = w[current_f()][w_offset];
-	return s.entails(w.prob.actions()[op]->prec_vec());
+
+WatchedLitSuccGen::iterator& WatchedLitSuccGen::iterator::operator++(){
+	++w_offset;
+	auto& fv = s.fluent_vec();
+	for(; s_offset < fv.size(); s_offset++){
+		auto& wl = w[ fv[s_offset] ];
+		for(; w_offset < wl.size(); w_offset++){
+			auto op = wl[w_offset];
+			if(s.entails(w.prob.actions()[op]->prec_vec()))
+				return *this;
+		}
+		w_offset = 0;
+	}
+	return *this;
 }
 
 void WatchedLitSuccGen::applicable_actions(const State& s, std::vector<int>& actions) const {
-	for(auto f : s.fluent_vec()) {
-		for(auto op : watchers[f]) {
-			auto act = prob.actions()[op];
-			if (s.entails(act->prec_vec()))
-				actions.push_back(op);
-		}
-	}
+	for(auto i = applicable_actions(s); !i.finished(); ++i)
+		actions.push_back(*i);
 	return;
+}
+
+bool WatchedLitSuccGen::iterator::applicable() const {
+	return s.entails(w.prob.actions()[**this]->prec_vec());
 }
 
 bool WatchedLitSuccGen::iterator::finished() const {

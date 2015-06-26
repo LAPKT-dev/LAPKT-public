@@ -55,27 +55,16 @@ class WatchedLitSuccGen {
 		iterator(const WatchedLitSuccGen& w, const State& s, unsigned s_offset = 0)
 			: w(w), s(s), s_offset(0), w_offset(0){ if(!finished() && !applicable()) ++*this; }
 
-		unsigned current_f() const; 
-
-		inline iterator& operator++(){
-			++w_offset;
-			while(!finished() && !applicable()){
-				++w_offset;
-				if(w_offset >= w[current_f()].size()){
-					w_offset = 0;
-					++s_offset;
-				}
-			}
-			return *this;
-		}
-
-		bool applicable();
+		iterator& operator++();
 		
 		inline unsigned operator*() const{
 			return w[current_f()][w_offset];
 		}
 
 		bool finished() const;
+	protected:
+		unsigned current_f() const; 
+		bool applicable() const;
 	};
 
 	iterator applicable_actions(const aptk::State& s) const {
