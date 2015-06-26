@@ -49,11 +49,11 @@ class WatchedLitSuccGen {
 	struct iterator {
 		const WatchedLitSuccGen& w;
 		const State& s;
-		unsigned s_offset;
-		unsigned w_offset;
+		int s_offset;
+		int w_offset;
 
 		iterator(const WatchedLitSuccGen& w, const State& s, unsigned s_offset = 0)
-			: w(w), s(s), s_offset(0), w_offset(0){ if(!finished() && !applicable()) ++*this; }
+			: w(w), s(s), s_offset(0), w_offset(-1){ ++*this; }
 
 		iterator& operator++();
 		
