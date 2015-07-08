@@ -19,9 +19,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __FD_TO_APTK__
-#define __FD_TO_APTK__
-
 #include <fd_to_aptk.hxx>
 #include <strips_prob.hxx>
 #include <cond_eff.hxx>
@@ -252,7 +249,6 @@ namespace FD_Parser {
 			std::vector<unsigned> strips_init, strips_goal;
 			for(auto& v : vars){
 				v.add_to(prob);
-
 			}
 			for(auto& m : mutexes){
 				m.add_to(prob, vars);
@@ -280,5 +276,3 @@ void get_problem_description(std::string sas_file, aptk::STRIPS_Problem& prob){
 }
 }
 }
-
-#endif
