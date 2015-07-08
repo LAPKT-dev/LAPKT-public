@@ -221,7 +221,7 @@ bool do_siw_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float boun
 	
 	bool foundSol = false;
 
-	if ( engine.find_solution( cost, plan ) ) {
+	if ( !engine.init_pruned() && engine.find_solution( cost, plan ) ) {
 		details << "Plan found with cost: " << cost << std::endl;
 		std::cout << "Plan found with cost: " << cost << std::endl;
 		for ( unsigned k = 0; k < plan.size(); k++ ) {
