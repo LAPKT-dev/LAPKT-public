@@ -118,9 +118,6 @@ namespace FD_Parser {
 	}
 
 
-	struct VarVal {
-		int var, val;
-	};
 	std::istream& operator>>(std::istream& s, VarVal& v){
 		return s >> v.var >> v.val;
 	}
@@ -219,6 +216,22 @@ namespace FD_Parser {
 		return s;
 	}
 
+	std::istream& operator>>(std::istream& s, DTG::Edge& e){
+		return s >> e.target_val >> e.op >> MultiBlock<VarVal>(e.precs);
+	}
+	std::istream& operator>>(std::istream& s, DTG& d){
+		std::string begin, end;
+		s >> begin >> std::ws;
+		assert(begin == "begin_DTG");
+		for(unsigned i = 0; i < d.values.size(); i++){
+			d.edges.emplace_back();
+			s >> MultiBlock<DTG::Edge>(d.edges.back());
+		}
+		s >> end >> std::ws;
+		assert(end == "end_DTG");
+		return s;
+	}
+
 	struct FDParser{
 		std::ifstream s;
 		int version, metric;
@@ -228,6 +241,7 @@ namespace FD_Parser {
 		std::vector<VarVal> goal;
 		std::vector<Operator> operators;
 		std::vector<Axiom> axioms;
+		std::vector<DTG> dtgs;
 
 		FDParser(std::string sas_file):s(sas_file){}
 
@@ -243,6 +257,14 @@ namespace FD_Parser {
 			  >> Block<decltype(goal_parser)>(goal_parser)
 			  >> MultiBlock<Operator>(operators)
 			  >> MultiBlock<Axiom>(axioms);
+			std::string line;
+			for(std::getline(s, line); line != "end_SG"; std::getline(s, line)){
+				// Discard successor generator
+			}
+			for (unsigned i = 0; i < vars.size(); i++){
+				dtgs.emplace_back(vars[i].values.size());
+				s >> dtgs.back();
+			}
 		}
 
 		void add_to(aptk::STRIPS_Problem& prob){
@@ -253,7 +275,7 @@ namespace FD_Parser {
 			for(auto& m : mutexes){
 				m.add_to(prob, vars);
 			}
-			for(int var = 0; var < vars.size(); var++){
+			for(unsigned var = 0; var < vars.size(); var++){
 				int val = init[var];
 				strips_init.push_back(vars[var].stripsvals[val]);
 			}
@@ -265,14 +287,31 @@ namespace FD_Parser {
 			for(auto& op : operators){
 				op.add_to(prob, vars);
 			}
+			for (unsigned i = 0; i < vars.size(); i++){
+				auto& d = dtgs[i];
+				d.values = vars[i].stripsvals;
+				for(auto& adj : d.edges){
+					for(auto& e : adj){
+						for(auto& p : e.precs){
+							auto prec = vars[p.var].stripsvals[p.val];
+							e.strips_precs.push_back(prec);
+						}
+					}
+				}
+			}
 		}
 	};
 
+void get_problem_description(std::string fd_output, STRIPS_Problem& prob){
+    std::vector<DTG> dtgs;
+    get_problem_description(fd_output, prob, dtgs);
+};
 
-void get_problem_description(std::string sas_file, aptk::STRIPS_Problem& prob){
+void get_problem_description(std::string sas_file, aptk::STRIPS_Problem& prob, std::vector<DTG>& dtgs){
 	FDParser parser(sas_file);
 	parser.parse();	
 	parser.add_to(prob);
+	dtgs = parser.dtgs;
 }
 }
 }

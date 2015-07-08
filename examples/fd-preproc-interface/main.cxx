@@ -73,8 +73,8 @@ int main( int argc, char** argv ) {
 	}
 
 	STRIPS_Problem	prob;
-
-	aptk::FD_Parser::get_problem_description( vm["sas-file"].as<std::string>(), prob );
+	std::vector<aptk::FD_Parser::DTG> dtgs;
+	aptk::FD_Parser::get_problem_description( vm["sas-file"].as<std::string>(), prob, dtgs );
 	// for(int i=0; i<gnum_ft_conn; i++){
 	// 	std::vector<std::string> al;
 	// 	FF::get_ft_pred_arg_list(i, al);
@@ -91,6 +91,7 @@ int main( int argc, char** argv ) {
 	std::cout << "\t#Actions: " << prob.num_actions() << std::endl;
 	std::cout << "\t#Fluents: " << prob.num_fluents() << std::endl;
 	std::cout << "\t#Mutexes: " << prob.mutexes().num_groups() << std::endl;
+	std::cout << "\t#DTGs: " << dtgs.size() << std::endl;
 
 	return 0;
 }

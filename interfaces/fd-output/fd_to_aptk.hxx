@@ -22,12 +22,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef __FD_TO_APTK__
 #define __FD_TO_APTK__
 
+#include <map>
 #include <string>
 #include <strips_prob.hxx>
 
 namespace aptk {
 namespace FD_Parser {
+
+struct VarVal {
+	int var, val;
+};
+
+struct DTG {
+        std::vector<unsigned> values;
+        struct Edge {
+                int target_val;
+                int op;
+                std::vector<VarVal> precs;
+                std::vector<unsigned> strips_precs;
+        };
+        std::vector< std::vector<Edge> > edges;
+        typedef std::vector<Edge>::const_iterator edge_it;
+
+        DTG(unsigned n_values):values(n_values){}
+        DTG(std::vector<unsigned> values):values(values){}
+};
+
+
+void get_problem_description(std::string fd_output, STRIPS_Problem& prob, std::vector<DTG>& dtgs);
+
 void get_problem_description(std::string fd_output, STRIPS_Problem& prob);
+				     
 }
 }
 
