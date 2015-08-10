@@ -41,10 +41,17 @@ namespace aptk {
 					StlUnorderedMapClosedList<NodeType>, 
 					StateModel >	BaseClass;
 		
-		StlBestFirstSearch( const StateModel& model ) :
-			BaseClass(model), heuristic_function( model ) {
-			BaseClass::open.set_heuristic( &heuristic_function );	
+		//! The first constructor gets injected the heuristic object
+		StlBestFirstSearch( const StateModel& model, Heuristic&& heuristic ) :
+			BaseClass(model), heuristic_function( heuristic ) {
+			BaseClass::open.set_heuristic( &heuristic_function );
 		}
+		
+		StlBestFirstSearch( const StateModel& model, const Heuristic& heuristic ) :
+			StlBestFirstSearch(model, Heuristic(heuristic)) {}
+		
+		StlBestFirstSearch( const StateModel& model ) :
+			StlBestFirstSearch(model, Heuristic(model)) {}
 		
 		virtual ~StlBestFirstSearch() {}
 
