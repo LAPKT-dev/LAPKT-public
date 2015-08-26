@@ -29,23 +29,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace aptk {
 namespace FD_Parser {
 
-struct VarVal {
-	int var, val;
+struct TransID {
+	int src, dst;
+	bool operator<(const TransID& other) const {
+		return src < other.src || (src == other.src && dst < other.dst);
+	}
 };
 
 struct DTG {
-        std::vector<unsigned> values;
-        struct Edge {
-                int target_val;
-                int op;
-                std::vector<VarVal> precs;
-                std::vector<unsigned> strips_precs;
-        };
-        std::vector< std::vector<Edge> > edges;
-        typedef std::vector<Edge>::const_iterator edge_it;
 
-        DTG(unsigned n_values):values(n_values){}
-        DTG(std::vector<unsigned> values):values(values){}
+	std::vector<unsigned> values;
+	std::multimap< TransID, unsigned > edges;
+	std::multimap< unsigned, TransID > ops;
+
+	typedef std::multimap< TransID, unsigned>::const_iterator edge_it;
+	typedef std::multimap< unsigned, TransID>::const_iterator op_it;
+
+	int init_idx, goal_idx;
+	bool unsafe;
+
+	template<class iter>
+	struct range {
+		iter _begin, _end;
+		iter begin(){ return _begin; }
+		iter end(){ return _end; }
+	};
+
+	range<edge_it> adjacent(int node){
+		TransID min = {node, 0};
+		TransID max = {node, (int)values.size()};
+		range<edge_it> ret = { edges.lower_bound(min), edges.upper_bound(max) };
+		return ret;
+	}
+	range<op_it> transitions(unsigned op){
+		range<op_it> ret = { ops.lower_bound(op), ops.upper_bound(op) };
+		return ret;
+	}
+
+
 };
 
 

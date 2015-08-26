@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <fd_to_aptk.hxx>
 #include <strips_prob.hxx>
+#include <action.hxx>
 #include <cond_eff.hxx>
 
 #include <cassert>
@@ -83,7 +84,10 @@ namespace FD_Parser {
 		}
 		return s;
 	}
-
+	
+	struct VarVal {
+		int var, val;
+	};
 
 	struct Variable {
 		std::string name;
@@ -96,7 +100,6 @@ namespace FD_Parser {
 				unsigned idx = STRIPS_Problem::add_fluent(prob, sig);
 				stripsvals.push_back(idx);
 			}
-			prob.mutexes().add(stripsvals);
 		}
 	};
 	std::istream& operator>>(std::istream& s, Variable& v){
@@ -174,9 +177,15 @@ namespace FD_Parser {
 			for (auto& e : effects) {
                                 auto& svs = vars[e.var].stripsvals;
 				if(e.precs.empty()){
-					pre.push_back(svs[e.pre]);
-					add.push_back(svs[e.post]);
-					del.push_back(svs[e.pre]);
+					add.push_back(svs.at(e.post));
+					if (e.pre == -1){
+						for(auto v: svs)
+							if (v != svs[e.post])
+								del.push_back(v);
+					} else {
+						pre.push_back(svs.at(e.pre));
+						del.push_back(svs.at(e.pre));
+					}
 				} else {
 					std::vector<unsigned> cadd = { svs[e.post] }, cdel = {svs[e.pre]}, cpre;
                                         aptk::Conditional_Effect* ce = new aptk::Conditional_Effect(prob);
@@ -216,22 +225,6 @@ namespace FD_Parser {
 		return s;
 	}
 
-	std::istream& operator>>(std::istream& s, DTG::Edge& e){
-		return s >> e.target_val >> e.op >> MultiBlock<VarVal>(e.precs);
-	}
-	std::istream& operator>>(std::istream& s, DTG& d){
-		std::string begin, end;
-		s >> begin >> std::ws;
-		assert(begin == "begin_DTG");
-		for(unsigned i = 0; i < d.values.size(); i++){
-			d.edges.emplace_back();
-			s >> MultiBlock<DTG::Edge>(d.edges.back());
-		}
-		s >> end >> std::ws;
-		assert(end == "end_DTG");
-		return s;
-	}
-
 	struct FDParser{
 		std::ifstream s;
 		int version, metric;
@@ -257,20 +250,17 @@ namespace FD_Parser {
 			  >> Block<decltype(goal_parser)>(goal_parser)
 			  >> MultiBlock<Operator>(operators)
 			  >> MultiBlock<Axiom>(axioms);
-			std::string line;
-			for(std::getline(s, line); line != "end_SG"; std::getline(s, line)){
-				// Discard successor generator
-			}
-			for (unsigned i = 0; i < vars.size(); i++){
-				dtgs.emplace_back(vars[i].values.size());
-				s >> dtgs.back();
-			}
 		}
 
 		void add_to(aptk::STRIPS_Problem& prob){
 			std::vector<unsigned> strips_init, strips_goal;
 			for(auto& v : vars){
 				v.add_to(prob);
+			}
+			// Must add all vars before adding the implied mutexes
+			// so that the number of strips vars is known in advance
+			for(auto& v : vars){
+				prob.mutexes().add(v.stripsvals);
 			}
 			for(auto& m : mutexes){
 				m.add_to(prob, vars);
@@ -287,17 +277,61 @@ namespace FD_Parser {
 			for(auto& op : operators){
 				op.add_to(prob, vars);
 			}
+			prob.make_action_tables();
+			prob.compute_edeletes();
+
+			// Compute DTGs
+			dtgs.resize(vars.size());
+			for(unsigned i = 0; i < vars.size(); i++){
+				dtgs[i].values = vars[i].stripsvals;
+			}
+
+			unsigned op_idx = 0;
+			for(auto& op : operators){
+				auto act = prob.actions()[op_idx];
+				for(auto& eff : op.effects){
+					auto& dtg = dtgs[eff.var];
+					int pre = eff.pre;
+					if(pre >= 0 && prob.mutexes().are_mutex(act, dtg.values[pre]))
+						continue;
+					TransID tr = {pre, eff.post};
+					dtg.edges.insert(std::make_pair(tr, op_idx));
+					dtg.ops.insert(std::make_pair(op_idx, tr));
+				}
+				for(auto& prev : op.prevails){
+					auto& dtg = dtgs[prev.var];
+					TransID tr = {prev.val, prev.val};
+					dtg.edges.insert(std::make_pair(tr, op_idx));
+					dtg.ops.insert(std::make_pair(op_idx, tr));
+				}
+				op_idx++;
+			}
+
 			for (unsigned i = 0; i < vars.size(); i++){
 				auto& d = dtgs[i];
-				d.values = vars[i].stripsvals;
-				for(auto& adj : d.edges){
-					for(auto& e : adj){
-						for(auto& p : e.precs){
-							auto prec = vars[p.var].stripsvals[p.val];
-							e.strips_precs.push_back(prec);
-						}
-					}
+				std::vector<unsigned> op_occs(prob.num_actions());
+				d.init_idx = d.goal_idx = -1;
+				for(unsigned i = 0; i<d.values.size(); i++){
+					if(prob.is_in_init(d.values[i]))
+						d.init_idx = i;
+					if(prob.is_in_goal(d.values[i]))
+						d.goal_idx = i;
 				}
+
+				// Ops are sorted, dtg is unsafe iff an op
+				// occurs in two or more transitions
+				unsigned prev_op = prob.num_actions() + 1;
+				for(auto& e: d.ops){
+					unsigned op = e.first;
+					if(prev_op == op){
+						std::cerr << prob.actions()[op]->signature();
+						d.unsafe = true;
+						break;
+					}
+					prev_op = op;
+				}
+				if(d.unsafe)
+					std::cerr << "Unsafe DTG!" << std::endl;
 			}
 		}
 	};
