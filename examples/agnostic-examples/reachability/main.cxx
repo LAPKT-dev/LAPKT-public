@@ -172,27 +172,29 @@ int main( int argc, char** argv ) {
 	WatchedLitSuccGen w_succ_gen(plan_prob);
 
 	std::vector<int> app_set;
-	old_time = aptk::time_used();
 
+
+	std::vector<State*> states;
+	states.push_back(s0);
+	for (int i = 0; states.size() < TRIALS; i++) {
+		State* s = states[i%states.size()];
+		app_set.clear();
+		w_succ_gen.applicable_actions(*s, app_set);
+		for(auto op :app_set){
+			auto act = plan_prob.actions()[op];
+			states.push_back(s0->progress_through( *act ));
+			n++;
+		}
+	}
+	states.resize(TRIALS);
+	std::cout << "Generated " << states.size() << " states by breadth-first search" << std::endl;
 
 	old_time = aptk::time_used();
 	std::cout << "root  Delete-free Reachablility  with watched literals: " << std::endl;
 	n = 0;
-
 	for (int trial = 0; trial < TRIALS; trial++) {
-		app_set.clear();
-		w_succ_gen.applicable_actions(*s0, app_set);
-		if(app_set.empty()) break;
-		n++;
-		const Action* a = plan_prob.actions()[app_set[0]];		
-		State* s_next = s0->progress_through( *a );
-		w_succ_gen.reachable( *s0 );
-		delete s0;
-		s0 = s_next;			
-	
+		w_succ_gen.is_reachable( *(states[trial]) );
 	}
-	//std::cout << std::endl;
-	std::cout << "Generated: " << n << std::endl;
 	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
 
 	old_time = aptk::time_used();
@@ -200,24 +202,14 @@ int main( int argc, char** argv ) {
 	n = 0;
 
 	for (int trial = 0; trial < TRIALS; trial++) {
-		app_set.clear();
-		w_succ_gen.applicable_actions(*s0, app_set);
-		if(app_set.empty()) break;
-		n++;
-		const Action* a = plan_prob.actions()[app_set[0]];		
-		State* s_next = s0->progress_through( *a );
-		reach.is_reachable( s0->fluent_vec(), plan_prob.goal() );
-		delete s0;
-		s0 = s_next;			
-
+		reach.is_reachable( states[trial]->fluent_vec(), plan_prob.goal() );
 	}
-	//std::cout << std::endl;
-	std::cout << "Generated: " << n << std::endl;
 	std::cout << "Time: " << (aptk::time_used() - old_time) << std::endl << std::endl;
 
 	
-	
-
+	for(auto s : states)
+		delete s;
+	states.clear();
 	
 	return 0;
 }
