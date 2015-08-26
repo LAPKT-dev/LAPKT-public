@@ -178,13 +178,8 @@ public:
 			}
 
 			//std::cout << "LM set size: " << lm_set.bits().count_elements() << std::endl;
-			lm_set.compute_first();
-
-			unsigned q = lm_set.first();
-			while ( q != lm_set.end() ) {
-
+			for (unsigned q : lm_set ) {
 				if ( !m_collect_lm_in_init && m_strips_model.is_in_init(q) ) {
-					q = lm_set.next(q);
 					continue;
 				}
 
@@ -198,7 +193,6 @@ public:
 				// 	//graph.node(q)->add_requiring_gn( graph.node(p) );
 				// }
 				updated.push_back( q );
-				q = lm_set.next(q);
 			}	
 		}
 
@@ -254,16 +248,11 @@ public:
 
 			}
 
-			lm_set.compute_first();
-
-			unsigned q = lm_set.first();
-			while ( q != lm_set.end() ) {
-
+			for (unsigned q : lm_set ) {
 				/**
 				 * Do not add gn of lands in intial state
 				 */
 				if ( !m_collect_lm_in_init && m_strips_model.is_in_init(q) ) {
-					q = lm_set.next(q);
 					continue;
 				}
 
@@ -277,7 +266,6 @@ public:
 					if( ! nq->is_required_by(np) ) 
 						graph.node(q)->add_requiring_gn( graph.node(p) );
 				}
-				q = lm_set.next(q);
 			}	
 
 		}
