@@ -33,7 +33,7 @@ Bit_Array::Bit_Array( unsigned dim )
 {
 	m_max_idx = dim+1;
 	unsigned nbits = (dim+1);
-	m_n_packs = (nbits/32)+1;
+	m_n_packs = (nbits+31)/32;
 	m_packs = new unsigned [m_n_packs];
 	memset( m_packs, 0, m_n_packs*sizeof(unsigned) );
 }

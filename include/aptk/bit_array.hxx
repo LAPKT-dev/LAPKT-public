@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <cstring>
 #include <cassert>
+#include <cstdint>
 
 namespace aptk
 {
@@ -42,12 +43,12 @@ public:
 
 	void resize( unsigned dim );
 
-	unsigned* packs()
+	uint32_t* packs()
 	{
 		return m_packs;
 	}
 
-	const unsigned* packs() const
+	const uint32_t* packs() const
 	{
 		return m_packs;
 	}
@@ -69,12 +70,12 @@ public:
 
 	void set_all()
 	{
-		memset( m_packs, 0xFFFFFFFF,  m_n_packs*sizeof(unsigned) );
+		memset( m_packs, 0xFFFFFFFF,  m_n_packs*sizeof(uint32_t) );
 	}
 
 	void reset()
 	{
-		memset( m_packs, 0, m_n_packs*sizeof(unsigned) );
+		memset( m_packs, 0, m_n_packs*sizeof(uint32_t) );
 	}	
 
 	bool equal( const Bit_Array& other ) const
@@ -117,13 +118,13 @@ public:
 	}
 
 
-	unsigned isset( unsigned i ) const
+	uint32_t isset( unsigned i ) const
 	{
                 assert( i <= (unsigned)m_max_idx );
 		return m_packs[i/32] & 1 << (i%32);
 	}
 
-	unsigned operator[]( unsigned i ) const
+	uint32_t operator[]( uint32_t i ) const
 	{
 		return m_packs[i/32] & 1 << (i%32);
 	}
@@ -142,7 +143,7 @@ public:
 	}
 	
 protected:
-	unsigned*      m_packs;
+	uint32_t*      m_packs;
 	unsigned       m_n_packs;
 	unsigned       m_pack_sz;
 	unsigned       m_max_idx;
