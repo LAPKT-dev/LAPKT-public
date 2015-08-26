@@ -139,44 +139,6 @@ bool WatchedLitSuccGen::reachable(State& s0, unsigned q0, WatchedLitSuccGen::fil
 	return s0.entails(prob.goal());
 }
 
-double WatchedLitSuccGen::critical_path(State& s0, std::vector<unsigned> supports, cost_func_t c){
-	auto& q = critical_path_q;
-
-	for( auto f : s0.fluent_vec()){
-		q.push( std::make_pair(0, f) );
-	}
-	double neg_cost, goal_cost = std::numeric_limits<double>::infinity();
-	unsigned op;
-	while(! q.empty() ){
-		std::tie(neg_cost, op) = q.top();
-		q.pop();
-		for (auto a : prob.actions()[op]->add_vec()){
-			if(s0.entails(a))
-				continue;
-			s0.set(a);
-			supports[a] = op;
-		}
-		for (auto a : prob.actions()[op]->add_vec()){
-			map_watching(
-				s0,
-				a,
-				[&](watcher& w){
-					if(!w.triggers(prob, s0))
-						return true;
-					double c2 = c(w.op, -neg_cost);
-					if(c2 < std::numeric_limits<double>::infinity())
-						q.push( std::make_pair(c2, op) );
-					return false;
-				});
-		}
-		if(s0.entails(prob.goal())){
-			goal_cost = std::min(goal_cost, -neg_cost);
-		}
-	}
-					 
-	return goal_cost;
-}
-
 void WatchedLitSuccGen::update_watcher(watcher& w, unsigned f, const State& s){
 	auto act = prob.actions()[w.op];
 	auto& precs = act->prec_vec();

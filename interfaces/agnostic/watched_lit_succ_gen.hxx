@@ -42,7 +42,7 @@ public:
 		bool triggers(const STRIPS_Problem& prob, const State& s) const;
 	};
 
-	WatchedLitSuccGen(STRIPS_Problem& prob): prob(prob), watchers(), {
+	WatchedLitSuccGen(STRIPS_Problem& prob): prob(prob), watchers() {
 		init();
 	}
 
