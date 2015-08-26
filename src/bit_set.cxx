@@ -24,18 +24,12 @@ namespace aptk
 {
 
 Bit_Set::Bit_Set()
-	: m_first(0)
 {
 }
 
 Bit_Set::Bit_Set( unsigned sz )
-	: m_first(0)
 {
 	resize( sz );
-}
-
-Bit_Set::~Bit_Set( )
-{
 }
 
 }
