@@ -3,7 +3,6 @@
 #include <strips_state.hxx>
 #include <action.hxx>
 #include <limits>
-#include <ctime>
 
 namespace aptk {
 
@@ -114,7 +113,6 @@ bool WatchedLitSuccGen::reachable(State& s0, WatchedLitSuccGen::filter_t filter)
 }
 
 bool WatchedLitSuccGen::reachable(State& s0, unsigned q0, WatchedLitSuccGen::filter_t filter){
-	auto t0 = std::clock();
 	auto& q = s0.fluent_vec();
 	q.reserve(prob.num_fluents());
 	for(unsigned i = q0; i < q.size(); i++){
