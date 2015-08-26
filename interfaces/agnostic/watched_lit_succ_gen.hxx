@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 #include <queue>
 #include <functional>
+#include <memory>
 
 namespace aptk {
 
@@ -42,9 +43,7 @@ public:
 		bool triggers(const STRIPS_Problem& prob, const State& s) const;
 	};
 
-	WatchedLitSuccGen(STRIPS_Problem& prob): prob(prob), watchers() {
-		init();
-	}
+	WatchedLitSuccGen(STRIPS_Problem& prob);
 
 	void init();
 
@@ -99,13 +98,16 @@ public:
 	bool reachable(State& s0, filter_t filter);
 	bool reachable(State& s0, unsigned q0, filter_t filter);
 
+	bool is_reachable(const State& s0);
+	bool is_reachable(const State& s0, filter_t filter);
+
 private:
 
 	void update_watcher(watcher& w, unsigned f, const State& s);
 
 	STRIPS_Problem& prob;
 	std::vector< std::vector<watcher> > watchers;
-
+	std::unique_ptr<State> state_fixpoint;
 };
 }
 #endif

@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <fwd_search_prob.hxx>
 #include <aptk/string_conversions.hxx>
 #include <aptk/time.hxx>
-
 using	aptk::STRIPS_Problem;
 using	aptk::State;
 using	aptk::Action;

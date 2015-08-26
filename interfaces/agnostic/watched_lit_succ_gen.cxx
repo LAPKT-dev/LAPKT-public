@@ -6,8 +6,12 @@
 
 namespace aptk {
 
+WatchedLitSuccGen::WatchedLitSuccGen(STRIPS_Problem& prob): prob(prob), watchers() {
+	init();
+}
 
 void WatchedLitSuccGen::init(){
+	state_fixpoint.reset(new State(prob));
 	watchers.clear();
 	watchers.resize(prob.num_fluents());
 	for(unsigned op = 0; op < prob.num_actions(); ++op){
@@ -104,7 +108,7 @@ void WatchedLitSuccGen::applicable_actions(const State& s, std::vector<int>& act
 
 bool WatchedLitSuccGen::reachable(State& s0){
 	return reachable(s0, [&](unsigned op, const State& s){
-			return !s.entails(prob.actions()[op]->add_vec());
+			return true;
 		});
 }
 
@@ -117,6 +121,8 @@ bool WatchedLitSuccGen::reachable(State& s0, unsigned q0, WatchedLitSuccGen::fil
 	q.reserve(prob.num_fluents());
 	for(unsigned i = q0; i < q.size(); i++){
 		auto f = q[i];
+		if(prob.is_in_goal(f) && s0.entails(prob.goal()))
+			return true;
 		map_watching(
 			s0, 
 			f,
@@ -134,7 +140,19 @@ bool WatchedLitSuccGen::reachable(State& s0, unsigned q0, WatchedLitSuccGen::fil
 			});
 	}
 	
-	return s0.entails(prob.goal());
+	return false;
+}
+
+bool WatchedLitSuccGen::is_reachable(const State& s0){
+	return is_reachable(s0, [&](unsigned op, const State& s){
+			return true;
+		});
+}
+
+bool WatchedLitSuccGen::is_reachable(const State& s0, WatchedLitSuccGen::filter_t filter){
+	state_fixpoint->reset();
+	state_fixpoint->set(s0.fluent_vec());
+	return reachable(*state_fixpoint, 0, filter);
 }
 
 void WatchedLitSuccGen::update_watcher(watcher& w, unsigned f, const State& s){
