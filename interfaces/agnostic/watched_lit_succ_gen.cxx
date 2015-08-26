@@ -2,8 +2,11 @@
 #include <strips_prob.hxx>
 #include <strips_state.hxx>
 #include <action.hxx>
+#include <limits>
+#include <ctime>
 
 namespace aptk {
+
 
 void WatchedLitSuccGen::init(){
 	watchers.clear();
@@ -11,24 +14,59 @@ void WatchedLitSuccGen::init(){
 	for(unsigned op = 0; op < prob.num_actions(); ++op){
 		auto act = prob.actions()[op];
 		auto& precs = act->prec_vec();
+		bool unreachable = false;
 		unsigned f = precs[0];
-		for(unsigned i = 1; i < precs.size(); ++i){
-			if(watchers[precs[i]].size() <= watchers[f].size())
+		for(unsigned i = 0; i < precs.size(); ++i){
+			if (act->edel_set().isset(precs[i]) && !act->del_set().isset(precs[i]))
+				unreachable = true;
+			if(watchers[precs[i]].size() < watchers[f].size()){
 				f = precs[i];
+			}
 		}
-		watchers[f].push_back(act->index());
+		if(!unreachable){
+			watcher w = {
+				act->index(),
+				(precs[0] == f ?
+				 precs[precs.size()-1] :
+				 precs[0])
+			};
+			watchers[f].push_back(w);
+		}
 	}
+}
+
+unsigned  WatchedLitSuccGen::filter(std::function<bool(Action*)> is_mutex){
+	unsigned n_removed = 0;
+	for (unsigned i = 0; i < watchers.size(); i++){
+		auto& wl = watchers[i];
+		for (unsigned j = 0; j < wl.size(); j++){
+			if(is_mutex(prob.actions()[wl[j].op])){
+				std::swap(wl[j], wl.back());
+				wl.pop_back();
+				j--;
+				n_removed++;
+			}
+		}
+	}
+	return n_removed;
+}
+
+
+bool WatchedLitSuccGen::watcher::triggers(const STRIPS_Problem& prob, const State& s) const {
+	return (
+			s.entails(blocker) &&
+			s.entails(prob.actions()[op]->prec_vec())
+			);
 }
 
 
 WatchedLitSuccGen::iterator& WatchedLitSuccGen::iterator::operator++(){
 	++w_offset;
 	auto& fv = s.fluent_vec();
-	for(; s_offset < fv.size(); s_offset++){
+	for(; s_offset < (int)fv.size(); s_offset++){
 		auto& wl = w[ fv[s_offset] ];
-		for(; w_offset < wl.size(); w_offset++){
-			auto op = wl[w_offset];
-			if(s.entails(w.prob.actions()[op]->prec_vec()))
+		for(; w_offset < (int)wl.size(); w_offset++){
+			if(wl[w_offset].triggers(w.prob, s))
 				return *this;
 		}
 		w_offset = 0;
@@ -36,22 +74,131 @@ WatchedLitSuccGen::iterator& WatchedLitSuccGen::iterator::operator++(){
 	return *this;
 }
 
-void WatchedLitSuccGen::applicable_actions(const State& s, std::vector<int>& actions) const {
-	for(auto i = applicable_actions(s); !i.finished(); ++i)
-		actions.push_back(*i);
-	return;
+void WatchedLitSuccGen::map_watching(const State& s, unsigned f, std::function<bool(watcher&)> update){
+	auto& wl = watchers[f];
+	for(int j = watchers[f].size() -1; j >= 0 ; j--){
+		auto& w = wl[j];
+		if(update(w)){
+			update_watcher(wl[j], f, s);
+		}
+	}
 }
 
-bool WatchedLitSuccGen::iterator::applicable() const {
-	return s.entails(w.prob.actions()[**this]->prec_vec());
+unsigned WatchedLitSuccGen::iterator::operator*() const{
+	return w[s.fluent_vec()[s_offset]][w_offset].op;
 }
 
 bool WatchedLitSuccGen::iterator::finished() const {
-	return s_offset >= s.fluent_vec().size();
+	return s_offset >= (int)s.fluent_vec().size();
 }
 
-unsigned WatchedLitSuccGen::iterator::current_f() const {
-	return s.fluent_vec()[s_offset];
+void WatchedLitSuccGen::applicable_actions(const State& s, std::vector<int>& actions) const {
+	auto& fv = s.fluent_vec();
+	for(unsigned s_offset = 0; s_offset < fv.size(); s_offset++){
+		auto& wl = watchers[ fv[s_offset] ];
+		for(unsigned w_offset = 0; w_offset < wl.size(); w_offset++){
+			if(wl[w_offset].triggers(prob, s))
+				actions.push_back(wl[w_offset].op);
+		}
+	}
+}
+
+bool WatchedLitSuccGen::reachable(State& s0){
+	return reachable(s0, [&](unsigned op, const State& s){
+			return !s.entails(prob.actions()[op]->add_vec());
+		});
+}
+
+bool WatchedLitSuccGen::reachable(State& s0, WatchedLitSuccGen::filter_t filter){
+	return reachable(s0, 0, filter);
+}
+
+bool WatchedLitSuccGen::reachable(State& s0, unsigned q0, WatchedLitSuccGen::filter_t filter){
+	auto t0 = std::clock();
+	auto& q = s0.fluent_vec();
+	q.reserve(prob.num_fluents());
+	for(unsigned i = q0; i < q.size(); i++){
+		auto f = q[i];
+		map_watching(
+			s0, 
+			f,
+			[&](watcher& w){
+				if(!w.triggers(prob, s0)){
+					return true;
+				}
+				auto& adds = prob.actions()[w.op]->add_vec();
+				if(filter(w.op, s0)) {
+					for(auto added : adds){
+						s0.set(added);
+					}
+				}
+				return false;
+			});
+	}
+	
+	return s0.entails(prob.goal());
+}
+
+double WatchedLitSuccGen::critical_path(State& s0, std::vector<unsigned> supports, cost_func_t c){
+	auto& q = critical_path_q;
+
+	for( auto f : s0.fluent_vec()){
+		q.push( std::make_pair(0, f) );
+	}
+	double neg_cost, goal_cost = std::numeric_limits<double>::infinity();
+	unsigned op;
+	while(! q.empty() ){
+		std::tie(neg_cost, op) = q.top();
+		q.pop();
+		for (auto a : prob.actions()[op]->add_vec()){
+			if(s0.entails(a))
+				continue;
+			s0.set(a);
+			supports[a] = op;
+		}
+		for (auto a : prob.actions()[op]->add_vec()){
+			map_watching(
+				s0,
+				a,
+				[&](watcher& w){
+					if(!w.triggers(prob, s0))
+						return true;
+					double c2 = c(w.op, -neg_cost);
+					if(c2 < std::numeric_limits<double>::infinity())
+						q.push( std::make_pair(c2, op) );
+					return false;
+				});
+		}
+		if(s0.entails(prob.goal())){
+			goal_cost = std::min(goal_cost, -neg_cost);
+		}
+	}
+					 
+	return goal_cost;
+}
+
+void WatchedLitSuccGen::update_watcher(watcher& w, unsigned f, const State& s){
+	auto act = prob.actions()[w.op];
+	auto& precs = act->prec_vec();
+
+	auto& wl = watchers[f];
+
+	unsigned next_w = f, next_b = w.blocker;
+	for(auto p : precs){
+		if(!s.entails(p)){
+			if(next_w == f) {
+				next_w = p;
+			} else {
+				next_b = p;
+				break;
+			}
+		}
+	}
+	if(next_w != f){
+		watchers[next_w].push_back({w.op, next_b});
+		w = std::move(wl.back());
+		wl.pop_back();
+	}
 }
 
 };
