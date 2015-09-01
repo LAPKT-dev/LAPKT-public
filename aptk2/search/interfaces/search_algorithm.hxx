@@ -53,6 +53,7 @@ namespace aptk {
 
 		//! Convenience method for when we are interested in starting from the initial state
 		virtual bool solve_model( Plan& solution ) {
+			std::cout << "Solving model" << std::endl;
 			return search( model.init(), solution );
 		}
 

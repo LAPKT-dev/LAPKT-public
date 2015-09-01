@@ -104,7 +104,8 @@ namespace aptk {
 
 		OpenListType	open;
 		ClosedListType	closed;
-
+		int _test;
+		
 	};
 
 }
