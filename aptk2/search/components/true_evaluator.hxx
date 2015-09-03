@@ -33,4 +33,4 @@ public:
 };
 
 
-#endif // unsorted_open_list_impl.hxx
+#endif
