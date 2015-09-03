@@ -29,15 +29,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace aptk {
 
 	//! Partial specialization, type of node and state model are left to be defined
-	template < typename NodeType, typename StateModel, typename OpenList = StlUnsortedFIFO< NodeType > >
+	template < typename NodeType, typename StateModel, typename OpenList = StlUnsortedFIFO<NodeType> >
 	class StlBreadthFirstSearch : public GenericSearch<	NodeType, 
-								OpenList, 
+								OpenList,
 								StlUnorderedMapClosedList< NodeType > , 
 								StateModel > {
 
 	public:
 		typedef GenericSearch< 	NodeType, 
-					OpenList, 
+					OpenList,
 					StlUnorderedMapClosedList< NodeType >, 
 					StateModel >	BaseClass;
 			
@@ -46,7 +46,7 @@ namespace aptk {
  			StlBreadthFirstSearch(model) {
 		  BaseClass::open = open_list;
 		}
- 		
+		
 		StlBreadthFirstSearch( const StateModel& model ) :
 			BaseClass(model) {
 		}
