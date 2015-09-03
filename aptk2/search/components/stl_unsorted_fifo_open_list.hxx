@@ -26,21 +26,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define __STL_UNSORTED_FIFO_OPEN_LIST__
 
 #include <aptk2/search/interfaces/open_list.hxx>
+#include "true_evaluator.hxx"
 #include <deque>
 #include <cassert>
 
 namespace aptk {
 	
-	template < typename NodeType >
+	template < typename NodeType, typename EvaluatorT=TrueEvaluator<NodeType> >
 	class StlUnsortedFIFO : public OpenList< NodeType, std::deque< std::shared_ptr<NodeType> > > {
 	public:
-
 		typedef std::shared_ptr< NodeType > NodePtrType;
 
+		//! The default constructor constructs a default evaluator
+		StlUnsortedFIFO()
+			: StlUnsortedFIFO(std::make_shared<EvaluatorT>())
+		{}
+		
+		//! This constructor allows the evaluator object to be injected
+		StlUnsortedFIFO(std::shared_ptr<EvaluatorT> evaluator) 
+			: _evaluator(evaluator)
+		{
+			assert(_evaluator != nullptr);
+		}
+		
 		virtual ~StlUnsortedFIFO() { }
 
-		virtual	void 	insert( NodePtrType n ) {
-			this->push_back( n );
+		virtual	void insert( NodePtrType n ) {
+			if ( _evaluator->accept( *n ) ) {
+				this->push_back( n );
+			}
 		}
 
 		virtual NodePtrType get_next( ) {
@@ -53,6 +67,10 @@ namespace aptk {
 		virtual bool is_empty() { 
 			return this->empty();
 		}
+		
+	protected:
+		//! The acceptor object, which is required to have a single method 'bool accept(NodeType)'
+		std::shared_ptr<EvaluatorT> _evaluator;
 	};
 
 }
