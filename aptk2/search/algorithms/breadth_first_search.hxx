@@ -47,6 +47,13 @@ namespace aptk {
 		  BaseClass::open = open_list;
 		}
 		
+			
+		//! Inject the open list object into the search algorithm
+ 		StlBreadthFirstSearch( const StateModel& model, const OpenList& open_list ) :
+ 			StlBreadthFirstSearch(model) {
+		  BaseClass::open = open_list;
+		}
+		
 		StlBreadthFirstSearch( const StateModel& model ) :
 			BaseClass(model) {
 		}
