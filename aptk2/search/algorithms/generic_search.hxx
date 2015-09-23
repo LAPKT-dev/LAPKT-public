@@ -77,6 +77,10 @@ namespace aptk {
 					return true;
 				}
 
+				// close the node before the actual expansion so that children which are identical
+				// to 'current' get properly discarded
+				closed.put( current );
+				
 				for ( auto a : BaseClass::model.applicable_actions( current->state ) ) {
 					State s_a = BaseClass::model.next( current->state, a );
 					NodePtrType succ= std::make_shared<NodeType>( std::move(s_a), a, current );
@@ -85,9 +89,7 @@ namespace aptk {
 					BaseClass::generated++;
 				}
 
-
 				BaseClass::expanded++; // Count as an expansion
-				closed.put( current ); // This needs to go last, since we transfer ownership
 			}
 			return false;
 		}
