@@ -55,8 +55,7 @@ public:
 	virtual	typename Action::ApplicableSet applicable_actions( const State& s ) const = 0;
 
 	//! Returns the state resulting from applying action a on state s
-	virtual State	next( const State& s, typename Action::IdType id ) const = 0;
-	virtual State	next( const State& s, const Action& a ) const = 0;
+	virtual State	next( const State& s, const typename Action::IdType& id ) const = 0;
 
 	// MRJ: Outputs a description of the problem
 	virtual void 	print(std::ostream &os) const = 0;

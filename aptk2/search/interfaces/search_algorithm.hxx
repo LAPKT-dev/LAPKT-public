@@ -28,6 +28,7 @@ Concepts borrowed from Ethan Burn's heuristic search framework.
 #define __SEARCH_ALGORITHM__
 
 #include <vector>
+#include <iostream>
 
 namespace aptk {
 
