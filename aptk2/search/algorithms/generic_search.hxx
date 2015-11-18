@@ -81,9 +81,9 @@ namespace aptk {
 				// to 'current' get properly discarded
 				closed.put( current );
 				
-				for ( auto a : BaseClass::model.applicable_actions( current->state ) ) {
+				for ( const auto& a : BaseClass::model.applicable_actions( current->state ) ) {
 					State s_a = BaseClass::model.next( current->state, a );
-					NodePtrType succ= std::make_shared<NodeType>( std::move(s_a), a, current );
+					NodePtrType succ = std::make_shared<NodeType>( std::move(s_a), a, current );
 					if ( closed.check( *succ ) ) continue;
 					open.insert( succ );
 					BaseClass::generated++;
