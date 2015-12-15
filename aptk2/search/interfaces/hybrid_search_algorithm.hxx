@@ -34,7 +34,7 @@ Concepts borrowed from Ethan Burn's heuristic search framework.
 namespace aptk {
 
 	template < typename StateModel >
-	class	SearchAlgorithm {
+	class	HybridSearchAlgorithm {
 
 	public:
         typedef std::tuple< double, typename StateModel::ActionType::IdType >   PlanEntry;
@@ -43,11 +43,11 @@ namespace aptk {
 
 		//! Constructs a new search algorithm that performs searches
 		//! in the given state model.
-		SearchAlgorithm( const StateModel& _model ) :
+		HybridSearchAlgorithm( const StateModel& _model ) :
 			model( _model ), expanded( 0 ), generated( 0 ) {
 		}
 
-		virtual ~SearchAlgorithm() {}
+		virtual ~HybridSearchAlgorithm() {}
 
 		//! This method encapsulates the actual search for a plan achieving the
 		//! goal from the provided state s. Argument solution will be empty if there
