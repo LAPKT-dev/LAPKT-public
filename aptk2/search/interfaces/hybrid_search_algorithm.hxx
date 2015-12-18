@@ -62,7 +62,7 @@ namespace aptk {
 
 		//! A constant reference to the state model. This is public because it
 		//! makes no sense to have an accessor
-		const			StateModel&	model;
+		const			           StateModel&	model;
 		//! Number of expanded states, that is, states for which all successors have
 		//! been generated
 		unsigned long				expanded;
