@@ -69,6 +69,8 @@ namespace aptk {
 		//! Number of generated states, that is, states that have been created and
 		//! and kept for potential use during the search
 		unsigned long				generated;
+        //! Maximum depth reached during search
+        unsigned                   max_depth;
 
 	};
 
