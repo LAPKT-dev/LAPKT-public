@@ -37,7 +37,8 @@ namespace aptk {
 	class	HybridSearchAlgorithm {
 
 	public:
-        typedef std::tuple< double, typename StateModel::ActionType::IdType >   PlanEntry;
+        typedef typename StateModel::ActionType::IdType                         ActionType;
+        typedef std::tuple< double, ActionType >   PlanEntry;
 		typedef std::vector< PlanEntry > Plan;
 
 

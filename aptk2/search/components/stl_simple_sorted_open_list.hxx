@@ -33,14 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace aptk {
 
-	template < typename ElementType >
-	class StlNodePointerAdapter {
-	public:
-		bool operator()( const ElementType& p1, const ElementType& p2 ) const {
-			return (*p1) > (*p2) ;
-		}
-	};
-
 	template < 	typename NodeType,
 			typename Container = std::vector< std::shared_ptr< NodeType > >,
 			typename Comparer = StlNodePointerAdapter< std::shared_ptr< NodeType > > >
@@ -53,10 +45,6 @@ namespace aptk {
 
 		virtual ~StlSimpleSortedOpenList() { }
 
-		virtual void 	set_heuristic ( Heuristic* h ) {
-			_heuristic = h;
-		}
-
 		virtual	void 	insert( NodePtrType n ) {
 			this->push( n );
 		}
@@ -65,7 +53,6 @@ namespace aptk {
 			assert( !is_empty() );
 			NodePtrType next = this->top();
 			this->pop();
-			_already_in_open.remove( *next );
 			return next;
 		}
 

@@ -25,5 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define __SORTED_OPEN_LIST_IMPL__
 
 #include <aptk2/search/components/stl_sorted_open_list.hxx>
+#include <aptk2/search/components/stl_simple_sorted_open_list.hxx>
 
 #endif
