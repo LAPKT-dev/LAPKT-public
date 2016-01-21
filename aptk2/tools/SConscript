@@ -4,7 +4,6 @@ Import('env')
 include_paths = ['.','../..']
 
 env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
-env.Append( LIBS= [ '-lJudy' ] )
 
 cxx_sources = Glob('*.cxx')
 c_sources = Glob('*.c')
