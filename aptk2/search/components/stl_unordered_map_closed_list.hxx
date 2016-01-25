@@ -73,6 +73,19 @@ namespace aptk {
 			return false;
 		}
 
+        virtual NodePtrType get_duplicate( const NodeType& n ) {
+			auto range = this->equal_range( n.hash() );
+			if  (range.first == range.second) return false; // Empty range
+			for ( auto entry_it = range.first; entry_it != range.second; entry_it++ ) {
+				const NodeType& other = *(entry_it->second);
+				if ( other == n ) return entry_it->second;
+			}
+			if ( range.second == this->end() ) return nullptr;
+			if ( *(range.second->second) == n ) return range.second->second;
+			return nullptr;
+		}
+
+
 		//! This method checks if there's already a node referring
 		//! to the same state in the hash table. When that is the case, and
 		//! pred evaluates to true for n and n', where n' is the other node
