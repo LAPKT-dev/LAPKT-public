@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/bit_set.hxx>
 #include <strips_state.hxx>
 #include <strips_prob.hxx>
+#include <boost/circular_buffer.hpp>
 #include <vector>
 #include <list>
 #include <iosfwd>
@@ -62,6 +63,36 @@ public:
 					m_interfering_ops[p]->set(op);
 			}
 		}	
+		// NIR: Set up the relevant actions once here so we don't need
+		//      to iterate through all of them when evaluating, similar to h1
+		m_already_updated.resize( (F*F + F)/2 );
+		m_updated.resize( (F*F + F)/2 );
+		m_relevant_actions.resize( (F*F + F)/2 );
+
+		for ( unsigned i = 0; i < m_strips_model.num_actions(); i++ ) {
+
+			const Action& a = *(m_strips_model.actions()[i]);
+
+			// Relevant if the fluent is in the precondition
+			for ( unsigned p = 0; p < a.prec_vec().size(); ++p ) {
+				for ( unsigned q = p; q < a.prec_vec().size(); ++q ) {
+					
+					m_relevant_actions[ H2_Helper::pair_index( a.prec_vec()[p], a.prec_vec()[q] ) ].insert(i);
+				}
+			}
+
+			// Relevant if the fluent is in the head of a conditional effect
+			for ( unsigned j = 0; j < a.ceff_vec().size(); ++j ) {
+
+				const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
+				for ( unsigned p = 0; p < ceff.prec_vec().size(); ++p) {
+					for ( unsigned q = p; q < ceff.prec_vec().size(); ++q) {
+						m_relevant_actions[ H2_Helper::pair_index( ceff.prec_vec()[p], ceff.prec_vec()[q] ) ].insert(i);
+					}
+				}
+			}
+		}
+
 	}
 
 	virtual ~H2_Heuristic() {
@@ -80,6 +111,8 @@ public:
 	}
 	
 	virtual	void	eval( const State& s, float& h_val ) {
+		m_already_updated.reset();
+		m_updated.clear();
 		initialize( s );
 		compute();
 		h_val = eval( m_strips_model.goal() ); 
@@ -158,6 +191,8 @@ public:
 	}
 
 	void compute_edeletes( STRIPS_Problem& prob ){
+		m_already_updated.reset();
+		m_updated.clear();
 		initialize( prob.init() );
 		compute_mutexes_only();
 		extract_edeletes( prob );
@@ -350,19 +385,81 @@ protected:
 	
 	}
 
+	void initialize_ceffs_and_emtpy_precs(){
+		//conditional effects and empty precs
+		for ( unsigned k = 0; k < m_strips_model.empty_prec_actions().size(); k++ ) {
+			const Action& a = *(m_strips_model.empty_prec_actions()[k]);
+			float v =  ( cost_opt == H2_Cost_Function::Unit_Costs ? 1.0f : 
+					( cost_opt == H2_Cost_Function::Use_Costs ? (float)a.cost()  : 1.0f + (float)a.cost()) );
+			
+			for ( unsigned i = 0; i< a.add_vec().size(); i++ ){
+				for ( unsigned j = i; i < a.add_vec().size(); j++ ){
+					unsigned p = a.add_vec()[i];
+					unsigned q = a.add_vec()[j];
+					value(p,q) = v;
+					
+					int curr_idx = H2_Helper::pair_index(p,q);
+					if ( !m_already_updated.isset( curr_idx ) ) {
+						m_updated.push_back( curr_idx );
+						m_already_updated.set( curr_idx );
+					}
+				}
+			}
+
+			// Conditional effects
+			for ( unsigned j = 0; j < a.ceff_vec().size(); j++ )
+			{
+				const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
+				if ( !ceff.prec_vec().empty() ) continue;
+				float v_eff = v;
+				
+				
+				for ( unsigned i = 0; i< ceff.add_vec().size(); i++ ){
+					for ( unsigned j = i; i < ceff.add_vec().size(); j++ ){
+						unsigned p = ceff.add_vec()[i];
+						unsigned q = ceff.add_vec()[j];
+						value(p,q) = v_eff;
+						
+						int curr_idx = H2_Helper::pair_index(p,q);
+						if ( !m_already_updated.isset( curr_idx ) ) {
+							m_updated.push_back( curr_idx );
+							m_already_updated.set( curr_idx );
+						}
+					}
+				}	
+				
+			}
+		}
+	}
 	void initialize( const State& s ) {
 		for ( unsigned k = 0; k < m_values.size(); k++ )
 			m_values[k] = infty;
 		for ( unsigned k = 0; k < m_op_values.size(); k++ )
 			m_op_values[k] = infty;
+
+		initialize_ceffs_and_emtpy_precs();
+
 		for ( unsigned i = 0; i < s.fluent_vec().size(); i++ )
 		{
 			unsigned p = s.fluent_vec()[i];
 			value(p,p) = 0.0f;
+
+			int curr_idx = H2_Helper::pair_index(p,p);
+			if ( !m_already_updated.isset( curr_idx ) ) {
+				m_updated.push_back( curr_idx );
+				m_already_updated.set( curr_idx );
+			}
+
 			for ( unsigned j = i+1; j < s.fluent_vec().size(); j++ )
 			{
 				unsigned q = s.fluent_vec()[j];
 				value(p,q) = 0.0f;
+
+				int curr_idx = H2_Helper::pair_index(p,q);
+				if ( !m_already_updated.isset( curr_idx ) ) {
+					m_updated.push_back( curr_idx );
+					m_already_updated.set( curr_idx );
+				}
 			}
 		}
 	}
@@ -372,26 +469,47 @@ protected:
 			m_values[k] = infty;
 		for ( unsigned k = 0; k < m_op_values.size(); k++ )
 			m_op_values[k] = infty;
+
+		initialize_ceffs_and_emtpy_precs();
+
 		for ( unsigned i = 0; i < f.size(); i++ )
 		{
 			unsigned p = f[i];
 			value(p,p) = 0.0f;
+
+			int curr_idx = H2_Helper::pair_index(p,p);
+			if ( !m_already_updated.isset( curr_idx ) ) {
+				m_updated.push_back( curr_idx );
+				m_already_updated.set( curr_idx );
+			}
+
 			for ( unsigned j = i+1; j < f.size(); j++ )
 			{
 				unsigned q = f[j];
 				value(p,q) = 0.0f;
+
+				int curr_idx = H2_Helper::pair_index(p,q);
+				if ( !m_already_updated.isset( curr_idx ) ) {
+					m_updated.push_back( curr_idx );
+					m_already_updated.set( curr_idx );
+				}
 			}
 		}
 	}
 
 	void compute() {
-		bool fixed_point;
-		
-		do {
-			fixed_point = true;
+		while ( !m_updated.empty() ) {
 
-			for ( unsigned a = 0; a < m_strips_model.num_actions(); a++ ) {
-				const Action& action = *(m_strips_model.actions()[a]);
+			unsigned p = m_updated.front();
+			
+			m_updated.pop_front();
+			m_already_updated.unset(p);
+	
+			for ( std::set<unsigned>::iterator action_it = m_relevant_actions[p].begin(); action_it != m_relevant_actions[p].end(); ++action_it) {	
+
+				const Action& action = *(m_strips_model.actions()[*action_it]);
+				unsigned a = action.index();
+
 				op_value(a) = eval( action.prec_vec() );
 				if ( op_value(a) == infty ) continue;
 				
@@ -406,7 +524,11 @@ protected:
 						if ( cost_opt == H2_Cost_Function::Use_Costs ) v += action.cost();
 						if ( v < curr_value ) {
 							value(p,q) = v;
-							fixed_point = false;
+							int curr_idx = H2_Helper::pair_index(p,q);
+							if ( !m_already_updated.isset( curr_idx ) ) {
+								m_updated.push_back( curr_idx );
+								m_already_updated.set( curr_idx );
+							}
 						}
 					}
 
@@ -424,26 +546,35 @@ protected:
 						if ( v < value(p,r) )
 						{
 							value(p,r) = v;
-							fixed_point = false;
+							int curr_idx = H2_Helper::pair_index(p,r);
+							if ( !m_already_updated.isset( curr_idx ) ) {
+								m_updated.push_back( curr_idx );
+								m_already_updated.set( curr_idx );
+							}
 						}													
 					}
 
 				}
 			}
 			
-		} while ( !fixed_point );
+		}
 		
 	}
 
 
 	void compute_mutexes_only() {
-		bool fixed_point;
-		
-		do {
-			fixed_point = true;
+		while ( !m_updated.empty() ) {
+				
+			unsigned p = m_updated.front();
+			
+			m_updated.pop_front();
+			m_already_updated.unset(p);
+	
+			for ( std::set<unsigned>::iterator action_it = m_relevant_actions[p].begin(); action_it != m_relevant_actions[p].end(); ++action_it) {	
 
-			for ( unsigned a = 0; a < m_strips_model.num_actions(); a++ ) {
-				const Action& action = *(m_strips_model.actions()[a]);
+				const Action& action = *(m_strips_model.actions()[*action_it]);
+				unsigned a = action.index();
+
 				op_value(a) = eval( action.prec_vec() );
 				if ( op_value(a) == infty ) continue;
 				
@@ -454,7 +585,11 @@ protected:
 						float curr_value = value(p,q);
 						if ( curr_value == 0.0f ) continue;
 						value(p,q) = 0.0f;
-						fixed_point = false;
+						int curr_idx = H2_Helper::pair_index(p,q);
+						if ( !m_already_updated.isset( curr_idx ) ) {
+							m_updated.push_back( curr_idx );
+							m_already_updated.set( curr_idx );
+						}
 							
 					}
 
@@ -471,14 +606,18 @@ protected:
 						
 						if ( h2_pre_noop == infty ) continue;
 						value(p,r) = 0.0f;
-						fixed_point = false;
+						int curr_idx = H2_Helper::pair_index(p,r);
+						if ( !m_already_updated.isset( curr_idx ) ) {
+							m_updated.push_back( curr_idx );
+							m_already_updated.set( curr_idx );
+						}
 																			
 					}
 
 				}
 			}
 			
-		} while ( !fixed_point );
+		} 
 		
 	}
 		
@@ -490,6 +629,10 @@ protected:
 	std::vector<float>			m_values;
 	std::vector<float>			m_op_values;
 	std::vector< Bit_Set* >			m_interfering_ops;
+
+	std::vector< std::set<unsigned> >       m_relevant_actions;
+	boost::circular_buffer<int>		m_updated;
+	Bit_Set					m_already_updated;
 };
 
 }
