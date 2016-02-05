@@ -529,6 +529,16 @@ protected:
 								m_updated.push_back( curr_idx );
 								m_already_updated.set( curr_idx );
 							}
+							curr_idx = H2_Helper::pair_index(p,p);
+							if ( !m_already_updated.isset( curr_idx ) ) {
+								m_updated.push_back( curr_idx );
+								m_already_updated.set( curr_idx );
+							}
+							curr_idx = H2_Helper::pair_index(q,q);
+							if ( !m_already_updated.isset( curr_idx ) ) {
+								m_updated.push_back( curr_idx );
+								m_already_updated.set( curr_idx );
+							}
 						}
 					}
 
@@ -547,6 +557,11 @@ protected:
 						{
 							value(p,r) = v;
 							int curr_idx = H2_Helper::pair_index(p,r);
+							if ( !m_already_updated.isset( curr_idx ) ) {
+								m_updated.push_back( curr_idx );
+								m_already_updated.set( curr_idx );
+							}
+							curr_idx = H2_Helper::pair_index(r,r);
 							if ( !m_already_updated.isset( curr_idx ) ) {
 								m_updated.push_back( curr_idx );
 								m_already_updated.set( curr_idx );
@@ -590,6 +605,16 @@ protected:
 							m_updated.push_back( curr_idx );
 							m_already_updated.set( curr_idx );
 						}
+						curr_idx = H2_Helper::pair_index(p,p);
+						if ( !m_already_updated.isset( curr_idx ) ) {
+							m_updated.push_back( curr_idx );
+							m_already_updated.set( curr_idx );
+						}
+						curr_idx = H2_Helper::pair_index(q,q);
+						if ( !m_already_updated.isset( curr_idx ) ) {
+							m_updated.push_back( curr_idx );
+							m_already_updated.set( curr_idx );
+						}
 							
 					}
 
@@ -611,7 +636,11 @@ protected:
 							m_updated.push_back( curr_idx );
 							m_already_updated.set( curr_idx );
 						}
-																			
+						curr_idx = H2_Helper::pair_index(r,r);
+						if ( !m_already_updated.isset( curr_idx ) ) {
+							m_updated.push_back( curr_idx );
+							m_already_updated.set( curr_idx );
+						}													
 					}
 
 				}
