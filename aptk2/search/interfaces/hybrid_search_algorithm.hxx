@@ -30,8 +30,36 @@ Concepts borrowed from Ethan Burn's heuristic search framework.
 #include <vector>
 #include <iostream>
 #include <tuple>
+#include <map>
+#include <string>
 
 namespace aptk {
+
+    enum HybridSearchAlgorithmResult {
+        FoundSolution = 0,
+        ExhaustedSearchSpace,
+        DeadEnd,
+        TerminalNonGoal,
+        NeedsToRunFirst
+    };
+
+    inline std::string
+    human_readable_result(HybridSearchAlgorithmResult e ) {
+        switch( e ) {
+            case aptk::HybridSearchAlgorithmResult::FoundSolution:
+                return "Yes";
+            case aptk::HybridSearchAlgorithmResult::ExhaustedSearchSpace:
+                return "Exhausted Search Space";
+            case aptk::HybridSearchAlgorithmResult::DeadEnd:
+                return "Dead End";
+            case aptk::HybridSearchAlgorithmResult::TerminalNonGoal :
+                return "Terminal Non Goal";
+                break;
+            case aptk::HybridSearchAlgorithmResult::NeedsToRunFirst :
+                return "Needs to Run";
+        }
+        return "Can't Happen";
+    }
 
 	template < typename StateModel >
 	class	HybridSearchAlgorithm {
@@ -45,7 +73,8 @@ namespace aptk {
 		//! Constructs a new search algorithm that performs searches
 		//! in the given state model.
 		HybridSearchAlgorithm( const StateModel& _model ) :
-			model( _model ), expanded( 0 ), generated( 0 ) {
+			model( _model ), expanded( 0 ), generated( 0 ), outcome(NeedsToRunFirst),
+            plan_duration(std::numeric_limits<double>::max()) {
 		}
 
 		virtual ~HybridSearchAlgorithm() {}
@@ -71,7 +100,11 @@ namespace aptk {
 		//! and kept for potential use during the search
 		unsigned long				generated;
         //! Maximum depth reached during search
-        unsigned                   max_depth;
+        unsigned                    max_depth;
+        //! Search outcomes
+        HybridSearchAlgorithmResult outcome;
+        //! Plan duration
+        double                      plan_duration;
 
 	};
 
