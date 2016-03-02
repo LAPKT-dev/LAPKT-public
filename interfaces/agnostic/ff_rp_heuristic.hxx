@@ -94,10 +94,10 @@ public:
   	virtual void compute( const State& s, Cost_Type& h_val, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>* copy_rel_plan = NULL, Fluent_Vec* goals = NULL ) {
 		m_deletes_goal = false;
 		//float t0 = time_used();
-		m_base_heuristic.eval( s, h_val );
+		m_base_heuristic.eval( s, h_val );		
 		//float tf = time_used();
 		//std::cout << tf - t0 << std::endl;
-		if ( h_val == std::numeric_limits<Cost_Type>::infinity() )
+		if ( h_val == std::numeric_limits<Cost_Type>::max() )
 			return;
 
 		// 0. Initialize data structures
