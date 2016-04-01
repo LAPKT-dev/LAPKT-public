@@ -295,8 +295,9 @@ public:
 	void eval( const State& s, Cost_Type& h_out ) {
 		float h;
 		std::vector<Action_Idx> po;
-		eval( s, h, po);         
+		eval( s, h, po);
 		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
+		
 	}
 
 	

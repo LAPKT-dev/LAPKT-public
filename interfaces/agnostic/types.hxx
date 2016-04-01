@@ -61,7 +61,7 @@ namespace aptk
 #endif
 
 #ifndef infty
-#define	infty          std::numeric_limits<float>::infinity()
+#define	infty          std::numeric_limits<float>::max()
 #endif
 
 	class Pair_Value_Table : public std::map< Fluent_Pair, unsigned >

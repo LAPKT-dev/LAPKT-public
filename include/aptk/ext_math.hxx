@@ -87,8 +87,12 @@ unsigned unrolled_pow( unsigned n, unsigned k ) {
 #define no_such_index  std::numeric_limits<unsigned>::max()
 #endif
 
+#ifndef int_infty
+#define int_infty  std::numeric_limits<int>::max()
+#endif
+
 #ifndef infty
-#define	infty          std::numeric_limits<float>::infinity()
+#define	infty          std::numeric_limits<float>::max()
 #endif
 
 
