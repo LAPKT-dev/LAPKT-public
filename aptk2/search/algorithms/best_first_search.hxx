@@ -43,7 +43,7 @@ namespace aptk {
 		
 		//! The first constructor gets injected the heuristic object
 		StlBestFirstSearch( const StateModel& model, Heuristic&& heuristic ) :
-			BaseClass(model), heuristic_function( heuristic ) {
+			BaseClass(model), heuristic_function( std::move(heuristic)) {
 			BaseClass::open.set_heuristic( &heuristic_function );
 		}
 		
