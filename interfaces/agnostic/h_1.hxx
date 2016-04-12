@@ -145,14 +145,18 @@ public:
 		h_val = eval_func( s.begin(), s.end() );
 	}
 
-	virtual void eval( const State& s, float& h_val ) {
-
+	template <typename Cost_Type>
+	 void eval( const State& s, Cost_Type& h_out ) {
+		float h;
 		m_already_updated.reset();
 		m_updated.clear();
 		initialize(s);				
 		compute();
-		h_val = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );
+		h = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );		
+		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
+		
 	}
+
 	
 	virtual void eval_reachability( const State& s, float& h_val, Fluent_Vec* persist_fluents = NULL ) {
 		m_already_updated.reset();
