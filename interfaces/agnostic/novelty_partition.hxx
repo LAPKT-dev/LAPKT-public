@@ -40,7 +40,7 @@ public:
 
 
 	Novelty_Partition( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 2048 ) 
-		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB), m_always_full_state(true), m_verbose( true ) {
+		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB), m_always_full_state(true), m_partition_size(0), m_verbose( true ) {
 		
 		set_arity(max_arity, 1);
 		
@@ -65,17 +65,18 @@ public:
 
 	void set_verbose( bool v ) { m_verbose = v; }
 
-	void set_arity( unsigned max_arity, unsigned goal_size ){
-	
+	void set_arity( unsigned max_arity, unsigned partition_size = 0 ){
+
+	        m_partition_size = partition_size;
 		m_arity = max_arity;
 		m_num_tuples = 1;
 		m_num_fluents = m_strips_model.num_fluents();
 
-		float size_novelty = ( (float) pow(m_num_fluents,m_arity) / 1024000.)  * (float) goal_size * sizeof(Search_Node*);
+		float size_novelty = ( (float) pow(m_num_fluents,m_arity) / 1024000.)  * (float) partition_size * sizeof(Search_Node*);
 		//std::cout << "Try allocate size: "<< size_novelty<<" MB"<<std::endl;
 		if(size_novelty > m_max_memory_size_MB){
 			m_arity = 1;
-			size_novelty =  ( (float) pow(m_num_fluents,m_arity) / 1024000.) * (float) goal_size * sizeof(Search_Node*);
+			size_novelty =  ( (float) pow(m_num_fluents,m_arity) / 1024000.) * (float) partition_size * sizeof(Search_Node*);
 
 			std::cout<<"EXCEDED, m_arity downgraded to 1 --> size: "<< size_novelty<<" MB"<<std::endl;
 		}
@@ -83,10 +84,8 @@ public:
 		for(unsigned k = 0; k < m_arity; k++)
 			m_num_tuples *= m_num_fluents;
 
-		m_nodes_tuples_by_partition.resize( goal_size+1 );
-		for( unsigned i = 0; i < goal_size+1; i++ )
-			m_nodes_tuples_by_partition[i].resize(m_num_tuples, NULL);
-
+		m_nodes_tuples_by_partition.resize( partition_size+1 );
+ 	
 	}
 	
 
@@ -115,6 +114,16 @@ public:
 
 
 protected:
+	void check_table_size( Search_Node* n ){		
+
+		if( m_partition_size < n->partition() ){
+			m_nodes_tuples_by_partition.resize( n->partition() + 1 );
+			m_partition_size = n->partition();
+		}
+		
+		if(  m_nodes_tuples_by_partition[ n->partition() ].empty() )
+			m_nodes_tuples_by_partition[ n->partition() ].resize( m_num_tuples, NULL );	       
+	}
 
 	/**
 	 * If parent node is in the same space partition, check only new atoms,
@@ -124,6 +133,11 @@ protected:
 	{
 
 		novelty = (float) m_arity+1;
+
+		if( n->partition() == std::numeric_limits<unsigned>::max() ) return;
+		
+		check_table_size( n );
+
 		for(unsigned i = 1; i <= m_arity; i++){
 #ifdef DEBUG
 			if ( m_verbose )
@@ -379,6 +393,7 @@ protected:
 	unsigned                m_num_fluents;
 	unsigned                m_max_memory_size_MB;
 	bool                    m_always_full_state;
+        unsigned                m_partition_size;
 	bool			m_verbose;
 };
 
