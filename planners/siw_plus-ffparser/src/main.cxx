@@ -82,8 +82,9 @@ float do_search( Search_Engine& engine, STRIPS_Problem& plan_prob, float bound, 
 
 
 	std::ofstream	details( "execution.details" );
-	
-	engine.set_bound(bound);
+
+	engine.set_bound(1);
+	engine.set_max_bound(bound-1);
 	engine.start();
 
 	std::vector< aptk::Action_Idx > plan;

@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <strips_prob.hxx>
 #include <vector>
 #include <deque>
+#include <algorithm>   
 
 namespace aptk {
 
@@ -85,7 +86,9 @@ public:
 			m_num_tuples *= m_num_fluents;
 
 		m_nodes_tuples_by_partition.resize( partition_size+1 );
- 	
+
+		for( unsigned i = 0; i < partition_size+1; i++ )
+		    m_nodes_tuples_by_partition[i].clear();
 	}
 	
 
@@ -116,10 +119,10 @@ public:
 protected:
 	void check_table_size( Search_Node* n ){		
 
-		if( m_partition_size < n->partition() ){
-			m_nodes_tuples_by_partition.resize( n->partition() + 1 );
-			m_partition_size = n->partition();
-		}
+	    	if( m_partition_size < n->partition() ){
+	    		m_nodes_tuples_by_partition.resize( n->partition() + 1 );
+	    		m_partition_size = n->partition();
+	    	}
 		
 		if(  m_nodes_tuples_by_partition[ n->partition() ].empty() )
 			m_nodes_tuples_by_partition[ n->partition() ].resize( m_num_tuples, NULL );	       
