@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/search_prob.hxx>
 #include <aptk/resources_control.hxx>
 #include <aptk/closed_list.hxx>
-#include <aptk/iw.hxx>
+//#include <aptk/iw.hxx>
 #include <reachability.hxx>
 #include <vector>
 #include <algorithm>
