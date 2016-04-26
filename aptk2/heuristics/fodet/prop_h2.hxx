@@ -3,7 +3,7 @@
 
 #include <queue>
 #include <list>
-#include <fod_problem.hxx>
+#include <aptk2/models/fodet/fod_problem.hxx>
 #include <gp_atoms.hxx>
 #include <bit_array.hxx>
 #include <judy_set.hxx>

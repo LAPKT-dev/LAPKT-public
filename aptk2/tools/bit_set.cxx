@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <bit_set.hxx>
+#include <aptk2/tools/bit_set.hxx>
 
 namespace aptk
 {

@@ -1,4 +1,5 @@
-#include <judy_set.hxx>
+
+#include <aptk2/tools/judy_set.hxx>
 
 namespace aptk {
 

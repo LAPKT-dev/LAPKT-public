@@ -21,10 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef __AIG_TK_BIT_SET__
 #define __AIG_TK_BIT_SET__
 
-#include <bit_array.hxx>
 #include <iostream>
 #include <cassert>
 #include <limits>
+
+#include <aptk2/tools/bit_array.hxx>
 
 namespace aptk
 {
