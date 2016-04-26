@@ -26,10 +26,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <fod_problem.hxx>
 #include <iostream>
 
+#include <aptk2/tools/logging.hxx>
+
+
 namespace aptk {
 
-// Fast-Downward ("The Fast-Downward Planning System", Helmert, M., 2006) successor generator data structure
-
+//! Fast-Downward ("The Fast-Downward Planning System", Helmert, M., 2006) successor generator data structure
 template <typename State >	
 class	Successor_Generator {
 
@@ -241,7 +243,7 @@ void	Successor_Generator<State>::build() {
 	std::vector<unsigned> ordered_fluent_set;
 	build_fluent_ordering(ordered_fluent_set);
 	make_nodes( 0, ordered_fluent_set, m_problem.actions );	
-	std::cout << "Successor generator built, with " << m_nodes.size() << " nodes" << std::endl;
+	LK_INFO("cout", "Successor generator built, with " << m_nodes.size() << " nodes");
 }
 
 template <typename State>
