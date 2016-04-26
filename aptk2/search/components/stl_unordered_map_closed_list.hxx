@@ -75,7 +75,7 @@ namespace aptk {
 
         virtual NodePtrType get_duplicate( const NodeType& n ) {
 			auto range = this->equal_range( n.hash() );
-			if  (range.first == range.second) return false; // Empty range
+			if  (range.first == range.second) return nullptr; // Empty range
 			for ( auto entry_it = range.first; entry_it != range.second; entry_it++ ) {
 				const NodeType& other = *(entry_it->second);
 				if ( other == n ) return entry_it->second;
