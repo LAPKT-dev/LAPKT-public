@@ -1,8 +1,10 @@
-#include <prop_h2.hxx>
+
 #include <utility>
 #include <iostream>
 #include <fstream>
 #include <map>
+
+#include <aptk2/heuristics/fodet/prop_h2.hxx>
 
 namespace aptk {
 

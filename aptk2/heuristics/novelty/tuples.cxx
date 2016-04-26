@@ -1,5 +1,7 @@
-#include <tuples.hxx>
+
 #include <iostream>
+
+#include <aptk2/heuristics/novelty/tuples.hxx>
 
 namespace aptk
 {

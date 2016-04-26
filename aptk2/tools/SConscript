@@ -8,6 +8,6 @@ env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
 cxx_sources = Glob('*.cxx')
 c_sources = Glob('*.c')
 
-objects = [ env.Object(s) for s in cxx_sources ] + [ env.Object(s) for s in c_sources ]
+objects = [ env.SharedObject(s) for s in cxx_sources ] + [ env.SharedObject(s) for s in c_sources ]
 
 Return('objects')
