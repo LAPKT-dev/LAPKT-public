@@ -243,7 +243,7 @@ void	Successor_Generator<State>::build() {
 	std::vector<unsigned> ordered_fluent_set;
 	build_fluent_ordering(ordered_fluent_set);
 	make_nodes( 0, ordered_fluent_set, m_problem.actions );	
-	LK_INFO("cout", "Successor generator built, with " << m_nodes.size() << " nodes");
+	LPT_INFO("cout", "Successor generator built, with " << m_nodes.size() << " nodes");
 }
 
 template <typename State>

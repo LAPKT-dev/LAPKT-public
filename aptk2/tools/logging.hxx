@@ -48,19 +48,19 @@ public:
 // THE ACTUAL LOGGING MACROS, WITH THREE DIFFERENT LOGGING LEVELS
 // ************************
 //! Info level
-#define LK_INFO(file, message) aptk::Logger::instance().log("INFO", file) << message << std::endl;
+#define LPT_INFO(file, message) aptk::Logger::instance().log("INFO", file) << message << std::endl;
 
 //! Debugging level
 #ifdef DEBUG
-#define LK_DEBUG(file, message) aptk::Logger::instance().log("DEBUG", file) << message << std::endl;
+#define LPT_DEBUG(file, message) aptk::Logger::instance().log("DEBUG", file) << message << std::endl;
 #else
-#define LK_DEBUG(file, message)
+#define LPT_DEBUG(file, message)
 #endif
 
 
 //! Extreme Debugging level
 #ifdef EDEBUG
-#define LK_EDEBUG(file, message) aptk::Logger::instance().log("EDEBUG", file) << message << std::endl;
+#define LPT_EDEBUG(file, message) aptk::Logger::instance().log("EDEBUG", file) << message << std::endl;
 #else
-#define LK_EDEBUG(file, message)
+#define LPT_EDEBUG(file, message)
 #endif

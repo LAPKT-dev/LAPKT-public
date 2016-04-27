@@ -62,10 +62,10 @@ namespace aptk {
 
 			while ( !open.is_empty() ) {
 				NodePtrType current = open.get_next( );
-				LK_DEBUG("cout", *current);
+				LPT_DEBUG("cout", *current);
 				
 				if ( BaseClass::model.goal( current->state ) ) { // Solution found, we're done
-					LK_INFO("cout", "Goal found");
+					LPT_INFO("cout", "Goal found");
 					retrieve_solution( current, solution );
 					return true;
 				}

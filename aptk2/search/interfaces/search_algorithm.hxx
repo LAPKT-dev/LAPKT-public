@@ -54,7 +54,7 @@ namespace aptk {
 
 		//! Convenience method for when we are interested in starting from the initial state
 		virtual bool solve_model( Plan& solution ) {
-			LK_INFO("cout", "Solving model");
+			LPT_INFO("cout", "Solving model");
 			return search( model.init(), solution );
 		}
 
