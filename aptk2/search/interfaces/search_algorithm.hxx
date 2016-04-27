@@ -30,17 +30,17 @@ Concepts borrowed from Ethan Burn's heuristic search framework.
 #include <vector>
 #include <iostream>
 
+#include <aptk2/tools/logging.hxx>
+
+
 namespace aptk {
 
-	template < typename StateModel >
-	class	SearchAlgorithm {
-
+	template <typename StateModel>
+	class SearchAlgorithm {
 	public:
 		typedef std::vector< typename StateModel::ActionType::IdType > Plan;
 
-
-		//! Constructs a new search algorithm that performs searches
-		//! in the given state model.
+		//! Constructs a new search algorithm that performs searches in the given state model.
 		SearchAlgorithm( const StateModel& _model ) :
 			model( _model ), expanded( 0 ), generated( 0 ) {
 		}
@@ -54,7 +54,7 @@ namespace aptk {
 
 		//! Convenience method for when we are interested in starting from the initial state
 		virtual bool solve_model( Plan& solution ) {
-			std::cout << "Solving model" << std::endl;
+			LPT_INFO("cout", "Solving model");
 			return search( model.init(), solution );
 		}
 
@@ -67,9 +67,7 @@ namespace aptk {
 		//! Number of generated states, that is, states that have been created and
 		//! and kept for potential use during the search
 		unsigned long				generated;
-
 	};
-
 }
 
 #endif

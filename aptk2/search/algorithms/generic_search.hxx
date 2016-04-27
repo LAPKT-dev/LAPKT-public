@@ -27,23 +27,22 @@ Concepts borrowed from Ethan Burn's heuristic search framework.
 #ifndef __GENERIC_SEARCH__
 #define __GENERIC_SEARCH__
 
-#include <aptk2/search/interfaces/search_algorithm.hxx>
 #include <algorithm>
 #include <memory>
-#ifdef DEBUG
-	#include <iostream>
-#endif
+
+#include <aptk2/search/interfaces/search_algorithm.hxx>
+#include <aptk2/tools/logging.hxx>
 
 namespace aptk {
 
 	//! This class implements the classic blind search algorithm, GenericSearch
-	template < 	typename NodeType,
-			typename OpenList,
-			typename ClosedList,
-			typename StateModel >
+	template <typename NodeType,
+	          typename OpenList,
+	          typename ClosedList,
+	          typename StateModel>
 	class GenericSearch : public SearchAlgorithm< StateModel > {
 	public:
-		typedef	SearchAlgorithm< StateModel >	BaseClass;
+		typedef SearchAlgorithm< StateModel >	BaseClass;
 		typedef OpenList			OpenListType;
 		typedef ClosedList			ClosedListType;
 		typedef typename StateModel::StateType	State;
@@ -63,16 +62,10 @@ namespace aptk {
 
 			while ( !open.is_empty() ) {
 				NodePtrType current = open.get_next( );
-				#ifdef DEBUG
-				current->print( std::cout );
-				std::cout << std::endl;
-				#endif
+				LPT_DEBUG("cout", *current);
 				
-				if ( BaseClass::model.goal( current->state ) ) {
-					// Solution found, we're done
-					#ifdef DEBUG
-					std::cout << "Goal found!" << std::endl;
-					#endif
+				if ( BaseClass::model.goal( current->state ) ) { // Solution found, we're done
+					LPT_INFO("cout", "Goal found");
 					retrieve_solution( current, solution );
 					return true;
 				}
@@ -94,7 +87,7 @@ namespace aptk {
 			return false;
 		}
 
-		virtual	void retrieve_solution( NodePtrType n, typename BaseClass::Plan& solution ) {
+		virtual void retrieve_solution( NodePtrType n, typename BaseClass::Plan& solution ) {
 			NodePtrType tmp = n;
 			while ( tmp->has_parent() ) {
 				solution.push_back( tmp->action );
@@ -106,10 +99,7 @@ namespace aptk {
 
 		OpenListType	open;
 		ClosedListType	closed;
-		int _test;
-		
 	};
-
 }
 
 #endif // generic_search.hxx

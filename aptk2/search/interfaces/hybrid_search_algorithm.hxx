@@ -33,6 +33,9 @@ Concepts borrowed from Ethan Burn's heuristic search framework.
 #include <map>
 #include <string>
 
+#include <aptk2/tools/logging.hxx>
+
+
 namespace aptk {
 
     enum HybridSearchAlgorithmResult {
@@ -86,7 +89,7 @@ namespace aptk {
 
 		//! Convenience method for when we are interested in starting from the initial state
 		virtual bool solve_model( Plan& solution ) {
-			std::cout << "Solving model" << std::endl;
+			LPT_INFO("cout", "Solving model");
 			return search( model.init(), solution );
 		}
 
