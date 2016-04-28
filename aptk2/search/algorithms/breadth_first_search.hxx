@@ -28,30 +28,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace aptk {
 
-	//! Partial specialization, type of node and state model are left to be defined
-	template < typename NodeType, typename StateModel, typename OpenList = StlUnsortedFIFO<NodeType> >
-	class StlBreadthFirstSearch : public GenericSearch<	NodeType, 
-								OpenList,
-								StlUnorderedMapClosedList< NodeType > , 
-								StateModel > {
+//! Partial specialization of the GenericSearch algorithm:
+//! A breadth-first search is a generic search with a FIFO open list and 
+//! a standard unsorted closed list. Type of node and state model are still generic.
+template <typename NodeType, typename StateModel, typename OpenList = StlUnsortedFIFO<NodeType>>
+class StlBreadthFirstSearch : public GenericSearch<NodeType, 
+                                                   OpenList,
+                                                   StlUnorderedMapClosedList<NodeType>, 
+                                                   StateModel>
+{
+public:
+	typedef StlUnorderedMapClosedList<NodeType> ClosedList;
+	typedef GenericSearch<NodeType, OpenList, ClosedList, StateModel> BaseClass;
 
-	public:
-		typedef GenericSearch< 	NodeType, 
-					OpenList,
-					StlUnorderedMapClosedList< NodeType >, 
-					StateModel >	BaseClass;
-			
-		//! Inject the open list object into the search algorithm
- 		StlBreadthFirstSearch( const StateModel& model, const OpenList& open_list ) :
- 			StlBreadthFirstSearch(model) {
-		  BaseClass::open = open_list;
-		}
-		
-		StlBreadthFirstSearch( const StateModel& model ) :
-			BaseClass(model) {
-		}
-		
-		virtual ~StlBreadthFirstSearch() {}
-	}; 
+	//! The constructor requires the user of the algorithm to inject both
+	//! (1) the state model to be used in the search
+	//! (2) the particular open and closed list objects
+	StlBreadthFirstSearch(const StateModel& model, OpenList* open) :
+		BaseClass(model, open, new ClosedList())
+	{}
+	
+	//! For convenience, a constructor where the open list is default-constructed
+	StlBreadthFirstSearch(const StateModel& model) :
+		StlBreadthFirstSearch(model, new OpenList())
+	{}
+	
+	virtual ~StlBreadthFirstSearch() = default;
+	
+	// Disallow copy, but allow move
+	StlBreadthFirstSearch(const StlBreadthFirstSearch& other) = delete;
+	StlBreadthFirstSearch(StlBreadthFirstSearch&& other) = default;
+	StlBreadthFirstSearch& operator=(const StlBreadthFirstSearch& rhs) = delete;
+	StlBreadthFirstSearch& operator=(StlBreadthFirstSearch&& rhs) = default;	
+}; 
 
 }
