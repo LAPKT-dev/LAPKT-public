@@ -19,9 +19,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __CLOSED_LIST_IMPLEMENTATIONS__
-#define __CLOSED_LIST_IMPLEMENTATIONS__
+
+#pragma once
 
 #include <aptk2/search/components/stl_unordered_map_closed_list.hxx>
-
-#endif // closed_list_impl.hxx

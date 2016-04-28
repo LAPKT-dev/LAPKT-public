@@ -24,8 +24,7 @@ Additional note:
 Concepts borrowed from Ethan Burn's heuristic search framework.
 */
 
-#ifndef __HYBRID_SEARCH_ALGORITHM__
-#define __HYBRID_SEARCH_ALGORITHM__
+#pragma once
 
 #include <vector>
 #include <iostream>
@@ -112,5 +111,3 @@ namespace aptk {
 	};
 
 }
-
-#endif

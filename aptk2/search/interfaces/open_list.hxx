@@ -24,8 +24,7 @@ Additional note:
 Concepts borrowed from Ethan Burns' heuristic search framework.
 */
 
-#ifndef __OPEN_LIST__
-#define __OPEN_LIST__
+#pragma once
 
 #include <memory>
 
@@ -55,7 +54,3 @@ namespace aptk {
 	};
 	
 }
-
-
-#endif // open_list.hxx
-

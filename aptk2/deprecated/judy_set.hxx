@@ -1,5 +1,5 @@
-#ifndef __JUDY_SET__
-#define __JUDY_SET__
+
+#pragma once
 
 #include <cassert>
 #include <Judy.h>
@@ -109,5 +109,3 @@ namespace aptk {
 		Pvoid_t		m_array;
 	};
 }
-
-#endif

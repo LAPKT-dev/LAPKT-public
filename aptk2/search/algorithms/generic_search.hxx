@@ -24,8 +24,7 @@ Additional note:
 Concepts borrowed from Ethan Burn's heuristic search framework.
 */
 
-#ifndef __GENERIC_SEARCH__
-#define __GENERIC_SEARCH__
+#pragma once
 
 #include <algorithm>
 #include <memory>
@@ -101,5 +100,3 @@ namespace aptk {
 		ClosedListType	closed;
 	};
 }
-
-#endif // generic_search.hxx

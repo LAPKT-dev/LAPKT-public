@@ -1,5 +1,5 @@
-#ifndef _SUCC_GEN_PY_MODULE_
-#define _SUCC_GEN_PY_MODULE_
+
+#pragma once
 
 #include <py_fod_problem.hxx>
 
@@ -16,5 +16,3 @@ public:
 protected:
 
 }; 
-
-#endif // module.hxx

@@ -18,8 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __DET_STATE_MODEL__
-#define __DET_STATE_MODEL__
+#pragma once
 
 #include <iostream>
 #include <cassert>
@@ -65,5 +64,3 @@ protected:
 };
 
 }
-
-#endif	// det_state_model.hxx

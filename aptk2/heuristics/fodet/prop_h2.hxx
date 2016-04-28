@@ -1,5 +1,5 @@
-#ifndef __PROP_H2__
-#define __PROP_H2__
+
+#pragma once
 
 #include <queue>
 #include <list>
@@ -278,5 +278,3 @@ namespace aptk {
 	};
 
 }
-
-#endif // prop_h2.hxx

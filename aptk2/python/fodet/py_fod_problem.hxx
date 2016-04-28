@@ -1,5 +1,5 @@
-#ifndef __PY_FOD_PROBLEM__
-#define __PY_FOD_PROBLEM__
+
+#pragma once
 
 #include <fod_problem.hxx>
 #include <boost/python.hpp>
@@ -50,5 +50,3 @@ public:
 protected:
 	aptk::FOD_Problem*	m_problem;
 };
-
-#endif // py_fod_problem.hxx

@@ -20,8 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __FD_NOVELTY_EVALUATOR__
-#define __FD_NOVELTY_EVALUATOR__
+#pragma once
 
 #include <vector>
 #include <unordered_set>
@@ -102,10 +101,5 @@ namespace aptk {
 		std::vector< VariableIndex >	_varnames;
 		std::vector< ValueIndex >	_valuation;
 		std::vector< unsigned >		_counts;
-
 	};
-
 }
-
-
-#endif // fd_novelty_evaluator.hxx

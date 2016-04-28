@@ -18,8 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __EXT_MATH__
-#define __EXT_MATH__
+#pragma once
 
 #include <limits>
 #include <utility>
@@ -84,5 +83,3 @@ T pow( T a, unsigned b )
 }
 
 }
-
-#endif // ext_math.hxx

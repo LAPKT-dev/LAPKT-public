@@ -1,5 +1,5 @@
-#ifndef __JENKINS_12_BYTE__
-#define __JENKINS_12_BYTE__
+
+#pragma once
 
 #include <cstdlib>
 
@@ -139,5 +139,3 @@ public:
 
 	
 };
-
-#endif // jenkins_12_byte.hxx

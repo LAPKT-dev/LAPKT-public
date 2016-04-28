@@ -20,8 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __NOVELTY_EVALUATOR__
-#define __NOVELTY_EVALUATOR__
+#pragma once
 
 namespace aptk {
 
@@ -52,6 +51,3 @@ namespace aptk {
 	};	
 
 }
-
-
-#endif // novelty_evaluator.hxx

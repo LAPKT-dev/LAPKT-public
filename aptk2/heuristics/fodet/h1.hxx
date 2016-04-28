@@ -8,9 +8,7 @@ Adapted for computing h1 heuristics for the all-outcomes determinization
 Miquel Ramirez, 2013
 */
 
-
-#ifndef __H1_HXX__
-#define __H1_HXX__
+#pragma once
 
 #include <vector>
 #include <deque>
@@ -240,5 +238,3 @@ private:
 };
 
 }
-
-#endif 

@@ -21,10 +21,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __SORTED_OPEN_LIST_IMPL__
-#define __SORTED_OPEN_LIST_IMPL__
+#pragma once
 
 #include <aptk2/search/components/stl_sorted_open_list.hxx>
 #include <aptk2/search/components/stl_simple_sorted_open_list.hxx>
-
-#endif

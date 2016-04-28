@@ -21,9 +21,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#ifndef __STL_SORTED_OPEN_LIST__
-#define __STL_SORTED_OPEN_LIST__
+#pragma once
 
 #include <aptk2/search/interfaces/open_list.hxx>
 #include <aptk2/search/components/stl_unordered_map_closed_list.hxx>
@@ -115,5 +113,3 @@ namespace aptk {
 	};
 
 }
-
-#endif // stl_sorted_open_list.hxx

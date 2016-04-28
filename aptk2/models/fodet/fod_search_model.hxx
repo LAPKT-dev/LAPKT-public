@@ -1,5 +1,5 @@
-#ifndef __FOD_SEARCH_MODEL__
-#define __FOD_SEARCH_MODEL__
+
+#pragma once
 
 #include <fod_problem.hxx>
 #include <det_state_model.hxx>
@@ -45,5 +45,3 @@ namespace aptk {
 
 
 }
-
-#endif // fod_search_model.hxx
