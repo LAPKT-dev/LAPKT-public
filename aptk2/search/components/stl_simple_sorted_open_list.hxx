@@ -54,7 +54,7 @@ namespace aptk {
 			return next;
 		}
 
-		virtual bool is_empty() {
+		virtual bool is_empty() const override {
 			return this->empty();
 		}
 	};
