@@ -24,8 +24,7 @@ Additional note:
 Concepts borrowed from Ethan Burn's heuristic search framework.
 */
 
-#ifndef __SEARCH_ALGORITHM__
-#define __SEARCH_ALGORITHM__
+#pragma once
 
 #include <vector>
 #include <iostream>
@@ -69,5 +68,3 @@ namespace aptk {
 		unsigned long				generated;
 	};
 }
-
-#endif

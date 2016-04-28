@@ -22,11 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-#ifndef __STL_UNSORTED_FIFO_OPEN_LIST_WITH_ACCEPTOR__
-#define __STL_UNSORTED_FIFO_OPEN_LIST_WITH_ACCEPTOR__
+#pragma once
 
 #include <aptk2/search/components/stl_unsorted_fifo_open_list.hxx>
-
 
 namespace aptk {
 	
@@ -48,9 +46,5 @@ namespace aptk {
 				this->push_back( n );
 			}
 		}
-
 	};
-
 }
-
-#endif // stl_unsorted_fifo_open_list.hxx

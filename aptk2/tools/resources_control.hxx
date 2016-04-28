@@ -18,8 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __RESOURCES_CONTROL__
-#define __RESOURCES_CONTROL__
+#pragma once
 
 #include <sys/times.h>
 #include <sys/resource.h>
@@ -63,5 +62,3 @@ inline double mem_used()
 }
 
 }
-
-#endif // Resources_Control.hxx

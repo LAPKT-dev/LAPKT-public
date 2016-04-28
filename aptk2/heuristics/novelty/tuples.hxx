@@ -1,5 +1,5 @@
-#ifndef __TUPLES__
-#define __TUPLES__
+
+#pragma once
 
 #include <set>
 #include <utility>
@@ -150,5 +150,3 @@ namespace aptk
 
 
 }
-
-#endif

@@ -22,8 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-#ifndef __STL_UNSORTED_FIFO_OPEN_LIST_TEST__
-#define __STL_UNSORTED_FIFO_OPEN_LIST_TEST__
+#pragma once
 
 #include <aptk2/search/interfaces/open_list.hxx>
 
@@ -52,5 +51,3 @@ namespace aptk {
 	};
 
 }
-
-#endif // stl_unsorted_fifo_open_list.hxx

@@ -18,8 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __AIG_TK_BIT_SET__
-#define __AIG_TK_BIT_SET__
+#pragma once
 
 #include <iostream>
 #include <cassert>
@@ -199,5 +198,3 @@ inline void Bit_Set::remove( const Bit_Set& other )
 
 
 }
-
-#endif // bitset.hxx

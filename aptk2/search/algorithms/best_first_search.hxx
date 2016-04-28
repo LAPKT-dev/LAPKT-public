@@ -19,8 +19,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __BEST_FIRST_SEARCH__
-#define __BEST_FIRST_SEARCH__
+
+#pragma once
 
 #include <aptk2/search/algorithms/generic_search.hxx>
 #include <aptk2/search/components/sorted_open_list_impl.hxx>
@@ -59,5 +59,3 @@ namespace aptk {
 	}; 
 
 }
-
-#endif // best_first_search.hxx

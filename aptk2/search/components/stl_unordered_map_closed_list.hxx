@@ -20,8 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __STL_UNORDERED_MAP_CLOSED_LIST__
-#define __STL_UNORDERED_MAP_CLOSED_LIST__
+#pragma once
 
 #include <unordered_map>
 #include <utility>
@@ -115,5 +114,3 @@ namespace aptk {
 
 
 }
-
-#endif // stl_unordered_map_closed_list.hxx

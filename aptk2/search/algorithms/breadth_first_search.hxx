@@ -19,8 +19,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __BREADTH_FIRST_SEARCH__
-#define __BREADTH_FIRST_SEARCH__
+
+#pragma once
 
 #include <aptk2/search/algorithms/generic_search.hxx>
 #include <aptk2/search/components/unsorted_open_list_impl.hxx>
@@ -55,5 +55,3 @@ namespace aptk {
 	}; 
 
 }
-
-#endif // breadth_first_search.hxx

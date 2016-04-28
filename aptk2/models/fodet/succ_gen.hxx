@@ -18,8 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __SUCCESSOR_GENERATOR__
-#define __SUCCESSOR_GENERATOR__
+#pragma once
 
 #include <deque>
 #include <vector>
@@ -427,5 +426,3 @@ void	Successor_Generator<State>::dump_tree( unsigned depth, unsigned node_index,
 }
 
 }
-
-#endif // succ_gen.hxx

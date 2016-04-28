@@ -24,8 +24,7 @@ Portions of this code:
 Copyright 2012 Ethan Burns. All rights reserved.
 */
 
-#ifndef _POOL_HXX_
-#define _POOL_HXX_
+#pragma once
 
 #include <vector>
 #include <cstdlib>
@@ -92,6 +91,3 @@ namespace aptk {
 	};
 	
 }
-
-#endif	// _POOL_HXX_// Copyright 2012 Ethan Burns. All rights reserved.
-

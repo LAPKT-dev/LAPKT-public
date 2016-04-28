@@ -18,8 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __HASH_TABLE__
-#define __HASH_TABLE__
+#pragma once
 
 #include <vector>
 #include <list>
@@ -235,5 +234,3 @@ void Hash_Table<T>::clear()
 }
 
 }
-
-#endif
