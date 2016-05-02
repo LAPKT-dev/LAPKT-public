@@ -49,7 +49,7 @@ namespace aptk {
 
 		virtual ~StlUnsortedFIFO() { }
 
-		virtual	void insert( NodePtrType n ) {
+		virtual	void insert( NodePtrType n ) override {
 			if ( _evaluator != nullptr && !_evaluator->accept( *n ) )
 				return;
 
@@ -57,14 +57,14 @@ namespace aptk {
 
 		}
 
-		virtual NodePtrType get_next( ) {
+		virtual NodePtrType get_next( ) override {
 			assert( !is_empty() );
 			NodePtrType next = this->front();
 			this->pop_front();
 			return next;
 		}
 
-		virtual bool is_empty() {
+		virtual bool is_empty() const override {
 			return this->empty();
 		}
 

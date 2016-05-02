@@ -49,8 +49,6 @@ namespace aptk {
 		virtual NodePtrType get_next( ) = 0;
 
 		//! Returns true if there are no more nodes to be processed
-		virtual bool	is_empty() = 0;
-
+		virtual bool is_empty() const = 0;
 	};
-	
 }

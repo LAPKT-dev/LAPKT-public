@@ -41,7 +41,7 @@ namespace aptk {
 			: _evaluator(evaluator)
 		{}
 
-		virtual	void 	insert( NodePtrType n ) {
+		virtual	void insert( NodePtrType n ) override {
 			if (!_evaluator || _evaluator->accept(n->state)) {
 				this->push_back( n );
 			}
