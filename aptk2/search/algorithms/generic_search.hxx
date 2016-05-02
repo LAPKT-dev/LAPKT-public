@@ -41,16 +41,16 @@ namespace aptk {
 	          typename StateModel>
 	class GenericSearch : public SearchAlgorithm< StateModel > {
 	public:
-		typedef SearchAlgorithm< StateModel >	BaseClass;
-		typedef typename StateModel::StateType	State;
-		typedef std::shared_ptr<NodeType>	NodePtrType;
+		typedef SearchAlgorithm< StateModel >  BaseClass;
+		typedef typename StateModel::StateType State;
+		typedef std::shared_ptr<NodeType>      NodePtrType;
 
 		//! The only allowed constructor requires the user of the algorithm to inject both
 		//! (1) the state model to be used in the search
 		//! (2) the open list object to be used in the search
 		//! (3) the closed list object to be used in the search
-		GenericSearch(const StateModel& model, OpenList* open, ClosedList* closed) :
-			BaseClass(model), open_(open), closed_(closed) {}
+		GenericSearch(const StateModel& model, OpenList&& open, ClosedList&& closed) :
+			BaseClass(model), _open(std::move(open)), _closed(std::move(closed)) {}
 	
 		virtual ~GenericSearch() {}
 		
@@ -62,11 +62,11 @@ namespace aptk {
 
 		virtual bool search( const State& s, typename BaseClass::Plan& solution ) override {
 			NodePtrType n = std::make_shared<NodeType>( s );
-			open_->insert( n );
+			_open.insert( n );
 			BaseClass::generated++;
 
-			while ( !open_->is_empty() ) {
-				NodePtrType current = open_->get_next( );
+			while ( !_open.is_empty() ) {
+				NodePtrType current = _open.get_next( );
 				LPT_DEBUG("cout", *current);
 				
 				if ( BaseClass::model.goal( current->state ) ) { // Solution found, we're done
@@ -77,13 +77,13 @@ namespace aptk {
 
 				// close the node before the actual expansion so that children which are identical
 				// to 'current' get properly discarded
-				closed_->put( current );
+				_closed.put( current );
 				
 				for ( const auto& a : BaseClass::model.applicable_actions( current->state ) ) {
 					State s_a = BaseClass::model.next( current->state, a );
 					NodePtrType succ = std::make_shared<NodeType>( std::move(s_a), a, current );
-					if ( closed_->check( *succ ) ) continue;
-					open_->insert( succ );
+					if ( _closed.check( *succ ) ) continue;
+					_open.insert( succ );
 					BaseClass::generated++;
 				}
 
@@ -101,10 +101,10 @@ namespace aptk {
 			std::reverse( solution.begin(), solution.end() );
 		}
 
-		//! The open list, ownership of the pointer belongs to this object
-		OpenList* open_;
+		//! The open list
+		OpenList _open;
 		
-		//! The closed list, ownership of the pointer belongs to this object
-		ClosedList* closed_;
+		//! The closed list
+		ClosedList _closed;
 	};
 }

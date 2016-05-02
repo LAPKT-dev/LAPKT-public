@@ -71,8 +71,8 @@ protected:
 	
 public:
 	//! The constructor of a sorted open list needs to specify the heuristic to sort the nodes with
-	StlSortedOpenList(Heuristic* heuristic, bool delayed)
-		: heuristic_(heuristic), delayed_(delayed)
+	StlSortedOpenList(Heuristic&& heuristic, bool delayed = false)
+		: _heuristic(std::move(heuristic)), _delayed(delayed)
 	{}
 	virtual ~StlSortedOpenList() = default;
 	
@@ -92,10 +92,10 @@ public:
 			return;
 
 		// If using delayed evaluation, set the heuristic value to that of the parent; otherwise, compute it anew.
-		if (delayed_) {
+		if (_delayed) {
 			node->inherit_heuristic_estimate();
 		} else {
-			node->evaluate_with(*heuristic_);
+			node->evaluate_with(_heuristic);
 		}
 		
 		if ( node->dead_end() ) return;
@@ -109,8 +109,8 @@ public:
 		this->pop();
 		already_in_open_.remove(*node);
 		
-		if (delayed_) { // If using delayed evaluation, we update the heuristic value of the node before returning it.
-			node->evaluate_with(*heuristic_);
+		if (_delayed) { // If using delayed evaluation, we update the heuristic value of the node before returning it.
+			node->evaluate_with(_heuristic);
 		}
 		
 		return node;
@@ -121,10 +121,10 @@ public:
 	}
 
 	//! The heuristic we'll use to sort the nodes
-	Heuristic* heuristic_;
+	Heuristic _heuristic;
 	
 	//! Whether to use delayed evaluation or not
-	bool delayed_;
+	bool _delayed;
 	
 	//! A list of nodes which are already in the open list
 	StlUnorderedMapClosedList< NodeType > already_in_open_;

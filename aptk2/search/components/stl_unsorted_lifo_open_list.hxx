@@ -37,16 +37,16 @@ namespace aptk {
 
 		virtual ~StlUnsortedLIFO() { }
 
-		virtual	void 	insert( NodePtrType n ) {
+		virtual	void insert( NodePtrType n ) override {
 			this->push_back( n );
 		}
 
-		virtual NodePtrType get_next( ) {
+		virtual NodePtrType get_next( ) override {
 			assert( !empty() );
 			return this->pop_back();
 		}
 
-		virtual bool empty() { 
+		virtual bool empty() const override { 
 			return this->empty();
 		}
 	};

@@ -43,11 +43,11 @@ namespace aptk {
 
 		virtual ~StlSimpleSortedOpenList() { }
 
-		virtual	void 	insert( NodePtrType n ) {
+		virtual	void insert( NodePtrType n ) override {
 			this->push( n );
 		}
 
-		virtual NodePtrType get_next( ) {
+		virtual NodePtrType get_next() override {
 			assert( !is_empty() );
 			NodePtrType next = this->top();
 			this->pop();

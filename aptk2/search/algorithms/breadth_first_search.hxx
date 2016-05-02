@@ -44,13 +44,13 @@ public:
 	//! The constructor requires the user of the algorithm to inject both
 	//! (1) the state model to be used in the search
 	//! (2) the particular open and closed list objects
-	StlBreadthFirstSearch(const StateModel& model, OpenList* open) :
-		BaseClass(model, open, new ClosedList())
+	StlBreadthFirstSearch(const StateModel& model, OpenList&& open) :
+		BaseClass(model, std::move(open), ClosedList())
 	{}
 	
 	//! For convenience, a constructor where the open list is default-constructed
 	StlBreadthFirstSearch(const StateModel& model) :
-		StlBreadthFirstSearch(model, new OpenList())
+		StlBreadthFirstSearch(model, OpenList())
 	{}
 	
 	virtual ~StlBreadthFirstSearch() = default;

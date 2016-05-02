@@ -45,23 +45,17 @@ public:
 	//! The only allowed constructor requires the user of the algorithm to inject both
 	//! (1) the state model to be used in the search
 	//! (2) the particular heuristic object to be used to evaluate states
-	StlBestFirstSearch(const StateModel& model, Heuristic* heuristic, bool delayed) :
-		BaseClass(model, new OpenList(heuristic, delayed), new ClosedList()), heuristic_(heuristic)
+	StlBestFirstSearch(const StateModel& model, Heuristic&& heuristic, bool delayed) :
+		BaseClass(model, OpenList(std::move(heuristic), delayed), ClosedList())
 	{}
 	
-	virtual ~StlBestFirstSearch() {
-		delete heuristic_;
-	}
+	virtual ~StlBestFirstSearch() = default;
 	
 	// Disallow copy, but allow move
 	StlBestFirstSearch(const StlBestFirstSearch& other) = delete;
 	StlBestFirstSearch(StlBestFirstSearch&& other) = default;
 	StlBestFirstSearch& operator=(const StlBestFirstSearch& rhs) = delete;
 	StlBestFirstSearch& operator=(StlBestFirstSearch&& rhs) = default;
-	
-protected:
-	//! A pointer to the heuristic object belonging to this class.
-	Heuristic* heuristic_;
 }; 
 
 }
