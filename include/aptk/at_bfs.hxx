@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/search_prob.hxx>
 #include <aptk/resources_control.hxx>
 #include <aptk/closed_list.hxx>
+#include <aptk/ext_math.hxx> // no_such_index, infty
 #include <vector>
 #include <algorithm>
 #include <iostream>

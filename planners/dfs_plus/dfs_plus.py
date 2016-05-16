@@ -18,7 +18,7 @@ def main( domain_file, problem_file, plan_file ) :
 	# MRJ: Setting planner parameters is as easy as setting the values
 	# of Python object attributes
 	
-	# MRJ: Maximum bound on width is set to 1
+	# MRJ: Maximum bound on width is set to 2
 	task.iw_bound = 2 
 
 	# MRJ: log filename set

@@ -66,6 +66,8 @@ public:
 		this->m_goals_achieved.clear();
 		this->m_goal_candidates.clear();
 
+		cost = 0;
+
 		std::cout << std::endl << "Caption\n{#goals, #UNnachieved,  #Achieved} -> IW(max_w)"<<std::endl;
 
 		if( m_goal_agenda ){

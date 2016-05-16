@@ -41,7 +41,7 @@ class Layered_H_Max : public Heuristic<State> {
 
 	typedef STRIPS_Problem::Best_Supporter 	Best_Supporter;
 
-	static unsigned infinity() { return std::numeric_limits<unsigned>::infinity(); }
+	static unsigned infinity() { return std::numeric_limits<unsigned>::max(); }
 
 	Layered_H_Max( const Search_Model& prob ) 
 	: Heuristic<State>(prob), m_strips_model( prob.task() ) {

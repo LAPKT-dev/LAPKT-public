@@ -162,7 +162,8 @@ public:
 	
 		
 		for ( unsigned k = 0; k < G.size(); k++ ) 
-			m_rp_precs.set(G[k]);
+			//if ( !init_fluents().isset( G[k] ) )
+				m_rp_precs.set(G[k]);
 	
 		#ifdef DEBUG_RP_HEURISTIC	
 		std::cout << "\nRel Plan: ";
@@ -294,8 +295,9 @@ public:
 	void eval( const State& s, Cost_Type& h_out ) {
 		float h;
 		std::vector<Action_Idx> po;
-		eval( s, h, po);         
+		eval( s, h, po);
 		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
+		
 	}
 
 	

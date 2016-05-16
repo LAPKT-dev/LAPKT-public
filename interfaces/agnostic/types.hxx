@@ -53,8 +53,16 @@ namespace aptk
 	typedef		std::vector< std::pair<unsigned, unsigned> >   VarVal_Vec;
 
 
+// MRJ: April 2015: added this pre-processor guards while we transition to
+// a definitive solution for the problem posed by the location of these
+// macros
+#ifndef no_such_index
 #define no_such_index  std::numeric_limits<unsigned>::max()
-#define	infty          std::numeric_limits<float>::infinity()
+#endif
+
+#ifndef infty
+#define	infty          std::numeric_limits<float>::max()
+#endif
 
 	class Pair_Value_Table : public std::map< Fluent_Pair, unsigned >
 	{

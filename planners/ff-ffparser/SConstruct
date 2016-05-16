@@ -4,7 +4,7 @@ debug = ARGUMENTS.get( 'debug', 0 )
 common_env = Environment(ENV = os.environ)
 
 common_env.Append( CCFLAGS = [ '-Wall', '-std=c++11' ] )
-#common_env.Append( LINKFLAGS = [ '-static' ] )
+common_env.Append( LINKFLAGS = [ '-static' ] )
 
 if int(debug) == 1 :
         common_env.Append( CCFLAGS = ['-g',  '-DDEBUG' ] )

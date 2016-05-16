@@ -204,7 +204,7 @@
 
 /* max number of lnf effects in one action effect
  */
-#define MAX_LNF_EFFS 50
+#define MAX_LNF_EFFS 300
 
 
 

@@ -62,6 +62,8 @@ public:
 		State* new_init_state = NULL;
 		this->m_goals_achieved.clear();
 		this->m_goal_candidates.clear();
+		
+		cost = 0;
 
 		if ( this->verbose() )
 			std::cout << std::endl << "Caption\n{#goals, #UNnachieved,  #Achieved} -> IW(max_w)"<<std::endl;

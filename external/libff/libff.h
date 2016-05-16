@@ -36,6 +36,17 @@ namespace FF
 			init_atoms[i] = ginitial_state.F[i];
 	}
 
+	inline void 		get_initial_numeric_state( std::vector<float>& init_atoms )
+	{
+		init_atoms.resize( gnum_fl_conn );
+		for ( int i = 0; i < gnum_fl_conn; i++ )
+			if( ginitial_state.f_D[i] )
+				init_atoms[i] = ginitial_state.f_V[i];
+			else
+				init_atoms[i]= 0;
+	}
+
+
 	inline void		get_goal_state( std::vector<unsigned>& goal_atoms )
 	{
 		goal_atoms.resize( gnum_logic_goal );
@@ -401,6 +412,42 @@ namespace FF
 		}
 		str += ")";	
 		return str;
+	}
+
+	/**
+	 * Numerical Fluent
+	 */
+	inline std::string	get_fl_name( int index )
+	{
+		Fluent* f = &(grelevant_fluents[index]);
+		int j=0;
+		std::string str( "(" );
+		if(f->function > 0)
+			str += gfunctions[f->function];
+		else
+			std::cout << f->function << std::endl;
+	
+
+		for ( j=0; j<gf_arity[f->function]; j++ ) {
+			str += " ";
+						
+			if ( f->args[j] >= 0 ) {
+				str += gconstants[ (f->args)[j] ];
+			} else {
+				str += "x";
+				str += DECODE_VAR( f->args[j] );
+			}
+		}
+		str += ")";	
+		
+		//std::cout << str << " = " <<  ginitial_state.f_V[index]<< std::endl;
+
+		
+		
+		
+		return str;
+		
+
 	}
 
 }

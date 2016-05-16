@@ -36,7 +36,6 @@ public:
 
 	Bit_Set();
 	Bit_Set( unsigned sz );
-	~Bit_Set();
 
 	void			reset();
 	void 			resize( unsigned sz );
@@ -45,17 +44,16 @@ public:
 	void 			unset( unsigned f );
 	unsigned		isset( unsigned f ) const;
 	unsigned		next( unsigned f ) const;
-	void			compute_first();
-	unsigned		first() const;
-	unsigned		end()	const;
 
 	const Bit_Array&	bits() const;
 	Bit_Array&		bits();	
 	void			add( const Bit_Set& other );
 	void			set_intersection( const Bit_Set& lhs, const Bit_Set& rhs );
 	void			set_intersection( const Bit_Set& other );
+	void			set_union( const Bit_Set& other );
 
 	bool			contains( const Bit_Set& other ) const;
+	bool			intersects( const Bit_Set& other ) const;
 	void			remove( const Bit_Set& other );
 	
 	friend bool		do_intersect( const Bit_Set& lhs, const Bit_Set& rhs );
@@ -64,15 +62,37 @@ public:
 		return m_fset == other.m_fset;
 	}
 
+	unsigned min_elem(int lb=0) const;
+	unsigned min_missing(const Bit_Set& other) const;
+	unsigned max_index() const;
+	unsigned intersection_size(const Bit_Set& other) const;
+	unsigned size() const;
+
+	struct iterator {
+		const Bit_Set& s;
+		unsigned min;
+		iterator(const Bit_Set& s_, unsigned lb=0): s(s_), min(s.min_elem(lb)){}
+		unsigned operator*() const{ return min; }
+		iterator& operator++() { min = s.min_elem(min+1); return *this; }
+		bool operator==(const iterator& other) const { return &s == &other.s && min == other.min; } 
+		bool operator!=(const iterator& other) const { return ! (*this == other); }
+	};
+
+	iterator begin() const { return iterator(*this, 0); }
+	iterator end() const { return iterator(*this, m_fset.max_index()); }
+
+	static int bits_in_word(unsigned w);
+
 protected:
 
 	Bit_Array		m_fset;
-	unsigned		m_first;
+
+	static const int Mod37BitPosition[37];
+	static const unsigned bit_count[256];
 };
 
 inline void Bit_Set::set_all()
 {
-	m_first = 0;
 	bits().set_all();
 }
 
@@ -101,22 +121,11 @@ inline unsigned Bit_Set::isset( unsigned f ) const
 	return m_fset[f];
 }
 
-inline unsigned Bit_Set::first() const
-{
-	return m_first;
-}
-
 inline unsigned Bit_Set::next(unsigned f) const
 {
-	f++;
-	for (; f < bits().max_index(); f++ )
-		if ( bits()[f] ) return f;
-	return end();
+	return min_elem(f+1);
 }
 
-inline unsigned Bit_Set::end() const {
-	return std::numeric_limits<unsigned>::max();
-}
 
 inline Bit_Array& Bit_Set::bits( )
 {
@@ -148,15 +157,6 @@ inline void Bit_Set::set_intersection( const Bit_Set& lhs, const Bit_Set& rhs )
 
 }
 
-inline void Bit_Set::compute_first() {
-	m_first = end();
-	for ( unsigned i = 0; i < bits().max_index(); i++ )
-	{
-		m_first = ( m_fset[i] ? i : m_first );
-		if ( m_first != end() ) break;
-	}	
-}
-
 inline void Bit_Set::set_intersection( const Bit_Set& other )
 {
 	assert( m_fset.max_index() == other.m_fset.max_index()  );
@@ -167,12 +167,20 @@ inline void Bit_Set::set_intersection( const Bit_Set& other )
 	}
 }
 
+inline void Bit_Set::set_union( const Bit_Set& other ) {
+	assert( m_fset.max_index() == other.m_fset.max_index()  );
+	auto np = other.bits().npacks();
+	auto op = other.bits().packs();
+	for(unsigned p_idx = 0; p_idx < np; p_idx++) {
+		m_fset.packs()[p_idx] |= op[p_idx];
+	}
+}
 
 // Friend functions
 inline bool do_intersect( const Bit_Set& lhs, const Bit_Set& rhs )
 {
 	assert( lhs.m_fset.max_index() == rhs.m_fset.max_index() );
-	for ( unsigned k = 0; k < lhs.bits().max_index(); k++ )
+	for ( unsigned k : lhs )
 		if ( lhs.m_fset[k] && rhs.m_fset[k] ) return true;
 	return false;
 }
@@ -180,26 +188,106 @@ inline bool do_intersect( const Bit_Set& lhs, const Bit_Set& rhs )
 inline bool Bit_Set::contains( const Bit_Set& other ) const
 {
 	assert( other.m_fset.max_index() <= m_fset.max_index() );
-	unsigned k = other.first();
-	while ( k != end() )
-	{
-		if ( !m_fset[k] ) return false;
-		k = other.next(k);
-	}	
+	auto np = other.bits().npacks();
+	auto op = other.bits().packs();
+	for(unsigned p_idx = 0; p_idx < np; p_idx++) {
+		if(~m_fset.packs()[p_idx] & op[p_idx])
+			return false;
+	}
 	return true;
+
+}
+
+inline bool Bit_Set::intersects( const Bit_Set& other ) const
+{
+	assert( other.m_fset.max_index() <= m_fset.max_index() );
+	auto np = other.bits().npacks();
+	auto op = other.bits().packs();
+	for(unsigned p_idx = 0; p_idx < np; p_idx++) {
+		if(m_fset.packs()[p_idx] & op[p_idx])
+			return true;
+	}
+	return false;
 }
 
 inline void Bit_Set::remove( const Bit_Set& other )
 {
 	assert( other.m_fset.max_index() == m_fset.max_index() );
-	unsigned k = other.first();
-	while ( k != end() )
+	for ( unsigned k : other )
 	{
 		m_fset.unset(k);
 		k = other.next(k);
 	}
 }
 
+inline unsigned Bit_Set::min_elem(int lb) const {
+	// https://graphics.stanford.edu/~seander/bithacks.html#ZerosOnRightModLookup
+	auto packs = m_fset.packs();
+	int last_pack = lb/32;
+	int last_mask = (1 << (lb % 32)) - 1;
+	for(unsigned i = last_pack; i < m_fset.npacks(); i++){
+		if(packs[i] != 0){
+			auto p = packs[i] & ~last_mask;
+			if(p != 0)
+				return 32 * i + Mod37BitPosition[(p & -p)%37];
+			//The code above finds the number of zeros that are trailing on
+			//the right, so binary 0100 would produce 2. It makes use of the
+			//fact that the first 32 bit position values are relatively prime
+			//with 37, so performing a modulus division with 37 gives a unique
+			//number from 0 to 36 for each. These numbers may then be mapped
+			//to the number of zeros using a small lookup table.
+		}
+		last_mask = 0;
+	}
+	return m_fset.max_index();
+}
+
+inline unsigned Bit_Set::min_missing(const Bit_Set& other ) const {
+	assert( other.m_fset.max_index() == m_fset.max_index() );
+	auto packs = m_fset.packs();
+	auto opacks = other.m_fset.packs();
+
+	for(unsigned i = 0; i < m_fset.npacks(); i++){
+		auto p = opacks[i] & ~packs[i];
+		if(p != 0){
+			return 32 * i + Mod37BitPosition[(p & -p)%37];
+		}
+	}
+	return max_index();
+}
+
+inline unsigned Bit_Set::max_index() const {
+	return m_fset.max_index();
+}
+
+inline int Bit_Set::bits_in_word(unsigned p){
+	return bit_count[p%256] +
+		bit_count[(p>>8)%256] +
+		bit_count[(p>>16)%256] +
+		bit_count[(p>>24)%256];
+}
+
+inline unsigned Bit_Set::size() const {
+	unsigned ret=0;
+	auto packs = m_fset.packs();
+	for(unsigned i = 0; i < m_fset.npacks(); i++){
+		auto p = packs[i];
+		ret += bits_in_word(p);
+	}
+	return ret;
+}
+
+inline unsigned Bit_Set::intersection_size(const Bit_Set& other ) const {
+	unsigned ret=0;
+	auto packs = m_fset.packs();
+	auto opacks = other.m_fset.packs();
+	assert(other.max_index() >= max_index());
+	for(unsigned i = 0; i < m_fset.npacks(); i++){
+		auto p = opacks[i] & packs[i];
+		ret += bits_in_word(p);
+	}
+	return ret;
+}
 
 }
 

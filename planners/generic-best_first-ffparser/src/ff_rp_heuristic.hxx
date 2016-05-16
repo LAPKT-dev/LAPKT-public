@@ -127,8 +127,10 @@ public:
 			const Action* sup = m_base_heuristic.best_supporter( n.m_fluent );
 			if ( sup == NULL ) // No best supporter for fluent
 			{
-				std::cerr << "No best supporter found for goal fluent ";
-				std::cerr << m_strips_model.fluents()[n.m_fluent]->signature() << std::endl;
+				if(n.m_h > 0){
+					std::cerr << "No best supporter found for goal fluent ";
+					std::cerr << m_strips_model.fluents()[n.m_fluent]->signature() << std::endl;
+				}
 				return;
 			}
 			std::pair< const Action*, int > rp_entry;
