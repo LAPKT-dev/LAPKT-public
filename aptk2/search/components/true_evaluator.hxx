@@ -21,8 +21,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __TRUE_EVALUATOR__
-#define __TRUE_EVALUATOR__
+#pragma once
 
 //! An evaluator that always accepts to insert any given state
 template <typename NodeType>
@@ -31,6 +30,3 @@ public:
 	//! Accept any state
 	bool accept(const NodeType& n) { return true; }
 };
-
-
-#endif

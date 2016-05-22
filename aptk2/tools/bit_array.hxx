@@ -18,8 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __BITARRAY__
-#define __BITARRAY__
+#pragma once
 
 #include <cstring>
 #include <cassert>
@@ -150,5 +149,3 @@ protected:
 };
 
 }
-
-#endif // bitarray.hxx

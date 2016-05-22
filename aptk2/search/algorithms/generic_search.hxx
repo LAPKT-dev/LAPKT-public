@@ -24,68 +24,66 @@ Additional note:
 Concepts borrowed from Ethan Burn's heuristic search framework.
 */
 
-#ifndef __GENERIC_SEARCH__
-#define __GENERIC_SEARCH__
+#pragma once
 
-#include <aptk2/search/interfaces/search_algorithm.hxx>
 #include <algorithm>
 #include <memory>
-#ifdef DEBUG
-	#include <iostream>
-#endif
+
+#include <aptk2/search/interfaces/search_algorithm.hxx>
+#include <aptk2/tools/logging.hxx>
 
 namespace aptk {
 
 	//! This class implements the classic blind search algorithm, GenericSearch
-	template < 	typename NodeType,
-			typename OpenList,
-			typename ClosedList,
-			typename StateModel >
+	template <typename NodeType,
+	          typename OpenList,
+	          typename ClosedList,
+	          typename StateModel>
 	class GenericSearch : public SearchAlgorithm< StateModel > {
 	public:
-		typedef	SearchAlgorithm< StateModel >	BaseClass;
-		typedef OpenList			OpenListType;
-		typedef ClosedList			ClosedListType;
-		typedef typename StateModel::StateType	State;
+		typedef SearchAlgorithm< StateModel >  BaseClass;
+		typedef typename StateModel::StateType State;
+		typedef std::shared_ptr<NodeType>      NodePtrType;
 
-		typedef std::shared_ptr<NodeType>	NodePtrType;
-
-		GenericSearch( const StateModel& _model ) :
-			BaseClass( _model ) {
-		}
-
+		//! The only allowed constructor requires the user of the algorithm to inject both
+		//! (1) the state model to be used in the search
+		//! (2) the open list object to be used in the search
+		//! (3) the closed list object to be used in the search
+		GenericSearch(const StateModel& model, OpenList&& open, ClosedList&& closed) :
+			BaseClass(model), _open(std::move(open)), _closed(std::move(closed)) {}
+	
 		virtual ~GenericSearch() {}
+		
+		// Disallow copy, but allow move
+		GenericSearch(const GenericSearch& other) = delete;
+		GenericSearch(GenericSearch&& other) = default;
+		GenericSearch& operator=(const GenericSearch& rhs) = delete;
+		GenericSearch& operator=(GenericSearch&& rhs) = default;
 
-		virtual bool search( const State& s, typename BaseClass::Plan& solution ) {
+		virtual bool search( const State& s, typename BaseClass::Plan& solution ) override {
 			NodePtrType n = std::make_shared<NodeType>( s );
-			open.insert( n );
+			_open.insert( n );
 			BaseClass::generated++;
 
-			while ( !open.is_empty() ) {
-				NodePtrType current = open.get_next( );
-				#ifdef DEBUG
-				current->print( std::cout );
-				std::cout << std::endl;
-				#endif
+			while ( !_open.is_empty() ) {
+				NodePtrType current = _open.get_next( );
+				LPT_DEBUG("cout", *current);
 				
-				if ( BaseClass::model.goal( current->state ) ) {
-					// Solution found, we're done
-					#ifdef DEBUG
-					std::cout << "Goal found!" << std::endl;
-					#endif
+				if ( BaseClass::model.goal( current->state ) ) { // Solution found, we're done
+					LPT_INFO("cout", "Goal found");
 					retrieve_solution( current, solution );
 					return true;
 				}
 
 				// close the node before the actual expansion so that children which are identical
 				// to 'current' get properly discarded
-				closed.put( current );
+				_closed.put( current );
 				
 				for ( const auto& a : BaseClass::model.applicable_actions( current->state ) ) {
 					State s_a = BaseClass::model.next( current->state, a );
 					NodePtrType succ = std::make_shared<NodeType>( std::move(s_a), a, current );
-					if ( closed.check( *succ ) ) continue;
-					open.insert( succ );
+					if ( _closed.check( *succ ) ) continue;
+					_open.insert( succ );
 					BaseClass::generated++;
 				}
 
@@ -94,7 +92,7 @@ namespace aptk {
 			return false;
 		}
 
-		virtual	void retrieve_solution( NodePtrType n, typename BaseClass::Plan& solution ) {
+		virtual void retrieve_solution( NodePtrType n, typename BaseClass::Plan& solution ) {
 			NodePtrType tmp = n;
 			while ( tmp->has_parent() ) {
 				solution.push_back( tmp->action );
@@ -103,13 +101,10 @@ namespace aptk {
 			std::reverse( solution.begin(), solution.end() );
 		}
 
-
-		OpenListType	open;
-		ClosedListType	closed;
-		int _test;
+		//! The open list
+		OpenList _open;
 		
+		//! The closed list
+		ClosedList _closed;
 	};
-
 }
-
-#endif // generic_search.hxx

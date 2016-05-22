@@ -1,5 +1,5 @@
-#ifndef __HEURISTICS_EXAMPLE__
-#define __HEURISTICS_EXAMPLE__
+
+#pragma once
 
 #include <py_fod_problem.hxx>
 
@@ -15,5 +15,3 @@ class Heuristics_Example : public FOD_Problem {
 
 	private:
 };
-
-#endif // heuristics_example.hxx

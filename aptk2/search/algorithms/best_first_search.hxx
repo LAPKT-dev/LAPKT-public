@@ -19,8 +19,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __BEST_FIRST_SEARCH__
-#define __BEST_FIRST_SEARCH__
+
+#pragma once
 
 #include <aptk2/search/algorithms/generic_search.hxx>
 #include <aptk2/search/components/sorted_open_list_impl.hxx>
@@ -28,36 +28,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace aptk {
 
-	//! Partial specialization, type of node and state model are left to be defined
-	template < typename NodeType, typename Heuristic, typename StateModel >
-	class StlBestFirstSearch : public GenericSearch< NodeType, 
-							StlSortedOpenList< NodeType, Heuristic > , 
-							StlUnorderedMapClosedList< NodeType >, 
-							StateModel > {
-
-	public:
-		typedef GenericSearch< 	NodeType, 
-					StlSortedOpenList< NodeType, Heuristic >, 
-					StlUnorderedMapClosedList<NodeType>, 
-					StateModel >	BaseClass;
-		
-		//! The first constructor gets injected the heuristic object
-		StlBestFirstSearch( const StateModel& model, Heuristic&& heuristic ) :
-			BaseClass(model), heuristic_function( std::move(heuristic)) {
-			BaseClass::open.set_heuristic( &heuristic_function );
-		}
-		
-		StlBestFirstSearch( const StateModel& model, const Heuristic& heuristic ) :
-			StlBestFirstSearch(model, Heuristic(heuristic)) {}
-		
-		StlBestFirstSearch( const StateModel& model ) :
-			StlBestFirstSearch(model, Heuristic(model)) {}
-		
-		virtual ~StlBestFirstSearch() {}
-
-		Heuristic 	heuristic_function;
-	}; 
+//! Partial specialization of the GenericSearch algorithm:
+//! A best-first search is a generic search with an open list sorted by a certain (given) heuristic
+//! and a standard unsorted closed list. Type of node and state model are still generic.
+template < typename NodeType, typename Heuristic, typename StateModel >
+class StlBestFirstSearch : public GenericSearch<NodeType, 
+                                                StlSortedOpenList<NodeType, Heuristic>, 
+                                                StlUnorderedMapClosedList<NodeType>,
+                                                StateModel>
+{
+public:
+	typedef StlSortedOpenList<NodeType, Heuristic> OpenList;
+	typedef StlUnorderedMapClosedList<NodeType> ClosedList;
+	typedef GenericSearch<NodeType, OpenList, ClosedList, StateModel> BaseClass;
+	
+	//! The only allowed constructor requires the user of the algorithm to inject both
+	//! (1) the state model to be used in the search
+	//! (2) the particular heuristic object to be used to evaluate states
+	StlBestFirstSearch(const StateModel& model, Heuristic&& heuristic, bool delayed) :
+		BaseClass(model, OpenList(std::move(heuristic), delayed), ClosedList())
+	{}
+	
+	virtual ~StlBestFirstSearch() = default;
+	
+	// Disallow copy, but allow move
+	StlBestFirstSearch(const StlBestFirstSearch& other) = delete;
+	StlBestFirstSearch(StlBestFirstSearch&& other) = default;
+	StlBestFirstSearch& operator=(const StlBestFirstSearch& rhs) = delete;
+	StlBestFirstSearch& operator=(StlBestFirstSearch&& rhs) = default;
+}; 
 
 }
-
-#endif // best_first_search.hxx

@@ -21,8 +21,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __CLOSED_LIST__
-#define __CLOSED_LIST__
+#pragma once
 
 #include <utility>
 #include <memory>
@@ -47,5 +46,3 @@ namespace aptk {
 	};
 
 }
-
-#endif

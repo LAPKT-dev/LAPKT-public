@@ -24,14 +24,16 @@ Additional note:
 Concepts borrowed from Ethan Burn's heuristic search framework.
 */
 
-#ifndef __HYBRID_SEARCH_ALGORITHM__
-#define __HYBRID_SEARCH_ALGORITHM__
+#pragma once
 
 #include <vector>
 #include <iostream>
 #include <tuple>
 #include <map>
 #include <string>
+
+#include <aptk2/tools/logging.hxx>
+
 
 namespace aptk {
 
@@ -86,7 +88,7 @@ namespace aptk {
 
 		//! Convenience method for when we are interested in starting from the initial state
 		virtual bool solve_model( Plan& solution ) {
-			std::cout << "Solving model" << std::endl;
+			LPT_INFO("cout", "Solving model");
 			return search( model.init(), solution );
 		}
 
@@ -109,5 +111,3 @@ namespace aptk {
 	};
 
 }
-
-#endif

@@ -1,5 +1,5 @@
-#ifndef __FOD_PROBLEM__
-#define __FOD_PROBLEM__
+
+#pragma once
 
 #include <gp_atoms.hxx>
 #include <iosfwd>
@@ -149,5 +149,3 @@ namespace aptk {
 	};
 
 }
-
-#endif // fond_model.hxx

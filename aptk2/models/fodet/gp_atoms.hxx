@@ -1,5 +1,5 @@
-#ifndef __GP_WFF__
-#define __GP_WFF__
+
+#pragma once
 
 #include <cassert>
 #include <limits>
@@ -308,5 +308,3 @@ class Clause {
 
 }
 
-
-#endif // gp_wff.hxx

@@ -21,9 +21,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#ifndef __STL_UNSORTED_LIFO_OPEN_LIST__
-#define __STL_UNSORTED_LIFO_OPEN_LIST__
+#pragma once
 
 #include <aptk2/search/interfaces/open_list.hxx>
 #include <deque>
@@ -39,20 +37,18 @@ namespace aptk {
 
 		virtual ~StlUnsortedLIFO() { }
 
-		virtual	void 	insert( NodePtrType n ) {
+		virtual	void insert( NodePtrType n ) override {
 			this->push_back( n );
 		}
 
-		virtual NodePtrType get_next( ) {
+		virtual NodePtrType get_next( ) override {
 			assert( !empty() );
 			return this->pop_back();
 		}
 
-		virtual bool empty() { 
+		virtual bool empty() const override { 
 			return this->empty();
 		}
 	};
 
 }
-
-#endif // stl_unsorted_fifo_open_list.hxx

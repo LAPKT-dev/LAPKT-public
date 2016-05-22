@@ -24,8 +24,7 @@ Additional note:
 Concepts borrowed from Ethan Burns' heuristic search framework.
 */
 
-#ifndef __OPEN_LIST__
-#define __OPEN_LIST__
+#pragma once
 
 #include <memory>
 
@@ -50,12 +49,6 @@ namespace aptk {
 		virtual NodePtrType get_next( ) = 0;
 
 		//! Returns true if there are no more nodes to be processed
-		virtual bool	is_empty() = 0;
-
+		virtual bool is_empty() const = 0;
 	};
-	
 }
-
-
-#endif // open_list.hxx
-

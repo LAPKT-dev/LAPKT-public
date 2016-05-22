@@ -1,5 +1,5 @@
-#ifndef __APTK_TIME__
-#define __APTK_TIME__
+
+#pragma once
 
 #include <sys/resource.h>
 #include <sys/time.h>
@@ -23,5 +23,3 @@ namespace aptk {
 	}
 
 }
-
-#endif // time.hxx
