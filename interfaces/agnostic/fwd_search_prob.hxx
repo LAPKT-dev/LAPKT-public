@@ -23,8 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <strips_prob.hxx>
 #include <aptk/search_prob.hxx>
-#include <strips_state.hxx>
 #include <action.hxx>
+
+#include <strips_state.hxx>
 
 namespace aptk {
 
@@ -48,7 +49,8 @@ public:
 	virtual void		applicable_set( const State& s, std::vector<Action_Idx>& app_set ) const;
 	virtual void		applicable_set_v2( const State& s, std::vector<Action_Idx>& app_set ) const;	
 	virtual float		cost( const State& s, Action_Idx a ) const;
-	virtual State*		next( const State& s, Action_Idx a ) const;
+        virtual State*		next( const State& s, Action_Idx a, Fluent_Vec* added, Fluent_Vec* deleted ) const;
+    virtual State*		next( const State& s, Action_Idx a ) const;
 	virtual void		print( std::ostream& os ) const;
 
 	STRIPS_Problem&		task() 		{ return *m_task; }

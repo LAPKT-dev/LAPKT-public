@@ -107,6 +107,13 @@ State*	Fwd_Search_Problem::next( const State& s, Action_Idx a ) const {
 	return succ;
 }
 
+State*	Fwd_Search_Problem::next( const State& s, Action_Idx a, Fluent_Vec* added, Fluent_Vec* deleted ) const {
+	const Action& act = *(task().actions().at(a));
+	State* succ = s.progress_through( act, added, deleted );
+	succ->update_hash();
+	return succ;
+}
+
 
 void	Fwd_Search_Problem::print( std::ostream& os ) const {
 	task().print( os );

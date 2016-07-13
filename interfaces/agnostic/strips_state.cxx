@@ -75,7 +75,7 @@ State* State::progress_through_df( const Action& a ) const
 }
 
 
-State* State::progress_through( const Action& a ) const
+State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* deleted ) const
 {
 
 	assert( a.can_be_applied_on(*this) );
@@ -85,8 +85,12 @@ State* State::progress_through( const Action& a ) const
 
 	for ( unsigned k = 0; k < m_fluent_vec.size(); k++ ) 
 	{
-		if ( a.retracts(m_fluent_vec[k]) ) 
+		if ( a.retracts(m_fluent_vec[k]) ){
+			if(deleted)
+				deleted->push_back( m_fluent_vec[k] );
 			continue;
+		}
+		
 		if ( a.ceff_vec().empty() ) // it's not deleted by un-conditional effects, and there are no c.effs
 			succ->set( m_fluent_vec[k] );
 		//Check Conditional Effects
@@ -102,12 +106,25 @@ State* State::progress_through( const Action& a ) const
 				break;
 			}
 		}
-		if( retracts ) continue;
+		if( retracts ){
+			if(deleted)
+				deleted->push_back( m_fluent_vec[k] );
+			continue;
+		}
 		succ->set( m_fluent_vec[k] );
 	}
 
+	for ( unsigned i = 0; i < a.add_vec().size(); i++ )
+	{
+		unsigned p = a.add_vec()[i];
+		if ( !entails(p) )
+		{
+			succ->set( p );
+			if(added)
+			    added->push_back(p);
+		}
+	}
 	
-	succ->set( a.add_vec() );
 
 	//Add Conditional Effects
 	if( a.ceff_vec().empty() )
@@ -117,7 +134,16 @@ State* State::progress_through( const Action& a ) const
 	{
 		Conditional_Effect* ce = a.ceff_vec()[i];
 		if( !ce->can_be_applied_on( *this ) ) continue;
-		succ->set( ce->add_vec() );
+		for ( unsigned j = 0; j < ce->add_vec().size(); j++ )
+		{
+			unsigned p = ce->add_vec()[j];
+			if ( !entails(p) )
+			{
+				succ->set( p );
+				if(added)				    
+				    added->push_back(p);
+			}
+		}
 	}       	
 
 	return succ;

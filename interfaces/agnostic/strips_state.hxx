@@ -56,7 +56,7 @@ public:
 	size_t	hash() const;
 	void	update_hash();
 
-	State*	progress_through( const Action& a ) const;
+	State*	progress_through( const Action& a, Fluent_Vec* added = NULL, Fluent_Vec* deleted = NULL ) const;
 
 	State*	progress_through_df( const Action& a ) const;
 
