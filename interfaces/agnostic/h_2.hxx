@@ -190,6 +190,15 @@ public:
 			}		
 	}
 
+	void compute_mutexes_only( const State& s ){
+		initialize( s );
+		compute_mutexes_only();
+		
+#ifdef DEBUG
+		print_values(std::cout);
+#endif
+	}
+
 	void compute_edeletes( STRIPS_Problem& prob ){
 		m_already_updated.reset();
 		m_updated.clear();
