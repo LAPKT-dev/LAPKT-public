@@ -575,6 +575,11 @@ protected:
 								m_updated.push_back( curr_idx );
 								m_already_updated.set( curr_idx );
 							}
+							curr_idx = H2_Helper::pair_index(p,p);
+							if ( !m_already_updated.isset( curr_idx ) ) {
+								m_updated.push_back( curr_idx );
+								m_already_updated.set( curr_idx );
+							}
 						}													
 					}
 
