@@ -72,7 +72,7 @@ namespace aptk
 		unsigned get_value( unsigned p, unsigned q )
 			{
 				pv_iterator it = find( std::make_pair(p,q) );
-				if ( it == end() ) return infty;
+				if ( it == end() ) return no_such_index;
 				return it->second;
 			}
 
