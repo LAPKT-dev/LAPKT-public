@@ -277,7 +277,10 @@ class Literal(Condition):
     parts = []
     def __init__(self, predicate, args):
         self.predicate = predicate
-        self.args = tuple(args)
+        if any(isinstance(x, list) for x in args):
+            self.args = tuple(tuple(x) for x in args)
+        else:
+            self.args = tuple(args)
         self.hash = hash((self.__class__, self.predicate, self.args))
     def __eq__(self, other):
         # Compare hash first for speed reasons.
