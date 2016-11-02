@@ -39,9 +39,9 @@ class H_Max_Evaluation_Function  {
 
 public:
 
-	H_Max_Evaluation_Function( std::vector<float>& value_table ) 
+	H_Max_Evaluation_Function( std::vector<float>& value_table )
 	: m_values( value_table ) {
-	}	
+	}
 
 	float	operator()( Fluent_Vec::const_iterator begin, Fluent_Vec::const_iterator end, float v2 = 0.0f ) const {
 		float v = v2;
@@ -49,7 +49,7 @@ public:
 			v = ( v < m_values[*it] ? m_values[*it] : v );
 			//if ( v == infty ) return v;
 		}
-		return v;	
+		return v;
 	}
 
 private:
@@ -61,18 +61,18 @@ private:
 class H_Add_Evaluation_Function {
 
 public:
-	H_Add_Evaluation_Function( std::vector<float>& value_table ) 
+	H_Add_Evaluation_Function( std::vector<float>& value_table )
 	: m_values( value_table ) {
-	}	
+	}
 
 	float	operator()( Fluent_Vec::const_iterator begin, Fluent_Vec::const_iterator end, float v2 = 0.0f ) const {
 		float v = v2;
 		for ( Fluent_Vec::const_iterator it = begin; it != end; it++ ) {
-			if ( m_values[*it] == infty ) 
+			if ( m_values[*it] == infty )
 				return infty;
 			v += m_values[*it];
 		}
-		return v;	
+		return v;
 	}
 private:
 
@@ -88,7 +88,7 @@ public:
 
 	typedef STRIPS_Problem::Best_Supporter 	Best_Supporter;
 
-	H1_Heuristic( const Search_Model& prob ) 
+	H1_Heuristic( const Search_Model& prob )
 	: Heuristic<State>( prob ), m_strips_model( prob.task() ), eval_func(m_values) {
 		m_values.resize( m_strips_model.num_fluents() );
 		m_difficulties.resize( m_strips_model.num_fluents() );
@@ -127,20 +127,20 @@ public:
 
 	float 	value( unsigned p ) const { return m_values[p]; }
 
-	
+
 
         template <typename Search_Node>
         void eval( const Search_Node* n, float& h_val, std::vector<Action_Idx>& pref_ops) {
-		eval(n->state(), h_val, pref_ops);				
+		eval(n->state(), h_val, pref_ops);
 	}
 
-	
+
         template <typename Search_Node>
         void eval( const Search_Node* n, float& h_val ) {
-		
+
 		eval(n->state(),h_val);
 	}
-	
+
 	virtual void eval( const Fluent_Vec& s, float& h_val ) {
 		h_val = eval_func( s.begin(), s.end() );
 	}
@@ -150,21 +150,21 @@ public:
 		float h;
 		m_already_updated.reset();
 		m_updated.clear();
-		initialize(s);				
+		initialize(s);
 		compute();
-		h = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );		
+		h = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );
 		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
-		
+
 	}
 
-	
+
 	virtual void eval_reachability( const State& s, float& h_val, Fluent_Vec* persist_fluents = NULL ) {
 		m_already_updated.reset();
 		m_updated.clear();
 		initialize(s);
 		compute_reachability( persist_fluents );
 		h_val = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );
-		
+
 	}
 
 	virtual void eval( const State& s, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
@@ -177,20 +177,20 @@ public:
 				os << "h1/add({ ";
 				os << m_strips_model.fluents()[p]->signature();
 				os << "}) = " << m_values[p] << std::endl;
-			}		
+			}
 	}
 
 	Best_Supporter	get_best_supporter( unsigned f ) const {
 		return m_best_supporters[f];
 	}
-    
+
         void get_best_supporters( unsigned f, Action_Ptr_Const_Vec& bfs ) const {
-		
+
 		if(m_best_supporters[f].act_idx == no_such_index ) return;
 
 	        const Action* bf = m_strips_model.actions()[ m_best_supporters[f].act_idx ];
 
-		float h_val_bf = eval_func( bf->prec_vec().begin(), bf->prec_vec().end() ); 
+		float h_val_bf = eval_func( bf->prec_vec().begin(), bf->prec_vec().end() );
 		float h_val = 0;
 
 		if ( !bf->asserts(f) ) { // added by conditional effect
@@ -204,10 +204,10 @@ public:
 			}
 
 			assert( !dequal(min_cond_h,infty) );
-			h_val_bf = min_cond_h; 
+			h_val_bf = min_cond_h;
 		}
 
-		const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( f );   
+		const std::vector<const Action*>& add_acts = m_strips_model.actions_adding( f );
 
 		for ( unsigned k = 0; k < add_acts.size(); k++ ){
 			const Action* a = add_acts[k];
@@ -222,7 +222,7 @@ public:
 					}
 				}
 				assert( !dequal(min_cond_h,infty) );
-				h_val = min_cond_h;			
+				h_val = min_cond_h;
 			}
 			if ( dequal(h_val, h_val_bf ) )
 				bfs.push_back(a);
@@ -237,7 +237,7 @@ protected:
 		if ( !m_already_updated.isset( p ) ) {
 			m_updated.push_back( p );
 			m_already_updated.set( p );
-		}		
+		}
 	}
 
 	void	update( unsigned p, float v, Best_Supporter bs ) {
@@ -260,7 +260,7 @@ protected:
 
 	void	update( unsigned p, float v, unsigned act_idx, unsigned eff_idx ) {
 		if ( v > m_values[p] ) return;
-		if ( v > 0.0f && dequal( v, m_values[p] ) ) {
+		if ( v >= 0.0f && dequal( v, m_values[p] ) ) {
 			Best_Supporter candidate( act_idx, eff_idx );
 			float candidate_diff = eval_diff( candidate );
 			if ( candidate_diff < m_difficulties[p] ) {
@@ -284,10 +284,10 @@ protected:
 		if ( !m_already_updated.isset( p ) ) {
 			m_updated.push_back( p );
 			m_already_updated.set( p );
-		}		
+		}
 	}
 
-	void	initialize( const State& s ) 
+	void	initialize( const State& s )
 	{
 		for ( unsigned k = 0; k < m_strips_model.num_fluents(); k++ ) {
 		        m_values[k] = m_difficulties[k] = infty;
@@ -296,9 +296,9 @@ protected:
 
 		for ( unsigned k = 0; k < m_strips_model.empty_prec_actions().size(); k++ ) {
 			const Action& a = *(m_strips_model.empty_prec_actions()[k]);
-			float v =  ( cost_opt == H1_Cost_Function::Ignore_Costs ? 1.0f : 
+			float v =  ( cost_opt == H1_Cost_Function::Ignore_Costs ? 1.0f :
 					( cost_opt == H1_Cost_Function::Use_Costs ? (float)a.cost()  : 1.0f + (float)a.cost()) );
-			
+
 			for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 				it != a.add_vec().end(); it++ )
 			    update( *it, v, a.index(), no_such_index );
@@ -313,13 +313,13 @@ protected:
 				    update( *it, v_eff, a.index(), j );
 			}
 		}
-	
-		for ( Fluent_Vec::const_iterator it = s.fluent_vec().begin(); 
+
+		for ( Fluent_Vec::const_iterator it = s.fluent_vec().begin();
 			it != s.fluent_vec().end(); it++ )
 			set( *it, 0.0f );
 	}
 
-	void	compute(  ) 
+	void	compute(  )
 	{
 
 		while ( !m_updated.empty() ) {
@@ -398,12 +398,12 @@ protected:
 
 				//std::cout << "Action considered: " << a.signature() << std::endl;
 				bool relevant =  a.prec_set().isset(p);
-				
+
 				for ( unsigned j = 0; j < a.ceff_vec().size() && !relevant; j++ ) {
 					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
 					relevant = relevant || ceff.prec_set().isset(p);
 				}
-				
+
 				if ( !relevant ) {
 					//i = it.next();
 					continue;
@@ -416,7 +416,7 @@ protected:
 
 				//std::cout << "Action " << i << ". " << a.signature() << " relevant" << std::endl;
 
-				float v = ( cost_opt == H1_Cost_Function::Ignore_Costs ?  
+				float v = ( cost_opt == H1_Cost_Function::Ignore_Costs ?
 						1.0f + h_pre :
 						( cost_opt == H1_Cost_Function::Use_Costs ?
 							(float)a.cost() + h_pre :
@@ -432,7 +432,7 @@ protected:
 					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
 					float h_cond = eval_func( ceff.prec_vec().begin(), ceff.prec_vec().end(), h_pre );
 					if ( h_cond == infty ) continue;
-					float v_eff = ( cost_opt == H1_Cost_Function::Ignore_Costs ?  
+					float v_eff = ( cost_opt == H1_Cost_Function::Ignore_Costs ?
 						1.0f + h_cond :
 						( cost_opt == H1_Cost_Function::Use_Costs ?
 							(float)a.cost() + h_cond :
@@ -447,17 +447,17 @@ protected:
 			}
 		}
 	}*/
-	
-	void	compute_reachability( Fluent_Vec* persist_fluents = NULL ) 
+
+	void	compute_reachability( Fluent_Vec* persist_fluents = NULL )
 	{
 		std::vector< const Action*>::const_iterator it_a =  m_strips_model.actions().begin();
 		for (Bool_Vec::iterator it = m_allowed_actions.begin(); it != m_allowed_actions.end(); it++, it_a++){
 			//		for ( unsigned i = 0; i < m_strips_model.num_actions(); i++ ) {
 			//m_allowed_actions[i]=true;
 			*it = true;
-			
+
 			if(! persist_fluents ) continue;
-			
+
 			//const Action& a = *(m_strips_model.actions()[i]);
 
 			/**
@@ -488,19 +488,19 @@ protected:
 			Bool_Vec::iterator it_allowed = m_allowed_actions.begin();
 			for ( unsigned i = 0; i < m_strips_model.num_actions(); i++, it_allowed++ ) {
 				const Action& a = *(m_strips_model.actions()[i]);
-				
+
 				//if( ! m_allowed_actions[ i ] )
 				if(! *it_allowed )
 					continue;
 
 				//std::cout << "Action considered: " << a.signature() << std::endl;
 				bool relevant =  a.prec_set().isset(p);
-				
+
 				for ( unsigned j = 0; j < a.ceff_vec().size() && !relevant; j++ ) {
 					const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
 					relevant = relevant || ceff.prec_set().isset(p);
 				}
-				
+
 				if ( !relevant ) {
 					//i = it.next();
 					continue;
@@ -534,7 +534,7 @@ protected:
 			}
 		}
 	}
-		
+
 protected:
 
 	const STRIPS_Problem&			m_strips_model;
