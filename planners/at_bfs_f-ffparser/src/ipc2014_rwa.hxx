@@ -95,16 +95,7 @@ namespace ipc2014 {
 				path.push_front(n);
 				n = n->parent();
 			}while( n );
-			/*
-			do{
-				*rit = n;
-				rit++;
-				n = n->parent();
-				
-			}while( n );
-			*/
-			//if(rit != path.rend())
-			//	*rit = NULL;
+
 			//std::cout << "Updating Land Graph up to: " << path.size() << std::flush;
 			  
 			lgm->reset_graph();
