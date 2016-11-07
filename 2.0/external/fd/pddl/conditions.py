@@ -271,13 +271,23 @@ class ExistentialCondition(QuantifiedCondition):
     def has_existential_part(self):
         return True
 
+
+def to_tuple(item):
+    """
+    Convert nested lists into tuple
+    """
+    if isinstance(item, list):
+        return tuple(map(to_tuple, item))
+    return item
+
+
 class Literal(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
     __hash__ = Condition.__hash__
     parts = []
     def __init__(self, predicate, args):
         self.predicate = predicate
-        self.args = tuple(args)
+        self.args = to_tuple(args)
         self.hash = hash((self.__class__, self.predicate, self.args))
     def __eq__(self, other):
         # Compare hash first for speed reasons.
@@ -302,8 +312,8 @@ class Literal(Condition):
     def _dump(self):
         return str(self)
     def text( self ) :
-	if len(self.args) == 0 :
-		return "%s"%self.predicate
+        if len(self.args) == 0 :
+            return "%s"%self.predicate
         return "%s_%s"%(self.predicate,"_".join(map(str,self.args)))
 
     def change_parts(self, parts):
