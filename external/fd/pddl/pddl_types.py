@@ -10,8 +10,14 @@ class Type(object):
     def __init__(self, name, basetype_name=None):
         self.name = name
         self.basetype_name = basetype_name
+        self.supertype_names = set()
+
+    def add_supertype(type_name):
+        self.supertype_names.add(type_name)
+
     def __str__(self):
         return self.name
+
     def __repr__(self):
         return "Type(%s, %s)" % (self.name, self.basetype_name)
 
@@ -24,7 +30,7 @@ def set_supertypes(type_list):
         if type.basetype_name:
             child_types.append((type.name, type.basetype_name))
     for (desc_name, anc_name) in graph.transitive_closure(child_types):
-        typename_to_type[desc_name].supertype_names.append(anc_name)
+        typename_to_type[desc_name].add_supertype(anc_name)
 
 
 class TypedObject(object):
