@@ -5,8 +5,8 @@
 vm1 - virtualdomain
 vm2 - virtualdomain
 libvirt - daemon
-freeda1 - node
-freeda2 - node
+node1 - node
+node2 - node
 
 sg0 - softgoalorder
 sg1 - softgoalorder

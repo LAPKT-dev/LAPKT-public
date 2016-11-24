@@ -18,7 +18,7 @@
   (:predicates
 	  (on ?n - node ?d - resource)  
 	  (defined_on ?n - node ?r - resource)
-	  (stat ?vm - virtualdomain ?s - status)
+	  (stat ?vm - resource ?s - status)
 	  (started-softgoal-order ?v0 - virtualdomain ?v1 - softgoalorder )
 	  (current-softgoal ?v0 - softgoalorder )
 	  (next-softgoal ?v0 - softgoalorder ?v1 - softgoalorder )
@@ -34,6 +34,7 @@
 	  :parameters (?n - node ?d - daemon)
 	  :precondition (and
 			  (normal-mode)
+			  (not (on ?n ?d))
 			)
 	  :effect (and
 		      (on ?n ?d)
