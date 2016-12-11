@@ -260,7 +260,7 @@ protected:
 
 	void	update( unsigned p, float v, unsigned act_idx, unsigned eff_idx ) {
 		if ( v > m_values[p] ) return;
-		if ( v >= 0.0f && dequal( v, m_values[p] ) ) {
+		if ( v > 0.0f && dequal( v, m_values[p] ) ) {
 			Best_Supporter candidate( act_idx, eff_idx );
 			float candidate_diff = eval_diff( candidate );
 			if ( candidate_diff < m_difficulties[p] ) {
