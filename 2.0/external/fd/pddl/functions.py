@@ -15,3 +15,6 @@ class Function(object):
         if self.type:
             result += ": %s" % self.type
         return result
+
+    def pddl(self):
+        return "({0} {1})".format(self.name, ' - '.join(x.pddl() for x in self.arguments))

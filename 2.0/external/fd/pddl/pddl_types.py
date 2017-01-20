@@ -2,7 +2,7 @@
 # In the future, use explicitly relative imports or absolute
 # imports as a better solution.
 
-from .. import graph
+from fd import graph
 
 import itertools
 
@@ -14,6 +14,17 @@ class Type(object):
         return self.name
     def __repr__(self):
         return "Type(%s, %s)" % (self.name, self.basetype_name)
+
+    def __hash__(self):
+        return hash(str(self.name) + str(self.basetype_name))
+
+    def __eq__(self, other):
+        if not isinstance(other, Type):
+            return False
+        return self.name == other.name and self.basetype_name == other.basetype_name
+
+    def pddl(self):
+        return '{0} - {1}'.format(self.name, self.basetype_name)
 
 def set_supertypes(type_list):
     typename_to_type = {}
@@ -56,7 +67,8 @@ class TypedObject(object):
         # Avoid cyclic import.
         from . import conditions
         return conditions.Atom(self.type, [self.name])
-
+    def pddl(self):
+        return "{0} - {1}".format(self.name, self.type)
 
 def parse_typed_list(alist, only_variables=False, constructor=TypedObject,
                      default_type="object"):

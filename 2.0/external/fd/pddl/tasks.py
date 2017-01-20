@@ -98,7 +98,6 @@ class Requirements(object):
 
 def parse_domain(domain_pddl):
     iterator = iter(domain_pddl)
-
     define_tag = next(iterator)
     assert define_tag == "define"
     domain_line = next(iterator)
@@ -252,7 +251,7 @@ def check_atom_consistency(atom, same_truth_value, other_truth_value, atom_is_tr
         if not atom_is_true:
             atom = atom.negate()
         print("Warning: %s is specified twice in initial state specification" % atom)
-    
+
 
 def check_for_duplicates(elements, errmsg, finalmsg):
     seen = set()

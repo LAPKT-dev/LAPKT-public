@@ -93,22 +93,12 @@ class Effect(object):
         self.parameters = parameters
         self.condition = condition
         self.literal = literal
+        print(self.literal)
     def __eq__(self, other):
         return (self.__class__ is other.__class__ and
                 self.parameters == other.parameters and
                 self.condition == other.condition and
                 self.literal == other.literal)
-    def dump(self):
-        indent = "  "
-        if self.parameters:
-            print("%sforall %s" % (indent, ", ".join(map(str, self.parameters))))
-            indent += "  "
-        if self.condition != conditions.Truth():
-            print("%sif" % indent)
-            self.condition.dump(indent + "  ")
-            print("%sthen" % indent)
-            indent += "  "
-        print("%s%s" % (indent, self.literal))
     def copy(self):
         return Effect(self.parameters, self.condition, self.literal)
     def uniquify_variables(self, type_map):
@@ -147,6 +137,16 @@ class Effect(object):
             return Effect(self.parameters, self.condition.relaxed(), self.literal)
     def simplified(self):
         return Effect(self.parameters, self.condition.simplified(), self.literal)
+    def pddl(self):
+        literal = self.literal.pddl()
+        parameters = ''
+        condition = ''
+        values = []
+        if self.parameters:
+            parameters =  'forall ({0}) '.format(' '.join(x.pddl() for x in self.parameters()))
+        if self.condition != conditions.Truth():
+            condition = self.condition.pddl()
+        return '({0})'.format(' '.join([parameters, condition, literal]))
 
 
 class ConditionalEffect(object):
@@ -244,6 +244,7 @@ class SimpleEffect(object):
 
 class CostEffect(object):
     def __init__(self, effect):
+        import pdb;pdb.set_trace()
         self.effect = effect
     def dump(self, indent="  "):
         print("%s%s" % (indent, self.effect))

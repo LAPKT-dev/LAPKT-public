@@ -190,6 +190,8 @@ class Conjunction(JunctorCondition):
             part.instantiate(var_mapping, init_facts, fluent_facts, result)
     def negate(self):
         return Disjunction([p.negate() for p in self.parts])
+    def pddl(self):
+        return '(and {0})'.format(' '.join(x.pddl() for x in self.parts))
 
 class Disjunction(JunctorCondition):
     def _simplified(self, parts):
@@ -346,6 +348,10 @@ class Atom(Literal):
     def positive(self):
         return self
 
+    def pddl(self):
+        return "({0} {1})".format(self.predicate, ' '.join(x.name if isinstance(x, pddl_types.TypedObject) else x for x in self.args))
+
+
 class NegatedAtom(Literal):
     negated = True
     def _relaxed(self, parts):
@@ -360,3 +366,6 @@ class NegatedAtom(Literal):
     def negate(self):
         return Atom(self.predicate, self.args)
     positive = negate
+
+    def pddl(self):
+        return '(not {0})'.format(self.negate().pddl())
