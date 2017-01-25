@@ -129,7 +129,7 @@ class Action(object):
         if self.cost is not None:
              cost = self.cost.pddl()
         return "(:action {0} \
-                :prameters ({1}) \
+                :parameters ({1}) \
                 :precondition {2} \
                 :effect (and {3}))".format(self.name,
                                      ' '.join(param.pddl() for param in self.parameters),
