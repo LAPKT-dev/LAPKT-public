@@ -146,7 +146,7 @@ class Effect(object):
             parameters =  'forall ({0}) '.format(' '.join(x.pddl() for x in self.parameters()))
         if self.condition != conditions.Truth():
             condition = self.condition.pddl()
-        return '({0})'.format(' '.join([parameters, condition, literal]))
+        return ' '.join([parameters, condition, literal])
 
 
 class ConditionalEffect(object):
@@ -244,7 +244,6 @@ class SimpleEffect(object):
 
 class CostEffect(object):
     def __init__(self, effect):
-        import pdb;pdb.set_trace()
         self.effect = effect
     def dump(self, indent="  "):
         print("%s%s" % (indent, self.effect))
