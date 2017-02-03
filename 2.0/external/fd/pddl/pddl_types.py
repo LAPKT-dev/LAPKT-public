@@ -24,6 +24,8 @@ class Type(object):
         return self.name == other.name and self.basetype_name == other.basetype_name
 
     def pddl(self):
+        if self.basetype_name is None:
+            return self.name
         return '{0} - {1}'.format(self.name, self.basetype_name)
 
 def set_supertypes(type_list):
