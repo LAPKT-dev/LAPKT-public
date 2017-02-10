@@ -190,6 +190,8 @@ class Conjunction(JunctorCondition):
             part.instantiate(var_mapping, init_facts, fluent_facts, result)
     def negate(self):
         return Disjunction([p.negate() for p in self.parts])
+    def pddl(self):
+        return '(and {0})'.format(' '.join(x.pddl() for x in self.parts))
 
 class Disjunction(JunctorCondition):
     def _simplified(self, parts):
@@ -271,6 +273,7 @@ class ExistentialCondition(QuantifiedCondition):
     def has_existential_part(self):
         return True
 
+
 class Literal(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
     __hash__ = Condition.__hash__
@@ -302,8 +305,8 @@ class Literal(Condition):
     def _dump(self):
         return str(self)
     def text( self ) :
-	if len(self.args) == 0 :
-		return "%s"%self.predicate
+        if len(self.args) == 0 :
+            return "%s"%self.predicate
         return "%s_%s"%(self.predicate,"_".join(map(str,self.args)))
 
     def change_parts(self, parts):
@@ -336,6 +339,10 @@ class Atom(Literal):
     def positive(self):
         return self
 
+    def pddl(self):
+        return "({0} {1})".format(self.predicate, ' '.join(x.name if isinstance(x, pddl_types.TypedObject) else x for x in self.args))
+
+
 class NegatedAtom(Literal):
     negated = True
     def _relaxed(self, parts):
@@ -350,3 +357,6 @@ class NegatedAtom(Literal):
     def negate(self):
         return Atom(self.predicate, self.args)
     positive = negate
+
+    def pddl(self):
+        return '(not {0})'.format(self.negate().pddl())

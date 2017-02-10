@@ -147,6 +147,17 @@ class Effect(object):
             return Effect(self.parameters, self.condition.relaxed(), self.literal)
     def simplified(self):
         return Effect(self.parameters, self.condition.simplified(), self.literal)
+    def pddl(self):
+        literal = self.literal.pddl()
+        result = '{0}'
+        if self.parameters:
+            result =  '(forall ({0}) {placeholder})'.format(' '.join(x.pddl() for x in self.parameters()),
+                                      placeholder='{0}')
+        if self.condition != conditions.Truth():
+            condition = '(when {0} {placeholder})'.format(self.condition.pddl(),
+                                    placeholder='{0}')
+            result = result.format(condition)
+        return result.format(literal)
 
 
 class ConditionalEffect(object):

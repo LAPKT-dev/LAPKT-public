@@ -12,7 +12,7 @@ from . import f_expression
 
 class Task(object):
     def __init__(self, domain_name, task_name, requirements,
-                 types, objects, predicates, functions, init, goal, actions, axioms, use_metric):
+                 types, objects, predicates, functions, init, goal, actions, axioms, use_metric, constants=None):
         self.domain_name = domain_name
         self.task_name = task_name
         self.requirements = requirements
@@ -26,6 +26,10 @@ class Task(object):
         self.axioms = axioms
         self.axiom_counter = 0
         self.use_min_cost_metric = use_metric
+        if constants is None:
+            self.constants = set()
+        else:
+            self.constants = constants
 
     def add_axiom(self, parameters, condition):
         name = "new-axiom@%d" % self.axiom_counter
@@ -53,7 +57,7 @@ class Task(object):
         init += [conditions.Atom("=", (obj.name, obj.name)) for obj in objects]
 
         return Task(domain_name, task_name, requirements, types, objects,
-                    predicates, functions, init, goal, actions, axioms, use_metric)
+                    predicates, functions, init, goal, actions, axioms, use_metric, constants)
 
     def dump(self):
         print("Problem %s: %s [%s]" % (
@@ -83,6 +87,39 @@ class Task(object):
             for axiom in self.axioms:
                 axiom.dump()
 
+    def domain(self):
+        return "(define (domain {domain_name}) \
+               {requirements} \
+               (:types {types}) \
+               (:constants {constants}) \
+               (:predicates {predicates}) \
+               (:functions {functions}) \
+               {actions} )".format(predicates='\n'.join(x.pddl() for x in self.predicates),
+                             functions='\n'.join(x.pddl() for x in self.functions),
+                             actions='\n'.join(x.pddl() for x in self.actions),
+                             types=' '.join(x.pddl() for x in self.types),
+                             constants=' '.join(x.pddl() for x in self.constants),
+                             domain_name=self.domain_name,
+                             requirements=self.requirements.pddl())
+
+    def problem(self):
+        metric = ""
+        objects = set(self.objects) - set(self.constants)
+        if self.use_min_cost_metric:
+            metric = "(:metric minimize (total-cost) )"
+        result = "(define (problem {problem})\
+               (:domain {domain_name})\
+               (:objects {0}) \
+               (:init {1}) \
+               (:goal {2}) \
+               {metric})".format('\n'.join(x.pddl() for x in set(objects)),
+                                 '\n'.join(x.pddl() for x in set(self.init)),
+                                 self.goal.pddl(), metric=metric,
+                                 problem=self.task_name,
+                                 domain_name=self.domain_name)
+        return result
+
+
 class Requirements(object):
     def __init__(self, requirements):
         self.requirements = requirements
@@ -95,6 +132,8 @@ class Requirements(object):
               ":derived-predicates", ":action-costs"), req
     def __str__(self):
         return ", ".join(self.requirements)
+    def pddl(self):
+        return '(:requirements {0})'.format(' '.join(self.requirements))
 
 def parse_domain(domain_pddl):
     iterator = iter(domain_pddl)
@@ -252,7 +291,7 @@ def check_atom_consistency(atom, same_truth_value, other_truth_value, atom_is_tr
         if not atom_is_true:
             atom = atom.negate()
         print("Warning: %s is specified twice in initial state specification" % atom)
-    
+
 
 def check_for_duplicates(elements, errmsg, finalmsg):
     seen = set()
