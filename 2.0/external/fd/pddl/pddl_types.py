@@ -70,6 +70,8 @@ class TypedObject(object):
         from . import conditions
         return conditions.Atom(self.type, [self.name])
     def pddl(self):
+        if self.type is None:
+            return self.name
         return "{0} - {1}".format(self.name, self.type)
 
 def parse_typed_list(alist, only_variables=False, constructor=TypedObject,

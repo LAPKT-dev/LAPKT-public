@@ -165,22 +165,34 @@ int main(int argc, char * argv[]) {
     Fwd_Search_Problem	search_prob(&plan_prob);
 
     std::list<aptk::Action_Idx> ordered_actions = string_to_action(ordered_plan, plan_prob);
+#ifdef DEBUG
     std::cout << "plan lenght: " << ordered_actions.size() << std::endl;
 
     for (auto i: ordered_actions){
        std::cout << plan_prob.actions()[i]->signature() << std::endl;
     }
-
+#endif
     std::map<int, std::list<aptk::Action_Idx>> p_plan = partial_reordering(search_prob, plan_prob, ordered_actions);
 
+    std::ofstream myfile;
+    if (!plan_filename.empty())
+    myfile.open (plan_filename);
     for (uint k=0; k<p_plan.size(); k++){
-        std::cout << "Level: " << k << std::endl;
+        if (print_stdout)
+            std::cout << "Level: " << k << std::endl;
+        if (!plan_filename.empty())
+            myfile << "Level: " << k << std::endl;
         for(auto id: p_plan[k]){
-            std::cout << plan_prob.actions()[id]->signature() << std::endl;
+            if (print_stdout)
+                std::cout << plan_prob.actions()[id]->signature() << std::endl;
+            if (!plan_filename.empty())
+                myfile << plan_prob.actions()[id]->signature() << std::endl;
         }
     }
+    if (myfile.is_open())
+        myfile.close();
+
 
     std::cout << std::endl;
     return 0;
-
 }

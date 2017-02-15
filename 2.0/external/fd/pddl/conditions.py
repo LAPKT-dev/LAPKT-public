@@ -274,22 +274,13 @@ class ExistentialCondition(QuantifiedCondition):
         return True
 
 
-def to_tuple(item):
-    """
-    Convert nested lists into tuple
-    """
-    if isinstance(item, list):
-        return tuple(map(to_tuple, item))
-    return item
-
-
 class Literal(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
     __hash__ = Condition.__hash__
     parts = []
     def __init__(self, predicate, args):
         self.predicate = predicate
-        self.args = to_tuple(args)
+        self.args = tuple(args)
         self.hash = hash((self.__class__, self.predicate, self.args))
     def __eq__(self, other):
         # Compare hash first for speed reasons.

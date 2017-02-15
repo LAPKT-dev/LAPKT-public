@@ -93,12 +93,22 @@ class Effect(object):
         self.parameters = parameters
         self.condition = condition
         self.literal = literal
-        print(self.literal)
     def __eq__(self, other):
         return (self.__class__ is other.__class__ and
                 self.parameters == other.parameters and
                 self.condition == other.condition and
                 self.literal == other.literal)
+    def dump(self):
+        indent = "  "
+        if self.parameters:
+            print("%sforall %s" % (indent, ", ".join(map(str, self.parameters))))
+            indent += "  "
+        if self.condition != conditions.Truth():
+            print("%sif" % indent)
+            self.condition.dump(indent + "  ")
+            print("%sthen" % indent)
+            indent += "  "
+        print("%s%s" % (indent, self.literal))
     def copy(self):
         return Effect(self.parameters, self.condition, self.literal)
     def uniquify_variables(self, type_map):
@@ -139,14 +149,15 @@ class Effect(object):
         return Effect(self.parameters, self.condition.simplified(), self.literal)
     def pddl(self):
         literal = self.literal.pddl()
-        parameters = ''
-        condition = ''
-        values = []
+        result = '{0}'
         if self.parameters:
-            parameters =  'forall ({0}) '.format(' '.join(x.pddl() for x in self.parameters()))
+            result =  '(forall ({0}) {placeholder})'.format(' '.join(x.pddl() for x in self.parameters()),
+                                      placeholder='{0}')
         if self.condition != conditions.Truth():
-            condition = self.condition.pddl()
-        return ' '.join([parameters, condition, literal])
+            condition = '(when {0} {placeholder})'.format(self.condition.pddl(),
+                                    placeholder='{0}')
+            result = result.format(condition)
+        return result.format(literal)
 
 
 class ConditionalEffect(object):

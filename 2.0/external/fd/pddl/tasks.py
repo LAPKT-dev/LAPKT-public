@@ -108,14 +108,15 @@ class Task(object):
         if self.use_min_cost_metric:
             metric = "(:metric minimize (total-cost) )"
         result = "(define (problem {problem})\
-               (:domain cluster)\
+               (:domain {domain_name})\
                (:objects {0}) \
                (:init {1}) \
                (:goal {2}) \
                {metric})".format('\n'.join(x.pddl() for x in set(objects)),
                                  '\n'.join(x.pddl() for x in set(self.init)),
                                  self.goal.pddl(), metric=metric,
-                                 problem=self.task_name)
+                                 problem=self.task_name,
+                                 domain_name=self.domain_name)
         return result
 
 
@@ -136,6 +137,7 @@ class Requirements(object):
 
 def parse_domain(domain_pddl):
     iterator = iter(domain_pddl)
+
     define_tag = next(iterator)
     assert define_tag == "define"
     domain_line = next(iterator)

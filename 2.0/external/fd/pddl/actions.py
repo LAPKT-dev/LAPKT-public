@@ -164,4 +164,3 @@ class PropositionalAction:
         for cond, fact in self.del_effects:
             print("DEL: %s -> %s" % (", ".join(map(str, cond)), fact))
         print("cost:", self.cost)
-
