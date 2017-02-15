@@ -11,3 +11,7 @@ class Predicate(object):
     parse = staticmethod(parse)
     def __str__(self):
         return "%s(%s)" % (self.name, ", ".join(map(str, self.arguments)))
+
+    def pddl(self):
+        return "({0} {1})".format(self.name, ' '.join((x.pddl() for x in self.arguments)))
+

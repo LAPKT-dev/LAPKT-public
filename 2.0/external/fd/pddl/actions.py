@@ -124,6 +124,18 @@ class Action(object):
         else:
             return None
 
+    def pddl(self):
+        cost = ''
+        if self.cost is not None:
+             cost = self.cost.pddl()
+        return "(:action {0} \
+                :parameters ({1}) \
+                :precondition {2} \
+                :effect (and {3}))".format(self.name,
+                                     ' '.join(param.pddl() for param in self.parameters),
+                                     self.precondition.pddl(),
+                                     ' '.join(x.pddl() for x  in self.effects) + cost)
+
 class PropositionalAction:
     def __init__(self, name, precondition, effects, cost):
         self.name = name
