@@ -1,0 +1,32 @@
+import os
+
+debug = ARGUMENTS.get( 'debug', 0 )
+common_env = Environment(ENV = os.environ)
+
+common_env.Append( CCFLAGS = [ '-Wall', '-std=c++11' ] )
+
+if int(debug) == 1 :
+        common_env.Append( CCFLAGS = ['-g',  '-DDEBUG' ] )
+elif int(debug) == 2 :
+        common_env.Append( CCFLAGS = ['-g',  '-DNDEBUG' ] )
+else:
+        common_env.Append( CCFLAGS = ['-O3', '-DNDEBUG'] )
+
+Export( 'common_env' )
+
+if 'CROSS' in os.environ:
+   cross = os.environ['CROSS']
+   common_env.Append(CROSS = cross)
+   common_env.Replace(CC = cross + 'gcc')
+   common_env.Replace(CXX = cross + 'g++')
+
+if 'LDFLAGS' in os.environ:
+    print "adding ldflags {0}".format(os.environ['LDFLAGS'])
+    common_env.Append(LINKFLAGS = os.environ['LDFLAGS'])
+
+generic_objs = SConscript('../../src/SConscript.aptk')
+agnostic_objs = SConscript('../../interfaces/agnostic/SConscript.agnostic')
+ff_wrapper_objs = SConscript('../../interfaces/ff-wrapped/SConscript.ff')
+siw_objs = SConscript('src/SConscript')
+
+common_env.Program( 'at_bfs_f', siw_objs + generic_objs + agnostic_objs + ff_wrapper_objs ) 
