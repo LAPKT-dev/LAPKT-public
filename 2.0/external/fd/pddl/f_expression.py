@@ -49,6 +49,8 @@ class NumericConstant(FunctionalExpression):
         return str(self)
     def instantiate(self, var_mapping, init_facts):
         return self
+    def pddl(self):
+        return self.value
 
 class PrimitiveNumericExpression(FunctionalExpression):
     parts = ()
@@ -63,6 +65,10 @@ class PrimitiveNumericExpression(FunctionalExpression):
                 and self.args == other.args)
     def __str__(self):
         return "%s %s(%s)" % ("PNE", self.symbol, ", ".join(map(str, self.args)))
+
+    def pddl(self):
+        return "({0} {1})".format(self.symbol, ' '.join(self.args))
+
     def dump(self, indent="  "):
         print("%s%s" % (indent, self._dump()))
         for arg in self.args:
@@ -105,9 +111,14 @@ class FunctionAssignment(object):
         expression = self.expression.instantiate(var_mapping, init_facts)
         return self.__class__(fluent, expression)
 
+    def pddl(self):
+        return "(= {0} {1})".format(self.fluent.pddl(), self.expression.pddl())
+
 class Assign(FunctionAssignment):
     def __str__(self):
         return "%s := %s" % (self.fluent, self.expression)
 
+
 class Increase(FunctionAssignment):
-    pass
+    def pddl(self):
+        return "(increase {0} {1})".format(self.fluent.pddl(), self.expression.pddl())
