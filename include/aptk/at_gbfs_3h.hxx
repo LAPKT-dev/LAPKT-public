@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <algorithm>
 #include <iostream>
 #include <aptk/hash_table.hxx>
+#include <aptk/closed_list.hxx>
 
 namespace aptk {
 
@@ -45,7 +46,7 @@ public:
 
 
 	typedef State                            State_Type;
-	typedef Node<Search_Model,State>*        Node_Ptr;
+    typedef Node<Search_Model, State>*        Node_Ptr;
 	typedef typename std::vector< Node<Search_Model,State>* >                      Node_Vec_Ptr;
 	typedef typename std::vector< Node<Search_Model,State>* >::reverse_iterator    Node_Vec_Ptr_Rit;
 	typedef typename std::vector< Node<Search_Model,State>* >::iterator            Node_Vec_Ptr_It;
@@ -179,6 +180,10 @@ public:
 		m_hash = (size_t)hasher;
 	}
 
+    static bool less(const Node & lhs, const Node & rhs) {
+        return State::less(lhs.state(), rhs.state());
+    }
+
 public:
 
 	State*		m_state;
@@ -209,7 +214,7 @@ public:
 
 	typedef	        typename Search_Model::State_Type		        State;
 	typedef  	typename Open_List_Type::Node_Type		        Search_Node;
-	typedef 	Closed_List< Search_Node >			        Closed_List_Type;
+    typedef 	aptk::search::ClosedSet< Search_Node >			        Closed_List_Type;
 	typedef         aptk::agnostic::Landmarks_Graph_Manager<Search_Model>   Landmarks_Graph_Manager;
 
 	AT_GBFS_3H( 	const Search_Model& search_problem ) 
@@ -224,8 +229,9 @@ public:
 	virtual ~AT_GBFS_3H() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
 			i != m_closed.end(); i++ ) {
-			delete i->second;
+            delete *i;
 		}
+
 		while	(!m_open.empty() ) 
 		{	
 			Search_Node* n = m_open.pop();
@@ -455,14 +461,19 @@ public:
 			State *succ = is_helpful ? m_problem.next( *(head->state()), a ) : nullptr; 
 						
 			Search_Node* n = new Search_Node( succ, m_problem.cost( *(head->state()), a ), a, head, m_problem.num_actions()  );			
-			
+            if(! n->has_state()){
+                n->set_state( m_problem.next(*(head->state()), a) );
+            }
 			#ifdef DEBUG
 			if ( m_verbose ) {
 				std::cout << "Successor:" << std::endl;
 				n->print(std::cout);
-				std::cout << std::endl;
+                std::cout << "State:"<< std::endl;
 				if(n->has_state())
-				n->state()->print( std::cout );
+                    n->state()->print( std::cout );
+                else {
+                    assert(false);
+                }
 				std::cout << std::endl;
 			}
 			#endif
@@ -511,7 +522,7 @@ public:
 		Search_Node *head = get_node();
 		int counter =0;
 		while(head) {
-			if ( head->gn() >= bound() )  {
+            if ( head->gn() >= bound() )  {
 				inc_pruned_bound();
 				close(head);
 				head = get_node();
@@ -519,25 +530,27 @@ public:
 			}
 			if( ! head->has_state() )
 			  head->set_state( m_problem.next(*(head->parent()->state()), head->action()) );
+            // MRJ: What if we don't compute h_add and keep using the parent's h_add value for non-helpful
+
+            if ( is_closed( head ) ) {
+                #ifdef DEBUG
+                if ( m_verbose )
+                    std::cout << "Already in CLOSED" << std::endl;
+                #endif
+                delete head;
+                head = get_node();
+                continue;
+            }
 
 			if(m_problem.goal(*(head->state()))) {
 				close(head);
 				set_bound( head->gn() );	
 				return head;
 			}
+
 			if ( (time_used() - m_t0 ) > m_time_budget )
 				return NULL;
-			// MRJ: What if we don't compute h_add and keep using the parent's h_add value for non-helpful 
 
-			if ( is_closed( head ) ) {
-				#ifdef DEBUG
-				if ( m_verbose )
-					std::cout << "Already in CLOSED" << std::endl;
-				#endif
-				delete head;
-				head = get_node();
-				continue;
-			}
 			// nodes?
 			if( !head->is_helpful() ){
 				eval_po( head );

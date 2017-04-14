@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/resources_control.hxx>
 #include <iostream>
 #include <cassert>
+#include <sstream>
 
 namespace aptk
 {
@@ -343,6 +344,16 @@ void	State::print( std::ostream& os ) const {
 		os << m_problem.fluents()[*p]->signature() << " ";
 	}
 	os << ")" << std::endl;
+}
+
+std::string State::tostring() const {
+      std::ostringstream oss;
+      for(unsigned i = 0; i < fluent_vec().size(); i++) {
+        oss << problem().fluents()[fluent_vec()[i]]->signature();
+        oss << ", ";
+      }
+      oss << std::endl;
+      return oss.str();
 }
 
 }

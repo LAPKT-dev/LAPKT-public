@@ -262,6 +262,7 @@ protected:
 	Fluent_Queue			m_pending_fluents;
 	const STRIPS_Problem&		m_strips_model;
 	Bit_Set				m_po_set;
+    // required
 	Bit_Set				m_rp_precs;
 	bool                            m_ignore_rp_h_value;
 	bool				m_one_ha_per_fluent;

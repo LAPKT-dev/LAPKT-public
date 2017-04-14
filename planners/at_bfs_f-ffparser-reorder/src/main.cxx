@@ -183,7 +183,7 @@ std::pair<float, std::vector< aptk::Action_Idx > >  do_stage_3(  STRIPS_Problem&
 
 	unsigned expanded_0 = engine.expanded();
 	unsigned generated_0 = engine.generated();
-
+    engine.set_budget(30);
 	while ( engine.find_solution( cost, plan ) ) {
 		if ( !plan.empty() ) {
             details << "stage3: Plan found with cost: " << cost << std::endl;
@@ -403,17 +403,15 @@ int main( int argc, char** argv ) {
     Fwd_Search_Problem	search_prob( &prob );
 
 
-	// if ( !prob.has_conditional_effects() ) {
-	// 	H2_Fwd    h2( search_prob );
-	// 	h2.compute_edeletes( prob );
-	// 	if ( h2.eval( prob.goal() ) == infty ) {
-	// 		details << "Problem has no solution!" << std::endl;
-	// 		report_no_solution( "h2(s0) = infty", plan_filename );
-	// 		return 0;	
-	// 	}
-	// }
-	// else
-	// 	prob.compute_edeletes();	
+    details << "ActionId:   action signature " << std::endl;
+
+    for ( unsigned k = 0; k < prob.actions().size(); k++ ) {
+        details << k << ". ";
+        const aptk::Action& a = *(prob.actions()[ k ]);
+        details << a.signature();
+        details << std::endl;
+    }
+
 
 
 	float siw_cost = infty;
@@ -445,7 +443,7 @@ int main( int argc, char** argv ) {
 	Landmarks_Graph graph( prob );
 
 	gen_lms.compute_lm_graph_set_additive( graph );
-	
+
 	details << "Landmarks and edges found: " << graph.num_landmarks_and_edges() << std::endl;
 	graph.print( details );
 
@@ -482,7 +480,7 @@ int main( int argc, char** argv ) {
 		// MRJ: 3rd Stage, RWA* with bound informed by BFS(f) search
 		float rwa_cost = infty;
 		details << "Stage #3: RWA* " << std::endl;
-		Anytime_RWA wbfs_engine( search_prob, 10.0f, 0.95f);
+        Anytime_RWA wbfs_engine( search_prob, 10.0f, 0.94f);
 		//wbfs_engine.h2().set_graph( &graph );
 		wbfs_engine.use_land_graph_manager( &lgm );
         float at_search_t;

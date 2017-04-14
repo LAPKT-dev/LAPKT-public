@@ -23,13 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <aptk/at_rwbfs_dq_mh.hxx>
 #include <landmark_graph_manager.hxx>
+#include <aptk/closed_list.hxx>
 #include <h_1.hxx>
 
 namespace aptk {
 namespace search {
 
 namespace ipc2014 {
-	
 	template <typename State>
 	class Node {
 	public:
@@ -47,10 +47,20 @@ namespace ipc2014 {
 		current( nullptr ),  m_land_consumed( nullptr ), m_land_unconsumed( nullptr ) {
 		       	m_g = ( parent ? parent->m_g + cost : 0.0f);
 			m_g_unit = ( parent ? parent->m_g_unit + 1.0f : 0.0f);
+#ifdef DEBUG
+            if(hash() == 3068159468){
+                std::cout << "create 3068159468 " << this << " " << this->state() << std::endl;
+            }
+#endif
 		}
 		
 		virtual ~Node() {
-	               if ( m_state != NULL ) delete m_state;
+                   if ( m_state != NULL )
+                       delete m_state;
+                   else{
+                       assert(false);
+                   }
+                   m_state = nullptr;
 		}
 
 		float&                        h1n()                                { return m_h1; }
@@ -162,6 +172,14 @@ namespace ipc2014 {
 				current->erase( this );
 		}
 	
+        static bool less(const Node & lhs, const Node & rhs) {
+            assert(lhs.has_state());
+            assert(rhs.has_state());
+            return State::less(lhs.state(), rhs.state());
+        }
+        bool has_state() const {
+            return this->m_state != nullptr;
+        }
 	public:
 		State*                		m_state;
 		Node<State>*        		m_parent;
@@ -179,7 +197,6 @@ namespace ipc2014 {
 
 		Bool_Vec_Ptr*   		m_land_consumed;
 		Bool_Vec_Ptr*   		m_land_unconsumed;
-
 	};
 } //ipc2014
 
@@ -191,7 +208,7 @@ namespace bfs_dq_mh {
 	public:
 		typedef		typename Search_Model::State_Type			State;
 		typedef		typename AT_RWBFS_DQ_MH< Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type >::Search_Node Search_Node;
-		typedef 	Closed_List< Search_Node >				Closed_List_Type;
+        typedef 	ClosedSet< Search_Node >				Closed_List_Type;
 		typedef         aptk::agnostic::Landmarks_Graph_Manager<Search_Model>   Landmarks_Graph_Manager;
 
 		typedef		aptk::agnostic::H1_Heuristic< Search_Model, aptk::agnostic::H_Max_Evaluation_Function >	Admissible_Heuristic;
@@ -210,7 +227,7 @@ namespace bfs_dq_mh {
 			assert ( m_lgm != nullptr );			
 			this->eval(this->root());
 			this->open().insert( this->root() );
-			this->open_hash().put( this->root() );
+            this->m_open_set.put( this->root() );
 			this->inc_gen();
 		}
 
@@ -254,41 +271,19 @@ namespace bfs_dq_mh {
 
 		virtual Search_Node*	 	do_search() {
 			std::cout << "RWA* search!" << std::endl;
+            if (this->prev_weight() == this->weight()){
+                std::cout << " W is same, stopping search: " << this->weight() << std::endl;
+                return nullptr;
+            }
 			Search_Node *head = this->get_node();
 			while(head) {
+                assert(head->has_state());
 				if ( head->gn() >= this->bound() )  {
 					this->inc_pruned_bound();
 					this->close(head);
-					/*
-					if ( this->expanded() > 1000 && this->pruned_by_bound() > this->expanded() ) {
-						this->update_weight();
-						this->restart_search();
-					}
-					*/
 					head = this->get_node();
 					continue;
 				}
-				/*
-				if ( this->bound() < infty ) {
-					float h;
-					m_adm_h.eval( *(head->state()), h );
-					if ( h == infty ) {
-						this->close(head);
-						head = this->get_node();
-						continue;
-					}
-					if ( head->gn() + h >= this->bound() ) {
-						this->inc_pruned_bound();
-						this->close(head);
-						if ( this->expanded() > 1000 && this->pruned_by_bound() > this->expanded() ) {
-							this->update_weight();
-							this->restart_search();
-						}
-						head = this->get_node();
-						continue;
-					}
-				}
-				*/
 				if(this->problem().goal(*(head->state()))) {
 					this->close(head);
 					this->set_bound( head->gn() );
@@ -297,15 +292,24 @@ namespace bfs_dq_mh {
 					m_lgm->graph()->print( std::cout );
 					return head;
 				}
+                if (this->open_set().size() % 100 == 0 || this->open_set().size() < 10)
+                    std::cout << "Open left: " << this->open_set().size() << std::endl;
+
+
 				float t = time_used();
 				if ( ( t - this->t0() ) > this->time_budget() ) {
 					return nullptr;
 				}	
 				
 				this->eval( head );
-				if ( head->h1n() != infty && head->h2n() != infty )
-					this->process(head);
-				this->close(head);
+                if ( head->h1n() != infty && head->h2n() != infty ){
+                    bool restarted = this->process2(head);
+                    if (restarted){
+                        return head;
+                    }
+                }
+                if (!this->in_closed(head))
+                    this->close(head);
 				head = this->get_node();
 			}
 			return nullptr;
@@ -318,15 +322,15 @@ namespace bfs_dq_mh {
 		}
 
 		bool in_closed( Search_Node* n )  {
-			return this->closed().retrieve(n) != nullptr;
+            return this->closed().has_element(n);
 		}
 	
 		bool in_open( Search_Node* n )  {
-			return this->open_hash().retrieve(n) != nullptr;
+            return this->m_open_set.has_element(n);
 		}
 	
 		bool in_seen( Search_Node* n )  {
-			return this->seen().retrieve(n) != nullptr;
+            return this->seen().has_element(n);
 		}
 
 		void	handle_fresh( Search_Node* head, Search_Node* n, int a ) {
@@ -336,22 +340,22 @@ namespace bfs_dq_mh {
 			this->inc_gen();
 			if ( this->generated() % 10000 == 0 ) {
 				std::cout << "Generated: " << this->generated() << " B = " << this->bound();
-				std::cout << " Expanded: " << this->expanded() << " Pruned: " << this->pruned_by_bound() << " f(n) = ";
-				std::cout << head->fn() << " g(n) = " << head->gn();
+                std::cout << " Expanded: " << this->expanded() << " Pruned: " << this->pruned_by_bound() << " f(n) = " << head->fn() << std::endl;
+                std::cout << "Open left: " << this->open_set().size() << std::endl;
+                std::cout << head->fn() << " g(n) = " << head->gn();
 				std::cout << " h1(n) = " << n->h1n() << " h2(n) = " << n->h2n() << std::endl;
 			}
 
-			this->open_node(n, head->is_po_1(a), head->is_po_2(a));
-			
+            this->open_node(n, head->is_po_1(a), head->is_po_2(a));
 		}
 
 		void	handle_seen( Search_Node* head, Search_Node* n, int a ) {
 			n->h2n() = head->h2n();
 			n->fn() = this->weight() * n->h1n() + n->gn();
 			this->open_node(n, head->is_po_1(a), head->is_po_2(a));
-			
 		}
-		virtual void 			process(  Search_Node *head ) {
+        virtual bool 			process2(  Search_Node *head ) {
+            bool restarted = false;
 			if(m_lgm)
 				head->update_land_graph( m_lgm );
 
@@ -361,17 +365,69 @@ namespace bfs_dq_mh {
 				int a = app_set[i];
 	
 				State *succ = this->problem().next( *(head->state()), a );
-				Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
-				bool is_in_closed = in_closed(n);
+#ifdef DEBUG
+                if (succ->hash() == 3068159468)
+                    std::cout << " State " << succ->hash() << std::endl;
+#endif
+
+                if(head->hash() == succ->hash()){
+                    std::cout << "Same hash as in parent node" << head->hash() << std::endl;
+                    std::cout << "Action that does it " << a << " " << std::endl;
+                    if(!(State::less(*(head->state()), *succ) || State::less(*succ, *(head->state())))){
+                        // same, not just a collistion
+                        delete succ;
+                        continue;
+                    }
+                }
+
+
+                Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
+#ifdef DEBUG
+
+                if(this->m_open_set.has_element(n) && !in_open(n)){
+                    std::cout << "Error" << std::endl;
+                }
+                if(n->hash() == 90494181)
+                    std::cout << "process 90494181 " << std::endl;
+                assert(n->has_state());
+#endif
+                if (this->bound() <= n->gn()){
+                    this->inc_pruned_bound();
+                    delete n;
+                    continue;
+                }
+                if(this->problem().goal(*(n->state()))) {
+                    this->close(n);
+                    this->set_bound( n->gn() );
+                    this->update_weight();
+                    this->restart_search();
+                    m_lgm->graph()->print( std::cout );
+                    return true;
+                }
+
+                bool is_in_closed = in_closed(n);
 				bool is_in_open = in_open(n);
 				bool is_in_seen = in_seen(n);
 
 				if ( !is_in_closed && !is_in_open && !is_in_seen ) {
-					handle_fresh( head, n, a );
-					continue;
+                    handle_fresh( head, n, a );
 				}
-				
-				if ( is_in_seen ) {
+                else if ( is_in_open ) {
+                    Search_Node* n2 = this->open_set().retrieve(n);
+                    if ( n->gn() < n2->gn() ) {
+                        n2->gn() = n->gn();
+                        n2->gn_unit() = n->gn_unit();
+                        n2->m_parent = n->m_parent;
+                        n2->m_action = n->action();
+                        n2->h1n() = head->h1n();
+                        n2->h2n() = head->h2n();
+                        n2->fn() = this->weight() * n2->h1n() + n2->gn();
+                        n2->notify_update();
+                        this->inc_replaced_open();
+                    }
+                    delete n;
+                }
+                else if ( is_in_seen ) {
 					Search_Node* n2 = this->seen().retrieve(n);
 					if ( n->gn() < n2->gn() ) {
 						n2->gn() = n->gn();
@@ -379,12 +435,19 @@ namespace bfs_dq_mh {
 						n2->m_parent = n->m_parent;
 						n2->m_action = n->action();
 					}
+                    if (is_in_closed){
+#ifdef DEBUG
+                        std::cout << "both in seen and in closed, erasing from closed" << n->hash() << " " << n << " " << n->state() << std::endl;
+#endif
+                        this->closed().erase(n);
+                    }
+
 					handle_seen( head, n2, a );
+
 					this->seen().erase( this->seen().retrieve_iterator(n2) );
 					delete n;
-					continue;
 				}
-				if ( is_in_closed ) {
+                else if ( is_in_closed ) {
 					Search_Node* n2 = this->closed().retrieve(n);
 					if ( n->gn() < n2->gn() ) {
 						n2->gn() = n->gn();
@@ -396,28 +459,15 @@ namespace bfs_dq_mh {
 						handle_seen( head, n2, a );	
 					}
 					delete n;
-					continue;
 				}
-				if ( is_in_open ) {
-					Search_Node* n2 = this->open_hash().retrieve(n);
-					if ( n->gn() < n2->gn() ) {
-						n2->gn() = n->gn();
-						n2->gn_unit() = n->gn_unit();
-						n2->m_parent = n->m_parent;
-						n2->m_action = n->action();
-						n2->h1n() = head->h1n();
-						n2->h2n() = head->h2n();
-						n2->fn() = this->weight() * n2->h1n() + n2->gn();
-						n2->notify_update();
-						this->inc_replaced_open();
-					}
-					delete n;
-					continue;
-				}
-				assert(false);
-
+                else {
+                    std::cout << "Unhandled " << std::endl;
+                    exit(2);
+                    assert(false);
+                }
 			}
 			this->inc_eval();
+            return restarted;
 		}
 
 	protected:

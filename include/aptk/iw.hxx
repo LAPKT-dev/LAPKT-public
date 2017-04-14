@@ -43,7 +43,7 @@ public:
 
 	typedef		typename Search_Model::State_Type		State;
 	typedef  	Node< State >					Search_Node;
-	typedef 	Closed_List< Search_Node >			Closed_List_Type;
+    typedef 	ClosedSet< Search_Node >			Closed_List_Type;
 
 	IW( 	const Search_Model& search_problem ) 
 	: BRFS< Search_Model >(search_problem), m_pruned_B_count(0), m_B( infty ), m_verbose( true ) {	   

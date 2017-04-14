@@ -72,6 +72,36 @@ public:
 
 	void	print( std::ostream& os ) const;
 
+    static const bool less(const State & lhs, const State & rhs) {
+        if (&lhs == &rhs){
+            return false;
+        }
+        if (lhs.hash() < rhs.hash())
+            return true;
+        if (lhs.hash() > rhs.hash())
+            return false;
+        // hashes are the same
+        // if one state vec longer than the other it is bigger
+        const Fluent_Vec & lvec = lhs.fluent_vec();
+        const Fluent_Vec & rvec = rhs.fluent_vec();
+        assert(lvec.size() != 0);
+        assert(rvec.size() != 0);
+        if (lvec.size() < rvec.size())
+            return true;
+        if (lvec.size() > rvec.size())
+            return false;
+        // same size, have to sort vectors and
+        // compare lexicographically
+        Fluent_Vec lcopy = lvec;
+        Fluent_Vec rcopy = rvec;
+        std::sort(lcopy.begin(), lcopy.end());
+        std::sort(rcopy.begin(), rcopy.end());
+        bool result = std::lexicographical_compare(lcopy.begin(), lcopy.end(), rcopy.begin(), rcopy.end());
+        return result;
+    }
+
+    std::string tostring() const;
+
 protected:
 
 	Fluent_Vec			m_fluent_vec;
@@ -79,6 +109,7 @@ protected:
 	const STRIPS_Problem&		m_problem;
 	size_t				m_hash;
 };
+
 
 inline	size_t State::hash() const {
 	return m_hash;

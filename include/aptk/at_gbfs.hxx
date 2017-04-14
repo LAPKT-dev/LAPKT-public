@@ -178,7 +178,7 @@ public:
 			#ifdef DEBUG
 			std::cout << "Successor:" << std::endl;
 			n->print(std::cout);
-			std::cout << std::endl;
+            std::cout << "State:"<< std::endl;
 			n->state()->print( std::cout );
 			std::cout << std::endl;
 			#endif

@@ -35,13 +35,16 @@ namespace search {
 
 namespace bfs_dq_mh {
 
+
+
+
 // Anytime Restarting Weighted Best-First Search, with two open lists - one for preferred operators, the other for non-preferred
 // operator, and one single heuristic estimator, with delayed evaluation of states generated.
 // Evaluation function f(n) corresponds to that of Weighted A*
 //          f(n) = g(n) + W h(n)
 // the value of W decreases each time a solution is found, according to the
 // value of the decay parameter.
-// 
+//
 // Details and rationale on how to handle restarts to improve quality of plans found by anytime heuristic search
 // can be found on the paper:
 //
@@ -55,19 +58,16 @@ class AT_RWBFS_DQ_MH  : public AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Sec
 
 public:
 	typedef		typename AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type >::Search_Node	Search_Node;
-	typedef		typename Search_Model::State_Type		State;
-	typedef 	Closed_List< Search_Node >			Closed_List_Type;
 
-	AT_RWBFS_DQ_MH( 	const Search_Model& search_problem, float W = 5.0f, float decay = 0.75f ) 
+    typedef		typename Search_Model::State_Type		State;
+    typedef     ClosedSet< Search_Node >                      Closed_List_Type;
+
+
+	AT_RWBFS_DQ_MH( 	const Search_Model& search_problem, float W = 5.0f, float decay = 0.75f )
 	: AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type>(search_problem), m_W( W ), m_decay( decay ) {
 	}
 
 	virtual ~AT_RWBFS_DQ_MH() {
-		for ( typename Closed_List_Type::iterator i = m_seen.begin();
-			i != m_seen.end(); i++ ) {
-			assert( this->closed().retrieve( i->second ) == NULL );
-			delete i->second;
-		}
 		m_seen.clear();
 	}
 
@@ -77,13 +77,13 @@ public:
 		std::vector<Action_Idx>	po;
 		this->h1().eval( candidate, candidate->h1n(), po );
 		for ( unsigned k = 0; k < po.size(); k++ )
-			candidate->add_po_1( po[k] );	
+			candidate->add_po_1( po[k] );
 
 		po.clear();
 
 		this->h2().eval( candidate, candidate->h2n(), po );
 		for ( unsigned k = 0; k < po.size(); k++ )
-			candidate->add_po_2( po[k] );	
+			candidate->add_po_2( po[k] );
 	}
 
 	virtual void 			process(  Search_Node *head ) {
@@ -144,8 +144,13 @@ public:
 				this->inc_pruned_bound();
 				this->close(head);
 				if ( this->expanded() > 1000 && this->pruned_by_bound() > this->expanded() ) {
+                    m_prev_W = m_W;
 					m_W *= m_decay;
 					if ( m_W < 1.0f ) m_W = 1.0f;
+                    if (m_prev_W == m_W){
+                        std::cout << " W is same, stopping search: " << m_W << std::endl;
+                        return nullptr;
+                    }
 					restart_search();
 					std::cout << "New W value = " << m_W << std::endl;
 				}
@@ -158,15 +163,15 @@ public:
 				this->set_bound( head->gn() );
 				m_W *= m_decay;
 				if ( m_W < 1.0f ) m_W = 1.0f;
-				restart_search();	
+				restart_search();
 				std::cout << "New W value = " << m_W << std::endl;
 				return head;
 			}
 			float t = time_used();
 			if ( ( t - this->t0() ) > this->time_budget() ) {
 				return NULL;
-			}	
-			
+			}
+
 			this->eval( head );
 			if ( head->h1n() != infty && head->h2n() != infty )
 				this->process(head);
@@ -177,6 +182,7 @@ public:
 	}
 
 	void	update_weight() {
+        m_prev_W = m_W;
 		m_W *= m_decay;
 		if ( m_W < 1.0f ) m_W = 1.0f;
 		std::cout << "New W value = " << m_W << std::endl;
@@ -187,72 +193,54 @@ public:
 		std::cout << "Restart!" << std::endl;
 		for ( typename Closed_List_Type::iterator it = this->closed().begin();
 			it != this->closed().end(); it++ ) {
-			it->second->set_seen();
-			if ( it->second == this->root() ) continue;
-			assert( m_seen.retrieve( it->second ) == NULL );
-			//this->garbage().push_back( n2 );
-			m_seen.put( it->second );
-		} 
+            (*it)->set_seen();
+#ifdef DEBUG
+            assert((*it)->has_state());
+            std::cout << "Putting " << (*it)->hash() << " into m_seen " << *it << " " << std::endl;
+#endif
+            m_seen.put(*it);
+		}
 		this->closed().clear();
-		// MRJ: Clear the contents of Open
-		this->open_hash().clear();
 		Search_Node *head = this->get_node();
+
+        // move open to Seen
 		while ( head ) {
-			if ( !head->seen() ) 
+            if ( !head->seen() ){
+                //assert(!this->m_open_set.has_element(head));
+                //assert(!this->m_seen.has_element(head));
 				delete head;
-			else 
+            }
+			else
 				m_seen.put(head);
 			head = this->get_node();
 		}
+        // clear open
+        this->open_set().clear();
 		this->open_node( this->root(), false, false );
 		this->reset_expanded();
 		this->reset_pruned_by_bound();
+
 	}
 
 	virtual bool is_open( Search_Node *n ) {
-		Search_Node *n2 = NULL;
-
-		if( ( n2 = this->open_hash().retrieve(n)) ) {
-			
-			if(n->gn() < n2->gn())
-			{
-				n2->m_parent = n->m_parent;
-				n2->m_action = n->m_action;
-				n2->m_g = n->m_g;
-				n2->m_f = m_W * n2->m_h1 + n2->m_g;
-				this->inc_replaced_open();
-			}
-			return true;
-		}
-
-		return false;
+        return this->open_set().has_element(n);
 	}
 
 	bool is_seen( Search_Node* n ) {
-		Search_Node* n2 = m_seen.retrieve(n);
-		
-		if ( n2 == NULL ) return false;
-		
-		if ( n->gn() < n2->gn() ) {
-			n2->gn() = n->gn();
-			n2->m_parent = n->m_parent;
-			n2->m_action = n->action();
-		}
-		n2->fn() = m_W * n2->h1n() + n2->gn();
-		m_seen.erase( m_seen.retrieve_iterator(n2) );
-		this->open_node( n2, n2->parent()->is_po_1(n2->action()), n2->parent()->is_po_2(n2->action()) );
-		return true;
+        return m_seen.has_element(n);
 	}
 
 	float	weight() const { return m_W; }
+    float prev_weight() const { return m_prev_W; }
 
 	Closed_List_Type&	seen() { return m_seen; }
 
 protected:
 
 	float					m_W;
+    float                   m_prev_W;
 	float					m_decay;
-	Closed_List_Type			m_seen;	
+	Closed_List_Type			m_seen;
 };
 
 }

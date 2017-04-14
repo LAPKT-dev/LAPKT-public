@@ -41,7 +41,7 @@ class Serialized_Search : public Search_Strategy {
 public:
 
 	typedef		typename Search_Model::State_Type		                          State;
-	typedef 	Closed_List< Search_Node >			                          Closed_List_Type;
+    typedef 	ClosedSet< Search_Node >			                          Closed_List_Type;
 
 	Serialized_Search( 	const Search_Model& search_problem ) 
 		: Search_Strategy( search_problem ), m_consistency_test(true), m_closed_goal_states( NULL )  {	   
