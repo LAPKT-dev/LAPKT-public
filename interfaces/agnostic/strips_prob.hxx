@@ -165,7 +165,7 @@ namespace aptk
 		static unsigned 	add_fluent( STRIPS_Problem& p, std::string signature );
 
 		static void		set_init( STRIPS_Problem& p, const Fluent_Vec& init );
-		static void		set_goal( STRIPS_Problem& p, const Fluent_Vec& goal, bool createEndOp = false );
+	    static void		set_goal( STRIPS_Problem& p, const Fluent_Vec& goal, bool createEndOp = false, bool keep_original_goal = false );
 
 		static void		make_delete_relaxation( const STRIPS_Problem& orig, STRIPS_Problem& relaxed );
 
@@ -235,6 +235,7 @@ namespace aptk
 
 		void                    print_fluent_vec(const Fluent_Vec &a);
 		unsigned                end_operator() { return m_end_operator_id; }
+      	        unsigned                end_operator() const { return m_end_operator_id; }
 	        unsigned                get_fluent_index(std::string signature);
 
 		void			make_action_tables(bool generate_match_tree = true);
