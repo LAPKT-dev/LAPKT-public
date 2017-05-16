@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/closed_list.hxx>
 #include <aptk/hash_table.hxx>
 #include <aptk/open_list.hxx>
+#include <type_traits>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -222,16 +223,23 @@ public:
         size_t                        m_hash;
 };
 
+
+
 // Anytime best-first search, with one single open list and one single
 // heuristic estimator, with delayed evaluation of states generated
-template <typename Search_Model, typename Primary_Heuristic, typename Secondary_Heuristic, typename Open_List_Type >
+template <typename Search_Model,
+          typename Primary_Heuristic,
+          typename Secondary_Heuristic,
+          typename Open_List_Type,
+          class ClosedType =  Closed_List<typename Open_List_Type::Node_Type>,
+          bool USE_NEW = false>
 class AT_BFS_DQ_MH {
 
 public:
 
 	typedef		typename Search_Model::State_Type		State;
 	typedef  	typename Open_List_Type::Node_Type		Search_Node;
-    typedef     ClosedSet< Search_Node >			Closed_List_Type;
+    typedef     ClosedType			Closed_List_Type;
 
 	AT_BFS_DQ_MH( 	const Search_Model& search_problem ) 
 	: m_problem( search_problem ), m_primary_h(NULL), 
@@ -250,7 +258,7 @@ public:
                 assert(false);
             }
 #endif
-            delete *i;
+            Closed_List_Type::delete_element(i);
 		}
 		Search_Node *head = this->get_node();
 		while ( head ) {
@@ -536,15 +544,60 @@ public:
 		return NULL;
 	}
 
-    virtual bool is_open( Search_Node * const n ) const {
-        return m_open_set.has_element(n);
+    virtual bool is_open( Search_Node * const n ) {
+        return is_open_impl(this, n);
 	}
 
-    bool	is_closed( Search_Node * const n ) const {
+    template<bool Q = USE_NEW>
+    typename std::enable_if<Q, bool>::type	is_closed( Search_Node * const n ) {
         return m_closed.has_element(n) ;
 	}
 
+
+    template<bool Q = USE_NEW>
+    typename std::enable_if<!Q, bool>::type	is_closed( Search_Node* n ) {
+        Search_Node* n2 = closed().retrieve(n);
+
+        if ( n2 != NULL ) {
+            if ( n2->gn() <= n->gn() ) {
+                // The node we generated is a worse path than
+                // the one we already found
+                return true;
+            }
+            // Otherwise, we put it into Open and remove
+            // n2 from closed
+            closed().erase( closed().retrieve_iterator( n2 ) );
+            m_garbage.push_back( n2 );
+        }
+        return false;
+    }
+
 protected:
+    template<typename Cls, bool Q = USE_NEW>
+    static typename std::enable_if<Q, bool>::type is_open_impl(Cls * inst, Search_Node * const n ) {
+        return inst->m_open_set.has_element(n);
+    }
+
+    template<typename Cls, bool Q = USE_NEW>
+    static typename std::enable_if<!Q, bool>::type is_open_impl(Cls * inst,  Search_Node *n ) {
+        Search_Node *previous_copy = NULL;
+
+        if( (previous_copy = inst->m_open_set.retrieve(n)) ) {
+
+            if(n->gn() < previous_copy->gn())
+            {
+                previous_copy->m_parent = n->m_parent;
+                previous_copy->m_action = n->m_action;
+                previous_copy->m_g = n->m_g;
+                previous_copy->m_f = previous_copy->m_h1 + previous_copy->m_g;
+                previous_copy->notify_update();
+                inst->inc_replaced_open();
+            }
+            return true;
+        }
+
+        return false;
+    }
 
 	virtual void	extract_plan( Search_Node* s, Search_Node* t, std::vector<Action_Idx>& plan, float& cost ) {
 		Search_Node *tmp = t;

@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/search_prob.hxx>
 #include <aptk/resources_control.hxx>
 #include <aptk/closed_list.hxx>
-//#include <aptk/iw.hxx>
 #include <reachability.hxx>
 #include <vector>
 #include <algorithm>
@@ -41,7 +40,7 @@ class Serialized_Search : public Search_Strategy {
 public:
 
 	typedef		typename Search_Model::State_Type		                          State;
-    typedef 	ClosedSet< Search_Node >			                          Closed_List_Type;
+    typedef 	Closed_List< Search_Node >			                          Closed_List_Type;
 
 	Serialized_Search( 	const Search_Model& search_problem ) 
 		: Search_Strategy( search_problem ), m_consistency_test(true), m_closed_goal_states( NULL )  {	   

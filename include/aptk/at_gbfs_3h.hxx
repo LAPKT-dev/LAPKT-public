@@ -207,15 +207,20 @@ public:
 
 
 
-template <typename Search_Model, typename First_Heuristic, typename Second_Heuristic, typename Third_Heuristic, typename Open_List_Type >
+template <typename Search_Model,
+          typename First_Heuristic,
+          typename Second_Heuristic,
+          typename Third_Heuristic,
+          typename Open_List_Type,
+          class ClosedType = Closed_List<typename Open_List_Type::Node_Type> >
 class AT_GBFS_3H {
 
 public:
 
-	typedef	        typename Search_Model::State_Type		        State;
-	typedef  	typename Open_List_Type::Node_Type		        Search_Node;
-    typedef 	aptk::search::ClosedSet< Search_Node >			        Closed_List_Type;
-	typedef         aptk::agnostic::Landmarks_Graph_Manager<Search_Model>   Landmarks_Graph_Manager;
+    typedef	    typename Search_Model::State_Type                       State;
+    typedef  	typename Open_List_Type::Node_Type                      Search_Node;
+    typedef 	ClosedType                                              Closed_List_Type;
+    typedef     aptk::agnostic::Landmarks_Graph_Manager<Search_Model>   Landmarks_Graph_Manager;
 
 	AT_GBFS_3H( 	const Search_Model& search_problem ) 
 	: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_pruned_B_count(0),
@@ -229,7 +234,7 @@ public:
 	virtual ~AT_GBFS_3H() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
 			i != m_closed.end(); i++ ) {
-            delete *i;
+            Closed_List_Type::delete_element(i);
 		}
 
 		while	(!m_open.empty() ) 

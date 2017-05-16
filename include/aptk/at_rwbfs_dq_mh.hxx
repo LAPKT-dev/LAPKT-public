@@ -53,18 +53,24 @@ namespace bfs_dq_mh {
 // ICAPS 2010
 
 
-template <typename Search_Model, typename Primary_Heuristic, typename Secondary_Heuristic, typename Open_List_Type >
-class AT_RWBFS_DQ_MH  : public AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type > {
+
+template <typename Search_Model,
+          typename Primary_Heuristic,
+          typename Secondary_Heuristic,
+          typename Open_List_Type,
+          class ClosedType =  Closed_List<typename Open_List_Type::Node_Type>,
+          bool USE_NEW=false>
+class AT_RWBFS_DQ_MH  : public AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type, ClosedType > {
 
 public:
 	typedef		typename AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type >::Search_Node	Search_Node;
 
     typedef		typename Search_Model::State_Type		State;
-    typedef     ClosedSet< Search_Node >                      Closed_List_Type;
 
+    typedef     ClosedType Closed_List_Type;
 
 	AT_RWBFS_DQ_MH( 	const Search_Model& search_problem, float W = 5.0f, float decay = 0.75f )
-	: AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type>(search_problem), m_W( W ), m_decay( decay ) {
+    : AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type, ClosedType> (search_problem), m_W( W ), m_decay( decay ) {
 	}
 
 	virtual ~AT_RWBFS_DQ_MH() {
@@ -87,7 +93,6 @@ public:
 	}
 
 	virtual void 			process(  Search_Node *head ) {
-
 		std::vector< aptk::Action_Idx >	app_set;
 		this->problem().applicable_set_v2( *(head->state()), app_set );
 		/*
@@ -193,12 +198,8 @@ public:
 		std::cout << "Restart!" << std::endl;
 		for ( typename Closed_List_Type::iterator it = this->closed().begin();
 			it != this->closed().end(); it++ ) {
-            (*it)->set_seen();
-#ifdef DEBUG
-            assert((*it)->has_state());
-            std::cout << "Putting " << (*it)->hash() << " into m_seen " << *it << " " << std::endl;
-#endif
-            m_seen.put(*it);
+            Closed_List_Type::set_seen(it);
+            m_seen.put(it);
 		}
 		this->closed().clear();
 		Search_Node *head = this->get_node();
@@ -222,12 +223,13 @@ public:
 
 	}
 
-	virtual bool is_open( Search_Node *n ) {
-        return this->open_set().has_element(n);
-	}
+
+    virtual bool is_open( Search_Node *n ) {
+        return is_open_impl(this, n);
+    }
 
 	bool is_seen( Search_Node* n ) {
-        return m_seen.has_element(n);
+        return is_seen_impl(this, n);
 	}
 
 	float	weight() const { return m_W; }
@@ -236,6 +238,55 @@ public:
 	Closed_List_Type&	seen() { return m_seen; }
 
 protected:
+    template<typename Cls, bool Q=USE_NEW>
+    static typename std::enable_if<Q, bool>::type is_seen_impl(Cls * inst,  Search_Node* n ) {
+        return inst->seen().has_element(n);
+    }
+
+    template<typename Cls, bool Q=USE_NEW>
+    static typename std::enable_if<!Q, bool>::type is_seen_impl(Cls * inst, Search_Node *n ) {
+            Search_Node* n2 = inst->m_seen.retrieve(n);
+
+            if ( n2 == NULL ) return false;
+
+            if ( n->gn() < n2->gn() ) {
+                n2->gn() = n->gn();
+                n2->m_parent = n->m_parent;
+                n2->m_action = n->action();
+            }
+            n2->fn() = inst->m_W * n2->h1n() + n2->gn();
+            inst->m_seen.erase( inst->m_seen.retrieve_iterator(n2) );
+            inst->open_node( n2, n2->parent()->is_po_1(n2->action()), n2->parent()->is_po_2(n2->action()) );
+            return true;
+    }
+
+
+    template<typename Cls, bool Q=USE_NEW>
+    static typename std::enable_if<Q, bool>::type is_open_impl(Cls * inst, Search_Node *n ) {
+        return inst->open_set().has_element(n);
+    }
+
+    template<typename Cls, bool Q=USE_NEW>
+    static typename std::enable_if<!Q, bool>::type is_open_impl(Cls * inst, Search_Node *n ) {
+        Search_Node *n2 = NULL;
+
+        if( ( n2 = inst->open_set().retrieve(n)) ) {
+
+            if(n->gn() < n2->gn())
+            {
+                n2->m_parent = n->m_parent;
+                n2->m_action = n->m_action;
+                n2->m_g = n->m_g;
+                n2->m_f = inst->m_W * n2->m_h1 + n2->m_g;
+                inst->inc_replaced_open();
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+
 
 	float					m_W;
     float                   m_prev_W;

@@ -108,7 +108,7 @@ typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd; 
 typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
 
 // MRJ: Now we're ready to define the BFS algorithm we're going to use
-typedef		AT_GBFS_3H< Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List >    	Anytime_GBFS_H_Add_Rp_Fwd;
+typedef		AT_GBFS_3H< Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List, aptk::search::ClosedSet<BFS_Open_List::Node_Type > >   	Anytime_GBFS_H_Add_Rp_Fwd;
 //typedef		AT_RWBFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Unsat /*H_Lmcount_Fwd*/, AT_BFS_Open_List >		Anytime_RWA;
 typedef		IPC2014_RWA< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Lmcount_Fwd, AT_BFS_Open_List >		Anytime_RWA;
 
@@ -117,7 +117,7 @@ typedef		IPC2014_RWA< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Lmcount_Fwd, AT_BFS_Op
 typedef		aptk::search::brfs::Node< aptk::State >	          	IW_Node;
 typedef         Novelty<Fwd_Search_Problem, IW_Node>                    H_Simple_Novel_Fwd;
 typedef		aptk::search::SIW< aptk::agnostic::Fwd_Search_Problem >  SIW_Fwd;
-typedef		IW< Fwd_Search_Problem, H_Simple_Novel_Fwd >	        IW_Fwd;
+typedef		IW< Fwd_Search_Problem, H_Simple_Novel_Fwd, aptk::search::ClosedSet >  IW_Fwd;
 
 
 float do_stage_1( STRIPS_Problem& prob, SIW_Fwd& engine,  float& cost, int iw_bound, std::ofstream& details, std::string plan_filename ) {
