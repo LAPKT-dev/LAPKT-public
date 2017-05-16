@@ -83,6 +83,10 @@ public:
 
 	size_t                  hash() const { return m_state->hash(); }
 
+    static bool less(const Node & lhs, const Node & rhs) {
+        return State::less(lhs.state(), rhs.state());
+    }
+
 public:
 
 	State*		m_state;

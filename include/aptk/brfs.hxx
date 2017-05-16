@@ -112,14 +112,17 @@ public:
 
 };
 
-template <typename Search_Model>
+template <typename Search_Model,
+          template <typename T,
+                    Node_Generation GEN = Node_Generation::Eager>
+          class ClosedType = Closed_List>
 class BRFS {
 
 public:
 
 	typedef		typename Search_Model::State_Type		State;
 	typedef  	Node< State >					Search_Node;
-	typedef 	Closed_List< Search_Node >      		Closed_List_Type;
+    typedef 	ClosedType< Search_Node >      		Closed_List_Type;
 
 	BRFS( 	const Search_Model& search_problem ) 
 		: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_cl_count(0), m_max_depth(0), m_verbose(true) {		
@@ -128,7 +131,7 @@ public:
 	virtual ~BRFS() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
 			i != m_closed.end(); i++ ) {
-			delete i->second;
+            Closed_List_Type::delete_element(i);
 		}
 		
 		while	(!m_open.empty() ) 
