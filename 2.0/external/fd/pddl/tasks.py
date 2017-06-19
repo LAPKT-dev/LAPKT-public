@@ -26,6 +26,8 @@ class Task(object):
         self.axioms = axioms
         self.axiom_counter = 0
         self.use_min_cost_metric = use_metric
+        # function -> fluent map
+        self.normal_functions_map = dict()
         if constants is None:
             self.constants = set()
         else:
@@ -129,7 +131,7 @@ class Requirements(object):
               ":negative-preconditions", ":disjunctive-preconditions",
               ":existential-preconditions", ":universal-preconditions",
               ":quantified-preconditions", ":conditional-effects",
-              ":derived-predicates", ":action-costs"), req
+              ":derived-predicates", ":action-costs", ":numeric-fluents"), req
     def __str__(self):
         return ", ".join(self.requirements)
     def pddl(self):

@@ -38,9 +38,9 @@ def instantiate(task, model):
 	relaxed_reachable = False
 	fluent_facts = get_fluent_facts(task, model)
 	init_facts = set(task.init)
-	
+
 	type_to_objects = get_objects_by_type(task.objects, task.types)
-	
+
 	instantiated_actions = []
 	instantiated_axioms = []
 	reachable_action_parameters = defaultdict(list)
@@ -70,7 +70,7 @@ def instantiate(task, model):
 				instantiated_axioms.append(inst_axiom)
 		elif atom.predicate == "@goal-reachable":
 			relaxed_reachable = True
-	
+
 	return (relaxed_reachable, fluent_facts, instantiated_actions,
 		sorted(instantiated_axioms), reachable_action_parameters)
 
@@ -82,7 +82,7 @@ def explore(task):
 
 
 class PropositionalDetAction :
-	
+
 	def __init__( self, name, cost ) :
 		self.name = name
 		self.cost = cost
@@ -90,14 +90,14 @@ class PropositionalDetAction :
 		self.effects = []
 		self.cond_effs = {}
 		self.negated_conditions = []
-	
+
 	def set_precondition( self, prec, atom_table ) :
 		for p in prec :
 			sym =  atom_table[p.text()]
 			if p.negated and sym not in self.negated_conditions :
 				self.negated_conditions.append( sym )
 			self.precondition.append( ( sym, p.negated ) )
-	
+
 	def add_effect( self, adds, dels, atom_table ) :
 		effs = []
 		for cond, lit in adds :
@@ -145,7 +145,7 @@ def encode( lits, atom_table ) :
 		return encoded
 
 	if isinstance( lits, pddl.Conjunction ) :
-		lits = [ p for p in lits.parts ]	
+		lits = [ p for p in lits.parts ]
 
 	for p in lits :
 		if isinstance( p, pddl.Assign ) :
@@ -169,20 +169,20 @@ def fodet( domain_file, problem_file, output_task ) :
 	if not relaxed_reachable :
 		print("No plan exists")
 		sys.exit(2)
-	
+
 	print("%d atoms" % len(atoms))
 
 	with timers.timing("Computing fact groups", block=True):
 		groups, mutex_groups, translation_key = fact_groups.compute_groups(
 			task, atoms, reachable_action_params,
 			partial_encoding=USE_PARTIAL_ENCODING)
-	
+
 	index = 0
 	atom_table = {}
 
 	atom_names = [ atom.text() for atom in atoms ]
 	atom_names.sort()
-	
+
 	for atom in atom_names :
 		atom_table[ atom ] = index
 		output_task.add_atom( atom )
@@ -215,7 +215,7 @@ def fodet( domain_file, problem_file, output_task ) :
 		#	print action.name, len(action.cond_effs), "has conditional effects"
 		for cond, eff in action.cond_effs.iteritems() :
 			output_task.add_cond_effect( index, list(cond), eff )
-		output_task.set_cost( index, action.cost ) 
+		output_task.set_cost( index, action.cost )
 		index += 1
 	output_task.set_domain_name( task.domain_name )
 	output_task.set_problem_name( task.task_name )
@@ -235,25 +235,25 @@ def default( domain_file, problem_file, output_task ) :
 	if not relaxed_reachable :
 		print("No plan exists")
 		sys.exit(2)
-	
+
 	print("%d atoms" % len(atoms))
 
 	with timers.timing("Computing fact groups", block=True):
 		groups, mutex_groups, translation_key = fact_groups.compute_groups(
 			task, atoms, reachable_action_params,
 			partial_encoding=USE_PARTIAL_ENCODING)
-	
+
+        import pdb;pdb.set_trace()
 	index = 0
 	atom_table = {}
 
 	atom_names = [ atom.text() for atom in atoms ]
 	atom_names.sort()
-	
+
 	for atom in atom_names :
 		atom_table[ atom ] = index
 		output_task.add_atom( atom )
 		index += 1
-
 
 	print("Deterministic %d actions" % len(actions))
 	nd_actions = {}
@@ -280,7 +280,7 @@ def default( domain_file, problem_file, output_task ) :
 		#	print action.name, len(action.cond_effs), "has conditional effects"
 		for cond, eff in action.cond_effs.iteritems() :
 			output_task.add_cond_effect( index, list(cond), eff )
-		output_task.set_cost( index, action.cost ) 
+		output_task.set_cost( index, action.cost )
 		index += 1
 
 	# MRJ: Mutex groups processing needs to go after negations are compiled away

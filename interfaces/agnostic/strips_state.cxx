@@ -26,6 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <cassert>
 #include <sstream>
+#include <algorithm>
+#include <strips_state.hxx>
 
 namespace aptk
 {
@@ -75,14 +77,11 @@ State* State::progress_through_df( const Action& a ) const
 	return succ;
 }
 
-
 State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* deleted ) const
 {
-
 	assert( a.can_be_applied_on(*this) );
 	State* succ = new State( problem() );
 	succ->fluent_vec().reserve( m_fluent_vec.size() );
-
 
 	for ( unsigned k = 0; k < m_fluent_vec.size(); k++ ) 
 	{
@@ -94,6 +93,7 @@ State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* 
 		
 		if ( a.ceff_vec().empty() ) // it's not deleted by un-conditional effects, and there are no c.effs
 			succ->set( m_fluent_vec[k] );
+
 		//Check Conditional Effects
 		bool retracts = false;
 		for( unsigned i = 0; i < a.ceff_vec().size(); i++ )
@@ -107,6 +107,10 @@ State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* 
 				break;
 			}
 		}
+
+        // Check numeric effects
+        // todo
+
 		if( retracts ){
 			if(deleted)
 				deleted->push_back( m_fluent_vec[k] );
@@ -146,6 +150,10 @@ State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* 
 			}
 		}
 	}       	
+
+    // iterate over numeric effects and assign new values for
+    // numeric conditions fluents
+
 
 	return succ;
 }
@@ -314,8 +322,8 @@ void State::regress_lazy_state(const Action* a, Fluent_Vec* added, Fluent_Vec* d
 				it++;					
 		}
 	}
-			
-	Fluent_Vec::const_iterator cit = a->del_vec().begin();
+
+    Fluent_Vec::const_iterator cit = a->del_vec().begin();
 	while(cit != a->del_vec().end() ){
 		if( this->entails( *cit ) )
 			m_fluent_vec.push_back(*cit);
@@ -333,10 +341,8 @@ void State::regress_lazy_state(const Action* a, Fluent_Vec* added, Fluent_Vec* d
 			cit++;
 		}	
 	}
-		
-
 }
-	
+
 
 void	State::print( std::ostream& os ) const {
 	os << "(:state ";
@@ -354,6 +360,52 @@ std::string State::tostring() const {
       }
       oss << std::endl;
       return oss.str();
+}
+
+const bool State::less(const State & lhs, const State & rhs) {
+       if (&lhs == &rhs){
+           return false;
+       }
+       if (lhs.hash() < rhs.hash())
+           return true;
+       if (lhs.hash() > rhs.hash())
+           return false;
+       // hashes are the same
+       // if one state vec longer than the other it is bigger
+       const Fluent_Vec & lvec = lhs.fluent_vec();
+       const Fluent_Vec & rvec = rhs.fluent_vec();
+       assert(lvec.size() != 0);
+       assert(rvec.size() != 0);
+       if (lvec.size() < rvec.size())
+           return true;
+       if (lvec.size() > rvec.size())
+           return false;
+       // same size, have to sort vectors and
+       // compare lexicographically
+       Fluent_Vec lcopy = lvec;
+       Fluent_Vec rcopy = rvec;
+       sort(lcopy.begin(), lcopy.end());
+       std::sort(rcopy.begin(), rcopy.end());
+       bool result = std::lexicographical_compare(lcopy.begin(), lcopy.end(), rcopy.begin(), rcopy.end());
+       return result;
+}
+
+std::ostream& operator<<(std::ostream &os, State &s) {
+  for(unsigned i = 0; i < s.fluent_vec().size(); i++) {
+    os << s.problem().fluents()[s.fluent_vec()[i]]->signature();
+    os << ", ";
+  }
+  os << std::endl;
+  return os;
+}
+
+std::ostream& operator<<(std::ostream &os, const State &s) {
+  for(unsigned i = 0; i < s.fluent_vec().size(); i++) {
+    os << s.problem().fluents()[s.fluent_vec()[i]]->signature();
+    os << ", ";
+  }
+  os << std::endl;
+  return os;
 }
 
 }

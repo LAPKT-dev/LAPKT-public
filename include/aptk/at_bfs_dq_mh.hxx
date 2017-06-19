@@ -231,8 +231,7 @@ template <typename Search_Model,
           typename Primary_Heuristic,
           typename Secondary_Heuristic,
           typename Open_List_Type,
-          class ClosedType =  Closed_List<typename Open_List_Type::Node_Type>,
-          bool USE_NEW = false>
+          class ClosedType =  Closed_List<typename Open_List_Type::Node_Type> >
 class AT_BFS_DQ_MH {
 
 public:
@@ -381,7 +380,6 @@ public:
             m_open_set.erase(next);
 
 #ifdef DEBUG
-        assert (!this->is_open(next));
         assert(!m_open_set.has_element(next));
 #endif
 		return next;				
@@ -483,7 +481,7 @@ public:
 		}
 	}
 
-    virtual Closed_List_Type open_set(){
+    virtual Closed_List_Type & open_set(){
         return this->m_open_set;
     }
 
@@ -545,17 +543,26 @@ public:
 	}
 
     virtual bool is_open( Search_Node * const n ) {
-        return is_open_impl(this, n);
-	}
+        Search_Node *previous_copy = NULL;
 
-    template<bool Q = USE_NEW>
-    typename std::enable_if<Q, bool>::type	is_closed( Search_Node * const n ) {
-        return m_closed.has_element(n) ;
-	}
+        if( (previous_copy = this->m_open_set.retrieve(n)) ) {
 
+            if(n->gn() < previous_copy->gn())
+            {
+                previous_copy->m_parent = n->m_parent;
+                previous_copy->m_action = n->m_action;
+                previous_copy->m_g = n->m_g;
+                previous_copy->m_f = previous_copy->m_h1 + previous_copy->m_g;
+                previous_copy->notify_update();
+                this->inc_replaced_open();
+            }
+            return true;
+        }
 
-    template<bool Q = USE_NEW>
-    typename std::enable_if<!Q, bool>::type	is_closed( Search_Node* n ) {
+        return false;
+    }
+
+    virtual bool is_closed( Search_Node* n ) {
         Search_Node* n2 = closed().retrieve(n);
 
         if ( n2 != NULL ) {
@@ -573,31 +580,6 @@ public:
     }
 
 protected:
-    template<typename Cls, bool Q = USE_NEW>
-    static typename std::enable_if<Q, bool>::type is_open_impl(Cls * inst, Search_Node * const n ) {
-        return inst->m_open_set.has_element(n);
-    }
-
-    template<typename Cls, bool Q = USE_NEW>
-    static typename std::enable_if<!Q, bool>::type is_open_impl(Cls * inst,  Search_Node *n ) {
-        Search_Node *previous_copy = NULL;
-
-        if( (previous_copy = inst->m_open_set.retrieve(n)) ) {
-
-            if(n->gn() < previous_copy->gn())
-            {
-                previous_copy->m_parent = n->m_parent;
-                previous_copy->m_action = n->m_action;
-                previous_copy->m_g = n->m_g;
-                previous_copy->m_f = previous_copy->m_h1 + previous_copy->m_g;
-                previous_copy->notify_update();
-                inst->inc_replaced_open();
-            }
-            return true;
-        }
-
-        return false;
-    }
 
 	virtual void	extract_plan( Search_Node* s, Search_Node* t, std::vector<Action_Idx>& plan, float& cost ) {
 		Search_Node *tmp = t;

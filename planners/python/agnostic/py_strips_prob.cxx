@@ -2,6 +2,8 @@
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <types.hxx>
+
 
 using namespace boost::python;
 
@@ -33,7 +35,12 @@ using namespace boost::python;
 		aptk::Fluent_Vec empty;
 		aptk::Conditional_Effect_Vec dummy_ceffs;
 		aptk::STRIPS_Problem::add_action( *instance(), name, empty, empty, empty, dummy_ceffs ); 
-	}	
+    }
+
+    void STRIPS_Problem::define_action(size_t idx, const aptk::Fluent_Vec& precs, const aptk::Fluent_Vec& adds, const aptk::Fluent_Vec& dels, aptk::Numeric_Effect_Vec &num_eff_vec ){
+        aptk::Action& action = *(m_problem->actions()[idx]);
+        action.define(precs, adds, dels, num_eff_vec );
+    }
 
 	void
 	STRIPS_Problem::notify_negated_conditions( boost::python::list& fluents ) {
@@ -74,7 +81,6 @@ using namespace boost::python;
 			action.prec_vec().push_back( fl_idx );
 			action.prec_set().set( fl_idx );
 			action.prec_varval().push_back( std::make_pair(fl_idx, 0) );
-
 		}	
 	}
 

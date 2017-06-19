@@ -131,7 +131,7 @@ public:
 	virtual ~BRFS() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
 			i != m_closed.end(); i++ ) {
-			delete i->second;
+            Closed_List_Type::delete_element(i);
 		}
 		
 		while	(!m_open.empty() ) 

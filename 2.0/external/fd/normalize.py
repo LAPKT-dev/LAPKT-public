@@ -309,6 +309,7 @@ def eliminate_existential_quantifiers_from_conditional_effects(task):
                 effect.parameters.extend(condition.parameters)
                 effect.condition = condition.parts[0]
 
+
 def substitute_complicated_goal(task):
     goal = task.goal
     if isinstance(goal, pddl.Literal):
@@ -322,20 +323,60 @@ def substitute_complicated_goal(task):
     new_axiom = task.add_axiom([], goal)
     task.goal = pddl.Atom(new_axiom.name, new_axiom.parameters)
 
+
+def normalize_numeric_preconditons(task):
+    for proxy in all_conditions(task):
+        if proxy.condition.has_numeric_precondition():
+            proxy.set(proxy.condition.simplified())
+
+
+def replace_numeric_preconditions(task):
+    import pdb;pdb.set_trace()
+    def replace(condition):
+        if isinstance(condition, pddl.FunctionComparison):
+            non_negated = condition
+            if condition.negated:
+                non_negated = condition.negate()
+            if non_negated in task.normal_functions_map:
+                predicate = task.normal_functions_map[non_negated]
+            else:
+                fluent_str = 'num_condition_satisfied{0}'.format(len(task.normal_functions_map))
+                predicate = pddl.Predicate(fluent_str, [])
+                task.predicates.append(predicate)
+            if condition.negated:
+                new_atom = pddl.NegatedAtom(predicate.name, [])
+            else:
+                new_atom = pddl.Atom(predicate.name, [])
+            task.normal_functions_map[condition] = new_atom
+            return new_atom
+        if condition.has_numeric_precondition():
+            new_condition = condition.__class__([])
+            new_condition.parts = [replace(x) for x in condition.parts]
+            return new_condition
+        return condition
+    for proxy in all_conditions(task):
+        if proxy.condition.has_numeric_precondition():
+            proxy.set(replace(proxy.condition))
+
+
 # Combine Steps [1], [2], [3], [4], [5] and do some additional verification
 # that the task makes sense.
-
 def normalize(task):
+
     remove_universal_quantifiers(task)
     substitute_complicated_goal(task)
+    normalize_numeric_preconditons(task)
+    replace_numeric_preconditions(task)
     build_DNF(task)
+
+
     split_disjunctions(task)
     move_existential_quantifiers(task)
     eliminate_existential_quantifiers_from_axioms(task)
     eliminate_existential_quantifiers_from_preconditions(task)
     eliminate_existential_quantifiers_from_conditional_effects(task)
-
     verify_axiom_predicates(task)
+
 
 def verify_axiom_predicates(task):
     # Verify that derived predicates are not used in :init or
@@ -367,6 +408,7 @@ def build_exploration_rules(task):
         proxy.build_rules(result)
     return result
 
+
 def condition_to_rule_body(parameters, condition):
     for par in parameters:
         yield pddl.Atom(par.type, [par.name])
@@ -383,6 +425,7 @@ def condition_to_rule_body(parameters, condition):
             assert isinstance(part, pddl.Literal), "Condition not normalized"
             if not part.negated:
                 yield part
+
 
 if __name__ == "__main__":
     task = pddl.open()

@@ -8,6 +8,8 @@
 #include <string>
 #include <set>
 
+
+
 class STRIPS_Problem {
 public:
 	STRIPS_Problem(  );
@@ -21,6 +23,8 @@ public:
 	void	add_atom( std::string name );
 	void	add_action( std::string name );
 	void	add_precondition( int index, boost::python::list& lits );
+    void    bind_numeric_condition(size_t idx, aptk::Comparison<float> & cmp);
+    void    define_action(size_t idx, const aptk::Fluent_Vec& precs, const aptk::Fluent_Vec& adds, const aptk::Fluent_Vec& dels, aptk::Numeric_Effect_Vec &num_eff_vec );
 	void	add_cond_effect( int index, boost::python::list& cond_lits, boost::python::list& eff_lits );
 	void	add_effect( int index, boost::python::list& list );
 	void	set_cost( int index, float v );

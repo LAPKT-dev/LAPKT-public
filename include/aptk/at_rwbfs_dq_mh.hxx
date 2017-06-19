@@ -58,8 +58,7 @@ template <typename Search_Model,
           typename Primary_Heuristic,
           typename Secondary_Heuristic,
           typename Open_List_Type,
-          class ClosedType =  Closed_List<typename Open_List_Type::Node_Type>,
-          bool USE_NEW=false>
+          class ClosedType =  Closed_List<typename Open_List_Type::Node_Type> >
 class AT_RWBFS_DQ_MH  : public AT_BFS_DQ_MH<Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type, ClosedType > {
 
 public:
@@ -207,8 +206,6 @@ public:
         // move open to Seen
 		while ( head ) {
             if ( !head->seen() ){
-                //assert(!this->m_open_set.has_element(head));
-                //assert(!this->m_seen.has_element(head));
 				delete head;
             }
 			else
@@ -223,62 +220,18 @@ public:
 
 	}
 
-
     virtual bool is_open( Search_Node *n ) {
-        return is_open_impl(this, n);
-    }
-
-	bool is_seen( Search_Node* n ) {
-        return is_seen_impl(this, n);
-	}
-
-	float	weight() const { return m_W; }
-    float prev_weight() const { return m_prev_W; }
-
-	Closed_List_Type&	seen() { return m_seen; }
-
-protected:
-    template<typename Cls, bool Q=USE_NEW>
-    static typename std::enable_if<Q, bool>::type is_seen_impl(Cls * inst,  Search_Node* n ) {
-        return inst->seen().has_element(n);
-    }
-
-    template<typename Cls, bool Q=USE_NEW>
-    static typename std::enable_if<!Q, bool>::type is_seen_impl(Cls * inst, Search_Node *n ) {
-            Search_Node* n2 = inst->m_seen.retrieve(n);
-
-            if ( n2 == NULL ) return false;
-
-            if ( n->gn() < n2->gn() ) {
-                n2->gn() = n->gn();
-                n2->m_parent = n->m_parent;
-                n2->m_action = n->action();
-            }
-            n2->fn() = inst->m_W * n2->h1n() + n2->gn();
-            inst->m_seen.erase( inst->m_seen.retrieve_iterator(n2) );
-            inst->open_node( n2, n2->parent()->is_po_1(n2->action()), n2->parent()->is_po_2(n2->action()) );
-            return true;
-    }
-
-
-    template<typename Cls, bool Q=USE_NEW>
-    static typename std::enable_if<Q, bool>::type is_open_impl(Cls * inst, Search_Node *n ) {
-        return inst->open_set().has_element(n);
-    }
-
-    template<typename Cls, bool Q=USE_NEW>
-    static typename std::enable_if<!Q, bool>::type is_open_impl(Cls * inst, Search_Node *n ) {
         Search_Node *n2 = NULL;
 
-        if( ( n2 = inst->open_set().retrieve(n)) ) {
+        if( ( n2 = this->open_set().retrieve(n)) ) {
 
             if(n->gn() < n2->gn())
             {
                 n2->m_parent = n->m_parent;
                 n2->m_action = n->m_action;
                 n2->m_g = n->m_g;
-                n2->m_f = inst->m_W * n2->m_h1 + n2->m_g;
-                inst->inc_replaced_open();
+                n2->m_f = m_W * n2->m_h1 + n2->m_g;
+                this->inc_replaced_open();
             }
             return true;
         }
@@ -286,8 +239,28 @@ protected:
         return false;
     }
 
+    virtual bool is_seen( Search_Node* n ) {
+        Search_Node* n2 = m_seen.retrieve(n);
 
+        if ( n2 == NULL ) return false;
 
+        if ( n->gn() < n2->gn() ) {
+            n2->gn() = n->gn();
+            n2->m_parent = n->m_parent;
+            n2->m_action = n->action();
+        }
+        n2->fn() = m_W * n2->h1n() + n2->gn();
+        m_seen.erase( m_seen.retrieve_iterator(n2) );
+        this->open_node( n2, n2->parent()->is_po_1(n2->action()), n2->parent()->is_po_2(n2->action()) );
+        return true;
+    }
+
+	float	weight() const { return m_W; }
+    float prev_weight() const { return m_prev_W; }
+
+	Closed_List_Type&	seen() { return m_seen; }
+
+protected:
 	float					m_W;
     float                   m_prev_W;
 	float					m_decay;

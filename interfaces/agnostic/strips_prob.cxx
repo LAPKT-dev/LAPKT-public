@@ -91,10 +91,10 @@ namespace aptk
 		}
 		
 	}
-	
-	unsigned STRIPS_Problem::add_action( STRIPS_Problem& p, std::string signature,
-					     const Fluent_Vec& pre, const Fluent_Vec& add, const Fluent_Vec& del,
-					     const Conditional_Effect_Vec& ceffs, float cost )
+
+    unsigned STRIPS_Problem::add_action(STRIPS_Problem& p, std::string signature,
+                         const Fluent_Vec& pre, const Fluent_Vec& add, const Fluent_Vec& del,
+                         const Conditional_Effect_Vec& ceffs, float cost )
 	{
 		if( ! p.has_conditional_effects() )
 			if( ! ceffs.empty() )
@@ -122,6 +122,16 @@ namespace aptk
 		p.m_const_fluents.push_back( new_fluent );
 		return p.fluents().size()-1;
 	}
+
+    size_t STRIPS_Problem::add_comparision(unsigned bound_fluent_Id, CompareType t, Expression<float> expr){
+        m_comparision.push_back(Comparison<float>(bound_fluent_Id, t, expr));
+
+        // build map[numeric_fluent] -> boolean fluent that may change if numeric_fluent changes
+        for (std::size_t num_fluent_id: expr.fluent_indices()){
+            m_num_compare_map[num_fluent_id].insert(FluentId);
+        }
+        return m_comparision.size() - 1;
+    }
 
 	void	STRIPS_Problem::set_init( STRIPS_Problem& p, const Fluent_Vec& init_vec )
 	{

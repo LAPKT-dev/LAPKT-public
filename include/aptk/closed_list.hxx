@@ -158,10 +158,8 @@ void	put( iterator n ) {
 
 }
 
-bool has_element(Node  * const n) const {
-    const iterator it = this->retrieve(n);
-    const iterator end = this->end();
-    return it != end;
+bool has_element(Node  * const n) {
+    return nullptr != this->retrieve(n);
 }
 
 bool has_element(iterator it){

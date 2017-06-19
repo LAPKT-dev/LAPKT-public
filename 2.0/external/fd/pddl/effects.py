@@ -25,6 +25,7 @@ def parse_effects(alist, result):
     else:
         return None
 
+
 def add_effect(tmp_effect, result):
     """tmp_effect has the following structure:
        [ConjunctiveEffect] [UniversalEffect] [ConditionalEffect] SimpleEffect."""
@@ -65,6 +66,7 @@ def add_effect(tmp_effect, result):
                 result.remove(contradiction)
                 result.append(new_effect)
 
+
 def parse_effect(alist):
     tag = alist[0]
     if tag == "and":
@@ -79,10 +81,11 @@ def parse_effect(alist):
         condition = conditions.parse_condition(alist[1])
         effect = parse_effect(alist[2])
         return ConditionalEffect(condition, effect)
-    elif tag == "increase":
+    elif tag in ("increase", 'decrease', 'assign'):
         assert len(alist) == 3
-        assert alist[1] == ['total-cost']
         assignment = f_expression.parse_assignment(alist)
+        if alist[1] == ['total-cost']:
+            return CostEffect(assignment)
         return CostEffect(assignment)
     else:
         return SimpleEffect(conditions.parse_literal(alist))
@@ -190,6 +193,7 @@ class ConditionalEffect(object):
     def extract_cost(self):
         return None, self
 
+
 class UniversalEffect(object):
     def __init__(self, parameters, effect):
         if isinstance(effect, UniversalEffect):
@@ -214,6 +218,7 @@ class UniversalEffect(object):
             return UniversalEffect(self.parameters, norm_effect)
     def extract_cost(self):
         return None, self
+
 
 class ConjunctiveEffect(object):
     def __init__(self, effects):
@@ -243,6 +248,7 @@ class ConjunctiveEffect(object):
                 new_effects.append(effect)
         return cost_effect, ConjunctiveEffect(new_effects)
 
+
 class SimpleEffect(object):
     def __init__(self, effect):
         self.effect = effect
@@ -253,7 +259,8 @@ class SimpleEffect(object):
     def extract_cost(self):
         return None, self
 
-class CostEffect(object):
+
+class CostEffect(SimpleEffect):
     def __init__(self, effect):
         self.effect = effect
     def dump(self, indent="  "):
@@ -263,3 +270,9 @@ class CostEffect(object):
     def extract_cost(self):
         return self, None # this would only happen if
     #an action has no effect apart from the cost effect
+
+
+class NumericEffect(Effect):
+
+    def normalize(self):
+        return self

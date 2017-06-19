@@ -24,12 +24,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <string>
 #include <map>
+#include <set>
 #include <iosfwd>
 #include <types.hxx>
 #include <succ_gen.hxx>
 #include <match_tree.hxx>
+#include <comparison.h>
 #include <algorithm>
 #include <mutex_set.hxx>
+#include <expression.h>
+
 
 namespace aptk
 {
@@ -160,9 +164,10 @@ namespace aptk
 
 		static unsigned 	add_action( STRIPS_Problem& p, std::string signature,
 						    const Fluent_Vec& pre, const Fluent_Vec& add, const Fluent_Vec& del,
-						    const Conditional_Effect_Vec& ceffs, float cost = 1.0f );
+                            const Conditional_Effect_Vec& ceffs, float cost = 1.0f );
 
 		static unsigned 	add_fluent( STRIPS_Problem& p, std::string signature );
+        std::size_t     add_comparision(unsigned BoundFluentId, CompareType t, Expression<float> expr);
 
 		static void		set_init( STRIPS_Problem& p, const Fluent_Vec& init );
 		static void		set_goal( STRIPS_Problem& p, const Fluent_Vec& goal, bool createEndOp = false );
@@ -173,7 +178,7 @@ namespace aptk
 		Fluent_Ptr_Vec&		fluents() 			{ return m_fluents; }
 		Action_Ptr_Vec&		actions() 			{ return m_actions; }
 		const std::vector< const Fluent*>&	
-					fluents() const			{ return m_const_fluents; }
+                     fluents() const			{ return m_const_fluents; }
 		const std::vector< const Action*>&
 					actions() const			{ return m_const_actions; }
 
@@ -221,7 +226,7 @@ namespace aptk
 		}
 		
 		void			applicable_actions_v2( const State& s, std::vector<int>& actions ) const {
-			m_succ_gen_v2.retrieve_applicable(s,actions);
+            m_succ_gen_v2.retrieve_applicable(s, actions);
 		}
 
 		void			applicable_actions( const std::vector<float>& v, std::vector<const Action*>& actions ) const {
@@ -264,9 +269,14 @@ namespace aptk
 
 		void					make_effect_tables();
 
+        void                    update_numerical_preconditions(State * s){
+// todo
+        }
+
 	protected:
 	
 		void			increase_num_fluents()        	{ m_num_fluents++; }
+        void			increase_num_functions()        { m_num_functions++; }
 		void			increase_num_actions()        	{ m_num_actions++; }
 		void			register_action_in_tables( Action* act );
 
@@ -275,17 +285,24 @@ namespace aptk
 		std::string								m_domain_name;
 		std::string								m_problem_name;
 		unsigned		 						m_num_fluents;
+        unsigned		 						m_num_functions;
 		unsigned		 						m_num_actions;
-		Action_Ptr_Vec		 						m_actions;
-		std::vector<const Action*>						m_const_actions;
-		Fluent_Ptr_Vec		 						m_fluents;
-		std::vector<const Fluent*>						m_const_fluents;
+        Action_Ptr_Vec		 					m_actions;
+        std::vector<const Action*>				m_const_actions;
+        Fluent_Ptr_Vec                          m_fluents;
+        // numerical_fluent -> comparison_fluent map
+        // used for updating when numerical effect changes some values
+        Numeric_To_Comparison_Map               m_num_compare_map;
+        std::vector<Comparison<float> >         m_comparision;
+        std::vector<const Fluent*>				m_const_fluents;
 		Fluent_Vec		 						m_init;
 		Fluent_Vec		 						m_goal;
 		Fluent_Action_Table	 						m_adding;
 		Fluent_Action_Table	 						m_requiring;
 		Fluent_Action_Table	 						m_deleting;
 		Fluent_Action_Table	 						m_edeleting;
+        Fluent_Action_Table                         m_increasing;
+        Fluent_Action_Table                         m_decreasing;
 		std::vector<bool>	 						m_in_init;
 		std::vector<bool>	 						m_in_goal;
 		unsigned                 						m_end_operator_id;
@@ -299,7 +316,8 @@ namespace aptk
 		std::vector< Best_Supporter >						m_effects;
 		mutable std::vector< Trigger >						m_triggers;
 		std::vector< std::set< unsigned> >					m_relevant_effects;
-	        agnostic::Mutex_Set             	                                m_mutexes;
+        agnostic::Mutex_Set             	            m_mutexes;
+
 	  };
 
 }
