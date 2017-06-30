@@ -41,7 +41,7 @@ public:
 
 
 	Novelty_Partition( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 2048 ) 
-		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB), m_always_full_state(true), m_partition_size(0), m_verbose( true ) {
+		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB), m_always_full_state(false), m_partition_size(0), m_verbose( true ) {
 		
 		set_arity(max_arity, 1);
 		
@@ -66,6 +66,11 @@ public:
 
 	void set_verbose( bool v ) { m_verbose = v; }
 
+	unsigned& partition_size() {return m_partition_size;}
+	bool is_partition_empty(unsigned partition) {return m_nodes_tuples_by_partition[partition].empty();}
+	
+	Search_Node* table( unsigned partition, unsigned idx) { return m_nodes_tuples_by_partition[partition][idx]; }
+	
 	void set_arity( unsigned max_arity, unsigned partition_size = 0 ){
 
 	        m_partition_size = partition_size;
