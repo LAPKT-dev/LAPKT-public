@@ -200,15 +200,18 @@ protected:
 			 * OR
 			 * -> n better than old_n
 			 */
-			bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ n->partition() ][tuple_idx], n  ) ? true : false);
-			
-			if( cover_new_tuple ){
-				m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] = (Search_Node*) n;
 
+			auto& n_seen = m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ];
+
+			if (!n_seen || is_better(n_seen,n)) {
+				
+				n_seen = (Search_Node*) n;
 				new_covers = true;
+				
+				
 #ifdef DEBUG
 				if ( m_verbose ) {
-					std::cout<<"\t";
+					std::cout<<"\t NEW!! : ";
 					for(unsigned i = 0; i < arity; i++){
 						std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
 					}
@@ -308,11 +311,12 @@ protected:
 					 * OR
 					 * -> n better than old_n
 					 */
-					bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ n->partition() ][tuple_idx], n  ) ? true : false);
-                       
-					if( cover_new_tuple ){
+
+					auto& n_seen = m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ];
+
+					if (!n_seen || is_better(n_seen,n)) {
 						
-						m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] = (Search_Node*) n;
+						n_seen = (Search_Node*) n;
 						new_covers = true;
 
 
@@ -326,7 +330,7 @@ protected:
 						}
 #endif
 					}
-
+					
 				}
 			}
 
