@@ -153,10 +153,14 @@ protected:
 #endif 	
 			
 			bool new_covers;
+
 			if(n->parent() == nullptr || m_always_full_state)
 				new_covers = cover_tuples( n, i );
 			else
-				new_covers = (n->partition() == n->parent()->partition()) ?  cover_tuples_op( n, i ) : cover_tuples( n, i );			
+				new_covers = (n->partition() == n->parent()->partition()) ?  cover_tuples_op( n, i ) : cover_tuples( n, i );
+
+
+			
 #ifdef DEBUG
 			if(m_verbose && !new_covers)	
 				std::cout << "\t \t PRUNE! search node: "<<&(n)<<std::endl;
@@ -192,7 +196,24 @@ protected:
 			/**
 			 * Check if tuple is covered
 			 */
-			unsigned tuple_idx = tuple2idx( tuple, arity );
+			
+			unsigned tuple_idx;
+
+			
+			if (arity==1) {
+				tuple_idx = tuple2idx( tuple, arity );
+				
+			} else 	if(arity == 2 ){			
+				if( tuple[0] == tuple[1] ) continue; // don't check singleton tuples
+				tuple_idx = tuple2idx_size2( tuple, arity );
+			} else {
+				
+				// If all elements in the tuple are equal, ignore the tuple
+				if (std::any_of(tuple.cbegin(), tuple.cend(), [&tuple](unsigned x){ return x != tuple[0]; }  )) continue;
+				tuple_idx = tuple2idx( tuple, arity );
+			}
+			
+			
 
 			/**
 			 * new_tuple if
@@ -290,20 +311,37 @@ protected:
 					it_add != add.end(); it_add++ )
 			{
 		
-				tuple[ atoms_arity ] = *it_add;
 
 				for( unsigned idx = 0; idx < n_combinations; idx++ ){
 
-					/**
-					 * get tuples from indexes
-					 */
-					if(atoms_arity > 0)
-						idx2tuple( tuple, fl, idx, atoms_arity );
-
+					tuple[ atoms_arity ] = *it_add;
 					/**
 					 * Check if tuple is covered
 					 */
-					unsigned tuple_idx = tuple2idx( tuple, arity );
+					unsigned tuple_idx;
+
+
+					if (arity==1) {
+						tuple_idx = tuple2idx( tuple, arity );
+
+					} else 	if(arity == 2 ){
+						tuple[0] = fl[idx];
+						if( tuple[0] == tuple[1] ) continue; // don't check singleton tuples
+						tuple_idx = tuple2idx_size2( tuple, arity );
+					} else {
+
+						// If all elements in the tuple are equal, ignore the tuple
+						if (std::any_of(tuple.cbegin(), tuple.cend(), [&tuple](unsigned x){ return x != tuple[0]; }  )) continue;
+						/**
+						 * get tuples from indexes
+						 */
+						idx2tuple( tuple, fl, idx, atoms_arity );
+						
+						
+						tuple_idx = tuple2idx( tuple, arity );
+					}
+				
+								
 
 					/**
 					 * new_tuple if
@@ -340,12 +378,20 @@ protected:
 		return new_covers;
 	}
 
+	inline unsigned  tuple2idx_size2( std::vector<unsigned>& indexes, unsigned arity) const
+	{
+		unsigned min = indexes[0] <= indexes[1] ? indexes[0] : indexes[1];
+		unsigned max = indexes[0] <= indexes[1] ? indexes[1] : indexes[0];
+		return min + max*m_num_fluents;
+			
+	}
 
 	inline unsigned  tuple2idx( std::vector<unsigned>& indexes, unsigned arity) const
 	{
 		unsigned idx=0;
 		unsigned dimension = 1;
 
+		std::sort(indexes.begin(), indexes.end());
 		for(int i = arity-1; i >= 0; i--)
 			{
 				idx += indexes[ i ] * dimension;
@@ -393,8 +439,9 @@ protected:
 		}
 	}
 
-	inline bool      is_better( Search_Node* n,const Search_Node* new_n ) const { 
-	  return new_n->is_better( n );		
+	inline bool      is_better( Search_Node* n,const Search_Node* new_n ) const {
+		return false;
+		//return new_n->is_better( n );		
 	}
 
 

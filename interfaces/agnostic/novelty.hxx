@@ -196,10 +196,12 @@ protected:
 					it_add != add.end(); it_add++ )
 			{
 		
-				tuple[ atoms_arity ] = *it_add;
+			
 
 				for( unsigned idx = 0; idx < n_combinations; idx++ ){
 
+					tuple[ atoms_arity ] = *it_add;
+					
 					/**
 					 * get tuples from indexes
 					 */
@@ -209,7 +211,30 @@ protected:
 					/**
 					 * Check if tuple is covered
 					 */
-					unsigned tuple_idx = tuple2idx( tuple, arity );
+					unsigned tuple_idx;
+
+
+					if (arity==1) {
+						tuple_idx = tuple2idx( tuple, arity );
+
+					} else 	if(arity == 2 ){
+						tuple[0] = fl[idx];
+						if( tuple[0] == tuple[1] ) continue; // don't check singleton tuples
+						tuple_idx = tuple2idx_size2( tuple, arity );
+					} else {
+
+						// If all elements in the tuple are equal, ignore the tuple
+						if (std::any_of(tuple.cbegin(), tuple.cend(), [&tuple](unsigned x){ return x != tuple[0]; }  )) continue;
+						/**
+						 * get tuples from indexes
+						 */
+						idx2tuple( tuple, fl, idx, atoms_arity );
+						
+						
+						tuple_idx = tuple2idx( tuple, arity );
+					}
+				
+							
 
 					/**
 					 * new_tuple if
@@ -217,11 +242,11 @@ protected:
 					 * OR
 					 * -> n better than old_n
 					 */
-					bool cover_new_tuple = ( !m_nodes_tuples[ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples[tuple_idx], n  ) ? true : false);
-                       
-					if( cover_new_tuple ){
-						
-						m_nodes_tuples[ tuple_idx ] = (Search_Node*) n;
+					auto& n_seen = m_nodes_tuples[ tuple_idx ];
+					
+					if (!n_seen || is_better(n_seen,n)) {
+							
+						n_seen = (Search_Node*) n;
 						new_covers = true;
 
 
@@ -291,18 +316,34 @@ protected:
 			/**
 			 * Check if tuple is covered
 			 */
-			unsigned tuple_idx = tuple2idx( tuple, arity );
+			unsigned tuple_idx;
 
+			
+			if (arity==1) {
+				tuple_idx = tuple2idx( tuple, arity );
+				
+			} else 	if(arity == 2 ){			
+				if( tuple[0] == tuple[1] ) continue; // don't check singleton tuples
+				tuple_idx = tuple2idx_size2( tuple, arity );
+			} else {
+				
+				// If all elements in the tuple are equal, ignore the tuple
+				if (std::any_of(tuple.cbegin(), tuple.cend(), [&tuple](unsigned x){ return x != tuple[0]; }  )) continue;
+				tuple_idx = tuple2idx( tuple, arity );
+			}
+			
 			/**
 			 * new_tuple if
 			 * -> none was registered
 			 * OR
 			 * -> n better than old_n
-			 */
-			bool cover_new_tuple = ( !m_nodes_tuples[ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples[tuple_idx], n  ) ? true : false);
+			 */		
+
+			auto& n_seen = m_nodes_tuples[ tuple_idx ];
+
+			if (!n_seen || is_better(n_seen,n)) {
 			
-			if( cover_new_tuple ){
-				m_nodes_tuples[ tuple_idx ] = (Search_Node*) n;
+				n_seen = (Search_Node*) n;
 
 				new_covers = true;
 #ifdef DEBUG
@@ -324,7 +365,16 @@ protected:
 
 	}
 
-
+	//specialized version for tuples of size 2
+	inline unsigned  tuple2idx_size2( std::vector<unsigned>& indexes, unsigned arity) const
+	{
+		unsigned min = indexes[0] <= indexes[1] ? indexes[0] : indexes[1];
+		unsigned max = indexes[0] <= indexes[1] ? indexes[1] : indexes[0];
+		return min + max*m_num_fluents;
+			
+	}
+	
+	//general version for tuples of arbitrary size
 	inline unsigned  tuple2idx( std::vector<unsigned>& indexes, unsigned arity) const
 	{
 		unsigned idx=0;
