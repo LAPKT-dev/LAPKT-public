@@ -440,8 +440,8 @@ protected:
 	}
 
 	inline bool      is_better( Search_Node* n,const Search_Node* new_n ) const {
-		return false;
-		//return new_n->is_better( n );		
+		//return false;
+		return new_n->is_better( n );		
 	}
 
 
