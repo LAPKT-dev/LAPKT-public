@@ -33,6 +33,7 @@ namespace aptk
 
 	class Action;
 	class Fluent;
+    class Function;
 	class Conditional_Effect;
     class Numeric_Effect;
 	
@@ -47,6 +48,7 @@ namespace aptk
     typedef 	std::vector<Action* >				Action_Ptr_Vec;
     typedef 	std::vector< const Action* >			Action_Ptr_Const_Vec;
     typedef 	std::vector<Fluent* >				Fluent_Ptr_Vec;
+    typedef     std::vector<Function*>              Function_Ptr_Vec;
     typedef     std::map<size_t, std::set<size_t>>           Numeric_To_Comparison_Map;
     typedef		std::vector<Conditional_Effect* > 		Conditional_Effect_Vec;
     typedef     std::vector<Numeric_Effect* >           Numeric_Effect_Vec;

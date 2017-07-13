@@ -29,10 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <types.hxx>
 #include <succ_gen.hxx>
 #include <match_tree.hxx>
-#include <comparison.h>
+#include <comparison.hxx>
 #include <algorithm>
 #include <mutex_set.hxx>
-#include <expression.h>
+#include <expression.hxx>
 
 
 namespace aptk
@@ -156,8 +156,8 @@ namespace aptk
 		std::string		domain_name() const { return m_domain_name; }
 		std::string		problem_name() const { return m_problem_name; }
 
-		unsigned 		num_fluents() const		{ return m_num_fluents; }
-		unsigned 		num_actions() const		{ return m_num_actions; }
+        size_t 		num_fluents() const		{ return this->m_fluents.size(); }
+        size_t 		num_actions() const		{ return this->m_actions.size(); }
 
 		void			set_num_fluents( unsigned nf ) { m_num_fluents = nf; }
 		void			set_num_actions( unsigned na ) { m_num_actions = na; }
@@ -167,7 +167,8 @@ namespace aptk
                             const Conditional_Effect_Vec& ceffs, float cost = 1.0f );
 
 		static unsigned 	add_fluent( STRIPS_Problem& p, std::string signature );
-        std::size_t     add_comparision(unsigned BoundFluentId, CompareType t, Expression<float> expr);
+        size_t          add_function(std::string signature );
+        std::size_t     add_comparison(unsigned BoundFluentId, aptk::CompareType t, aptk::Expression<float> expr);
 
 		static void		set_init( STRIPS_Problem& p, const Fluent_Vec& init );
 		static void		set_goal( STRIPS_Problem& p, const Fluent_Vec& goal, bool createEndOp = false );
@@ -176,6 +177,7 @@ namespace aptk
 
 	  	
 		Fluent_Ptr_Vec&		fluents() 			{ return m_fluents; }
+        Function_Ptr_Vec&   functions()         { return m_functions; }
 		Action_Ptr_Vec&		actions() 			{ return m_actions; }
 		const std::vector< const Fluent*>&	
                      fluents() const			{ return m_const_fluents; }
@@ -244,6 +246,8 @@ namespace aptk
 
 		void			make_action_tables(bool generate_match_tree = true);
 
+        const Numeric_To_Comparison_Map & comparison_map() const { return m_num_compare_map; }
+
 		void			print( std::ostream& os ) const;
 		void			print_fluents( std::ostream& os ) const;
 		void			print_actions( std::ostream& os ) const;
@@ -269,15 +273,11 @@ namespace aptk
 
 		void					make_effect_tables();
 
-        void                    update_numerical_preconditions(State * s){
-// todo
+        const aptk::Comparison<float> & comparison(size_t i) const {
+            return m_comparision[i];
         }
 
 	protected:
-	
-		void			increase_num_fluents()        	{ m_num_fluents++; }
-        void			increase_num_functions()        { m_num_functions++; }
-		void			increase_num_actions()        	{ m_num_actions++; }
 		void			register_action_in_tables( Action* act );
 
 	protected:
@@ -285,7 +285,6 @@ namespace aptk
 		std::string								m_domain_name;
 		std::string								m_problem_name;
 		unsigned		 						m_num_fluents;
-        unsigned		 						m_num_functions;
 		unsigned		 						m_num_actions;
         Action_Ptr_Vec		 					m_actions;
         std::vector<const Action*>				m_const_actions;
@@ -303,6 +302,7 @@ namespace aptk
 		Fluent_Action_Table	 						m_edeleting;
         Fluent_Action_Table                         m_increasing;
         Fluent_Action_Table                         m_decreasing;
+        Function_Ptr_Vec                            m_functions;
 		std::vector<bool>	 						m_in_init;
 		std::vector<bool>	 						m_in_goal;
 		unsigned                 						m_end_operator_id;

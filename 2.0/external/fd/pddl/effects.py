@@ -14,12 +14,13 @@ def cartesian_product(*sequences):
             for item in sequences[0]:
                 yield (item,) + tup
 
-def parse_effects(alist, result):
+def parse_effects(alist, result, num_effects):
     """Parse a PDDL effect (any combination of simple, conjunctive, conditional, and universal)."""
     tmp_effect = parse_effect(alist)
     normalized = tmp_effect.normalize()
-    cost_eff, rest_effect = normalized.extract_cost()
+    cost_eff, num_effect, rest_effect = normalized.extract_cost()
     add_effect(rest_effect, result)
+    num_effects.extend(num_effect)
     if cost_eff:
         return cost_eff.effect
     else:
@@ -86,7 +87,7 @@ def parse_effect(alist):
         assignment = f_expression.parse_assignment(alist)
         if alist[1] == ['total-cost']:
             return CostEffect(assignment)
-        return CostEffect(assignment)
+        return NumericEffect(assignment)
     else:
         return SimpleEffect(conditions.parse_literal(alist))
 
@@ -240,13 +241,16 @@ class ConjunctiveEffect(object):
         return ConjunctiveEffect(new_effects)
     def extract_cost(self):
         new_effects = []
+        num_effects = []
         cost_effect = None
         for effect in self.effects:
             if isinstance(effect, CostEffect):
                 cost_effect = effect
+            elif isinstance(effect, NumericEffect):
+                num_effects.append(effect)
             else:
                 new_effects.append(effect)
-        return cost_effect, ConjunctiveEffect(new_effects)
+        return cost_effect,  num_effects, ConjunctiveEffect(new_effects)
 
 
 class SimpleEffect(object):
@@ -272,7 +276,26 @@ class CostEffect(SimpleEffect):
     #an action has no effect apart from the cost effect
 
 
-class NumericEffect(Effect):
+class NumericEffect(SimpleEffect):
+    def __init__(self, effect, condition=conditions.Truth()):
+        self.effect = effect
+        self.condition = condition
 
     def normalize(self):
         return self
+
+    def uniquify_variables(self, type_map, renamings={}):
+        return self.rename_variables(renamings)
+
+    def rename_variables(self, renamings):
+        if len(renamings) == 0:
+            return self
+        raise NotImplementedError()
+
+    def instantiate(self, var_mapping, init_facts, fluent_facts,
+                    objects_by_type, result):
+        eff = self.effect.instantiate(var_mapping, init_facts)
+        result.append(eff)
+
+    def pddl(self):
+        return self.effect.pddl()

@@ -1,12 +1,18 @@
 from __future__ import print_function
 
 
+def construct(functionsymbol, args):
+    m = {'-': Substract}
+    if functionsymbol in ('-', '+', '/', '*', 'increase', 'decrease', 'assign'):
+        return m[functionsymbol](args)
+    return PrimitiveNumericExpression(functionsymbol, args)
+
 def parse_expression(exp):
     if isinstance(exp, list):
         functionsymbol = exp[0]
         if all(isinstance(x, str) for x in exp):
-            return PrimitiveNumericExpression(functionsymbol, exp[1:])
-        return PrimitiveNumericExpression(functionsymbol, tuple(parse_expression(e) for e in exp[1:]))
+            return construct(functionsymbol, exp[1:])
+        return construct(functionsymbol, tuple(parse_expression(e) for e in exp[1:]))
     elif exp.replace(".", "").isdigit():
         return NumericConstant(float(exp))
     elif exp[0] == "-":
@@ -59,6 +65,9 @@ class FunctionalExpression(object):
     def rename_variables(self, renamings):
         return self
 
+    def get_functions(self):
+        return set(self)
+
 
 class NumericConstant(FunctionalExpression):
     parts = ()
@@ -86,6 +95,11 @@ class NumericConstant(FunctionalExpression):
     def pddl(self):
         return str(self.value)
 
+    def get_functions(self):
+        return set()
+
+    def __hash__(self):
+        return self.value
 
 class PrimitiveNumericExpression(FunctionalExpression):
     parts = ()
@@ -93,6 +107,7 @@ class PrimitiveNumericExpression(FunctionalExpression):
         self.symbol = symbol
         self.args = tuple(args)
         self.hash = hash((self.__class__, self.symbol, self.args))
+        self.initial_value = None
     def __hash__(self):
         return self.hash
     def __eq__(self, other):
@@ -116,13 +131,16 @@ class PrimitiveNumericExpression(FunctionalExpression):
         args = [var_mapping.get(arg, arg) for arg in self.args]
         pne = PrimitiveNumericExpression(self.symbol, args)
         assert self.symbol != "total-cost"
-        # We know this expression is constant. Substitute it by corresponding
-        # initialization from task.
+        found = False
         for fact in init_facts:
             if isinstance(fact, FunctionAssignment):
                 if fact.fluent == pne:
-                    return fact.expression
-        assert False, "Could not find instantiation for PNE!"
+                    pne.initial_value = fact.expression.value
+                    found = True
+        if not found:
+            from . import conditions
+            raise conditions.Impossible()
+        return pne
 
     def rename_variables(self, renamings):
         new_args = [renamings.get(arg, arg) for arg in self.args]
@@ -136,6 +154,33 @@ class PrimitiveNumericExpression(FunctionalExpression):
 
     def _simplified(self, _):
         return self
+
+    def get_functions(self):
+        return {self}
+
+
+
+class Substract(FunctionalExpression):
+    symbol = '-'
+
+    def __init__(self, parts):
+        self.parts = tuple(parts)
+
+    def pddl(self):
+        return '({0} {1})'.format(Substract.symbol, ' '.join([x.pddl() for x in self.parts]))
+
+    def instantiate(self, var_mapping, init_facts):
+        return self.__class__([x.instantiate(var_mapping, init_facts) for x in self.parts])
+
+    def _simplified(self, part_results, *args):
+        return self
+
+    def get_functions(self):
+        import pdb;pdb.set_trace()
+        result = set()
+        for part in self.parts:
+            result = result.union(part.get_functions())
+        return result
 
 
 class FunctionAssignment(object):
@@ -151,31 +196,34 @@ class FunctionAssignment(object):
     def _dump(self):
         return self.__class__.__name__
     def instantiate(self, var_mapping, init_facts):
-        if not (isinstance(self.expression, PrimitiveNumericExpression) or
-                isinstance(self.expression, NumericConstant)):
+        if not (isinstance(self.expression, (PrimitiveNumericExpression,
+                                             NumericConstant,
+                                             Substract))):
             raise ValueError("Cannot instantiate assignment: not normalized")
-        # We know that this assignment is a cost effect of an action (for initial state
-        # assignments, "instantiate" is not called). Hence, we know that the fluent is
-        # the 0-ary "total-cost" which does not need to be instantiated
-        assert self.fluent.symbol == "total-cost"
-        fluent = self.fluent
-        expression = self.expression.instantiate(var_mapping, init_facts)
-        return self.__class__(fluent, expression)
+        if self.fluent.symbol == "total-cost":
+            fluent = self.fluent
+            expression = self.expression.instantiate(var_mapping, init_facts)
+            return self.__class__(fluent, expression)
 
+        return self.__class__(self.fluent.instantiate(var_mapping, init_facts), self.expression.instantiate(var_mapping, init_facts))
+    def __repr__(self):
+        return "< {0} {1} {2} >".format(self.symbol, self.fluent, self.expression)
     def pddl(self):
-        return "(= {0} {1})".format(self.fluent.pddl(), self.expression.pddl())
+        return "({0} {1} {2})".format(self.symbol, self.fluent.pddl(), self.expression.pddl())
 
 
 class Assign(FunctionAssignment):
+    symbol = "="
     def __str__(self):
         return "%s := %s" % (self.fluent, self.expression)
 
 
 class Increase(FunctionAssignment):
+    symbol = "increase"
     def pddl(self):
         return "(increase {0} {1})".format(self.fluent.pddl(), self.expression.pddl())
 
 
 class Decrease(FunctionAssignment):
-    symbol = "-"
+    symbol = "decrease"
 

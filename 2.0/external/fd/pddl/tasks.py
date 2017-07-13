@@ -27,7 +27,7 @@ class Task(object):
         self.axiom_counter = 0
         self.use_min_cost_metric = use_metric
         # function -> fluent map
-        self.normal_functions_map = dict()
+        self.comparator_to_fluent_map = dict()
         if constants is None:
             self.constants = set()
         else:

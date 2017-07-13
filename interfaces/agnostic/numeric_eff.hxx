@@ -12,8 +12,11 @@ namespace aptk
 class Numeric_Effect
 {
 public:
-    Numeric_Effect(std::shared_ptr<Expression<float>> expr, size_t num_fluent_idx);
+    Numeric_Effect(std::shared_ptr<Expression<float>> expr, int num_fluent_idx);
     void apply(State & s);
+    size_t fluentId() const {
+        return m_fluent_idx;
+    }
 
 private:
     size_t m_fluent_idx;

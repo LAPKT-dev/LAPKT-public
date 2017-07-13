@@ -29,6 +29,7 @@ class PreconditionProxy(ConditionProxy):
     def get_type_map(self):
         return self.owner.type_map
 
+
 class EffectConditionProxy(ConditionProxy):
     def __init__(self, action, effect):
         self.action = action
@@ -42,6 +43,8 @@ class EffectConditionProxy(ConditionProxy):
         self.action.effects.remove(self.owner)
     def build_rules(self, rules):
         effect = self.owner
+        if isinstance(effect, pddl.effects.NumericEffect):
+            return
         rule_head = effect.literal
         if not rule_head.negated:
             rule_body = [get_action_predicate(self.action)]
@@ -49,6 +52,16 @@ class EffectConditionProxy(ConditionProxy):
             rules.append((rule_body, rule_head))
     def get_type_map(self):
         return self.action.type_map
+
+
+class NumEffectProxy:
+    def __init__(self, action, effect):
+        self.action = action
+        self.effect = effect
+
+    def set(self, expression):
+        self.effect.effect = expression
+
 
 class AxiomConditionProxy(ConditionProxy):
     def __init__(self, axiom):
@@ -71,6 +84,7 @@ class AxiomConditionProxy(ConditionProxy):
         rules.append((eff_rule_body, eff_rule_head))
     def get_type_map(self):
         return self.owner.type_map
+
 
 class GoalConditionProxy(ConditionProxy):
     def __init__(self, task):
@@ -104,6 +118,7 @@ class GoalConditionProxy(ConditionProxy):
         self.condition.uniquify_variables(type_map)
         return type_map
 
+
 def get_action_predicate(action):
     name = action
     variables = [par.name for par in action.parameters]
@@ -111,12 +126,14 @@ def get_action_predicate(action):
         variables += [par.name for par in action.precondition.parameters]
     return pddl.Atom(name, variables)
 
+
 def get_axiom_predicate(axiom):
     name = axiom
     variables = [par.name for par in axiom.parameters]
     if isinstance(axiom.condition, pddl.ExistentialCondition):
         variables += [par.name for par in axiom.condition.parameters]
     return pddl.Atom(name, variables)
+
 
 def all_conditions(task):
     for action in task.actions:
@@ -126,6 +143,13 @@ def all_conditions(task):
     for axiom in task.axioms:
         yield AxiomConditionProxy(axiom)
     yield GoalConditionProxy(task)
+
+
+def all_numeric_effects(task):
+    for action in task.actions:
+        for effect in action.numeric_effects():
+            yield NumEffectProxy(action, effect)
+    # todo: expression in metric?
 
 # [1] Remove universal quantifications from conditions.
 #
@@ -329,25 +353,57 @@ def normalize_numeric_preconditons(task):
         if proxy.condition.has_numeric_precondition():
             proxy.set(proxy.condition.simplified())
 
+def normalize_numeric_effects(task):
+    from pddl import f_expression
+    # type: (pddl.Task) -> None
+    def replace(expression):
+        if expression.symbol in ('assign', '='):
+            return expression
+        elif expression.symbol == 'decrease':
+            return f_expression.Assign(expression.fluent,
+                                       f_expression.Substract([expression.fluent,
+                                                               expression.expression]))
+        else:
+            raise NotImplementedError
+    for proxy in all_numeric_effects(task):
+        proxy.set(replace(proxy.effect.effect))
 
 def replace_numeric_preconditions(task):
-    import pdb;pdb.set_trace()
+    # type: (pddl.Task) -> None
+
+    def extract_arg_types(function):
+        # type: (f_expression.PrimitiveNumericExpression) -> list
+        for f in task.functions:
+            if f.name == function.symbol:
+                return [x.type for x in f.arguments]
+        raise RuntimeError("Function not found {0}".format(function.symbol))
+
     def replace(condition):
         if isinstance(condition, pddl.FunctionComparison):
+            import pdb;pdb.set_trace()
             non_negated = condition
             if condition.negated:
                 non_negated = condition.negate()
-            if non_negated in task.normal_functions_map:
-                predicate = task.normal_functions_map[non_negated]
+            if non_negated in task.comparator_to_fluent_map:
+                predicate = task.comparator_to_fluent_map[non_negated]
             else:
-                fluent_str = 'num_condition_satisfied{0}'.format(len(task.normal_functions_map))
-                predicate = pddl.Predicate(fluent_str, [])
+                fluent_str = 'num_condition_satisfied{0}'.format(len(task.comparator_to_fluent_map))
+                new_predicate_args = dict()
+                functions = condition.get_functions()
+                for func in functions:
+                    arg_types = extract_arg_types(func)
+                    for (key, value) in zip(func.args, arg_types):
+                        new_predicate_args[key] = pddl.TypedObject(key, value)
+                args = []
+                for key in sorted(new_predicate_args.keys()):
+                    args.append(new_predicate_args[key])
+                predicate = pddl.Predicate(fluent_str, args)
                 task.predicates.append(predicate)
             if condition.negated:
-                new_atom = pddl.NegatedAtom(predicate.name, [])
+                new_atom = pddl.NegatedAtom(predicate.name, args)
             else:
-                new_atom = pddl.Atom(predicate.name, [])
-            task.normal_functions_map[condition] = new_atom
+                new_atom = pddl.Atom(predicate.name, args)
+            task.comparator_to_fluent_map[condition] = new_atom
             return new_atom
         if condition.has_numeric_precondition():
             new_condition = condition.__class__([])
@@ -366,6 +422,7 @@ def normalize(task):
     remove_universal_quantifiers(task)
     substitute_complicated_goal(task)
     normalize_numeric_preconditons(task)
+    normalize_numeric_effects(task)
     replace_numeric_preconditions(task)
     build_DNF(task)
 
@@ -395,6 +452,8 @@ def verify_axiom_predicates(task):
 
     for action in task.actions:
         for effect in action.effects:
+            if isinstance(effect, pddl.effects.NumericEffect):
+                continue
             if effect.literal.predicate in axiom_names:
                 raise SystemExit(
                     "error: derived predicate %r appears in effect of action %r" %

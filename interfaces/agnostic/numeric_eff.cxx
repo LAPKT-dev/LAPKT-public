@@ -1,8 +1,8 @@
-#include "numeric_eff.hpp"
+#include "numeric_eff.hxx"
 
 using namespace aptk;
 
-Numeric_Effect::Numeric_Effect(std::shared_ptr<Expression<float>> expr, size_t num_fluent_idx):
+Numeric_Effect::Numeric_Effect(std::shared_ptr<Expression<float>> expr, int num_fluent_idx):
         m_fluent_idx(num_fluent_idx),
         m_expr(expr)
 {}

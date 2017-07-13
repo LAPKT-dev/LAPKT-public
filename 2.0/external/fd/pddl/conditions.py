@@ -70,7 +70,6 @@ def parse_condition_aux(alist, negated):
     if tag == "and" and not negated or tag == "or" and negated:
         return Conjunction(parts)
     elif tag == "or" and not negated or tag == "and" and negated:
-        import pdb;pdb.set_trace()
         return Disjunction(parts)
     elif tag == "forall" and not negated or tag == "exists" and negated:
         return UniversalCondition(parameters, parts)
@@ -357,7 +356,7 @@ class Literal(Condition):
         self.hash = hash((self.__class__, self.predicate, self.args))
     def __eq__(self, other):
         # Compare hash first for speed reasons.
-        return (self.hash == other.hash and
+        return (self.hash == hash(other) and
                 self.__class__ is other.__class__ and
                 self.predicate == other.predicate and
                 self.args == other.args)
@@ -454,6 +453,19 @@ class FunctionComparison(Condition): # comparing numerical functions
             self.parts = tuple(parts)
         self.pddl()
         self.hash = hash((self.__class__, self.comparator, self.parts))
+
+    def get_functions(self):
+        result = set()
+        for part in self.parts:
+            if isinstance(part, f_expression.PrimitiveNumericExpression):
+                result.add(part)
+            elif isinstance(part, f_expression.FunctionalExpression):
+                result = result.union(part.get_functions())
+            elif isinstance(part, f_expression.NumericConstant):
+                pass
+            else:
+                raise NotImplementedError
+        return result
 
     def negate(self):
         return NegatedFunctionComparison(self.comparator, self.parts)

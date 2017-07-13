@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <strips_prob.hxx>
 #include <action.hxx>
 #include <fluent.hxx>
+#include <function.hxx>
 #include <cassert>
 #include <map>
 #include <iostream>
@@ -103,7 +104,6 @@ namespace aptk
 		Action* new_act = new Action( p );
 		new_act->set_signature( signature );
 		new_act->define( pre, add, del, ceffs );
-		p.increase_num_actions();
 		p.actions().push_back( new_act );
 		new_act->set_index( p.actions().size()-1 );
 		new_act->set_cost( cost );
@@ -117,18 +117,24 @@ namespace aptk
 		new_fluent->set_index( p.fluents().size() );
 		new_fluent->set_signature( signature );
 		p.m_fluents_map[signature] = new_fluent->index();
-		p.increase_num_fluents();
 		p.fluents().push_back( new_fluent );
 		p.m_const_fluents.push_back( new_fluent );
 		return p.fluents().size()-1;
 	}
 
-    size_t STRIPS_Problem::add_comparision(unsigned bound_fluent_Id, CompareType t, Expression<float> expr){
+    size_t
+    STRIPS_Problem::add_function( std::string signature){
+        Function * new_function = new Function(functions().size(), signature);
+        functions().push_back(new_function);
+        return functions().size() - 1;
+    }
+
+    size_t STRIPS_Problem::add_comparison(unsigned bound_fluent_Id, CompareType t, Expression<float> expr){
         m_comparision.push_back(Comparison<float>(bound_fluent_Id, t, expr));
 
         // build map[numeric_fluent] -> boolean fluent that may change if numeric_fluent changes
         for (std::size_t num_fluent_id: expr.fluent_indices()){
-            m_num_compare_map[num_fluent_id].insert(FluentId);
+            m_num_compare_map[num_fluent_id].insert(bound_fluent_Id);
         }
         return m_comparision.size() - 1;
     }

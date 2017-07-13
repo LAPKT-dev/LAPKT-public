@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <sstream>
 #include <algorithm>
 #include <strips_state.hxx>
+#include <numeric_eff.hxx>
+
 
 namespace aptk
 {
@@ -153,7 +155,17 @@ State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* 
 
     // iterate over numeric effects and assign new values for
     // numeric conditions fluents
-
+    for( size_t i = 0; i < a.num_vec().size(); i++){
+        a.num_vec()[i]->apply(*succ);
+        size_t changed = a.num_vec()[i]->fluentId();
+        auto it=problem().comparison_map().find(changed);
+        while (it != problem().comparison_map().end()) {
+            for(size_t cmp_idx: it->second){
+                problem().comparison(cmp_idx).update_fluent(*succ);
+            }
+            it++;
+        }
+    }
 
 	return succ;
 }

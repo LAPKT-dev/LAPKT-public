@@ -44,6 +44,7 @@ public:
 	virtual State*		make_state( const Fluent_Vec& s ) const;
 	virtual State*		init() const;
 	virtual bool		goal( const State& s ) const;
+    virtual const Fluent_Vec &goal() const;
 	bool	                lazy_goal( const State& s, Action_Idx a  ) const;
 	virtual bool		is_applicable( const State& s, Action_Idx a ) const;
 	virtual void		applicable_set( const State& s, std::vector<Action_Idx>& app_set ) const;

@@ -8,6 +8,25 @@
 #include <string>
 #include <set>
 
+namespace aptk{
+    namespace agnostic{
+        class Fwd_Search_Problem;
+    }
+}
+
+
+class Solver{
+public:
+    virtual void solve(){}
+};
+
+class SolverFactory{
+public:
+    virtual Solver * build( aptk::STRIPS_Problem *) const {
+        return nullptr;
+    }
+};
+
 
 
 class STRIPS_Problem {
@@ -21,10 +40,11 @@ public:
 	}
 
 	void	add_atom( std::string name );
-	void	add_action( std::string name );
+    void    add_function( std::string name );
+    size_t	add_action( std::string name );
 	void	add_precondition( int index, boost::python::list& lits );
-    void    bind_numeric_condition(size_t idx, aptk::Comparison<float> & cmp);
-    void    define_action(size_t idx, const aptk::Fluent_Vec& precs, const aptk::Fluent_Vec& adds, const aptk::Fluent_Vec& dels, aptk::Numeric_Effect_Vec &num_eff_vec );
+    std::size_t     add_comparison(unsigned BoundFluentId, aptk::CompareType t, aptk::Expression<float> & expr);
+    void    define_action(size_t idx, boost::python::list& precs, boost::python::list& effs, boost::python::list &num_eff_vec );
 	void	add_cond_effect( int index, boost::python::list& cond_lits, boost::python::list& eff_lits );
 	void	add_effect( int index, boost::python::list& list );
 	void	set_cost( int index, float v );
@@ -32,6 +52,7 @@ public:
 	virtual 
 	void	add_mutex_group( boost::python::list& list );
 	void	notify_negated_conditions( boost::python::list& list );
+    void    add_negated_conditions ( boost::python::list& fluents );
 	void	create_negated_fluents();
 
 	void	set_init( boost::python::list& list );
@@ -40,6 +61,7 @@ public:
 	void	set_problem_name( std::string name );
 
 	virtual	void	setup();
+    void solve(const SolverFactory & solver);
 
 	void	print_action( int index );
 

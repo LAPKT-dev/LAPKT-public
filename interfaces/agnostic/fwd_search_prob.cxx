@@ -65,8 +65,10 @@ State*	Fwd_Search_Problem::init() const {
 }
 
 bool	Fwd_Search_Problem::goal( const State& s ) const {
-
 	return s.entails( task().goal() );
+}
+const Fluent_Vec& Fwd_Search_Problem::goal() const {
+    return m_task->goal();
 }
 
 bool	Fwd_Search_Problem::lazy_goal( const State& s, Action_Idx a  ) const {

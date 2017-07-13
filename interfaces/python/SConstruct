@@ -4,10 +4,13 @@ debug = ARGUMENTS.get('debug', 0)
 
 env = Environment()
 
-include_paths = ['../../include', '.']
-lib_paths = [ '../..' ]
+include_paths = ['../../include', '.', '../agnostic']
+lib_paths = [ '../..', '../agnostic' ]
 libs = ['aptk',]
 
+include_paths.append( '/usr/include/boost' )
+include_paths.append( '/usr/include/python2.7' )
+env.Append( LIBPATH = [ '/usr/lib/python2.7/config' ] )
 
 env.Append( LIBPATH = [ '/usr/lib' ] )
 
@@ -20,9 +23,14 @@ else:
 
 env.Append( LIBS=libs)
 env.Append( LIBPATH=[ os.path.abspath(p) for p in lib_paths ] )
+common_env = env
+agnostic_objs = SConscript('../agnostic/SConscript.agnostic', exports='common_env')
 
 cxx_sources = Glob('*.cxx')
 c_sources = Glob('*.c')
 objects = [ env.Object(s) for s in cxx_sources ] + [ env.Object(s) for s in c_sources ]
 
 env.Library( 'aptk-base', objects )
+env.Append( LIBS = [ '-lboost_python', '-lpython2.7' ] )
+env['STATIC_AND_SHARED_OBJECTS_ARE_THE_SAME']=1
+sharedLib = env.SharedLibrary(target='lapkt', source=objects + agnostic_objs)

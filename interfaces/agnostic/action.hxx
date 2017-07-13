@@ -57,6 +57,8 @@ public:
     const Fluent_Set&	        edel_set()  const { return m_edel_set; }
 	const Conditional_Effect_Vec&   ceff_vec() const { return m_cond_effects; }
     const Numeric_Effect_Vec&         num_vec() const { return m_num_effects; }
+
+    void add_numeric_effects(Numeric_Effect_Vec & vec);
 	
         bool                            has_ceff() const {return !m_cond_effects.empty(); }
         bool                            has_num_eff() const { return !m_num_effects.empty(); }

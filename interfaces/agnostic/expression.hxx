@@ -1,6 +1,7 @@
 #ifndef EXPRESSION_H
 #define EXPRESSION_H
 #include <set>
+#include <vector>
 #include <string>
 #include <memory>
 
@@ -123,6 +124,10 @@ public:
         return result;
     }
 
+    static std::shared_ptr< Expression<T> > make_shared(const typename ExprWithArgs<T>::ExpVec & args){
+        return std::make_shared< Div<T> >(args);
+    }
+
 };
 
 
@@ -134,6 +139,10 @@ public:
 
     T eval(const std::vector<T> &table){
         return m_value;
+    }
+
+    static std::shared_ptr< Expression<T> > make_shared(T value){
+        return std::make_shared< Const<T> >(value);
     }
 
 protected:
@@ -158,6 +167,11 @@ public:
         }
         result->insert(m_idx);
         return result;
+    }
+
+
+    static std::shared_ptr< Expression<T> > make_shared(std::string name, size_t idx){
+        return std::make_shared< Variable<T> >(name, idx);
     }
 
 protected:

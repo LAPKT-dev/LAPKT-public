@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <action.hxx>
 #include <iostream>
-#include <numeric_eff.hpp>
+#include <numeric_eff.hxx>
 
 namespace aptk 
 {
@@ -68,6 +68,12 @@ void Action::define( const Fluent_Vec& precs, const Fluent_Vec& adds, const Flue
 void Action::define(const Fluent_Vec& precs, const Fluent_Vec& adds, const Fluent_Vec& dels, Numeric_Effect_Vec &num_eff_vec ){
     define(precs, adds, dels);
     m_num_effects = num_eff_vec;
+}
+
+void Action::add_numeric_effects(Numeric_Effect_Vec &vec){
+    for(aptk::Numeric_Effect* ptr: vec){
+        m_num_effects.push_back(ptr);
+    }
 }
 
 void Action::define_fluent_list(  const Fluent_Vec& in, Fluent_Vec& fluent_list, Fluent_Set& fluent_set )
