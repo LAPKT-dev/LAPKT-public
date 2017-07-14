@@ -14,11 +14,8 @@ def main( domain_file, problem_file, plan_file ) :
 
 	factory = libnum.NUM_BFS_Factory()
 
-        problem.solve(factory)
+        task.solve(factory)
 
-	task.setup()
-
-	task.solve()
 
 
 if __name__ == "__main__":

@@ -7,6 +7,7 @@ def construct(functionsymbol, args):
         return m[functionsymbol](args)
     return PrimitiveNumericExpression(functionsymbol, args)
 
+
 def parse_expression(exp):
     if isinstance(exp, list):
         functionsymbol = exp[0]
@@ -101,6 +102,7 @@ class NumericConstant(FunctionalExpression):
     def __hash__(self):
         return self.value
 
+
 class PrimitiveNumericExpression(FunctionalExpression):
     parts = ()
     def __init__(self, symbol, args):
@@ -159,7 +161,6 @@ class PrimitiveNumericExpression(FunctionalExpression):
         return {self}
 
 
-
 class Substract(FunctionalExpression):
     symbol = '-'
 
@@ -176,7 +177,6 @@ class Substract(FunctionalExpression):
         return self
 
     def get_functions(self):
-        import pdb;pdb.set_trace()
         result = set()
         for part in self.parts:
             result = result.union(part.get_functions())

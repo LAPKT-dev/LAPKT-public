@@ -55,7 +55,7 @@ public:
     void    add_negated_conditions ( boost::python::list& fluents );
 	void	create_negated_fluents();
 
-	void	set_init( boost::python::list& list );
+    void	set_init( boost::python::list& list, boost::python::list val_lst=boost::python::list() );
 	void	set_goal( boost::python::list& list );
 	void	set_domain_name( std::string name );
 	void	set_problem_name( std::string name );

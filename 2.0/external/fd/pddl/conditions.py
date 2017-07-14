@@ -438,6 +438,34 @@ class NegatedAtom(Literal):
         return '(not {0})'.format(self.negate().pddl())
 
 
+class NumericWrapper(Literal):
+    negated = False
+    def __init__(self, name, args, bound_expression):
+        self.expression = bound_expression
+        self.predicate = name
+        self.args = tuple(args)
+        self.hash = hash((self.__class__, self.negated, self.predicate, self.args))
+
+    def instantiate(self, var_mapping, init_facts, fluent_facts, result):
+        args = [var_mapping.get(arg, arg) for arg in self.args]
+        tmp = []
+        self.expression.instantiate(var_mapping, init_facts, fluent_facts, tmp)
+        assert len(tmp) == 1
+        result.append(self.__class__(self.predicate, args, tmp[0]))
+
+    def pddl(self):
+        s = '({0})'
+        if self.negated:
+            s = '(not ({0}))'
+        return s.format(self.predicate + ' ' + ' '.join(self.args))
+
+
+class NegatedNumericWrapper(NumericWrapper):
+    negated = True
+    def __init__(self, name, args, bound_expression):
+        super(NegatedNumericWrapper, self).__init__(name, args, bound_expression)
+
+
 class FunctionComparison(Condition): # comparing numerical functions
     negated = False
 
@@ -549,6 +577,12 @@ class FunctionComparison(Condition): # comparing numerical functions
 
     def change_parts(self, parts):
         return self.__class__(self.comparator,parts)
+
+    def instantiate(self, var_mapping, init_facts, fluent_facts, result):
+        tmp_res = []
+        for part in self.parts:
+            tmp_res.append(part.instantiate(var_mapping, init_facts))
+        result.append(self.__class__(self.comparator, tmp_res))
 
 
 class NegatedFunctionComparison(FunctionComparison):

@@ -26,7 +26,9 @@ from .conditions import Disjunction
 from .conditions import UniversalCondition
 from .conditions import ExistentialCondition
 from .conditions import FunctionComparison
+from .conditions import NumericWrapper
+from .conditions import NegatedNumericWrapper
 
 from .effects import Effect
 
-from .f_expression import Assign
+from .f_expression import Assign, PrimitiveNumericExpression

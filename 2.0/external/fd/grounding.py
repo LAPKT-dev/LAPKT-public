@@ -108,12 +108,14 @@ class PropositionalDetAction :
 
 
 class NumDetAction:
-    def __init__(self, name, cost, precs, effects, num_effects):
+    def __init__(self, name, cost, precs, effects, num_effects, cmp):
         self.name = name
         self.cost = cost
         self.preconditions = precs
         self.effects = effects
         self.numeric_effects = num_effects
+        self.comparison = cmp
+
 
 
 def encode( lits, atom_table ) :
@@ -208,9 +210,12 @@ def default( domain_file, problem_file, output_task ) :
 
 def convert_precondition(prec, atom_table):
     precondition = []
+    comparision = dict()
     for p in prec:
+        if isinstance(p, pddl.NumericWrapper):
+            comparision[atom_table[p.text()].index] = p.expression
         precondition.append((atom_table[p.text()].index, p.negated))
-    return precondition
+    return precondition, comparision
 
 
 def convert_effect(adds, dels, atom_table):
@@ -257,9 +262,10 @@ def numeric(domain_file, problem_file, output_task ):
     normalize.normalize(task)
 
     class TableItem:
-        def __init__(self, a_index, a_atom):
+        def __init__(self, a_index, a_atom, value=None):
             self.index = a_index
             self.atom = a_atom
+            self.value = value
 
     index = 0
     atom_table = dict()
@@ -293,7 +299,7 @@ def numeric(domain_file, problem_file, output_task ):
         if isinstance(func.fluent, pddl.f_expression.PrimitiveNumericExpression) and func.fluent.symbol == 'total-cost':
             continue
         atom = pddl.Atom(func.fluent.symbol, func.fluent.args)
-        function_table[atom.text()] = TableItem(index, atom)
+        function_table[atom.text()] = TableItem(index, atom, func.expression.value)
         index += 1
 
     negated_set = set()
@@ -305,34 +311,47 @@ def numeric(domain_file, problem_file, output_task ):
         lst = product(*(objects_by_type.get(x.type) for x in action.parameters))
         for var_values in lst:
             var_mapping = {param.name: var_values[i].name for (i, param) in enumerate(action.parameters)}
+
+
             instance = action.instantiate(var_mapping, init_atoms, fluent_atoms, objects_by_type)
+
             if instance is None:
                 continue
 
-            precs = convert_precondition(instance.precondition, atom_table)
+            precs, cmp = convert_precondition(instance.precondition, atom_table)
 
             negated_condistions = [x[0] for x in precs if (x[1] and x[0] not in negated_set)]
             for n in negated_condistions: negated_set.add(n)
             output_task.add_negated_conditions(negated_condistions);
             effs = convert_effect(instance.add_effects, instance.del_effects, atom_table)
 
-            # todo: check that only functions provided in init are instantiated
             num_effs = convert_num_effect(instance.numeric_effects, function_table)
             action_data.append(NumDetAction(instance.name,
                                             instance.cost,
                                             precs,
                                             effs,
-                                            num_effs))
+                                            num_effs,
+                                            cmp))
+
+    cmp_map = {'>': liblapkt.CompareType.more, '>=': liblapkt.CompareType.more_equal}
     for (index, action) in enumerate(action_data):
         # todo: add comparision objects
         output_task.add_action(action.name)
         output_task.define_action(index, action.preconditions, action.effects, action.numeric_effects)
         output_task.set_cost(index, action.cost)
-    # add comparision objects to output task
-    cmp_map = {'>': liblapkt.CompareType.more, '>=': liblapkt.CompareType.more_equal}
-    import pdb;pdb.set_trace()
-    for (cmp, atom) in task.comparator_to_fluent_map.items():
-        # if expression in cmp is normalized then parts[1] is zero
+        # add comparision objects to output task
+        for (idx, cmp) in action.comparison.items():
+            expr = convert_expression(cmp.parts[0], function_table)
+            output_task.add_comparison(idx, cmp_map[cmp.comparator], expr)
 
-        expr = convert_expression(cmp.parts[0], function_table)
-        output_task.add_comparison(atom_table[atom.text()].index, cmp_map[cmp.comparator], expr)
+    # adding init and goal
+    import pdb;pdb.set_trace()
+    num_list = []
+    for item in init_atoms:
+        if isinstance(item, pddl.PrimitiveNumericExpression):
+            num_list.append
+
+
+    output_task.set_init()
+
+    # process metric

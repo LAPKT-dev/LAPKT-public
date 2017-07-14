@@ -6,7 +6,6 @@
 #include <novelty.hxx>
 #include <aptk/at_bfs.hxx>
 #include <aptk/open_list.hxx>
-#include <py_strips_prob.hxx>
 #include <aptk/ext_math.hxx>
 
 
