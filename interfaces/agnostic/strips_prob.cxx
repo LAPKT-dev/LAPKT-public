@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <cassert>
 #include <map>
 #include <iostream>
+#include <cmath>
 
 namespace aptk
 {
@@ -129,17 +130,17 @@ namespace aptk
         return functions().size() - 1;
     }
 
-    size_t STRIPS_Problem::add_comparison(unsigned bound_fluent_Id, CompareType t, Expression<float> expr){
-        m_comparision.push_back(Comparison<float>(bound_fluent_Id, t, expr));
+    size_t STRIPS_Problem::add_comparison(unsigned bound_fluent_Id, CompareType t, std::shared_ptr<aptk::Expression<float> > &expr){
+        m_comparison.push_back(Comparison<float>(bound_fluent_Id, t, expr));
 
         // build map[numeric_fluent] -> boolean fluent that may change if numeric_fluent changes
-        for (std::size_t num_fluent_id: expr.fluent_indices()){
+        for (std::size_t num_fluent_id: expr->fluent_indices()){
             m_num_compare_map[num_fluent_id].insert(bound_fluent_Id);
         }
-        return m_comparision.size() - 1;
+        return m_comparison.size() - 1;
     }
 
-	void	STRIPS_Problem::set_init( STRIPS_Problem& p, const Fluent_Vec& init_vec )
+    void	STRIPS_Problem::set_init( STRIPS_Problem& p, const Fluent_Vec& init_vec, const aptk::Value_Pair_Vec init_values )
 	{
 #ifdef DEBUG
 		for ( unsigned k = 0; k < init_vec.size(); k++ )
@@ -155,6 +156,21 @@ namespace aptk
 
 		for ( unsigned k = 0; k < init_vec.size(); k++ )
 			p.m_in_init[ init_vec[k] ] = true;
+
+
+        float init_value = -1; // can it stay -1 ???
+        if (std::numeric_limits<float>::has_signaling_NaN) init_value = std::numeric_limits<float>::signaling_NaN();
+        else if (std::numeric_limits<float>::has_quiet_NaN) init_value = std::numeric_limits<float>::quiet_NaN();
+
+        if (p.m_finit.empty())
+            p.m_in_init.resize(init_values.size(), init_value);
+        for( size_t i = 0; i < init_values.size(); i++ ){
+            p.m_finit[init_values[i].first] = init_values[i].second;
+        }
+#ifdef DEBUG
+        for ( size_t k = 0; k < p.m_finit.size(); k++ )
+            assert( p.m_finit[k] != init_value);
+#endif
 	}
 
 	void	STRIPS_Problem::set_goal( STRIPS_Problem& p, const Fluent_Vec& goal_vec, bool create_end_op )
@@ -278,6 +294,18 @@ namespace aptk
 		STRIPS_Problem::set_goal( relaxed, orig.goal()  );
 	}
 
+    void  STRIPS_Problem::calculate_comparison_fluents(){
+        if( m_comparison.empty())
+            return;
+        aptk::State s(*this);
+        s.set(init());
+        s.set_value(finit());
+        for(auto & cmp: m_comparison)
+            cmp.update_fluent(s);
+        this->m_init.clear();
+        this->m_in_init.clear();
+        STRIPS_Problem::set_init(*this, s.fluent_vec());
+    }
 
 	void	STRIPS_Problem::make_effect_tables() {
 		m_relevant_effects.resize( num_fluents() );

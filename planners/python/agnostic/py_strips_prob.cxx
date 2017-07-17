@@ -117,7 +117,7 @@ using namespace boost::python;
 	}
 
     size_t
-    STRIPS_Problem::add_comparison(unsigned BoundFluentId, aptk::CompareType t, aptk::Expression<float>& expr){
+    STRIPS_Problem::add_comparison(unsigned BoundFluentId, aptk::CompareType t, std::shared_ptr<aptk::Expression<float> > & expr){
         return m_problem->add_comparison(BoundFluentId, t, expr);
     }
 
@@ -272,8 +272,22 @@ using namespace boost::python;
 				I.push_back( m_negated[ p ]->index() );
         }
 
-		aptk::STRIPS_Problem::set_init( *instance(), I );
 
+
+        aptk::Value_Pair_Vec values;
+        values.resize(len(val_lst));
+        // len returns long
+        for (long i=0; i < len(val_lst); i++){
+            boost::python::tuple item = extract< tuple >(val_lst[i]);
+            size_t 	fun_idx 		= extract<size_t>(item[0]);
+            float	value 	= extract<float>(item[1]);
+            values[i].first = fun_idx;
+            values[i].second = value;
+        }
+        // check that all values are initialized
+
+        aptk::STRIPS_Problem::set_init( *instance(), I, values );
+        (*instance()).calculate_comparison_fluents();
 	}
 
 	void

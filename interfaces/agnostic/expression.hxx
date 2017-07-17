@@ -13,9 +13,7 @@ class Expression
 {
 public:
     typedef T value_type;
-    virtual T eval(const std::vector<T> & table){
-        return 0;
-    }
+    virtual T eval(const std::vector<T> & table) = 0;
     virtual std::set<std::size_t> fluent_indices(std::set<size_t> * result = 0){
         return std::set<std::size_t>();
     }
@@ -76,7 +74,7 @@ public:
     Sub(const typename ExprWithArgs<T>::ExpVec & args):
         ExprWithArgs<T>(args){}
 
-    T eval(const std::vector<T> &table){
+    T eval(const std::vector<T> & table){
         T result = m_args[0]->eval(table);
         for(auto it=++(m_args.begin()); it != m_args.end(); it++){
             result += (*it)->eval(table);
@@ -96,7 +94,7 @@ public:
     Mul(const typename ExprWithArgs<T>::ExpVec & args):
         ExprWithArgs<T>(args){}
 
-    T eval(const std::set<T> &table){
+    T eval(const std::vector<T> & table){
         T result = m_args[0]->eval(table);
         for(auto it=++(m_args.begin()); it != m_args.end(); it++){
             result *= (*it)->eval(table);

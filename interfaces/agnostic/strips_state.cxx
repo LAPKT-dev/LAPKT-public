@@ -374,6 +374,11 @@ std::string State::tostring() const {
       return oss.str();
 }
 
+
+void State::set_value(const Value_Vec & values) {
+    std::copy(values.begin(), values.end(), this->m_value_vec.begin());
+}
+
 const bool State::less(const State & lhs, const State & rhs) {
        if (&lhs == &rhs){
            return false;

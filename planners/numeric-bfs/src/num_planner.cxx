@@ -21,6 +21,8 @@ NUM_BFS::NUM_BFS(const Fwd_Search_Problem& search_problem ):
 
 }
 
+
+
 void	
 NUM_BFS::solve() {
     std::cout << "PDDL problem description loaded: " << std::endl;
@@ -30,7 +32,8 @@ NUM_BFS::solve() {
     std::cout << "\t#Actions: " << problem->num_actions() << std::endl;
     std::cout << "\t#Fluents: " << problem->num_fluents() << std::endl;
 */
-	
+
+    this->start();
     float cost;
     std::vector<aptk::Action_Idx> plan;
     this->find_solution(cost, plan);

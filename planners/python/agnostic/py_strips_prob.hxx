@@ -43,7 +43,7 @@ public:
     void    add_function( std::string name );
     size_t	add_action( std::string name );
 	void	add_precondition( int index, boost::python::list& lits );
-    std::size_t     add_comparison(unsigned BoundFluentId, aptk::CompareType t, aptk::Expression<float> & expr);
+    std::size_t     add_comparison(unsigned BoundFluentId, aptk::CompareType t, std::shared_ptr<aptk::Expression<float> > & expr);
     void    define_action(size_t idx, boost::python::list& precs, boost::python::list& effs, boost::python::list &num_eff_vec );
 	void	add_cond_effect( int index, boost::python::list& cond_lits, boost::python::list& eff_lits );
 	void	add_effect( int index, boost::python::list& list );

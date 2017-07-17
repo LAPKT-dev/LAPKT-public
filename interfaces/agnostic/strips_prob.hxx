@@ -168,12 +168,14 @@ namespace aptk
 
 		static unsigned 	add_fluent( STRIPS_Problem& p, std::string signature );
         size_t          add_function(std::string signature );
-        std::size_t     add_comparison(unsigned BoundFluentId, aptk::CompareType t, aptk::Expression<float> expr);
+        std::size_t     add_comparison(unsigned BoundFluentId, aptk::CompareType t, std::shared_ptr<aptk::Expression<float>> & expr);
 
-		static void		set_init( STRIPS_Problem& p, const Fluent_Vec& init );
+        static void		set_init(STRIPS_Problem& p, const Fluent_Vec& init , const Value_Pair_Vec init_values=Value_Pair_Vec());
 		static void		set_goal( STRIPS_Problem& p, const Fluent_Vec& goal, bool createEndOp = false );
 
 		static void		make_delete_relaxation( const STRIPS_Problem& orig, STRIPS_Problem& relaxed );
+
+        void     calculate_comparison_fluents();
 
 	  	
 		Fluent_Ptr_Vec&		fluents() 			{ return m_fluents; }
@@ -186,6 +188,8 @@ namespace aptk
 
 
 		Fluent_Vec&		init()	  			{ return m_init; }
+        Value_Vec &      finit()             { return m_finit; }
+        const Value_Vec &       finit() const  { return m_finit; }
 		Fluent_Vec&		goal()	  			{ return m_goal; }
 		const Fluent_Vec&	init() const  			{ return m_init; }
 		const Fluent_Vec&	goal() const  			{ return m_goal; }
@@ -274,7 +278,7 @@ namespace aptk
 		void					make_effect_tables();
 
         const aptk::Comparison<float> & comparison(size_t i) const {
-            return m_comparision[i];
+            return m_comparison[i];
         }
 
 	protected:
@@ -292,9 +296,10 @@ namespace aptk
         // numerical_fluent -> comparison_fluent map
         // used for updating when numerical effect changes some values
         Numeric_To_Comparison_Map               m_num_compare_map;
-        std::vector<Comparison<float> >         m_comparision;
+        std::vector<Comparison<float> >         m_comparison;
         std::vector<const Fluent*>				m_const_fluents;
 		Fluent_Vec		 						m_init;
+        Value_Vec                               m_finit;
 		Fluent_Vec		 						m_goal;
 		Fluent_Action_Table	 						m_adding;
 		Fluent_Action_Table	 						m_requiring;

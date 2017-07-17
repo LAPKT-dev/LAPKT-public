@@ -43,6 +43,7 @@ namespace aptk
     typedef		std::vector<unsigned>				Fluent_Vec;
     typedef		std::vector<unsigned>				Index_Vec;
     typedef		std::vector<float>				Value_Vec;
+    typedef     std::vector<std::pair<size_t, float> > Value_Pair_Vec;
     typedef		std::pair<unsigned, unsigned>			Fluent_Pair;
     typedef		Bit_Set						Fluent_Set;
     typedef 	std::vector<Action* >				Action_Ptr_Vec;

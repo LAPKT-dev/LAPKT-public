@@ -41,6 +41,7 @@ public:
 	Fluent_Set& fluent_set() 		{ return m_fluent_set; }
     const Value_Vec& value_vec()   const       { return m_value_vec; }
     void set_value(unsigned idx, float value){ m_value_vec[idx] = value; }
+    void set_value(const Value_Vec & values);
 	const Fluent_Vec& fluent_vec() const	{ return m_fluent_vec; }
 	const Fluent_Set& fluent_set() const	{ return m_fluent_set; }
 	
@@ -48,8 +49,7 @@ public:
 	void	set( unsigned f );
 	void	unset( unsigned f );
 	void	set( const Fluent_Vec& fv );
-	void	unset( const Fluent_Vec& fv );
-    void    set_num(unsigned f);
+    void	unset( const Fluent_Vec& fv );
 	void    reset();
     inline bool	entails( unsigned f ) const { return fluent_set().isset(f); }
     inline bool	entails( const State& s ) const;

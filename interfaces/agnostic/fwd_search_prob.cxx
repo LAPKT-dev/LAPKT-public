@@ -54,8 +54,8 @@ State*	Fwd_Search_Problem::init() const {
 
 	State* s0 = new State( task() );
 
- 	for(unsigned i = 0; i < task().init().size(); i++)
-      		s0->set(task().init()[i]);
+    s0->set_value(task().finit());
+    s0->set(task().init());
 
 	std::sort( s0->fluent_vec().begin(), s0->fluent_vec().end() );
 

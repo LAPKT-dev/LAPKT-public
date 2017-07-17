@@ -10,6 +10,9 @@ using namespace aptk;
 
 Fluent_Vec& (Action::* pointer_name)() = &Action::prec_vec;
 
+
+// this template is used to get address of method
+// in cases when const overloading is used
 template <typename T>
 struct W{
     T operator()(T p) {
@@ -112,9 +115,9 @@ BOOST_PYTHON_MODULE(liblapkt)
     ;
 
 
-    class_<Expr> ("Expr", no_init);
+    class_<Expr, boost::noncopyable> ("Expr",  no_init);
 
-    class_<ExprWithArgsF, bases<Expr> > ("ExprWithArgs", no_init);
+    class_<ExprWithArgsF, boost::noncopyable, bases<Expr> > ("ExprWithArgs", no_init);
 
 
 
@@ -147,6 +150,6 @@ BOOST_PYTHON_MODULE(liblapkt)
             .value("more", CompareType::more)
             .value("more_equal", CompareType::more_equal);
 
-    class_<aptk::Comparison<float> >("Comparision", boost::python::init<unsigned , CompareType , Expression<float> &>());
+    class_<aptk::Comparison<float> >("Comparision", boost::python::init<unsigned , CompareType , std::shared_ptr<Expression<float>> &>());
 
 }

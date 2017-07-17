@@ -8,7 +8,6 @@ import pddl
 import fact_groups
 import timers
 import sys
-import liblapkt
 from itertools import product
 
 
@@ -203,6 +202,7 @@ def default( domain_file, problem_file, output_task ) :
         index += 1
     output_task.set_domain_name(task.domain_name )
     output_task.set_problem_name(task.task_name )
+    import pdb;pdb.set_trace()
     output_task.set_init(encode(task.init, atom_table))
     output_task.set_goal(encode(task.goal, atom_table))
     output_task.parsing_time = parsing_timer.report()
@@ -228,6 +228,7 @@ def convert_effect(adds, dels, atom_table):
 
 
 def convert_expression(expression, function_table):
+    import liblapkt
     if isinstance(expression, pddl.f_expression.PrimitiveNumericExpression):
         atom = pddl.Atom(expression.symbol, expression.args)
         return liblapkt.Var(atom.text(), function_table[atom.text()].index)
@@ -239,6 +240,7 @@ def convert_expression(expression, function_table):
 
 
 def convert_num_effect(num_effects, function_table):
+    import liblapkt
     result = []
 
     for num_eff in num_effects:
@@ -253,6 +255,7 @@ def convert_num_effect(num_effects, function_table):
 
 
 def numeric(domain_file, problem_file, output_task ):
+    import liblapkt
     parsing_timer = timers.Timer()
     print("Domain: %s Problem: %s" % (domain_file, problem_file))
 
@@ -276,7 +279,7 @@ def numeric(domain_file, problem_file, output_task ):
         lst.add(obj.type)
         for typename in lst:
             objects_by_type[typename].append(obj)
-    init_atoms = task.init
+    init_atoms = [x for x in task.init if (not hasattr(x, 'predicate')) or x.predicate != '=']
     fluent_atoms = []
 
     # atoms
@@ -284,6 +287,8 @@ def numeric(domain_file, problem_file, output_task ):
         for args in product(*(objects_by_type.get(x.type) for x in pred.arguments)):
             if None in args:
                 continue
+            # todo: some atoms are impossible to reach
+            # todo: compute unreachable atoms
             atom = pddl.Atom(pred.name, [x.name for x in args])
             if atom.text() not in atom_table:
                 atom_table[atom.text()] = TableItem(index, atom)
@@ -294,6 +299,7 @@ def numeric(domain_file, problem_file, output_task ):
     index = 0
 
     function_table = dict()
+
     # functions
     for func in (x for x in task.init if isinstance(x, pddl.f_expression.Assign)):
         if isinstance(func.fluent, pddl.f_expression.PrimitiveNumericExpression) and func.fluent.symbol == 'total-cost':
@@ -304,7 +310,6 @@ def numeric(domain_file, problem_file, output_task ):
 
     negated_set = set()
     action_data = []
-
 
     # actions
     for (index, action) in enumerate(task.actions):
@@ -345,13 +350,16 @@ def numeric(domain_file, problem_file, output_task ):
             output_task.add_comparison(idx, cmp_map[cmp.comparator], expr)
 
     # adding init and goal
-    import pdb;pdb.set_trace()
+
     num_list = []
+    for item in function_table.values():
+        num_list.append((item.index, item.value))
+
+    fluent_list = []
+    import pdb;pdb.set_trace()
     for item in init_atoms:
-        if isinstance(item, pddl.PrimitiveNumericExpression):
-            num_list.append
+        if isinstance(item, (pddl.Atom, pddl.NegatedAtom)):
+            fluent_list.append((atom_table[item.text()].index, item.negated))
 
-
-    output_task.set_init()
-
+    output_task.set_init(fluent_list, num_list)
     # process metric

@@ -28,10 +28,10 @@ template
 class Comparison
 {
 public:
-    Comparison(unsigned bound_fluent_idx, CompareType a_type, Expression<T> & a_expr):
+    Comparison(unsigned bound_fluent_idx, CompareType a_type, std::shared_ptr<Expression<T>> & a_expr):
         m_fluent_idx(bound_fluent_idx),
         m_type(a_type),
-        m_expr(new Expression<T>(a_expr))
+        m_expr(a_expr)
     {}
 
 
@@ -46,13 +46,13 @@ public:
     Comparison(const Comparison & other):
         m_fluent_idx(other.m_fluent_idx),
         m_type(other.m_type),
-        m_expr(new Expression<T>(*other.m_expr))
+        m_expr(other.m_expr)
     {}
 
 private:
     int m_fluent_idx;
     CompareType m_type;
-    std::unique_ptr<Expression<T>> m_expr;
+    std::shared_ptr<Expression<T>> m_expr;
 };
 
 
