@@ -399,10 +399,8 @@ def replace_numeric_preconditions(task):
                 predicate = pddl.Predicate(fluent_str, args)
                 task.predicates.append(predicate)
             if condition.negated:
-                new_atom = pddl.NegatedAtom(predicate.name, args)
                 new_atom = pddl.NegatedNumericWrapper(predicate.name, [x.name for x in args], non_negated)
             else:
-                new_atom = pddl.Atom(predicate.name, args)
                 new_atom = pddl.NumericWrapper(predicate.name, [x.name for x in args], non_negated)
             task.comparator_to_fluent_map[condition] = new_atom
             return new_atom

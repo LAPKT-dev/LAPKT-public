@@ -376,7 +376,7 @@ std::string State::tostring() const {
 
 
 void State::set_value(const Value_Vec & values) {
-    std::copy(values.begin(), values.end(), this->m_value_vec.begin());
+    std::copy(values.begin(), values.end(), std::back_inserter(this->m_value_vec));
 }
 
 const bool State::less(const State & lhs, const State & rhs) {

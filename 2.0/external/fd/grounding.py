@@ -202,7 +202,6 @@ def default( domain_file, problem_file, output_task ) :
         index += 1
     output_task.set_domain_name(task.domain_name )
     output_task.set_problem_name(task.task_name )
-    import pdb;pdb.set_trace()
     output_task.set_init(encode(task.init, atom_table))
     output_task.set_goal(encode(task.goal, atom_table))
     output_task.parsing_time = parsing_timer.report()
@@ -356,10 +355,11 @@ def numeric(domain_file, problem_file, output_task ):
         num_list.append((item.index, item.value))
 
     fluent_list = []
-    import pdb;pdb.set_trace()
     for item in init_atoms:
         if isinstance(item, (pddl.Atom, pddl.NegatedAtom)):
             fluent_list.append((atom_table[item.text()].index, item.negated))
 
     output_task.set_init(fluent_list, num_list)
+    goal = [(x[0].index, x[1]) for x in encode(task.goal, atom_table)]
+    output_task.set_goal(goal)
     # process metric

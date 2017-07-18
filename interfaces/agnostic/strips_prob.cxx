@@ -163,7 +163,7 @@ namespace aptk
         else if (std::numeric_limits<float>::has_quiet_NaN) init_value = std::numeric_limits<float>::quiet_NaN();
 
         if (p.m_finit.empty())
-            p.m_in_init.resize(init_values.size(), init_value);
+            p.m_finit.resize(init_values.size(), init_value);
         for( size_t i = 0; i < init_values.size(); i++ ){
             p.m_finit[init_values[i].first] = init_values[i].second;
         }

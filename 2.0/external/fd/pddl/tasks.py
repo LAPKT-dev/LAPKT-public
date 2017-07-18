@@ -12,7 +12,9 @@ from . import f_expression
 
 class Task(object):
     def __init__(self, domain_name, task_name, requirements,
-                 types, objects, predicates, functions, init, goal, actions, axioms, use_metric, constants=None):
+                 types, objects, predicates, functions,
+                 init, goal, actions, axioms, use_metric,
+                 constants=None, metric_expression=None):
         self.domain_name = domain_name
         self.task_name = task_name
         self.requirements = requirements
@@ -26,6 +28,7 @@ class Task(object):
         self.axioms = axioms
         self.axiom_counter = 0
         self.use_min_cost_metric = use_metric
+        self.metric_expression = metric_expression
         # function -> fluent map
         self.comparator_to_fluent_map = dict()
         if constants is None:
