@@ -59,7 +59,6 @@
                        (- (capasity-max cnt1) (capasity-left cnt1)))
                      (* (- (capasity-max cnt2) (capasity-left cnt2))
                        (- (capasity-max cnt2) (capasity-left cnt2)))
-                     (total-cost)
                   )
 )
 

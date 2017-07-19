@@ -38,6 +38,8 @@ BOOST_PYTHON_MODULE( libnum )
         .def( "print_action", &STRIPS_Problem::print_action )
         .def( "setup", &STRIPS_Problem::setup )
         .def( "solve", &STRIPS_Problem::solve )
+        .def( "set_metric_expression", &STRIPS_Problem::set_metric_expression)
+        .def( "set_add_cost", &STRIPS_Problem::set_add_cost)
 	;
 
     class_<NUM_BFS>("NUM_BFS", no_init);

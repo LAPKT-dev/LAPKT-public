@@ -59,6 +59,8 @@ public:
 	void	set_goal( boost::python::list& list );
 	void	set_domain_name( std::string name );
 	void	set_problem_name( std::string name );
+    void    set_add_cost(bool value);
+    void    set_metric_expression(std::shared_ptr<aptk::Expression<float> > expr);
 
 	virtual	void	setup();
     void solve(const SolverFactory & solver);

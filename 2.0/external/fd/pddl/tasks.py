@@ -48,7 +48,7 @@ class Task(object):
     def parse(domain_pddl, task_pddl):
         domain_name, domain_requirements, types, constants, predicates, functions, actions, axioms \
                      = parse_domain(domain_pddl)
-        task_name, task_domain_name, task_requirements, objects, init, goal, use_metric = parse_task(task_pddl)
+        task_name, task_domain_name, task_requirements, objects, init, goal, (use_metric, metric) = parse_task(task_pddl)
 
         assert domain_name == task_domain_name
         requirements = Requirements(sorted(set(
@@ -62,7 +62,8 @@ class Task(object):
         init += [conditions.Atom("=", (obj.name, obj.name)) for obj in objects]
 
         return Task(domain_name, task_name, requirements, types, objects,
-                    predicates, functions, init, goal, actions, axioms, use_metric, constants)
+                    predicates, functions, init, goal, actions, axioms, use_metric, constants,
+                    metric_expression=metric)
 
     def dump(self):
         print("Problem %s: %s [%s]" % (
@@ -209,6 +210,7 @@ def parse_domain(domain_pddl):
     yield the_actions
     yield the_axioms
 
+
 def parse_task(task_pddl):
     iterator = iter(task_pddl)
 
@@ -277,13 +279,18 @@ def parse_task(task_pddl):
     yield conditions.parse_condition(goal[1])
 
     use_metric = False
+    metric = None
     for entry in iterator:
         if entry[0] == ":metric":
-            if entry[1]=="minimize" and entry[2][0] == "total-cost":
-                use_metric = True
+            if entry[1]== "minimize":
+                if entry[2][0] == "total-cost":
+                    use_metric = True
+                else:
+                    metric = f_expression.parse_expression(entry[2])
+                    use_metric = True
             else:
                 assert False, "Unknown metric."
-    yield use_metric
+    yield (use_metric, metric)
 
     for entry in iterator:
         assert False, entry

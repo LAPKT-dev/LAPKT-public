@@ -85,6 +85,7 @@ def parse_effect(alist):
     elif tag in ("increase", 'decrease', 'assign'):
         assert len(alist) == 3
         assignment = f_expression.parse_assignment(alist)
+        assert isinstance(alist[1], list)
         if alist[1] == ['total-cost']:
             return CostEffect(assignment)
         return NumericEffect(assignment)

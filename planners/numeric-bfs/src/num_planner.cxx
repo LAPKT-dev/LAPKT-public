@@ -30,9 +30,8 @@ NUM_BFS::solve() {
     std::cout << "\tDomain: " << problem->domain_name() << std::endl;
     std::cout << "\tProblem: " << problem->problem_name() << std::endl;
     std::cout << "\t#Actions: " << problem->num_actions() << std::endl;
-    std::cout << "\t#Fluents: " << problem->num_fluents() << std::endl;
-*/
-
+    std::cout << "\t#Fluents: " << problem->num_fluents() << std::endl;*/
+    this->set_delay_eval(false);
     this->start();
     float cost;
     std::vector<aptk::Action_Idx> plan;
@@ -45,3 +44,73 @@ Solver *NUM_BFS_Factory::build(aptk::STRIPS_Problem * prob) const {
     Fwd_Search_Problem * search_problem = new Fwd_Search_Problem(prob);
     return new NUM_BFS(*search_problem);
 }
+
+
+void
+NUM_BFS::process(  Search_Node *head ) {
+
+
+#ifdef DEBUG
+    std::cout << "Expanding:" << std::endl;
+    head->print(std::cout);
+    std::cout << std::endl;
+    head->state()->print( std::cout );
+    std::cout << std::endl;
+#endif
+    std::vector< aptk::Action_Idx > app_set;
+    this->problem().applicable_set_v2( *(head->state()), app_set );
+
+    for (unsigned i = 0; i < app_set.size(); ++i ) {
+        int a = app_set[i];
+
+        State *succ = m_problem.next( *(head->state()), a );
+
+        Search_Node* n = new Search_Node( succ,
+                                          m_problem.cost( *(head->state()), a ),
+                                          a, head );
+        n->metric() = m_problem.metric(*n, a),
+
+
+        #ifdef DEBUG
+        std::cout << "Successor:" << std::endl;
+        n->print(std::cout);
+        std::cout << "State:"<< std::endl;
+        n->state()->print( std::cout );
+        std::cout << std::endl;
+        #endif
+
+        if ( is_closed( n ) ) {
+            #ifdef DEBUG
+            std::cout << "Already in CLOSED" << std::endl;
+            #endif
+            delete n;
+            continue;
+        }
+        if(m_delay_eval)
+            n->hn() = head->hn();
+        else
+            eval(n);
+
+        if(m_greedy)
+            n->fn() = n->hn();
+        else
+            n->fn() = n->hn() + n->gn();
+
+        if( previously_hashed(n) ) {
+            #ifdef DEBUG
+            std::cout << "Already in OPEN" << std::endl;
+            #endif
+            delete n;
+        }
+
+        else
+        {
+            #ifdef DEBUG
+            std::cout << "Inserted into OPEN" << std::endl;
+            #endif
+            open_node(n);
+        }
+    }
+    inc_eval();
+}
+

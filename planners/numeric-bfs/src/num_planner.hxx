@@ -20,7 +20,7 @@ public:
     typedef aptk::search::Fibonacci_Open_List< Node >	Open_List;
 
     Node( State* s, float cost, Action_Idx action, Node<State>* parent )
-    : m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ) {
+    : m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ), m_metric(0) {
         m_g = ( parent ? parent->m_g + cost : 0.0f);
     }
 
@@ -34,6 +34,8 @@ public:
     float			gn() const 	{ return m_g; }
     float&			fn()		{ return m_f; }
     float			fn() const	{ return m_f; }
+    float           metric() const { return m_metric; }
+    float&          metric() { return m_metric; }
 
     Node<State>*		parent()   	{ return m_parent; }
     Action_Idx		action() const 	{ return m_action; }
@@ -75,6 +77,7 @@ public:
     Action_Idx	m_action;
     float		m_g;
     float		m_f;
+    float       m_metric;
 
     // required by fibonacci queue
     typename Open_List::Handle	heap_handle;
@@ -89,7 +92,10 @@ public:
         : Heuristic<aptk::State>( prob ) {
     }
 
-    virtual	void	eval( const aptk::State& s, float& h_val ) {
+
+    template <typename Search_Node>
+    void eval( const Search_Node* n, float& h_val ) {
+        const aptk::State & s = n->state();
         // subgoals
         float left = 0;
         for(size_t FluentId: problem().goal()){
@@ -97,13 +103,11 @@ public:
                left += 1.0;
            }
         }
-        h_val = left;
-    }
-
-
-    template <typename Search_Node>
-    void eval( const Search_Node* n, float& h_val ) {
-        eval(n->state(), h_val);
+        float metric = n->metric();
+        if (metric == 0.0f){
+            metric = 1.0f;
+        }
+        h_val = left * metric;
     }
 
 };
@@ -118,6 +122,8 @@ public:
     NUM_BFS(const Fwd_Search_Problem& search_problem );
 
     virtual void solve();
+
+    void process(  Search_Node *head );
 
 };
 

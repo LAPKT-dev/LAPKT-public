@@ -228,11 +228,15 @@ def convert_effect(adds, dels, atom_table):
 
 def convert_expression(expression, function_table):
     import liblapkt
+    m = {pddl.f_expression.Substract: liblapkt.Sub,
+         pddl.f_expression.Sum: liblapkt.Sum,
+         pddl.f_expression.Multiply: liblapkt.Mul,
+         pddl.f_expression.Divide: liblapkt.Div}
     if isinstance(expression, pddl.f_expression.PrimitiveNumericExpression):
         atom = pddl.Atom(expression.symbol, expression.args)
         return liblapkt.Var(atom.text(), function_table[atom.text()].index)
-    elif isinstance(expression, pddl.f_expression.Substract):
-        return liblapkt.Sub([convert_expression(x, function_table) for x in expression.parts])
+    elif isinstance(expression, pddl.f_expression.Arithmetic):
+        return m[type(expression)]([convert_expression(x, function_table) for x in expression.parts])
     elif isinstance(expression, pddl.f_expression.FunctionAssignment):
         raise NotImplementedError
     raise NotImplementedError
@@ -309,7 +313,6 @@ def numeric(domain_file, problem_file, output_task ):
 
     negated_set = set()
     action_data = []
-
     # actions
     for (index, action) in enumerate(task.actions):
         lst = product(*(objects_by_type.get(x.type) for x in action.parameters))
@@ -363,3 +366,7 @@ def numeric(domain_file, problem_file, output_task ):
     goal = [(x[0].index, x[1]) for x in encode(task.goal, atom_table)]
     output_task.set_goal(goal)
     # process metric
+    metric_expression = convert_expression(task.metric_expression, function_table)
+    output_task.set_metric_expression(metric_expression)
+    output_task.set_add_cost(False)
+

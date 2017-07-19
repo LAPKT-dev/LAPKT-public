@@ -28,11 +28,11 @@
 (:action (place-package)
     :parameters ( ?p - package ?c - container )
     :precondition (and (> (- (capasity-left ?c) (capasity-demand ?p)) 0 )
-                       (not (in ?p ?c))
+                       (not (in ?c ?p))
                   )
     :effect (and (decrease (capasity-left ?c) (capasity-demand ?p))
-                 (in ?p ?c)
-                 (increase total-cost 1)
+                 (in ?c ?p)
+                 (increase (total-cost) 1)
             )
 )
 
@@ -40,7 +40,7 @@
    :parameters (?p - package ?c - container )
    :precondition (and (in ?c ?p))
    :effect ( and (not (in ?c ?p))
-                 (increase total-cost 1)
+                 (increase (total-cost) 1)
            )
 )
 

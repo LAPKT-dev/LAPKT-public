@@ -281,6 +281,22 @@ namespace aptk
             return m_comparison[i];
         }
 
+        ExpPtr metric_expression() const {
+            return m_metric_expression;
+        }
+
+        bool add_cost() const {
+            return m_add_cost;
+        }
+
+        void set_add_cost(bool value) {
+            m_add_cost = value;
+        }
+
+        void set_metric_expression(ExpPtr expr){
+            m_metric_expression = expr;
+        }
+
 	protected:
 		void			register_action_in_tables( Action* act );
 
@@ -322,6 +338,8 @@ namespace aptk
 		mutable std::vector< Trigger >						m_triggers;
 		std::vector< std::set< unsigned> >					m_relevant_effects;
         agnostic::Mutex_Set             	            m_mutexes;
+        ExpPtr                                          m_metric_expression;
+        bool                                            m_add_cost;
 
 	  };
 

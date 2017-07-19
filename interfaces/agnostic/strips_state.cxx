@@ -85,6 +85,8 @@ State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* 
 	State* succ = new State( problem() );
 	succ->fluent_vec().reserve( m_fluent_vec.size() );
 
+    succ->set_value(this->value_vec());
+
 	for ( unsigned k = 0; k < m_fluent_vec.size(); k++ ) 
 	{
 		if ( a.retracts(m_fluent_vec[k]) ){
@@ -134,24 +136,22 @@ State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* 
 	
 
 	//Add Conditional Effects
-	if( a.ceff_vec().empty() )
-		return succ;
-
-	for( unsigned i = 0; i < a.ceff_vec().size(); i++ )
-	{
-		Conditional_Effect* ce = a.ceff_vec()[i];
-		if( !ce->can_be_applied_on( *this ) ) continue;
-		for ( unsigned j = 0; j < ce->add_vec().size(); j++ )
-		{
-			unsigned p = ce->add_vec()[j];
-			if ( !entails(p) )
-			{
-				succ->set( p );
-				if(added)				    
-				    added->push_back(p);
-			}
-		}
-	}       	
+    if(! a.ceff_vec().empty() )
+        for( unsigned i = 0; i < a.ceff_vec().size(); i++ )
+        {
+            Conditional_Effect* ce = a.ceff_vec()[i];
+            if( !ce->can_be_applied_on( *this ) ) continue;
+            for ( unsigned j = 0; j < ce->add_vec().size(); j++ )
+            {
+                unsigned p = ce->add_vec()[j];
+                if ( !entails(p) )
+                {
+                    succ->set( p );
+                    if(added)
+                        added->push_back(p);
+                }
+            }
+        }
 
     // iterate over numeric effects and assign new values for
     // numeric conditions fluents

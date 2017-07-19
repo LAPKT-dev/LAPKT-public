@@ -368,6 +368,12 @@ def normalize_numeric_effects(task):
     for proxy in all_numeric_effects(task):
         proxy.set(replace(proxy.effect.effect))
 
+
+def normalize_metric_expression(task):
+    # todo:
+    pass
+
+
 def replace_numeric_preconditions(task):
     # type: (pddl.Task) -> None
 
@@ -422,6 +428,7 @@ def normalize(task):
     substitute_complicated_goal(task)
     normalize_numeric_preconditons(task)
     normalize_numeric_effects(task)
+    normalize_metric_expression(task)
     replace_numeric_preconditions(task)
     build_DNF(task)
 

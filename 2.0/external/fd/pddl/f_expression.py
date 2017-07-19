@@ -2,7 +2,10 @@ from __future__ import print_function
 
 
 def construct(functionsymbol, args):
-    m = {'-': Substract}
+    m = {'-': Substract,
+         '*': Multiply,
+         '+': Sum,
+         '/': Divide}
     if functionsymbol in ('-', '+', '/', '*', 'increase', 'decrease', 'assign'):
         return m[functionsymbol](args)
     return PrimitiveNumericExpression(functionsymbol, args)
@@ -161,14 +164,12 @@ class PrimitiveNumericExpression(FunctionalExpression):
         return {self}
 
 
-class Substract(FunctionalExpression):
-    symbol = '-'
-
+class Arithmetic(FunctionalExpression):
     def __init__(self, parts):
         self.parts = tuple(parts)
 
     def pddl(self):
-        return '({0} {1})'.format(Substract.symbol, ' '.join([x.pddl() for x in self.parts]))
+        return '({0} {1})'.format(self.__class__.symbol, ' '.join([x.pddl() for x in self.parts]))
 
     def instantiate(self, var_mapping, init_facts):
         return self.__class__([x.instantiate(var_mapping, init_facts) for x in self.parts])
@@ -181,6 +182,22 @@ class Substract(FunctionalExpression):
         for part in self.parts:
             result = result.union(part.get_functions())
         return result
+
+
+class Substract(Arithmetic):
+    symbol = '-'
+
+
+class Sum(Arithmetic):
+    symbol = '+'
+
+
+class Multiply(Arithmetic):
+    symbol = '*'
+
+
+class Divide(Arithmetic):
+    symbol = '/'
 
 
 class FunctionAssignment(object):

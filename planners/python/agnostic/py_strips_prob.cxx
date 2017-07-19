@@ -359,3 +359,13 @@ using namespace boost::python;
 		instance()->print_actions(out);
 		out.close();
 	}
+
+    void
+    STRIPS_Problem::set_add_cost(bool value){
+        m_problem->set_add_cost(value);
+    }
+
+    void
+    STRIPS_Problem::set_metric_expression(std::shared_ptr<aptk::Expression<float> > expr) {
+        m_problem->set_metric_expression(expr);
+    }

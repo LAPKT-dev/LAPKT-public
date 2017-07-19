@@ -50,9 +50,13 @@ public:
 	virtual void		applicable_set( const State& s, std::vector<Action_Idx>& app_set ) const;
 	virtual void		applicable_set_v2( const State& s, std::vector<Action_Idx>& app_set ) const;	
 	virtual float		cost( const State& s, Action_Idx a ) const;
-        virtual State*		next( const State& s, Action_Idx a, Fluent_Vec* added, Fluent_Vec* deleted ) const;
+    template <typename SearchNode>
+    float metric( const SearchNode& n, Action_Idx a ) const;
+    virtual State*		next( const State& s, Action_Idx a, Fluent_Vec* added, Fluent_Vec* deleted ) const;
     virtual State*		next( const State& s, Action_Idx a ) const;
 	virtual void		print( std::ostream& os ) const;
+
+    void set_metric_expression(ExpPtr exp) { m_metric_expression = exp; }
 
 	STRIPS_Problem&		task() 		{ return *m_task; }
 	const STRIPS_Problem&	task() const 	{ return *m_task; }
@@ -89,8 +93,23 @@ public:
 private:
 
 	STRIPS_Problem*		m_task;
+    ExpPtr                          m_metric_expression;
+    bool                            m_add_cost;
 	
 };
+
+
+template <typename SearchNode>
+float Fwd_Search_Problem::metric( const SearchNode& n, Action_Idx a ) const {
+    if (!(this->m_metric_expression)) return 0.0;
+
+    float result = this->m_metric_expression->eval(n.state().value_vec());
+    if (m_add_cost) {
+       float cost = n.gn();
+       result += cost;
+    }
+    return result;
+}
 
 }
 

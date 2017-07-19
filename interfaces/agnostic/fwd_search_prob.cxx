@@ -26,7 +26,8 @@ namespace aptk {
 namespace agnostic {
 
 Fwd_Search_Problem::Fwd_Search_Problem( STRIPS_Problem* p )
-	: m_task( p ) {
+    : m_task( p ), m_metric_expression(p->metric_expression()), m_add_cost(p->add_cost())
+{
 }
 
 Fwd_Search_Problem::~Fwd_Search_Problem() {
@@ -101,6 +102,8 @@ float	Fwd_Search_Problem::cost( const State& s, Action_Idx a ) const {
 	const Action& act = *(task().actions().at(a));
 	return act.cost();
 }
+
+
 
 State*	Fwd_Search_Problem::next( const State& s, Action_Idx a ) const {
 	const Action& act = *(task().actions().at(a));

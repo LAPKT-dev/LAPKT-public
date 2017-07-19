@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <set>
 #include <vector>
 #include <limits>
+#include <memory>
 #include <utility>
 #include <aptk/bit_set.hxx>
 
@@ -36,6 +37,8 @@ namespace aptk
     class Function;
 	class Conditional_Effect;
     class Numeric_Effect;
+    template<typename T>
+    class Expression;
 	
 	
     typedef		std::vector<bool>				Bool_Vec;
@@ -58,6 +61,7 @@ namespace aptk
     typedef		std::vector< Fluent_Ptr_Vec >	        	Type_Fluent_Table;
     typedef		std::vector< Fluent_Ptr_Vec >	        	Object_Fluent_Table;
     typedef		std::vector< std::pair<unsigned, unsigned> >   VarVal_Vec;
+    typedef     std::shared_ptr< Expression<float> > ExpPtr;
 
 
 // MRJ: April 2015: added this pre-processor guards while we transition to

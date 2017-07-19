@@ -77,7 +77,7 @@ public:
     T eval(const std::vector<T> & table){
         T result = m_args[0]->eval(table);
         for(auto it=++(m_args.begin()); it != m_args.end(); it++){
-            result += (*it)->eval(table);
+            result -= (*it)->eval(table);
         }
         return result;
     }
@@ -177,6 +177,7 @@ protected:
     size_t m_idx;
 
 };
+
 
 }
 
