@@ -68,7 +68,7 @@ NUM_BFS::process(  Search_Node *head ) {
         Search_Node* n = new Search_Node( succ,
                                           m_problem.cost( *(head->state()), a ),
                                           a, head );
-        n->metric() = m_problem.metric(*n, a),
+        n->set_metric(m_problem.metric(*n, a)),
 
 
         #ifdef DEBUG

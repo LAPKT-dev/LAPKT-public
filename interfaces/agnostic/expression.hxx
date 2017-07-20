@@ -14,9 +14,7 @@ class Expression
 public:
     typedef T value_type;
     virtual T eval(const std::vector<T> & table) = 0;
-    virtual std::set<std::size_t> fluent_indices(std::set<size_t> * result = 0){
-        return std::set<std::size_t>();
-    }
+    virtual std::set<std::size_t> fluent_indices() const = 0;
 };
 
 
@@ -29,15 +27,13 @@ public:
         m_args(args){}
 
 
-    std::set<std::size_t> fluent_indices(std::set<size_t> * result = 0) const {
-        if (result == nullptr) {
-            result = std::set<size_t>{};
-        }
+    std::set<std::size_t> fluent_indices() const {
+        std::set<std::size_t> result{};
         for(auto const & expr: m_args){
-            expr->fluent_indices(result);
+            std::set<std::size_t> tmp = expr->fluent_indices();
+            result.insert(tmp.begin(), tmp.end());
         }
         return result;
-
     }
 
 
@@ -143,6 +139,10 @@ public:
         return std::make_shared< Const<T> >(value);
     }
 
+    std::set<std::size_t> fluent_indices() const {
+        return std::set<std::size_t>{};
+    }
+
 protected:
     T m_value;
 };
@@ -159,11 +159,9 @@ public:
         return table[m_idx];
     }
 
-    std::set<std::size_t> fluent_indices(std::set<size_t> * result = 0) const {
-        if (result == nullptr) {
-            result = std::set<size_t>{};
-        }
-        result->insert(m_idx);
+    std::set<std::size_t> fluent_indices() const {
+        std::set<std::size_t>  result = std::set<size_t>{};
+        result.insert(m_idx);
         return result;
     }
 

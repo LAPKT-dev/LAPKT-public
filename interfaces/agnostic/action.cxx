@@ -40,9 +40,6 @@ Action::~Action()
     for(auto cond_effptr: m_cond_effects)
         delete cond_effptr;
 
-    for(auto num_effptr: m_num_effects)
-        delete num_effptr;
-
 }
 
 void Action::define( const Fluent_Vec& precs, const Fluent_Vec& adds, const Fluent_Vec& dels )
@@ -71,7 +68,7 @@ void Action::define(const Fluent_Vec& precs, const Fluent_Vec& adds, const Fluen
 }
 
 void Action::add_numeric_effects(Numeric_Effect_Vec &vec){
-    for(aptk::Numeric_Effect* ptr: vec){
+    for(auto & ptr: vec){
         m_num_effects.push_back(ptr);
     }
 }

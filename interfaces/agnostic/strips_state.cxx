@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <algorithm>
 #include <strips_state.hxx>
 #include <numeric_eff.hxx>
+#include <function.hxx>
 
 
 namespace aptk
@@ -81,6 +82,7 @@ State* State::progress_through_df( const Action& a ) const
 
 State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* deleted ) const
 {
+    std::cout << "applying action " << a.signature() << std::endl;
 	assert( a.can_be_applied_on(*this) );
 	State* succ = new State( problem() );
 	succ->fluent_vec().reserve( m_fluent_vec.size() );
@@ -160,8 +162,8 @@ State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* 
         size_t changed = a.num_vec()[i]->fluentId();
         auto it=problem().comparison_map().find(changed);
         while (it != problem().comparison_map().end()) {
-            for(size_t cmp_idx: it->second){
-                problem().comparison(cmp_idx).update_fluent(*succ);
+            for(size_t bound_fluent_Id: it->second){
+                problem().comparison(bound_fluent_Id).update_fluent(*succ);
             }
             it++;
         }
@@ -361,7 +363,14 @@ void	State::print( std::ostream& os ) const {
 	for ( auto p = m_fluent_vec.begin(); p != m_fluent_vec.end(); p++ ) {
 		os << m_problem.fluents()[*p]->signature() << " ";
 	}
-	os << ")" << std::endl;
+    os << std::endl;
+    os << "(:numeric ";
+    size_t i = 0;
+    for (float v: m_value_vec){
+        os << m_problem.functions()[i]->signature() << "=" << v << ", ";
+        i ++;
+    }
+    os << ") )" << std::endl;
 }
 
 std::string State::tostring() const {

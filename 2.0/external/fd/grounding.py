@@ -309,6 +309,7 @@ def numeric(domain_file, problem_file, output_task ):
             continue
         atom = pddl.Atom(func.fluent.symbol, func.fluent.args)
         function_table[atom.text()] = TableItem(index, atom, func.expression.value)
+        output_task.add_function(atom.text())
         index += 1
 
     negated_set = set()
@@ -361,7 +362,7 @@ def numeric(domain_file, problem_file, output_task ):
     for item in init_atoms:
         if isinstance(item, (pddl.Atom, pddl.NegatedAtom)):
             fluent_list.append((atom_table[item.text()].index, item.negated))
-
+    assert len(num_list) == len(function_table)
     output_task.set_init(fluent_list, num_list)
     goal = [(x[0].index, x[1]) for x in encode(task.goal, atom_table)]
     output_task.set_goal(goal)

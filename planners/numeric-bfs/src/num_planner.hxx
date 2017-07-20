@@ -35,7 +35,7 @@ public:
     float&			fn()		{ return m_f; }
     float			fn() const	{ return m_f; }
     float           metric() const { return m_metric; }
-    float&          metric() { return m_metric; }
+    void          set_metric(float value) { m_metric = value; }
 
     Node<State>*		parent()   	{ return m_parent; }
     Action_Idx		action() const 	{ return m_action; }

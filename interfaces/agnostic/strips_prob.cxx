@@ -131,7 +131,7 @@ namespace aptk
     }
 
     size_t STRIPS_Problem::add_comparison(unsigned bound_fluent_Id, CompareType t, std::shared_ptr<aptk::Expression<float> > &expr){
-        m_comparison.push_back(Comparison<float>(bound_fluent_Id, t, expr));
+        m_comparison.emplace(bound_fluent_Id, Comparison<float>(bound_fluent_Id, t, expr));
 
         // build map[numeric_fluent] -> boolean fluent that may change if numeric_fluent changes
         for (std::size_t num_fluent_id: expr->fluent_indices()){
@@ -300,8 +300,8 @@ namespace aptk
         aptk::State s(*this);
         s.set(init());
         s.set_value(finit());
-        for(auto & cmp: m_comparison)
-            cmp.update_fluent(s);
+        for(auto it=m_comparison.begin(); it != m_comparison.end(); it++)
+            it->second.update_fluent(s);
         this->m_init.clear();
         this->m_in_init.clear();
         STRIPS_Problem::set_init(*this, s.fluent_vec());

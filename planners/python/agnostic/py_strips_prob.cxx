@@ -50,7 +50,7 @@ using namespace boost::python;
         add_effect(idx, effs);
         aptk::Numeric_Effect_Vec num;
         for ( int i = 0; i < len(num_eff_vec); i++ ) {
-            num.push_back(extract< aptk::Numeric_Effect* >( num_eff_vec[i] ));
+            num.push_back(extract< std::shared_ptr< aptk::Numeric_Effect> >( num_eff_vec[i] ));
         }
         action.add_numeric_effects(num);
     }

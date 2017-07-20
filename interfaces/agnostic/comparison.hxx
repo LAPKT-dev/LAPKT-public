@@ -32,7 +32,9 @@ public:
         m_fluent_idx(bound_fluent_idx),
         m_type(a_type),
         m_expr(a_expr)
-    {}
+    {
+        assert(m_expr);
+    }
 
 
     void update_fluent(State & s) const {
@@ -41,13 +43,13 @@ public:
         _update_fluent(s, m_type, f, m_fluent_idx);
     }
 
-
-
     Comparison(const Comparison & other):
         m_fluent_idx(other.m_fluent_idx),
         m_type(other.m_type),
         m_expr(other.m_expr)
-    {}
+    {
+        assert(m_expr);
+    }
 
 private:
     int m_fluent_idx;

@@ -180,6 +180,7 @@ namespace aptk
 	  	
 		Fluent_Ptr_Vec&		fluents() 			{ return m_fluents; }
         Function_Ptr_Vec&   functions()         { return m_functions; }
+        const Function_Ptr_Vec&   functions() const   { return m_functions; }
 		Action_Ptr_Vec&		actions() 			{ return m_actions; }
 		const std::vector< const Fluent*>&	
                      fluents() const			{ return m_const_fluents; }
@@ -278,7 +279,7 @@ namespace aptk
 		void					make_effect_tables();
 
         const aptk::Comparison<float> & comparison(size_t i) const {
-            return m_comparison[i];
+            return m_comparison.at(i);
         }
 
         ExpPtr metric_expression() const {
@@ -312,7 +313,7 @@ namespace aptk
         // numerical_fluent -> comparison_fluent map
         // used for updating when numerical effect changes some values
         Numeric_To_Comparison_Map               m_num_compare_map;
-        std::vector<Comparison<float> >         m_comparison;
+        std::map<size_t, Comparison<float> >         m_comparison;
         std::vector<const Fluent*>				m_const_fluents;
 		Fluent_Vec		 						m_init;
         Value_Vec                               m_finit;

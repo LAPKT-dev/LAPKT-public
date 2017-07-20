@@ -25,10 +25,11 @@
         (at-softgoal-reward ?v0 - locatable ?v1 - location )
 )
 
-(:action (place-package)
+(:action place-package
     :parameters ( ?p - package ?c - container )
     :precondition (and (> (- (capasity-left ?c) (capasity-demand ?p)) 0 )
                        (not (in ?c ?p))
+                       (normal-mode)
                   )
     :effect (and (decrease (capasity-left ?c) (capasity-demand ?p))
                  (in ?c ?p)
@@ -36,9 +37,9 @@
             )
 )
 
-(:action (remove-package)
+(:action remove-package
    :parameters (?p - package ?c - container )
-   :precondition (and (in ?c ?p))
+   :precondition (and (in ?c ?p) (normal-mode))
    :effect ( and (not (in ?c ?p))
                  (increase (total-cost) 1)
            )

@@ -144,7 +144,8 @@ BOOST_PYTHON_MODULE(liblapkt)
     class_<VarExpr, std::shared_ptr<VarExpr>, bases<Expr> >("Var", no_init)
             .def("__init__", make_constructor(&VarExpr::make_shared));
 
-    class_<Numeric_Effect>("NumericEffect", init<PointerToExpr, int>());
+    class_<Numeric_Effect, std::shared_ptr<Numeric_Effect> >("NumericEffect", no_init)
+        .def("__init__", make_constructor(&Numeric_Effect::make_shared));
 
     enum_<CompareType>("CompareType")
             .value("more", CompareType::more)

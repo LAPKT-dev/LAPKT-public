@@ -55,7 +55,7 @@ namespace aptk
     typedef     std::vector<Function*>              Function_Ptr_Vec;
     typedef     std::map<size_t, std::set<size_t>>           Numeric_To_Comparison_Map;
     typedef		std::vector<Conditional_Effect* > 		Conditional_Effect_Vec;
-    typedef     std::vector<Numeric_Effect* >           Numeric_Effect_Vec;
+    typedef     std::vector<std::shared_ptr<Numeric_Effect> >           Numeric_Effect_Vec;
     typedef		std::vector< std::vector< const Action* > >	Fluent_Action_Table;
     typedef     std::vector< Action_Ptr_Vec >           	PDDLop_Action_Table;
     typedef		std::vector< Fluent_Ptr_Vec >	        	Type_Fluent_Table;
