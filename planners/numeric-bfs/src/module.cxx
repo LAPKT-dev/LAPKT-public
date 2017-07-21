@@ -5,9 +5,9 @@ using namespace boost::python;
 
 BOOST_PYTHON_MODULE( libnum )
 {
-    class_<Solver>("Solver", no_init);
+    class_<Solver, boost::noncopyable>("Solver", no_init);
 
-    class_<SolverFactory>("SolverFactory", no_init);
+    class_<SolverFactory, boost::noncopyable>("SolverFactory", no_init);
 
     class_<STRIPS_Problem>("STRIPS_Problem")
          .def( init<>() )

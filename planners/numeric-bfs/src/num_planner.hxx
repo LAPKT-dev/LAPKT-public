@@ -47,12 +47,18 @@ public:
 
     // return value is the answer to question "is this node worse than o?"
     bool    operator< ( const Node<State>& o ) const {
+        if (this == &o){
+            return false;
+        }
+
         // total
         if ( fn() > o.fn() ) return true;
         // difference is less than threshold
         if ( aptk::dequal( fn(), o.fn() ) ) {
             // heuristic
             if ( hn() > o.hn() ) return true;
+            // metric
+            if ( metric() > o.metric() ) return true;
             // distance from start node
             if ( gn() < o.gn() ) return true;
         }
@@ -60,6 +66,9 @@ public:
     }
 
     bool operator== ( const Node<State>& o ) const {
+        if (this == &o){
+            return true;
+        }
         return !(o < *this || *this < o);
     }
 
@@ -103,11 +112,14 @@ public:
                left += 1.0;
            }
         }
+        /*
         float metric = n->metric();
         if (metric == 0.0f){
             metric = 1.0f;
         }
         h_val = left * metric;
+        */
+        h_val = left;
     }
 
 };
@@ -125,6 +137,9 @@ public:
 
     void process(  Search_Node *head );
 
+    void set_output_filename(std::string out);
+private:
+    std::string output_filename;
 };
 
 class NUM_BFS_Factory: public SolverFactory {

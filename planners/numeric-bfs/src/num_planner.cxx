@@ -38,6 +38,22 @@ NUM_BFS::solve() {
     this->find_solution(cost, plan);
     std::cout << plan.size() << std::endl;
 
+    if (output_filename.size() != 0){
+        std::ofstream	plan_stream( output_filename.c_str() );
+
+        std::cout << "Plan found with cost: " << cost << std::endl;
+        for ( unsigned k = 0; k < plan.size(); k++ ) {
+            std::cout << k+1 << ". ";
+            const aptk::Action& a = *(m_problem.task().actions()[ plan[k] ]);
+            std::cout << a.signature();
+            std::cout << std::endl;
+            plan_stream << a.signature() << std::endl;
+        }
+        plan_stream.close();
+    } else {
+        std::cout << "Empty output filename" << std::endl;
+    }
+
 }
 
 Solver *NUM_BFS_Factory::build(aptk::STRIPS_Problem * prob) const {
@@ -68,7 +84,7 @@ NUM_BFS::process(  Search_Node *head ) {
         Search_Node* n = new Search_Node( succ,
                                           m_problem.cost( *(head->state()), a ),
                                           a, head );
-        n->set_metric(m_problem.metric(*n, a)),
+        n->set_metric(m_problem.metric(*n, a));
 
 
         #ifdef DEBUG
@@ -112,5 +128,11 @@ NUM_BFS::process(  Search_Node *head ) {
         }
     }
     inc_eval();
+}
+
+
+void
+NUM_BFS::set_output_filename(std::string out){
+    output_filename = out;
 }
 

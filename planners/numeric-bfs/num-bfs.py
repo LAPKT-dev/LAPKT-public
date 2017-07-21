@@ -14,7 +14,7 @@ def main( domain_file, problem_file, plan_file ) :
 
 	factory = libnum.NUM_BFS_Factory()
 
-        task.solve(factory)
+        task.solve(factory, plan_file)
 
 
 

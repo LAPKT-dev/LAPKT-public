@@ -82,8 +82,11 @@ State* State::progress_through_df( const Action& a ) const
 
 State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* deleted ) const
 {
+
+#ifdef DEBUG
     std::cout << "applying action " << a.signature() << std::endl;
 	assert( a.can_be_applied_on(*this) );
+#endif
 	State* succ = new State( problem() );
 	succ->fluent_vec().reserve( m_fluent_vec.size() );
 

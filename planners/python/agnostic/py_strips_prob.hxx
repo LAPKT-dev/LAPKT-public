@@ -17,7 +17,8 @@ namespace aptk{
 
 class Solver{
 public:
-    virtual void solve(){}
+    virtual void solve()=0;
+    virtual void set_output_filename(std::string){}
 };
 
 class SolverFactory{
@@ -54,8 +55,8 @@ public:
 	void	notify_negated_conditions( boost::python::list& list );
     void    add_negated_conditions ( boost::python::list& fluents );
 	void	create_negated_fluents();
-
-    void	set_init( boost::python::list& list, boost::python::list val_lst=boost::python::list() );
+    void	set_init_num( boost::python::list& list, boost::python::list val_lst=boost::python::list() );
+    void    set_init(boost::python::list& list);
 	void	set_goal( boost::python::list& list );
 	void	set_domain_name( std::string name );
 	void	set_problem_name( std::string name );
@@ -63,7 +64,7 @@ public:
     void    set_metric_expression(std::shared_ptr<aptk::Expression<float> > expr);
 
 	virtual	void	setup();
-    void solve(const SolverFactory & solver);
+    void solve(const SolverFactory & solver, std::string out);
 
 	void	print_action( int index );
 
@@ -83,9 +84,11 @@ public:
 	bool	m_ignore_action_costs;
 
 protected:
+    void  _set_init( boost::python::list& list, boost::python::list val_lst=boost::python::list() );
 	aptk::STRIPS_Problem*	m_problem;
 	std::set<int>		m_negated_conditions;
 	aptk::Fluent_Ptr_Vec	m_negated;
 };
+
 
 #endif // py_strips_problem.hxx

@@ -9,6 +9,7 @@ import fact_groups
 import timers
 import sys
 from itertools import product
+import normalize
 
 
 USE_PARTIAL_ENCODING = True
@@ -257,14 +258,13 @@ def convert_num_effect(num_effects, function_table):
     return result
 
 
+# todo: fix exploration rules in default to work with numeric tasks
 def numeric(domain_file, problem_file, output_task ):
     import liblapkt
-    parsing_timer = timers.Timer()
     print("Domain: %s Problem: %s" % (domain_file, problem_file))
 
-
     task = pddl.open(problem_file, domain_file)
-    import normalize
+
     normalize.normalize(task)
 
     class TableItem:
@@ -314,6 +314,7 @@ def numeric(domain_file, problem_file, output_task ):
 
     negated_set = set()
     action_data = []
+    action_count = 0
     # actions
     for (index, action) in enumerate(task.actions):
         lst = product(*(objects_by_type.get(x.type) for x in action.parameters))
@@ -330,10 +331,12 @@ def numeric(domain_file, problem_file, output_task ):
 
             negated_condistions = [x[0] for x in precs if (x[1] and x[0] not in negated_set)]
             for n in negated_condistions: negated_set.add(n)
-            output_task.add_negated_conditions(negated_condistions);
+            output_task.add_negated_conditions(negated_condistions)
             effs = convert_effect(instance.add_effects, instance.del_effects, atom_table)
 
             num_effs = convert_num_effect(instance.numeric_effects, function_table)
+            print("Adding action {0}".format(action_count))
+            action_count += 1
             action_data.append(NumDetAction(instance.name,
                                             instance.cost,
                                             precs,
