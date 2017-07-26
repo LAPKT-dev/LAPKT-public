@@ -363,6 +363,10 @@ def normalize_numeric_effects(task):
             return f_expression.Assign(expression.fluent,
                                        f_expression.Substract([expression.fluent,
                                                                expression.expression]))
+        elif expression.symbol == 'increase':
+            return f_expression.Assign(expression.fluent,
+                                       f_expression.Sum([expression.fluent,
+                                                         expression.expression]))
         else:
             raise NotImplementedError
     for proxy in all_numeric_effects(task):
@@ -389,26 +393,24 @@ def replace_numeric_preconditions(task):
             non_negated = condition
             if condition.negated:
                 non_negated = condition.negate()
-            if non_negated in task.comparator_to_fluent_map:
-                predicate = task.comparator_to_fluent_map[non_negated]
-            else:
-                fluent_str = 'num_condition_satisfied{0}'.format(len(task.comparator_to_fluent_map))
-                new_predicate_args = dict()
-                functions = condition.get_functions()
-                for func in functions:
-                    arg_types = extract_arg_types(func)
-                    for (key, value) in zip(func.args, arg_types):
-                        new_predicate_args[key] = pddl.TypedObject(key, value)
-                args = []
-                for key in sorted(new_predicate_args.keys()):
-                    args.append(new_predicate_args[key])
-                predicate = pddl.Predicate(fluent_str, args)
-                task.predicates.append(predicate)
+            # remove possible duplicates
+            fluent_str = 'num_condition_satisfied{0}'.format(task.comparator_count)
+            new_predicate_args = dict()
+            functions = condition.get_functions()
+            for func in functions:
+                arg_types = extract_arg_types(func)
+                for (key, value) in zip(func.args, arg_types):
+                    new_predicate_args[key] = pddl.TypedObject(key, value)
+            args = []
+            for key in sorted(new_predicate_args.keys()):
+                args.append(new_predicate_args[key])
+            predicate = pddl.Predicate(fluent_str, args)
+            task.predicates.append(predicate)
             if condition.negated:
                 new_atom = pddl.NegatedNumericWrapper(predicate.name, [x.name for x in args], non_negated)
             else:
                 new_atom = pddl.NumericWrapper(predicate.name, [x.name for x in args], non_negated)
-            task.comparator_to_fluent_map[condition] = new_atom
+            task.comparator_count += 1
             return new_atom
         if condition.has_numeric_precondition():
             new_condition = condition.__class__([])
@@ -423,7 +425,6 @@ def replace_numeric_preconditions(task):
 # Combine Steps [1], [2], [3], [4], [5] and do some additional verification
 # that the task makes sense.
 def normalize(task):
-
     remove_universal_quantifiers(task)
     substitute_complicated_goal(task)
     normalize_numeric_preconditons(task)
@@ -487,6 +488,8 @@ def condition_to_rule_body(parameters, condition):
         else:
             parts = (condition,)
         for part in parts:
+            if isinstance(part, pddl.NumericWrapper):
+                continue
             assert isinstance(part, pddl.Literal), "Condition not normalized"
             if not part.negated:
                 yield part

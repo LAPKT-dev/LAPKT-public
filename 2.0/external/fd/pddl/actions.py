@@ -110,12 +110,9 @@ class Action(object):
         name = "(%s %s)" % (self.name, " ".join(arg_list))
 
         precondition = []
-        ground_comparisions = []
         try:
             self.precondition.instantiate(var_mapping, init_facts,
                                           fluent_facts, precondition)
-            if cmp is not None:
-                ground_comparisions.append(cmp)
         except conditions.Impossible:
             return None
         effects = []
@@ -141,9 +138,8 @@ class Action(object):
                         cost = int(t_cost.expression.initial_value)
                 except conditions.Impossible:
                     return None
-            return PropositionalAction(name, precondition, effects, numeric_effects, cost, ground_comparisions)
+            return PropositionalAction(name, precondition, effects, numeric_effects, cost)
         else:
-            import pdb;pdb.set_trace()
             return None
 
     def pddl(self):
@@ -172,7 +168,7 @@ class Action(object):
 
 
 class PropositionalAction:
-    def __init__(self, name, precondition, effects, numeric_effects, cost, ground_comp):
+    def __init__(self, name, precondition, effects, numeric_effects, cost):
         self.name = name
         self.precondition = precondition
         self.add_effects = []
@@ -189,7 +185,7 @@ class PropositionalAction:
             if effect.negated and (condition, effect.negate()) not in self.add_effects:
                 self.del_effects.append((condition, effect.negate()))
         self.cost = cost
-        self.comparision = ground_comp
+
     def __repr__(self):
         return "<PropositionalAction %r at %#x>" % (self.name, id(self))
     def dump(self):

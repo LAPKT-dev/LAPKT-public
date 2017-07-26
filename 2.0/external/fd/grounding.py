@@ -8,7 +8,6 @@ import pddl
 import fact_groups
 import timers
 import sys
-from itertools import product
 import normalize
 
 
@@ -63,6 +62,7 @@ def instantiate(task, model):
                             fluent_facts, type_to_objects)
             if inst_action:
                 instantiated_actions.append(inst_action)
+
         elif isinstance(atom.predicate, pddl.Axiom):
             axiom = atom.predicate
             variable_mapping = dict([(par.name, arg)
@@ -78,8 +78,6 @@ def instantiate(task, model):
 
 
 def explore(task):
-    import normalize
-    normalize.normalize(task)
     prog = pddl_to_prolog.translate(task)
     model = build_model.compute_model(prog)
     with timers.timing("Completing instantiation"):
@@ -115,7 +113,6 @@ class NumDetAction:
         self.effects = effects
         self.numeric_effects = num_effects
         self.comparison = cmp
-
 
 
 def encode( lits, atom_table ) :
@@ -208,11 +205,20 @@ def default( domain_file, problem_file, output_task ) :
     output_task.parsing_time = parsing_timer.report()
 
 
+class TableItem:
+    def __init__(self, a_index, a_atom, value=None):
+        self.index = a_index
+        self.atom = a_atom
+        self.value = value
+
+
 def convert_precondition(prec, atom_table):
     precondition = []
     comparision = dict()
     for p in prec:
         if isinstance(p, pddl.NumericWrapper):
+            if p.text() not in atom_table:
+                atom_table[p.text()] = TableItem(len(atom_table), p.to_atom())
             comparision[atom_table[p.text()].index] = p.expression
         precondition.append((atom_table[p.text()].index, p.negated))
     return precondition, comparision
@@ -240,6 +246,8 @@ def convert_expression(expression, function_table):
         return m[type(expression)]([convert_expression(x, function_table) for x in expression.parts])
     elif isinstance(expression, pddl.f_expression.FunctionAssignment):
         raise NotImplementedError
+    elif isinstance(expression, pddl.f_expression.NumericConstant):
+        return liblapkt.Const(expression.value)
     raise NotImplementedError
 
 
@@ -258,7 +266,6 @@ def convert_num_effect(num_effects, function_table):
     return result
 
 
-# todo: fix exploration rules in default to work with numeric tasks
 def numeric(domain_file, problem_file, output_task ):
     import liblapkt
     print("Domain: %s Problem: %s" % (domain_file, problem_file))
@@ -267,83 +274,52 @@ def numeric(domain_file, problem_file, output_task ):
 
     normalize.normalize(task)
 
-    class TableItem:
-        def __init__(self, a_index, a_atom, value=None):
-            self.index = a_index
-            self.atom = a_atom
-            self.value = value
+    relaxed_reachable, atoms, actions, axioms, reachable_action_params = explore(task)
 
-    index = 0
     atom_table = dict()
 
-    objects_by_type = defaultdict(list)
-    for obj in task.objects:
-        lst = set(next(x.supertype_names for x in task.types if x.name == obj.type))
-        lst.add(obj.type)
-        for typename in lst:
-            objects_by_type[typename].append(obj)
-    init_atoms = [x for x in task.init if (not hasattr(x, 'predicate')) or x.predicate != '=']
-    fluent_atoms = []
-
     # atoms
-    for pred in task.predicates:
-        for args in product(*(objects_by_type.get(x.type) for x in pred.arguments)):
-            if None in args:
-                continue
-            # todo: some atoms are impossible to reach
-            # todo: compute unreachable atoms
-            atom = pddl.Atom(pred.name, [x.name for x in args])
-            if atom.text() not in atom_table:
-                atom_table[atom.text()] = TableItem(index, atom)
-                output_task.add_atom( atom.text() )
-                fluent_atoms.append(atom)
-                index += 1
+    for atom in atoms:
+        if atom.text() not in atom_table:
+            atom_table[atom.text()] = TableItem(len(atom_table), atom)
+            output_task.add_atom( atom.text() )
 
-    index = 0
+    init_atoms = [x for x in task.init if (not hasattr(x, 'predicate')) or x.predicate != '=']
 
     function_table = dict()
 
     # functions
+    # all ground functions should have some value assigned in init
+    # unlike logical fluents, which are false if are not specified
     for func in (x for x in task.init if isinstance(x, pddl.f_expression.Assign)):
         if isinstance(func.fluent, pddl.f_expression.PrimitiveNumericExpression) and func.fluent.symbol == 'total-cost':
             continue
         atom = pddl.Atom(func.fluent.symbol, func.fluent.args)
-        function_table[atom.text()] = TableItem(index, atom, func.expression.value)
+        function_table[atom.text()] = TableItem(len(function_table), atom, func.expression.value)
         output_task.add_function(atom.text())
-        index += 1
+
 
     negated_set = set()
     action_data = []
-    action_count = 0
+
     # actions
-    for (index, action) in enumerate(task.actions):
-        lst = product(*(objects_by_type.get(x.type) for x in action.parameters))
-        for var_values in lst:
-            var_mapping = {param.name: var_values[i].name for (i, param) in enumerate(action.parameters)}
+    for instance in actions:
+        precs, cmp = convert_precondition(instance.precondition, atom_table)
 
+        negated_condistions = [x[0] for x in precs if (x[1] and x[0] not in negated_set)]
+        for n in negated_condistions: negated_set.add(n)
+        output_task.add_negated_conditions(negated_condistions)
+        effs = convert_effect(instance.add_effects, instance.del_effects, atom_table)
 
-            instance = action.instantiate(var_mapping, init_atoms, fluent_atoms, objects_by_type)
+        num_effs = convert_num_effect(instance.numeric_effects, function_table)
 
-            if instance is None:
-                continue
-
-            precs, cmp = convert_precondition(instance.precondition, atom_table)
-
-            negated_condistions = [x[0] for x in precs if (x[1] and x[0] not in negated_set)]
-            for n in negated_condistions: negated_set.add(n)
-            output_task.add_negated_conditions(negated_condistions)
-            effs = convert_effect(instance.add_effects, instance.del_effects, atom_table)
-
-            num_effs = convert_num_effect(instance.numeric_effects, function_table)
-            print("Adding action {0}".format(action_count))
-            action_count += 1
-            action_data.append(NumDetAction(instance.name,
-                                            instance.cost,
-                                            precs,
-                                            effs,
-                                            num_effs,
-                                            cmp))
-
+        action_data.append(NumDetAction(instance.name,
+                                        instance.cost,
+                                        precs,
+                                        effs,
+                                        num_effs,
+                                        cmp))
+    # numerical conditions
     cmp_map = {'>': liblapkt.CompareType.more, '>=': liblapkt.CompareType.more_equal}
     for (index, action) in enumerate(action_data):
         # todo: add comparision objects
@@ -355,22 +331,24 @@ def numeric(domain_file, problem_file, output_task ):
             expr = convert_expression(cmp.parts[0], function_table)
             output_task.add_comparison(idx, cmp_map[cmp.comparator], expr)
 
-    # adding init and goal
+        # adding init and goal
+        num_list = []
+        for item in function_table.values():
+            num_list.append((item.index, item.value))
 
-    num_list = []
-    for item in function_table.values():
-        num_list.append((item.index, item.value))
-
-    fluent_list = []
-    for item in init_atoms:
-        if isinstance(item, (pddl.Atom, pddl.NegatedAtom)):
-            fluent_list.append((atom_table[item.text()].index, item.negated))
-    assert len(num_list) == len(function_table)
-    output_task.set_init(fluent_list, num_list)
-    goal = [(x[0].index, x[1]) for x in encode(task.goal, atom_table)]
-    output_task.set_goal(goal)
-    # process metric
-    metric_expression = convert_expression(task.metric_expression, function_table)
-    output_task.set_metric_expression(metric_expression)
-    output_task.set_add_cost(False)
-
+        fluent_list = []
+        for item in init_atoms:
+            if isinstance(item, (pddl.Atom, pddl.NegatedAtom)):
+                try:
+                    fluent_list.append((atom_table[item.text()].index, item.negated))
+                except KeyError as e:
+                    # ignore since some
+                    pass
+        assert len(num_list) == len(function_table)
+        output_task.set_init_num(fluent_list, num_list)
+        goal = [(x[0].index, x[1]) for x in encode(task.goal, atom_table)]
+        output_task.set_goal(goal)
+        # process metric
+        metric_expression = convert_expression(task.metric_expression, function_table)
+        output_task.set_metric_expression(metric_expression)
+        output_task.set_add_cost(False)

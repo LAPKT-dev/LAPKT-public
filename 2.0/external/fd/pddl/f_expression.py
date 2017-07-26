@@ -142,9 +142,9 @@ class PrimitiveNumericExpression(FunctionalExpression):
                 if fact.fluent == pne:
                     pne.initial_value = fact.expression.value
                     found = True
+                    break
         if not found:
-            from . import conditions
-            raise conditions.Impossible()
+            raise RuntimeError("not found function {0} in init".format(self.symbol))
         return pne
 
     def rename_variables(self, renamings):
@@ -215,7 +215,8 @@ class FunctionAssignment(object):
     def instantiate(self, var_mapping, init_facts):
         if not (isinstance(self.expression, (PrimitiveNumericExpression,
                                              NumericConstant,
-                                             Substract))):
+                                             Substract,
+                                             Sum))):
             raise ValueError("Cannot instantiate assignment: not normalized")
         if self.fluent.symbol == "total-cost":
             fluent = self.fluent

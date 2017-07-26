@@ -453,6 +453,9 @@ class NumericWrapper(Literal):
         assert len(tmp) == 1
         result.append(self.__class__(self.predicate, args, tmp[0]))
 
+    def to_atom(self):
+        return Atom(self.predicate, self.args)
+
     def pddl(self):
         s = '({0})'
         if self.negated:

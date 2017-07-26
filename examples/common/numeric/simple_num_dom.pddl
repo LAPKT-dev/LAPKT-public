@@ -41,6 +41,7 @@
    :parameters (?p - package ?c - container )
    :precondition (and (in ?c ?p) (normal-mode))
    :effect ( and (not (in ?c ?p))
+                 (increase (capasity-left ?c) (capasity-demand ?p))
                  (increase (total-cost) 1)
            )
 )

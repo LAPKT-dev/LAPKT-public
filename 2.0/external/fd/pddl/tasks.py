@@ -29,8 +29,8 @@ class Task(object):
         self.axiom_counter = 0
         self.use_min_cost_metric = use_metric
         self.metric_expression = metric_expression
-        # function -> fluent map
-        self.comparator_to_fluent_map = dict()
+        # count for replacing numerical preconditions
+        self.comparator_count = 0
         if constants is None:
             self.constants = set()
         else:
@@ -111,6 +111,7 @@ class Task(object):
     def problem(self):
         metric = ""
         objects = set(self.objects) - set(self.constants)
+        # todo: numeric metric expression
         if self.use_min_cost_metric:
             metric = "(:metric minimize (total-cost) )"
         result = "(define (problem {problem})\
