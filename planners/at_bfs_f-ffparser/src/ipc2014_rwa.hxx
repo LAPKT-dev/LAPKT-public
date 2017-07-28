@@ -37,9 +37,9 @@ namespace ipc2014 {
 		typedef	State				State_Type;	
 
 		typedef Node<State>*        						Node_Ptr;
-		typedef typename std::vector< Node<State>* >                      	Node_Vec_Ptr;
-		typedef typename std::vector< Node<State>* >::reverse_iterator    	Node_Vec_Ptr_Rit;
-		typedef typename std::vector< Node<State>* >::iterator            	Node_Vec_Ptr_It;
+		typedef typename std::list< Node<State>* >                     	Node_Ptr_List;
+		typedef typename std::list< Node<State>* >::reverse_iterator    	Node_Ptr_List_Rit;
+		typedef typename std::list< Node<State>* >::iterator            	Node_Ptr_List_It;
 
 	
 		Node( State* s, float cost, Action_Idx action, Node<State>* parent, int num_actions ) 
@@ -88,23 +88,18 @@ namespace ipc2014 {
 
 		template <typename Landmarks_Graph_Manager>
 		void    update_land_graph(Landmarks_Graph_Manager* lgm){
-			Node_Vec_Ptr path( gn_unit()+1 );
-			Node_Vec_Ptr_Rit rit = path.rbegin();
+
+                        Node_Ptr_List path;
 			Node_Ptr n = this;
-	
 			do{
-				*rit = n;
-				rit++;
+				path.push_front(n);
 				n = n->parent();
-				
 			}while( n );
 
-			if(rit != path.rend())
-				*rit = NULL;
 			//std::cout << "Updating Land Graph up to: " << path.size() << std::flush;
 			  
 			lgm->reset_graph();
-			for( Node_Vec_Ptr_It it = path.begin(); it != path.end(); it++){
+			for( Node_Ptr_List_It it = path.begin(); it != path.end(); it++){
 				if(*it == NULL) break;
 				
 				//if( (*it)->action() != -1)
