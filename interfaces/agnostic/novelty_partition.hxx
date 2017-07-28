@@ -41,7 +41,7 @@ public:
 
 
 	Novelty_Partition( const Search_Model& prob, unsigned max_arity = 1, const unsigned max_MB = 2048 ) 
-		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB), m_always_full_state(true), m_partition_size(0), m_verbose( true ) {
+		: Heuristic<State>( prob ), m_strips_model( prob.task() ), m_max_memory_size_MB(max_MB), m_always_full_state(false), m_partition_size(0), m_verbose( true ) {
 		
 		set_arity(max_arity, 1);
 		
@@ -66,6 +66,11 @@ public:
 
 	void set_verbose( bool v ) { m_verbose = v; }
 
+	unsigned& partition_size() {return m_partition_size;}
+	bool is_partition_empty(unsigned partition) {return m_nodes_tuples_by_partition[partition].empty();}
+	
+	Search_Node* table( unsigned partition, unsigned idx) { return m_nodes_tuples_by_partition[partition][idx]; }
+	
 	void set_arity( unsigned max_arity, unsigned partition_size = 0 ){
 
 	        m_partition_size = partition_size;
@@ -148,10 +153,14 @@ protected:
 #endif 	
 			
 			bool new_covers;
+
 			if(n->parent() == nullptr || m_always_full_state)
 				new_covers = cover_tuples( n, i );
 			else
-				new_covers = (n->partition() == n->parent()->partition()) ?  cover_tuples_op( n, i ) : cover_tuples( n, i );			
+				new_covers = (n->partition() == n->parent()->partition()) ?  cover_tuples_op( n, i ) : cover_tuples( n, i );
+
+
+			
 #ifdef DEBUG
 			if(m_verbose && !new_covers)	
 				std::cout << "\t \t PRUNE! search node: "<<&(n)<<std::endl;
@@ -187,7 +196,24 @@ protected:
 			/**
 			 * Check if tuple is covered
 			 */
-			unsigned tuple_idx = tuple2idx( tuple, arity );
+			
+			unsigned tuple_idx;
+
+			
+			if (arity==1) {
+				tuple_idx = tuple2idx( tuple, arity );
+				
+			} else 	if(arity == 2 ){			
+				if( tuple[0] == tuple[1] ) continue; // don't check singleton tuples
+				tuple_idx = tuple2idx_size2( tuple, arity );
+			} else {
+				
+				// If all elements in the tuple are equal, ignore the tuple
+				if (std::any_of(tuple.cbegin(), tuple.cend(), [&tuple](unsigned x){ return x != tuple[0]; }  )) continue;
+				tuple_idx = tuple2idx( tuple, arity );
+			}
+			
+			
 
 			/**
 			 * new_tuple if
@@ -195,15 +221,18 @@ protected:
 			 * OR
 			 * -> n better than old_n
 			 */
-			bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ n->partition() ][tuple_idx], n  ) ? true : false);
-			
-			if( cover_new_tuple ){
-				m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] = (Search_Node*) n;
 
+			auto& n_seen = m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ];
+
+			if (!n_seen || is_better(n_seen,n)) {
+				
+				n_seen = (Search_Node*) n;
 				new_covers = true;
+				
+				
 #ifdef DEBUG
 				if ( m_verbose ) {
-					std::cout<<"\t";
+					std::cout<<"\t NEW!! : ";
 					for(unsigned i = 0; i < arity; i++){
 						std::cout<< m_strips_model.fluents()[ tuple[i] ]->signature()<<"  ";
 					}
@@ -282,20 +311,37 @@ protected:
 					it_add != add.end(); it_add++ )
 			{
 		
-				tuple[ atoms_arity ] = *it_add;
 
 				for( unsigned idx = 0; idx < n_combinations; idx++ ){
 
-					/**
-					 * get tuples from indexes
-					 */
-					if(atoms_arity > 0)
-						idx2tuple( tuple, fl, idx, atoms_arity );
-
+					tuple[ atoms_arity ] = *it_add;
 					/**
 					 * Check if tuple is covered
 					 */
-					unsigned tuple_idx = tuple2idx( tuple, arity );
+					unsigned tuple_idx;
+
+
+					if (arity==1) {
+						tuple_idx = tuple2idx( tuple, arity );
+
+					} else 	if(arity == 2 ){
+						tuple[0] = fl[idx];
+						if( tuple[0] == tuple[1] ) continue; // don't check singleton tuples
+						tuple_idx = tuple2idx_size2( tuple, arity );
+					} else {
+
+						// If all elements in the tuple are equal, ignore the tuple
+						if (std::any_of(tuple.cbegin(), tuple.cend(), [&tuple](unsigned x){ return x != tuple[0]; }  )) continue;
+						/**
+						 * get tuples from indexes
+						 */
+						idx2tuple( tuple, fl, idx, atoms_arity );
+						
+						
+						tuple_idx = tuple2idx( tuple, arity );
+					}
+				
+								
 
 					/**
 					 * new_tuple if
@@ -303,11 +349,12 @@ protected:
 					 * OR
 					 * -> n better than old_n
 					 */
-					bool cover_new_tuple = ( !m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] ) ? true : ( is_better( m_nodes_tuples_by_partition[ n->partition() ][tuple_idx], n  ) ? true : false);
-                       
-					if( cover_new_tuple ){
+
+					auto& n_seen = m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ];
+
+					if (!n_seen || is_better(n_seen,n)) {
 						
-						m_nodes_tuples_by_partition[ n->partition() ][ tuple_idx ] = (Search_Node*) n;
+						n_seen = (Search_Node*) n;
 						new_covers = true;
 
 
@@ -321,7 +368,7 @@ protected:
 						}
 #endif
 					}
-
+					
 				}
 			}
 
@@ -331,12 +378,20 @@ protected:
 		return new_covers;
 	}
 
+	inline unsigned  tuple2idx_size2( std::vector<unsigned>& indexes, unsigned arity) const
+	{
+		unsigned min = indexes[0] <= indexes[1] ? indexes[0] : indexes[1];
+		unsigned max = indexes[0] <= indexes[1] ? indexes[1] : indexes[0];
+		return min + max*m_num_fluents;
+			
+	}
 
 	inline unsigned  tuple2idx( std::vector<unsigned>& indexes, unsigned arity) const
 	{
 		unsigned idx=0;
 		unsigned dimension = 1;
 
+		std::sort(indexes.begin(), indexes.end());
 		for(int i = arity-1; i >= 0; i--)
 			{
 				idx += indexes[ i ] * dimension;
@@ -384,8 +439,9 @@ protected:
 		}
 	}
 
-	inline bool      is_better( Search_Node* n,const Search_Node* new_n ) const { 
-	  return new_n->is_better( n );		
+	inline bool      is_better( Search_Node* n,const Search_Node* new_n ) const {
+		//return false;
+		return new_n->is_better( n );		
 	}
 
 
