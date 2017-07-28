@@ -21,9 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <strips_prob.hxx>
 #include <action.hxx>
 #include <fluent.hxx>
+#include <function.hxx>
 #include <cassert>
 #include <map>
 #include <iostream>
+#include <cmath>
 
 namespace aptk
 {
@@ -91,10 +93,10 @@ namespace aptk
 		}
 		
 	}
-	
-	unsigned STRIPS_Problem::add_action( STRIPS_Problem& p, std::string signature,
-					     const Fluent_Vec& pre, const Fluent_Vec& add, const Fluent_Vec& del,
-					     const Conditional_Effect_Vec& ceffs, float cost )
+
+    unsigned STRIPS_Problem::add_action(STRIPS_Problem& p, std::string signature,
+                         const Fluent_Vec& pre, const Fluent_Vec& add, const Fluent_Vec& del,
+                         const Conditional_Effect_Vec& ceffs, float cost )
 	{
 		if( ! p.has_conditional_effects() )
 			if( ! ceffs.empty() )
@@ -103,7 +105,6 @@ namespace aptk
 		Action* new_act = new Action( p );
 		new_act->set_signature( signature );
 		new_act->define( pre, add, del, ceffs );
-		p.increase_num_actions();
 		p.actions().push_back( new_act );
 		new_act->set_index( p.actions().size()-1 );
 		new_act->set_cost( cost );
@@ -117,13 +118,29 @@ namespace aptk
 		new_fluent->set_index( p.fluents().size() );
 		new_fluent->set_signature( signature );
 		p.m_fluents_map[signature] = new_fluent->index();
-		p.increase_num_fluents();
 		p.fluents().push_back( new_fluent );
 		p.m_const_fluents.push_back( new_fluent );
 		return p.fluents().size()-1;
 	}
 
-	void	STRIPS_Problem::set_init( STRIPS_Problem& p, const Fluent_Vec& init_vec )
+    size_t
+    STRIPS_Problem::add_function( std::string signature){
+        Function * new_function = new Function(functions().size(), signature);
+        functions().push_back(new_function);
+        return functions().size() - 1;
+    }
+
+    size_t STRIPS_Problem::add_comparison(unsigned bound_fluent_Id, CompareType t, std::shared_ptr<aptk::Expression<float> > &expr){
+        m_comparison.emplace(bound_fluent_Id, Comparison<float>(bound_fluent_Id, t, expr));
+
+        // build map[numeric_fluent] -> boolean fluent that may change if numeric_fluent changes
+        for (std::size_t num_fluent_id: expr->fluent_indices()){
+            m_num_compare_map[num_fluent_id].insert(bound_fluent_Id);
+        }
+        return m_comparison.size() - 1;
+    }
+
+    void	STRIPS_Problem::set_init( STRIPS_Problem& p, const Fluent_Vec& init_vec, const aptk::Value_Pair_Vec init_values )
 	{
 #ifdef DEBUG
 		for ( unsigned k = 0; k < init_vec.size(); k++ )
@@ -139,9 +156,24 @@ namespace aptk
 
 		for ( unsigned k = 0; k < init_vec.size(); k++ )
 			p.m_in_init[ init_vec[k] ] = true;
+
+
+        float init_value = -1; // can it stay -1 ???
+        if (std::numeric_limits<float>::has_signaling_NaN) init_value = std::numeric_limits<float>::signaling_NaN();
+        else if (std::numeric_limits<float>::has_quiet_NaN) init_value = std::numeric_limits<float>::quiet_NaN();
+
+        if (p.m_finit.empty())
+            p.m_finit.resize(init_values.size(), init_value);
+        for( size_t i = 0; i < init_values.size(); i++ ){
+            p.m_finit[init_values[i].first] = init_values[i].second;
+        }
+#ifdef DEBUG
+        for ( size_t k = 0; k < p.m_finit.size(); k++ )
+            assert( p.m_finit[k] != init_value);
+#endif
 	}
 
-    void	STRIPS_Problem::set_goal( STRIPS_Problem& p, const Fluent_Vec& goal_vec, bool create_end_op, bool keep_original_goal )
+	void	STRIPS_Problem::set_goal( STRIPS_Problem& p, const Fluent_Vec& goal_vec, bool create_end_op )
 	{
 #ifdef DEBUG
 		for ( unsigned k = 0; k < goal_vec.size(); k++ )
@@ -149,68 +181,24 @@ namespace aptk
 #endif		
 		if ( create_end_op )
 		{
-
-		        //Remove old END if exists
-			if( p.m_end_operator_id != no_such_index ){
-
-			    unsigned dummy_f = p.m_actions[ p.m_end_operator_id ]->add_vec().front();
-			    
-			    Fluent_Ptr_Vec::iterator fit_pos;
-			    for( fit_pos = p.fluents().begin(); fit_pos != p.fluents().end(); fit_pos++ ){
-				if( (*fit_pos)->index() == dummy_f )
-				    break;
-			    }
-			    p.fluents().erase( fit_pos );
-
-			    std::vector< const Fluent*>::iterator cfit_pos;
-			    for( cfit_pos = p.m_const_fluents.begin(); cfit_pos != p.m_const_fluents.end(); cfit_pos++ ){
-				if( (*cfit_pos)->index() == dummy_f )
-				    break;
-			    }
-			    p.m_const_fluents.erase( cfit_pos );
-			    p.m_num_fluents--;
-			    
-			    Action_Ptr_Vec::iterator it_pos;
-			    for( it_pos = p.actions().begin(); it_pos != p.actions().end(); it_pos++ ){
-				if( (*it_pos)->index() == p.m_end_operator_id )
-				    break;
-			    }
-			    p.actions().erase( it_pos );
-
-			    Action_Ptr_Const_Vec::iterator cit_pos;
-			    for( cit_pos = p.m_const_actions.begin(); cit_pos != p.m_const_actions.end(); cit_pos++ ){
-				if( (*cit_pos)->index() == p.m_end_operator_id )
-				    break;
-			    }
-			    p.m_const_actions.erase( cit_pos );
-			    p.m_num_actions--;
-			   
-			}
-			
 			unsigned dummy_goal = STRIPS_Problem::add_fluent( p, "(goal-achieved)" );
 			// MRJ: dummy goal action
 			Fluent_Vec dummy_goal_vec;
 			Fluent_Vec empty_vec;
 			Conditional_Effect_Vec	empty_ceff_vec;
 			dummy_goal_vec.push_back( dummy_goal );
-
-			
 			p.m_end_operator_id = STRIPS_Problem::add_action( 	p, std::string("(achieve-goal)"), 
 										goal_vec, dummy_goal_vec, empty_vec, empty_ceff_vec, 0.0f );
-
-			if( !keep_original_goal ){
-			
-			    if ( p.m_in_goal.empty() )
-				p.m_in_goal.resize( p.num_fluents(), false );
-			    else
+			if ( p.m_in_goal.empty() )
+			p.m_in_goal.resize( p.num_fluents(), false );
+			else
 				for ( unsigned k = 0; k < p.num_fluents(); k++ )
-				    p.m_in_goal[k] = false;
-			    
-			    p.goal().push_back( dummy_goal );
-			    
-			    p.m_in_goal[ dummy_goal ] = true;
-			    return;
-			}
+					p.m_in_goal[k] = false;
+
+			p.goal().push_back( dummy_goal );
+
+			p.m_in_goal[ dummy_goal ] = true;
+			return;
 		}
 		if ( p.m_in_goal.empty() )
 			p.m_in_goal.resize( p.num_fluents(), false );
@@ -306,6 +294,18 @@ namespace aptk
 		STRIPS_Problem::set_goal( relaxed, orig.goal()  );
 	}
 
+    void  STRIPS_Problem::calculate_comparison_fluents(){
+        if( m_comparison.empty())
+            return;
+        aptk::State s(*this);
+        s.set(init());
+        s.set_value(finit());
+        for(auto it=m_comparison.begin(); it != m_comparison.end(); it++)
+            it->second.update_fluent(s);
+        this->m_init.clear();
+        this->m_in_init.clear();
+        STRIPS_Problem::set_init(*this, s.fluent_vec());
+    }
 
 	void	STRIPS_Problem::make_effect_tables() {
 		m_relevant_effects.resize( num_fluents() );

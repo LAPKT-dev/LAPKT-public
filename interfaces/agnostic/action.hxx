@@ -42,9 +42,10 @@ public:
 	Fluent_Set&	           	add_set()  { return m_add_set; }
 	Fluent_Vec&	           	del_vec()  { return m_del_vec; }
 	Fluent_Set&	           	del_set()  { return m_del_set; }
-	Fluent_Vec&	           	edel_vec()  { return m_edel_vec; }
-	Fluent_Set&	           	edel_set()  { return m_edel_set; }
+    Fluent_Vec&	           	edel_vec()  { return m_edel_vec; }
+    Fluent_Set&	           	edel_set()  { return m_edel_set; }
 	Conditional_Effect_Vec&    	ceff_vec(){ return m_cond_effects; }
+    Numeric_Effect_Vec&         num_vec() { return m_num_effects; }
 
 	const Fluent_Vec&		prec_vec() const { return m_prec_vec; }
 	const Fluent_Set&	        prec_set() const { return m_prec_set; }
@@ -52,11 +53,15 @@ public:
 	const Fluent_Set&	        add_set()  const { return m_add_set; }
 	const Fluent_Vec&	        del_vec()  const { return m_del_vec; }
 	const Fluent_Set&	        del_set()  const { return m_del_set; }
-	const Fluent_Vec&	        edel_vec()  const { return m_edel_vec; }
-	const Fluent_Set&	        edel_set()  const { return m_edel_set; }
+    const Fluent_Vec&	        edel_vec()  const { return m_edel_vec; }
+    const Fluent_Set&	        edel_set()  const { return m_edel_set; }
 	const Conditional_Effect_Vec&   ceff_vec() const { return m_cond_effects; }
+    const Numeric_Effect_Vec&         num_vec() const { return m_num_effects; }
+
+    void add_numeric_effects(Numeric_Effect_Vec & vec);
 	
         bool                            has_ceff() const {return !m_cond_effects.empty(); }
+        bool                            has_num_eff() const { return !m_num_effects.empty(); }
 	/* Added for match trees */
 	VarVal_Vec&        prec_varval() { return m_prec_varval; }
 	const VarVal_Vec&  prec_varval() const { return m_prec_varval; }
@@ -74,6 +79,7 @@ public:
 
 	void		           	define( const Fluent_Vec& precs, const Fluent_Vec& adds, const Fluent_Vec& dels );
 	void		           	define( const Fluent_Vec& precs, const Fluent_Vec& adds, const Fluent_Vec& dels, const Conditional_Effect_Vec& ceffs );
+    void		           	define(const Fluent_Vec& precs, const Fluent_Vec& adds, const Fluent_Vec& dels, Numeric_Effect_Vec & num_eff_vec );
 
 	void		           	define_fluent_list( const Fluent_Vec& in, Fluent_Vec& list, Fluent_Set& set );
 
@@ -101,19 +107,31 @@ public:
 
 	static bool	           	possible_supporter( const Action& a1, const Action& a2, Fluent_Vec& pvec );
 protected:
-	// Preconditions and Effects ( Adds and Deletes)
+
 	std::string			m_signature;
 	std::string			m_name;
+    // Preconditions and Effects ( Adds and Deletes)
 	Fluent_Vec			m_prec_vec;
 	Fluent_Set			m_prec_set;
+    // Adds
 	Fluent_Vec			m_add_vec;
 	Fluent_Set			m_add_set;
+
+    // Deletes
 	Fluent_Vec			m_del_vec;
 	Fluent_Set			m_del_set;
-	Fluent_Vec			m_edel_vec;
-	Fluent_Set			m_edel_set;
+    /*  We say that actions e-delete p, either because they delete p,
+     *  or because they presume that p is false
+     *  and do not make it true (Nguyen and Kambhampati 2001;
+    */
+    Fluent_Vec			m_edel_vec;
+    Fluent_Set			m_edel_set;
+    // fluent_id, 0 pairs
 	VarVal_Vec			m_prec_varval;
+
 	Conditional_Effect_Vec		m_cond_effects;
+    Numeric_Effect_Vec          m_num_effects;
+
 	float				m_cost;	
 	unsigned			m_index;
 	bool				m_active;
@@ -177,7 +195,7 @@ inline bool	Action::retracts( unsigned f ) const
 
 inline bool	Action::edeletes( unsigned f ) const
 {
-	return edel_set().isset(f);
+    return edel_set().isset(f);
 }
 
 inline bool	Action::can_be_regressed_from( const State& s ) const {

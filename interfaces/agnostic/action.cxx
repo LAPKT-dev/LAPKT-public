@@ -20,8 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <action.hxx>
 #include <iostream>
+#include <numeric_eff.hxx>
 
-namespace aptk 
+namespace aptk
 {
 
 Action::Action( STRIPS_Problem& p )
@@ -35,6 +36,10 @@ Action::Action( STRIPS_Problem& p )
 
 Action::~Action()
 {
+
+    for(auto cond_effptr: m_cond_effects)
+        delete cond_effptr;
+
 }
 
 void Action::define( const Fluent_Vec& precs, const Fluent_Vec& adds, const Fluent_Vec& dels )
@@ -43,8 +48,8 @@ void Action::define( const Fluent_Vec& precs, const Fluent_Vec& adds, const Flue
 	define_fluent_list( precs, prec_vec(), prec_set() );
 	define_fluent_list( adds, add_vec(), add_set() );
 	define_fluent_list( dels, del_vec(), del_set() );
-	define_fluent_list( dels, edel_vec(), edel_set() );
-	
+    	define_fluent_list( dels, edel_vec(), edel_set() );
+
 	// TODO: This should be made far more complex when mutex's are properly computed
 	for ( unsigned i = 0; i < precs.size(); ++i)
 	    m_prec_varval.push_back( std::make_pair(precs[i], 0) );
@@ -54,7 +59,18 @@ void Action::define( const Fluent_Vec& precs, const Fluent_Vec& adds, const Flue
 {
 	// define the precondition, adds, deletes and conditional effects
 	define( precs, adds, dels );
-	m_cond_effects = ceffs;	
+	m_cond_effects = ceffs;
+}
+
+void Action::define(const Fluent_Vec& precs, const Fluent_Vec& adds, const Fluent_Vec& dels, Numeric_Effect_Vec &num_eff_vec ){
+    define(precs, adds, dels);
+    m_num_effects = num_eff_vec;
+}
+
+void Action::add_numeric_effects(Numeric_Effect_Vec &vec){
+    for(auto & ptr: vec){
+        m_num_effects.push_back(ptr);
+    }
 }
 
 void Action::define_fluent_list(  const Fluent_Vec& in, Fluent_Vec& fluent_list, Fluent_Set& fluent_set )
@@ -80,7 +96,7 @@ void	Action::print( const STRIPS_Problem& prob, std::ostream& os ) const {
 	os << "}" << std::endl;
 	if( ! edel_vec().empty() ){
 		os << "\teDel(a) = {";
-		prob.print_fluent_vec( os, edel_vec() );
+        	prob.print_fluent_vec( os, edel_vec() );
 		os << "}" << std::endl;
 	}
 	os << "\tConditional Effects:" << std::endl;
@@ -96,7 +112,7 @@ void	Action::print( const STRIPS_Problem& prob, std::ostream& os ) const {
 		os << "\t\tDel(cond_eff) = {";
 		prob.print_fluent_vec( os, ceff_vec()[l]->del_vec() );
 		os << "}" << std::endl;
-	}	
+	}
 	os << "Cost = " << cost() << std::endl;
 }
 

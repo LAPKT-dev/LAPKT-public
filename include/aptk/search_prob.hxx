@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <cassert>
 #include <limits>
 #include <vector>
+#include <types.hxx>
 
 namespace aptk
 {
@@ -48,6 +49,8 @@ public:
 	virtual	State*	init() const = 0;
 	// MRJ: Return true if s is a goal state
 	virtual bool	goal( const State& s ) const = 0;
+    // Returns the goal state
+    virtual const Fluent_Vec& goal() const = 0;
 	// MRJ: Returns true if a is applicable on state s
 	virtual bool	is_applicable( const State& s, Action_Idx a ) const = 0;
 	virtual void	applicable_set( const State& s, std::vector<Action_Idx>& app_set ) const = 0;
@@ -58,8 +61,6 @@ public:
 	virtual State*	next( const State& s, Action_Idx a ) const = 0;
 	// MRJ: Outputs a description of the problem
 	virtual void 	print(std::ostream &os) const = 0;
-	
-protected:
 
 };
 
