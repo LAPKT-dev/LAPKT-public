@@ -38,9 +38,9 @@ def instantiate(task, model):
 	relaxed_reachable = False
 	fluent_facts = get_fluent_facts(task, model)
 	init_facts = set(task.init)
-	
+
 	type_to_objects = get_objects_by_type(task.objects, task.types)
-	
+
 	instantiated_actions = []
 	instantiated_axioms = []
 	reachable_action_parameters = defaultdict(list)
@@ -70,7 +70,7 @@ def instantiate(task, model):
 				instantiated_axioms.append(inst_axiom)
 		elif atom.predicate == "@goal-reachable":
 			relaxed_reachable = True
-	
+
 	return (relaxed_reachable, fluent_facts, instantiated_actions,
 		sorted(instantiated_axioms), reachable_action_parameters)
 
@@ -82,17 +82,17 @@ def explore(task):
 
 
 class PropositionalDetAction :
-	
+
 	def __init__( self, name, cost ) :
 		self.name = name
 		self.cost = cost
 		self.precondition = []
 		self.effects = []
-	
+
 	def set_precondition( self, prec, atom_table ) :
 		for p in prec :
 			self.precondition.append( ( atom_table[p.text()], p.negated ) )
-	
+
 	def add_effect( self, adds, dels, atom_table ) :
 		effs = []
 		for _, lit in adds :
@@ -121,7 +121,7 @@ def encode( lits, atom_table ) :
 		return encoded
 
 	if isinstance( lits, pddl.Conjunction ) :
-		lits = [ p for p in lits.parts ]	
+		lits = [ p for p in lits.parts ]
 
 	for p in lits :
 		try :
@@ -142,18 +142,18 @@ def default( domain_file, problem_file, output_task ) :
 	if not relaxed_reachable :
 		print("No weak plan exists")
 		sys.exit(2)
-	
+
 	print("%d atoms" % len(atoms))
 
 	with timers.timing("Computing fact groups", block=True):
 		groups, mutex_groups, translation_key = fact_groups.compute_groups(
 			task, atoms, reachable_action_params,
 			partial_encoding=USE_PARTIAL_ENCODING)
-	
+
 	index = 0
 	atom_table = {}
 
-	
+
 	for atom in atoms :
 		atom.index = index
 		atom_table[ atom.text() ] = index
@@ -334,12 +334,12 @@ def numeric(domain_file, problem_file, output_task ):
                 except KeyError as e:
                     # ignore since some
                     pass
-        assert len(num_list) == len(function_table)
-        output_task.set_init_num(fluent_list, num_list)
-        goal = [(x[0].index, x[1]) for x in encode(task.goal, atom_table)]
-        output_task.set_goal(goal)
-        # process metric
-        if task.metric_expression:
-            metric_expression = convert_expression(task.metric_expression, function_table)
-            output_task.set_metric_expression(metric_expression)
-            output_task.set_add_cost(False)
+    assert len(num_list) == len(function_table)
+    output_task.set_init_num(fluent_list, num_list)
+    goal = [(x[0].index, x[1]) for x in encode(task.goal, atom_table)]
+    output_task.set_goal(goal)
+    # process metric
+    if task.metric_expression:
+        metric_expression = convert_expression(task.metric_expression, function_table)
+        output_task.set_metric_expression(metric_expression)
+        output_task.set_add_cost(False)
