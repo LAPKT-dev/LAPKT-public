@@ -12,9 +12,9 @@ def main( domain_file, problem_file, plan_file ) :
 
 	fd.grounding.numeric( domain_file, problem_file, task )
 
-	factory = libnum.NUM_BFS_Factory()
+	factory = libnum.NUM_BFS_Factory(plan_file)
 
-        task.solve(factory, plan_file)
+        task.solve(factory)
 
 
 

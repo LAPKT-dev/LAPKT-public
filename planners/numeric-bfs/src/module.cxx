@@ -45,6 +45,6 @@ BOOST_PYTHON_MODULE( libnum )
 
     class_<NUM_BFS>("NUM_BFS", no_init);
 
-    class_<NUM_BFS_Factory,  bases<SolverFactory> >("NUM_BFS_Factory", init<>() );
+    class_<NUM_BFS_Factory,  bases<SolverFactory> >("NUM_BFS_Factory", init<std::string>() );
 
 }

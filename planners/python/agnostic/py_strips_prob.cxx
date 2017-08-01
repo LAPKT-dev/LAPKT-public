@@ -327,10 +327,9 @@ using namespace boost::python;
 		instance()->set_problem_name( name );
 	}
 
-    void STRIPS_Problem::solve(const SolverFactory & solver_factory, std::string out){
+    void STRIPS_Problem::solve(const SolverFactory & solver_factory){
         setup();
         Solver * solver = solver_factory.build(instance());
-        solver->set_output_filename(out);
         solver->solve();
     }
 

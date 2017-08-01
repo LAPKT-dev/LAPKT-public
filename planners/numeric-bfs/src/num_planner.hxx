@@ -142,9 +142,14 @@ private:
     std::string output_filename;
 };
 
+
 class NUM_BFS_Factory: public SolverFactory {
 public:
+    NUM_BFS_Factory(std::string out);
     virtual Solver * build( aptk::STRIPS_Problem *) const;
+private:
+    std::string output_path;
 };
+
 
 #endif

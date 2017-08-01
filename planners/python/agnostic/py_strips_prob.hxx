@@ -18,8 +18,8 @@ namespace aptk{
 class Solver{
 public:
     virtual void solve()=0;
-    virtual void set_output_filename(std::string){}
 };
+
 
 class SolverFactory{
 public:
@@ -27,8 +27,6 @@ public:
         return nullptr;
     }
 };
-
-
 
 class STRIPS_Problem {
 public:
@@ -64,7 +62,7 @@ public:
     void    set_metric_expression(std::shared_ptr<aptk::Expression<float> > expr);
 
 	virtual	void	setup();
-    void solve(const SolverFactory & solver, std::string out);
+    void solve(const SolverFactory & solver);
 
 	void	print_action( int index );
 

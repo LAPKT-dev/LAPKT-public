@@ -13,7 +13,6 @@
 
 using	aptk::agnostic::Fwd_Search_Problem;
 
-//typedef		Serialized_Search< Fwd_Search_Problem, IW_Fwd, IW_Node >        SIW_Fwd;
 
 NUM_BFS::NUM_BFS(const Fwd_Search_Problem& search_problem ):
         BFS(search_problem)
@@ -56,11 +55,15 @@ NUM_BFS::solve() {
 
 }
 
+NUM_BFS_Factory::NUM_BFS_Factory(std::string out): output_path(out){}
+
 Solver *NUM_BFS_Factory::build(aptk::STRIPS_Problem * prob) const {
     Fwd_Search_Problem * search_problem = new Fwd_Search_Problem(prob);
-    return new NUM_BFS(*search_problem);
-}
 
+    NUM_BFS * solver = new NUM_BFS(*search_problem);
+    solver->set_output_filename(output_path);
+    return solver;
+}
 
 void
 NUM_BFS::process(  Search_Node *head ) {
@@ -129,7 +132,6 @@ NUM_BFS::process(  Search_Node *head ) {
     }
     inc_eval();
 }
-
 
 void
 NUM_BFS::set_output_filename(std::string out){
