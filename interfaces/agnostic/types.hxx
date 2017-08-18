@@ -34,13 +34,13 @@ namespace aptk
 
 	class Action;
 	class Fluent;
-    class Function;
+	class Function;
 	class Conditional_Effect;
-    class Numeric_Effect;
-    template<typename T>
-    class Expression;
-	
-	
+    	class Numeric_Effect;
+    	template<typename T>
+    	class Expression;
+
+
     typedef		std::vector<bool>				Bool_Vec;
     typedef		std::vector<bool*>				Bool_Vec_Ptr;
     typedef		std::vector<unsigned>				Fluent_Vec;
@@ -96,7 +96,6 @@ namespace aptk
 					return;
 				}
 				it->second = value;
-		
 			}
 	};
 

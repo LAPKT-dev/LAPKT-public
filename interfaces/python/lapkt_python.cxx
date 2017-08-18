@@ -27,7 +27,6 @@ typedef W<Fluent_Set& (Action::*)()> WFs;
 typedef W<VarVal_Vec& (Action::*)()> WFvv;
 
 void (Action::* define_ptr)(const Fluent_Vec&, const Fluent_Vec&, const Fluent_Vec&) = &Action::define;
-// void Action::define( const Fluent_Vec& precs, const Fluent_Vec& adds, const Fluent_Vec& dels )
 
 typedef Expression<float> Expr;
 typedef Add<float> SumExpr;
@@ -118,7 +117,6 @@ BOOST_PYTHON_MODULE(liblapkt)
     class_<Expr, boost::noncopyable> ("Expr",  no_init);
 
     class_<ExprWithArgsF, boost::noncopyable, bases<Expr> > ("ExprWithArgs", no_init);
-
 
 
 
