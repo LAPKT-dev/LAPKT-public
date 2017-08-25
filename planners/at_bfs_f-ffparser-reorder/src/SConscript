@@ -18,7 +18,6 @@ common_env.Append( LIBPATH=[ os.path.abspath(p) for p in lib_paths ] )
 
 cxx_sources = Glob('*.cxx')
 c_sources = Glob('*.c')
-
-objects = [ common_env.Object(s) for s in cxx_sources ] + [ common_env.Object(s) for s in c_sources ]
-
+cpp_sources = Glob('*.cpp')
+objects = [ common_env.Object(s) for s in (cxx_sources + c_sources + cpp_sources) ]
 Return('objects')
