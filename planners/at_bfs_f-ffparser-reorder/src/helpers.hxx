@@ -103,7 +103,7 @@ public:
 // MRJ: Then we define the type of the tie-breaking algorithm
 // for the open list we are going to use
 
-typedef		Node_Comparer_3H_Metric< Search_Node >					Tie_Breaking_Algorithm;
+typedef		Node_Comparer_3H< Search_Node >					Tie_Breaking_Algorithm;
 
 // MRJ: Now we define the Open List type by combining the types we have defined before
 typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >		BFS_Open_List;

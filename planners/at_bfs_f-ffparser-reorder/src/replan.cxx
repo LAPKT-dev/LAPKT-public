@@ -4,7 +4,7 @@
 
 #include <boost/program_options.hpp>
 
-#include <replan.hpp>
+#include <replan.hxx>
 
 namespace po = boost::program_options;
 using	aptk::agnostic::Fwd_Search_Problem;
@@ -125,74 +125,3 @@ std::list<std::string> read_plan(const std::string & path) {
      return result;
 }
 
-int main2(int argc, char * argv[]) {
-    po::variables_map vm;
-    process_command_line(argc, argv, vm);
-
-    if ( !vm.count( "domain" ) ) {
-        std::cerr << "No PDDL domain was specified!" << std::endl;
-        std::exit(1);
-    }
-
-    if ( !vm.count( "problem" ) ) {
-        std::cerr << "No PDDL problem was specified!" << std::endl;
-        std::exit(1);
-    }
-    if ( !vm.count( "plan" ) ) {
-        std::cerr << "No input plan!" << std::endl;
-        std::exit(1);
-    }
-    std::string plan_filename;
-    if (vm.count( "output" )){
-        plan_filename = vm["output"].as<std::string>();
-    }
-    std::list<std::string> ordered_plan(read_plan(vm["plan"].as<std::string>()));
-
-
-    bool print_stdout = false;
-    if (vm.count("stdout")) print_stdout = true;
-    if ( plan_filename.empty() && !print_stdout ) {
-        std::cerr << "output and stdout both empty" << std::endl;
-        std::exit(1);
-    }
-    STRIPS_Problem plan_prob;
-
-    aptk::FF_Parser::get_problem_description(
-                vm["domain"].as<std::string>(),
-                vm["problem"].as<std::string>(),
-                plan_prob);
-
-    Fwd_Search_Problem	search_prob(&plan_prob);
-
-    std::list<aptk::Action_Idx> ordered_actions = string_to_action(ordered_plan, plan_prob);
-#ifdef DEBUG
-    std::cout << "plan lenght: " << ordered_actions.size() << std::endl;
-
-    for (auto i: ordered_actions){
-       std::cout << plan_prob.actions()[i]->signature() << std::endl;
-    }
-#endif
-    std::map<int, std::list<aptk::Action_Idx>> p_plan = partial_reordering(search_prob, plan_prob, ordered_actions);
-
-    std::ofstream myfile;
-    if (!plan_filename.empty())
-    myfile.open (plan_filename);
-    for (uint k=0; k<p_plan.size(); k++){
-        if (print_stdout)
-            std::cout << "Level: " << k << std::endl;
-        if (!plan_filename.empty())
-            myfile << "Level: " << k << std::endl;
-        for(auto id: p_plan[k]){
-            if (print_stdout)
-                std::cout << plan_prob.actions()[id]->signature() << std::endl;
-            if (!plan_filename.empty())
-                myfile << plan_prob.actions()[id]->signature() << std::endl;
-        }
-    }
-    if (myfile.is_open())
-        myfile.close();
-
-
-    std::cout << std::endl;
-    return 0;
-}

@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef __IPC2014_RWA__
 #define __IPC2014_RWA__
 
+#include <py_strips_prob.hxx>
 #include <aptk/at_rwbfs_dq_mh.hxx>
 #include <landmark_graph_manager.hxx>
 #include <aptk/closed_list.hxx>
@@ -34,15 +35,15 @@ namespace ipc2014 {
 	class Node {
 	public:
 		typedef Fibonacci_Open_List< Node >	Open_List;
-		typedef	State				State_Type;	
+		typedef	State				State_Type;
 
 		typedef Node<State>*        						Node_Ptr;
 		typedef typename std::list< Node<State>* >                     	Node_Ptr_List;
 		typedef typename std::list< Node<State>* >::reverse_iterator    	Node_Ptr_List_Rit;
 		typedef typename std::list< Node<State>* >::iterator            	Node_Ptr_List_It;
 
-	
-		Node( State* s, float cost, Action_Idx action, Node<State>* parent, int num_actions ) 
+
+		Node( State* s, float cost, Action_Idx action, Node<State>* parent, int num_actions )
 		: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ),  m_g_unit(0), m_po_1( num_actions ), m_po_2( num_actions), m_seen(false),
 		current( nullptr ),  m_land_consumed( nullptr ), m_land_unconsumed( nullptr ) {
 		       	m_g = ( parent ? parent->m_g + cost : 0.0f);
@@ -53,7 +54,7 @@ namespace ipc2014 {
             }
 #endif
 		}
-		
+
 		virtual ~Node() {
                    if ( m_state != NULL )
                        delete m_state;
@@ -67,10 +68,10 @@ namespace ipc2014 {
 		float                        h1n() const                         { return m_h1; }
 		float&                        h2n()                                { return m_h2; }
 		float                        h2n() const                         { return m_h2; }
-		float&                        gn()                                { return m_g; }                        
+		float&                        gn()                                { return m_g; }
 		float                        gn() const                         { return m_g; }
-	
-		float&				gn_unit()				{ return m_g_unit; }			
+
+		float&				gn_unit()				{ return m_g_unit; }
 		float				gn_unit() const 			{ return m_g_unit; }
 		float&                        fn()                                { return m_f; }
 		float                        fn() const                        { return m_f; }
@@ -107,26 +108,26 @@ namespace ipc2014 {
 			}while( n );
 
 			//std::cout << "Updating Land Graph up to: " << path.size() << std::flush;
-			  
+
 			lgm->reset_graph();
 			for( Node_Ptr_List_It it = path.begin(); it != path.end(); it++){
 				if(*it == NULL) break;
-				
+
 				//if( (*it)->action() != -1)
 				// std::cout << lgm->problem().actions()[ (*it)->action() ]->signature() << std::flush;
-	
+
 				lgm->update_graph( (*it)->land_consumed(), (*it)->land_unconsumed() );
 			}
 			//std::cout << std::endl;
 		}
-		
+
 		template <typename Landmarks_Graph_Manager >
 		void   undo_land_graph( Landmarks_Graph_Manager* lgm ){
-			lgm->undo_graph( land_consumed(), land_unconsumed() );				
+			lgm->undo_graph( land_consumed(), land_unconsumed() );
 		}
-		
+
 		bool           operator==( const Node<State>& o ) const {
-			
+
 			if( &(o.state()) != NULL && &(state()) != NULL)
 				return (const State&)(o.state()) == (const State&)(state());
 			/**
@@ -136,21 +137,21 @@ namespace ipc2014 {
 				if ( o.m_parent == NULL ) return true;
 				return false;
 			}
-		
+
 			if ( o.m_parent == NULL ) return false;
-			
+
 			return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
 		}
-	
+
 		// MRJ: NOTE: return value is the answer to question "is this node worse than o?"
 		bool    operator<( const Node<State>& o ) const {
-			if ( fn() > o.fn() ) return true;
-	
+            if ( fn()  > o.fn() ) return true;
 			if ( dequal( fn(), o.fn() ) ) {
 				if ( h1n() > o.h1n() ) return true;
 				if ( dequal( h1n(), o.h1n() ) ) {
 					if ( h2n() > o.h2n() ) return true;
 					if ( dequal( h2n(), o.h2n() ) ) {
+						if ( metric() > o.metric() ) return true;
 						if ( gn() < o.gn() ) return true;
 					}
 				}
@@ -159,19 +160,19 @@ namespace ipc2014 {
 		}
 
 		size_t                  hash() const { return m_state->hash(); }
-	
+
 		void notify_update( ) {
 			assert( current != nullptr );
 			if ( current )
-				current->update( this ); 
+				current->update( this );
 		}
-	
+
 		void detach() {
 			assert( current != nullptr );
 			if ( current )
 				current->erase( this );
 		}
-	
+
         static bool less(const Node & lhs, const Node & rhs) {
             assert(lhs.has_state());
             assert(rhs.has_state());
@@ -180,7 +181,11 @@ namespace ipc2014 {
         bool has_state() const {
             return this->m_state != nullptr;
         }
+        float           metric() const { return m_metric; }
+        void          set_metric(float value) { m_metric = value; }
+
 	public:
+        float       m_metric;
 		State*                		m_state;
 		Node<State>*        		m_parent;
 		float                		m_h1;
@@ -203,28 +208,36 @@ namespace ipc2014 {
 namespace bfs_dq_mh {
 
 
-	template <typename Search_Model, typename Primary_Heuristic, typename Secondary_Heuristic, typename Open_List_Type >
-	class IPC2014_RWA :	public AT_RWBFS_DQ_MH< Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type > {
+    template <typename Search_Model, typename Primary_Heuristic, typename Secondary_Heuristic, typename Open_List_Type >
+    class IPC2014_RWA : public Solver,	public AT_RWBFS_DQ_MH< Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type, ClosedSet<typename Open_List_Type::Node_Type > > { //
 	public:
 		typedef		typename Search_Model::State_Type			State;
-		typedef		typename AT_RWBFS_DQ_MH< Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type >::Search_Node Search_Node;
+        typedef		typename AT_RWBFS_DQ_MH< Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type, ClosedSet<typename Open_List_Type::Node_Type > >::Search_Node Search_Node;
         typedef 	ClosedSet< Search_Node >				Closed_List_Type;
 		typedef         aptk::agnostic::Landmarks_Graph_Manager<Search_Model>   Landmarks_Graph_Manager;
 
 		typedef		aptk::agnostic::H1_Heuristic< Search_Model, aptk::agnostic::H_Max_Evaluation_Function >	Admissible_Heuristic;
 
-		IPC2014_RWA( 	const Search_Model& search_problem, float W = 5.0f, float decay = 0.75f )
-		: AT_RWBFS_DQ_MH< Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type >(search_problem, W, decay ),
-		m_lgm( nullptr ), m_adm_h( search_problem ) {
-		}
+        IPC2014_RWA(const Search_Model& search_problem, float W = 5.0f, float decay = 0.75f )
+            : AT_RWBFS_DQ_MH< Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type, ClosedSet <typename Open_List_Type::Node_Type > > (search_problem, W, decay), //
+        m_lgm( nullptr ), m_adm_h( search_problem ), m_metric_bound(0)
+        {}
 
-		virtual ~IPC2014_RWA() {
-		}
-		
+		virtual ~IPC2014_RWA() {}
+
+        void set_metric_bound(float val){
+            m_metric_bound = val;
+        }
+
+        float metric_bound() const {
+            return m_metric_bound;
+        }
+
 		virtual void	start( float B = infty) {
 			this->set_bound( B );
+            this->set_metric_bound(B);
 			this->set_root( new Search_Node( this->problem().init(), 0.0f, no_op, NULL, this->problem().num_actions() ) );
-			assert ( m_lgm != nullptr );			
+			assert ( m_lgm != nullptr );
 			this->eval(this->root());
 			this->open().insert( this->root() );
             this->m_open_set.put( this->root() );
@@ -234,11 +247,11 @@ namespace bfs_dq_mh {
 		virtual void	eval( Search_Node* candidate ) {
 			std::vector<Action_Idx>	po;
 			if ( !candidate->seen() ) {
-				//std::cout << "Eval:" << std::endl;	
-	
+				//std::cout << "Eval:" << std::endl;
+
 				this->h1().eval( *(candidate->state()), candidate->h1n(), po );
 				for ( unsigned k = 0; k < po.size(); k++ )
-					candidate->add_po_1( po[k] );	
+					candidate->add_po_1( po[k] );
 				/*
 				std::cout << "Primary Helpful:" << std::endl;
 				for ( auto index : po ) {
@@ -257,16 +270,27 @@ namespace bfs_dq_mh {
 				m_lgm->apply_state( this->root()->state()->fluent_vec(), this->root()->land_consumed(), this->root()->land_unconsumed() );
 
 			this->h2().eval( *(candidate->state()), candidate->h2n(), po );
-			
-			for ( unsigned k = 0; k < po.size(); k++ ) 
-				candidate->add_po_2( po[k] );	
-			/*	
+
+			for ( unsigned k = 0; k < po.size(); k++ )
+				candidate->add_po_2( po[k] );
+			/*
 			std::cout << "Secondary Helpful: " << std::endl;
 			for ( auto index : po ) {
 				std::cout << "\t" << this->problem().task().actions()[ index ]->signature() << std::endl;
 			}
 			*/
 			//candidate->undo_land_graph( m_lgm );
+		}
+
+		bool	find_solution( float & metric, float& cost, std::vector<Action_Idx>& plan ) {
+			this->m_t0 = time_used();
+			Search_Node* end = do_search();
+			if ( end == NULL ) return false;
+			this->extract_plan( this->m_root, end, plan, cost );
+			float t2 = time_used();
+			this->m_time_budget -= ( t2 - this->m_t0);
+			metric = end->metric();
+			return true;
 		}
 
 		virtual Search_Node*	 	do_search() {
@@ -278,7 +302,8 @@ namespace bfs_dq_mh {
 			Search_Node *head = this->get_node();
 			while(head) {
                 assert(head->has_state());
-				if ( head->gn() >= this->bound() )  {
+                if (head->gn() > this->bound() || ( head->gn() == this->bound() &&
+                        head->metric() >= this->metric_bound() ) )  {
 					this->inc_pruned_bound();
 					this->close(head);
 					head = this->get_node();
@@ -287,8 +312,10 @@ namespace bfs_dq_mh {
 				if(this->problem().goal(*(head->state()))) {
 					this->close(head);
 					this->set_bound( head->gn() );
+                    this->set_metric_bound(head->metric());
+                    std::cout << "Goal metric: " << this->metric_bound() << std::endl;
 					this->update_weight();
-					this->restart_search();	
+					this->restart_search();
 					m_lgm->graph()->print( std::cout );
 					return head;
 				}
@@ -299,14 +326,11 @@ namespace bfs_dq_mh {
 				float t = time_used();
 				if ( ( t - this->t0() ) > this->time_budget() ) {
 					return nullptr;
-				}	
-				
+				}
+
 				this->eval( head );
                 if ( head->h1n() != infty && head->h2n() != infty ){
-                    bool restarted = this->process2(head);
-                    if (restarted){
-                        return head;
-                    }
+                    this->process(head);
                 }
                 if (!this->in_closed(head))
                     this->close(head);
@@ -314,21 +338,20 @@ namespace bfs_dq_mh {
 			}
 			return nullptr;
 		}
-	
 
-		void    use_land_graph_manager( Landmarks_Graph_Manager* lgm ) { 
-			m_lgm = lgm; 
+		void    use_land_graph_manager( Landmarks_Graph_Manager* lgm ) {
+			m_lgm = lgm;
 			this->h2().set_graph( m_lgm->graph() );
 		}
 
 		bool in_closed( Search_Node* n )  {
             return this->closed().has_element(n);
 		}
-	
+
 		bool in_open( Search_Node* n )  {
             return this->m_open_set.has_element(n);
 		}
-	
+
 		bool in_seen( Search_Node* n )  {
             return this->seen().has_element(n);
 		}
@@ -346,7 +369,7 @@ namespace bfs_dq_mh {
 				std::cout << " h1(n) = " << n->h1n() << " h2(n) = " << n->h2n() << std::endl;
 			}
 
-            this->open_node(n, head->is_po_1(a), head->is_po_2(a));
+			this->open_node(n, head->is_po_1(a), head->is_po_2(a));
 		}
 
 		void	handle_seen( Search_Node* head, Search_Node* n, int a ) {
@@ -354,8 +377,8 @@ namespace bfs_dq_mh {
 			n->fn() = this->weight() * n->h1n() + n->gn();
 			this->open_node(n, head->is_po_1(a), head->is_po_2(a));
 		}
-        virtual bool 			process2(  Search_Node *head ) {
-            bool restarted = false;
+
+        virtual void 			process(  Search_Node *head ) {
 			if(m_lgm)
 				head->update_land_graph( m_lgm );
 
@@ -363,12 +386,8 @@ namespace bfs_dq_mh {
 			this->problem().applicable_set_v2( *(head->state()), app_set );
 			for ( unsigned i = 0; i < app_set.size(); i++ ) {
 				int a = app_set[i];
-	
+
 				State *succ = this->problem().next( *(head->state()), a );
-#ifdef DEBUG
-                if (succ->hash() == 3068159468)
-                    std::cout << " State " << succ->hash() << std::endl;
-#endif
 
                 if(head->hash() == succ->hash()){
                     std::cout << "Same hash as in parent node" << head->hash() << std::endl;
@@ -381,28 +400,21 @@ namespace bfs_dq_mh {
                 }
 
 
+
                 Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
+                n->set_metric( this->problem().metric(*n, a));
+
 #ifdef DEBUG
 
                 if(this->m_open_set.has_element(n) && !in_open(n)){
                     std::cout << "Error" << std::endl;
                 }
-                if(n->hash() == 90494181)
-                    std::cout << "process 90494181 " << std::endl;
                 assert(n->has_state());
 #endif
                 if (this->bound() <= n->gn()){
                     this->inc_pruned_bound();
                     delete n;
                     continue;
-                }
-                if(this->problem().goal(*(n->state()))) {
-                    this->close(n);
-                    this->set_bound( n->gn() );
-                    this->update_weight();
-                    this->restart_search();
-                    m_lgm->graph()->print( std::cout );
-                    return true;
                 }
 
                 bool is_in_closed = in_closed(n);
@@ -456,7 +468,7 @@ namespace bfs_dq_mh {
 						n2->m_action = n->action();
 						n2->set_seen();
 						this->closed().erase( this->closed().retrieve_iterator( n2 ) );
-						handle_seen( head, n2, a );	
+						handle_seen( head, n2, a );
 					}
 					delete n;
 				}
@@ -467,14 +479,24 @@ namespace bfs_dq_mh {
                 }
 			}
 			this->inc_eval();
-            return restarted;
+            return ;
 		}
 
+
+        virtual void solve(){}
+
+
 	protected:
+        float                          m_metric_bound;
 
 		Landmarks_Graph_Manager*                m_lgm;
 		Admissible_Heuristic			m_adm_h;
 	};
+
+    class IPC2014_RWA_Factory: public SolverFactory {
+    public:
+        virtual Solver * build( aptk::STRIPS_Problem *) const;
+    };
 
 } // bfs_dq_mh
 
