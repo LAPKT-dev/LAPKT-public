@@ -1,4 +1,5 @@
 from __future__ import print_function
+from fd.pddl import pddl_types
 
 
 def construct(functionsymbol, args):
@@ -8,6 +9,7 @@ def construct(functionsymbol, args):
          '/': Divide}
     if functionsymbol in ('-', '+', '/', '*', 'increase', 'decrease', 'assign'):
         return m[functionsymbol](args)
+    args = [x.name for x in pddl_types.parse_typed_list(args)]
     return PrimitiveNumericExpression(functionsymbol, args)
 
 

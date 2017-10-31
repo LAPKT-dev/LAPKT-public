@@ -10,6 +10,7 @@ from . import pddl_types
 from . import functions
 from . import f_expression
 
+
 class Task(object):
     def __init__(self, domain_name, task_name, requirements,
                  types, objects, predicates, functions,
@@ -111,9 +112,10 @@ class Task(object):
     def problem(self):
         metric = ""
         objects = set(self.objects) - set(self.constants)
-        # todo: numeric metric expression
         if self.use_min_cost_metric:
             metric = "(:metric minimize (total-cost) )"
+        if self.metric_expression is not None:
+            metric = "(:metric minimize {0} )".format(self.metric_expression.pddl())
         result = "(define (problem {problem})\
                (:domain {domain_name})\
                (:objects {0}) \

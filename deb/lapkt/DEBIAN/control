@@ -1,0 +1,11 @@
+
+Package: lapkt
+Priority: extra
+Section: misc
+Installed-Size: 700921
+Maintainer: Anatoly Belikov [awbelikov@firesoft.io]
+Architecture: i386
+Version: 0.1-ad2686004592e25248d8acb8d438f4c19a11e547
+Depends: libboost-python1.49.0, libboost-program-options1.49.0
+Description: automatic planning tools
+

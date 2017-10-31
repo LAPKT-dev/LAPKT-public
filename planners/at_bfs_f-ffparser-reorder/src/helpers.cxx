@@ -65,7 +65,7 @@ std::pair<float, std::vector< aptk::Action_Idx > >  do_stage_3(  aptk::STRIPS_Pr
 
     unsigned expanded_0 = engine.expanded();
     unsigned generated_0 = engine.generated();
-    engine.set_budget(15);
+    engine.set_budget(30);
     while ( engine.find_solution(metric, cost, plan ) ) {
         if ( !plan.empty() ) {
             details << "stage3: Plan found with cost: " << cost << std::endl;
@@ -104,6 +104,8 @@ std::pair<float, std::vector< aptk::Action_Idx > >  do_stage_3(  aptk::STRIPS_Pr
     details << "Dead-end nodes: " << engine.dead_ends() << std::endl;
     details << "Nodes in OPEN replaced: " << engine.open_repl() << std::endl;
     details << "Plan length stage3: " << plan.size() << std::endl;
+    details << "Plan metric: " << final_metric << std::endl;
+    details << "Plan cost: " << final_cost << std::endl;
     return std::pair<float, std::vector< aptk::Action_Idx > > (metric, final_plan);
 }
 

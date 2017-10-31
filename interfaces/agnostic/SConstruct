@@ -10,13 +10,12 @@ libs = ['aptk',]
 
 
 env.Append( LIBPATH = [ '/usr/lib' ] )
-
 env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
 env.Append( CCFLAGS = [ '-std=c++11', '-fPIC' ] )
 if int(debug) == 1 :
-	env.Append( CCFLAGS = ['-g','-Wall', '-DDEBUG' ] )
+	env.Append( CCFLAGS = ['-g', '-DDEBUG' ] )
 else:
-	env.Append( CCFLAGS = ['-O3','-Wall', '-DNDEBUG'] )
+	env.Append( CCFLAGS = ['-O3', '-DNDEBUG'] )
 
 env.Append( LIBS=libs)
 env.Append( LIBPATH=[ os.path.abspath(p) for p in lib_paths ] )

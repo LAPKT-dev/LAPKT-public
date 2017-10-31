@@ -184,7 +184,7 @@ def default( domain_file, problem_file, output_task ) :
 
     output_task.create_negated_fluents()
     index = 0
-    # todo: remove nd_actions
+
     for action in nd_actions.values():
         output_task.add_action( action.name )
         #
@@ -200,7 +200,8 @@ def default( domain_file, problem_file, output_task ) :
         index += 1
     output_task.set_domain_name(task.domain_name )
     output_task.set_problem_name(task.task_name )
-    output_task.set_init(encode(task.init, atom_table))
+
+    output_task.set_init(encode([x for x in task.init if isinstance(x, (pddl.Atom, pddl.NegatedAtom))], atom_table))
     output_task.set_goal(encode(task.goal, atom_table))
     output_task.parsing_time = parsing_timer.report()
 
@@ -273,7 +274,6 @@ def numeric(domain_file, problem_file, output_task ):
     task = pddl.open(problem_file, domain_file)
 
     normalize.normalize(task)
-
     relaxed_reachable, atoms, actions, axioms, reachable_action_params = explore(task)
 
     atom_table = dict()
@@ -345,10 +345,12 @@ def numeric(domain_file, problem_file, output_task ):
                     # ignore since some
                     pass
         assert len(num_list) == len(function_table)
-        output_task.set_init_num(fluent_list, num_list)
-        goal = [(x[0].index, x[1]) for x in encode(task.goal, atom_table)]
-        output_task.set_goal(goal)
-        # process metric
+
+    output_task.set_init_num(fluent_list, num_list)
+    goal = [(x[0].index, x[1]) for x in encode(task.goal, atom_table)]
+    output_task.set_goal(goal)
+    # process metric
+    if task.metric_expression:
         metric_expression = convert_expression(task.metric_expression, function_table)
         output_task.set_metric_expression(metric_expression)
         output_task.set_add_cost(False)

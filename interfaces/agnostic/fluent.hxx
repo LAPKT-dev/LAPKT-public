@@ -42,6 +42,7 @@ public:
 	void		set_index( unsigned idx );
 	void		set_signature( std::string signature );
 
+    // not used???
 	STRIPS_Problem& problem();
 
 protected:

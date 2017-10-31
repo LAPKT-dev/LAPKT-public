@@ -220,7 +220,7 @@ namespace bfs_dq_mh {
 
         IPC2014_RWA(const Search_Model& search_problem, float W = 5.0f, float decay = 0.75f )
             : AT_RWBFS_DQ_MH< Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type, ClosedSet <typename Open_List_Type::Node_Type > > (search_problem, W, decay), //
-        m_lgm( nullptr ), m_adm_h( search_problem ), m_metric_bound(0)
+            m_metric_bound(0), m_lgm( nullptr ), m_adm_h( search_problem )
         {}
 
 		virtual ~IPC2014_RWA() {}

@@ -27,6 +27,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <cmath>
 
+
+
+#ifdef __GNUC__
+/* Test for GCC >= 4.8.0 */
+#if (__GNUC__ > 4) || (__GNUC__ == 4 && (__GNUC_MINOR__ > 7 ))
+#define USE_EMPLACE
+#endif
+#else
+#define USE_EMPLACE
+#endif
+
+
 namespace aptk
 {
 
@@ -131,8 +143,12 @@ namespace aptk
     }
 
     size_t STRIPS_Problem::add_comparison(unsigned bound_fluent_Id, CompareType t, std::shared_ptr<aptk::Expression<float> > &expr){
-        m_comparison.emplace(bound_fluent_Id, Comparison<float>(bound_fluent_Id, t, expr));
 
+#ifdef USE_EMPLACE
+        m_comparison.emplace(bound_fluent_Id, Comparison<float>(bound_fluent_Id, t, expr));
+#else
+        m_comparison.insert(std::make_pair(bound_fluent_Id, Comparison<float>(bound_fluent_Id, t, expr)));
+#endif
         // build map[numeric_fluent] -> boolean fluent that may change if numeric_fluent changes
         for (std::size_t num_fluent_id: expr->fluent_indices()){
             m_num_compare_map[num_fluent_id].insert(bound_fluent_Id);

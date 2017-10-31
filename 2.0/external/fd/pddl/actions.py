@@ -24,8 +24,23 @@ class Action(object):
         self._num_effects = [x for x in a_effects if isinstance(x, effects.NumericEffect)]
         self.cost = cost
         self.uniquify_variables() # TODO: uniquify variables in cost?
+
     def __repr__(self):
         return "<Action %r at %#x>" % (self.name, id(self))
+
+    def __hash__(self):
+        return hash(self.pddl())
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __eq__(self, other):
+        if self is other:
+            return True
+        if not isinstance(other, Action):
+            return False
+        return self.pddl() == other.pddl()
+
     def parse(alist):
         iterator = iter(alist)
         action_tag = next(iterator)
