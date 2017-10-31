@@ -5,7 +5,7 @@ import os
 import libatbfsf
 
 
-
+sys.path.append("/usr/lib")
 
 def main( domain_file, problem_file, plan_file ) :
         task = libatbfsf.STRIPS_Problem()
