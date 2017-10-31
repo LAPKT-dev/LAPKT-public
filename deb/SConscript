@@ -11,7 +11,7 @@ git_version = os.popen('git rev-parse HEAD').read().strip()
 DEBNAME = "lapkt" 
 DEBVERSION = "0.1"
 DEBMAINT = "Anatoly Belikov [awbelikov@firesoft.io]"
-DEBARCH = "i386"
+DEBARCH = "amd64"
 DEBDEPENDS = "libboost-python1.49.0, libboost-program-options1.49.0" # what are we dependent on?
 DEBDESC = "automatic planning tools"
 
@@ -23,8 +23,16 @@ DEBFILES = [
     # list in some other way.
     ("usr/bin/at.py",             "#planners/at_bfs_f-ffparser-reorder/at.py"),
     ("usr/lib/libatbfsf.so",  "#planners/at_bfs_f-ffparser-reorder/libatbfsf.so"),
-
+    ("usr/lib/liblapkt.so",  "#interfaces/python/liblapkt.so"),
 ]
+
+
+for dir in ['fd', 'fd/pddl']:
+    base = '../2.0/external/'
+    for f in os.listdir(base + dir):
+       if f.endswith('.py'):
+          DEBFILES.append(("usr/lib/python2.7/dist-packages/" + dir + '/' + f, "#2.0/external/" + dir +  '/' +   f))
+
     
 # This is the debian package we're going to create
 debpkg = '#%s_%s-%s.deb' % (DEBNAME, DEBVERSION, DEBARCH)
