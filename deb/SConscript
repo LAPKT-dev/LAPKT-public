@@ -22,7 +22,7 @@ DEBFILES = [
     # If you have a lot of files, you may wish to generate this 
     # list in some other way.
     ("usr/bin/at.py",             "#planners/at_bfs_f-ffparser-reorder/at.py"),
-    ("usr/lib/libatbfsf.so",  "#planners/at_bfs_f-ffparser-reorder/libatbfsf.so"),
+    ("usr/lib/python2.7/dist-packages/libatbfsf.so",  "#planners/at_bfs_f-ffparser-reorder/libatbfsf.so"),
     ("usr/lib/liblapkt.so",  "#interfaces/python/liblapkt.so"),
 ]
 
