@@ -118,7 +118,7 @@ typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Max_Fwd >		H_Add_Rp_Fwd;
 // MRJ: Now we're ready to define the BFS algorithm we're going to use
 typedef		AT_GBFS_3H< Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List, aptk::search::ClosedSet<BFS_Open_List::Node_Type> >    	Anytime_GBFS_H_Add_Rp_Fwd;
 //typedef		AT_RWBFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Unsat /*H_Lmcount_Fwd*/, AT_BFS_Open_List >		Anytime_RWA;
-typedef		IPC2014_RWA< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Lmcount_Fwd, AT_BFS_Open_List >		Anytime_RWA;
+typedef		IPC2014_RWA< Fwd_Search_Problem, H_Add_Fwd, H_Lmcount_Fwd, AT_BFS_Open_List >		Anytime_RWA;
 
 
 // MRJ: SIW definitions

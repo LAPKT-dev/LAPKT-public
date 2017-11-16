@@ -304,7 +304,7 @@ void	Open_List<Node_Comp, Node>::clear()
 	template < typename Node >
 	void	Fibonacci_Open_List<Node>::insert( Node* n )
 	{
-        assert(n->has_state());
+        //assert(n->has_state());
 		typename Container::handle_type handle = m_queue.push( n );
 		n->heap_handle = handle;
 		n->current = this;

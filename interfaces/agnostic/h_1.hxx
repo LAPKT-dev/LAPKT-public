@@ -97,6 +97,10 @@ public:
 		m_allowed_actions.resize( m_strips_model.num_actions() );
 		m_updated.resize( m_strips_model.num_fluents() );
 
+/*#ifdef DEBUG
+        this->debug = false;
+#endif*/
+
 		// HAZ: Set up the relevant actions once here so we don't need
 		//      to iterate through all of them when evaluating.
 		m_relevant_actions.resize( m_strips_model.num_fluents() );
@@ -127,16 +131,14 @@ public:
 
 	float 	value( unsigned p ) const { return m_values[p]; }
 
-	
-
-        template <typename Search_Node>
-        void eval( const Search_Node* n, float& h_val, std::vector<Action_Idx>& pref_ops) {
+    template <typename Search_Node>
+    void eval( const Search_Node* n, float& h_val, std::vector<Action_Idx>& pref_ops) {
 		eval(n->state(), h_val, pref_ops);				
 	}
 
 	
-        template <typename Search_Node>
-        void eval( const Search_Node* n, float& h_val ) {
+    template <typename Search_Node>
+    void eval( const Search_Node* n, float& h_val ) {
 		
 		eval(n->state(),h_val);
 	}
@@ -152,6 +154,11 @@ public:
 		m_updated.clear();
 		initialize(s);				
 		compute();
+        /*
+#ifdef DEBUG
+        if (this->debug)
+            print_values(std::cout);
+#endif   */
 		h = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );		
 		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
 		
@@ -174,8 +181,16 @@ public:
 
 	void print_values( std::ostream& os ) const {
 		for ( unsigned p = 0; p < m_strips_model.fluents().size(); p++ ){
+                if (m_values[p] == infty) continue;
 				os << "h1/add({ ";
 				os << m_strips_model.fluents()[p]->signature();
+                unsigned act_idx = m_best_supporters[p].act_idx;
+                if(act_idx == no_such_index) {
+                    os << " act: None ";
+                } else {
+                    const Action& a = *(m_strips_model.actions()[act_idx]);
+                    os << " act: " << a.signature();
+                }
 				os << "}) = " << m_values[p] << std::endl;
 			}		
 	}
@@ -184,7 +199,7 @@ public:
 		return m_best_supporters[f];
 	}
     
-        void get_best_supporters( unsigned f, Action_Ptr_Const_Vec& bfs ) const {
+    void get_best_supporters( unsigned f, Action_Ptr_Const_Vec& bfs ) const {
 		
 		if(m_best_supporters[f].act_idx == no_such_index ) return;
 
@@ -244,7 +259,7 @@ protected:
 		update( p, v, bs.act_idx, bs.eff_idx );
 	}
 
-	float eval_diff( const Best_Supporter& bs ) const {
+    float eval_diff( const Best_Supporter& bs ) const {  // difficulty
 		float min_val = infty;
 		if ( bs.act_idx == no_such_index )
 			return 0;
@@ -279,6 +294,8 @@ protected:
 		m_difficulties[p] = eval_diff( m_best_supporters[p] );
 	}
 
+
+
 	void	set( unsigned p, float v ) {
 		m_values[p] = v;
 		if ( !m_already_updated.isset( p ) ) {
@@ -293,7 +310,7 @@ protected:
 		        m_values[k] = m_difficulties[k] = infty;
 			m_best_supporters[k] = Best_Supporter( no_such_index, no_such_index );
 		}
-
+        // first apply actions with no preconditions
 		for ( unsigned k = 0; k < m_strips_model.empty_prec_actions().size(); k++ ) {
 			const Action& a = *(m_strips_model.empty_prec_actions()[k]);
 			float v =  ( cost_opt == H1_Cost_Function::Ignore_Costs ? 1.0f : 
@@ -325,8 +342,12 @@ protected:
 		while ( !m_updated.empty() ) {
 
 			unsigned p = m_updated.front();
-			//std::cout << p << ". " << m_strips_model.fluents()[p]->signature() << " " << m_values[p] << std::endl;
-			m_updated.pop_front();
+            /*
+#ifdef DEBUG
+            if (this->debug)
+                std::cout << p << ". " << m_strips_model.fluents()[p]->signature() << " " << m_values[p] << std::endl;
+#endif      */
+            m_updated.pop_front();
 			m_already_updated.unset(p);
 
 			//Successor_Generator::Heuristic_Iterator it( m_values, m_strips_model.successor_generator().nodes() );
@@ -340,16 +361,18 @@ protected:
 				float h_pre = eval_func( a.prec_vec().begin(), a.prec_vec().end() );
 
 				if ( h_pre == infty ) continue;
-				//assert( h_pre != infty );
-
-				//std::cout << "Action " << i << ". " << a.signature() << " relevant" << std::endl;
-
-				float v = ( cost_opt == H1_Cost_Function::Ignore_Costs ?
-						1.0f + h_pre :
-						( cost_opt == H1_Cost_Function::Use_Costs ?
-							(float)a.cost() + h_pre :
-							1.0f + (float)a.cost() + h_pre
-						) );
+/*
+#ifdef DEBUG
+                if (this->debug)
+                    std::cout << "Action " << ". " << a.signature() << " relevant" << std::endl;
+#endif */
+                float v = 0.0f;
+                if ( cost_opt == H1_Cost_Function::Ignore_Costs)
+                      v = 1.0f + h_pre;
+                else if ( cost_opt == H1_Cost_Function::Use_Costs)
+                      v = (float)a.cost() + h_pre;
+                else
+                      v = 1.0f + (float)a.cost() + h_pre;
 
 				for ( Fluent_Vec::const_iterator it = a.add_vec().begin();
 					it != a.add_vec().end(); it++ )
@@ -537,17 +560,21 @@ protected:
 		
 protected:
 
-	const STRIPS_Problem&			m_strips_model;
-	std::vector<float>			m_values;
-	std::vector<float>			m_difficulties;
-	Fluent_Set_Eval_Func			eval_func;
+    const STRIPS_Problem&			m_strips_model;
+    std::vector<float>			m_values;
+    std::vector<float>			m_difficulties;
+    Fluent_Set_Eval_Func			eval_func;
 	std::vector< Best_Supporter >		m_best_supporters;
-	std::vector<const Action*>		m_app_set;
-	std::vector< std::set<unsigned> > m_relevant_actions;
+    std::vector<const Action*>		m_app_set;
+    std::vector< std::set<unsigned> > m_relevant_actions;
 	//std::deque<unsigned> 			m_updated;
 	boost::circular_buffer<int>		m_updated;
-	Bit_Set					m_already_updated;
-	Bool_Vec                                m_allowed_actions;
+    Bit_Set					m_already_updated;
+    Bool_Vec                                m_allowed_actions;
+    /*
+#ifdef DEBUG
+    bool debug;
+#endif */
 };
 
 }

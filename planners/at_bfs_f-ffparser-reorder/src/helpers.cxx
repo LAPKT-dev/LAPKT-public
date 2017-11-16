@@ -65,7 +65,7 @@ std::pair<float, std::vector< aptk::Action_Idx > >  do_stage_3(  aptk::STRIPS_Pr
 
     unsigned expanded_0 = engine.expanded();
     unsigned generated_0 = engine.generated();
-    engine.set_budget(30);
+    engine.set_budget(5);
     while ( engine.find_solution(metric, cost, plan ) ) {
         if ( !plan.empty() ) {
             details << "stage3: Plan found with cost: " << cost << std::endl;

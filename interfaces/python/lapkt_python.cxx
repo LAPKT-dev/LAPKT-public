@@ -24,7 +24,7 @@ typedef W<Fluent_Vec& (Action::*)()> WFl;
 typedef W<Conditional_Effect_Vec& (Action::*)()> WFc;
 typedef W<Numeric_Effect_Vec& (Action::*)()> WFn;
 typedef W<Fluent_Set& (Action::*)()> WFs;
-typedef W<VarVal_Vec& (Action::*)()> WFvv;
+using WFvv = W<VarVal_Vec& (Action::*)()>;
 
 void (Action::* define_ptr)(const Fluent_Vec&, const Fluent_Vec&, const Fluent_Vec&) = &Action::define;
 

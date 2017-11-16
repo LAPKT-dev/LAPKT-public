@@ -20,10 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // MRJ: In this example, we'll show how to create a search problem out of
 // a planning problem we acquired from some external source
-
-
 #include <helpers.hxx>
-
 
 
 int main( int argc, char** argv ) {
@@ -31,7 +28,6 @@ int main( int argc, char** argv ) {
 	po::variables_map vm;
 
 	process_command_line_options( argc, argv, vm );
-
 	
 	if ( !vm.count( "domain" ) ) {
 		std::cerr << "No PDDL domain was specified!" << std::endl;

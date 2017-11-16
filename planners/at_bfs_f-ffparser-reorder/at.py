@@ -9,10 +9,8 @@ sys.path.append("/usr/lib")
 
 def main( domain_file, problem_file, plan_file ) :
         task = libatbfsf.STRIPS_Problem()
-
 	fd.grounding.numeric( domain_file, problem_file, task )
-        			         #  enable_siw, enable_bfs
-	factory = libatbfsf.ATFactory(plan_file, False, True)
+	factory = libatbfsf.ATFactory(plan_file, False, False)
 
         task.solve(factory)
 

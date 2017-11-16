@@ -145,14 +145,14 @@ namespace ipc2014 {
 
 		// MRJ: NOTE: return value is the answer to question "is this node worse than o?"
 		bool    operator<( const Node<State>& o ) const {
-            if ( fn()  > o.fn() ) return true;
-			if ( dequal( fn(), o.fn() ) ) {
-				if ( h1n() > o.h1n() ) return true;
-				if ( dequal( h1n(), o.h1n() ) ) {
+			if ( h1n() > o.h1n() ) return true;
+			if ( dequal( h1n(), o.h1n() ) ) {
+				if ( fn()  > o.fn() ) return true;
+				if ( dequal( fn(), o.fn() ) ) {
 					if ( h2n() > o.h2n() ) return true;
 					if ( dequal( h2n(), o.h2n() ) ) {
 						if ( metric() > o.metric() ) return true;
-						if ( gn() < o.gn() ) return true;
+						if ( gn() > o.gn() ) return true;
 					}
 				}
 			}
@@ -301,6 +301,11 @@ namespace bfs_dq_mh {
             }
 			Search_Node *head = this->get_node();
 			while(head) {
+#ifdef DEBUG
+				std::cout << "processing: ";
+
+				head->state()->print(std::cout);
+#endif
                 assert(head->has_state());
                 if (head->gn() > this->bound() || ( head->gn() == this->bound() &&
                         head->metric() >= this->metric_bound() ) )  {
@@ -329,6 +334,10 @@ namespace bfs_dq_mh {
 				}
 
 				this->eval( head );
+#ifdef	DEBUG
+				std::cout << "fn " << head->fn() << std::endl;
+				std::cout << "h1 " << head->h1n() << std::endl;
+#endif
                 if ( head->h1n() != infty && head->h2n() != infty ){
                     this->process(head);
                 }
@@ -357,8 +366,9 @@ namespace bfs_dq_mh {
 		}
 
 		void	handle_fresh( Search_Node* head, Search_Node* n, int a ) {
-			n->h1n() = head->h1n();
-			n->h2n() = head->h2n();
+			this->eval(n);
+			//n->h1n() = head->h1n();
+			//n->h2n() = head->h2n();
 			n->fn() = this->weight() * n->h1n() + n->gn();
 			this->inc_gen();
 			if ( this->generated() % 10000 == 0 ) {
@@ -461,6 +471,9 @@ namespace bfs_dq_mh {
 				}
                 else if ( is_in_closed ) {
 					Search_Node* n2 = this->closed().retrieve(n);
+#ifdef DEBUG
+					std::cout << "closed!" << std::endl;
+#endif
 					if ( n->gn() < n2->gn() ) {
 						n2->gn() = n->gn();
 						n2->gn_unit() = n->gn_unit();
