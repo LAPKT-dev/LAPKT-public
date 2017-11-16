@@ -333,7 +333,7 @@ namespace bfs_dq_mh {
 					return nullptr;
 				}
 
-				this->eval( head );
+				//this->eval( head );
 #ifdef	DEBUG
 				std::cout << "fn " << head->fn() << std::endl;
 				std::cout << "h1 " << head->h1n() << std::endl;
