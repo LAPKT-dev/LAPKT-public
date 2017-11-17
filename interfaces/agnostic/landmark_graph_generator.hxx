@@ -323,7 +323,7 @@ protected:
 	bool                                    m_only_goals;
 	bool                                    m_goal_ordering;
 	Reachability_Test*                      m_reachability;	
-    H_Max                                   m_h1;
+        H_Max                                   m_h1;
 	bool					m_verbose;
 	bool					m_collect_lm_in_init;
 };

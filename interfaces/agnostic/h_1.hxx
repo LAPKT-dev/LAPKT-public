@@ -97,9 +97,6 @@ public:
 		m_allowed_actions.resize( m_strips_model.num_actions() );
 		m_updated.resize( m_strips_model.num_fluents() );
 
-/*#ifdef DEBUG
-        this->debug = false;
-#endif*/
 
 		// HAZ: Set up the relevant actions once here so we don't need
 		//      to iterate through all of them when evaluating.
@@ -154,11 +151,6 @@ public:
 		m_updated.clear();
 		initialize(s);				
 		compute();
-        /*
-#ifdef DEBUG
-        if (this->debug)
-            print_values(std::cout);
-#endif   */
 		h = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );		
 		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
 		
@@ -342,11 +334,6 @@ protected:
 		while ( !m_updated.empty() ) {
 
 			unsigned p = m_updated.front();
-            /*
-#ifdef DEBUG
-            if (this->debug)
-                std::cout << p << ". " << m_strips_model.fluents()[p]->signature() << " " << m_values[p] << std::endl;
-#endif      */
             m_updated.pop_front();
 			m_already_updated.unset(p);
 
@@ -361,11 +348,6 @@ protected:
 				float h_pre = eval_func( a.prec_vec().begin(), a.prec_vec().end() );
 
 				if ( h_pre == infty ) continue;
-/*
-#ifdef DEBUG
-                if (this->debug)
-                    std::cout << "Action " << ". " << a.signature() << " relevant" << std::endl;
-#endif */
                 float v = 0.0f;
                 if ( cost_opt == H1_Cost_Function::Ignore_Costs)
                       v = 1.0f + h_pre;
@@ -397,7 +379,7 @@ protected:
 				//i = it.next();
 			}
 		}
-		//print_values(std::cout);
+
 	}
 
     /***************
@@ -571,10 +553,6 @@ protected:
 	boost::circular_buffer<int>		m_updated;
     Bit_Set					m_already_updated;
     Bool_Vec                                m_allowed_actions;
-    /*
-#ifdef DEBUG
-    bool debug;
-#endif */
 };
 
 }
