@@ -95,7 +95,7 @@ public:
 	Bool_Vec_Ptr*&           land_unconsumed()                 { return m_land_unconsumed; }
 
 
-	bool                  is_better( Node* n ) const{
+        bool                  is_better( Node* n ) const{
 	        bool ret = false;
 		
 		float n1 = this->h3n() + this->gn();
@@ -111,9 +111,9 @@ public:
                                 ret =  this->gn() < n->gn();
                         }
 
-        }
+                }
 
-				return ret;
+                return ret;
 		
 	}
   
