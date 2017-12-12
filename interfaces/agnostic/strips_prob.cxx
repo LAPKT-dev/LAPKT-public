@@ -122,7 +122,7 @@ namespace aptk
 		new_act->set_cost( cost );
 		p.m_const_actions.push_back( new_act );
 		return p.actions().size()-1;
-	}
+    }
 
 	unsigned STRIPS_Problem::add_fluent( STRIPS_Problem& p, std::string signature )
 	{
@@ -143,7 +143,9 @@ namespace aptk
     }
 
     size_t STRIPS_Problem::add_comparison(unsigned bound_fluent_Id, CompareType t, std::shared_ptr<aptk::Expression<float> > &expr){
-
+#ifdef DEBUG
+        std::cout << "Adding comparison, bound_fluent_id: " << bound_fluent_Id << std::endl;
+#endif
 #ifdef USE_EMPLACE
         m_comparison.emplace(bound_fluent_Id, Comparison<float>(bound_fluent_Id, t, expr));
 #else
@@ -159,8 +161,12 @@ namespace aptk
     void	STRIPS_Problem::set_init( STRIPS_Problem& p, const Fluent_Vec& init_vec, const aptk::Value_Pair_Vec init_values )
 	{
 #ifdef DEBUG
-		for ( unsigned k = 0; k < init_vec.size(); k++ )
+        for ( unsigned k = 0; k < init_vec.size(); k++ ){
+            if (! (init_vec[k] < p.num_fluents())) {
+                std::cout << "Setting init failed: " << init_vec[k] << std::endl;
+            }
 			assert( init_vec[k] < p.num_fluents() );
+        }
 #endif	
 		if ( p.m_in_init.empty() )
 			p.m_in_init.resize( p.num_fluents(), false );

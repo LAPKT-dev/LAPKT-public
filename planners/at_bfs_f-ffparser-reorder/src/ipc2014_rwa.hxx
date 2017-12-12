@@ -367,6 +367,12 @@ namespace bfs_dq_mh {
 
 		void	handle_fresh( Search_Node* head, Search_Node* n, int a ) {
 			this->eval(n);
+			if(n->h1n() == infty ) {
+    #ifdef DEBUG
+        std::cout << "closing, cost inf" << std::endl;
+        this->eval(n);
+    #endif
+            }
 			//n->h1n() = head->h1n();
 			//n->h2n() = head->h2n();
 			n->fn() = this->weight() * n->h1n() + n->gn();
@@ -423,6 +429,9 @@ namespace bfs_dq_mh {
 #endif
                 if (this->bound() <= n->gn()){
                     this->inc_pruned_bound();
+                    #ifdef DEBUG
+                        std::cout << "Delete by bound" << std::endl;
+                    #endif
                     delete n;
                     continue;
                 }
@@ -432,10 +441,16 @@ namespace bfs_dq_mh {
 				bool is_in_seen = in_seen(n);
 
 				if ( !is_in_closed && !is_in_open && !is_in_seen ) {
+#ifdef DEBUG
+					std::cout << "fresh:" << n->hash() << std::endl;
+#endif
                     handle_fresh( head, n, a );
 				}
                 else if ( is_in_open ) {
                     Search_Node* n2 = this->open_set().retrieve(n);
+#ifdef DEBUG
+    std::cout << "already in open, reweight" << std::endl;
+#endif
                     if ( n->gn() < n2->gn() ) {
                         n2->gn() = n->gn();
                         n2->gn_unit() = n->gn_unit();
@@ -447,9 +462,13 @@ namespace bfs_dq_mh {
                         n2->notify_update();
                         this->inc_replaced_open();
                     }
+
                     delete n;
                 }
                 else if ( is_in_seen ) {
+#ifdef DEBUG
+    std::cout << "already in seen, reweight" << std::endl;
+#endif
 					Search_Node* n2 = this->seen().retrieve(n);
 					if ( n->gn() < n2->gn() ) {
 						n2->gn() = n->gn();
@@ -465,7 +484,6 @@ namespace bfs_dq_mh {
                     }
 
 					handle_seen( head, n2, a );
-
 					this->seen().erase( this->seen().retrieve_iterator(n2) );
 					delete n;
 				}

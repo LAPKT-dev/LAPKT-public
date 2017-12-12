@@ -216,13 +216,15 @@ class TableItem:
 def convert_precondition(prec, atom_table):
     precondition = []
     comparision = dict()
+    new_atoms = []
     for p in prec:
         if isinstance(p, pddl.NumericWrapper):
             if p.text() not in atom_table:
                 atom_table[p.text()] = TableItem(len(atom_table), p.to_atom())
+                new_atoms.append(p.text())
             comparision[atom_table[p.text()].index] = p.expression
         precondition.append((atom_table[p.text()].index, p.negated))
-    return precondition, comparision
+    return precondition, comparision, new_atoms
 
 
 def convert_effect(adds, dels, atom_table):
@@ -283,7 +285,6 @@ def numeric(domain_file, problem_file, output_task ):
         if atom.text() not in atom_table:
             atom_table[atom.text()] = TableItem(len(atom_table), atom)
             output_task.add_atom( atom.text() )
-
     init_atoms = [x for x in task.init if (not hasattr(x, 'predicate')) or x.predicate != '=']
 
     function_table = dict()
@@ -298,19 +299,21 @@ def numeric(domain_file, problem_file, output_task ):
         function_table[atom.text()] = TableItem(len(function_table), atom, func.expression.value)
         output_task.add_function(atom.text())
 
-
     negated_set = set()
     action_data = []
 
     # actions
     for instance in actions:
-        precs, cmp = convert_precondition(instance.precondition, atom_table)
-
+        precs, cmp, new_atoms = convert_precondition(instance.precondition, atom_table)
+        for new_atom in new_atoms:
+            output_task.add_atom(new_atom)
         negated_condistions = [x[0] for x in precs if (x[1] and x[0] not in negated_set)]
-        for n in negated_condistions: negated_set.add(n)
-        output_task.add_negated_conditions(negated_condistions)
+        for n in negated_condistions:
+            if n not in negated_set:
+                negated_set.add(n)
+                print("negated: " + str(n))
+                output_task.notify_negated_conditions([n])
         effs = convert_effect(instance.add_effects, instance.del_effects, atom_table)
-
         num_effs = convert_num_effect(instance.numeric_effects, function_table)
 
         action_data.append(NumDetAction(instance.name,
@@ -319,6 +322,7 @@ def numeric(domain_file, problem_file, output_task ):
                                         effs,
                                         num_effs,
                                         cmp))
+    output_task.create_negated_fluents()
     # numerical conditions
     cmp_map = {'>': liblapkt.CompareType.more, '>=': liblapkt.CompareType.more_equal}
     for (index, action) in enumerate(action_data):

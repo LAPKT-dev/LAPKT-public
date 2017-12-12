@@ -71,6 +71,13 @@ class Action(object):
             raise SystemExit("Error in Action %s\nReason: %s." % (name, e))
         for rest in iterator:
             assert False, rest
+        param_names = [x.name for x in parameters]
+        for prec in precondition.parts:
+            if isinstance(prec, conditions.Atom):
+                args = prec.args
+                assert all(x in param_names for  x in args if x.startswith('?'))
+        for effect in eff:
+            assert all(x in param_names for x in effect.literal.args if x.startswith('?'))
         return Action(name, parameters, len(parameters),
                       precondition, eff + num_eff, cost)
     parse = staticmethod(parse)
@@ -99,7 +106,7 @@ class Action(object):
                 new_effects.append(relaxed_eff)
         return Action(self.name, self.parameters, self.num_external_parameters,
                       self.precondition.relaxed().simplified(),
-                      new_effects)
+                      new_effects, cost=self.cost)
     def untyped(self):
         # We do not actually remove the types from the parameter lists,
         # just additionally incorporate them into the conditions.
@@ -130,10 +137,10 @@ class Action(object):
                                           fluent_facts, precondition)
         except conditions.Impossible:
             return None
-        effects = []
+        t_effects = []
         for eff in self.effects:
             eff.instantiate(var_mapping, init_facts, fluent_facts,
-                            objects_by_type, effects)
+                            objects_by_type, t_effects)
         numeric_effects = []
         for eff in self.numeric_effects():
             try:
@@ -141,7 +148,7 @@ class Action(object):
                                 objects_by_type, numeric_effects)
             except conditions.Impossible:
                 return None
-        if effects or numeric_effects:
+        if t_effects or numeric_effects:
             if self.cost is None:
                 cost = 0
             else:
@@ -153,14 +160,14 @@ class Action(object):
                         cost = int(t_cost.expression.initial_value)
                 except conditions.Impossible:
                     return None
-            return PropositionalAction(name, precondition, effects, numeric_effects, cost)
+            return PropositionalAction(name, precondition, t_effects, numeric_effects, cost)
         else:
             return None
 
     def pddl(self):
         cost = ''
         if self.cost is not None:
-             cost = self.cost.pddl()
+            cost = self.cost.pddl()
         return "(:action {0} \
                 :parameters ({1}) \
                 :precondition {2} \
@@ -175,28 +182,28 @@ class Action(object):
 
     @effects.setter
     def effects(self, value):
-        self._effects = [x for x in effects if not isinstance(x, effects.NumericEffect)]
-        self._num_effects = [x for x in effects if isinstance(x, effects.NumericEffect)]
+        self._effects = [x for x in value if not isinstance(x, effects.NumericEffect)]
+        self._num_effects = [x for x in value if isinstance(x, effects.NumericEffect)]
 
     def numeric_effects(self):
         return self._num_effects
 
 
 class PropositionalAction:
-    def __init__(self, name, precondition, effects, numeric_effects, cost):
+    def __init__(self, name, precondition, a_effects, numeric_effects, cost):
         self.name = name
         self.precondition = precondition
         self.add_effects = []
         self.del_effects = []
         self.numeric_effects = numeric_effects
-        for condition, effect in effects:
+        for condition, effect in a_effects:
             if not effect.negated:
                 self.add_effects.append((condition, effect))
         # Warning: This is O(N^2), could be turned into O(N).
         # But that might actually harm performance, since there are
         # usually few effects.
         # TODO: Measure this in critical domains, then use sets if acceptable.
-        for condition, effect in effects:
+        for condition, effect in a_effects:
             if effect.negated and (condition, effect.negate()) not in self.add_effects:
                 self.del_effects.append((condition, effect.negate()))
         self.cost = cost

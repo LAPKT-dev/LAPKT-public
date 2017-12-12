@@ -267,13 +267,31 @@ run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, st
 
     Fwd_Search_Problem	search_prob( &prob );
 
+    details << "All Fluents:   action signature" << std::endl;
+    for (auto fptr: prob.fluents()){
+        details << "     " << fptr->signature() << ": " << fptr->index() << std::endl;
+    }
 
     details << "ActionId:   action signature " << std::endl;
-
     for ( unsigned k = 0; k < prob.actions().size(); k++ ) {
         details << k << ". ";
         const aptk::Action& a = *(prob.actions()[ k ]);
         details << a.signature();
+        details << std::endl  << "   Preconditions:" << std::endl;
+        for (auto it: a.prec_vec()){
+            auto fptr = prob.fluents()[it];
+            details << "     " << fptr->signature() << ": " << fptr->index() << std::endl;
+        }
+        details << "   AddList:" << std::endl;
+        for (auto it: a.add_vec()){
+            auto fptr = prob.fluents()[it];
+            details << "     " << fptr->signature() << ": " << fptr->index() << std::endl;
+        }
+        details << "   DelList:" << std::endl;
+        for (auto it: a.del_vec()){
+            auto fptr = prob.fluents()[it];
+            details << "     " << fptr->signature() << ": " << fptr->index() << std::endl;
+        }
         details << std::endl;
     }
 

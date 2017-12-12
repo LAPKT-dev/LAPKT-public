@@ -29,9 +29,8 @@ def is_function_comparison(alist):
         if symbol[0] in ("+","/","*","-"):
             return True
         symbol = symbol[0]
-    if (tasks.Task.FUNCTION_SYMBOLS.get(symbol,"object")=="number" or
-        symbol.replace(".","").isdigit()):
-        return True
+    else:
+        raise NotImplementedError(symbol)
     return False
 
 
@@ -416,10 +415,13 @@ class Atom(Literal):
         return False
 
     def pddl(self):
-        return "({0} {1})".format(self.predicate, ' '.join(x.name if isinstance(x, pddl_types.TypedObject) else x for x in self.args))
+        try:
+            return "({0} {1})".format(self.predicate, ' '.join(x.name if isinstance(x, pddl_types.TypedObject) else x for x in self.args))
+        except TypeError as e:
+            import pdb;pdb.set_trace()
 
 
-class NegatedAtom(Literal):
+class NegatedAtom(Atom):
     negated = True
     def _relaxed(self, parts):
         return Truth()

@@ -25,10 +25,25 @@ using namespace boost::python;
 	STRIPS_Problem::~STRIPS_Problem() {
 	}
 
+	bool STRIPS_Problem::all_unique(){
+		std::set<std::string> fluent_str;
+		for(auto fptr: instance()->fluents()){
+			std::string fluent_signature = fptr->signature();
+			const bool is_in = fluent_str.find(fluent_signature) != fluent_str.end();
+			if(is_in) return false;
+			fluent_str.insert(fluent_signature);
+		}
+		return true;
+	}
+
 	void
 	STRIPS_Problem::add_atom( std::string name ) {
 		assert( m_negated.empty() );
 		aptk::STRIPS_Problem::add_fluent( *instance(), name );
+#ifdef DEBUG
+		std::cout << "adding fluent " << name << std::endl;
+#endif
+		assert(all_unique());
 	}
 
     void
@@ -72,14 +87,13 @@ using namespace boost::python;
             unsigned fl_index = extract<int>( fluents[i] );
             assert( fl_index < instance()->num_fluents() );
             m_negated_conditions.insert( fl_index );
-        }
-
-        for ( auto fl_idx : m_negated_conditions ) {
-            aptk::Fluent* fl = instance()->fluents()[fl_idx];
+            aptk::Fluent* fl = instance()->fluents()[fl_index];
             assert( fl != nullptr );
             std::string negated_signature = "(not " + fl->signature() + ")";
             unsigned neg_fl_idx = aptk::STRIPS_Problem::add_fluent( *instance(), negated_signature );
-            m_negated.at( fl_idx ) = instance()->fluents()[neg_fl_idx];
+            std::cout << "adding fluent " << negated_signature << std::endl;
+            assert(all_unique());
+            m_negated.at( fl_index ) = instance()->fluents()[neg_fl_idx];
         }
     }
 
@@ -336,16 +350,6 @@ using namespace boost::python;
 	void
 	STRIPS_Problem::print_action( int index ) {
 		instance()->actions()[index]->print( *instance(), std::cout );
-	}
-
-	void
-	STRIPS_Problem::write_ground_pddl( std::string domain, std::string problem ) {
-		/*
-		std::ofstream domain_stream( domain.c_str() );
-		m_inst->write_domain( domain_stream );
-		std::ofstream problem_stream( problem.c_str() );
-		m_inst->write_problem( problem_stream );
-		*/
 	}
 
 	void

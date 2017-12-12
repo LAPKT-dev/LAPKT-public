@@ -76,12 +76,13 @@ public:
 	size_t	n_atoms() 	const { return m_problem->num_fluents(); }
 	size_t	n_actions()	const { return m_problem->num_actions(); }
 
-	void	write_ground_pddl( std::string domain, std::string instance );
+	void	write_ground_pddl( std::string domain, std::string instance ){};
 
 	float	m_parsing_time;
 	bool	m_ignore_action_costs;
 
 protected:
+    bool  all_unique();
     void  _set_init( boost::python::list& list, boost::python::list val_lst=boost::python::list() );
 	aptk::STRIPS_Problem*	m_problem;
 	std::set<int>		m_negated_conditions;
