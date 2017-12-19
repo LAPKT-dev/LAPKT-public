@@ -65,7 +65,6 @@ std::pair<float, std::vector< aptk::Action_Idx > >  do_stage_3(  aptk::STRIPS_Pr
 
     unsigned expanded_0 = engine.expanded();
     unsigned generated_0 = engine.generated();
-    engine.set_budget(5);
     while ( engine.find_solution(metric, cost, plan ) ) {
         if ( !plan.empty() ) {
             details << "stage3: Plan found with cost: " << cost << std::endl;
@@ -245,6 +244,7 @@ void process_plan(aptk::State & goal, Fwd_Search_Problem & search_prob, aptk::St
 
 int
 run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, std::string & plan_filename, int max_novelty, int iw_bound){
+    float start = aptk::time_used();
     std::ofstream details( "execution.details" );
     details << "PDDL problem description loaded: " << std::endl;
     details << "\tDomain: " << prob.domain_name() << std::endl;
@@ -266,13 +266,13 @@ run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, st
     goal.set( prob.goal() );
 
     Fwd_Search_Problem	search_prob( &prob );
-
     details << "All Fluents:   action signature" << std::endl;
     for (auto fptr: prob.fluents()){
         details << "     " << fptr->signature() << ": " << fptr->index() << std::endl;
     }
 
     details << "ActionId:   action signature " << std::endl;
+
     for ( unsigned k = 0; k < prob.actions().size(); k++ ) {
         details << k << ". ";
         const aptk::Action& a = *(prob.actions()[ k ]);
@@ -294,8 +294,6 @@ run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, st
         }
         details << std::endl;
     }
-
-
 
     float siw_cost = infty;
 
@@ -331,7 +329,8 @@ run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, st
     graph.print( details );
 
     Land_Graph_Man lgm( search_prob, &graph);
-
+    float end = aptk::time_used();
+    details << "Time problem defined: " << end - start << std::endl;
     if ( enable_bfs_f ) {
         // MRJ: 2nd Stage, full BFS(f) with bound informed by SIW search
         details << "Stage #2: BFS(f)" << std::endl;
@@ -362,8 +361,13 @@ run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, st
     if ( (bfs_f_cost < infty) || (!enable_siw && !enable_bfs_f) ) {
         // MRJ: 3rd Stage, RWA* with bound informed by BFS(f) search
         float rwa_cost = infty;
+        float budget = 13;
+        float weight = 5.0f;
         details << "Stage #3: RWA* " << std::endl;
-        Anytime_RWA wbfs_engine( search_prob, 10.0f, 0.94f);
+        details << "Budget #3:  " << budget << std::endl;
+        details << "Weigth #3:  " << weight << std::endl;
+        Anytime_RWA wbfs_engine( search_prob, weight, 0.94f);
+        wbfs_engine.set_budget(budget);
         //wbfs_engine.h2().set_graph( &graph );
         wbfs_engine.use_land_graph_manager( &lgm );
         float at_search_t;

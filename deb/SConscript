@@ -9,10 +9,10 @@ git_version = os.popen('git rev-parse HEAD').read().strip()
 # Here's the core info for the package
 
 DEBNAME = "lapkt" 
-DEBVERSION = "0.1"
+DEBVERSION = "0.2"
 DEBMAINT = "Anatoly Belikov [awbelikov@firesoft.io]"
 DEBARCH = "amd64"
-DEBDEPENDS = "libboost-python1.49.0, libboost-program-options1.49.0" # what are we dependent on?
+DEBDEPENDS = "libboost-python1.55.0, libboost-program-options1.55.0" # what are we dependent on?
 DEBDESC = "automatic planning tools"
 
 DEBFILES = [
@@ -32,6 +32,7 @@ for dir in ['fd', 'fd/pddl']:
     for f in os.listdir(base + dir):
        if f.endswith('.py'):
           DEBFILES.append(("usr/lib/python2.7/dist-packages/" + dir + '/' + f, "#2.0/external/" + dir +  '/' +   f))
+          DEBFILES.append(("usr/local/lib/python3.5/dist-packages" + dir + '/' + f, "#2.0/external/" + dir +  '/' +   f))
 
     
 # This is the debian package we're going to create
