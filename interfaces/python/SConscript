@@ -1,0 +1,43 @@
+import os
+
+debug = ARGUMENTS.get('debug', 0)
+
+env = Environment()
+
+include_paths = ['../../include', '.', '../agnostic']
+lib_paths = [ '../..', '../agnostic' ]
+libs = ['aptk',]
+
+#include_paths.append( '/usr/include/boost' )
+include_paths.append( '/usr/include/python2.7/' )
+#include_paths.append( '/usr/include/python3.5' )
+#env.Append( LIBPATH = [ '/usr/lib/python3.5/config' ] )
+
+#env.Append( LIBPATH = [ '/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu/' ] )
+
+env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
+env.Append( CCFLAGS = ['-Wall', '-fPIC', '-std=c++11'] )
+if int(debug) == 1 :
+	env.Append( CCFLAGS = ['-g', '-DDEBUG' ] )
+else:
+	env.Append( CCFLAGS = ['-O3', '-DNDEBUG' ] )
+
+env.Append( LIBS=libs)
+env.Append( LIBPATH=[ os.path.abspath(p) for p in lib_paths ] )
+#env.Append(LINKFLAGS = ['-fPIC'])
+Import('common_env')
+
+common_env.Append(LIBPATH=[Dir('.')])
+agnostic_objs = SConscript('../agnostic/SConscript.agnostic', exports='common_env')
+
+cxx_sources = Glob('*.cxx')
+c_sources = Glob('*.c')
+objects = [ env.Object(s) for s in cxx_sources ] + [ env.Object(s) for s in c_sources ]
+
+env.Library( 'aptk-base', objects )
+env.Append( LIBS = [ '-lboost_python', '-lpython2.7' ] )
+env.Append( LINKFLAGS = os.environ.get('LDFLAGS'))
+
+env['STATIC_AND_SHARED_OBJECTS_ARE_THE_SAME']=1
+lapkt = env.SharedLibrary(source=objects + agnostic_objs, target='lapkt')
+Return('lapkt')

@@ -22,8 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define __APTK_TYPES__
 
 #include <map>
+#include <set>
 #include <vector>
 #include <limits>
+#include <memory>
 #include <utility>
 #include <aptk/bit_set.hxx>
 
@@ -32,25 +34,34 @@ namespace aptk
 
 	class Action;
 	class Fluent;
+	class Function;
 	class Conditional_Effect;
-	
-	
-	typedef		std::vector<bool>				Bool_Vec;
-	typedef		std::vector<bool*>				Bool_Vec_Ptr;
-	typedef		std::vector<unsigned>				Fluent_Vec;
-	typedef		std::vector<unsigned>				Index_Vec;
-	typedef		std::vector<float>				Value_Vec;
-	typedef		std::pair<unsigned, unsigned>			Fluent_Pair;
-	typedef		Bit_Set						Fluent_Set;
-	typedef 	std::vector<Action* >				Action_Ptr_Vec;
-	typedef 	std::vector< const Action* >			Action_Ptr_Const_Vec;
-	typedef 	std::vector<Fluent* >				Fluent_Ptr_Vec;
-	typedef		std::vector<Conditional_Effect* > 		Conditional_Effect_Vec;
-	typedef		std::vector< std::vector< const Action* > >	Fluent_Action_Table;
-	typedef         std::vector< Action_Ptr_Vec >           	PDDLop_Action_Table;
-	typedef		std::vector< Fluent_Ptr_Vec >	        	Type_Fluent_Table;
-	typedef		std::vector< Fluent_Ptr_Vec >	        	Object_Fluent_Table;
-	typedef		std::vector< std::pair<unsigned, unsigned> >   VarVal_Vec;
+    	class Numeric_Effect;
+    	template<typename T>
+    	class Expression;
+
+
+    typedef		std::vector<bool>				Bool_Vec;
+    typedef		std::vector<bool*>				Bool_Vec_Ptr;
+    typedef		std::vector<unsigned>				Fluent_Vec;
+    typedef		std::vector<unsigned>				Index_Vec;
+    typedef		std::vector<float>				Value_Vec;
+    typedef     std::vector<std::pair<size_t, float> > Value_Pair_Vec;
+    typedef		std::pair<unsigned, unsigned>			Fluent_Pair;
+    typedef		Bit_Set						Fluent_Set;
+    typedef 	std::vector<Action* >				Action_Ptr_Vec;
+    typedef 	std::vector< const Action* >			Action_Ptr_Const_Vec;
+    typedef 	std::vector<Fluent* >				Fluent_Ptr_Vec;
+    typedef     std::vector<Function*>              Function_Ptr_Vec;
+    typedef     std::map<size_t, std::set<size_t>>           Numeric_To_Comparison_Map;
+    typedef		std::vector<Conditional_Effect* > 		Conditional_Effect_Vec;
+    typedef     std::vector<std::shared_ptr<Numeric_Effect> >           Numeric_Effect_Vec;
+    typedef		std::vector< std::vector< const Action* > >	Fluent_Action_Table;
+    typedef     std::vector< Action_Ptr_Vec >           	PDDLop_Action_Table;
+    typedef		std::vector< Fluent_Ptr_Vec >	        	Type_Fluent_Table;
+    typedef		std::vector< Fluent_Ptr_Vec >	        	Object_Fluent_Table;
+    typedef		std::vector< std::pair<unsigned, unsigned> >   VarVal_Vec;
+    typedef     std::shared_ptr< Expression<float> > ExpPtr;
 
 
 // MRJ: April 2015: added this pre-processor guards while we transition to
@@ -85,7 +96,6 @@ namespace aptk
 					return;
 				}
 				it->second = value;
-		
 			}
 	};
 

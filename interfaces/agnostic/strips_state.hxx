@@ -39,20 +39,22 @@ public:
 
 	Fluent_Vec& fluent_vec() 		{ return m_fluent_vec; }
 	Fluent_Set& fluent_set() 		{ return m_fluent_set; }
+    const Value_Vec& value_vec()   const       { return m_value_vec; }
+    void set_value(unsigned idx, float value){ m_value_vec[idx] = value; }
+    void set_value(const Value_Vec & values);
 	const Fluent_Vec& fluent_vec() const	{ return m_fluent_vec; }
 	const Fluent_Set& fluent_set() const	{ return m_fluent_set; }
 	
-	unsigned value_for_var( unsigned var ) const { return 0 == m_fluent_set.isset(var) ? 0 : 1; }
-
+    bool value_for_var( unsigned var ) const { return m_fluent_set.isset(var); }
 	void	set( unsigned f );
 	void	unset( unsigned f );
 	void	set( const Fluent_Vec& fv );
-	void	unset( const Fluent_Vec& fv );
+    void	unset( const Fluent_Vec& fv );
 	void    reset();
-	bool	entails( unsigned f ) const { return fluent_set().isset(f); }
-	bool	entails( const State& s ) const;
-	bool	entails( const Fluent_Vec& fv ) const;
-	bool	entails( const Fluent_Vec& fv, unsigned& num_unsat ) const;
+    inline bool	entails( unsigned f ) const { return fluent_set().isset(f); }
+    inline bool	entails( const State& s ) const;
+    inline bool	entails( const Fluent_Vec& fv ) const;
+    inline bool	entails( const Fluent_Vec& fv, unsigned& num_unsat ) const;
 	size_t	hash() const;
 	void	update_hash();
 
@@ -68,138 +70,124 @@ public:
 
 	const STRIPS_Problem&		problem() const;
   
-        bool operator==(const State &a) const;
+    bool operator==(const State &a) const;
 
 	void	print( std::ostream& os ) const;
+
+    static const bool less(const State & lhs, const State & rhs);
+
+    std::string tostring() const;
 
 protected:
 
 	Fluent_Vec			m_fluent_vec;
 	Fluent_Set			m_fluent_set;
+    Value_Vec           m_value_vec;
 	const STRIPS_Problem&		m_problem;
 	size_t				m_hash;
 };
 
+
+inline	void State::reset(  )
+{
+    m_fluent_vec.clear();
+    m_fluent_set.reset();
+}
+
+inline bool	State::entails( const State& s ) const
+{
+    return entails( s.fluent_vec() );
+}
+
+inline bool	State::entails( const Fluent_Vec& fv ) const
+{
+    for ( unsigned i = 0; i < fv.size(); i++ )
+      if ( !fluent_set().isset(fv[i]) ) {
+        return false;
+      }
+    return true;
+}
+
+inline bool	State::entails( const Fluent_Vec& fv, unsigned& num_unsat ) const
+{
+    num_unsat = 0;
+    for ( unsigned i = 0; i < fv.size(); i++ )
+        if ( !fluent_set().isset(fv[i]) ) num_unsat++;
+    return num_unsat == 0;
+
+}
+
 inline	size_t State::hash() const {
-	return m_hash;
+    return m_hash;
 }
 
 inline bool State::operator==(const State &a) const {
-  	return fluent_set() == a.fluent_set();
+    return fluent_set() == a.fluent_set();
 }
 
 inline const STRIPS_Problem& State::problem() const
 {
-	return m_problem;
+    return m_problem;
 }
 
-inline	void State::set( unsigned f ) 
+inline	void State::set( unsigned f )
 {
-	if ( entails(f) ) return;
-	m_fluent_vec.push_back( f );
-	m_fluent_set.set( f );
+    if ( entails(f) ) return;
+    m_fluent_vec.push_back( f );
+    m_fluent_set.set( f );
 }
 
 inline	void State::set( const Fluent_Vec& f )
 {
 
-	for ( unsigned i = 0; i < f.size(); i++ )
-	{
-		if ( !entails(f[i]) )
-		{
-			m_fluent_vec.push_back(f[i]);
-			m_fluent_set.set(f[i]);
-		}
-	}
+    for ( unsigned i = 0; i < f.size(); i++ )
+    {
+        if ( !entails(f[i]) )
+        {
+            m_fluent_vec.push_back(f[i]);
+            m_fluent_set.set(f[i]);
+        }
+    }
 }
 
-inline	void State::unset( unsigned f ) 
+inline	void State::unset( unsigned f )
 {
-	if ( !entails(f) ) return;
+    if ( !entails(f) ) return;
 
-	for ( unsigned k = 0; k < m_fluent_vec.size(); k ++ )
-		if ( m_fluent_vec[k] == f )
-		{
-			for ( unsigned l = k+1; l < m_fluent_vec.size(); l++ )
-				m_fluent_vec[l-1] = m_fluent_vec[l];
-			m_fluent_vec.resize( m_fluent_vec.size()-1 );
-			break;
-		}
+    for ( unsigned k = 0; k < m_fluent_vec.size(); k ++ )
+        if ( m_fluent_vec[k] == f )
+        {
+            for ( unsigned l = k+1; l < m_fluent_vec.size(); l++ )
+                m_fluent_vec[l-1] = m_fluent_vec[l];
+            m_fluent_vec.resize( m_fluent_vec.size()-1 );
+            break;
+        }
 
-	m_fluent_set.unset( f );
+    m_fluent_set.unset( f );
 }
 
 inline	void State::unset( const Fluent_Vec& f )
 {
 
-	for ( unsigned i = 0; i < f.size(); i++ )
-	{
-		if ( !entails(f[i]) )
-			continue;
-		for ( unsigned k = 0; k < m_fluent_vec.size(); k ++ )
-			if ( m_fluent_vec[k] == f[i] )
-			{
-				for ( unsigned l = k+1; l < m_fluent_vec.size(); l++ )
-					m_fluent_vec[l-1] = m_fluent_vec[l];
-				m_fluent_vec.resize( m_fluent_vec.size()-1 );
-				break;
-			}
-		m_fluent_set.unset(f[i]);
-	}
+    for ( unsigned i = 0; i < f.size(); i++ )
+    {
+        if ( !entails(f[i]) )
+            continue;
+        for ( unsigned k = 0; k < m_fluent_vec.size(); k ++ )
+            if ( m_fluent_vec[k] == f[i] )
+            {
+                for ( unsigned l = k+1; l < m_fluent_vec.size(); l++ )
+                    m_fluent_vec[l-1] = m_fluent_vec[l];
+                m_fluent_vec.resize( m_fluent_vec.size()-1 );
+                break;
+            }
+        m_fluent_set.unset(f[i]);
+    }
 }
 
-inline	void State::reset(  )
-{
-	m_fluent_vec.clear();
-	m_fluent_set.reset();
-}
+std::ostream& operator<<(std::ostream &os, State &s);
 
-inline bool	State::entails( const State& s ) const
-{
-	return entails( s.fluent_vec() );
-}
-
-inline std::ostream& operator<<(std::ostream &os, State &s);
-inline std::ostream& operator<<(std::ostream &os, const State &s);
-
-
-inline bool	State::entails( const Fluent_Vec& fv ) const
-{
-	for ( unsigned i = 0; i < fv.size(); i++ )
-	  if ( !fluent_set().isset(fv[i]) ) {
-	    return false;
-	  }
-	return true;
-}
-
-inline bool	State::entails( const Fluent_Vec& fv, unsigned& num_unsat ) const
-{
-	num_unsat = 0;
-	for ( unsigned i = 0; i < fv.size(); i++ )
-		if ( !fluent_set().isset(fv[i]) ) num_unsat++;
-	return num_unsat == 0;
-	
-}
-
-inline std::ostream& operator<<(std::ostream &os, State &s) {
-  for(unsigned i = 0; i < s.fluent_vec().size(); i++) {
-    os << s.problem().fluents()[s.fluent_vec()[i]]->signature();
-    os << ", ";
-  }
-  os << std::endl;
-  return os;
-}
-
-
-inline std::ostream& operator<<(std::ostream &os, const State &s) {
-  for(unsigned i = 0; i < s.fluent_vec().size(); i++) {
-    os << s.problem().fluents()[s.fluent_vec()[i]]->signature();
-    os << ", ";
-  }
-  os << std::endl;
-  return os;
-}
-
+std::ostream& operator<<(std::ostream &os, const State &s);
 
 }
 

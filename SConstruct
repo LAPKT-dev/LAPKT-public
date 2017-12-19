@@ -14,9 +14,9 @@ libs = ['judy']
 common_env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
 
 if int(debug) == 1 :
-	common_env.Append( CCFLAGS = ['-g','-Wall', '-std=c++0x', '-DDEBUG' ] )
+	common_env.Append( CCFLAGS = ['-g','-Wall', '-std=c++0x', '-DDEBUG' , '-fPIC' ] )
 else:
-	common_env.Append( CCFLAGS = ['-O3','-Wall', '-std=c++0x', '-DNDEBUG'] )
+	common_env.Append( CCFLAGS = [ '-Wall','-fPIC', '-std=c++11', '-O3', '-DNDEBUG'] )
 
 if int(custom_gcc) == 1 :
 	common_env.Replace( CC=custom_c )
@@ -27,7 +27,13 @@ common_env.Append( LIBPATH=[ os.path.abspath(p) for p in lib_paths ] )
 
 
 Export('common_env')
-src_objs = SConscript( 'src/SConscript', 'common_env' )
-if src_objs is None : print "src_objs is None"
+src_objs = SConscript( 'src/SConscript.aptk', 'common_env' )
 
 common_env.Library( 'aptk', src_objs )
+
+
+if 'debian' in COMMAND_LINE_TARGETS:
+    planner = SConscript("planners/at_bfs_f-ffparser-reorder/SConstruct")
+    deb = SConscript("deb/SConscript", 'common_env')
+    Depends(deb, planner)
+

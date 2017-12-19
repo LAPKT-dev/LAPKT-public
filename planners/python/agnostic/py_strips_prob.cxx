@@ -2,6 +2,11 @@
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <types.hxx>
+#include <fwd_search_prob.hxx>
+#include <numeric_eff.hxx>
+
+
 
 using namespace boost::python;
 
@@ -9,40 +14,88 @@ using namespace boost::python;
 		m_parsing_time = 0.0f;
 		m_ignore_action_costs = false;
 		m_problem = new aptk::STRIPS_Problem;
-
 	}
 
 	STRIPS_Problem::STRIPS_Problem( std::string domain, std::string instance ) {
 		m_parsing_time = 0.0f;
 		m_ignore_action_costs = false;
-		m_problem = new aptk::STRIPS_Problem( domain, instance );
-
+        m_problem = new aptk::STRIPS_Problem( domain, instance );
 	}
 
 	STRIPS_Problem::~STRIPS_Problem() {
+	}
+
+	bool STRIPS_Problem::all_unique(){
+		std::set<std::string> fluent_str;
+		for(auto fptr: instance()->fluents()){
+			std::string fluent_signature = fptr->signature();
+			const bool is_in = fluent_str.find(fluent_signature) != fluent_str.end();
+			if(is_in) return false;
+			fluent_str.insert(fluent_signature);
+		}
+		return true;
 	}
 
 	void
 	STRIPS_Problem::add_atom( std::string name ) {
 		assert( m_negated.empty() );
 		aptk::STRIPS_Problem::add_fluent( *instance(), name );
+#ifdef DEBUG
+		std::cout << "adding fluent " << name << std::endl;
+#endif
+		assert(all_unique());
 	}
 
-	void
+    void
+    STRIPS_Problem::add_function( std::string name ){
+        instance()->add_function(name);
+    }
+
+    size_t
 	STRIPS_Problem::add_action( std::string name ) {
 		aptk::Fluent_Vec empty;
 		aptk::Conditional_Effect_Vec dummy_ceffs;
-		aptk::STRIPS_Problem::add_action( *instance(), name, empty, empty, empty, dummy_ceffs ); 
-	}	
+        return aptk::STRIPS_Problem::add_action( *instance(), name, empty, empty, empty, dummy_ceffs );
+    }
+
+    void
+    STRIPS_Problem::define_action(size_t idx, boost::python::list& precs, boost::python::list& effs, boost::python::list &num_eff_vec ){
+        aptk::Action& action = *(m_problem->actions()[idx]);
+        add_precondition( idx, precs );
+        add_effect(idx, effs);
+        aptk::Numeric_Effect_Vec num;
+        for ( int i = 0; i < len(num_eff_vec); i++ ) {
+            num.push_back(extract< std::shared_ptr< aptk::Numeric_Effect> >( num_eff_vec[i] ));
+        }
+        action.add_numeric_effects(num);
+    }
 
 	void
 	STRIPS_Problem::notify_negated_conditions( boost::python::list& fluents ) {
 		for ( int i = 0; i < len(fluents); i++ ) {
 			unsigned fl_index = extract<int>( fluents[i] );
 			assert( fl_index < instance()->num_fluents() );
-			m_negated_conditions.insert( fl_index );	
+			m_negated_conditions.insert( fl_index );
 		}
 	}
+
+    void
+    STRIPS_Problem::add_negated_conditions ( boost::python::list& fluents ) {
+        if (m_negated.size() != instance()->num_fluents()) m_negated.resize( instance()->num_fluents() );
+
+        for ( int i = 0; i < len(fluents); i++ ) {
+            unsigned fl_index = extract<int>( fluents[i] );
+            assert( fl_index < instance()->num_fluents() );
+            m_negated_conditions.insert( fl_index );
+            aptk::Fluent* fl = instance()->fluents()[fl_index];
+            assert( fl != nullptr );
+            std::string negated_signature = "(not " + fl->signature() + ")";
+            unsigned neg_fl_idx = aptk::STRIPS_Problem::add_fluent( *instance(), negated_signature );
+            std::cout << "adding fluent " << negated_signature << std::endl;
+            assert(all_unique());
+            m_negated.at( fl_index ) = instance()->fluents()[neg_fl_idx];
+        }
+    }
 
 	void
 	STRIPS_Problem::create_negated_fluents() {
@@ -55,7 +108,7 @@ using namespace boost::python;
 			unsigned neg_fl_idx = aptk::STRIPS_Problem::add_fluent( *instance(), negated_signature );
 			m_negated.at( fl_idx ) = instance()->fluents()[neg_fl_idx];
 			count++;
-		} 
+		}
 		std::cout << count << " negated fluents created" << std::endl;
 	}
 
@@ -74,9 +127,13 @@ using namespace boost::python;
 			action.prec_vec().push_back( fl_idx );
 			action.prec_set().set( fl_idx );
 			action.prec_varval().push_back( std::make_pair(fl_idx, 0) );
-
-		}	
+		}
 	}
+
+    size_t
+    STRIPS_Problem::add_comparison(unsigned BoundFluentId, aptk::CompareType t, std::shared_ptr<aptk::Expression<float> > & expr){
+        return m_problem->add_comparison(BoundFluentId, t, expr);
+    }
 
 	void
 	STRIPS_Problem::add_cond_effect( int index, boost::python::list& cond_lits, boost::python::list& eff_lits ) {
@@ -96,7 +153,7 @@ using namespace boost::python;
 
 			cond_fluents.push_back( fl_idx );
 		}
-		
+
 		for ( int i = 0; i < len(eff_lits); i++ ) {
 			boost::python::tuple li = extract< tuple >( eff_lits[i] );
 
@@ -109,25 +166,25 @@ using namespace boost::python;
 				}
 				else {
 					add_fluents.push_back( fl_idx );
-				}	
+				}
 				continue;
 			}
 			int neg_fl_idx = m_negated[ fl_idx ]->index();
-			
+
 			if ( negated ) {
 				add_fluents.push_back( neg_fl_idx );
 				del_fluents.push_back( fl_idx );
-				continue; 
+				continue;
 			}
 
 			del_fluents.push_back( neg_fl_idx );
 			add_fluents.push_back( fl_idx );
-		}	
+		}
 
 		aptk::Conditional_Effect* cond_eff = new aptk::Conditional_Effect( *instance() );
 		cond_eff->define( cond_fluents, add_fluents, del_fluents );
 		action.ceff_vec().push_back( cond_eff );
-		m_problem->notify_cond_eff_in_action();	
+		m_problem->notify_cond_eff_in_action();
 	}
 
 	void
@@ -149,11 +206,11 @@ using namespace boost::python;
 				else {
 					action.add_vec().push_back( fl_idx );
 					action.add_set().set( fl_idx );
-				}	
+				}
 				continue;
 			}
 			int neg_fl_idx = m_negated[ fl_idx ]->index();
-			
+
 			if ( negated ) {
 				action.add_vec().push_back( neg_fl_idx );
 				action.add_set().set( neg_fl_idx );
@@ -161,7 +218,7 @@ using namespace boost::python;
 				action.del_set().set( fl_idx );
 				action.edel_vec().push_back( fl_idx );
 				action.edel_set().set( fl_idx );
-				continue; 
+				continue;
 			}
 
 			action.del_vec().push_back( neg_fl_idx );
@@ -170,7 +227,7 @@ using namespace boost::python;
 			action.edel_set().set( neg_fl_idx );
 			action.add_vec().push_back( fl_idx );
 			action.add_set().set( fl_idx );
-		}	
+		}
 	}
 
 	void
@@ -180,12 +237,12 @@ using namespace boost::python;
 		boost::python::tuple li = extract< tuple >( lits[i] );
 		int 	fl_idx 		= extract<int>(li[0]);
 		bool	negated 	= extract<bool>(li[1]);
-		
+
 		if ( negated)
 		    fl_idx = m_negated[ fl_idx ]->index();
-		group.push_back( fl_idx );	
+		group.push_back( fl_idx );
 	    }
-	    	    
+
 	    m_problem->mutexes().add( group );
 	}
 
@@ -202,36 +259,58 @@ using namespace boost::python;
 		action.set_cost( c );
 	}
 
+    void
+    STRIPS_Problem::set_init_num(boost::python::list& lits, boost::python::list val_lst ){
+        _set_init(lits, val_lst);
+    }
+
 	void
-	STRIPS_Problem::set_init( boost::python::list& lits ) {
-
-		aptk::Fluent_Vec I;
-
-		for( int i = 0; i < len(lits); i++ ) {
-			boost::python::tuple li = extract< tuple >( lits[i] );
-			int 	fl_idx 		= extract<int>(li[0]);
-			bool	negated 	= extract<bool>(li[1]);
-			if ( negated ) {
-				assert( m_negated[fl_idx] );
-				I.push_back( m_negated[fl_idx]->index() );
-				continue;
-			}
-			I.push_back( fl_idx );
-		}
-
-		// complete initial state under negation
-		for ( unsigned p = 0; p < instance()->num_fluents(); p++ ) {
-			if ( p >= m_negated.size() ) continue; // p is a negated fluent!
-			if ( std::find( I.begin(), I.end(), p ) != I.end() ) 
-				continue;
-			assert( p < m_negated.size() );
-			if ( m_negated.at(p) ) 
-				I.push_back( m_negated[ p ]->index() );
-		} 	
-
-		aptk::STRIPS_Problem::set_init( *instance(), I );
-
+    STRIPS_Problem::set_init( boost::python::list& lits) {
+        _set_init(lits);
 	}
+
+    void
+    STRIPS_Problem::_set_init(boost::python::list& lits, boost::python::list val_lst ){
+
+        aptk::Fluent_Vec I;
+
+        for( int i = 0; i < len(lits); i++ ) {
+            boost::python::tuple li = extract< tuple >( lits[i] );
+            int 	fl_idx 		= extract<int>(li[0]);
+            bool	negated 	= extract<bool>(li[1]);
+            if ( negated ) {
+                assert( m_negated[fl_idx] );
+                I.push_back( m_negated[fl_idx]->index() );
+                continue;
+            }
+            I.push_back( fl_idx );
+        }
+
+        // complete initial state under negation
+        for ( unsigned p = 0; p < instance()->num_fluents(); p++ ) {
+            if ( p >= m_negated.size() ) continue; // p is a negated fluent!
+            if ( std::find( I.begin(), I.end(), p ) != I.end() )
+                continue;
+            assert( p < m_negated.size() );
+            if ( m_negated.at(p) )
+                I.push_back( m_negated[ p ]->index() );
+        }
+
+        aptk::Value_Pair_Vec values;
+        values.resize(len(val_lst));
+        // len returns long
+        for (long i=0; i < len(val_lst); i++){
+            boost::python::tuple item = extract< tuple >(val_lst[i]);
+            size_t 	fun_idx 		= extract<size_t>(item[0]);
+            float	value 	= extract<float>(item[1]);
+            values[i].first = fun_idx;
+            values[i].second = value;
+        }
+
+        aptk::STRIPS_Problem::set_init( *instance(), I, values );
+        (*instance()).calculate_comparison_fluents();
+
+    }
 
 	void
 	STRIPS_Problem::set_goal( boost::python::list& lits ) {
@@ -254,7 +333,7 @@ using namespace boost::python;
 
 	void
 	STRIPS_Problem::set_domain_name( std::string name ) {
-		instance()->set_domain_name( name ); 
+		instance()->set_domain_name( name );
 	}
 
 	void
@@ -262,19 +341,15 @@ using namespace boost::python;
 		instance()->set_problem_name( name );
 	}
 
+    void STRIPS_Problem::solve(const SolverFactory & solver_factory){
+        setup();
+        Solver * solver = solver_factory.build(instance());
+        solver->solve();
+    }
+
 	void
 	STRIPS_Problem::print_action( int index ) {
 		instance()->actions()[index]->print( *instance(), std::cout );
-	}
-	
-	void
-	STRIPS_Problem::write_ground_pddl( std::string domain, std::string problem ) {
-		/*
-		std::ofstream domain_stream( domain.c_str() );
-		m_inst->write_domain( domain_stream );
-		std::ofstream problem_stream( problem.c_str() );
-		m_inst->write_problem( problem_stream );
-		*/
 	}
 
 	void
@@ -296,3 +371,13 @@ using namespace boost::python;
 		instance()->print_actions(out);
 		out.close();
 	}
+
+    void
+    STRIPS_Problem::set_add_cost(bool value){
+        m_problem->set_add_cost(value);
+    }
+
+    void
+    STRIPS_Problem::set_metric_expression(std::shared_ptr<aptk::Expression<float> > expr) {
+        m_problem->set_metric_expression(expr);
+    }

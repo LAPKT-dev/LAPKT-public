@@ -1,0 +1,97 @@
+import os, shutil, sys
+Import('common_env') # exported by parent SConstruct
+
+
+
+# check revision to update control file
+git_version = os.popen('git rev-parse HEAD').read().strip()
+
+# Here's the core info for the package
+
+DEBNAME = "lapkt" 
+DEBVERSION = "0.2"
+DEBMAINT = "Anatoly Belikov [awbelikov@firesoft.io]"
+DEBARCH = "amd64"
+DEBDEPENDS = "libboost-python1.55.0, libboost-program-options1.55.0" # what are we dependent on?
+DEBDESC = "automatic planning tools"
+
+DEBFILES = [
+
+    # Now we specify the files to be included in the .deb
+    # Where they should go, and where they should be copied from.
+    # If you have a lot of files, you may wish to generate this 
+    # list in some other way.
+    ("usr/bin/at.py",             "#planners/at_bfs_f-ffparser-reorder/at.py"),
+    ("usr/lib/python2.7/dist-packages/libatbfsf.so",  "#planners/at_bfs_f-ffparser-reorder/libatbfsf.so"),
+    ("usr/lib/liblapkt.so",  "#interfaces/python/liblapkt.so"),
+]
+
+
+for dir in ['fd', 'fd/pddl']:
+    base = '../2.0/external/'
+    for f in os.listdir(base + dir):
+       if f.endswith('.py'):
+          DEBFILES.append(("usr/lib/python2.7/dist-packages/" + dir + '/' + f, "#2.0/external/" + dir +  '/' +   f))
+          DEBFILES.append(("usr/local/lib/python3.5/dist-packages" + dir + '/' + f, "#2.0/external/" + dir +  '/' +   f))
+
+    
+# This is the debian package we're going to create
+debpkg = '#%s_%s-%s.deb' % (DEBNAME, DEBVERSION, DEBARCH)
+
+# and we want it to be built when we build 'debian'
+common_env.Alias("debian", debpkg)
+
+DEBCONTROLFILE = os.path.join(DEBNAME, "DEBIAN/control")
+
+# This copies the necessary files into place into place.
+# Fortunately, SCons creates the necessary directories for us.
+for f in DEBFILES:
+    # We put things in a directory named after the package
+    dest = os.path.join(DEBNAME, f[0])
+    # The .deb package will depend on this file
+    common_env.Depends(debpkg, dest)
+    # Copy from the the source tree.
+    common_env.Command(dest, f[1], Copy('$TARGET','$SOURCE'))
+    # The control file also depends on each source because we'd like
+    # to know the total installed size of the package
+    common_env.Depends(DEBCONTROLFILE, dest)
+
+# Now to create the control file:
+
+CONTROL_TEMPLATE = """
+Package: %s
+Priority: extra
+Section: misc
+Installed-Size: %s
+Maintainer: %s
+Architecture: %s
+Version: %s-%s
+Depends: %s
+Description: %s
+
+"""
+common_env.Depends(debpkg,DEBCONTROLFILE )
+
+
+# The control file should be updated when the SVN version changes
+common_env.Depends(DEBCONTROLFILE, common_env.Value(git_version))
+
+# This function creates the control file from the template and info
+# specified above, and works out the final size of the package.
+def make_control(target=None, source=None, env=None):
+    installed_size = 0
+    for i in DEBFILES:
+        installed_size += os.stat(str(env.File(i[1])))[6]
+    control_info = CONTROL_TEMPLATE % (
+        DEBNAME, installed_size, DEBMAINT, DEBARCH, DEBVERSION,
+        git_version, DEBDEPENDS, DEBDESC)
+    f = open(str(target[0]), 'w')
+    f.write(control_info)
+    f.close()
+    
+# We can generate the control file by calling make_control
+common_env.Command(DEBCONTROLFILE, None, make_control)
+
+# And we can generate the .deb file by calling dpkg-deb
+common_env.Command(debpkg, DEBCONTROLFILE,
+            "fakeroot dpkg-deb -b %s %s" % ("deb/%s" % DEBNAME, "$TARGET"))

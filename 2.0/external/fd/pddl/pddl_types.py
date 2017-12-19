@@ -47,6 +47,8 @@ class TypedObject(object):
     def __hash__(self):
         return hash((self.name, self.type))
     def __eq__(self, other):
+        if other is None:
+            return False
         return self.name == other.name and self.type == other.type
     def __ne__(self, other):
         return not self == other

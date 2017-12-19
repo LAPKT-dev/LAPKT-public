@@ -83,6 +83,10 @@ public:
 
 	size_t                  hash() const { return m_state->hash(); }
 
+    static bool less(const Node & lhs, const Node & rhs) {
+        return State::less(lhs.state(), rhs.state());
+    }
+
 public:
 
 	State*		m_state;
@@ -262,7 +266,7 @@ public:
 			#ifdef DEBUG
 			std::cout << "Successor:" << std::endl;
 			n->print(std::cout);
-			std::cout << std::endl;
+            std::cout << "State:"<< std::endl;
 			n->state()->print( std::cout );
 			std::cout << std::endl;
 			#endif
