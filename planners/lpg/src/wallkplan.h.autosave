@@ -1,0 +1,16 @@
+#ifndef WALLKPLAN_H
+#define WALLKPLAN_H
+
+/*
+ * WalkPlan with restarts 
+ */
+
+class Wallkplan
+{
+public:
+    Wallkplan();
+    
+    LPG solve(LPG & initial, unit max_restarts, uint max_steps);
+};
+
+#endif // WALLKPLAN_H
