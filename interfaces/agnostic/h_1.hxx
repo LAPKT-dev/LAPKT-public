@@ -260,7 +260,7 @@ protected:
 
 	void	update( unsigned p, float v, unsigned act_idx, unsigned eff_idx ) {
 		if ( v > m_values[p] ) return;
-		if ( v > 0.0f && dequal( v, m_values[p] ) ) {
+		if ( v >= 0.0f && dequal( v, m_values[p] ) ) {
 			Best_Supporter candidate( act_idx, eff_idx );
 			float candidate_diff = eval_diff( candidate );
 			if ( candidate_diff < m_difficulties[p] ) {
@@ -342,7 +342,7 @@ protected:
 				if ( h_pre == infty ) continue;
 				//assert( h_pre != infty );
 
-				//std::cout << "Action " << i << ". " << a.signature() << " relevant" << std::endl;
+				//std::cout << "Action " << *action_it << ". " << a.signature() << " relevant cost " << a.cost() << std::endl;
 
 				float v = ( cost_opt == H1_Cost_Function::Ignore_Costs ?
 						1.0f + h_pre :
