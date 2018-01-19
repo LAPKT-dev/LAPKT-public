@@ -34,7 +34,7 @@ void	get_problem_description( std::string pddl_domain_path,
 					bool ignore_action_costs,
 					bool get_detailed_fluent_names )
 {
-
+	FF_reinitialize_globals();
 	FF_parse_problem( pddl_domain_path.c_str(), pddl_problem_path.c_str() );
 	//	std::cout << "FF-preprocessing of PDDL problem description" << std::endl;
 	FF_instantiate_problem();
