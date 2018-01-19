@@ -251,7 +251,7 @@ def default( domain_file, problem_file, output_task ) :
 	
 	for atom in atom_names :
 		atom_table[ atom ] = index
-		output_task.add_atom( atom )
+		output_task.add_atom( atom.encode('utf-8') )
 		index += 1
 
 
@@ -269,7 +269,7 @@ def default( domain_file, problem_file, output_task ) :
 	output_task.create_negated_fluents()
 
 	for name, _ in nd_actions.iteritems() :
-		output_task.add_action( name )
+		output_task.add_action( name.encode('utf-8') )
 
 	index = 0
 	for action in nd_actions.values() :
@@ -292,8 +292,8 @@ def default( domain_file, problem_file, output_task ) :
 			#print( encode( group, atom_table ) )
 
 
-	output_task.set_domain_name( task.domain_name )
-	output_task.set_problem_name( task.task_name )
+	output_task.set_domain_name( task.domain_name.encode('utf-8') )
+	output_task.set_problem_name( task.task_name.encode('utf-8') )
 	output_task.set_init( encode( task.init, atom_table ) )
 	output_task.set_goal( encode( task.goal, atom_table ) )
 	output_task.parsing_time = parsing_timer.report()
