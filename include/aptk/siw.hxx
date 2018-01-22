@@ -36,10 +36,14 @@ namespace aptk {
 namespace search {
 
 
-template < typename Search_Model >
+template < typename Search_Model,
+           template <typename T,
+                     Node_Generation GEN = Node_Generation::Eager>
+           class ClosedType = Closed_List>
 class SIW : public Serialized_Search<Search_Model, 
 				     brfs::IW<Search_Model, 
-					      aptk::agnostic::Novelty<Search_Model, aptk::search::brfs::Node< aptk::State >>>,
+                          aptk::agnostic::Novelty<Search_Model, aptk::search::brfs::Node< aptk::State >>,
+                          ClosedType>,
 				     aptk::search::brfs::Node< aptk::State >> {
 
 public:

@@ -212,7 +212,7 @@ namespace bfs_dq_mh {
 			assert ( m_lgm != nullptr );			
 			this->eval(this->root());
 			this->open().insert( this->root() );
-			this->open_hash().put( this->root() );
+			this->open_set().put( this->root() );
 			this->inc_gen();
 		}
 
@@ -323,7 +323,7 @@ namespace bfs_dq_mh {
 		}
 	
 		bool in_open( Search_Node* n )  {
-			return this->open_hash().retrieve(n) != nullptr;
+			return this->open_set().retrieve(n) != nullptr;
 		}
 	
 		bool in_seen( Search_Node* n )  {
@@ -400,7 +400,7 @@ namespace bfs_dq_mh {
 					continue;
 				}
 				if ( is_in_open ) {
-					Search_Node* n2 = this->open_hash().retrieve(n);
+					Search_Node* n2 = this->open_set().retrieve(n);
 					if ( n->gn() < n2->gn() ) {
 						n2->gn() = n->gn();
 						n2->gn_unit() = n->gn_unit();

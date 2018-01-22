@@ -36,14 +36,17 @@ namespace search {
 namespace brfs {
 
 
-template < typename Search_Model, typename Abstract_Novelty >
-class IW : public BRFS< Search_Model > {
+template < typename Search_Model, typename Abstract_Novelty,
+           template <typename T,
+                     Node_Generation GEN = Node_Generation::Eager>
+           class ClosedType = Closed_List>
+class IW : public BRFS< Search_Model, ClosedType> {
 
 public:
 
 	typedef		typename Search_Model::State_Type		State;
 	typedef  	Node< State >					Search_Node;
-	typedef 	Closed_List< Search_Node >			Closed_List_Type;
+    typedef 	ClosedType< Search_Node >			Closed_List_Type;
 
 	IW( 	const Search_Model& search_problem ) 
 	: BRFS< Search_Model >(search_problem), m_pruned_B_count(0), m_B( infty ), m_verbose( true ) {	   
