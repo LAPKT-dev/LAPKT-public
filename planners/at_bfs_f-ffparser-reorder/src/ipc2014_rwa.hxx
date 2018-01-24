@@ -76,7 +76,8 @@ namespace ipc2014 {
 		float&                        fn()                                { return m_f; }
 		float                        fn() const                        { return m_f; }
 		Node<State>*                parent()                           { return m_parent; }
-		Action_Idx                action() const                         { return m_action; }
+        Node<State>*                parent()  const                    { return m_parent; }
+        Action_Idx                action() const                         { return m_action; }
 		State*                        state()                                { return m_state; }
 		const State&                state() const                         { return *m_state; }
 		void                        add_po_1( Action_Idx index )        { m_po_1.set( index ); }
@@ -145,7 +146,8 @@ namespace ipc2014 {
 
 		// MRJ: NOTE: return value is the answer to question "is this node worse than o?"
 		bool    operator<( const Node<State>& o ) const {
-			if ( h1n() > o.h1n() ) return true;
+            if ( h1n() > o.h1n() )
+                return true;
 			if ( dequal( h1n(), o.h1n() ) ) {
 				if ( fn()  > o.fn() ) return true;
 				if ( dequal( fn(), o.fn() ) ) {
@@ -220,7 +222,7 @@ namespace bfs_dq_mh {
 
         IPC2014_RWA(const Search_Model& search_problem, float W = 5.0f, float decay = 0.75f )
             : AT_RWBFS_DQ_MH< Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type, ClosedSet <typename Open_List_Type::Node_Type > > (search_problem, W, decay), //
-            m_metric_bound(0), m_lgm( nullptr ), m_adm_h( search_problem )
+            m_metric_bound(0), do_best_support_search(true), m_lgm( nullptr ), m_adm_h( search_problem )
         {}
 
 		virtual ~IPC2014_RWA() {}
@@ -282,18 +284,52 @@ namespace bfs_dq_mh {
 			//candidate->undo_land_graph( m_lgm );
 		}
 
+        // additional heuristic
+        // 1) plan_lenght - num_actions from initial relevant actions,
+        // 2) try to find plan with only best supporters
+
+        /*
+         *  Search_node * do_search(int){
+         *     // extract best supporters
+         *     // search forward using only best supporters
+         *
+         *  }
+         */
 		bool	find_solution( float & metric, float& cost, std::vector<Action_Idx>& plan ) {
 			this->m_t0 = time_used();
-			Search_Node* end = do_search();
-			if ( end == NULL ) return false;
-			this->extract_plan( this->m_root, end, plan, cost );
-			float t2 = time_used();
-			this->m_time_budget -= ( t2 - this->m_t0);
-			metric = end->metric();
-			return true;
+            Search_Node *end = nullptr;
+            if (this->do_best_support_search){
+                end = this->best_support_search();
+                this->do_best_support_search = false;
+            }
+            if (end != nullptr){
+                return handle_search_results(end, cost, metric, plan);
+            } else {
+                this->restart_search();
+                end = do_search();
+                return handle_search_results(end, cost, metric, plan);
+            }
 		}
 
-		virtual Search_Node*	 	do_search() {
+        Search_Node * best_support_search(){
+            Search_Node* head = this->get_node();
+            this->h1().eval(*(head->state()), head->h1n());
+            std::set<Action_Idx> best_set = this->h1().get_best_supporters();
+            this->restart_search();
+            Search_Node* end = do_search(&best_set);
+            return end;
+        }
+
+        bool handle_search_results(Search_Node* end, float& cost, float & metric, std::vector<Action_Idx>& plan ){
+            if ( end == NULL ) return false;
+            this->extract_plan( this->m_root, end, plan, cost );
+            float t2 = time_used();
+            this->m_time_budget -= ( t2 - this->m_t0);
+            metric = end->metric();
+            return true;
+        }
+
+        virtual Search_Node*	 	do_search(std::set< aptk::Action_Idx > * actions=nullptr) {
 			std::cout << "RWA* search!" << std::endl;
             if (this->prev_weight() == this->weight()){
                 std::cout << " W is same, stopping search: " << this->weight() << std::endl;
@@ -339,7 +375,7 @@ namespace bfs_dq_mh {
 				std::cout << "h1 " << head->h1n() << std::endl;
 #endif
                 if ( head->h1n() != infty && head->h2n() != infty ){
-                    this->process(head);
+                    this->process(head, actions);
                 }
                 if (!this->in_closed(head))
                     this->close(head);
@@ -367,6 +403,9 @@ namespace bfs_dq_mh {
 
 		void	handle_fresh( Search_Node* head, Search_Node* n, int a ) {
 			this->eval(n);
+#ifdef DEBUG
+            std::cout << "fresh:" << n->hash() << "  h1: " << n->h1n() << std::endl;
+#endif
 			if(n->h1n() == infty ) {
     #ifdef DEBUG
         std::cout << "closing, cost inf" << std::endl;
@@ -394,15 +433,28 @@ namespace bfs_dq_mh {
 			this->open_node(n, head->is_po_1(a), head->is_po_2(a));
 		}
 
-        virtual void 			process(  Search_Node *head ) {
+        /*
+         * finds all states from head
+         *
+         * head - search state
+         * actions - if provided use only these actions when searching
+         * for new state
+         */
+        virtual void 			process(  Search_Node *head, std::set< aptk::Action_Idx > * actions=nullptr) {
 			if(m_lgm)
 				head->update_land_graph( m_lgm );
 
-			std::vector< aptk::Action_Idx >	app_set;
-			this->problem().applicable_set_v2( *(head->state()), app_set );
+            std::vector< aptk::Action_Idx >	app_set;
+            app_set.reserve(200);
+            this->problem().applicable_set_v2( *(head->state()), app_set );
 			for ( unsigned i = 0; i < app_set.size(); i++ ) {
-				int a = app_set[i];
 
+				int a = app_set[i];
+                if (actions != nullptr ){
+                    bool is_in = actions->find(a) != actions->end();
+                    if (! is_in)
+                        continue;
+                }
 				State *succ = this->problem().next( *(head->state()), a );
 
                 if(head->hash() == succ->hash()){
@@ -441,9 +493,6 @@ namespace bfs_dq_mh {
 				bool is_in_seen = in_seen(n);
 
 				if ( !is_in_closed && !is_in_open && !is_in_seen ) {
-#ifdef DEBUG
-					std::cout << "fresh:" << n->hash() << std::endl;
-#endif
                     handle_fresh( head, n, a );
 				}
                 else if ( is_in_open ) {
@@ -519,8 +568,9 @@ namespace bfs_dq_mh {
 
 	protected:
         float                          m_metric_bound;
+        bool                    do_best_support_search;
 
-		Landmarks_Graph_Manager*                m_lgm;
+        Landmarks_Graph_Manager*          m_lgm;
 		Admissible_Heuristic			m_adm_h;
 	};
 

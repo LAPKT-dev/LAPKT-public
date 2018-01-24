@@ -95,8 +95,6 @@ public:
             }
         }
         return false;
-
-
     }
 };
 
@@ -155,4 +153,4 @@ process_plan(aptk::State & goal,
              float cost=0.0);
 
 int
-run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, std::string & plan_filename, int max_novelty, int iw_bound);
+run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, std::string & plan_filename, int max_novelty, int iw_bound, float rwa_weight);

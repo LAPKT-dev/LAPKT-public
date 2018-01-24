@@ -9,12 +9,12 @@ using namespace boost::python;
 class ATSolver: public Solver{
 public:
    ATSolver(aptk::STRIPS_Problem * problem, bool enable_siw, bool enable_bfs,
-            std::string out):
+            std::string out, float a_rwa_weight):
        m_problem(problem), m_enable_siw(enable_siw),
        m_enable_bfs_f(enable_bfs),
-       m_output_path(out){}
+       m_output_path(out), rwa_weight(a_rwa_weight){}
    void solve(){
-       run_planners(*m_problem, m_enable_siw, m_enable_bfs_f, m_output_path, 2, 2);
+       run_planners(*m_problem, m_enable_siw, m_enable_bfs_f, m_output_path, 2, 2, rwa_weight);
    }
 
 private:
@@ -22,21 +22,23 @@ private:
    bool m_enable_siw;
    bool m_enable_bfs_f;
    std::string m_output_path;
+   float rwa_weight;
 };
 
 
 class ATFactory: public SolverFactory {
 public:
-    ATFactory(std::string out, bool enable_siw, bool enable_bfs):
-        output_path(out), m_enable_siw(enable_siw), m_enable_bfs(enable_bfs){}
+    ATFactory(std::string out, bool enable_siw, bool enable_bfs, float a_rwa_weight=5.0):
+        output_path(out), m_enable_siw(enable_siw), m_enable_bfs(enable_bfs), rwa_weight(a_rwa_weight){}
 
     virtual Solver * build( aptk::STRIPS_Problem * problem) const {
-        return new ATSolver(problem, m_enable_siw, m_enable_bfs, output_path);
+        return new ATSolver(problem, m_enable_siw, m_enable_bfs, output_path, rwa_weight);
     }
 private:
     std::string output_path;
     bool m_enable_siw;
     bool m_enable_bfs;
+    float rwa_weight;
 };
 
 
@@ -82,6 +84,6 @@ BOOST_PYTHON_MODULE( libatbfsf )
 
     class_<ATSolver, bases<Solver> >("ATSolver", no_init);
 
-    class_<ATFactory,  bases<SolverFactory> >("ATFactory", init<std::string, bool, bool>() );
+    class_<ATFactory,  bases<SolverFactory> >("ATFactory", init<std::string, bool, bool, float>() );
 
 }
