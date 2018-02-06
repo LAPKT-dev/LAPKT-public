@@ -243,7 +243,7 @@ void process_plan(aptk::State & goal, Fwd_Search_Problem & search_prob, aptk::St
 
 
 int
-run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, std::string & plan_filename, int max_novelty, int iw_bound){
+run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, std::string & plan_filename, int max_novelty, int iw_bound, float rwa_weight=5.0){
     float start = aptk::time_used();
     std::ofstream details( "execution.details" );
     details << "PDDL problem description loaded: " << std::endl;
@@ -344,9 +344,6 @@ run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, st
         bfs_t = result.first;
         details << "BFS(f) search completed in " << bfs_t << " secs, found plan cost = " << bfs_f_cost << std::endl;
 
-
-
-
         std::cout << result.second.size() << std::endl;
         if ( 0 < result.second.size() ) {
             process_plan(goal, search_prob, root, prob, plan_filename, result);
@@ -362,11 +359,10 @@ run_planners(aptk::STRIPS_Problem & prob, bool enable_siw, bool enable_bfs_f, st
         // MRJ: 3rd Stage, RWA* with bound informed by BFS(f) search
         float rwa_cost = infty;
         float budget = 13;
-        float weight = 5.0f;
         details << "Stage #3: RWA* " << std::endl;
         details << "Budget #3:  " << budget << std::endl;
-        details << "Weigth #3:  " << weight << std::endl;
-        Anytime_RWA wbfs_engine( search_prob, weight, 0.94f);
+        details << "Weigth #3:  " << rwa_weight << std::endl;
+        Anytime_RWA wbfs_engine( search_prob, rwa_weight, 0.94f);
         wbfs_engine.set_budget(budget);
         //wbfs_engine.h2().set_graph( &graph );
         wbfs_engine.use_land_graph_manager( &lgm );

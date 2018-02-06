@@ -57,7 +57,8 @@ int main( int argc, char** argv ) {
 
     aptk::FF_Parser::get_problem_description( vm["domain"].as<std::string>(), vm["problem"].as<std::string>(), prob);
 
-    run_planners(prob, enable_siw, enable_bfs_f, plan_filename, vm["max-novelty"].as<int>(), vm["iw-bound"].as<int>() );
+    run_planners(prob, enable_siw, enable_bfs_f, plan_filename, vm["max-novelty"].as<int>(), vm["iw-bound"].as<int>(),
+            vm["rwa_weight"].as<float>());
 
 	return 0;
 }

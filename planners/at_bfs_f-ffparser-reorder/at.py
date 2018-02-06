@@ -11,7 +11,7 @@ def main( domain_file, problem_file, plan_file ) :
         start = time.time()
         task = libatbfsf.STRIPS_Problem()
         fd.grounding.numeric( domain_file, problem_file, task )
-        factory = libatbfsf.ATFactory(plan_file, False, False)
+        factory = libatbfsf.ATFactory(plan_file, False, False, 1.0)
         before_solve = time.time()
         task.solve(factory)
         after_solve = time.time()

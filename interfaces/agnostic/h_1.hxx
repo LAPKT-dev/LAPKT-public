@@ -74,13 +74,16 @@ public:
 		}
 		return v;
 	}
+
 private:
 
 	const std::vector<float>&	m_values;
 
 };
 
+
 enum class H1_Cost_Function { Ignore_Costs, Use_Costs, LAMA};
+
 
 template <typename Search_Model, typename Fluent_Set_Eval_Func, H1_Cost_Function cost_opt = H1_Cost_Function::Use_Costs >
 class H1_Heuristic : public Heuristic<State> {
@@ -140,7 +143,6 @@ public:
 
     template <typename Search_Node>
     void eval( const Search_Node* n, float& h_val ) {
-
 		eval(n->state(),h_val);
 	}
 
@@ -149,17 +151,12 @@ public:
 	}
 
 	template <typename Cost_Type>
-	 void eval( const State& s, Cost_Type& h_out ) {
+    void eval( const State& s, Cost_Type& h_out ) {
 		float h;
 		m_already_updated.reset();
 		m_updated.clear();
 		initialize(s);
 		compute();
-#ifdef DEBUG
-        if (this->debug){
-            this->print_values(std::cout);
-        }
-#endif
 		h = eval_func( m_strips_model.goal().begin(), m_strips_model.goal().end() );
 		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
 
@@ -178,7 +175,6 @@ public:
 	virtual void eval( const State& s, float& h_val,  std::vector<Action_Idx>& pref_ops ) {
 		eval( s, h_val );
 	}
-
 
 	void print_values( std::ostream& os ) const {
 		for ( unsigned p = 0; p < m_strips_model.fluents().size(); p++ ){
@@ -244,6 +240,17 @@ public:
 				bfs.push_back(a);
 		}
 	}
+
+    std::set<Action_Idx> get_best_supporters(){
+        std::set<Action_Idx> result;
+        for ( unsigned p = 0; p < m_strips_model.fluents().size(); p++ ){
+            unsigned act_idx = m_best_supporters[p].act_idx;
+            if(act_idx != no_such_index) {
+                result.insert(act_idx);
+            }
+        }
+        return result;
+    }
 
 protected:
 
