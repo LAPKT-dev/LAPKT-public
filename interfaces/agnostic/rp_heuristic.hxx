@@ -48,7 +48,7 @@ public:
 		m_act_seen.resize( m_strips_model.num_actions() );
 		m_init_fluents.resize( m_strips_model.num_fluents() );
 		m_po_set.resize( m_strips_model.num_actions() );
-		m_rp_precs.resize( m_strips_model.num_fluents() );
+		m_required_precs.resize( m_strips_model.num_fluents() );
 
 	}
 
@@ -59,7 +59,7 @@ public:
 	bool	one_HA_per_fluent() const { return m_one_ha_per_fluent; }
 
 	bool	is_relaxed_plan_relevant( unsigned p ) const {
-		return m_rp_precs.isset(p);
+		return m_required_precs.isset(p);
 	}
 
   	virtual void 
@@ -78,13 +78,13 @@ public:
 	
 		while ( !actions_pending().empty() )
 			actions_pending().pop();
-	
+
 		std::vector<const Action*> relaxed_plan;
 		const Fluent_Vec& G = goals ? *goals : m_strips_model.goal();
-	
+
 		// 1. Add to the pending queue best supporters for goal fluents
 		for ( unsigned k = 0; k < G.size(); k++ ) {
-	
+
 			if ( init_fluents().isset( G[k] ) ) continue;
 			const unsigned act_idx = m_base_heuristic.get_best_supporter( G[k] ).act_idx;
 			if ( act_idx == no_such_index ) // No best supporter for fluent
@@ -106,7 +106,7 @@ public:
 
 		}	
 	
-		m_rp_precs.reset();
+		m_required_precs.reset();
 		while ( !actions_pending().empty() ) {
 			const Action* a = actions_pending().front();
 			const Fluent* p = fluents_pending().front();
@@ -119,7 +119,7 @@ public:
 			#endif
 			if ( a->asserts( p->index() ) ) { // fluent asserted by action main effect
 				for ( auto q : a->prec_vec() )
-					m_rp_precs.set(q);
+					m_required_precs.set(q);
 				if ( !extract_best_supporters_for( a->prec_vec(), relaxed_plan ) ) {
 					h_val = infty;
 					assert( false );
@@ -127,6 +127,7 @@ public:
 				}
 				continue;
 			}
+
 			float min_cond_h = infty;
 			//unsigned best_eff_index = no_such_index;
 			Fluent_Vec tmp_cond;
@@ -142,9 +143,9 @@ public:
 						tmp_cond.push_back( p );
 				}
 			}
-			//assert( best_eff_index != no_such_index );
+
 			for ( auto q : tmp_cond )
-				m_rp_precs.set(q);
+				  m_required_precs.set(q);
 			if ( !extract_best_supporters_for( tmp_cond, relaxed_plan ) )
 			{
 				h_val = infty;
@@ -162,8 +163,7 @@ public:
 	
 		
 		for ( unsigned k = 0; k < G.size(); k++ ) 
-			//if ( !init_fluents().isset( G[k] ) )
-				m_rp_precs.set(G[k]);
+			  m_required_precs.set(G[k]);
 	
 		#ifdef DEBUG_RP_HEURISTIC	
 		std::cout << "\nRel Plan: ";
@@ -181,20 +181,19 @@ public:
 		m_strips_model.applicable_actions_v2( s, app_set );
 		
 		for (unsigned i = 0; i < app_set.size(); ++i) {
-		//Successor_Generator::Iterator it( s, m_strips_model.successor_generator().nodes() );
-		//int a = it.first();
-		//while ( a != -1 ) {
+			//Successor_Generator::Iterator it( s, m_strips_model.successor_generator().nodes() );
+			//int a = it.first();
+			//while ( a != -1 ) {
 			bool is_helpful = false;
 			const Action& act = *(m_strips_model.actions()[app_set[i]]);
-			for ( Fluent_Vec::const_iterator it2 = act.add_vec().begin();
-				it2 != act.add_vec().end(); it2++ )
-				if ( m_rp_precs.isset( *it2 ) ) {
+			for ( Fluent_Vec::const_iterator it2 = act.add_vec().begin(); it2 != act.add_vec().end(); it2++ )
+				if ( m_required_precs.isset( *it2 ) ) {
 					pref_ops.push_back( act.index() );
 					is_helpful = true;
 					//std::cout << "\t PO: " << m_strips_model.actions()[ act.index() ]->signature() << std::endl;
 					//Uncomment if just 1 pref op is preferred
 					if ( one_HA_per_fluent() ) 
-						m_rp_precs.unset(*it2);
+						m_required_precs.unset(*it2);
 					break;
 				}
 			if ( is_helpful ) continue;	
@@ -202,18 +201,16 @@ public:
 			for ( auto ceff : act.ceff_vec() ) {
 				if ( !s.entails( ceff->prec_vec() ) ) continue;
 				for ( auto p : ceff->add_vec() ) {
-					if ( m_rp_precs.isset( p ) ) {
+					if ( m_required_precs.isset( p ) ) {
 						pref_ops.push_back( act.index() );
 						is_helpful = true;
 						if ( one_HA_per_fluent() )
-							m_rp_precs.unset( p );
+							m_required_precs.unset( p );
 						break;
 					}
 				}
-				if ( is_helpful ) break;
+			if ( is_helpful ) break;
 			}
-
-			//a = it.next();
 		}
 	
 	}
@@ -229,7 +226,6 @@ protected:
 
 	bool	extract_best_supporters_for( const Fluent_Vec& C, std::vector<const Action*>& relaxed_plan ) {
 		for ( unsigned k = 0; k < C.size(); k++ ) {
-	
 			if ( init_fluents().isset( C[k] ) ) continue;
 			const unsigned act_idx = m_base_heuristic.get_best_supporter( C[k] ).act_idx;
 			
@@ -262,8 +258,9 @@ protected:
 	Fluent_Queue			m_pending_fluents;
 	const STRIPS_Problem&		m_strips_model;
 	Bit_Set				m_po_set;
-	Bit_Set				m_rp_precs;
-	bool                            m_ignore_rp_h_value;
+	// required
+	Bit_Set				m_required_precs;
+	bool				m_ignore_rp_h_value;
 	bool				m_one_ha_per_fluent;
 };
 
@@ -280,13 +277,13 @@ public:
 	virtual ~Relaxed_Plan_Heuristic() {}
 
 	template <typename Search_Node, typename Cost_Type>
-        void eval( const Search_Node* n, Cost_Type& h_val, std::vector<Action_Idx>& pref_ops) {
+	void eval( const Search_Node* n, Cost_Type& h_val, std::vector<Action_Idx>& pref_ops) {
 		eval(n->state(), h_val, pref_ops);				
 	}
 
 	
 	template <typename Search_Node, typename Cost_Type>
-        void eval( const Search_Node* n, Cost_Type& h_val ) {
+	void eval( const Search_Node* n, Cost_Type& h_val ) {
 		
 		eval(n->state(),h_val);
 	}
@@ -322,7 +319,7 @@ public:
 		h_out = h == infty ? std::numeric_limits<Cost_Type>::max() : (Cost_Type)h;
 	}		
 
-    	template <typename Cost_Type>
+	template <typename Cost_Type>
 	void eval( const State& s, Cost_Type& h_out, std::vector<Action_Idx>& pref_ops, std::vector<Action_Idx>& rel_plan, Fluent_Vec* goals ) {
 		float h;
 		m_plan_extractor.compute( s, h, pref_ops, &rel_plan, goals );		

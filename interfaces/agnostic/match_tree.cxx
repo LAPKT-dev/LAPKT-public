@@ -71,6 +71,7 @@ int BaseNode::get_best_var( std::vector<int>& actions, std::set<int> &vars_seen,
 	
 	// TODO: This fluents.size() stuff needs to change to the number of mutexes once they're computed
 	
+    //                 #occurancies, fluent_id pairs
 	std::vector< std::pair<int,int> > var_count = std::vector< std::pair<int,int> >(prob.fluents().size());
 	
 	for (unsigned i = 0; i < prob.fluents().size(); ++i) {
@@ -83,16 +84,16 @@ int BaseNode::get_best_var( std::vector<int>& actions, std::set<int> &vars_seen,
 			var_count[act->prec_varval()[j].first].first++;
 		}
 	}
-	
+
 	sort(var_count.begin(), var_count.end());
-	
+
 	for (int i = var_count.size() - 1; i >= 0; --i) {
 		if (vars_seen.count(var_count[i].second) <= 0) {
 			//cout << "Best var " << var_count[i].second << " with a count of " << var_count[i].first << endl;
 			return var_count[i].second;
 		}
 	}
-	
+
 	assert(false);
 	return -1;
 }
@@ -137,7 +138,7 @@ void SwitchNode::generate_applicable_items( const State& s, std::vector<int>& ac
     
     // TODO: Change this when mutex's are done proper
     //children[s.value_for_var(switch_var)]->generate_applicable_items( s, actions );
-    if (1 == s.value_for_var(switch_var))
+    if (s.value_for_var(switch_var))
         children[0]->generate_applicable_items( s, actions );
     
     default_child->generate_applicable_items( s, actions );

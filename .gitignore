@@ -23,6 +23,13 @@
 # Python bytecodes
 *.pyc
 
+# pddl files
+*.pddl
+
+
+
+*execution.details
+*.orig
 # Binaries
 examples/agnostic-examples/bfs-double-queue-secondary-heuristic/bfs-dq-mh
 examples/agnostic-examples/das-planner/planner

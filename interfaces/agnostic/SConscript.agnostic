@@ -3,6 +3,9 @@ Import('common_env')
 
 include_paths = ['.']
 common_env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
+print( os.environ.get('LDFLAGS') )
+common_env.Append( LDFLAGS = os.environ.get('LDFLAGS') )
+common_env.Append( CXXFLAGS = os.environ.get('CXXFLAGS') )
 
 cxx_sources = Glob('*.cxx')
 c_sources = Glob('*.c')

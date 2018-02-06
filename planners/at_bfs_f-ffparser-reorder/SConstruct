@@ -1,0 +1,44 @@
+import os
+
+debug = ARGUMENTS.get( 'debug', 0 )
+common_env = Environment(ENV = os.environ)
+
+
+common_env.Append( CCFLAGS = ['-Wall', '-fPIC', '-std=c++11' ] )
+if int(debug) == 1 :
+        common_env.Append( CCFLAGS = ['-g',  '-DDEBUG' ] )
+elif int(debug) == 2 :
+        common_env['CCFLAGS'].append('-pg')
+        common_env.Append(LINKFLAGS = ['-pg'])
+else:
+        common_env.Append( CCFLAGS = ['-O3', '-DNDEBUG'] )
+
+common_env.Append( LINKFLAGS = ['-Wl,-rpath,/usr/lib/'])
+
+Export( 'common_env' )
+
+if 'CROSS' in os.environ:
+   cross = os.environ['CROSS']
+   common_env.Append(CROSS = cross)
+   common_env.Replace(CC = cross + 'gcc')
+   common_env.Replace(CXX = cross + 'g++')
+
+if 'LDFLAGS' in os.environ:
+    print("adding ldflags {0}".format(os.environ['LDFLAGS']))
+    common_env.Append(LINKFLAGS = os.environ['LDFLAGS'])
+
+generic_objs = SConscript('../../src/SConscript.aptk')
+#agnostic_objs = SConscript('../../interfaces/agnostic/SConscript.agnostic')
+lapkt = SConscript('../../interfaces/python/SConscript', exports=['common_env'])
+ff_wrapper_objs = SConscript('../../interfaces/ff-wrapped/SConscript.ff')
+siw_objs = SConscript('src/SConscript')
+siw_objs_py = SConscript('src/SConscript.py')
+
+generic_objs = SConscript('../../src/SConscript.aptk')
+
+
+python_objs = SConscript('../python/agnostic/SConscript.python')
+common_env.Append(LIBS='lapkt')
+common_env.Append(LIBPATH='#lapkt')
+common_env.SharedLibrary( 'atbfsf.so', siw_objs_py + generic_objs + python_objs )
+

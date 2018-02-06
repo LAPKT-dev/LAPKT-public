@@ -350,3 +350,68 @@ class NegatedAtom(Literal):
     def negate(self):
         return Atom(self.predicate, self.args)
     positive = negate
+
+
+class FunctionComparison(Condition): # comparing numerical functions
+    negated = False
+    def _relaxed(self, parts):
+        return Truth()
+    def __init__(self, comparator, parts, compare_to_zero = False):
+        self.comparator = comparator
+        assert len(parts) == 2
+        if compare_to_zero:
+            self.parts = (f_expression.Difference(parts), f_expression.NumericConstant(0))
+        else:
+            self.parts = parts
+        self.hash = hash((self.__class__, self.comparator, self.parts))
+
+    def _dump(self, indent="  "):
+        return "%s %s" % (self.__class__.__name__, self.comparator)
+
+    def __eq__(self, other):
+        # Compare hash first for speed reasons.
+        return (self.hash == other.hash and
+                self.__class__ is other.__class__ and
+                self.comparator == other.comparator and
+                self.parts == other.parts)
+
+    def __str__(self):
+        return "%s (%s %s)" % (self.__class__.__name__, self.comparator,
+                               ", ".join(map(str, self.parts)))
+
+    def uniquify_variables(self, type_map, renamings={}):
+        return self.__class__(self.comparator,[part.rename_variables(renamings)
+                              for part in self.parts])
+
+    def has_disjunction(self):
+        return False
+
+    def has_universal_part(self):
+        return False
+
+    def has_existential_part(self):
+        return False
+
+    def negate(self):
+        return NegatedFunctionComparison(self.comparator, self.parts)
+
+    def change_parts(self, parts):
+        return self.__class__(self.comparator, parts)
+
+    def primitive_numeric_expressions(self):
+        result = set()
+        for part in self.parts:
+            result |= part.primitive_numeric_expressions()
+        return result
+
+    def instantiate(self, var_mapping, init_facts, fluent_facts,
+                    init_function_vals, fluent_functions, task, new_axiom, result):
+
+        instantiated_parts = [part.instantiate(var_mapping, fluent_functions,
+                              init_function_vals, task, new_axiom) for part in self.parts]
+
+        result.append(self.__class__(self.comparator,instantiated_parts))
+
+    def positive(self):
+        return self
+

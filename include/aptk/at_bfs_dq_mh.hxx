@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <aptk/closed_list.hxx>
 #include <aptk/hash_table.hxx>
 #include <aptk/open_list.hxx>
+#include <type_traits>
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -250,14 +251,20 @@ public:
 	virtual ~AT_BFS_DQ_MH() {
 		for ( typename Closed_List_Type::iterator i = m_closed.begin();
 			i != m_closed.end(); i++ ) {
-                        Closed_List_Type::delete_element(i);
+#ifdef DEBUG
+            if (this->open_set().has_element(*i)){
+                std::cout << "deleting element " << (*i)->hash()  << " " << *i  << " " << (*i)->state() << std::endl;
+                assert(false);
+            }
+#endif
+            Closed_List_Type::delete_element(i);
 		}
 		Search_Node *head = this->get_node();
 		while ( head ) {
 			delete head;
 			head = this->get_node();
 		}
-                m_closed.clear();
+        m_closed.clear();
 
 		for ( typename std::list<Search_Node*>::iterator it = m_garbage.begin();
 			it != m_garbage.end(); it++ )
@@ -276,8 +283,8 @@ public:
 		m_root->print(std::cout);
 		std::cout << std::endl;
 		#endif
-       		m_open.insert( m_root );
-        	m_open_set.put( m_root );
+        m_open.insert( m_root );
+        m_open_set.put( m_root );
 		inc_gen();
 	}
 
@@ -320,6 +327,9 @@ public:
     float			t0() const			{ return m_t0; }
 
     void 			close( Search_Node* n ) 	{
+#ifdef DEBUG
+        std::cout << "closing " << n->hash() << " from  " << n << " " << n->state() << std::endl;
+#endif
         assert(!this->open_set().has_element(n));
         m_closed.put(n);
     }
@@ -368,7 +378,9 @@ public:
         if ( !m_open_set.empty() )
             m_open_set.erase(next);
 
+#ifdef DEBUG
         assert(!m_open_set.has_element(next));
+#endif
 	return next;
 	}
 
@@ -597,8 +609,9 @@ protected:
 	Secondary_Heuristic*			m_secondary_h;
 	Open_List_Type				m_open_po_joint;
 	Open_List_Type				m_open_po_1;
+    // Open_List_Type				m_open_po_2;
 	Open_List_Type				m_open;
-        Closed_List_Type			m_closed, m_open_set;
+    Closed_List_Type			m_closed, m_open_set;
 	unsigned				m_exp_count;
 	unsigned				m_gen_count;
 	unsigned				m_pruned_B_count;

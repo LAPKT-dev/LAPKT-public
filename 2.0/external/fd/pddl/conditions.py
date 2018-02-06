@@ -1,6 +1,9 @@
 from __future__ import print_function
+import abc
 
 from . import pddl_types
+from . import f_expression
+
 
 def parse_condition(alist):
     condition = parse_condition_aux(alist, False)
@@ -11,6 +14,25 @@ def parse_condition(alist):
     # (which would be a bug).
     condition.uniquify_variables({})
     return condition
+
+
+def is_function_comparison(alist):
+    tag = alist[0]
+    if tag in (">","<",">=","<="):
+        return True
+    if not tag == "=":
+        return False
+
+    # tag is '='
+    symbol = alist[1]
+    if isinstance(symbol,list):
+        if symbol[0] in ("+","/","*","-"):
+            return True
+        symbol = symbol[0]
+    else:
+        raise NotImplementedError(symbol)
+    return False
+
 
 def parse_condition_aux(alist, negated):
     """Parse a PDDL condition. The condition is translated into NNF on the fly."""
@@ -28,6 +50,13 @@ def parse_condition_aux(alist, negated):
         assert len(args) == 1
     elif negated:
         return NegatedAtom(alist[0], alist[1:])
+    elif is_function_comparison(alist):
+        args = [f_expression.parse_expression(arg) for arg in alist[1:]]
+        assert len(args) == 2, args
+        if negated:
+            return NegatedFunctionComparison(tag, args)
+        else:
+            return FunctionComparison(tag, args)
     else:
         return Atom(alist[0], alist[1:])
     if tag == "imply":
@@ -46,6 +75,7 @@ def parse_condition_aux(alist, negated):
     elif tag == "exists" and not negated or tag == "forall" and negated:
         return ExistentialCondition(parameters, parts)
 
+
 def parse_literal(alist):
     if alist[0] == "not":
         assert len(alist) == 2
@@ -60,35 +90,47 @@ def parse_literal(alist):
 #
 # Careful: Most other classes (e.g. Effects, Axioms, Actions) are not!
 
+
 class Condition(object):
     def __init__(self, parts):
         self.parts = tuple(parts)
         self.hash = hash((self.__class__, self.parts))
+
     def __hash__(self):
         return self.hash
+
     def __ne__(self, other):
         return not self == other
+
     def __lt__(self, other):
         return self.hash < other.hash
+
     def __le__(self, other):
         return self.hash <= other.hash
+
     def dump(self, indent="  "):
         print("%s%s" % (indent, self._dump()))
         for part in self.parts:
             part.dump(indent + "  ")
+
     def _dump(self):
         return self.__class__.__name__
+
     def _postorder_visit(self, method_name, *args):
         part_results = [part._postorder_visit(method_name, *args)
                         for part in self.parts]
         method = getattr(self, method_name, self._propagate)
         return method(part_results, *args)
+
     def _propagate(self, parts, *args):
         return self.change_parts(parts)
+
     def simplified(self):
         return self._postorder_visit("_simplified")
+
     def relaxed(self):
         return self._postorder_visit("_relaxed")
+
     def untyped(self):
         return self._postorder_visit("_untyped")
 
@@ -100,30 +142,47 @@ class Condition(object):
         else:
             return self.__class__([part.uniquify_variables(type_map, renamings)
                                    for part in self.parts])
+
     def to_untyped_strips(self):
         raise ValueError("Not a STRIPS condition: %s" % self.__class__.__name__)
+
     def instantiate(self, var_mapping, init_facts, fluent_facts, result):
         raise ValueError("Cannot instantiate condition: not normalized")
+
     def free_variables(self):
         result = set()
         for part in self.parts:
             result |= part.free_variables()
         return result
+
     def has_disjunction(self):
         for part in self.parts:
             if part.has_disjunction():
                 return True
         return False
+
     def has_existential_part(self):
         for part in self.parts:
             if part.has_existential_part():
                 return True
         return False
+
     def has_universal_part(self):
         for part in self.parts:
             if part.has_universal_part():
                 return True
         return False
+
+    def has_numeric_precondition(self):
+        for part in self.parts:
+            if part.has_numeric_precondition():
+                return True
+        return False
+
+    @abc.abstractmethod
+    def pddl(self):
+        pass
+
 
 class ConstantCondition(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
@@ -136,14 +195,17 @@ class ConstantCondition(Condition):
     def __eq__(self, other):
         return self.__class__ is other.__class__
 
+
 class Impossible(Exception):
     pass
+
 
 class Falsity(ConstantCondition):
     def instantiate(self, var_mapping, init_facts, fluent_facts, result):
         raise Impossible()
     def negate(self):
         return Truth()
+
 
 class Truth(ConstantCondition):
     def to_untyped_strips(self):
@@ -152,6 +214,7 @@ class Truth(ConstantCondition):
         pass
     def negate(self):
         return Falsity()
+
 
 class JunctorCondition(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
@@ -163,6 +226,7 @@ class JunctorCondition(Condition):
                 self.parts == other.parts)
     def change_parts(self, parts):
         return self.__class__(parts)
+
 
 class Conjunction(JunctorCondition):
     def _simplified(self, parts):
@@ -193,6 +257,7 @@ class Conjunction(JunctorCondition):
     def pddl(self):
         return '(and {0})'.format(' '.join(x.pddl() for x in self.parts))
 
+
 class Disjunction(JunctorCondition):
     def _simplified(self, parts):
         result_parts = []
@@ -212,6 +277,10 @@ class Disjunction(JunctorCondition):
         return Conjunction([p.negate() for p in self.parts])
     def has_disjunction(self):
         return True
+
+    def pddl(self):
+        return '(or {0})'.format(' '.join(x.pddl() for x in self.parts))
+
 
 class QuantifiedCondition(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
@@ -250,6 +319,7 @@ class QuantifiedCondition(Condition):
     def change_parts(self, parts):
         return self.__class__(self.parameters, parts)
 
+
 class UniversalCondition(QuantifiedCondition):
     def _untyped(self, parts):
         type_literals = [NegatedAtom(par.type, [par.name]) for par in self.parameters]
@@ -259,6 +329,7 @@ class UniversalCondition(QuantifiedCondition):
         return ExistentialCondition(self.parameters, [p.negate() for p in self.parts])
     def has_universal_part(self):
         return True
+
 
 class ExistentialCondition(QuantifiedCondition):
     def _untyped(self, parts):
@@ -284,7 +355,7 @@ class Literal(Condition):
         self.hash = hash((self.__class__, self.predicate, self.args))
     def __eq__(self, other):
         # Compare hash first for speed reasons.
-        return (self.hash == other.hash and
+        return (self.hash == hash(other) and
                 self.__class__ is other.__class__ and
                 self.predicate == other.predicate and
                 self.args == other.args)
@@ -323,6 +394,7 @@ class Literal(Condition):
     def free_variables(self):
         return set(arg for arg in self.args if arg[0] == "?")
 
+
 class Atom(Literal):
     negated = False
     def to_untyped_strips(self):
@@ -339,11 +411,17 @@ class Atom(Literal):
     def positive(self):
         return self
 
+    def has_numeric_precondition(self):
+        return False
+
     def pddl(self):
-        return "({0} {1})".format(self.predicate, ' '.join(x.name if isinstance(x, pddl_types.TypedObject) else x for x in self.args))
+        try:
+            return "({0} {1})".format(self.predicate, ' '.join(x.name if isinstance(x, pddl_types.TypedObject) else x for x in self.args))
+        except TypeError as e:
+            import pdb;pdb.set_trace()
 
 
-class NegatedAtom(Literal):
+class NegatedAtom(Atom):
     negated = True
     def _relaxed(self, parts):
         return Truth()
@@ -356,6 +434,167 @@ class NegatedAtom(Literal):
             raise Impossible()
     def negate(self):
         return Atom(self.predicate, self.args)
+    positive = negate
+
+    def pddl(self):
+        return '(not {0})'.format(self.negate().pddl())
+
+
+class NumericWrapper(Literal):
+    negated = False
+    def __init__(self, name, args, bound_expression):
+        self.expression = bound_expression
+        self.predicate = name
+        self.args = tuple(args)
+        self.hash = hash((self.__class__, self.negated, self.predicate, self.args))
+
+    def instantiate(self, var_mapping, init_facts, fluent_facts, result):
+        args = [var_mapping.get(arg, arg) for arg in self.args]
+        tmp = []
+        self.expression.instantiate(var_mapping, init_facts, fluent_facts, tmp)
+        assert len(tmp) == 1
+        result.append(self.__class__(self.predicate, args, tmp[0]))
+
+    def to_atom(self):
+        return Atom(self.predicate, self.args)
+
+    def pddl(self):
+        s = '({0})'
+        if self.negated:
+            s = '(not ({0}))'
+        return s.format(self.predicate + ' ' + ' '.join(self.args))
+
+
+class NegatedNumericWrapper(NumericWrapper):
+    negated = True
+    def __init__(self, name, args, bound_expression):
+        super(NegatedNumericWrapper, self).__init__(name, args, bound_expression)
+
+
+class FunctionComparison(Condition): # comparing numerical functions
+    negated = False
+
+    def _relaxed(self, parts):
+        return Truth()
+
+    def __init__(self, comparator, parts, compare_to_zero = False):
+        self.comparator = comparator
+        assert len(parts) == 2
+        if compare_to_zero:
+            self.parts = (f_expression.FunctionalExpression(parts), f_expression.NumericConstant(0))
+        else:
+            self.parts = tuple(parts)
+        self.pddl()
+        self.hash = hash((self.__class__, self.comparator, self.parts))
+
+    def get_functions(self):
+        result = set()
+        for part in self.parts:
+            if isinstance(part, f_expression.PrimitiveNumericExpression):
+                result.add(part)
+            elif isinstance(part, f_expression.FunctionalExpression):
+                result = result.union(part.get_functions())
+            elif isinstance(part, f_expression.NumericConstant):
+                pass
+            else:
+                raise NotImplementedError
+        return result
+
+    def negate(self):
+        return NegatedFunctionComparison(self.comparator, self.parts)
+
+    def _dump(self, indent="  "):
+        return "%s %s" % (self.__class__.__name__, self.comparator)
+
+    def has_disjunction(self):
+        return False
+
+    def has_existential_part(self):
+        return False
+
+    def has_universal_part(self):
+        return False
+
+    def has_numeric_precondition(self):
+        return True
+
+    def _simplified(self, parts):
+        """
+        Brings numeric precondition function to normal form.
+        Normal function is of form (f(state)) > 0 or (f(state) >= 0)
+        :param parts: list of parts of FunctionComparison
+        :return: normalized FunctionComparison
+        """
+
+        prim = f_expression.PrimitiveNumericExpression
+        zero_num = f_expression.NumericConstant(0)
+        table = dict()
+
+        def is_zero(item):
+            if isinstance(item, f_expression.NumericConstant):
+                if item.value == 0:
+                    return True
+                return False
+            return False
+
+        def more_equal(operator, left, right):
+            lz = is_zero(left)
+            rz = is_zero(right)
+            if lz and rz:
+                if operator == '>':
+                    return Falsity()
+                return Truth()
+            if lz:
+                if operator == '>':  # 0 > f(a)
+                    new_op = '>='
+                    # result is (not (f(a) >= 0))
+                else:  # 0 >= f(a)
+                    new_op = '>'
+                    # result is (not (f(a) > 0))
+                return NegatedFunctionComparison(new_op, [right, left])
+            if rz:
+                # already in normal form
+                return FunctionComparison(operator, [left, right])
+            return FunctionComparison(operator, [prim('-', (left, right)), zero_num])
+
+        def equality(op, left, right):
+            return Conjunction([more_equal('>=', f_expression.PrimitiveNumericExpression('-', left, right), zero_num),
+                               more_equal('>=', f_expression.PrimitiveNumericExpression('-', right, left), zero_num)])
+
+        table.update({'>': more_equal,
+                      '>=': more_equal,
+                      '<': lambda op, left, right: more_equal('>', right, left),
+                      '<=': lambda op, left, right: more_equal('>=', right, left),
+                      '=': lambda op, left, right: equality(op, left, right)
+                 })
+
+        assert len(parts) == 2
+        result = table.get(self.comparator)(self.comparator, parts[0], parts[1])
+        return result
+
+    def pddl(self):
+        return "({0} {1})".format(self.comparator,
+                                  ' '.join(x.pddl() for x in self.parts))
+
+    def uniquify_variables(self, type_map, renamings={}):
+        return self.__class__(self.comparator, [part.rename_variables(renamings)
+                                                for part in self.parts])
+
+    def change_parts(self, parts):
+        return self.__class__(self.comparator,parts)
+
+    def instantiate(self, var_mapping, init_facts, fluent_facts, result):
+        tmp_res = []
+        for part in self.parts:
+            tmp_res.append(part.instantiate(var_mapping, init_facts))
+        result.append(self.__class__(self.comparator, tmp_res))
+
+
+class NegatedFunctionComparison(FunctionComparison):
+    negated = True
+
+    def negate(self):
+        return FunctionComparison(self.comparator, self.parts)
     positive = negate
 
     def pddl(self):

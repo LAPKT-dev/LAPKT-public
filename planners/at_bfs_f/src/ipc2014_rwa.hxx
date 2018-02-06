@@ -29,26 +29,26 @@ namespace aptk {
 namespace search {
 
 namespace ipc2014 {
-	
+
 	template <typename State>
 	class Node {
 	public:
 		typedef Fibonacci_Open_List< Node >	Open_List;
-		typedef	State				State_Type;	
+		typedef	State				State_Type;
 
 		typedef Node<State>*        						Node_Ptr;
 		typedef typename std::vector< Node<State>* >                      	Node_Vec_Ptr;
 		typedef typename std::vector< Node<State>* >::reverse_iterator    	Node_Vec_Ptr_Rit;
 		typedef typename std::vector< Node<State>* >::iterator            	Node_Vec_Ptr_It;
 
-	
-		Node( State* s, float cost, Action_Idx action, Node<State>* parent, int num_actions ) 
+
+		Node( State* s, float cost, Action_Idx action, Node<State>* parent, int num_actions )
 		: m_state( s ), m_parent( parent ), m_action(action), m_g( 0 ),  m_g_unit(0), m_po_1( num_actions ), m_po_2( num_actions), m_seen(false),
 		current( nullptr ),  m_land_consumed( nullptr ), m_land_unconsumed( nullptr ) {
 		       	m_g = ( parent ? parent->m_g + cost : 0.0f);
 			m_g_unit = ( parent ? parent->m_g_unit + 1.0f : 0.0f);
 		}
-		
+
 		virtual ~Node() {
 	               if ( m_state != NULL ) delete m_state;
 		}
@@ -57,10 +57,10 @@ namespace ipc2014 {
 		float                        h1n() const                         { return m_h1; }
 		float&                        h2n()                                { return m_h2; }
 		float                        h2n() const                         { return m_h2; }
-		float&                        gn()                                { return m_g; }                        
+		float&                        gn()                                { return m_g; }
 		float                        gn() const                         { return m_g; }
-	
-		float&				gn_unit()				{ return m_g_unit; }			
+
+		float&				gn_unit()				{ return m_g_unit; }
 		float				gn_unit() const 			{ return m_g_unit; }
 		float&                        fn()                                { return m_f; }
 		float                        fn() const                        { return m_f; }
@@ -91,7 +91,7 @@ namespace ipc2014 {
 			Node_Vec_Ptr path( gn_unit()+1 );
 			Node_Vec_Ptr_Rit rit = path.rbegin();
 			Node_Ptr n = this;
-	
+
 			do{
 				*rit = n;
 				rit++;
@@ -100,25 +100,25 @@ namespace ipc2014 {
 			if(rit != path.rend())
 				*rit = NULL;
 			//std::cout << "Updating Land Graph up to: " << std::flush;
-			
+
 			lgm->reset_graph();
 			for( Node_Vec_Ptr_It it = path.begin(); it != path.end(); it++){
 				//if( (*it)->action() != -1)
 				//	std::cout << lgm->problem().actions()[ (*it)->action() ]->signature() << std::flush;
-	
+
 				if(*it == NULL) break;
 				lgm->update_graph( (*it)->land_consumed(), (*it)->land_unconsumed() );
 			}
 			//std::cout << std::endl;
 		}
-		
+
 		template <typename Landmarks_Graph_Manager >
 		void   undo_land_graph( Landmarks_Graph_Manager* lgm ){
-			lgm->undo_graph( land_consumed(), land_unconsumed() );				
+			lgm->undo_graph( land_consumed(), land_unconsumed() );
 		}
-		
+
 		bool           operator==( const Node<State>& o ) const {
-			
+
 			if( &(o.state()) != NULL && &(state()) != NULL)
 				return (const State&)(o.state()) == (const State&)(state());
 			/**
@@ -128,16 +128,16 @@ namespace ipc2014 {
 				if ( o.m_parent == NULL ) return true;
 				return false;
 			}
-		
+
 			if ( o.m_parent == NULL ) return false;
-			
+
 			return (m_action == o.m_action) && ( *(m_parent->m_state) == *(o.m_parent->m_state) );
 		}
-	
+
 		// MRJ: NOTE: return value is the answer to question "is this node worse than o?"
 		bool    operator<( const Node<State>& o ) const {
 			if ( fn() > o.fn() ) return true;
-	
+
 			if ( dequal( fn(), o.fn() ) ) {
 				if ( h1n() > o.h1n() ) return true;
 				if ( dequal( h1n(), o.h1n() ) ) {
@@ -151,19 +151,19 @@ namespace ipc2014 {
 		}
 
 		size_t                  hash() const { return m_state->hash(); }
-	
+
 		void notify_update( ) {
 			assert( current != nullptr );
 			if ( current )
-				current->update( this ); 
+				current->update( this );
 		}
-	
+
 		void detach() {
 			assert( current != nullptr );
 			if ( current )
 				current->erase( this );
 		}
-	
+
 	public:
 		State*                		m_state;
 		Node<State>*        		m_parent;
@@ -205,11 +205,11 @@ namespace bfs_dq_mh {
 
 		virtual ~IPC2014_RWA() {
 		}
-		
+
 		virtual void	start( float B = infty) {
 			this->set_bound( B );
 			this->set_root( new Search_Node( this->problem().init(), 0.0f, no_op, NULL, this->problem().num_actions() ) );
-			assert ( m_lgm != nullptr );			
+			assert ( m_lgm != nullptr );
 			this->eval(this->root());
 			this->open().insert( this->root() );
 			this->open_set().put( this->root() );
@@ -219,11 +219,11 @@ namespace bfs_dq_mh {
 		virtual void	eval( Search_Node* candidate ) {
 			std::vector<Action_Idx>	po;
 			if ( !candidate->seen() ) {
-				//std::cout << "Eval:" << std::endl;	
-	
+				//std::cout << "Eval:" << std::endl;
+
 				this->h1().eval( *(candidate->state()), candidate->h1n(), po );
 				for ( unsigned k = 0; k < po.size(); k++ )
-					candidate->add_po_1( po[k] );	
+					candidate->add_po_1( po[k] );
 				/*
 				std::cout << "Primary Helpful:" << std::endl;
 				for ( auto index : po ) {
@@ -242,10 +242,10 @@ namespace bfs_dq_mh {
 				m_lgm->apply_state( this->root()->state()->fluent_vec(), this->root()->land_consumed(), this->root()->land_unconsumed() );
 
 			this->h2().eval( *(candidate->state()), candidate->h2n(), po );
-			
-			for ( unsigned k = 0; k < po.size(); k++ ) 
-				candidate->add_po_2( po[k] );	
-			/*	
+
+			for ( unsigned k = 0; k < po.size(); k++ )
+				candidate->add_po_2( po[k] );
+			/*
 			std::cout << "Secondary Helpful: " << std::endl;
 			for ( auto index : po ) {
 				std::cout << "\t" << this->problem().task().actions()[ index ]->signature() << std::endl;
@@ -295,14 +295,14 @@ namespace bfs_dq_mh {
 					this->close(head);
 					this->set_bound( head->gn() );
 					this->update_weight();
-					this->restart_search();	
+					this->restart_search();
 					return head;
 				}
 				float t = time_used();
 				if ( ( t - this->t0() ) > this->time_budget() ) {
 					return nullptr;
-				}	
-				
+				}
+
 				this->eval( head );
 				if ( head->h1n() != infty && head->h2n() != infty )
 					this->process(head);
@@ -311,21 +311,21 @@ namespace bfs_dq_mh {
 			}
 			return nullptr;
 		}
-	
 
-		void    use_land_graph_manager( Landmarks_Graph_Manager* lgm ) { 
-			m_lgm = lgm; 
+
+		void    use_land_graph_manager( Landmarks_Graph_Manager* lgm ) {
+			m_lgm = lgm;
 			this->h2().set_graph( m_lgm->graph() );
 		}
 
 		bool in_closed( Search_Node* n )  {
 			return this->closed().retrieve(n) != nullptr;
 		}
-	
+
 		bool in_open( Search_Node* n )  {
 			return this->open_set().retrieve(n) != nullptr;
 		}
-	
+
 		bool in_seen( Search_Node* n )  {
 			return this->seen().retrieve(n) != nullptr;
 		}
@@ -343,14 +343,14 @@ namespace bfs_dq_mh {
 			}
 
 			this->open_node(n, head->is_po_1(a), head->is_po_2(a));
-			
+
 		}
 
 		void	handle_seen( Search_Node* head, Search_Node* n, int a ) {
 			n->h2n() = head->h2n();
 			n->fn() = this->weight() * n->h1n() + n->gn();
 			this->open_node(n, head->is_po_1(a), head->is_po_2(a));
-			
+
 		}
 		virtual void 			process(  Search_Node *head ) {
 			if(m_lgm)
@@ -360,7 +360,7 @@ namespace bfs_dq_mh {
 			this->problem().applicable_set_v2( *(head->state()), app_set );
 			for ( unsigned i = 0; i < app_set.size(); i++ ) {
 				int a = app_set[i];
-	
+
 				State *succ = this->problem().next( *(head->state()), a );
 				Search_Node* n = new Search_Node( succ, this->problem().cost( *(head->state()), a ), a, head, this->problem().num_actions() );
 				bool is_in_closed = in_closed(n);
@@ -371,7 +371,7 @@ namespace bfs_dq_mh {
 					handle_fresh( head, n, a );
 					continue;
 				}
-				
+
 				if ( is_in_seen ) {
 					Search_Node* n2 = this->seen().retrieve(n);
 					if ( n->gn() < n2->gn() ) {
@@ -394,7 +394,7 @@ namespace bfs_dq_mh {
 						n2->m_action = n->action();
 						n2->set_seen();
 						this->closed().erase( this->closed().retrieve_iterator( n2 ) );
-						handle_seen( head, n2, a );	
+						handle_seen( head, n2, a );
 					}
 					delete n;
 					continue;
