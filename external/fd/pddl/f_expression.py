@@ -1,28 +1,5 @@
 from __future__ import print_function
 
-def parse_expression(exp):
-    if isinstance(exp, list):
-        functionsymbol = exp[0]
-        return PrimitiveNumericExpression(functionsymbol, exp[1:])
-    elif exp.replace(".", "").isdigit():
-        return NumericConstant(float(exp))
-    elif exp[0] == "-":
-        raise ValueError("Negative numbers are not supported")
-    else:
-        return PrimitiveNumericExpression(exp, [])
-
-def parse_assignment(alist):
-    assert len(alist) == 3
-    op = alist[0]
-    head = parse_expression(alist[1])
-    exp = parse_expression(alist[2])
-    if op == "=":
-        return Assign(head, exp)
-    elif op == "increase":
-        return Increase(head, exp)
-    else:
-        assert False, "Assignment operator not supported."
-
 class FunctionalExpression(object):
     def __init__(self, parts):
         self.parts = tuple(parts)
@@ -65,8 +42,6 @@ class PrimitiveNumericExpression(FunctionalExpression):
         return "%s %s(%s)" % ("PNE", self.symbol, ", ".join(map(str, self.args)))
     def dump(self, indent="  "):
         print("%s%s" % (indent, self._dump()))
-        for arg in self.args:
-            arg.dump(indent + "  ")
     def _dump(self):
         return str(self)
     def instantiate(self, var_mapping, init_facts):
