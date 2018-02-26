@@ -62,7 +62,7 @@ def instantiate(task, model):
                                              fluent_facts, type_to_objects,
                                              task.use_min_cost_metric)
             if inst_action:
-                instantiated_actions.append(inst_action)
+                instantiated_actions.append(inst_action)                
         elif isinstance(atom.predicate, pddl.Axiom):
             axiom = atom.predicate
             variable_mapping = dict([(par.name, arg)
@@ -238,20 +238,20 @@ def fodet( domain_file, problem_file, output_task ) :
 	# 	output_task.add_axiom( encode( axiom.condition, atom_table), encode( [ axiom.effect ], atom_table ))
 
 	print("Deterministic %d actions" % len(actions))
-	nd_actions = {}
+	nd_actions = []
 	for action in actions :
 		#print( "action: %s cost: %d"%(action.name,action.cost) )
 		nd_action = PropositionalDetAction( action.name, action.cost )
 		nd_action.set_precondition( action.precondition, atom_table )
 		nd_action.add_effect( action.add_effects, action.del_effects, atom_table,atom_names, axioms )
-		nd_actions[ nd_action.name ] = nd_action
+		nd_actions.append( (nd_action.name, nd_action) )
 
 
 	for name, _ in nd_actions.iteritems() :
 		output_task.add_action( name )
 
 	index = 0
-	for action in nd_actions.values() :
+	for (action_name,action) in nd_actions :
 		output_task.add_precondition( index, action.precondition )
 		for eff in action.effects :
 			output_task.add_effect( index, eff )
@@ -303,7 +303,7 @@ def default( domain_file, problem_file, output_task ) :
 	print("Axioms %d"%len(axioms))
 	
 	print("Deterministic %d actions" % len(actions))
-	nd_actions = {}
+	nd_actions = []
 	for action in actions :
 		#print( "action: %s cost: %d"%(action.name,action.cost) )
 		nd_action = PropositionalDetAction( action.name, action.cost )
@@ -311,15 +311,15 @@ def default( domain_file, problem_file, output_task ) :
 		nd_action.add_effect( action.add_effects, action.del_effects, atom_table,atom_names, axioms   )
 		if len(nd_action.negated_conditions) > 0 :
 			output_task.notify_negated_conditions( nd_action.negated_conditions )
-		nd_actions[ nd_action.name ] = nd_action
+		nd_actions.append( ( nd_action.name, nd_action ) )
 
 	output_task.create_negated_fluents()
 
-	for name, _ in nd_actions.iteritems() :
+	for (name, _) in nd_actions :
 		output_task.add_action( name.encode('utf-8') )
 
 	index = 0
-	for action in nd_actions.values() :
+	for (_,action) in nd_actions :
 		output_task.add_precondition( index, action.precondition )
 		for eff in action.effects :
 			output_task.add_effect( index, eff )
