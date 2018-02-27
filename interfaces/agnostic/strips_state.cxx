@@ -117,7 +117,7 @@ State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* 
 	for ( unsigned i = 0; i < a.add_vec().size(); i++ )
 	{
 		unsigned p = a.add_vec()[i];
-		if ( !entails(p) )
+		if ( !succ->entails(p))
 		{
 			succ->set( p );
 			if(added)
@@ -137,7 +137,7 @@ State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* 
 		for ( unsigned j = 0; j < ce->add_vec().size(); j++ )
 		{
 			unsigned p = ce->add_vec()[j];
-			if ( !entails(p) )
+			if ( !succ->entails(p) )
 			{
 				succ->set( p );
 				if(added)				    
@@ -229,7 +229,15 @@ void State::progress_lazy_state(const Action* a, Fluent_Vec* added, Fluent_Vec* 
 				it++;					
 		}
 	}
-			
+
+	/**
+	 * If given, update the inclusion set
+	 */
+
+	if(deleted)
+		for(it = deleted->begin(); it != deleted->end(); it++)
+			this->unset(*it);
+
 	Fluent_Vec::const_iterator cit = a->add_vec().begin();
 	while(cit != a->add_vec().end() ){
 		if( ! this->entails(*cit) ){
@@ -255,6 +263,8 @@ void State::progress_lazy_state(const Action* a, Fluent_Vec* added, Fluent_Vec* 
 		}	
 	}     
 
+
+	
 	/**
 	 * If given, update the inclusion set
 	 */
@@ -262,10 +272,6 @@ void State::progress_lazy_state(const Action* a, Fluent_Vec* added, Fluent_Vec* 
 	if(added)
 		for(it = added->begin(); it != added->end(); it++)
 			this->set(*it);
-
-	if(deleted)
-		for(it = deleted->begin(); it != deleted->end(); it++)
-			this->unset(*it);
 
 }
 
