@@ -110,7 +110,7 @@ class PropositionalDetAction :
                                 axioms_changed = []
                                 for c in condition_unfiltered :
 					if c[1] and c[0] not in self.negated_conditions :
-                                                
+                                                has_axiom = False
                                                 for a in axioms:
                                                     if '('+atom_names[c[0]]+')' == a.name:
                                                         axioms_changed.append(a)
@@ -124,10 +124,13 @@ class PropositionalDetAction :
                                 has_axiom = False
                                 for a in axioms_changed:
                                     has_axiom = True
-                                    for c in a.condition:
-                                        self.negated_conditions.append( atom_table[c.text()] )
-                                        condition.append( (atom_table[c.text()], True ) )
-                                        
+                                    for c in a.condition:                                      
+                                        if c.negated == False:
+                                            self.negated_conditions.append( atom_table[c.text()] )
+                                            condition.append( (atom_table[c.text()], True ) )
+                                        else:
+                                            condition.append( (atom_table[c.text()], False ) )
+                                            
 
                                 condition = tuple( condition )
 				try :
@@ -158,8 +161,11 @@ class PropositionalDetAction :
                                 for a in axioms_changed:
                                     has_axiom = True
                                     for c in a.condition:
-                                        self.negated_conditions.append( atom_table[c.text()] )
-                                        condition.append( (atom_table[c.text()], True ) )
+                                        if c.negated == False:
+                                            self.negated_conditions.append( atom_table[c.text()] )
+                                            condition.append( (atom_table[c.text()], True ) )
+                                        else:
+                                            condition.append( (atom_table[c.text()], False ) )
                                         
                                 condition = tuple( condition )
 				try :
@@ -232,10 +238,10 @@ def fodet( domain_file, problem_file, output_task ) :
 		output_task.add_atom( atom )
 		index += 1
 
-	# print("Axioms %d"%len(axioms))
-	# for axiom in axioms:
-	# 	axiom.dump()
-	# 	output_task.add_axiom( encode( axiom.condition, atom_table), encode( [ axiom.effect ], atom_table ))
+	print("Axioms %d"%len(axioms))
+	for axiom in axioms:
+		axiom.dump()
+		output_task.add_axiom( encode( axiom.condition, atom_table), encode( [ axiom.effect ], atom_table ))
 
 	print("Deterministic %d actions" % len(actions))
 	nd_actions = []
