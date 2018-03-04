@@ -93,11 +93,18 @@ class PropositionalDetAction :
 		self.negated_conditions = []
 	
 	def set_precondition( self, prec, atom_table ) :
+                precset = set()
+                negprecset = set()
 		for p in prec :
 			sym =  atom_table[p.text()]
 			if p.negated and sym not in self.negated_conditions :
-				self.negated_conditions.append( sym )
-			self.precondition.append( ( sym, p.negated ) )
+				negprecset.add( sym )
+                                self.negated_conditions.append( sym )
+                        precset.add( ( sym, p.negated ) )
+                for sym,negated in precset:
+			self.precondition.append( ( sym, negated ) )
+                for sym in negprecset:
+                        self.negated_conditions.append( sym )
 	
 	def add_effect( self, adds, dels, atom_table, atom_names, axioms ) :
 		effs = []
