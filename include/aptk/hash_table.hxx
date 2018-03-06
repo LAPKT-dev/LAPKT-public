@@ -43,6 +43,11 @@ public:
 		m_code = other.m_code;
 	}
 
+	Hash_Key( size_t code )
+	{
+		m_code = code;
+	}
+
 	const Hash_Key& operator=( const Hash_Key& other )
 	{
 		m_code = other.m_code;
