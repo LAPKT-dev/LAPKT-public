@@ -18,7 +18,7 @@ CONTENTS
 5. Contributing
 6. Requirements
 
-1. OVERVIEW
+1 - OVERVIEW
 ===========
 
 LAPKT separates search engines from the data structures used to represent
@@ -55,7 +55,7 @@ as I would like, there's still a lot of work to do :)
 LAPKT is bound to change rapidly and dramatically over the next months, so please keep
 this in mind when using this library.
 
-2. BUILDING LAPKT
+2 - BUILDING LAPKT
 ==================
 
 In order to build LAPKT you need to install scons (a GNU Makefile replacement)
@@ -91,7 +91,7 @@ is achieved by invoking scons in a similar manner in the corresponding folder.
 
 
 
-3. EXAMPLES
+3 - EXAMPLES
 ===========
 
 3.1. AGNOSTIC INTERFACE EXAMPLES
@@ -126,7 +126,7 @@ and cover the following topics:
 
 
 
-4. CONTRIBUTING
+4 - CONTRIBUTING
 ===============
 
 Anybody can contribute to LAPKT by submitting code or patches to
@@ -138,7 +138,7 @@ to the codebase, I will setup a 'github' organization to centralize the
 efforts. People making significant contributions will be granted 
 commit permissions upon request.
 
-5. REQUIREMENTS
+5 - REQUIREMENTS
 ==============
 
 LAPKT requires the following libraries:
