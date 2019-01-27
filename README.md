@@ -85,7 +85,7 @@ $ scons debug=1
 
 builds the library with optimizations disabled and debug symbols enabled.
 
-If you want to use FF-parser, compile the ff into a library by running the following commands:
+If you want to use the planners using the ```ff``` variants of our planners, you'll need to compile the ```FF``` sources included in this repository into a library by running the following commands:
 
 ```
 cd external/libff
