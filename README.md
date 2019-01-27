@@ -79,15 +79,21 @@ Issue the command
 
 $ scons
 
-at the root of the source directory to obtain the (static) library containing 
-essential data structures and other miscellaneous utilities. If debug symbols are
-needed, the command
+at the root of the source directory to obtain the (static) library containing essential data structures and other miscellaneous utilities. If debug symbols are needed, the command
 
 $ scons debug=1
 
 builds the library with optimizations disabled and debug symbols enabled.
 
-Building the libraries for the different interfaces (and planning task representation)
+If you want to use FF-parser, compile the ff into a library by running the following commands:
+
+```
+cd external/libff
+make clean
+make depend
+make
+```
+
 is achieved by invoking scons in a similar manner in the corresponding folder.
 
 
