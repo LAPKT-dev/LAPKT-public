@@ -34,7 +34,8 @@ also make easy to integrate STRIPS planners into applications by suitably
 defining planning tasks programatically.
 
 * 'ff': this interface wraps FF parsing components to obtain 'agnostic' looking
-tasks.
+tasks. **NOTE**: this requires to compile the FF planner as a library. See the 
+documentation on ```external/libff``` for instructions.
 
 Future interfaces planned are:
 
