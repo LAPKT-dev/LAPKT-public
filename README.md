@@ -126,20 +126,7 @@ and cover the following topics:
 		planner built around Deadline Aware Search.
 
 
-
-4 - CONTRIBUTING
-===============
-
-Anybody can contribute to LAPKT by submitting code or patches to
-
-miquel.ramirez@gmail.com
-
-when (if) there's enough people interested and making contributions
-to the codebase, I will setup a 'github' organization to centralize the
-efforts. People making significant contributions will be granted 
-commit permissions upon request.
-
-5 - REQUIREMENTS
+4 - REQUIREMENTS
 ==============
 
 LAPKT requires the following libraries:
