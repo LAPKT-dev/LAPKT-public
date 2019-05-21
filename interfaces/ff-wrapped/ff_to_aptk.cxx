@@ -76,7 +76,8 @@ void	get_problem_description( std::string pddl_domain_path,
 	{
 		for ( int i = 0; i < gnum_op_conn; i++ )
 		{
-			if( ! (gop_conn[i].action) ) continue;
+			if( ! (gop_conn[i].action) )
+				continue;
 
 			std::string op_name = FF::get_op_name( gop_conn[i].action );
 			
@@ -98,9 +99,12 @@ void	get_problem_description( std::string pddl_domain_path,
 			
 				Fluent_Vec  op_conds, op_adds, op_dels;
 
-
-				for ( int j = 0; j < gef_conn[ef].num_PC; j++ )
+				//Do not add the preconditions of the action into the CE
+				int common_prec = gop_conn[i].action->num_preconds;
+				
+				for ( int j = common_prec; j < gef_conn[ef].num_PC; j++ ){				
 					op_conds.push_back( gef_conn[ef].PC[j] );
+				}
 				for ( int j = 0; j < gef_conn[ef].num_A; j++ )
 					op_adds.push_back( gef_conn[ef].A[j] );
 				for ( int j = 0; j < gef_conn[ef].num_D; j++ )
