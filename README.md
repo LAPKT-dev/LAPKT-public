@@ -34,7 +34,8 @@ also make easy to integrate STRIPS planners into applications by suitably
 defining planning tasks programatically.
 
 * 'ff': this interface wraps FF parsing components to obtain 'agnostic' looking
-tasks.
+tasks. **NOTE**: this requires to compile the FF planner as a library. See the 
+documentation on ```external/libff``` for instructions.
 
 Future interfaces planned are:
 
@@ -78,15 +79,21 @@ Issue the command
 
 $ scons
 
-at the root of the source directory to obtain the (static) library containing 
-essential data structures and other miscellaneous utilities. If debug symbols are
-needed, the command
+at the root of the source directory to obtain the (static) library containing essential data structures and other miscellaneous utilities. If debug symbols are needed, the command
 
 $ scons debug=1
 
 builds the library with optimizations disabled and debug symbols enabled.
 
-Building the libraries for the different interfaces (and planning task representation)
+If you want to use the planners using the ```ff``` variants of our planners, you'll need to compile the ```FF``` sources included in this repository into a library by running the following commands:
+
+```
+cd external/libff
+make clean
+make depend
+make
+```
+
 is achieved by invoking scons in a similar manner in the corresponding folder.
 
 
@@ -125,20 +132,7 @@ and cover the following topics:
 		planner built around Deadline Aware Search.
 
 
-
-4 - CONTRIBUTING
-===============
-
-Anybody can contribute to LAPKT by submitting code or patches to
-
-miquel.ramirez@gmail.com
-
-when (if) there's enough people interested and making contributions
-to the codebase, I will setup a 'github' organization to centralize the
-efforts. People making significant contributions will be granted 
-commit permissions upon request.
-
-5 - REQUIREMENTS
+4 - REQUIREMENTS
 ==============
 
 LAPKT requires the following libraries:
