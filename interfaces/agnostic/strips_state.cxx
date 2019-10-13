@@ -128,7 +128,7 @@ State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* 
 	for ( unsigned i = 0; i < a.add_vec().size(); i++ )
 	{
 		unsigned p = a.add_vec()[i];
-		if ( !entails(p) )
+		if ( !succ->entails(p))
 		{
 			succ->set( p );
 			if(added)
@@ -137,37 +137,34 @@ State* State::progress_through( const Action& a, Fluent_Vec* added, Fluent_Vec* 
 	}
 
 
-    //Add Conditional Effects
-    if(! a.ceff_vec().empty() )
-        for( unsigned i = 0; i < a.ceff_vec().size(); i++ )
-        {
-            Conditional_Effect* ce = a.ceff_vec()[i];
-            if( !ce->can_be_applied_on( *this ) ) continue;
-            for ( unsigned j = 0; j < ce->add_vec().size(); j++ )
-            {
-                unsigned p = ce->add_vec()[j];
-                if ( !entails(p) )
-                {
-                    succ->set( p );
-                    if(added)
-                        added->push_back(p);
-                }
-            }
-        }
-
-    // iterate over numeric effects and assign new values for
-    // numeric conditions fluents
-    for( size_t i = 0; i < a.num_vec().size(); i++){
-        a.num_vec()[i]->apply(*succ);
-        size_t changed = a.num_vec()[i]->fluentId();
-        auto it=problem().comparison_map().find(changed);
-        while (it != problem().comparison_map().end()) {
-            for(size_t bound_fluent_Id: it->second){
-                problem().comparison(bound_fluent_Id).update_fluent(*succ);
-            }
-            it++;
-        }
-    }
+	// iterate over numeric effects and assign new values for
+	// numeric conditions fluents
+	for( size_t i = 0; i < a.num_vec().size(); i++){
+ 	   a.num_vec()[i]->apply(*succ);
+ 	   size_t changed = a.num_vec()[i]->fluentId();
+ 	   auto it=problem().comparison_map().find(changed);
+ 	   while (it != problem().comparison_map().end()) {
+ 	       for(size_t bound_fluent_Id: it->second){
+ 	           problem().comparison(bound_fluent_Id).update_fluent(*succ);
+ 	       }
+ 	       it++;
+ 	   }
+	}
+	for( unsigned i = 0; i < a.ceff_vec().size(); i++ )
+	{
+		Conditional_Effect* ce = a.ceff_vec()[i];
+		if( !ce->can_be_applied_on( *this ) ) continue;
+		for ( unsigned j = 0; j < ce->add_vec().size(); j++ )
+		{
+			unsigned p = ce->add_vec()[j];
+			if ( !succ->entails(p) )
+			{
+				succ->set( p );
+				if(added)				    
+				    added->push_back(p);
+			}
+		}
+	}       	
 
 	return succ;
 }
@@ -253,6 +250,14 @@ void State::progress_lazy_state(const Action* a, Fluent_Vec* added, Fluent_Vec* 
 		}
 	}
 
+	/**
+	 * If given, update the inclusion set
+	 */
+
+	if(deleted)
+		for(it = deleted->begin(); it != deleted->end(); it++)
+			this->unset(*it);
+
 	Fluent_Vec::const_iterator cit = a->add_vec().begin();
 	while(cit != a->add_vec().end() ){
 		if( ! this->entails(*cit) ){
@@ -278,6 +283,8 @@ void State::progress_lazy_state(const Action* a, Fluent_Vec* added, Fluent_Vec* 
 		}
 	}
 
+
+	
 	/**
 	 * If given, update the inclusion set
 	 */
@@ -285,10 +292,6 @@ void State::progress_lazy_state(const Action* a, Fluent_Vec* added, Fluent_Vec* 
 	if(added)
 		for(it = added->begin(); it != added->end(); it++)
 			this->set(*it);
-
-	if(deleted)
-		for(it = deleted->begin(); it != deleted->end(); it++)
-			this->unset(*it);
 
 }
 

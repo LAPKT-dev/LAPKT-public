@@ -9,77 +9,78 @@ import fact_groups
 import timers
 import sys
 
-import normalize
 
-USE_PARTIAL_ENCODING = True
+import normalize
+import pddl_file
+
 
 def get_fluent_facts(task, model):
-	fluent_predicates = set()
-	for action in task.actions:
-		for effect in action.effects:
-			fluent_predicates.add(effect.literal.predicate)
-	for axiom in task.axioms:
-		fluent_predicates.add(axiom.name)
-	return set([fact for fact in model
-			if fact.predicate in fluent_predicates])
+    fluent_predicates = set()
+    for action in task.actions:
+        for effect in action.effects:
+            fluent_predicates.add(effect.literal.predicate)
+    for axiom in task.axioms:
+        fluent_predicates.add(axiom.name)
+    return set([fact for fact in model
+                if fact.predicate in fluent_predicates])
 
 def get_objects_by_type(typed_objects, types):
-	result = defaultdict(list)
-	supertypes = {}
-	for type in types:
-		supertypes[type.name] = type.supertype_names
-	for obj in typed_objects:
-		result[obj.type].append(obj.name)
-		for type in supertypes[obj.type]:
-			result[type].append(obj.name)
-	return result
+    result = defaultdict(list)
+    supertypes = {}
+    for type in types:
+        supertypes[type.name] = type.supertype_names
+    for obj in typed_objects:
+        result[obj.type_name].append(obj.name)
+        for type in supertypes[obj.type_name]:
+            result[type].append(obj.name)
+    return result
 
 def instantiate(task, model):
-	relaxed_reachable = False
-	fluent_facts = get_fluent_facts(task, model)
-	init_facts = set(task.init)
-	
-	type_to_objects = get_objects_by_type(task.objects, task.types)
-	
-	instantiated_actions = []
-	instantiated_axioms = []
-	reachable_action_parameters = defaultdict(list)
-	for atom in model:
-		if isinstance(atom.predicate, pddl.Action):
-			action = atom.predicate
-			parameters = action.parameters
-			inst_parameters = atom.args[:len(parameters)]
-			# Note: It's important that we use the action object
-			# itself as the key in reachable_action_parameters (rather
-			# than action.name) since we can have multiple different
-			# actions with the same name after normalization, and we
-			# want to distinguish their instantiations.
-			reachable_action_parameters[action].append(inst_parameters)
-			variable_mapping = dict([(par.name, arg)
-						for par, arg in zip(parameters, atom.args)])
-			inst_action = action.instantiate(variable_mapping, init_facts,
-							fluent_facts, type_to_objects)
-			if inst_action:
-				instantiated_actions.append(inst_action)
-		elif isinstance(atom.predicate, pddl.Axiom):
-			axiom = atom.predicate
-			variable_mapping = dict([(par.name, arg)
-						for par, arg in zip(axiom.parameters, atom.args)])
-			inst_axiom = axiom.instantiate(variable_mapping, init_facts, fluent_facts)
-			if inst_axiom:
-				instantiated_axioms.append(inst_axiom)
-		elif atom.predicate == "@goal-reachable":
-			relaxed_reachable = True
-	
-	return (relaxed_reachable, fluent_facts, instantiated_actions,
-		sorted(instantiated_axioms), reachable_action_parameters)
+    relaxed_reachable = False
+    fluent_facts = get_fluent_facts(task, model)
+    init_facts = set(task.init)
+
+    type_to_objects = get_objects_by_type(task.objects, task.types)
+
+    instantiated_actions = []
+    instantiated_axioms = []
+    reachable_action_parameters = defaultdict(list)
+    for atom in model:
+        if isinstance(atom.predicate, pddl.Action):
+            action = atom.predicate
+            parameters = action.parameters
+            inst_parameters = atom.args[:len(parameters)]
+            # Note: It's important that we use the action object
+            # itself as the key in reachable_action_parameters (rather
+            # than action.name) since we can have multiple different
+            # actions with the same name after normalization, and we
+            # want to distinguish their instantiations.
+            reachable_action_parameters[action].append(inst_parameters)
+            variable_mapping = dict([(par.name, arg)
+                                     for par, arg in zip(parameters, atom.args)])
+            inst_action = action.instantiate(variable_mapping, init_facts,
+                                             fluent_facts, type_to_objects,
+                                             task.use_min_cost_metric)
+            if inst_action:
+                instantiated_actions.append(inst_action)                
+        elif isinstance(atom.predicate, pddl.Axiom):
+            axiom = atom.predicate
+            variable_mapping = dict([(par.name, arg)
+                                     for par, arg in zip(axiom.parameters, atom.args)])
+            inst_axiom = axiom.instantiate(variable_mapping, init_facts, fluent_facts)
+            if inst_axiom:
+                instantiated_axioms.append(inst_axiom)
+        elif atom.predicate == "@goal-reachable":
+            relaxed_reachable = True
+
+    return (relaxed_reachable, fluent_facts, instantiated_actions,
+            sorted(instantiated_axioms), reachable_action_parameters)
 
 def explore(task):
-	prog = pddl_to_prolog.translate(task)
-	model = build_model.compute_model(prog)
-	with timers.timing("Completing instantiation"):
-		return instantiate(task, model)
-
+    prog = pddl_to_prolog.translate(task)
+    model = build_model.compute_model(prog)
+    with timers.timing("Completing instantiation"):
+        return instantiate(task, model)
 
 class PropositionalDetAction :
 	
@@ -92,38 +93,88 @@ class PropositionalDetAction :
 		self.negated_conditions = []
 	
 	def set_precondition( self, prec, atom_table ) :
+                precset = set()
+                negprecset = set()
 		for p in prec :
 			sym =  atom_table[p.text()]
 			if p.negated and sym not in self.negated_conditions :
-				self.negated_conditions.append( sym )
-			self.precondition.append( ( sym, p.negated ) )
+				negprecset.add( sym )
+                                self.negated_conditions.append( sym )
+                        precset.add( ( sym, p.negated ) )
+                for sym,negated in precset:
+			self.precondition.append( ( sym, negated ) )
+                for sym in negprecset:
+                        self.negated_conditions.append( sym )
 	
-	def add_effect( self, adds, dels, atom_table ) :
+	def add_effect( self, adds, dels, atom_table, atom_names, axioms ) :
 		effs = []
 		for cond, lit in adds :
 			if len(cond) == 0 :
 				effs.append( ( atom_table[lit.text()], False )  )
 			else :
-				condition = [ ( atom_table[cond_lit.text()], cond_lit.negated ) for cond_lit in cond ]
-				for c in condition :
+				condition_unfiltered = [ ( atom_table[cond_lit.text()], cond_lit.negated  ) for cond_lit in cond ]
+                                condition = []
+                                axioms_changed = []
+                                for c in condition_unfiltered :
 					if c[1] and c[0] not in self.negated_conditions :
-						self.negated_conditions.append( c[0] )
-				condition = tuple( condition )
+                                                has_axiom = False
+                                                for a in axioms:
+                                                    if '('+atom_names[c[0]]+')' == a.name:
+                                                        axioms_changed.append(a)
+                                                        has_axiom = True
+                                                if has_axiom is False:
+                                                    self.negated_conditions.append( c[0] )
+                                        else:
+                                            condition.append(c)                                            
+                                #Reencode axioms from universal quantifier introduced by the normalize.remove_universal_quantifier function
+                                #Remove once we add proper support for axioms
+                                has_axiom = False
+                                for a in axioms_changed:
+                                    has_axiom = True
+                                    for c in a.condition:                                      
+                                        if c.negated == False:
+                                            self.negated_conditions.append( atom_table[c.text()] )
+                                            condition.append( (atom_table[c.text()], True ) )
+                                        else:
+                                            condition.append( (atom_table[c.text()], False ) )
+                                            
+
+                                condition = tuple( condition )
 				try :
-					self.cond_effs[condition].append( ( atom_table[lit.text()], False ) )
+				    self.cond_effs[condition].append( ( atom_table[lit.text()], False ) )
 				except KeyError :
 					self.cond_effs[condition] = [( atom_table[lit.text()], False )]
 		for cond, lit in dels :
 			if len(cond) == 0 :
 				effs.append( (atom_table[lit.text()], True) )
 			else :
-				condition = [ ( atom_table[cond_lit.text()], cond_lit.negated ) for cond_lit in cond ]
-				for c in condition :
+  			        condition_unfiltered = [ ( atom_table[cond_lit.text()], cond_lit.negated  ) for cond_lit in cond ]
+                                condition = []
+                                axioms_changed = []
+                                for c in condition_unfiltered :
 					if c[1] and c[0] not in self.negated_conditions :
-						self.negated_conditions.append( c[0] )
-
-				condition = tuple( condition )
-
+                                                has_axiom = False                                                
+                                                for a in axioms:
+                                                    if '('+atom_names[c[0]]+')' == a.name:
+                                                        axioms_changed.append(a)
+                                                        has_axiom = True
+                                                if has_axiom is False:
+                                                    self.negated_conditions.append( c[0] )
+                                        else:
+                                            condition.append(c)
+                                #Reencode axioms from universal quantifier introduced by the normalize.remove_universal_quantifier function
+                                #Remove once we add proper support for axioms
+                                has_axiom = False
+                                for a in axioms_changed:
+                                    has_axiom = True
+                                    for c in a.condition:
+                                        if c.negated == False:
+                                            self.negated_conditions.append( atom_table[c.text()] )
+                                            condition.append( (atom_table[c.text()], True ) )
+                                        else:
+                                            condition.append( (atom_table[c.text()], False ) )
+                                        
+                                condition = tuple( condition )
 				try :
 					self.cond_effs[condition].append( ( atom_table[lit.text()], True ) )
 				except KeyError :
@@ -131,10 +182,11 @@ class PropositionalDetAction :
 
 		if len(effs) > 0 :
 			self.effects.append( effs )
-		#if len(self.cond_effs) > 0 :
-		#	print( "Conditional effects: \n" )
-		#	for cond, eff in self.cond_effs.iteritems() :
-		#		print( "Condition: %s %s\n"%(cond,eff) )
+		# if len(self.cond_effs) > 0 :
+		# 	print( "Conditional effects: \n" )
+		# 	for cond, eff in self.cond_effs.iteritems() :
+		# 		print( "Condition: %s %s\n"%(cond,eff) )
+
 
 def encode( lits, atom_table ) :
 	encoded = []
@@ -158,11 +210,17 @@ def encode( lits, atom_table ) :
 	return encoded
 
 def fodet( domain_file, problem_file, output_task ) :
-	parsing_timer = timers.Timer()
-	print("Domain: %s Problem: %s"%(domain_file, problem_file) )
+        parsing_timer = timers.Timer()
+        
+        print("Domain: %s Problem: %s"%(domain_file, problem_file) )
+        
+        with timers.timing("Parsing", True):
+                task = pddl_file.open(
+                        domain_filename=domain_file, task_filename=problem_file)
 
-	task = pddl.open( problem_file, domain_file)
-	normalize.normalize(task)
+        with timers.timing("Normalizing task"):
+                normalize.normalize(task)
+
 
 	relaxed_reachable, atoms, actions, axioms, reachable_action_params = explore(task)
 	print("goal relaxed reachable: %s" % relaxed_reachable)
@@ -174,8 +232,7 @@ def fodet( domain_file, problem_file, output_task ) :
 
 	with timers.timing("Computing fact groups", block=True):
 		groups, mutex_groups, translation_key = fact_groups.compute_groups(
-			task, atoms, reachable_action_params,
-			partial_encoding=USE_PARTIAL_ENCODING)
+			task, atoms, reachable_action_params)
 	
 	index = 0
 	atom_table = {}
@@ -194,20 +251,20 @@ def fodet( domain_file, problem_file, output_task ) :
 		output_task.add_axiom( encode( axiom.condition, atom_table), encode( [ axiom.effect ], atom_table ))
 
 	print("Deterministic %d actions" % len(actions))
-	nd_actions = {}
+	nd_actions = []
 	for action in actions :
 		#print( "action: %s cost: %d"%(action.name,action.cost) )
 		nd_action = PropositionalDetAction( action.name, action.cost )
 		nd_action.set_precondition( action.precondition, atom_table )
-		nd_action.add_effect( action.add_effects, action.del_effects, atom_table )
-		nd_actions[ nd_action.name ] = nd_action
+		nd_action.add_effect( action.add_effects, action.del_effects, atom_table,atom_names, axioms )
+		nd_actions.append( (nd_action.name, nd_action) )
 
 
 	for name, _ in nd_actions.iteritems() :
 		output_task.add_action( name )
 
 	index = 0
-	for action in nd_actions.values() :
+	for (action_name,action) in nd_actions :
 		output_task.add_precondition( index, action.precondition )
 		for eff in action.effects :
 			output_task.add_effect( index, eff )
@@ -227,7 +284,10 @@ def default( domain_file, problem_file, output_task ) :
 	parsing_timer = timers.Timer()
 	print("Domain: %s Problem: %s"%(domain_file, problem_file) )
 
-	task = pddl.open( problem_file, domain_file)
+	with timers.timing("Parsing", True):
+                task = pddl_file.open(
+                        domain_filename=domain_file, task_filename=problem_file)
+
 	normalize.normalize(task)
 
 	relaxed_reachable, atoms, actions, axioms, reachable_action_params = explore(task)
@@ -240,8 +300,7 @@ def default( domain_file, problem_file, output_task ) :
 
 	with timers.timing("Computing fact groups", block=True):
 		groups, mutex_groups, translation_key = fact_groups.compute_groups(
-			task, atoms, reachable_action_params,
-			partial_encoding=USE_PARTIAL_ENCODING)
+			task, atoms, reachable_action_params)
 	
 	index = 0
 	atom_table = {}
@@ -251,38 +310,43 @@ def default( domain_file, problem_file, output_task ) :
 	
 	for atom in atom_names :
 		atom_table[ atom ] = index
-		output_task.add_atom( atom )
+		output_task.add_atom( atom.encode('utf-8') )
 		index += 1
 
-
+	print("Axioms %d"%len(axioms))
+	
 	print("Deterministic %d actions" % len(actions))
-	nd_actions = {}
+	nd_actions = []
 	for action in actions :
 		#print( "action: %s cost: %d"%(action.name,action.cost) )
 		nd_action = PropositionalDetAction( action.name, action.cost )
 		nd_action.set_precondition( action.precondition, atom_table )
-		nd_action.add_effect( action.add_effects, action.del_effects, atom_table )
+		nd_action.add_effect( action.add_effects, action.del_effects, atom_table,atom_names, axioms   )
 		if len(nd_action.negated_conditions) > 0 :
 			output_task.notify_negated_conditions( nd_action.negated_conditions )
-		nd_actions[ nd_action.name ] = nd_action
+		nd_actions.append( ( nd_action.name, nd_action ) )
 
 	output_task.create_negated_fluents()
 
-	for name, _ in nd_actions.iteritems() :
-		output_task.add_action( name )
+	for (name, _) in nd_actions :
+		output_task.add_action( name.encode('utf-8') )
 
 	index = 0
-	for action in nd_actions.values() :
+	for (_,action) in nd_actions :
 		output_task.add_precondition( index, action.precondition )
 		for eff in action.effects :
 			output_task.add_effect( index, eff )
 		#if len(action.cond_effs) != 0 :
 		#	print action.name, len(action.cond_effs), "has conditional effects"
 		for cond, eff in action.cond_effs.iteritems() :
+                        #print( action.name, cond, atom_names[cond[0][0]] )
+
 			output_task.add_cond_effect( index, list(cond), eff )
+                        
 		output_task.set_cost( index, action.cost ) 
 		index += 1
 
+        # NIR: Default options assign 0 seconds. Change Options file to 300s to have the same configuration as FD
 	# MRJ: Mutex groups processing needs to go after negations are compiled away
 	print("Invariants %d"%len(mutex_groups))
 	for group in mutex_groups :
@@ -292,8 +356,8 @@ def default( domain_file, problem_file, output_task ) :
 			#print( encode( group, atom_table ) )
 
 
-	output_task.set_domain_name( task.domain_name )
-	output_task.set_problem_name( task.task_name )
+	output_task.set_domain_name( task.domain_name.encode('utf-8') )
+	output_task.set_problem_name( task.task_name.encode('utf-8') )
 	output_task.set_init( encode( task.init, atom_table ) )
 	output_task.set_goal( encode( task.goal, atom_table ) )
 	output_task.parsing_time = parsing_timer.report()

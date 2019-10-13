@@ -129,20 +129,24 @@ class Rule:
                     used_variables.add(var_name)
         return atom
     def rename_duplicate_variables(self):
-        new_conditions = []
-        self.effect = self._rename_duplicate_variables(self.effect, new_conditions)
-        for condition in self.conditions:
-            condition = self._rename_duplicate_variables(condition, new_conditions)
-        self.conditions += new_conditions
-        return bool(new_conditions)
+        extra_conditions = []
+        self.effect = self._rename_duplicate_variables(
+            self.effect, extra_conditions)
+        old_conditions = self.conditions
+        self.conditions = []
+        for condition in old_conditions:
+            self.conditions.append(self._rename_duplicate_variables(
+                    condition, extra_conditions))
+        self.conditions += extra_conditions
+        return bool(extra_conditions)
     def __str__(self):
         cond_str = ", ".join(map(str, self.conditions))
         return "%s :- %s." % (self.effect, cond_str)
 
 def translate_typed_object(prog, obj, type_dict):
-    supertypes = type_dict[obj.type].supertype_names
-    for type_name in [obj.type] + supertypes:
-        prog.add_fact(pddl.Atom(type_name, [obj.name]))
+    supertypes = type_dict[obj.type_name].supertype_names
+    for type_name in [obj.type_name] + supertypes:
+        prog.add_fact(pddl.TypedObject(obj.name, type_name).get_atom())
 
 def translate_facts(prog, task):
     type_dict = dict((type.name, type) for type in task.types)
@@ -169,9 +173,8 @@ def translate(task):
 
 
 if __name__ == "__main__":
-    # test_normalization()
-
-    task = pddl.open()
+    import pddl_parser
+    task = pddl_parser.open()
     normalize.normalize(task)
     prog = translate(task)
     prog.dump()

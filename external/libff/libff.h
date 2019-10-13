@@ -13,6 +13,7 @@
 
 EXTERN int	FF_parse_problem( const char* domain_file, const char* instance_file );
 EXTERN int	FF_instantiate_problem();
+EXTERN int	FF_reinitialize_globals();
 
 #ifdef __cplusplus
 

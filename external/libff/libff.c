@@ -366,6 +366,82 @@ struct tms lstart, lend;
 Bool lfound_plan;
 
 /* Implementation */
+	
+int FF_reinitialize_globals() {
+	gtempl_time = 0, greach_time = 0, grelev_time = 0, gconn_time = 0;
+	gLNF_time = 0, gsearch_time = 0;
+
+	gevaluated_states = 0;
+
+	gmax_search_depth = 0;
+
+	lineno = 1;
+
+	gdomain_name = NULL;
+	gloaded_ops = NULL;
+	gorig_initial_facts = NULL;
+	gorig_goal_facts = NULL;
+	gloaded_axioms = NULL;
+	gparse_types = NULL;
+	gparse_constants = NULL;
+	gparse_predicates = NULL;
+	gparse_functions = NULL;
+	gparse_objects = NULL;
+	gparse_metric = NULL;
+	gorig_constant_list = NULL;
+	gpredicates_and_types = NULL;
+	gfunctions_and_types = NULL;
+
+	gnum_constants = 0;
+	gnum_types = 0;
+	gnum_predicates = 0;
+	gnum_functions = 0;
+	gnum_operators = 0;
+	gnum_full_initial = 0;
+	gnum_full_fluents_initial = 0;
+	ggoal = NULL;
+
+	gmetric = NULL;
+
+	ginitial = NULL;
+	gnum_initial = 0;
+	gnum_f_initial = 0;
+	gnum_relevant_facts = 0;
+	gnum_pp_facts = 0;
+	gnum_relevant_fluents = 0;
+
+	gactions = NULL;
+	gnum_actions;
+	glogic_goal = NULL;
+	gnum_logic_goal = 0;
+	gnumeric_goal_comp = NULL;
+	gnumeric_goal_lh = NULL, gnumeric_goal_rh = NULL;
+	gnum_numeric_goal = 0;
+
+	gtrash_actions = NULL;
+
+	glnf_goal_comp = NULL;
+	glnf_goal_lh = NULL;
+	glnf_goal_rh = NULL;
+	gnum_lnf_goal = 0;
+
+	goptimization_established = FALSE;
+
+	gflogic_goal = NULL;
+	gnum_flogic_goal = 0;
+	gfnumeric_goal_comp = NULL;
+	gfnumeric_goal_fl = NULL;
+	gfnumeric_goal_c = NULL;
+	gnum_fnumeric_goal = 0;
+
+	gfnumeric_goal_direct_comp = NULL;
+	gfnumeric_goal_direct_c = NULL;
+
+	artificial_gtt = FALSE;
+	gnum_plan_ops = 0;
+	
+	return 0;
+} 
 
 int	FF_parse_problem( const char* domain_file, const char* instance_file )
 {

@@ -942,9 +942,11 @@ void free_TokenList( TokenList *source )
     free_TokenList( source->next );
     if ( source->item ) {
       free( source->item );
+      source->item = NULL;
     }
     free( source );
   }
+  source = NULL;
 
 }
 
@@ -960,6 +962,8 @@ void free_FactList( FactList *source )
     free( source );
   }
 
+  source = NULL;
+
 }
 
 
@@ -973,8 +977,9 @@ void free_ParseExpNode( ParseExpNode *n )
     free_ParseExpNode( n->leftson );
     free_ParseExpNode( n->rightson );
     free( n );
+    n=NULL;
   }
-
+  n=NULL;
 }
 
 
@@ -991,7 +996,7 @@ void free_PlNode( PlNode *node )
     free_TokenList( node->atom );
     free( node );
   }
-
+  node=NULL;
 }
 
 
@@ -1005,6 +1010,7 @@ void free_PlOperator( PlOperator *o )
 
     if ( o->name ) {
       free( o->name );
+      o->name = NULL;
     }
     
     free_FactList( o->params );
@@ -1013,7 +1019,7 @@ void free_PlOperator( PlOperator *o )
 
     free( o );
   }
-
+  o=NULL;
 }
 
 
@@ -1029,11 +1035,12 @@ void free_Operator( PDDLOperator *o )
 
     if ( o->name ) {
       free( o->name );
+      o->name = NULL;
     }
 
     free( o );
   } 
-
+  o=NULL;
 }
 
 
@@ -1043,13 +1050,13 @@ void free_ExpNode( ExpNode *n )
 {
 
   if ( n ) {
-    if ( n->fluent ) free( n->fluent );
+	  if ( n->fluent ){ free( n->fluent ); n->fluent = NULL;}
     free_ExpNode( n->son );
     free_ExpNode( n->leftson );
     free_ExpNode( n->rightson );
     free( n );
   }
-
+  n=NULL;
 }
 
 
@@ -1064,13 +1071,14 @@ void free_WffNode( WffNode *w )
     free_WffNode( w->next );
     if ( w->var_name ) {
       free( w->var_name );
+      w->var_name = NULL;
     }
-    if ( w->fact ) free( w->fact );
+    if ( w->fact ){ free( w->fact ); w->fact = NULL;}
     free_ExpNode( w->lh );
     free_ExpNode( w->rh );
     free( w );
   }
-
+  w=NULL;
 }
 
 
@@ -1086,16 +1094,20 @@ void free_NormEffect( NormEffect *e )
 
     if ( e->conditions ) {
       free( e->conditions );
+      e->conditions = NULL;
     }
     if ( e->adds ) {
       free( e->adds );
+      e->adds = NULL;
     }
     if ( e->dels ) {
       free( e->dels );
+      e->dels = NULL;
     }
 
     if ( e->numeric_conditions_comp ) {
       free( e->numeric_conditions_comp );
+      e->numeric_conditions_comp = NULL;
     }
     for ( i = 0; i < e->num_numeric_conditions; i++ ) {
       free_ExpNode( e->numeric_conditions_lh[i] );
@@ -1103,27 +1115,32 @@ void free_NormEffect( NormEffect *e )
     }
     if ( e->numeric_conditions_lh ) {
       free( e->numeric_conditions_lh );
+      e->numeric_conditions_lh = NULL;
     }
     if ( e->numeric_conditions_rh ) {
       free( e->numeric_conditions_rh );
+      e->numeric_conditions_rh = NULL;
     }
 
     if ( e->numeric_effects_neft ) {
-      free( e->numeric_effects_neft );
+      free( e->numeric_effects_neft )
+;      e->numeric_effects_neft = NULL;
     }
     if ( e->numeric_effects_fluent ) {
       free( e->numeric_effects_fluent );
+      e->numeric_effects_fluent = NULL;
     }
     for ( i = 0; i < e->num_numeric_effects; i++ ) {
-      free_ExpNode( e->numeric_effects_rh[i] );
+      free_ExpNode( e->numeric_effects_rh[i] );      
     }
     if ( e->numeric_effects_rh ) {
       free( e->numeric_effects_rh );
+      e->numeric_effects_rh = NULL;
     }
 
     free( e );
   }
-
+  e=NULL;
 }
 
 
@@ -1140,6 +1157,8 @@ void free_partial_Effect( Effect *e )
     free( e );
   }
 
+  e=NULL;
+
 }
 
 
@@ -1154,9 +1173,11 @@ void free_NormOperator( NormOperator *o )
 
     if ( o->preconds ) {
       free( o->preconds );
+      o->preconds = NULL;
     }
     if ( o->numeric_preconds_comp ) {
       free( o->numeric_preconds_comp );
+      o->numeric_preconds_comp = NULL;
     }
     for ( i = 0; i < o->num_numeric_preconds; i++ ) {
       free_ExpNode( o->numeric_preconds_lh[i] );
@@ -1164,15 +1185,18 @@ void free_NormOperator( NormOperator *o )
     }
     if ( o->numeric_preconds_lh ) {
       free( o->numeric_preconds_lh );
+      o->numeric_preconds_lh = NULL;
     }
     if ( o->numeric_preconds_rh ) {
       free( o->numeric_preconds_rh );
+      o->numeric_preconds_rh = NULL;
     }
     free_NormEffect( o->effects );
 
     free( o );
   }
 
+  o=NULL;
 }
 
 
@@ -1186,16 +1210,23 @@ void free_single_NormEffect( NormEffect *e )
   if ( e ) {
     if ( e->conditions ) {
       free( e->conditions );
+      e->conditions = NULL;
     }
     if ( e->adds ) {
       free( e->adds );
+      e->adds = NULL;
+
     }
     if ( e->dels ) {
       free( e->dels );
+      e->dels = NULL;
+
     }
 
     if ( e->numeric_conditions_comp ) {
       free( e->numeric_conditions_comp );
+      e->numeric_conditions_comp = NULL;
+
     }
     for ( i = 0; i < e->num_numeric_conditions; i++ ) {
       free_ExpNode( e->numeric_conditions_lh[i] );
@@ -1203,26 +1234,37 @@ void free_single_NormEffect( NormEffect *e )
     }
     if ( e->numeric_conditions_lh ) {
       free( e->numeric_conditions_lh );
+      e->numeric_conditions_lh = NULL;
+
     }
     if ( e->numeric_conditions_rh ) {
       free( e->numeric_conditions_rh );
+      e->numeric_conditions_rh = NULL;
+	    
     }
 
     if ( e->numeric_effects_neft ) {
       free( e->numeric_effects_neft );
+      e->numeric_effects_neft = NULL;
+
     }
     if ( e->numeric_effects_fluent ) {
       free( e->numeric_effects_fluent );
+      e->numeric_effects_fluent = NULL;
+
     }
     for ( i = 0; i < e->num_numeric_effects; i++ ) {
       free_ExpNode( e->numeric_effects_rh[i] );
     }
     if ( e->numeric_effects_rh ) {
       free( e->numeric_effects_rh );
+      e->numeric_effects_rh = NULL;
+
     }
 
     free( e );
   }
+  e=NULL;
 
 }
 
@@ -1236,6 +1278,7 @@ void free_single_EasyTemplate( EasyTemplate *t )
     free( t );
   }
 
+  t=NULL;
 }
 
 
@@ -1258,6 +1301,7 @@ void free_TypedList( TypedList *t )
     free( t );
   }
 
+  t = NULL;
 }
 
 
@@ -1279,5 +1323,7 @@ void free_TypedListList( TypedListList *t )
 
     free( t );
   }
+  
+  t = NULL;
 
 }

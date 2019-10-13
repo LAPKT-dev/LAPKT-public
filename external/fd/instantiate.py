@@ -25,8 +25,8 @@ def get_objects_by_type(typed_objects, types):
     for type in types:
         supertypes[type.name] = type.supertype_names
     for obj in typed_objects:
-        result[obj.type].append(obj.name)
-        for type in supertypes[obj.type]:
+        result[obj.type_name].append(obj.name)
+        for type in supertypes[obj.type_name]:
             result[type].append(obj.name)
     return result
 
@@ -54,7 +54,8 @@ def instantiate(task, model):
             variable_mapping = dict([(par.name, arg)
                                      for par, arg in zip(parameters, atom.args)])
             inst_action = action.instantiate(variable_mapping, init_facts,
-                                             fluent_facts, type_to_objects)
+                                             fluent_facts, type_to_objects,
+                                             task.use_min_cost_metric)
             if inst_action:
                 instantiated_actions.append(inst_action)
         elif isinstance(atom.predicate, pddl.Axiom):
@@ -77,7 +78,8 @@ def explore(task):
         return instantiate(task, model)
 
 if __name__ == "__main__":
-    task = pddl.open()
+    import pddl_parser
+    task = pddl_parser.open()
     relaxed_reachable, atoms, actions, axioms, _ = explore(task)
     print("goal relaxed reachable: %s" % relaxed_reachable)
     print("%d atoms:" % len(atoms))
