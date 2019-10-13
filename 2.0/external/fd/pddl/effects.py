@@ -14,16 +14,18 @@ def cartesian_product(*sequences):
             for item in sequences[0]:
                 yield (item,) + tup
 
-def parse_effects(alist, result):
+def parse_effects(alist, result, num_effects):
     """Parse a PDDL effect (any combination of simple, conjunctive, conditional, and universal)."""
     tmp_effect = parse_effect(alist)
     normalized = tmp_effect.normalize()
-    cost_eff, rest_effect = normalized.extract_cost()
+    cost_eff, num_effect, rest_effect = normalized.extract_cost()
     add_effect(rest_effect, result)
+    num_effects.extend(num_effect)
     if cost_eff:
         return cost_eff.effect
     else:
         return None
+
 
 def add_effect(tmp_effect, result):
     """tmp_effect has the following structure:
@@ -65,6 +67,7 @@ def add_effect(tmp_effect, result):
                 result.remove(contradiction)
                 result.append(new_effect)
 
+
 def parse_effect(alist):
     tag = alist[0]
     if tag == "and":
@@ -79,11 +82,13 @@ def parse_effect(alist):
         condition = conditions.parse_condition(alist[1])
         effect = parse_effect(alist[2])
         return ConditionalEffect(condition, effect)
-    elif tag == "increase":
+    elif tag in ("increase", 'decrease', 'assign'):
         assert len(alist) == 3
-        assert alist[1] == ['total-cost']
         assignment = f_expression.parse_assignment(alist)
-        return CostEffect(assignment)
+        assert isinstance(alist[1], list)
+        if alist[1] == ['total-cost']:
+            return CostEffect(assignment)
+        return NumericEffect(assignment)
     else:
         return SimpleEffect(conditions.parse_literal(alist))
 
@@ -190,6 +195,7 @@ class ConditionalEffect(object):
     def extract_cost(self):
         return None, self
 
+
 class UniversalEffect(object):
     def __init__(self, parameters, effect):
         if isinstance(effect, UniversalEffect):
@@ -215,6 +221,7 @@ class UniversalEffect(object):
     def extract_cost(self):
         return None, self
 
+
 class ConjunctiveEffect(object):
     def __init__(self, effects):
         flattened_effects = []
@@ -235,13 +242,17 @@ class ConjunctiveEffect(object):
         return ConjunctiveEffect(new_effects)
     def extract_cost(self):
         new_effects = []
+        num_effects = []
         cost_effect = None
         for effect in self.effects:
             if isinstance(effect, CostEffect):
                 cost_effect = effect
+            elif isinstance(effect, NumericEffect):
+                num_effects.append(effect)
             else:
                 new_effects.append(effect)
-        return cost_effect, ConjunctiveEffect(new_effects)
+        return cost_effect,  num_effects, ConjunctiveEffect(new_effects)
+
 
 class SimpleEffect(object):
     def __init__(self, effect):
@@ -253,7 +264,8 @@ class SimpleEffect(object):
     def extract_cost(self):
         return None, self
 
-class CostEffect(object):
+
+class CostEffect(SimpleEffect):
     def __init__(self, effect):
         self.effect = effect
     def dump(self, indent="  "):
@@ -263,3 +275,28 @@ class CostEffect(object):
     def extract_cost(self):
         return self, None # this would only happen if
     #an action has no effect apart from the cost effect
+
+
+class NumericEffect(SimpleEffect):
+    def __init__(self, effect, condition=conditions.Truth()):
+        self.effect = effect
+        self.condition = condition
+
+    def normalize(self):
+        return self
+
+    def uniquify_variables(self, type_map, renamings={}):
+        return self.rename_variables(renamings)
+
+    def rename_variables(self, renamings):
+        if len(renamings) == 0:
+            return self
+        raise NotImplementedError()
+
+    def instantiate(self, var_mapping, init_facts, fluent_facts,
+                    objects_by_type, result):
+        eff = self.effect.instantiate(var_mapping, init_facts)
+        result.append(eff)
+
+    def pddl(self):
+        return self.effect.pddl()

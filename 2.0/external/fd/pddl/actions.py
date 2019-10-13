@@ -5,10 +5,11 @@ import copy
 from . import conditions
 from . import effects
 from . import pddl_types
+from . import f_expression
 
 class Action(object):
     def __init__(self, name, parameters, num_external_parameters,
-                 precondition, effects, cost):
+                 precondition, a_effects, cost):
         assert 0 <= num_external_parameters <= len(parameters)
         self.name = name
         self.parameters = parameters
@@ -19,7 +20,8 @@ class Action(object):
         # quantifiers in conditions.
         self.num_external_parameters = num_external_parameters
         self.precondition = precondition
-        self.effects = effects
+        self._effects = [x for x in a_effects if not isinstance(x, effects.NumericEffect)]
+        self._num_effects = [x for x in a_effects if isinstance(x, effects.NumericEffect)]
         self.cost = cost
         self.uniquify_variables() # TODO: uniquify variables in cost?
     def __repr__(self):
@@ -47,14 +49,15 @@ class Action(object):
         assert effect_tag == ":effect"
         effect_list = next(iterator)
         eff = []
+        num_eff = []
         try:
-            cost = effects.parse_effects(effect_list, eff)
+            cost = effects.parse_effects(effect_list, eff, num_eff)
         except ValueError as e:
             raise SystemExit("Error in Action %s\nReason: %s." % (name, e))
         for rest in iterator:
             assert False, rest
         return Action(name, parameters, len(parameters),
-                      precondition, eff, cost)
+                      precondition, eff + num_eff, cost)
     parse = staticmethod(parse)
     def dump(self):
         print("%s(%s)" % (self.name, ", ".join(map(str, self.parameters))))
@@ -101,6 +104,7 @@ class Action(object):
         Precondition and effect conditions must be normalized for this to work.
         Returns None if var_mapping does not correspond to a valid instantiation
         (because it has impossible preconditions or an empty effect list.)"""
+
         arg_list = [var_mapping[par.name]
                     for par in self.parameters[:self.num_external_parameters]]
         name = "(%s %s)" % (self.name, " ".join(arg_list))
@@ -115,12 +119,26 @@ class Action(object):
         for eff in self.effects:
             eff.instantiate(var_mapping, init_facts, fluent_facts,
                             objects_by_type, effects)
-        if effects:
+        numeric_effects = []
+        for eff in self.numeric_effects():
+            try:
+                eff.instantiate(var_mapping, init_facts, fluent_facts,
+                                objects_by_type, numeric_effects)
+            except conditions.Impossible:
+                return None
+        if effects or numeric_effects:
             if self.cost is None:
                 cost = 0
             else:
-                cost = int(self.cost.instantiate(var_mapping, init_facts).expression.value)
-            return PropositionalAction(name, precondition, effects, cost)
+                try:
+                    t_cost = self.cost.instantiate(var_mapping, init_facts)
+                    if isinstance(t_cost.expression, f_expression.NumericConstant):
+                        cost = int(t_cost.expression.value)
+                    else:
+                        cost = int(t_cost.expression.initial_value)
+                except conditions.Impossible:
+                    return None
+            return PropositionalAction(name, precondition, effects, numeric_effects, cost)
         else:
             return None
 
@@ -134,14 +152,28 @@ class Action(object):
                 :effect (and {3}))".format(self.name,
                                      ' '.join(param.pddl() for param in self.parameters),
                                      self.precondition.pddl(),
-                                     ' '.join(x.pddl() for x  in self.effects) + cost)
+                                     ' '.join(x.pddl() for x in (self._effects + self._num_effects)) + cost)
+
+    @property
+    def effects(self):
+        return self._effects
+
+    @effects.setter
+    def effects(self, value):
+        self._effects = [x for x in effects if not isinstance(x, effects.NumericEffect)]
+        self._num_effects = [x for x in effects if isinstance(x, effects.NumericEffect)]
+
+    def numeric_effects(self):
+        return self._num_effects
+
 
 class PropositionalAction:
-    def __init__(self, name, precondition, effects, cost):
+    def __init__(self, name, precondition, effects, numeric_effects, cost):
         self.name = name
         self.precondition = precondition
         self.add_effects = []
         self.del_effects = []
+        self.numeric_effects = numeric_effects
         for condition, effect in effects:
             if not effect.negated:
                 self.add_effects.append((condition, effect))
@@ -153,6 +185,7 @@ class PropositionalAction:
             if effect.negated and (condition, effect.negate()) not in self.add_effects:
                 self.del_effects.append((condition, effect.negate()))
         self.cost = cost
+
     def __repr__(self):
         return "<PropositionalAction %r at %#x>" % (self.name, id(self))
     def dump(self):

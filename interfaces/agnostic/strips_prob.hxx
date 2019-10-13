@@ -24,12 +24,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <string>
 #include <map>
+#include <set>
 #include <iosfwd>
 #include <types.hxx>
 #include <succ_gen.hxx>
 #include <match_tree.hxx>
+#include <comparison.hxx>
 #include <algorithm>
 #include <mutex_set.hxx>
+#include <expression.hxx>
+
 
 namespace aptk
 {
@@ -39,14 +43,14 @@ namespace aptk
 	public:
 		class Best_Supporter {
 		public:
-			Best_Supporter() 
+			Best_Supporter()
 				: act_idx( no_such_index ), eff_idx ( no_such_index ) {
 			}
-	
-			Best_Supporter( unsigned a_index, unsigned e_index ) 
+
+			Best_Supporter( unsigned a_index, unsigned e_index )
 				: act_idx( a_index ), eff_idx( e_index ) {
 			}
-	
+
 			bool operator==( const Best_Supporter& other ) const {
 				return act_idx == other.act_idx && eff_idx == other.eff_idx;
 			}
@@ -57,7 +61,7 @@ namespace aptk
 					return eff_idx < other.eff_idx;
 				return false;
 			}
-	
+
 			unsigned act_idx;
 			unsigned eff_idx;
 		};
@@ -78,7 +82,7 @@ namespace aptk
 			: m_last( 0 ) {
 				m_condition = prec;
 				for ( auto p : cond )
-					if ( std::find( m_condition.begin(), m_condition.end(), p ) == m_condition.end() ) 
+					if ( std::find( m_condition.begin(), m_condition.end(), p ) == m_condition.end() )
 						m_condition.push_back( p );
 				m_effect = eff;
 				m_last = m_condition.size()-1;
@@ -113,7 +117,7 @@ namespace aptk
 				m_cond_pending = m_condition.size();
 			}
 
-			bool	satisfied() const { 
+			bool	satisfied() const {
 				//return m_last == -1;
 				return m_cond_pending == 0;
 			}
@@ -125,14 +129,14 @@ namespace aptk
 						std::swap( m_condition[k], m_condition[m_last] );
 						m_last--;
 						return;
-					} 
+					}
 				}
 				*/
 				if ( !m_cond_status.isset(p) ) return;
 				m_cond_pending--;
 				m_cond_status.unset(p);
 			}
-			
+
 			const Fluent_Vec& condition() const { return m_condition; }
 			const Fluent_Vec& effect() const { return m_effect; }
 
@@ -152,38 +156,43 @@ namespace aptk
 		std::string		domain_name() const { return m_domain_name; }
 		std::string		problem_name() const { return m_problem_name; }
 
-		unsigned 		num_fluents() const		{ return m_num_fluents; }
-		unsigned 		num_actions() const		{ return m_num_actions; }
+		size_t 		num_fluents() const		{ return this->m_fluents.size(); }
+		size_t 		num_actions() const		{ return this->m_actions.size(); }
 
 		void			set_num_fluents( unsigned nf ) { m_num_fluents = nf; }
 		void			set_num_actions( unsigned na ) { m_num_actions = na; }
 
 		static unsigned 	add_action( STRIPS_Problem& p, std::string signature,
 						    const Fluent_Vec& pre, const Fluent_Vec& add, const Fluent_Vec& del,
-						    const Conditional_Effect_Vec& ceffs, float cost = 1.0f );
+                            const Conditional_Effect_Vec& ceffs, float cost = 1.0f );
 
 		static unsigned 	add_fluent( STRIPS_Problem& p, std::string signature );
+		size_t          add_function(std::string signature );
+		std::size_t     add_comparison(unsigned BoundFluentId, aptk::CompareType t, std::shared_ptr<aptk::Expression<float>> & expr);
 
-		static void		set_init( STRIPS_Problem& p, const Fluent_Vec& init );
-	    static void		set_goal( STRIPS_Problem& p, const Fluent_Vec& goal, bool createEndOp = false, bool keep_original_goal = false );
+		static void		set_init(STRIPS_Problem& p, const Fluent_Vec& init , const Value_Pair_Vec init_values=Value_Pair_Vec());
+		static void		set_goal( STRIPS_Problem& p, const Fluent_Vec& goal, bool createEndOp = false );
 
 		static void		make_delete_relaxation( const STRIPS_Problem& orig, STRIPS_Problem& relaxed );
 
-	  	
-		Fluent_Ptr_Vec&		fluents() 			{ return m_fluents; }
-		Action_Ptr_Vec&		actions() 			{ return m_actions; }
-		const std::vector< const Fluent*>&	
-					fluents() const			{ return m_const_fluents; }
-		const std::vector< const Action*>&
-					actions() const			{ return m_const_actions; }
+        	void     calculate_comparison_fluents();
 
+
+		Fluent_Ptr_Vec&		fluents() 			{ return m_fluents; }
+		Function_Ptr_Vec&   functions()         { return m_functions; }
+		const Function_Ptr_Vec&   functions() const   { return m_functions; }
+		Action_Ptr_Vec&		actions() 			{ return m_actions; }
+		const std::vector< const Fluent*>& fluents() const			{ return m_const_fluents; }
+		const std::vector< const Action*>& actions() const			{ return m_const_actions; }
 
 		Fluent_Vec&		init()	  			{ return m_init; }
+		Value_Vec &      finit()             { return m_finit; }
+		const Value_Vec &       finit() const  { return m_finit; }
 		Fluent_Vec&		goal()	  			{ return m_goal; }
 		const Fluent_Vec&	init() const  			{ return m_init; }
 		const Fluent_Vec&	goal() const  			{ return m_goal; }
 	        agnostic::Mutex_Set&    mutexes()                       { return m_mutexes; }
-		std::vector<const Action*>&		
+		std::vector<const Action*>&
 		 			actions_adding( unsigned f )		{ return m_adding[f]; }
 
 		std::vector< std::pair< unsigned, const Action*> >&
@@ -192,21 +201,21 @@ namespace aptk
 		const std::vector< std::pair< unsigned, const Action*> >&
 					ceffs_adding( unsigned f ) const	{ return m_ceffs_adding[f]; }
 
-		std::vector<const Action*>&		
+		std::vector<const Action*>&
 		 			actions_deleting( unsigned f )		{ return m_deleting[f]; }
 
 
-		std::vector<const Action*>&		
+		std::vector<const Action*>&
 					actions_edeleting( unsigned f )		{ return m_edeleting[f]; }
-		std::vector<const Action*>&		
+		std::vector<const Action*>&
 					actions_requiring( unsigned f )		{ return m_requiring[f]; }
-		const std::vector<const Action*>&		
+		const std::vector<const Action*>&
 					actions_adding( unsigned f ) const	{ return m_adding[f]; }
-		const std::vector<const Action*>&		
+		const std::vector<const Action*>&
 					actions_deleting( unsigned f ) const	{ return m_deleting[f]; }
-		const std::vector<const Action*>&		
+		const std::vector<const Action*>&
 					actions_edeleting( unsigned f ) const	{ return m_edeleting[f]; }
-		const std::vector<const Action*>&		
+		const std::vector<const Action*>&
 					actions_requiring( unsigned f ) const	{ return m_requiring[f]; }
 
 		const std::vector<const Action*>&
@@ -215,13 +224,13 @@ namespace aptk
 		void			applicable_actions( const State& s, std::vector<const Action* >& actions  ) const {
 			m_succ_gen.retrieve_applicable(s,actions);
 		}
-		
+
 		void			applicable_actions( const State& s, std::vector<int>& actions ) const {
 			m_succ_gen.retrieve_applicable(s,actions);
 		}
-		
+
 		void			applicable_actions_v2( const State& s, std::vector<int>& actions ) const {
-			m_succ_gen_v2.retrieve_applicable(s,actions);
+            m_succ_gen_v2.retrieve_applicable(s, actions);
 		}
 
 		void			applicable_actions( const std::vector<float>& v, std::vector<const Action*>& actions ) const {
@@ -235,23 +244,24 @@ namespace aptk
 
 		void                    print_fluent_vec(const Fluent_Vec &a);
 		unsigned                end_operator() { return m_end_operator_id; }
-      	        unsigned                end_operator() const { return m_end_operator_id; }
 	        unsigned                get_fluent_index(std::string signature);
 
 		void			make_action_tables(bool generate_match_tree = true);
+
+		const Numeric_To_Comparison_Map & comparison_map() const { return m_num_compare_map; }
 
 		void			print( std::ostream& os ) const;
 		void			print_fluents( std::ostream& os ) const;
 		void			print_actions( std::ostream& os ) const;
 		void                    print_action( unsigned idx, std::ostream& os ) const;
-		void			print_fluent_vec( std::ostream& os, const Fluent_Vec& v ) const;	
+		void			print_fluent_vec( std::ostream& os, const Fluent_Vec& v ) const;
 		const agnostic::Successor_Generator&
 					successor_generator() const { return m_succ_gen; }
 
 	    void			initialize_successor_generator()  { m_succ_gen.build(); }
 
 		bool			has_conditional_effects() const { return m_has_cond_effs; }
-		void			notify_cond_eff_in_action() { m_has_cond_effs = true; }	
+		void			notify_cond_eff_in_action() { m_has_cond_effs = true; }
 
 		// MRJ: Only to be used in the presence of conditional effects, as it
 		// prevents the stronger inference that requires computing h^2
@@ -265,10 +275,27 @@ namespace aptk
 
 		void					make_effect_tables();
 
+        const aptk::Comparison<float> & comparison(size_t i) const {
+            return m_comparison.at(i);
+        }
+
+        ExpPtr metric_expression() const {
+            return m_metric_expression;
+        }
+
+        bool add_cost() const {
+            return m_add_cost;
+        }
+
+        void set_add_cost(bool value) {
+            m_add_cost = value;
+        }
+
+        void set_metric_expression(ExpPtr expr){
+            m_metric_expression = expr;
+        }
+
 	protected:
-	
-		void			increase_num_fluents()        	{ m_num_fluents++; }
-		void			increase_num_actions()        	{ m_num_actions++; }
 		void			register_action_in_tables( Action* act );
 
 	protected:
@@ -277,16 +304,24 @@ namespace aptk
 		std::string								m_problem_name;
 		unsigned		 						m_num_fluents;
 		unsigned		 						m_num_actions;
-		Action_Ptr_Vec		 						m_actions;
-		std::vector<const Action*>						m_const_actions;
-		Fluent_Ptr_Vec		 						m_fluents;
-		std::vector<const Fluent*>						m_const_fluents;
+		Action_Ptr_Vec		 					m_actions;
+		std::vector<const Action*>				m_const_actions;
+		Fluent_Ptr_Vec                          m_fluents;
+		// numerical_fluent -> comparison_fluent map
+		// used for updating when numerical effect changes some values
+		Numeric_To_Comparison_Map               m_num_compare_map;
+		std::map<size_t, Comparison<float> >         m_comparison;
+		std::vector<const Fluent*>				m_const_fluents;
 		Fluent_Vec		 						m_init;
+		Value_Vec                               m_finit;
 		Fluent_Vec		 						m_goal;
 		Fluent_Action_Table	 						m_adding;
 		Fluent_Action_Table	 						m_requiring;
 		Fluent_Action_Table	 						m_deleting;
 		Fluent_Action_Table	 						m_edeleting;
+		Fluent_Action_Table                         m_increasing;
+		Fluent_Action_Table                         m_decreasing;
+		Function_Ptr_Vec                            m_functions;
 		std::vector<bool>	 						m_in_init;
 		std::vector<bool>	 						m_in_goal;
 		unsigned                 						m_end_operator_id;
@@ -300,7 +335,10 @@ namespace aptk
 		std::vector< Best_Supporter >						m_effects;
 		mutable std::vector< Trigger >						m_triggers;
 		std::vector< std::set< unsigned> >					m_relevant_effects;
-	        agnostic::Mutex_Set             	                                m_mutexes;
+		agnostic::Mutex_Set             	            m_mutexes;
+		ExpPtr                                          m_metric_expression;
+		bool                                            m_add_cost;
+
 	  };
 
 }

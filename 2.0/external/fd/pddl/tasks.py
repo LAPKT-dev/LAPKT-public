@@ -12,7 +12,9 @@ from . import f_expression
 
 class Task(object):
     def __init__(self, domain_name, task_name, requirements,
-                 types, objects, predicates, functions, init, goal, actions, axioms, use_metric, constants=None):
+                 types, objects, predicates, functions,
+                 init, goal, actions, axioms, use_metric,
+                 constants=None, metric_expression=None):
         self.domain_name = domain_name
         self.task_name = task_name
         self.requirements = requirements
@@ -26,6 +28,9 @@ class Task(object):
         self.axioms = axioms
         self.axiom_counter = 0
         self.use_min_cost_metric = use_metric
+        self.metric_expression = metric_expression
+        # count for replacing numerical preconditions
+        self.comparator_count = 0
         if constants is None:
             self.constants = set()
         else:
@@ -43,7 +48,7 @@ class Task(object):
     def parse(domain_pddl, task_pddl):
         domain_name, domain_requirements, types, constants, predicates, functions, actions, axioms \
                      = parse_domain(domain_pddl)
-        task_name, task_domain_name, task_requirements, objects, init, goal, use_metric = parse_task(task_pddl)
+        task_name, task_domain_name, task_requirements, objects, init, goal, (use_metric, metric) = parse_task(task_pddl)
 
         assert domain_name == task_domain_name
         requirements = Requirements(sorted(set(
@@ -57,7 +62,8 @@ class Task(object):
         init += [conditions.Atom("=", (obj.name, obj.name)) for obj in objects]
 
         return Task(domain_name, task_name, requirements, types, objects,
-                    predicates, functions, init, goal, actions, axioms, use_metric, constants)
+                    predicates, functions, init, goal, actions, axioms, use_metric, constants,
+                    metric_expression=metric)
 
     def dump(self):
         print("Problem %s: %s [%s]" % (
@@ -105,6 +111,7 @@ class Task(object):
     def problem(self):
         metric = ""
         objects = set(self.objects) - set(self.constants)
+        # todo: numeric metric expression
         if self.use_min_cost_metric:
             metric = "(:metric minimize (total-cost) )"
         result = "(define (problem {problem})\
@@ -129,7 +136,7 @@ class Requirements(object):
               ":negative-preconditions", ":disjunctive-preconditions",
               ":existential-preconditions", ":universal-preconditions",
               ":quantified-preconditions", ":conditional-effects",
-              ":derived-predicates", ":action-costs"), req
+              ":derived-predicates", ":action-costs", ":numeric-fluents"), req
     def __str__(self):
         return ", ".join(self.requirements)
     def pddl(self):
@@ -204,6 +211,7 @@ def parse_domain(domain_pddl):
     yield the_actions
     yield the_axioms
 
+
 def parse_task(task_pddl):
     iterator = iter(task_pddl)
 
@@ -272,13 +280,18 @@ def parse_task(task_pddl):
     yield conditions.parse_condition(goal[1])
 
     use_metric = False
+    metric = None
     for entry in iterator:
         if entry[0] == ":metric":
-            if entry[1]=="minimize" and entry[2][0] == "total-cost":
-                use_metric = True
+            if entry[1]== "minimize":
+                if entry[2][0] == "total-cost":
+                    use_metric = True
+                else:
+                    metric = f_expression.parse_expression(entry[2])
+                    use_metric = True
             else:
                 assert False, "Unknown metric."
-    yield use_metric
+    yield (use_metric, metric)
 
     for entry in iterator:
         assert False, entry
