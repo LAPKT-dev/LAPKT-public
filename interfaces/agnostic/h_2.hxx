@@ -640,7 +640,32 @@ protected:
 						for ( unsigned j = 0; j < action.prec_vec().size(); j++ ) {
 							unsigned s = action.prec_vec()[j];
 							h2_pre_noop = std::max( h2_pre_noop, value(r,s) );
-							if ( h2_pre_noop == infty ) break;
+							if ( h2_pre_noop == infty ) {
+								
+							    //Check the reverse other: if action adding precondition s do not conflict with r, then value(r,s)==infy should be ignored.
+							    //This may be an artifact of the relevant_actions datastructure and the action order propagation
+                                for (auto act_add_s : m_strips_model.actions_adding(s)) {
+                                    int as = act_add_s->index();
+                                    if( ! interferes( as , r ) ){
+                                        float h2_pre_s_noop = op_value(as);
+                                        if (  h2_pre_s_noop == infty ) continue;
+
+                                        for ( auto t : act_add_s->prec_vec() ) {
+                                            h2_pre_s_noop = std::max( h2_pre_s_noop, value(t,r) );
+                                            if (  h2_pre_s_noop == infty ) {
+                                                h2_pre_noop == infty;
+                                                break;
+                                            }
+                                        }
+
+                                        //If the order of the propagation affect the result, then correct the he_pre_noop
+                                        if(h2_pre_s_noop != infty) {
+                                            h2_pre_noop = 0.0f;
+                                            break;
+                                        }
+
+                                    }
+                                }
 						}
 						
 						if ( h2_pre_noop == infty ) continue;

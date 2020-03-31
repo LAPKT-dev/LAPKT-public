@@ -24,7 +24,7 @@ namespace aptk
 {
 
 Bit_Array::Bit_Array()
-	: m_packs( NULL ), m_pack_sz( 32 )
+	: m_packs( NULL ), m_n_packs(0), m_pack_sz( 32 ),  m_max_idx(0)
 {
 }
 
@@ -42,9 +42,11 @@ Bit_Array::Bit_Array( const Bit_Array& other )
 {
 	m_pack_sz = 32;
 	m_n_packs = other.m_n_packs;
-	m_packs = new unsigned [m_n_packs];
 	m_max_idx = other.m_max_idx;
-	memcpy( m_packs, other.m_packs, m_n_packs*sizeof(unsigned) );
+	if(m_n_packs){
+		m_packs = new unsigned [m_n_packs];
+		memcpy( m_packs, other.m_packs, m_n_packs*sizeof(unsigned) );
+	}
 }
 
 Bit_Array::Bit_Array( Bit_Array&& other ) 
