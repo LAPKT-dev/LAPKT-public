@@ -666,6 +666,10 @@ protected:
 
                                     }
                                 }
+
+								//if anyone of the r,s pair can not be set to 0 when consider the relevant_actions, we should break.
+                                if (h2_pre_noop == infty )  break;
+                                 
 						}
 						
 						if ( h2_pre_noop == infty ) continue;
