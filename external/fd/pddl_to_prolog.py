@@ -4,9 +4,9 @@ from __future__ import print_function
 
 import itertools
 
-import normalize
-import pddl
-import timers
+from . import normalize
+from . import pddl
+from . import timers
 
 class PrologProgram:
     def __init__(self):
@@ -37,7 +37,7 @@ class PrologProgram:
         self.split_duplicate_arguments()
         self.convert_trivial_rules()
     def split_rules(self):
-        import split_rules
+        from . import split_rules
         # Splits rules whose conditions can be partitioned in such a way that
         # the parts have disjoint variable sets, then split n-ary joins into
         # a number of binary joins, introducing new pseudo-predicates for the

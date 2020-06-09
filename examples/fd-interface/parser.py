@@ -33,6 +33,8 @@ def main( domain_file, problem_file, plan_file ) :
 	# MRJ: And then we're ready to go
 	task.solve()
 
+	task.dump_pddl()
+
 	#MRJ: Comment lines below to deactivate profile
 	#profiler_stop()	
 

@@ -1,9 +1,9 @@
 from __future__ import print_function
 
-import invariant_finder
-import options
-import pddl
-import timers
+from . import invariant_finder
+from . import options
+from . import pddl
+from . import timers
 
 
 DEBUG = False

@@ -269,6 +269,9 @@ using namespace boost::python;
 	
 	void
 	STRIPS_Problem::write_ground_pddl( std::string domain, std::string problem ) {
+
+		std::cout << "NOT IMPLEMENTED YET :)" << std::endl;
+
 		/*
 		std::ofstream domain_stream( domain.c_str() );
 		m_inst->write_domain( domain_stream );
