@@ -28,6 +28,7 @@ common_env.Append( LIBPATH=[ os.path.abspath(p) for p in lib_paths ] )
 
 Export('common_env')
 src_objs = SConscript( 'src/SConscript', 'common_env' )
-if src_objs is None : print "src_objs is None"
+if src_objs is None:
+    print("src_objs is None")
 
 common_env.Library( 'aptk', src_objs )
