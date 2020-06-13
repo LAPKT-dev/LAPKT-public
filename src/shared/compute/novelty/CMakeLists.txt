@@ -1,0 +1,21 @@
+target_sources(lapkt_shared
+    PRIVATE
+        node_novelty_spaces.hxx
+        novelty.hxx
+        novelty_partition.hxx
+    )
+target_include_directories(lapkt_shared
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:include>
+    )
+install(
+    FILES
+        node_novelty_spaces.hxx
+        novelty.hxx
+        novelty_partition.hxx
+    DESTINATION
+        include
+    COMPONENT
+        Development EXCLUDE_FROM_ALL
+    )
