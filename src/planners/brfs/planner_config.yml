@@ -33,14 +33,5 @@ BRFS_Planner:
       action  : 'store'
       help    : 'file name where solution plan will be stored'
     var_name: 'plan_filename'
-  max_novelty:  
-    cmd_arg: 
-      default: 2 #
-      required: False
-      nargs   : '?'
-      type    : 'int'
-      action  : 'store'
-      help    : 'Max bound for novelty computation'
-    var_name: 'max_novelty'
 
 #END - Leave this line a empty line as it is

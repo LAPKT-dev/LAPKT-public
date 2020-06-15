@@ -1,0 +1,214 @@
+common: # added to all solvers
+  - benchmark_name
+  - algorithm
+#  - domain
+#  - problem
+
+others_uncommon: # for reference
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - generated
+  - expanded
+  - memory
+  - memory_limit
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+AT_LAPKT_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+AT_BFS_f_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+BFS_f_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - generated
+  - expanded
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+BRFS_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - generated
+  - expanded
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+DFIW_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - generated
+  - expanded
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+DFSIW_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - generated
+  - expanded
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+DFS_Plus_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - generated
+  - expanded
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+IW_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - generated
+  - expanded
+  - memory
+  - memory_limit
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+RPIW_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - generated
+  - expanded
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+SIW_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - generated
+  - expanded
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+SIW_Plus_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - generated
+  - expanded
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+
+SIW_PLUS_BFS_F_Planner:
+  - num_actions
+  - num_fluents
+  - solver_exit_code
+  - plan_cost
+  - generated
+  - expanded
+  - runtime_parser
+  - runtime_solver
+  - runtime_total
+  - time_limit
+  - run_dir
+  - validate_exit_code
+  - lab_exit_code
+  - is_plan_valid
+

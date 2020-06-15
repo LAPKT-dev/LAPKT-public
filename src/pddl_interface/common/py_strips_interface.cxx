@@ -375,7 +375,6 @@ STRIPS_Interface::add_mutex_group( boost::python::list& lits )
 void
 STRIPS_Interface::set_cost( int index, float c )
 {
-    std::cout<< index << "- cost -" <<c << std::endl;
 	aptk::Action& action = *(m_problem->actions()[index]);
 	if ( m_ignore_action_costs ) {
 		action.set_cost( 1.0f );

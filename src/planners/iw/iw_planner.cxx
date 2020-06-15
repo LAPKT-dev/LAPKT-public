@@ -273,8 +273,8 @@ IW_Planner::do_search( Search_Engine& engine, aptk::STRIPS_Problem& plan_prob,
 void	
 IW_Planner::solve() {
     // Attempting to fetch accurate memory statistics for the IW
-    pid_t pid   =   fork();
-    if ( pid == 0) {
+    //pid_t pid   =   fork();
+    //if ( pid == 0) {
         Fwd_Search_Problem  search_prob( instance() );
 
         std::ofstream plan_stream;
@@ -295,10 +295,10 @@ IW_Planner::solve() {
             m_log_filename << "' for details" << std::endl;
 
         plan_stream.close();
-    }
+    //}
     // wait for the child process to finish
-    int stat_val;
-    pid_t child_pid;
-    child_pid   =   wait(&stat_val);
+    //int stat_val;
+    //pid_t child_pid;
+    //child_pid   =   wait(&stat_val);
 }
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//

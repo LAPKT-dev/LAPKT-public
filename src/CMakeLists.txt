@@ -35,7 +35,7 @@ add_subdirectory(pddl_interface)
 # Libraries for fd and tarski planners and executables for ff-planners
 add_subdirectory(planners)
 
-configure_file(lapkt_cmake_config.h.in lapkt_cmake_config.h)
+configure_file(config/lapkt_cmake_config.h.in lapkt_cmake_config.h)
 
 install(FILES "${PROJECT_BINARY_DIR}/lapkt_cmake_config.h"
   DESTINATION include
@@ -50,7 +50,7 @@ install(
 
 include(CMakePackageConfigHelpers)
 # generate the config file that includes the exports
-configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/config/Config.cmake.in
     "${CMAKE_CURRENT_BINARY_DIR}/LAPKTConfig.cmake"
   INSTALL_DESTINATION "lib/cmake/example"
   NO_SET_AND_CHECK_MACRO

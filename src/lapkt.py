@@ -9,9 +9,9 @@ from re import match
 from subprocess import run
 # LAPKT Imports
 from lib import planner
-#from lib import tarski as ts
-#from lib import fd
-#from lib import ff
+from contextlib import contextmanager
+from time import time, process_time, sleep
+from sys import stdout
 
 # Parameters which must be set correctly
 parent_folder   =   Path(__file__).parent.absolute()
@@ -22,6 +22,30 @@ VALIDATE_PATH = os.path.join(parent_folder, rel_validate_file)
 
 # Verifying input against BUILTIN_TYPES prevents security issue with eval(<input>)
 BUILTIN_TYPES = [d for d in dir(builtins) if isinstance(getattr(builtins, d), type)]
+#-----------------------------------------------------------------------------#
+@contextmanager
+def time_taken( task_name: str) :
+    """
+    Track the time taken for a task.
+    Usage - "with time_taken("<process name>") :"
+    Arguments
+    =========
+    time_taken: string - name of the task
+    """
+    start = (time(), process_time())
+    print("|----------------------------------------------------------|")
+    print("***Started - {} ...***".format(task_name))
+    print("|----------------------------------------------------------|")
+    stdout.flush()
+    yield
+    #print( "{:.3f} , ".format(time.time()-start[0]), end="")
+    print("----------------------------------------------------------")
+    print(("***Finished {} after {:.3f} seconds wall-clock time, {:.3f} seconds "+
+            "CPU time***").format( task_name, time()-start[0],
+                process_time()-start[1] ))
+    print("----------------------------------------------------------")
+    stdout.flush()
+#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
 class Run_planner:
     """
@@ -35,38 +59,49 @@ class Run_planner:
     # process
     def __init__(self, config: dict):
         self.config             =   config
-        self._spawn_container(config['planner']['value'])
-        self._configure_planner()
-        self._load_problem()
-        self._exec()
-        self._validate_plan()
+        with time_taken('LAPKT_ALL_TASKS') :
+            self._spawn_container(config['planner']['value'])
+            self._configure_planner()
+            with time_taken('LAPKT_PARSE_GROUND_TASK') :
+                self._load_problem()
+            with time_taken('LAPKT_SOLVE_TASK') :
+                self._exec()
+            with time_taken('LAPKT_VALIDATE_SOL') :
+                self._validate_plan()
 
     def _load_problem(self) :
         """
         load problem from pddl files
         """
-        if config['parser']['value'] == 'Tarski' :
+        if config['lapkt_strips_generator']['value'] == 'Tarski' :
             from lib.tarski import ground_generate_task as process_task
-        elif config['parser']['value'] == 'FF' :
+        elif config['lapkt_strips_generator']['value'] == 'FF' :
             from lib.ff import gen_problem_description as process_task 
-        elif config['parser']['value'] == 'FD' :
+        elif config['lapkt_strips_generator']['value'] == 'FD' :
             from lib.fd import default as process_task
         else :
+            # We can add options for procedurally generated problems here
             raise ValueError("The value doesn't match supported parsers - Tarski/FF/FD")
-        if config['parser']['value'] == 'FF' :
+
+        if config['lapkt_strips_generator']['value'] == 'FF' :
             process_task(config['domain']['value'], config['problem']['value'],
                 self.planner_instance, 
                 self.planner_instance.ignore_action_costs, False)
-        else :
+        elif config['lapkt_strips_generator']['value'] in ['Tarski', 'FD'] :
             process_task(config['domain']['value'], config['problem']['value'],
                 self.planner_instance)
+        else :
+            # We can add handle  procedurally generated problems here
+            pass
+        print('#Actions:', self.planner_instance.num_actions())
+        print('#Fluents:', self.planner_instance.num_atoms())
         return 0
 
     def _configure_planner(self) :
         """
         load configs into planner
         """
-        print("Logging Planner Config...")
+        print("Loading Planner Config...")
         for k, v in config.items() :
             if isinstance(v, dict) and v.get('var_name', None) :
                 try :
@@ -105,7 +140,6 @@ class Run_planner:
         """
         Used to validate the plan
         """
-        print("\nRuning 'validate' on the output plan...")
         self.solved =  not run([VALIDATE_PATH, self.config['domain']['value'], 
             self.config['problem']['value'],
             self.config['plan_file']['value']]).returncode
@@ -150,13 +184,14 @@ if __name__ ==  "__main__" :
                     required=True, help='path to the domain pddl file')
             parser.add_argument( '-p', '--problem', action='store', nargs='?',
                     required=True, help='path to the problem pddl file')
-            parser.add_argument( '--parser', action='store', nargs='?',
+            parser.add_argument( '--lapkt_strips_generator', action='store', nargs='?',
                     default='Tarski', 
                     help='Choice of parser - Tarski<Default>,FD or FF')
             parser.set_defaults(planner=k)
 
         #print(list_planner_config)
         args        =   parser_main.parse_args()
+
         try :
             config      =   list_planner_config[args.planner]
         except:
