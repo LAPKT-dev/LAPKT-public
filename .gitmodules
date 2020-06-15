@@ -1,12 +1,12 @@
 [submodule "lab_experiment_module"]
 	path = lab_experiment_module
-	url = git@github.com:anubhav-gres/lab_experiment_module.git
+	url = https://github.com/anubhav-gres/lab_experiment_module.git
 [submodule "src/external/fd"]
 	path = src/external/fd
-	url = git@github.com:anubhav-gres/fd_translate.git
+	url = https://github.com/anubhav-gres/fd_translate.git
 [submodule "src/external/libff"]
 	path = src/external/libff
-	url = git@github.com:anubhav-gres/libff_parser.git
+	url = https://github.com/anubhav-gres/libff_parser.git
 [submodule "src/external/VAL-4.2.08"]
 	path = src/external/VAL-4.2.08
-	url = git@github.com:anubhav-gres/VAL-4.2.08.git
+	url = https://github.com/anubhav-gres/VAL-4.2.08.git
