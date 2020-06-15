@@ -1,5 +1,4 @@
 #! /usr/bin/python3
-import os
 import builtins
 from pathlib import Path
 from yaml import safe_load
@@ -12,13 +11,15 @@ from lib import planner
 from contextlib import contextmanager
 from time import time, process_time, sleep
 from sys import stdout
+from os.path import join, isfile, isdir, dirname, realpath
 
 # Parameters which must be set correctly
-parent_folder   =   Path(__file__).parent.absolute()
-rel_config_file =   Path('config/lapkt_planner_config.yml')
-PLANNER_CONFIG_PATH = os.path.join(parent_folder, rel_config_file)
-rel_validate_file =   Path('bin/validate')
-VALIDATE_PATH = os.path.join(parent_folder, rel_validate_file)
+parent_folder       =   Path(__file__).parent.absolute()
+rel_config_file     =   Path('config/lapkt_planner_config.yml')
+PLANNER_CONFIG_PATH =   join(parent_folder, rel_config_file)
+rel_validate_file   =   Path('bin/validate')
+VALIDATE_PATH       =   join(parent_folder, rel_validate_file)
+CWD                 =   dirname(realpath(__file__))
 
 # Verifying input against BUILTIN_TYPES prevents security issue with eval(<input>)
 BUILTIN_TYPES = [d for d in dir(builtins) if isinstance(getattr(builtins, d), type)]
@@ -66,8 +67,7 @@ class Run_planner:
                 self._load_problem()
             with time_taken('LAPKT_SOLVE_TASK') :
                 self._exec()
-            with time_taken('LAPKT_VALIDATE_SOL') :
-                self._validate_plan()
+            self._validate_plan()
 
     def _load_problem(self) :
         """
@@ -76,9 +76,17 @@ class Run_planner:
         if config['lapkt_strips_generator']['value'] == 'Tarski' :
             from lib.tarski import ground_generate_task as process_task
         elif config['lapkt_strips_generator']['value'] == 'FF' :
-            from lib.ff import gen_problem_description as process_task 
+            if isdir(join(CWD, Path('lib/ff'))) :
+                from lib.ff import gen_problem_description as process_task 
+            else :
+                print('FF Translate is not installed!')
+                exit()
         elif config['lapkt_strips_generator']['value'] == 'FD' :
-            from lib.fd import default as process_task
+            if isdir(join(CWD, Path('lib/fd'))) :
+                from lib.fd import default as process_task
+            else :
+                print('FD Translate is not installed!')
+                exit()
         else :
             # We can add options for procedurally generated problems here
             raise ValueError("The value doesn't match supported parsers - Tarski/FF/FD")
@@ -140,11 +148,12 @@ class Run_planner:
         """
         Used to validate the plan
         """
-        self.solved =  not run([VALIDATE_PATH, self.config['domain']['value'], 
-            self.config['problem']['value'],
-            self.config['plan_file']['value']]).returncode
-        print("Instance Solved =", self.solved)
-
+        if isfile(VALIDATE_PATH) :
+            with time_taken('LAPKT_VALIDATE_SOL') :
+                self.solved =  not run([VALIDATE_PATH, self.config['domain']['value'], 
+                    self.config['problem']['value'],
+                    self.config['plan_file']['value']]).returncode
+            print("Is instance Solved =", self.solved)
         return 0
 
 

@@ -3,6 +3,7 @@ from os.path import isfile, join
 from os import access, X_OK, environ, pathsep
 from subprocess import run
 from multiprocessing import cpu_count
+from imp import find_module
 
 SRC_PATH='./src'
 
@@ -34,6 +35,12 @@ def exists_exec(runfile, name):
         print("Please install external dependency" + name)
         exit()
 
+def exists_python_module(name) :
+    try :
+        find_module(name)
+        return True
+    except ImportError:
+        return False
 
 if __name__ == '__main__' :
     parser  =   ArgumentParser(description="Take LAPKT installation options")    
@@ -56,9 +63,18 @@ if __name__ == '__main__' :
             default='release', help='dir path, where libraries will be stored')
     args = parser.parse_args()
 
-    # Check whether cmake exists (first in 'args.cmake' than in OS Path)
+    # Check whether necesary executables and libs exist
     cmake_exec  =   exists_exec(args.cmake, 'cmake')
     git_exec  =   exists_exec(args.git, 'git')
+    if not exists_python_module('pip') :
+        print('Install python pip module')
+        exit()
+    if not exists_python_module('tarski') and\
+        run([[sys.executable, '-m', 'pip', 'install', 'tarski']], check=True) :
+            print('Installation of tarski library failed')
+            exit()
+        
+
     
     
     cmake_configure =   [cmake_exec, '--clean-first',]
@@ -68,7 +84,7 @@ if __name__ == '__main__' :
     # Apply build_dir
     cmake_configure +=  ['-B', args.build_dir, '-S', SRC_PATH, 
             '-DCMAKE_INSTALL_PREFIX='+args.install_dir ]
-    cmake_build     +=  ['--build', args.build_dir,'-j', cpu_count()]
+    cmake_build     +=  ['--build', args.build_dir,'-j'+str(cpu_count())]
     cmake_install   +=  ['--install', args.build_dir]
 
     # Choice of additional components 'FF_Parser', 'FD_Translate', 'Validate'
@@ -79,21 +95,20 @@ if __name__ == '__main__' :
         git_fetch_modules = [git_exec, 'submodule', 'update', '--init']
         if 'all' in args.additional_features and run(git_fetch_modules).returncode:
             exit()
-        else : return
         if 'FF_Parser' in args.additional_features:
-            if run(git_fetch_modules,'src/external/libff').returncode:
+            if run(git_fetch_modules+['src/external/libff']).returncode:
                 print('error fetching submodule', 'FF')
                 exit()
             else :
                 cmake_configure +=  ['-DCMAKE_FF=ON']
         if 'FD_Translate' in args.additional_features :
-            if run(git_fetch_modules,'src/external/fd').returncode:
+            if run(git_fetch_modules+['src/external/fd']).returncode:
                 print('error fetching submodule', 'FD')
                 exit()
             else :
                 cmake_configure +=  ['-DCMAKE_FD=ON']
         if 'Validate' in args.additional_features :
-            if run(git_fetch_modules,'src/external/VAL-4.2.08').returncode:
+            if run(git_fetch_modules+['src/external/VAL-4.2.08']).returncode:
                 print('error fetching submodule', 'Validate')
                 exit()
             else :
@@ -105,10 +120,9 @@ if __name__ == '__main__' :
 
     # Choice of build components
     if args.cmake_component:
-        cmake_install   = ['--component', args.cmake_component]
+        cmake_install   += ['--component', args.cmake_component]
 
     # run cmake configure
-    print(cmake_configure)
     x = not run(cmake_configure).returncode
     # run cmake build
     if x :
