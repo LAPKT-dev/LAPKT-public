@@ -1,3 +1,19 @@
+## 'Devel' BRANCH User Guide - (Brief)
+
+- Working towards windows compatibility - not there yet
+- 'install.sh' will install the lapkt libraries in 'release' directory
+- Inside 'release', 'lapkt.py' is the primary frontend, use 'lapkt.py -h' for help
+- Use 'git submodule update --init lab_experiment_module' to add lab interface
+- External Dependencies
+    * Tarski
+    * Python>=3.7
+    * cmake
+    * gcc
+    * flex
+    * bison
+    * boost-python
+    * clingo
+
 LAPKT
 ======
 
