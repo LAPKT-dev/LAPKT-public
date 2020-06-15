@@ -5,6 +5,7 @@ from os import access, X_OK, environ, pathsep
 from subprocess import run
 from multiprocessing import cpu_count
 from importlib.util import find_spec as find_module
+from sys import executable
 
 SRC_PATH='./src'
 
@@ -70,7 +71,8 @@ if __name__ == '__main__' :
         print('Install python pip module')
         exit()
     if not exists_python_module('tarski') and\
-        run([[sys.executable, '-m', 'pip', 'install', 'tarski']], check=True) :
+                run([executable, '-m', 'pip', 'install', 'tarski'], 
+                check=True).returncode :
             print('Installation of tarski library failed')
             exit()
         
