@@ -11,7 +11,9 @@ set(CMAKE_INSTALL_RPATH
 #set(CMAKE_CXX_STANDARD_REQUIRED False)
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
-
+option(CMAKE_FF "CMAKE_FF" OFF)
+option(CMAKE_FD "CMAKE_FD" OFF)
+option(CMAKE_VAL "CMAKE_FD" OFF)
 
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 function(cat FROM TO)

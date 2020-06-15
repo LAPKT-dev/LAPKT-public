@@ -13,9 +13,13 @@ target_link_libraries( pddl_py_interface PRIVATE
     )
 
 #
-add_subdirectory(ff_lapkt)
+if(CMAKE_FF)
+    add_subdirectory(ff_lapkt)
+endif(CMAKE_FF)
+if(CMAKE_FD)
+    add_subdirectory(fd_parse_ground)
+endif(CMAKE_FD)
 add_subdirectory(tarski_parse_ground)
-add_subdirectory(fd_parse_ground)
 add_subdirectory(common)
 
 #

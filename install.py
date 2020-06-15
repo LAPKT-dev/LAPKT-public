@@ -1,9 +1,10 @@
+#! /usr/bin/python3
 from argparse import ArgumentParser
 from os.path import isfile, join
 from os import access, X_OK, environ, pathsep
 from subprocess import run
 from multiprocessing import cpu_count
-from imp import find_module
+from importlib.util import find_spec as find_module
 
 SRC_PATH='./src'
 
@@ -74,9 +75,6 @@ if __name__ == '__main__' :
             print('Installation of tarski library failed')
             exit()
         
-
-    
-    
     cmake_configure =   [cmake_exec, '--clean-first',]
     cmake_build     =   [cmake_exec,]
     cmake_install   =   [cmake_exec,]

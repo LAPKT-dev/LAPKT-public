@@ -1,4 +1,6 @@
-add_subdirectory(ff_parser)
+if(CMAKE_FF)
+    add_subdirectory(ff_parser)
+endif(CMAKE_FF)
 list(APPEND EXTRA_LIBS lapkt_shared)
 list(APPEND EXTRA_LIBS pddl_py_interface)
 
