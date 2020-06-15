@@ -1,4 +1,0 @@
-- change 'ar cru' command in Makefile with the following command:
-
-libtool -static -o libff.a -arch_only x86_64 *.o
-
