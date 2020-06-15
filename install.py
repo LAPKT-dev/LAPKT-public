@@ -38,8 +38,7 @@ def exists_exec(runfile, name):
 
 def exists_python_module(name) :
     try :
-        find_module(name)
-        return True
+        return bool(find_module(name))
     except ImportError:
         return False
 
