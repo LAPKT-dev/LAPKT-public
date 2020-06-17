@@ -165,7 +165,7 @@ namespace aptk
 		static unsigned 	add_fluent( STRIPS_Problem& p, std::string signature );
 
 		static void		set_init( STRIPS_Problem& p, const Fluent_Vec& init );
-	    static void		set_goal( STRIPS_Problem& p, const Fluent_Vec& goal, bool createEndOp = false, bool keep_original_goal = false );
+		static void		set_goal( STRIPS_Problem& p, const Fluent_Vec& goal, bool createEndOp = false, bool keep_original_goal = false );
 
 		static void		make_delete_relaxation( const STRIPS_Problem& orig, STRIPS_Problem& relaxed );
 
@@ -236,6 +236,8 @@ namespace aptk
 		void                    print_fluent_vec(const Fluent_Vec &a);
 		unsigned                end_operator() { return m_end_operator_id; }
       	        unsigned                end_operator() const { return m_end_operator_id; }
+		unsigned                dummy_goal() { return m_dummy_goal_id; }
+      	        unsigned                dummy_goal() const { return m_dummy_goal_id; }
 	        unsigned                get_fluent_index(std::string signature);
 
 		void			make_action_tables(bool generate_match_tree = true);
@@ -290,6 +292,7 @@ namespace aptk
 		std::vector<bool>	 						m_in_init;
 		std::vector<bool>	 						m_in_goal;
 		unsigned                 						m_end_operator_id;
+		unsigned                 						m_dummy_goal_id;
 	  	std::map<std::string,int> 						m_fluents_map;
 		agnostic::Successor_Generator						m_succ_gen;
 		agnostic::Match_Tree							m_succ_gen_v2;
