@@ -50,7 +50,7 @@ if __name__ == '__main__' :
     parser.add_argument('--git', action='store', nargs='?',
             help='Path to git exec')
     parser.add_argument('--additional_features', action='store', nargs='*',
-            choices=['FF_Parser', 'FD_Translate', 'Validate', 'all'],
+            choices=['FF_Parser', 'FD_Translate', 'Validate', 'Lab_module', 'all'],
             help='Choice of external components with GPLv3 License')
     parser.add_argument('--cmake_build_options', action='store', nargs='?',
             choices=['Release', 'Debug'], default='Release',
@@ -92,9 +92,10 @@ if __name__ == '__main__' :
             "https://www.gnu.org/licenses/gpl-3.0.en.html. Do you wish to "+
             "continue? ", 'n') :
         git_fetch_modules = [git_exec, 'submodule', 'update', '--init']
-        if 'all' in args.additional_features and run(git_fetch_modules).returncode:
-            exit()
-        else :
+        if 'all' in args.additional_features :
+            if run(git_fetch_modules).returncode:
+                exit()
+            else :
                 cmake_configure +=  ['-DCMAKE_VAL=ON']
                 cmake_configure +=  ['-DCMAKE_FF=ON']
                 cmake_configure +=  ['-DCMAKE_FD=ON']
