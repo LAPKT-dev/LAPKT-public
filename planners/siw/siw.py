@@ -19,7 +19,7 @@ def main( domain_file, problem_file, plan_file ) :
 	# of Python object attributes
 	
 	# MRJ: Maximum bound on width is set to 1
-	task.iw_bound = 1
+	task.iw_bound = 2
 
 	# MRJ: log filename set
 	task.log_filename = 'iw.log'

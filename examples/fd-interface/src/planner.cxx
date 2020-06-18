@@ -36,6 +36,20 @@ Planner::do_search(  ) {
     return 0.0;
 }
 
+
+void
+Planner::dump_pddl( ) {
+	
+	std::cout << "NOT IMPLEMENTED YET :)" << std::endl;
+	
+	/*
+	  std::ofstream domain_stream( domain.c_str() );
+	  m_inst->write_domain( domain_stream );
+	  std::ofstream problem_stream( problem.c_str() );
+	  m_inst->write_problem( problem_stream );
+	*/
+}
+
 void	
 Planner::solve() {
 

@@ -6,10 +6,10 @@ from collections import deque, defaultdict
 import itertools
 import time
 
-import invariants
-import options
-import pddl
-import timers
+from . import invariants
+from . import options
+from . import pddl
+from . import timers
 
 class BalanceChecker(object):
     def __init__(self, task, reachable_action_params):

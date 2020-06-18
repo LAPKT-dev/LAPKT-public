@@ -22,8 +22,8 @@ class Timer(object):
             self._clock() - self.start_clock,
             time.time() - self.start_time)
 
-    def report( self ) :
-		return  self._clock() - self.start_clock
+    def report(self):
+        return self._clock() - self.start_clock
 
 
 @contextlib.contextmanager
