@@ -73,15 +73,15 @@ class Run_planner:
         """
         load problem from pddl files
         """
-        if config['lapkt_strips_generator']['value'] == 'Tarski' :
+        if config['lapkt_instance_generator']['value'] == 'Tarski' :
             from lib.tarski import ground_generate_task as process_task
-        elif config['lapkt_strips_generator']['value'] == 'FF' :
+        elif config['lapkt_instance_generator']['value'] == 'FF' :
             if isdir(join(CWD, Path('lib/ff'))) :
                 from lib.ff import gen_problem_description as process_task 
             else :
                 print('FF Translate is not installed!')
                 exit()
-        elif config['lapkt_strips_generator']['value'] == 'FD' :
+        elif config['lapkt_instance_generator']['value'] == 'FD' :
             if isdir(join(CWD, Path('lib/fd'))) :
                 from lib.fd import default as process_task
             else :
@@ -91,11 +91,11 @@ class Run_planner:
             # We can add options for procedurally generated problems here
             raise ValueError("The value doesn't match supported parsers - Tarski/FF/FD")
 
-        if config['lapkt_strips_generator']['value'] == 'FF' :
+        if config['lapkt_instance_generator']['value'] == 'FF' :
             process_task(config['domain']['value'], config['problem']['value'],
                 self.planner_instance, 
                 self.planner_instance.ignore_action_costs, False)
-        elif config['lapkt_strips_generator']['value'] in ['Tarski', 'FD'] :
+        elif config['lapkt_instance_generator']['value'] in ['Tarski', 'FD'] :
             process_task(config['domain']['value'], config['problem']['value'],
                 self.planner_instance)
         else :
@@ -193,7 +193,7 @@ if __name__ ==  "__main__" :
                     required=True, help='path to the domain pddl file')
             parser.add_argument( '-p', '--problem', action='store', nargs='?',
                     required=True, help='path to the problem pddl file')
-            parser.add_argument( '--lapkt_strips_generator', action='store', nargs='?',
+            parser.add_argument( '--lapkt_instance_generator', action='store', nargs='?',
                     default='Tarski', 
                     help='Choice of parser - Tarski<Default>,FD or FF')
             parser.set_defaults(planner=k)

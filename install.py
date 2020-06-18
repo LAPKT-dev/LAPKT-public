@@ -53,7 +53,7 @@ if __name__ == '__main__' :
             choices=['FF_Parser', 'FD_Translate', 'Validate', 'all'],
             help='Choice of external components with GPLv3 License')
     parser.add_argument('--cmake_build_options', action='store', nargs='?',
-            choices=['Release', 'Debug'],
+            choices=['Release', 'Debug'], default='Release',
             help='cmake build options')
     parser.add_argument('--cmake_component', action='store', nargs='?',
             choices=['Development', 'Runtime'], default='Development',
@@ -90,10 +90,14 @@ if __name__ == '__main__' :
     if args.additional_features and user_agreement("All additional features "+
             "require external packages with GPLv3 license. Read the license at "+
             "https://www.gnu.org/licenses/gpl-3.0.en.html. Do you wish to "+
-            "continue?", 'n') :
+            "continue? ", 'n') :
         git_fetch_modules = [git_exec, 'submodule', 'update', '--init']
         if 'all' in args.additional_features and run(git_fetch_modules).returncode:
             exit()
+        if 'Lab_module' in args.additional_features:
+            if run(git_fetch_modules+['lab_experiment_module']).returncode:
+                print('error fetching submodule', 'lab_experiment_module')
+                exit()
         if 'FF_Parser' in args.additional_features:
             if run(git_fetch_modules+['src/external/libff']).returncode:
                 print('error fetching submodule', 'FF')
