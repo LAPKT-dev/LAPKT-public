@@ -94,6 +94,10 @@ if __name__ == '__main__' :
         git_fetch_modules = [git_exec, 'submodule', 'update', '--init']
         if 'all' in args.additional_features and run(git_fetch_modules).returncode:
             exit()
+        else :
+                cmake_configure +=  ['-DCMAKE_VAL=ON']
+                cmake_configure +=  ['-DCMAKE_FF=ON']
+                cmake_configure +=  ['-DCMAKE_FD=ON']
         if 'Lab_module' in args.additional_features:
             if run(git_fetch_modules+['lab_experiment_module']).returncode:
                 print('error fetching submodule', 'lab_experiment_module')
