@@ -45,9 +45,9 @@ public:
 	virtual void generate_applicable_items( const State& s, std::vector<int>& actions ) = 0;
 	virtual int count() const = 0;
 	
-	BaseNode *create_tree( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
-	int get_best_var( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
-	bool action_done( int action_id, std::set<int> &vars_seen, const STRIPS_Problem& prob );
+	BaseNode *create_tree( std::vector<int>& actions, std::vector<bool> &vars_seen, std::vector< std::pair<int,int> >& var_count, const STRIPS_Problem& prob );
+	int get_best_var( std::vector<int>& actions, std::vector<bool> &vars_seen, std::vector< std::pair<int,int> >& var_count, const STRIPS_Problem& prob );
+	bool action_done( int action_id, std::vector<bool> &vars_seen, const STRIPS_Problem& prob );
 };
 
 
@@ -58,7 +58,7 @@ class SwitchNode : public BaseNode {
 	BaseNode * default_child;
 	
 public:
-	SwitchNode( std::vector<int>& actions, std::set<int> &vars_seen, const STRIPS_Problem& prob );
+	SwitchNode( std::vector<int>& actions, std::vector<bool> &vars_seen, std::vector< std::pair<int,int> >& var_count, const STRIPS_Problem& prob );
 	virtual void generate_applicable_items( const State& s, std::vector<int>& actions );
 	virtual void dump( std::string indent, const STRIPS_Problem& prob ) const;
 	virtual int count() const;
