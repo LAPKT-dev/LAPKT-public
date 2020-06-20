@@ -3,6 +3,8 @@ target_sources(lapkt_shared
         node_novelty_spaces.hxx
         novelty.hxx
         novelty_partition.hxx
+        novelty_partition_1.hxx
+        novelty_partition_2.hxx
     )
 target_include_directories(lapkt_shared
     PUBLIC

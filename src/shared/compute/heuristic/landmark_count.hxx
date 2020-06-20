@@ -49,6 +49,7 @@ public:
 		m_graph = NULL;
 		m_lgm = NULL;
 		m_in_leafs.resize( m_strips_model.num_fluents() );
+		m_already_counted.resize( m_strips_model.num_fluents() );
 	}
 
 	Landmarks_Count_Heuristic( const Search_Model& prob, Landmarks_Graph* lg ) 
@@ -129,21 +130,112 @@ public:
 		h_val = h;
 	}
 
+	
+	/**
+	 * Counts edges
+	 */
 	virtual void eval( const State& s, unsigned& h_val ) {
 		if (!m_graph) return;
+		
 		h_val = 0;
 		for ( std::vector< Landmarks_Graph::Node* >::const_iterator it = m_graph->nodes().begin(); it != m_graph->nodes().end(); it++ ) {
 			Landmarks_Graph::Node*n = *it;
-			if( ! n->is_consumed() ) {
+			if( ! n->is_consumed()  ) {
 					h_val++;
+				
+			}
+	
+			if( !n->required_by_gn().empty() ){
+				for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by_gn().begin(); it_r != n->required_by_gn().end(); it_r++ ){
+					if( ! (*it_r)->is_consumed_once()  ){
+						//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;							
+						h_val++;
+					}
+				}
+			}
+								
+		
+			if( ! n->required_by().empty() ){
+				for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by().begin(); it_r != n->required_by().end(); it_r++ ){
+					if( ! (*it_r)->is_consumed()   ){
+						//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;							
+						h_val++;
+						//	break;
+					}
+				}
+			}
+
+
+
+		}
+	}
+
+	/**
+	 * Counts lands
+	 */
+	// virtual void eval( const State& s, unsigned& h_val ) {
+	// 	if (!m_graph) return;
+
+	// 	m_already_counted.reset();
+		
+	// 	h_val = 0;
+	// 	for ( std::vector< Landmarks_Graph::Node* >::const_iterator it = m_graph->nodes().begin(); it != m_graph->nodes().end(); it++ ) {
+	// 		Landmarks_Graph::Node*n = *it;
+	// 		unsigned p = (*it)->fluent();
+	// 		if( ! n->is_consumed()  && !m_already_counted.isset( p ) ) {
+	// 				h_val++;
+	// 				m_already_counted.set( p );
+				
+	// 		}
+	
+	// 		if( !n->required_by_gn().empty() ){
+	// 			for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by_gn().begin(); it_r != n->required_by_gn().end(); it_r++ ){
+	// 				unsigned p = (*it_r)->fluent();
+	// 				if( ! (*it_r)->is_consumed_once() && !m_already_counted.isset( p ) ){
+	// 					//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;							
+	// 					h_val++;
+	// 					m_already_counted.set( p );
+	// 				}
+	// 			}
+	// 		}
+								
+		
+	// 		if( ! n->required_by().empty() ){
+	// 			for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by().begin(); it_r != n->required_by().end(); it_r++ ){
+	// 				unsigned p = (*it_r)->fluent();
+	// 				if( ! (*it_r)->is_consumed()  && !m_already_counted.isset( p ) ){
+	// 					//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;							
+	// 					h_val++;
+	// 					m_already_counted.set( p );
+	// 					//	break;
+	// 				}
+	// 			}
+	// 		}
+
+
+
+	// 	}
+	// }
+	
+	template<typename Heuristic>
+	void eval_min( const State& s, unsigned& h_val, Heuristic* heur ) {
+		if (!m_graph) return;
+		h_val = std::numeric_limits<unsigned>::max();
+		for ( std::vector< Landmarks_Graph::Node* >::const_iterator it = m_graph->nodes().begin(); it != m_graph->nodes().end(); it++ ) {
+			Landmarks_Graph::Node*n = *it;
+			if( ! n->is_consumed() ) {
+				if( heur->value( n->fluent() ) < h_val )
+					h_val = heur->value( n->fluent() );
 				
 			}
 	
 			if( !n->required_by_gn().empty() ){
 				for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by_gn().begin(); it_r != n->required_by_gn().end(); it_r++ )
 					if( ! (*it_r)->is_consumed_once() ){
-						//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;							
-						h_val++;			
+						//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;
+						if( heur->value( (*it_r)->fluent() ) < h_val )
+							h_val = heur->value( (*it_r)->fluent() );
+
 					}
 			}
 								
@@ -151,13 +243,13 @@ public:
 			if( ! n->required_by().empty() ){
 				for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by().begin(); it_r != n->required_by().end(); it_r++ )
 					if( ! (*it_r)->is_consumed() ){
-						//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;							
-						h_val++;
+						//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;
+						if( heur->value( (*it_r)->fluent() ) < h_val )
+							h_val = heur->value( (*it_r)->fluent() );
+
 						//	break;
 					}
 			}
-
-
 
 		}
 	}
@@ -170,17 +262,21 @@ public:
 	}
 	
 	/**
-	 * Graph should be updated already, otherwise use eval(Node,...)
+	 * Graph should be updated already, otherwise use eval(Node,...). Counts edges
 	 */
 	virtual void eval( const State& s, unsigned& h_val,  std::vector<Action_Idx>& pref_ops ) {		
 		if (!m_graph) return;
 		m_in_leafs.reset();
 
+
+
 		h_val = 0;
 		for ( std::vector< Landmarks_Graph::Node* >::const_iterator it = m_graph->nodes().begin(); it != m_graph->nodes().end(); it++ ) {
 			
 			Landmarks_Graph::Node*n = *it;
-			if( ! n->is_consumed() ) {
+
+			if( ! n->is_consumed()) {
+
 				if( n->required_by().empty() ){
 					//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;
 					h_val++;
@@ -213,6 +309,57 @@ public:
 			
 		}
 	}
+
+	// /**
+	//  * Graph should be updated already, otherwise use eval(Node,...).
+	//  */
+	// virtual void eval( const State& s, unsigned& h_val,  std::vector<Action_Idx>& pref_ops ) {		
+	// 	if (!m_graph) return;
+	// 	m_in_leafs.reset();
+
+	// 	m_already_counted.reset();
+
+	// 	h_val = 0;
+	// 	for ( std::vector< Landmarks_Graph::Node* >::const_iterator it = m_graph->nodes().begin(); it != m_graph->nodes().end(); it++ ) {
+			
+	// 		Landmarks_Graph::Node*n = *it;
+	// 		unsigned p = (*it)->fluent();
+
+	// 		if( ! n->is_consumed() && !m_already_counted.isset( p )) {
+	// 			m_already_counted.set( p );
+
+	// 			if( n->required_by().empty() ){
+	// 				//std::cout << " "<< m_strips_model.fluents()[ n->fluent() ]->signature() << std::endl;
+	// 				h_val++;
+	// 			}
+	// 			else
+	// 				//for( std::vector< Landmarks_Graph::Node* >::const_iterator it_r = n->required_by().begin(); it_r != n->required_by().end(); it_r++ )
+	// 				//if( ! (*it_r)->is_consumed() )
+	// 						h_val++;
+
+	// 			if(  n->are_precedences_consumed() )
+	// 				m_in_leafs.set( n->fluent() );
+					
+	// 		}
+	// 	}
+
+	// 	std::vector< aptk::Action_Idx >	app_set;
+	// 	this->problem().applicable_set_v2( s, app_set );
+
+	// 	for ( unsigned i = 0; i < app_set.size(); i++ ) {
+	// 		int a = app_set[i];
+
+	// 		const Action& act = *(m_strips_model.actions()[a]);
+	// 		for ( Fluent_Vec::const_iterator it2 = act.add_vec().begin();
+	// 			it2 != act.add_vec().end(); it2++ )
+	// 			if ( m_in_leafs.isset( *it2 ) ) {
+	// 				pref_ops.push_back( act.index() );
+	// 				//m_in_leafs.unset(*it2); // Just one supporter for leaf landmark
+	// 				break;
+	// 			}
+			
+	// 	}
+	// }
 	
 	unsigned max_value() const { return m_max_value; }
 protected:
@@ -246,6 +393,7 @@ protected:
 	Landmarks_Graph*			m_graph;
 	Landmarks_Graph_Manager*                m_lgm;
 	Bit_Set					m_in_leafs;
+	Bit_Set					m_already_counted;
 	unsigned                                m_max_value;
 };
 

@@ -396,6 +396,7 @@ public:
 
 	bool deletes_goal( ) const	{ return m_plan_extractor.deletes_goal(); }
 
+	unsigned value( unsigned p ){ return m_base_heuristic.value(p); }
 protected:
 
 	Primary_Heuristic							m_base_heuristic;

@@ -2,6 +2,7 @@
 #include<at_bfsf_planner.hxx>
 #include<bfsf_planner.hxx>
 #include<brfs_planner.hxx>
+#include<bfws.hxx>
 #include<dfiw_planner.hxx>
 #include<dfsiw_planner.hxx>
 #include<dfs_plus_planner.hxx>
@@ -121,6 +122,19 @@ BOOST_PYTHON_MODULE(libPlanners)
 		.def( "solve", &BRFS_Planner::solve )
 		.def_readwrite( "log_filename", &BRFS_Planner::m_log_filename )
         .def_readwrite( "plan_filename", &BRFS_Planner::m_plan_filename )
+	;
+	class_<BFWS, bases<STRIPS_Interface>>("BFWS")
+        .def( "setup", &BFWS::setup )
+		.def( "solve", &BFWS::solve )
+		.def_readwrite( "log_filename", &BFWS::m_log_filename )
+        .def_readwrite( "plan_filename", &BFWS::m_plan_filename )
+	    .def_readwrite( "anytime", &BFWS::m_anytime )
+	    .def_readwrite( "search", &BFWS::m_search_alg )
+        .def_readwrite( "m_value", &BFWS::m_M )
+	    .def_readwrite( "max_novelty", &BFWS::m_max_novelty )
+        .def_readwrite( "found_plan", &BFWS::m_found_plan )
+        .def_readwrite( "plan_cost", &BFWS::m_cost )
+        .def_readwrite( "cost_bound", &BFWS::m_cost_bound )	    	    
 	;
 	class_<DFIW_Planner, bases<STRIPS_Interface>>("DFIW_Planner")
         .def( "setup", &DFIW_Planner::setup )

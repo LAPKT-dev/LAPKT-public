@@ -51,6 +51,13 @@ install(
         at_wbfs_dq.hxx
         at_wbfs_dq_mh.hxx
         brfs.hxx
+        bfws_2h.hxx
+        bfws_4h.hxx
+        bfws_2h_M.hxx
+        bfws_2h_consistency.hxx
+        bfws_2h_consistency_M.hxx
+        new_node_comparer.hxx
+        ipc2014_rwa.hxx
         closed_list.hxx
         das.hxx
         dfs_plus.hxx

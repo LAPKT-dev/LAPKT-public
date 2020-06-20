@@ -1,8 +1,7 @@
 target_sources(Planners
     PRIVATE
-        anytime_lapkt.hxx
-        anytime_lapkt.cxx
-        #ipc2014_rwa.hxx
+        bfws.cxx
+        bfws.hxx
     )
 
 target_include_directories(Planners 
