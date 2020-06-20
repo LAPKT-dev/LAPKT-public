@@ -1,11 +1,12 @@
 #! /usr/bin/python3
 from argparse import ArgumentParser
-from os.path import isfile, join
+from os.path import isfile, isdir, join
 from os import access, X_OK, environ, pathsep
 from subprocess import run
 from multiprocessing import cpu_count
 from importlib.util import find_spec as find_module
 from sys import executable
+from shutil import rmtree
 
 SRC_PATH='./src'
 
@@ -62,7 +63,16 @@ if __name__ == '__main__' :
             default='build', help='dir path, where build files will be stored')
     parser.add_argument('--install_dir', action='store', nargs='?', 
             default='release', help='dir path, where libraries will be stored')
+    parser.add_argument('--clean', action='store_true', 
+            default=False, help='cleans build and install directories')
     args = parser.parse_args()
+
+    if args.clean :
+        if isdir(args.build_dir) :
+            rmtree(args.build_dir)
+        if isdir(args.install_dir) :
+            rmtree(args.install_dir)
+        exit()
 
     # Check whether necesary executables and libs exist
     cmake_exec  =   exists_exec(args.cmake, 'cmake')
