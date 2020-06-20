@@ -186,6 +186,10 @@ if __name__ ==  "__main__" :
                     has_type = parser_args['cmd_arg'].get('type', None)
                     if has_type and has_type in BUILTIN_TYPES :
                         parser_args['cmd_arg']['type'] = eval(has_type)
+                    if parser_args['cmd_arg'].get('default', None) :
+                        parser_args['cmd_arg']['help'] = \
+                            parser_args['cmd_arg']['help']+ "; **Default = "+\
+                            str(parser_args['cmd_arg']['default'])
                     parser.add_argument('--'+opt, **parser_args['cmd_arg'])
                     del parser_args['cmd_arg'] #Will be in the Arg-parser
             # Add common cmd args

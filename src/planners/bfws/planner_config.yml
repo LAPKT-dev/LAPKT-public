@@ -53,13 +53,13 @@ BFWS:
         - 'DUAL-BFWS'
       nargs   : '?'
       action  : 'store'
-      help    : 'specify a variant of BFWS'
+      help    : "specify a variant of BFWS - default 'DUAL-BFWS'"
     var_name: 'search'
   anytime: 
     cmd_arg: 
       required: False
       action  : 'store_true'
-      help    : 'run anytime version'
+      help    : 'enable anytime planning'
     var_name: 'anytime'
   max_novelty:  
     cmd_arg: 
@@ -77,7 +77,7 @@ BFWS:
       nargs   : '?'
       type    : 'int'
       action  : 'store'
-      help    : 'Increases the number of expanded nodes by the constant factor. For M-variants of BFWS'
+      help    : 'For M-variants of BFWS, increases the number of expanded nodes by the constant factor.'
     var_name: 'm_value'
 
 #END - Leave this line a empty line as it is
