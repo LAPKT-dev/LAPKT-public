@@ -58,7 +58,7 @@ public:
 	void	set_domain_name( std::string name );
 	void	set_problem_name( std::string name );
 
-	virtual	void	setup();
+	virtual	void	setup(bool gen_match_tree=true);
 
 	void	print_action( int index );
 

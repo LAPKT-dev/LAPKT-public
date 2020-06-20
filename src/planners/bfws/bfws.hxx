@@ -170,7 +170,7 @@ public:
 	virtual ~BFWS();
 
 
-	virtual void setup();
+	virtual	void	setup(bool gen_match_tree=true);
 	void    solve();
 
 

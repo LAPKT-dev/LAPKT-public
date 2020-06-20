@@ -49,7 +49,7 @@ class	IW_Planner : public STRIPS_Interface
                 std::string, std::string );
         virtual ~IW_Planner();
         
-        virtual void setup();
+        virtual	void	setup(bool gen_match_tree=true);
         void	solve();
         
         unsigned m_iw_bound;

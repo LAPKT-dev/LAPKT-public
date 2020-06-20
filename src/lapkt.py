@@ -129,7 +129,7 @@ class Run_planner:
         """
         run planner
         """
-        self.planner_instance.setup()
+        self.planner_instance.setup(bool(not self.config['no_match_tree']['value']))
         self.planner_instance.solve()
         return 0
 
@@ -197,6 +197,8 @@ if __name__ ==  "__main__" :
                     required=True, help='path to the domain pddl file')
             parser.add_argument( '-p', '--problem', action='store', nargs='?',
                     required=True, help='path to the problem pddl file')
+            parser.add_argument( '--no_match_tree', action='store_true',
+                    help='If specified, match tree is not generated')
             parser.add_argument( '--lapkt_instance_generator', action='store', nargs='?',
                     default='Tarski', 
                     help='Choice of parser - Tarski<Default>,FD or FF')

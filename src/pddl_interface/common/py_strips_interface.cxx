@@ -504,8 +504,8 @@ STRIPS_Interface::write_ground_pddl( std::string domain, std::string problem ) {
 }
 
 void
-STRIPS_Interface::setup() {
-	instance()->make_action_tables();
+STRIPS_Interface::setup(bool gen_match_table) {
+	instance()->make_action_tables(gen_match_table);
 	instance()->make_effect_tables();
 }
 

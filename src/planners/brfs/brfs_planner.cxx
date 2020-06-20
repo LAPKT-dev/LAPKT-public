@@ -14,9 +14,9 @@ BRFS_Planner::~BRFS_Planner() {
 
 
 void	
-BRFS_Planner::setup() {
+BRFS_Planner::setup(bool gen_match_tree) {
 	// MRJ: Call superclass method, then do you own thing here
-	STRIPS_Interface::setup();
+	STRIPS_Interface::setup(gen_match_tree);
 	std::cout << "PDDL problem description loaded: " << std::endl;
 	std::cout << "\tDomain: " << instance()->domain_name() << std::endl;
 	std::cout << "\tProblem: " << instance()->problem_name() << std::endl;

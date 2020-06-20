@@ -222,7 +222,10 @@ namespace aptk
 		}
 		
 		void			applicable_actions_v2( const State& s, std::vector<int>& actions ) const {
-			m_succ_gen_v2.retrieve_applicable(s,actions);
+            if (m_gen_match_tree)
+                m_succ_gen_v2.retrieve_applicable(s,actions);
+            else
+			    m_succ_gen.retrieve_applicable(s,actions);
 		}
 
 		void			applicable_actions( const std::vector<float>& v, std::vector<const Action*>& actions ) const {
@@ -298,6 +301,7 @@ namespace aptk
 		std::vector< std::vector< std::pair< unsigned, const Action* > > >	m_ceffs_adding;
 		bool									m_has_cond_effs;
 		bool									m_verbose;
+        bool                                    m_gen_match_tree;
 		std::vector< Best_Supporter >						m_effects;
 		mutable std::vector< Trigger >						m_triggers;
 		std::vector< std::set< unsigned> >					m_relevant_effects;

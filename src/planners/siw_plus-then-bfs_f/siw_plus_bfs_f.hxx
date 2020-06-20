@@ -97,7 +97,7 @@ public:
 	virtual ~SIW_PLUS_BFS_F_Planner();
 
 	
-	virtual void setup();
+	virtual	void	setup(bool gen_match_tree=true);
 	void	solve();
 
 	int		m_iw_bound;

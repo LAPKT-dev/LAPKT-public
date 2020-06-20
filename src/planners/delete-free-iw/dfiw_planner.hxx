@@ -22,7 +22,7 @@ public:
 	virtual ~DFIW_Planner();
 
 	
-	virtual void setup();
+	virtual void setup(bool gen_match_tree=true);
 	void	solve();
 
 	int		m_iw_bound;

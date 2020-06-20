@@ -20,10 +20,10 @@ SIW_PLUS_BFS_F_Planner::~SIW_PLUS_BFS_F_Planner() {
 
 
 void	
-SIW_PLUS_BFS_F_Planner::setup() {
+SIW_PLUS_BFS_F_Planner::setup(bool gen_match_tree) {
 	m_details.open( m_log_filename.c_str() );
 	// MRJ: Call superclass method, then do you own thing here
-	STRIPS_Interface::setup();
+	STRIPS_Interface::setup(gen_match_tree);
 	m_details << "PDDL problem description loaded: " << std::endl;
 	m_details << "\tDomain: " << instance()->domain_name() << std::endl;
 	m_details << "\tProblem: " << instance()->problem_name() << std::endl;
