@@ -239,8 +239,10 @@ namespace aptk
 
 		void                    print_fluent_vec(const Fluent_Vec &a);
 		unsigned                end_operator() { return m_end_operator_id; }
-      	        unsigned                end_operator() const { return m_end_operator_id; }
-	        unsigned                get_fluent_index(std::string signature);
+        unsigned                end_operator() const { return m_end_operator_id; }
+        unsigned                dummy_goal() { return m_dummy_goal_id; }
+        unsigned                dummy_goal() const { return m_dummy_goal_id; }
+        unsigned                get_fluent_index(std::string signature);
 
 		void			make_action_tables(bool generate_match_tree = true);
 
@@ -276,36 +278,37 @@ namespace aptk
 		void			register_action_in_tables( Action* act );
 
 	protected:
-
-		std::string								m_domain_name;
-		std::string								m_problem_name;
-		unsigned		 						m_num_fluents;
-		unsigned		 						m_num_actions;
+		std::string								    m_domain_name;
+		std::string								    m_problem_name;
+		unsigned		 						    m_num_fluents;
+		unsigned		 						    m_num_actions;
 		Action_Ptr_Vec		 						m_actions;
-		std::vector<const Action*>						m_const_actions;
+		std::vector<const Action*>					m_const_actions;
 		Fluent_Ptr_Vec		 						m_fluents;
-		std::vector<const Fluent*>						m_const_fluents;
-		Fluent_Vec		 						m_init;
-		Fluent_Vec		 						m_goal;
+		std::vector<const Fluent*>					m_const_fluents;
+		Fluent_Vec		 						    m_init;
+		Fluent_Vec		 						    m_goal;
 		Fluent_Action_Table	 						m_adding;
 		Fluent_Action_Table	 						m_requiring;
 		Fluent_Action_Table	 						m_deleting;
 		Fluent_Action_Table	 						m_edeleting;
 		std::vector<bool>	 						m_in_init;
 		std::vector<bool>	 						m_in_goal;
-		unsigned                 						m_end_operator_id;
-	  	std::map<std::string,int> 						m_fluents_map;
-		agnostic::Successor_Generator						m_succ_gen;
-		agnostic::Match_Tree							m_succ_gen_v2;
-		std::vector< const  Action* >   					m_empty_precs;
-		std::vector< std::vector< std::pair< unsigned, const Action* > > >	m_ceffs_adding;
-		bool									m_has_cond_effs;
-		bool									m_verbose;
-        bool                                    m_gen_match_tree;
-		std::vector< Best_Supporter >						m_effects;
-		mutable std::vector< Trigger >						m_triggers;
-		std::vector< std::set< unsigned> >					m_relevant_effects;
-	        agnostic::Mutex_Set             	                                m_mutexes;
+		unsigned                 					m_end_operator_id;
+        unsigned                 					m_dummy_goal_id;
+	  	std::map<std::string,int> 					m_fluents_map;
+		agnostic::Successor_Generator				m_succ_gen;
+		agnostic::Match_Tree						m_succ_gen_v2;
+		std::vector< const  Action* >   			m_empty_precs;
+		std::vector< std::vector< std::pair< 
+            unsigned, const Action* > > >	        m_ceffs_adding;
+		bool									    m_has_cond_effs;
+		bool									    m_verbose;
+        bool                                        m_gen_match_tree;
+		std::vector< Best_Supporter >				m_effects;
+		mutable std::vector< Trigger >				m_triggers;
+		std::vector< std::set< unsigned> >			m_relevant_effects;
+        agnostic::Mutex_Set             	        m_mutexes;
 	  };
 
 }
