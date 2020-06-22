@@ -107,7 +107,7 @@ private:
 
 	STRIPS_Problem& prob;
 	std::vector< std::vector<watcher> > watchers;
-	std::unique_ptr<State> state_fixpoint;
+	std::shared_ptr<State> state_fixpoint;
 };
 }
 #endif

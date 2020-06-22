@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iosfwd>
 #include <types.hxx>
 #include <succ_gen.hxx>
+#include <watched_lit_succ_gen.hxx>
 #include <match_tree.hxx>
 #include <algorithm>
 #include <mutex_set.hxx>
@@ -225,7 +226,7 @@ namespace aptk
             if (m_gen_match_tree)
                 m_succ_gen_v2.retrieve_applicable(s,actions);
             else
-			    m_succ_gen.retrieve_applicable(s,actions);
+			    m_succ_gen_v3.applicable_actions(s,actions);
 		}
 
 		void			applicable_actions( const std::vector<float>& v, std::vector<const Action*>& actions ) const {
@@ -299,6 +300,7 @@ namespace aptk
 	  	std::map<std::string,int> 					m_fluents_map;
 		agnostic::Successor_Generator				m_succ_gen;
 		agnostic::Match_Tree						m_succ_gen_v2;
+        aptk::WatchedLitSuccGen						m_succ_gen_v3;
 		std::vector< const  Action* >   			m_empty_precs;
 		std::vector< std::vector< std::pair< 
             unsigned, const Action* > > >	        m_ceffs_adding;

@@ -7,11 +7,10 @@
 namespace aptk {
 
 WatchedLitSuccGen::WatchedLitSuccGen(STRIPS_Problem& prob): prob(prob), watchers() {
-	init();
 }
 
 void WatchedLitSuccGen::init(){
-	state_fixpoint.reset(new State(prob));
+	state_fixpoint = std::make_shared<State>(prob);
 	watchers.clear();
 	watchers.resize(prob.num_fluents());
 	for(unsigned op = 0; op < prob.num_actions(); ++op){
@@ -142,7 +141,6 @@ bool WatchedLitSuccGen::reachable(State& s0, unsigned q0, WatchedLitSuccGen::fil
 	
 	return false;
 }
-
 bool WatchedLitSuccGen::is_reachable(const State& s0){
 	return is_reachable(s0, [&](unsigned op, const State& s){
 			return true;
@@ -154,7 +152,6 @@ bool WatchedLitSuccGen::is_reachable(const State& s0, WatchedLitSuccGen::filter_
 	state_fixpoint->set(s0.fluent_vec());
 	return reachable(*state_fixpoint, 0, filter);
 }
-
 void WatchedLitSuccGen::update_watcher(watcher& w, unsigned f, const State& s){
 	auto act = prob.actions()[w.op];
 	auto& precs = act->prec_vec();

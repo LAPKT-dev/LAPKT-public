@@ -32,8 +32,9 @@ namespace aptk
 		: m_domain_name(dom_name), m_problem_name( prob_name ), 
         m_num_fluents( 0 ), m_num_actions( 0 ), m_end_operator_id( no_such_index ), m_dummy_goal_id( no_such_index ),
         m_succ_gen( *this ), m_succ_gen_v2( *this ), m_has_cond_effs(false), m_verbose(true),  m_mutexes( *this )
+, m_succ_gen_v3( *this )
 	{
-	}
+    }
 
 	STRIPS_Problem::~STRIPS_Problem()
 	{
@@ -57,7 +58,7 @@ namespace aptk
 				std::cout << "\n Match tree built with " << m_succ_gen_v2.count() << " nodes.\n" << std::endl;
 		}
         else
-		    m_succ_gen.build();
+		    m_succ_gen_v3.init();
 	}
 
 	void	STRIPS_Problem::register_action_in_tables( Action* a )
