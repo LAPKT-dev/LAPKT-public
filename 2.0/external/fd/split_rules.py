@@ -3,9 +3,9 @@
 # several rules, one for each connected component and one high-level rule.
 
 from pddl_to_prolog import Rule, get_variables
-import graph
-import greedy_join
-import pddl
+from . import graph
+from . import greedy_join
+from . import pddl
 
 def get_connected_conditions(conditions):
     agraph = graph.Graph(conditions)

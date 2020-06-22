@@ -1,5 +1,5 @@
-import pddl
-import timers
+from . import pddl
+from . import timers
 
 def handle_axioms(operators, axioms, goals):
     axioms_by_atom = get_axioms_by_atom(axioms)

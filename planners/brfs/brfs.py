@@ -47,8 +47,8 @@ def main( domain_file, problem_file, plan_file ) :
 	#	print >> sys.stderr, "An error occurred while translating google-perftools profiling information into valgrind format"
 
 def debug() :
-	main( 	"/home/nirlipo/Sandboxes/ipc7-data/domains/seq-sat/woodworking/domain/domain.pddl", 
-		"/home/nirlipo/Sandboxes/ipc7-data/domains/seq-sat/woodworking/problems/p06.pddl",
+	main( 	"../../../test-domains/haz/6-2020/domain.pddl", 
+		"../../../test-domains/haz/6-2020/problem.pddl",
 		"plan.ipc" )
 
 if __name__ == "__main__":

@@ -4,10 +4,10 @@ from __future__ import print_function
 
 from collections import defaultdict
 
-import build_model
-import pddl_to_prolog
-import pddl
-import timers
+from . import build_model
+from . import pddl_to_prolog
+from . import pddl
+from . import timers
 
 def get_fluent_facts(task, model):
     fluent_predicates = set()

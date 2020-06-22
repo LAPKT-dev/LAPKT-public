@@ -2,13 +2,13 @@ from __future__ import print_function
 
 from collections import defaultdict
 
-import build_model
-import pddl_to_prolog
-import pddl
-import fact_groups
-import timers
+from . import build_model
+from . import pddl_to_prolog
+from . import pddl
+from . import fact_groups
+from . import timers
 import sys
-import normalize
+from . import normalize
 
 
 USE_PARTIAL_ENCODING = True

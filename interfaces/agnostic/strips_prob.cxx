@@ -229,16 +229,17 @@ namespace aptk
 			
 			p.m_end_operator_id = STRIPS_Problem::add_action( 	p, std::string("(achieve-goal)"), 
 										goal_vec, dummy_goal_vec, empty_vec, empty_ceff_vec, 0.0f );
-			if ( p.m_in_goal.empty() )
-			p.m_in_goal.resize( p.num_fluents(), false );
-			else
-				for ( unsigned k = 0; k < p.num_fluents(); k++ )
-				    p.m_in_goal[k] = false;
-			    
-			    p.goal().push_back( p.m_dummy_goal_id );
-			    
-			    p.m_in_goal[ p.m_dummy_goal_id ] = true;
-			    return;
+			if( !keep_original_goal ){
+				if ( p.m_in_goal.empty() )
+					p.m_in_goal.resize( p.num_fluents(), false );
+				else
+					for ( unsigned k = 0; k < p.num_fluents(); k++ )
+						p.m_in_goal[k] = false;
+					
+				p.goal().push_back( p.m_dummy_goal_id );
+				
+				p.m_in_goal[ p.m_dummy_goal_id ] = true;
+				return;
 			}
 		}
 		if ( p.m_in_goal.empty() )

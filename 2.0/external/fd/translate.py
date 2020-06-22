@@ -6,17 +6,17 @@ from __future__ import print_function
 from collections import defaultdict
 from copy import deepcopy
 
-import axiom_rules
-import fact_groups
-import instantiate
-import normalize
-import optparse
-import pddl
-import sas_tasks
-import simplify
-import sys
-import timers
-import tools
+from . import axiom_rules
+from . import fact_groups
+from . import instantiate
+from . import normalize
+from . import optparse
+from . import pddl
+from . import sas_tasks
+from . import simplify
+from . import sys
+from . import timers
+from . import tools
 
 # TODO: The translator may generate trivial derived variables which are always true,
 # for example if there ia a derived predicate in the input that only depends on

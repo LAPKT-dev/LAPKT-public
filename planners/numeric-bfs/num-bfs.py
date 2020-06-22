@@ -8,13 +8,13 @@ import libnum
 
 
 def main( domain_file, problem_file, plan_file ) :
-        task = libnum.STRIPS_Problem()
+	task = libnum.STRIPS_Problem()
 
 	fd.grounding.numeric( domain_file, problem_file, task )
 
 	factory = libnum.NUM_BFS_Factory(plan_file)
 
-        task.solve(factory)
+	task.solve(factory)
 
 
 

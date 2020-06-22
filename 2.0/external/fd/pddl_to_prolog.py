@@ -4,9 +4,9 @@ from __future__ import print_function
 
 import itertools
 
-import normalize
-import pddl
-import timers
+from . import normalize
+from . import pddl
+from . import timers
 
 class PrologProgram:
     def __init__(self):

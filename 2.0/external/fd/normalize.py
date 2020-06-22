@@ -2,7 +2,7 @@
 
 import copy
 
-import pddl
+from . import pddl
 
 class ConditionProxy(object):
     def clone_owner(self):
@@ -354,18 +354,18 @@ def normalize_numeric_preconditons(task):
             proxy.set(proxy.condition.simplified())
 
 def normalize_numeric_effects(task):
-    from pddl import f_expression
+    #from pddl import f_expression
     # type: (pddl.Task) -> None
     def replace(expression):
         if expression.symbol in ('assign', '='):
             return expression
         elif expression.symbol == 'decrease':
-            return f_expression.Assign(expression.fluent,
-                                       f_expression.Substract([expression.fluent,
+            return pddl.f_expression.Assign(expression.fluent,
+                                       pddl.f_expression.Substract([expression.fluent,
                                                                expression.expression]))
         elif expression.symbol == 'increase':
-            return f_expression.Assign(expression.fluent,
-                                       f_expression.Sum([expression.fluent,
+            return pddl.f_expression.Assign(expression.fluent,
+                                       pddl.f_expression.Sum([expression.fluent,
                                                          expression.expression]))
         else:
             raise NotImplementedError
