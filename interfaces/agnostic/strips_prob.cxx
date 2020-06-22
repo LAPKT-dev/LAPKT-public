@@ -32,9 +32,8 @@ namespace aptk
 
 	STRIPS_Problem::STRIPS_Problem( std::string dom_name, std::string prob_name )
 		: m_domain_name(dom_name), m_problem_name( prob_name ), 
-		m_num_fluents( 0 ), m_num_actions( 0 ), m_end_operator_id( no_such_index ),
-		  m_succ_gen( *this ), m_succ_gen_v2( *this ), m_has_cond_effs(false), m_verbose(true), 
-		  m_mutexes( *this )
+		  m_num_fluents( 0 ), m_num_actions( 0 ), m_end_operator_id( no_such_index ), m_dummy_goal_id( no_such_index ),
+		  m_succ_gen( *this ), m_succ_gen_v2( *this ), m_has_cond_effs(false), m_verbose(true),  m_mutexes( *this )
 	{
 	}
 
@@ -173,7 +172,7 @@ namespace aptk
 #endif
 	}
 
-	void	STRIPS_Problem::set_goal( STRIPS_Problem& p, const Fluent_Vec& goal_vec, bool create_end_op )
+	void	STRIPS_Problem::set_goal( STRIPS_Problem& p, const Fluent_Vec& goal_vec, bool create_end_op, bool keep_original_goal )
 	{
 #ifdef DEBUG
 		for ( unsigned k = 0; k < goal_vec.size(); k++ )
@@ -181,24 +180,66 @@ namespace aptk
 #endif		
 		if ( create_end_op )
 		{
-			unsigned dummy_goal = STRIPS_Problem::add_fluent( p, "(goal-achieved)" );
+
+		        //Remove old END if exists
+			if( p.m_end_operator_id != no_such_index ){
+
+			    unsigned dummy_f = p.m_actions[ p.m_end_operator_id ]->add_vec().front();
+			    
+			    Fluent_Ptr_Vec::iterator fit_pos;
+			    for( fit_pos = p.fluents().begin(); fit_pos != p.fluents().end(); fit_pos++ ){
+				if( (*fit_pos)->index() == dummy_f )
+				    break;
+			    }
+			    p.fluents().erase( fit_pos );
+
+			    std::vector< const Fluent*>::iterator cfit_pos;
+			    for( cfit_pos = p.m_const_fluents.begin(); cfit_pos != p.m_const_fluents.end(); cfit_pos++ ){
+				if( (*cfit_pos)->index() == dummy_f )
+				    break;
+			    }
+			    p.m_const_fluents.erase( cfit_pos );
+			    p.m_num_fluents--;
+			    
+			    Action_Ptr_Vec::iterator it_pos;
+			    for( it_pos = p.actions().begin(); it_pos != p.actions().end(); it_pos++ ){
+				if( (*it_pos)->index() == p.m_end_operator_id )
+				    break;
+			    }
+			    p.actions().erase( it_pos );
+
+			    Action_Ptr_Const_Vec::iterator cit_pos;
+			    for( cit_pos = p.m_const_actions.begin(); cit_pos != p.m_const_actions.end(); cit_pos++ ){
+				if( (*cit_pos)->index() == p.m_end_operator_id )
+				    break;
+			    }
+			    p.m_const_actions.erase( cit_pos );
+			    p.m_num_actions--;
+			   
+			}
+			
+			p.m_dummy_goal_id = STRIPS_Problem::add_fluent( p, "(goal-achieved)" );
+			
 			// MRJ: dummy goal action
 			Fluent_Vec dummy_goal_vec;
 			Fluent_Vec empty_vec;
 			Conditional_Effect_Vec	empty_ceff_vec;
-			dummy_goal_vec.push_back( dummy_goal );
+			dummy_goal_vec.push_back( p.m_dummy_goal_id );
+
+			
 			p.m_end_operator_id = STRIPS_Problem::add_action( 	p, std::string("(achieve-goal)"), 
 										goal_vec, dummy_goal_vec, empty_vec, empty_ceff_vec, 0.0f );
 			if ( p.m_in_goal.empty() )
 			p.m_in_goal.resize( p.num_fluents(), false );
 			else
 				for ( unsigned k = 0; k < p.num_fluents(); k++ )
-					p.m_in_goal[k] = false;
-
-			p.goal().push_back( dummy_goal );
-
-			p.m_in_goal[ dummy_goal ] = true;
-			return;
+				    p.m_in_goal[k] = false;
+			    
+			    p.goal().push_back( p.m_dummy_goal_id );
+			    
+			    p.m_in_goal[ p.m_dummy_goal_id ] = true;
+			    return;
+			}
 		}
 		if ( p.m_in_goal.empty() )
 			p.m_in_goal.resize( p.num_fluents(), false );

@@ -6,10 +6,10 @@ from collections import deque, defaultdict
 import itertools
 import time
 
-import invariants
-import options
-import pddl
-import timers
+from . import invariants
+from . import options
+from . import pddl
+from . import timers
 
 class BalanceChecker(object):
     def __init__(self, task, reachable_action_params):
@@ -97,10 +97,10 @@ def find_invariants(task, reachable_action_params):
             candidates.append(invariant)
             seen_candidates.add(invariant)
 
-    start_time = time.clock()
+    start_time = time.perf_counter()
     while candidates:
         candidate = candidates.popleft()
-        if time.clock() - start_time > options.invariant_generation_max_time:
+        if time.perf_counter() - start_time > options.invariant_generation_max_time:
             print("Time limit reached, aborting invariant generation")
             return
         if candidate.check_balance(balance_checker, enqueue_func):

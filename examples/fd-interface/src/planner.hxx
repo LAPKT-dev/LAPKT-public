@@ -17,7 +17,8 @@ public:
 	
 	virtual void setup();
 	void	solve();
-
+	void    dump_pddl();
+	
 	std::string	m_log_filename;
 	std::string	m_plan_filename;
 

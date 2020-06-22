@@ -2,8 +2,8 @@ from __future__ import print_function
 
 import sys
 
-import pddl
-import pddl_to_prolog
+from . import pddl
+from . import pddl_to_prolog
 
 class OccurrencesTracker(object):
     """Keeps track of the number of times each variable appears

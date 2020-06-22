@@ -106,11 +106,11 @@ public:
 				/**
 				 * Avoid loops in the graph
 				 */
-				//if(all_actions_edel_q &&  all_actions_edel_p)continue;
+				if(all_actions_edel_q &&  all_actions_edel_p)continue;
 
 				if(all_actions_edel_q){
 					graph.add_landmark_for( q, p );
-					continue;
+					//continue;
 				}
 				if(all_actions_edel_p){
 					graph.add_landmark_for( p, q );

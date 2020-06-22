@@ -1,5 +1,8 @@
 import os
+import sys
 Import('common_env')
+
+python_version = f'{sys.version_info[0]}.{sys.version_info[1]}'
 
 ipc14_build = ARGUMENTS.get( 'ipc14_build', 0 )
 
@@ -7,20 +10,21 @@ include_paths = ['.' ]
 
 if int(ipc14_build) == 1 :
 	include_paths.append( '/opt/boost/include' )	
-	include_paths.append( '/usr/local/include/python2.7' )
+	include_paths.append( '/usr/include/python3.6' )
+	common_env.Append( LIBPATH = [ '/usr/lib/python3.6/' ] )
 	common_env.Append( LIBPATH = [ '/opt/boost/lib' ] )
 	common_env.Append( LIBPATH = [ '/usr/local/lib' ] )
 	common_env.Append( LIBPATH = [ '/usr/local/lib/python2.7/config' ] )
 else :
-	include_paths.append( '/usr/include/python2.7' )
-	common_env.Append( LIBPATH = [ '/usr/lib/python2.7/config' ] )
+	include_paths.append( f'/usr/include/python{python_version}' )
+	common_env.Append( LIBPATH = [ f'/usr/lib/x86_64-linux-gnu/' ] )
 
 common_env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
 
 # Python and Boost.Python settings
 
 common_env.Append( CCFLAGS = '-fPIC' )
-common_env.Append( LIBS = [ '-lboost_python', '-lpython2.7' ] )
+common_env.Append( LIBS = [ f'-lboost_python{sys.version_info[0]}{sys.version_info[1]}', f'-lpython{python_version}' ] )
 common_env['STATIC_AND_SHARED_OBJECTS_ARE_THE_SAME']=1
 
 cxx_sources = Glob('*.cxx')
