@@ -87,6 +87,11 @@ if __name__ == '__main__' :
                 check=True).returncode :
             print('Installation of tarski library failed')
             exit()
+    if not exists_python_module('ruamel.yaml') and\
+                run([executable, '-m', 'pip', 'install', 'ruamel.yaml'], 
+                check=True).returncode :
+            print('Installation of yaml library failed')
+            exit()
         
     cmake_configure =   [cmake_exec, '--clean-first',]
     cmake_build     =   [cmake_exec,]
