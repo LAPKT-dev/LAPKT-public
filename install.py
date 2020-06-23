@@ -143,6 +143,14 @@ if __name__ == '__main__' :
                 exit()
             else :
                 cmake_configure +=  ['-DCMAKE_VAL=ON']
+        
+        if ('Lab_module' in args.additional_features
+                or  'all' in args.additional_features) :
+            if not exists_python_module('lab') and\
+                run([executable, '-m', 'pip', 'install', 'lab'], 
+                check=True).returncode :
+                print('Installation of downward lab library failed')
+                exit()
     
     # Pass python version
     cmake_configure.append('-DCMAKE_PYTHON_VERSION='+str(version_info[0])+
