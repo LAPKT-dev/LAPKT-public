@@ -29,6 +29,7 @@ import contextlib
 import re
 from resource import (setrlimit, getrlimit, RLIMIT_AS, getrusage, RUSAGE_SELF, 
         RLIMIT_STACK, RLIMIT_DATA)
+from psutil import virtual_memory
 from ruamel.yaml import YAML
 from pathlib import Path
 #YAML(typ='safe').load(from_f)
@@ -418,7 +419,7 @@ def test_classical() :
         pddl_pair[domain]['pfile']  = pfile
 
     error_code = ''
-    cores = min(cpu_count(),int(getrlimit(RLIMIT_STACK)[0]/8000000))
+    cores = min(cpu_count(),int(virtual_memory().available/8000000))
     if cores < 1 :
         raise Exception("The system doesn't have enough memory available, >= 8GB")
     else :

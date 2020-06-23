@@ -92,6 +92,11 @@ if __name__ == '__main__' :
                 check=True).returncode :
             print('Installation of yaml library failed')
             exit()
+    if not exists_python_module('psutil') and\
+                run([executable, '-m', 'pip', 'install', 'psutil'], 
+                check=True).returncode :
+            print('Installation of psutil library failed')
+            exit()
         
     cmake_configure =   [cmake_exec, '--clean-first',]
     cmake_build     =   [cmake_exec,]
