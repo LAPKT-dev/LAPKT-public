@@ -37,6 +37,8 @@ examples/agnostic-examples/successor_generation/succ-gen
 
 # Local directories 
 spikes
+build
+release
 
 # Generated files
 benchmarks/ipc-2006/*.out
