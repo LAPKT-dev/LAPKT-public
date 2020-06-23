@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 import builtins
 from pathlib import Path
-from yaml import safe_load
+from ruamel.yaml import YAML
 from argparse import ArgumentParser, Action
 from importlib import import_module
 from re import match
@@ -172,14 +172,25 @@ def store_value(args, config) :
 if __name__ ==  "__main__" :
     parser_main =   ArgumentParser(description= "Process planner input")
     parser_sub  =   parser_main.add_subparsers(help='sub-command help')
-    #args, planner_args  =   parser_main.parse_known_args()
 
     # Load the parsing args from the config file on PLANNER_CONFIG_PATH
     with open(PLANNER_CONFIG_PATH) as from_f :
-        list_planner_config = safe_load(from_f)
+        list_planner_config = YAML(typ='safe').load(from_f)
         for k,options in list_planner_config.items() :
             parser = parser_sub.add_parser(k, 
                     help='Use '+k+' -h'+' to view planner options')
+            # Add common config args
+            parser.add_argument( '-d', '--domain', action='store', nargs='?',
+                    required=True, help='path to the domain pddl file')
+            parser.add_argument( '-p', '--problem', action='store', nargs='?',
+                    required=True, help='path to the problem pddl file')
+            parser.add_argument( '--no_match_tree', action='store_true',
+                    help='If specified, match tree is not generated')
+            parser.add_argument( '--lapkt_instance_generator', action='store', nargs='?',
+                    default='Tarski', 
+                    help='Choice of parser - Tarski<Default>,FD or FF')
+            parser.set_defaults(planner=k)
+            # Planner specific config
             for opt, parser_args in options.items():
                 if isinstance(parser_args, dict) and \
                         parser_args.get('cmd_arg', None):
@@ -192,19 +203,7 @@ if __name__ ==  "__main__" :
                             str(parser_args['cmd_arg']['default'])
                     parser.add_argument('--'+opt, **parser_args['cmd_arg'])
                     del parser_args['cmd_arg'] #Will be in the Arg-parser
-            # Add common cmd args
-            parser.add_argument( '-d', '--domain', action='store', nargs='?',
-                    required=True, help='path to the domain pddl file')
-            parser.add_argument( '-p', '--problem', action='store', nargs='?',
-                    required=True, help='path to the problem pddl file')
-            parser.add_argument( '--no_match_tree', action='store_true',
-                    help='If specified, match tree is not generated')
-            parser.add_argument( '--lapkt_instance_generator', action='store', nargs='?',
-                    default='Tarski', 
-                    help='Choice of parser - Tarski<Default>,FD or FF')
-            parser.set_defaults(planner=k)
 
-        #print(list_planner_config)
         args        =   parser_main.parse_args()
 
         try :
