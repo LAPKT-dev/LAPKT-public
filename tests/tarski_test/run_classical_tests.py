@@ -36,7 +36,7 @@ from pathlib import Path
 from glob import glob
 from os.path import isfile, dirname, basename, join, realpath
 from os import cpu_count, fork
-from multiprocessing import Pool, Process, Pipe
+from multiprocessing import Pool, Process, Pipe, Semaphore
 from sys import platform
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
@@ -69,8 +69,6 @@ CLASSICAL_PATH      =   ('../classical_tmp/*/*' if (
                             else '..\classical_tmp\*\*')
 """
 
-
-
 #-----------------------------------------------------------------------------#
 @contextlib.contextmanager
 def time_taken( problem_info: dict, task_name: str) :
@@ -98,7 +96,7 @@ def time_taken( problem_info: dict, task_name: str) :
 
 
 #-----------------------------------------------------------------------------#
-def parse_ground_pddl( problem_info, conn=None) :
+def parse_ground_pddl( problem_info, conn, sp) :
     """
     """
     setrlimit(RLIMIT_STACK, (8192000, 8192000))
@@ -112,32 +110,28 @@ def parse_ground_pddl( problem_info, conn=None) :
         with time_taken(problem_info, "parser") :
             reader = FstripsReader( raise_on_error=True, theories=None)
             problem = reader.read_problem( domain_file, problem_file)
-            if conn :
-                problem_info['parser_mem']  =   getrusage(
+            problem_info['parser_mem']  =   getrusage(
                     RUSAGE_SELF).ru_maxrss/1000
-                problem_info['max_mem'] =   max(problem_info['parser_mem'], 
+            problem_info['max_mem'] =   max(problem_info['parser_mem'], 
                     problem_info['max_mem'])
     except Exception as e:
         problem_info['log_parser'] = str(e)
         problem_info['parser_clock_time']   =   None
-        if conn :
-            problem_info['parser_mem']          =   None
+        problem_info['parser_mem']          =   None
         error = True
 
     try :
         with time_taken(problem_info, "preprocess") :
             process_problem( problem)
             init = problem.init_bk
-            if conn :
-                problem_info['preprocess_mem']    =   getrusage(
+            problem_info['preprocess_mem']    =   getrusage(
                     RUSAGE_SELF).ru_maxrss/1000
-                problem_info['max_mem'] =   max(problem_info['preprocess_mem'], 
+            problem_info['max_mem'] =   max(problem_info['preprocess_mem'], 
                     problem_info['max_mem'])
     except Exception as e:
         problem_info['log_preprocess'] = str(e)
         problem_info['preprocess_clock_time']  =   None
-        if conn :
-            problem_info['preprocess_mem']    =   None
+        problem_info['preprocess_mem']    =   None
         error = True
 
     try :
@@ -151,16 +145,14 @@ def parse_ground_pddl( problem_info, conn=None) :
                 for z in y :
                     count_params += 1
             print("Total number of reachable action params = ", count_params)
-            if conn :
-                problem_info['grounder_mem']    =   getrusage(
+            problem_info['grounder_mem']    =   getrusage(
                     RUSAGE_SELF).ru_maxrss/1000
-                problem_info['max_mem'] =   max(problem_info['grounder_mem'], 
+            problem_info['max_mem'] =   max(problem_info['grounder_mem'], 
                     problem_info['max_mem'])
     except Exception as e:
         problem_info['log_grounder'] = str(e)
         problem_info['grounder_clock_time']  =   None
-        if conn :
-            problem_info['grounder_mem']    =   None
+        problem_info['grounder_mem']    =   None
         error = True
 
     #problem_info['error'] = error
@@ -171,6 +163,7 @@ def parse_ground_pddl( problem_info, conn=None) :
                 problem_info.get('log_grounder',''))
     if conn :
         conn.send((problem_info, retval))
+    sp.release()
     return problem_info, retval
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
@@ -428,29 +421,28 @@ def test_classical() :
     cores = min(cpu_count(),int(getrlimit(RLIMIT_STACK)[0]/8000000))
     if cores < 1 :
         raise Exception("The system doesn't have enough memory available, >= 8GB")
-    counter = 0
+    else :
+        print("Total cores used =", cores)
+
+    sp = Semaphore(cores)
     parent_connection = []
 
     for p in pddl_pair.values() :
         parent_conn, child_conn = Pipe()
-        proc= Process(target=parse_ground_pddl, args=(p,child_conn,))
+        sp.acquire()
+        proc= Process(target=parse_ground_pddl, args=(p,child_conn, sp,))
         parent_connection.append((parent_conn, proc))
         proc.start()
-        counter +=  1
 
-        if counter >= cores :
-            for conn, child in parent_connection:
-                x, error   = conn.recv()  
-                domain  =   basename(dirname(x['dfile']))
-                del x['dfile']
-                del x['pfile']
-                pddl_pair[domain] = x
-                if error[0] :
-                    error_code = '\n\n'.join([error_code, '\n'.join(error[1:])])
-            for conn, child in parent_connection:
-                child.join()
-                counter-=1
-            parent_connection = []
+    for conn, child in parent_connection:
+        x, error   = conn.recv()  
+        domain  =   basename(dirname(x['dfile']))
+        del x['dfile']
+        del x['pfile']
+        pddl_pair[domain] = x
+        if error[0] :
+            error_code = '\n\n'.join([error_code, '\n'.join(error[1:])])
+        child.join()
 
     with open(join(CWD,'log'),'w+') as logfile :
         YAML().dump(pddl_pair, logfile)
