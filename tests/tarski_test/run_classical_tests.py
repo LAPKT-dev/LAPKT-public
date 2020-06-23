@@ -100,7 +100,7 @@ def time_taken( problem_info: dict, task_name: str) :
 def parse_ground_pddl( problem_info, conn, sp) :
     """
     """
-    setrlimit(RLIMIT_STACK, (8192000, 8192000))
+    setrlimit(RLIMIT_AS, (8000*1024*1024,8000*1024*1024))
     domain_file     =   problem_info['dfile']
     problem_file    =   problem_info['pfile']
     error = False
