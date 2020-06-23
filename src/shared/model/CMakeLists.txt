@@ -1,0 +1,46 @@
+target_sources(lapkt_shared 
+    PRIVATE
+        action.cxx
+        cond_eff.cxx
+        conj_comp_prob.cxx
+        fl_conj.cxx
+        fluent.cxx
+        fwd_search_prob.cxx
+        mutex_set.cxx
+        strips_prob.cxx
+        strips_state.cxx
+        action.hxx
+        cond_eff.hxx
+        conj_comp_prob.hxx
+        fl_conj.hxx
+        fluent.hxx
+        fwd_search_prob.hxx
+        mutex_set.hxx
+        strips_prob.hxx
+        strips_state.hxx
+        search_prob.hxx
+    )
+
+target_include_directories(lapkt_shared
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:include>
+    )
+
+install(
+    FILES
+        action.hxx
+        cond_eff.hxx
+        conj_comp_prob.hxx
+        fl_conj.hxx
+        fluent.hxx
+        fwd_search_prob.hxx
+        mutex_set.hxx
+        strips_prob.hxx
+        strips_state.hxx
+        search_prob.hxx
+    DESTINATION
+        include
+    COMPONENT
+        Development EXCLUDE_FROM_ALL
+    )
