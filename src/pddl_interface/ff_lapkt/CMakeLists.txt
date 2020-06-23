@@ -1,6 +1,6 @@
 #
 find_package(Python3 COMPONENTS Interpreter Development)
-find_package(Boost REQUIRED COMPONENTS python38)
+find_package(Boost REQUIRED COMPONENTS python${CMAKE_PYTHON_VERSION})
 #
 add_library(ff_cpp_interface)
 target_sources(ff_cpp_interface

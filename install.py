@@ -5,7 +5,7 @@ from os import access, X_OK, environ, pathsep
 from subprocess import run
 from multiprocessing import cpu_count
 from importlib.util import find_spec as find_module
-from sys import executable
+from sys import executable, version_info
 from shutil import rmtree
 
 SRC_PATH='./src'
@@ -45,6 +45,8 @@ def exists_python_module(name) :
         return False
 
 if __name__ == '__main__' :
+    assert version_info >= (3,7,0), 'Python >= 3.7 required'
+
     parser  =   ArgumentParser(description="Take LAPKT installation options")    
     parser.add_argument('--cmake', action='store', nargs='?',
             help='Path to cmake exec')
@@ -132,6 +134,10 @@ if __name__ == '__main__' :
             else :
                 cmake_configure +=  ['-DCMAKE_VAL=ON']
     
+    # Pass python version
+    cmake_configure.append('-DCMAKE_PYTHON_VERSION='+str(version_info[0])+
+            str(version_info[1]))
+
     # Choice of cmake_build_options
     if args.cmake_build_options:
         cmake_configure.append('-DCMAKE_BUILD_TYPE='+args.cmake_build_options)

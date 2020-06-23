@@ -21,7 +21,7 @@ add_subdirectory(siw_plus)
 add_subdirectory(siw_plus-then-bfs_f)
 
 find_package(Python3 COMPONENTS Interpreter Development)
-find_package(Boost REQUIRED COMPONENTS python38)
+find_package(Boost REQUIRED COMPONENTS python${CMAKE_PYTHON_VERSION})
 #find_package(Boost REQUIRED COMPONENTS program_options)
 #find_package(Python3 COMPONENTS Interpreter Development)
 target_include_directories(Planners PRIVATE ${Python3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
