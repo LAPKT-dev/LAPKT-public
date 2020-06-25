@@ -33,16 +33,4 @@ install(
         run_siw_ff_parser 
         run_siw_plus_ff_parser 
         run_siw_plus_then_bfs_f_ff_parser
-    DESTINATION bin COMPONENT Runtime) 
-install(
-    TARGETS run_iw_ff_parser 
-        run_iw_plus_ff_parser 
-        run_at_bfs_f_ff_parser 
-        run_bfs_f_ff_parser 
-        run_dfs_plus_ff_parser 
-        run_ff_ff_parser
-        run_generic_best_first_ff_parser 
-        run_siw_ff_parser 
-        run_siw_plus_ff_parser 
-        run_siw_plus_then_bfs_f_ff_parser
     DESTINATION bin COMPONENT Development EXCLUDE_FROM_ALL) 
