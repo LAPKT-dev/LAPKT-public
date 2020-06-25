@@ -13,6 +13,8 @@ setup(
     description     =   "LAPKT planning toolkit",
     long_description=   project_description,
     url             =   "https://github.com/LAPKT-dev/LAPKT-Public",
+    packages=find_packages('lib'),  # include all packages under src
+    package_dir={'': 'lib'},  # tell distutils packages are under src
     classifiers     =   [
                         "Programming Language :: Python :: 3",
                         "License :: OSI Approved :: GPL3",
