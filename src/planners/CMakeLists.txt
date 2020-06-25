@@ -1,6 +1,4 @@
-if(CMAKE_FF)
-    add_subdirectory(ff_parser)
-endif(CMAKE_FF)
+
 list(APPEND EXTRA_LIBS lapkt_shared)
 list(APPEND EXTRA_LIBS pddl_py_interface)
 
@@ -27,41 +25,51 @@ find_package(Boost REQUIRED COMPONENTS python${CMAKE_PYTHON_VERSION})
 target_include_directories(Planners PRIVATE ${Python3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
 
 target_link_libraries(Planners PRIVATE
-    ${PYTHON_LIBRARIES}
     ${Boost_LIBRARIES}
     ${EXTRA_LIBS}
     )
 
 install(
     TARGETS Planners
-    DESTINATION lib/planner
+    DESTINATION lib/lapkt/planner
     COMPONENT Runtime
     )
 install(
     TARGETS Planners
-    DESTINATION lib/planner
+    DESTINATION lib/lapkt/planner
     COMPONENT Development EXCLUDE_FROM_ALL
     )   
 # Write __init__.py file
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/__init__.py "from .libPlanners import *")
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/planner
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt/planner
     COMPONENT Runtime
     )
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/planner
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt/planner
     COMPONENT Development EXCLUDE_FROM_ALL
     )
 #
 install(FILES
     ${PROJECT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}
-    COMPONENT Runtime
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    COMPONENT Development EXCLUDE_FROM_ALL
   )
 install(FILES
     ${PROJECT_BINARY_DIR}/__init__.py
     DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    COMPONENT Runtime
+  )
+#
+install(FILES
+    ${PROJECT_BINARY_DIR}/__init__.py
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt
     COMPONENT Development EXCLUDE_FROM_ALL
+  )
+install(FILES
+    ${PROJECT_BINARY_DIR}/__init__.py
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt
+    COMPONENT Runtime
   )

@@ -4,11 +4,11 @@ endif(CMAKE_FF)
     
 if(CMAKE_FD)
     install(DIRECTORY fd
-        DESTINATION lib
+        DESTINATION lib/lapkt
         COMPONENT Runtime
         )
     install(DIRECTORY fd
-        DESTINATION lib
+        DESTINATION lib/lapkt
         COMPONENT Development EXCLUDE_FROM_ALL
         )
 endif(CMAKE_FD)

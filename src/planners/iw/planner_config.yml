@@ -44,6 +44,7 @@ IW_Planner:
     var_name: 'iw_bound'
   atomic: 
     cmd_arg: 
+      default : False
       required: False
       action  : 'store_true'
       help    : 'run iw over each atom in goal separately'

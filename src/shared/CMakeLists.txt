@@ -10,13 +10,13 @@ add_subdirectory(utility)
 #
 install(
     TARGETS lapkt_shared 
-    DESTINATION lib/shared
+    DESTINATION lib/lapkt/shared
     COMPONENT Runtime
     )
 
 install(
     TARGETS lapkt_shared 
-    DESTINATION lib/shared
+    DESTINATION lib/lapkt/shared
     COMPONENT Development EXCLUDE_FROM_ALL
     EXPORT LAPKTTargets
     )

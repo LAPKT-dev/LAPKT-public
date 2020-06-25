@@ -57,6 +57,7 @@ BFWS:
     var_name: 'search'
   anytime: 
     cmd_arg: 
+      default : False
       required: False
       action  : 'store_true'
       help    : 'enable anytime planning'

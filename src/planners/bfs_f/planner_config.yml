@@ -35,6 +35,7 @@ BFS_f_Planner:
     var_name: 'plan_filename'
   one_ha_per_fluent: 
     cmd_arg: 
+      default : False
       required: False
       action  : 'store_true'
       help    : 'set one h.a per fluent to True'

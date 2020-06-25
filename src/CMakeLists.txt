@@ -4,8 +4,11 @@ project(LAPKT VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INSTALL_RPATH 
-    "${CMAKE_INSTALL_PREFIX}/lib/shared;${CMAKE_INSTALL_PREFIX}/lib/interface;${CMAKE_INSTALL_PREFIX}/lib/ff"
+"${CMAKE_INSTALL_PREFIX}/lib/lapkt/shared;\
+${CMAKE_INSTALL_PREFIX}/lib/lapkt/interface;\
+${CMAKE_INSTALL_PREFIX}/lib/lapkt/ff"
     )
+# Link with static Boost libraries instead of dynamic
 #set(CMAKE_INSTALL_RPATH "$ORIGIN/../lib")
 
 #set(CMAKE_CXX_STANDARD_REQUIRED False)
@@ -14,7 +17,11 @@ option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 option(CMAKE_FF "CMAKE_FF" OFF)
 option(CMAKE_FD "CMAKE_FD" OFF)
 option(CMAKE_VAL "CMAKE_FD" OFF)
-
+option(CMAKE_STATIC_BOOST "CMAKE_STATIC_BOOST" OFF)
+#add_definitions(/DBOOST_PYTHON_STATIC_LIB)
+if(CMAKE_STATIC_BOOST)
+    set(Boost_USE_STATIC_LIBS ON)
+endif(CMAKE_STATIC_BOOST)
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 function(cat FROM TO)
     file(READ ${FROM} CONTENTS)
@@ -36,6 +43,14 @@ add_subdirectory(pddl_interface)
 
 # Libraries for fd and tarski planners and executables for ff-planners
 add_subdirectory(planners)
+add_subdirectory(config)
+if(CMAKE_FF)
+    add_subdirectory(legacy_ff)
+endif(CMAKE_FF)
+
+# Add run scripts
+add_subdirectory(run)
+add_subdirectory(scripts)
 
 configure_file(config/lapkt_cmake_config.h.in lapkt_cmake_config.h)
 
@@ -46,7 +61,7 @@ install(FILES "${PROJECT_BINARY_DIR}/lapkt_cmake_config.h"
 install(
     EXPORT      LAPKTTargets
     FILE        LAPKTTargets.cmake
-    DESTINATION lib/cmake/LAPKT
+    DESTINATION cmake/LAPKT
     COMPONENT Development EXCLUDE_FROM_ALL
     )
 
@@ -54,7 +69,7 @@ include(CMakePackageConfigHelpers)
 # generate the config file that includes the exports
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/config/Config.cmake.in
     "${CMAKE_CURRENT_BINARY_DIR}/LAPKTConfig.cmake"
-  INSTALL_DESTINATION "lib/cmake/example"
+  INSTALL_DESTINATION "cmake/example"
   NO_SET_AND_CHECK_MACRO
   NO_CHECK_REQUIRED_COMPONENTS_MACRO
   )
@@ -68,41 +83,37 @@ write_basic_package_version_file(
 # install the configuration file
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/LAPKTConfig.cmake
-    DESTINATION lib/cmake/LAPKT
+    DESTINATION cmake/LAPKT
     COMPONENT Development EXCLUDE_FROM_ALL
   )
 #
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/lapkt_planner_config.yml
-    DESTINATION config
+    DESTINATION lib/lapkt/config
     COMPONENT Runtime
   )
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/lapkt_planner_config.yml
-    DESTINATION config
+    DESTINATION lib/lapkt/config
     COMPONENT Development EXCLUDE_FROM_ALL
   )
 #
+file(WRITE ${PROJECT_BINARY_DIR}/setup.cfg 
+    "[options]\nscripts=\n\tlapkt\n")
+if(CMAKE_VAL)
+    file(APPEND ${PROJECT_BINARY_DIR}/setup.cfg "\tbin/validate.py\n")
+endif(CMAKE_VAL)
 install(FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/lapkt.py
-    PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
+    ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+    ${PROJECT_BINARY_DIR}/setup.cfg
+    PERMISSIONS OWNER_WRITE OWNER_READ
     DESTINATION ${CMAKE_INSTALL_PREFIX}
     COMPONENT Runtime
   )
 install(FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/lapkt.py
-    PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
-    DESTINATION ${CMAKE_INSTALL_PREFIX}
-    COMPONENT Development EXCLUDE_FROM_ALL
-  )
-#
-install(FILES
-    ${PROJECT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}
-    COMPONENT Runtime
-  )
-install(FILES
-    ${PROJECT_BINARY_DIR}/__init__.py
+    ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+    ${PROJECT_BINARY_DIR}/setup.cfg
+    PERMISSIONS OWNER_WRITE OWNER_READ
     DESTINATION ${CMAKE_INSTALL_PREFIX}
     COMPONENT Development EXCLUDE_FROM_ALL
   )

@@ -42,7 +42,7 @@ DFSIW_Planner::~DFSIW_Planner() {
 
 
 void	
-DFSIW_Planner::setup() {
+DFSIW_Planner::setup(bool gen_match_tree) {
 	// MRJ: Call superclass method, then do you own thing here
 	STRIPS_Interface::setup();
 	std::cout << "PDDL problem description loaded: " << std::endl;

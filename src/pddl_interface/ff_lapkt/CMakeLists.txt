@@ -36,7 +36,6 @@ target_include_directories(ff_py_interface
 target_include_directories(ff_py_interface PRIVATE 
     ${Python3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
 target_link_libraries( ff_py_interface PRIVATE
-    ${PYTHON_LIBRARIES}
     ${EXTRA_LIBS} 
     ${Boost_LIBRARIES}
     )
@@ -59,12 +58,12 @@ install(
     )
 install(
     TARGETS ff_cpp_interface ff_py_interface
-    DESTINATION lib/ff
+    DESTINATION lib/lapk/ff
     COMPONENT Runtime 
     )
 install(
     TARGETS ff_cpp_interface ff_py_interface
-    DESTINATION lib/ff
+    DESTINATION lib/lapkt/ff
     COMPONENT Development EXCLUDE_FROM_ALL
     EXPORT LAPKTTargets
     )
@@ -72,11 +71,11 @@ install(
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/__init__.py "from .libff_py_interface import *" )
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
-    DESTINATION lib/ff
+    DESTINATION lib/lapkt/ff
     COMPONENT Runtime 
     )
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
-    DESTINATION lib/ff
+    DESTINATION lib/lapkt/ff
     COMPONENT Development EXCLUDE_FROM_ALL
     )

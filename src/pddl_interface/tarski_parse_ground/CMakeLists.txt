@@ -17,7 +17,6 @@ target_include_directories(tarski_util
 list(APPEND EXTRA_LIBS pddl_py_interface)
 target_include_directories(tarski_util PRIVATE ${Python3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
 target_link_libraries( tarski_util PRIVATE
-    ${PYTHON_LIBRARIES}
     ${EXTRA_LIBS} 
     ${Boost_LIBRARIES}
     )
@@ -30,37 +29,37 @@ install(
 #
 install(
     FILES tarski_util.py
-    DESTINATION lib/tarski
+    DESTINATION lib/lapkt/tarski
     COMPONENT Runtime 
     )
 #
 install(
     FILES tarski_util.py
-    DESTINATION lib/tarski
+    DESTINATION lib/lapkt/tarski
     COMPONENT Development EXCLUDE_FROM_ALL
     )
 #
 install(
     TARGETS tarski_util
-    DESTINATION lib/tarski
+    DESTINATION lib/lapkt/tarski
     COMPONENT Runtime 
     )
 install(
     TARGETS tarski_util
-    DESTINATION lib/tarski
+    DESTINATION lib/lapkt/tarski
     COMPONENT Development EXCLUDE_FROM_ALL
     EXPORT LAPKTTargets
     )
 #
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/__init__.py 
-    "from .tarski_util import ground_generate_task ")
+    "from .tarski_util import * ")
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/tarski
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt/tarski
     COMPONENT Runtime
     )
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/tarski
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt/tarski
     COMPONENT Development EXCLUDE_FROM_ALL
     )
