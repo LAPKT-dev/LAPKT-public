@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from lapkt.run import validate_plan
 from argparse import ArgumentParser
 
