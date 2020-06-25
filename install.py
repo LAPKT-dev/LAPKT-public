@@ -6,9 +6,11 @@ from subprocess import run
 from multiprocessing import cpu_count
 from importlib.util import find_spec as find_module
 from sys import executable, version_info
-from shutil import rmtree
+from shutil import rmtree, copy
 
-SRC_PATH='./src'
+SRC_PATH    =   'src'
+README_PATH =   'README.md'
+LICENSE_PATH=   'LICENSE.txt'
 
 def user_agreement(conditions, option='n') :
     if option in ['n','N'] :
@@ -35,7 +37,7 @@ def exists_exec(runfile, name):
             for path in environ["PATH"].split(pathsep)]) :
         return name
     else :
-        print("Please install external dependency" + name)
+        print("Please install external dependency: " + name)
         exit()
 
 def exists_python_module(name) :
@@ -171,4 +173,13 @@ if __name__ == '__main__' :
         x = not run(cmake_build).returncode
     # run cmake install
     if x :
-       x = not run(cmake_install).returncode
+        x = not run(cmake_install).returncode
+        if isfile(README_PATH) :
+           copy(README_PATH, args.install_dir)
+        if isfile(LICENSE_PATH) :
+           copy(LICENSE_PATH, args.install_dir)
+        if run([executable, '-m', 'pip', 'install', '-e', args.install_dir],
+                check=True).returncode :
+            print('Installation of lapkt library failed')
+            exit()
+
