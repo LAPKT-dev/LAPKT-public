@@ -12,7 +12,7 @@
             "pythonPath": "/usr/bin/python3",
             "program": "${workspaceRoot}/release/lapkt",
             "args": ["BFWS", "-d", "${workspaceRoot}/tests/sample_instance/domain.pddl", 
-                "-p", "${workspaceRoot}/tests/sample_instance/problem.pddl"],
+                "-p", "${workspaceRoot}/tests/sample_instance/problem.pddl", "--wait_debug"],
             //"cwd": "${workspaceFolder}",
         },
         { 
