@@ -73,6 +73,12 @@ if __name__ ==  "__main__" :
 
     args        =   parser_main.parse_args()
 
+    try :
+        config  =   list_planner_config[args.planner]
+    except:
+        print("Use option '-h' for help")
+        exit(0)
+
     if args.wait_debug :
         def exists_python_module(name) :
             from importlib.util import find_spec as find_module
@@ -92,11 +98,5 @@ if __name__ ==  "__main__" :
         
         wait_debug('Press a key to begin run...')
 
-
-    try :
-        config  =   list_planner_config[args.planner]
-    except:
-        print("Use option '-h' for help")
-        exit(0)
     store_value(args, config) 
     run_status  =   Run_planner(config).solved
