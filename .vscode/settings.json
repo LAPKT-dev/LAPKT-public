@@ -1,0 +1,6 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}/src",
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "git.ignoreLimitWarning": true,
+    "cmake.configureOnOpen": true
+}

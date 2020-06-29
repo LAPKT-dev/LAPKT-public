@@ -1,14 +1,75 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(LAPKT VERSION 1.0)
+
+#----BEGIN SUPER.BUILD for BOOST----#
+# This must stay at the beginning of the top level CMakeLists.txt
+option (USE_SUPERBUILD "flag that a superbuild should be invoked" ON)
+
+if (USE_SUPERBUILD)
+    project(SUPERBUILD NONE)
+    include(config/SuperBuild.cmake)
+    return()
+else()
+    project(LAPKT VERSION 1.0)
+endif(USE_SUPERBUILD)
+#----END   SUPER.BUILD for BOOST----#
+
+#----Check Python Version ----#
+find_package(Python3 COMPONENTS Interpreter Development)
+if(${Python3_VERSION} GREATER 3.8 OR ${Python3_VERSION} LESS 3.7)
+    message(SEND_ERROR 
+        "INCOMPATIBLE PYTHON VERSION, expected 3.7.x or 3.8.x. Found - " 
+        ${Python3_VERSION})
+endif()
+#-----------------------------#
+
+find_package(Boost REQUIRED COMPONENTS python${CMAKE_PYTHON_VERSION} program_options)
+#
+install(FILES
+    ${Boost_LIBRARIES}
+    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+    ${Boost_REGEX_LIBRARY}
+    PERMISSIONS OWNER_WRITE OWNER_READ
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost
+    COMPONENT Runtime
+  )
+install(FILES
+    ${Boost_LIBRARIES}
+    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+    ${Boost_REGEX_LIBRARY}
+    PERMISSIONS OWNER_WRITE OWNER_READ
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost
+    COMPONENT Development EXCLUDE_FROM_ALL
+  )
+#
+install(DIRECTORY
+    ${Boost_INCLUDE_DIRS}
+    DESTINATION ${CMAKE_INSTALL_PREFIX}
+    COMPONENT Runtime
+  )
+install(DIRECTORY
+    ${Boost_INCLUDE_DIRS}
+    DESTINATION ${CMAKE_INSTALL_PREFIX}
+    COMPONENT Development EXCLUDE_FROM_ALL
+  )
+
+message("The CMAKE_INSTALL_PREFIX is " ${CMAKE_INSTALL_PREFIX})
+message("THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
+message("Building LAPKT in " ${CMAKE_BUILD_TYPE} " mode")
 
 set(CMAKE_CXX_STANDARD 17)
+
+#### THIS IS SPECIFIC TO LINUX/SOLARIS
 set(CMAKE_INSTALL_RPATH 
-"${CMAKE_INSTALL_PREFIX}/lib/lapkt/shared;\
-${CMAKE_INSTALL_PREFIX}/lib/lapkt/interface;\
-${CMAKE_INSTALL_PREFIX}/lib/lapkt/ff"
+"${CMAKE_INSTALL_RPATH}:$ORIGIN/../shared;\
+${CMAKE_INSTALL_RPATH}:$ORIGIN/../interface;\
+${CMAKE_INSTALL_RPATH}:$ORIGIN/../boost/;\
+${CMAKE_INSTALL_RPATH}:$ORIGIN/../ff"
     )
+
 # Link with static Boost libraries instead of dynamic
+set(Boost_USE_STATIC_LIBS ON)
+#set(Boost_USE_DEBUG_PYTHON OFF)
 #set(CMAKE_INSTALL_RPATH "$ORIGIN/../lib")
 
 #set(CMAKE_CXX_STANDARD_REQUIRED False)

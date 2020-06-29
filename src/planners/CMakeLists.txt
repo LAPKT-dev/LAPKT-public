@@ -1,4 +1,3 @@
-
 list(APPEND EXTRA_LIBS lapkt_shared)
 list(APPEND EXTRA_LIBS pddl_py_interface)
 
@@ -18,10 +17,6 @@ add_subdirectory(siw)
 add_subdirectory(siw_plus)
 add_subdirectory(siw_plus-then-bfs_f)
 
-find_package(Python3 COMPONENTS Interpreter Development)
-find_package(Boost REQUIRED COMPONENTS python${CMAKE_PYTHON_VERSION})
-#find_package(Boost REQUIRED COMPONENTS program_options)
-#find_package(Python3 COMPONENTS Interpreter Development)
 target_include_directories(Planners PRIVATE ${Python3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
 
 target_link_libraries(Planners PRIVATE

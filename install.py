@@ -8,6 +8,8 @@ from importlib.util import find_spec as find_module
 from sys import executable, version_info
 from shutil import rmtree, copy
 
+from tools import download_extract
+
 SRC_PATH    =   'src'
 README_PATH =   'README.md'
 LICENSE_PATH=   'LICENSE.txt'
@@ -54,7 +56,7 @@ if __name__ == '__main__' :
             help='Path to cmake exec')
     parser.add_argument('--git', action='store', nargs='?',
             help='Path to git exec')
-    parser.add_argument('--additional_features', action='store', nargs='*',
+    parser.add_argument('--additional_package', action='store', nargs='*',
             choices=['FF_Parser', 'FD_Translate', 'Validate', 'Lab_module', 'all'],
             help='Choice of external components with GPLv3 License')
     parser.add_argument('--cmake_build_options', action='store', nargs='?',
@@ -72,8 +74,8 @@ if __name__ == '__main__' :
     args = parser.parse_args()
 
     if args.clean :
-        if isdir(args.build_dir) :
-            rmtree(args.build_dir)
+        if isdir(join(args.build_dir,)) :
+            rmtree(join(args.build_dir,))
         if isdir(args.install_dir) :
             rmtree(args.install_dir)
         exit()
@@ -105,49 +107,50 @@ if __name__ == '__main__' :
     cmake_install   =   [cmake_exec,]
 
     # Apply build_dir
-    cmake_configure +=  ['-B', args.build_dir, '-S', SRC_PATH, 
-            '-DCMAKE_INSTALL_PREFIX='+args.install_dir ]
-    cmake_build     +=  ['--build', args.build_dir,'-j'+str(cpu_count())]
-    cmake_install   +=  ['--install', args.build_dir]
+    cmake_configure +=  ['-B', join(args.build_dir, 'lapkt'), '-S', SRC_PATH,
+            '-DCMAKE_INSTALL_PREFIX='+args.install_dir]
+    cmake_build     +=  ['--build', join(args.build_dir,'lapkt'),'-j'+str(cpu_count())]
+    #cmake_install   +=  ['--install', args.build_dir]
+    cmake_install   +=  ['--install', join(args.build_dir, "lapkt")]
 
     # Choice of additional components 'FF_Parser', 'FD_Translate', 'Validate'
-    if args.additional_features and user_agreement("All additional features "+
+    if args.additional_package and user_agreement("All additional features "+
             "require external packages with GPLv3 license. Read the license at "+
             "https://www.gnu.org/licenses/gpl-3.0.en.html. Do you wish to "+
             "continue? ", 'n') :
         git_fetch_modules = [git_exec, 'submodule', 'update', '--init']
-        if 'all' in args.additional_features :
+        if 'all' in args.additional_package :
             if run(git_fetch_modules).returncode:
                 exit()
             else :
                 cmake_configure +=  ['-DCMAKE_VAL=ON']
                 cmake_configure +=  ['-DCMAKE_FF=ON']
                 cmake_configure +=  ['-DCMAKE_FD=ON']
-        if 'Lab_module' in args.additional_features:
+        if 'Lab_module' in args.additional_package:
             if run(git_fetch_modules+['lab_experiment_module']).returncode:
                 print('error fetching submodule', 'lab_experiment_module')
                 exit()
-        if 'FF_Parser' in args.additional_features:
+        if 'FF_Parser' in args.additional_package:
             if run(git_fetch_modules+['src/external/libff']).returncode:
                 print('error fetching submodule', 'FF')
                 exit()
             else :
                 cmake_configure +=  ['-DCMAKE_FF=ON']
-        if 'FD_Translate' in args.additional_features :
+        if 'FD_Translate' in args.additional_package :
             if run(git_fetch_modules+['src/external/fd']).returncode:
                 print('error fetching submodule', 'FD')
                 exit()
             else :
                 cmake_configure +=  ['-DCMAKE_FD=ON']
-        if 'Validate' in args.additional_features :
+        if 'Validate' in args.additional_package :
             if run(git_fetch_modules+['src/external/VAL-4.2.08']).returncode:
                 print('error fetching submodule', 'Validate')
                 exit()
             else :
                 cmake_configure +=  ['-DCMAKE_VAL=ON']
         
-        if ('Lab_module' in args.additional_features
-                or  'all' in args.additional_features) :
+        if ('Lab_module' in args.additional_package
+                or  'all' in args.additional_package) :
             if not exists_python_module('lab') and\
                 run([executable, '-m', 'pip', 'install', 'lab'], 
                 check=True).returncode :

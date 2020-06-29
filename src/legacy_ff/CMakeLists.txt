@@ -1,6 +1,12 @@
 list(APPEND EXTRA_LIBS lapkt_shared)
 list(APPEND EXTRA_LIBS ff_cpp_interface)
 
+set(CMAKE_INSTALL_RPATH 
+"${CMAKE_INSTALL_RPATH}:$ORIGIN/../lib/lapkt/shared;\
+${CMAKE_INSTALL_RPATH}:$ORIGIN/../lib/lapkt/interface;\
+${CMAKE_INSTALL_RPATH}:$ORIGIN/../lib/lapkt/boost/;\
+${CMAKE_INSTALL_RPATH}:$ORIGIN/../lib/lapkt/ff"
+    )
 add_executable(run_at_bfs_f_ff_parser "")
 add_subdirectory(at_bfs_f-ffparser)
 add_executable(run_bfs_f_ff_parser "")

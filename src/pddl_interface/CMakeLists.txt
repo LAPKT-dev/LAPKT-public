@@ -1,6 +1,4 @@
 #
-find_package(Python3 COMPONENTS Interpreter Development)
-find_package(Boost REQUIRED COMPONENTS python${CMAKE_PYTHON_VERSION})
 #
 add_library(pddl_py_interface)
 #
