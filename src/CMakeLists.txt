@@ -24,34 +24,7 @@ endif()
 #-----------------------------#
 
 find_package(Boost REQUIRED COMPONENTS python${CMAKE_PYTHON_VERSION} program_options)
-#
-install(FILES
-    ${Boost_LIBRARIES}
-    ${Boost_PROGRAM_OPTIONS_LIBRARY}
-    ${Boost_REGEX_LIBRARY}
-    PERMISSIONS OWNER_WRITE OWNER_READ
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost
-    COMPONENT Runtime
-  )
-install(FILES
-    ${Boost_LIBRARIES}
-    ${Boost_PROGRAM_OPTIONS_LIBRARY}
-    ${Boost_REGEX_LIBRARY}
-    PERMISSIONS OWNER_WRITE OWNER_READ
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost
-    COMPONENT Development EXCLUDE_FROM_ALL
-  )
-#
-install(DIRECTORY
-    ${Boost_INCLUDE_DIRS}
-    DESTINATION ${CMAKE_INSTALL_PREFIX}
-    COMPONENT Runtime
-  )
-install(DIRECTORY
-    ${Boost_INCLUDE_DIRS}
-    DESTINATION ${CMAKE_INSTALL_PREFIX}
-    COMPONENT Development EXCLUDE_FROM_ALL
-  )
+
 
 message("The CMAKE_INSTALL_PREFIX is " ${CMAKE_INSTALL_PREFIX})
 message("THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
@@ -162,7 +135,8 @@ install(FILES
 file(WRITE ${PROJECT_BINARY_DIR}/setup.cfg 
     "[options]\nscripts=\n\tlapkt\n")
 if(CMAKE_VAL)
-    file(APPEND ${PROJECT_BINARY_DIR}/setup.cfg "\tbin/validate.py\n")
+    file(APPEND ${PROJECT_BINARY_DIR}/setup.cfg 
+        "\tbin/validate.py\n\tbin/gringo\n")
 endif(CMAKE_VAL)
 install(FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
@@ -176,6 +150,73 @@ install(FILES
     ${PROJECT_BINARY_DIR}/setup.cfg
     PERMISSIONS OWNER_WRITE OWNER_READ
     DESTINATION ${CMAKE_INSTALL_PREFIX}
+    COMPONENT Development EXCLUDE_FROM_ALL
+  )
+#
+install(FILES
+    ${Boost_LIBRARIES}
+    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+    ${Boost_REGEX_LIBRARY}
+    PERMISSIONS OWNER_WRITE OWNER_READ
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost
+    COMPONENT Runtime
+  )
+install(FILES
+    ${Boost_LIBRARIES}
+    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+    ${Boost_REGEX_LIBRARY}
+    PERMISSIONS OWNER_WRITE OWNER_READ
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost
+    COMPONENT Development EXCLUDE_FROM_ALL
+  )
+#
+install(DIRECTORY
+    ${Boost_INCLUDE_DIRS}
+    DESTINATION ${CMAKE_INSTALL_PREFIX}
+    COMPONENT Runtime
+  )
+install(DIRECTORY
+    ${Boost_INCLUDE_DIRS}
+    DESTINATION ${CMAKE_INSTALL_PREFIX}
+    COMPONENT Development EXCLUDE_FROM_ALL
+  )
+#
+install(FILES
+    ${CMAKE_BINARY_DIR}/../clingo/linux/gringo
+    PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/linux
+    COMPONENT Runtime
+  )
+install(FILES
+    ${CMAKE_BINARY_DIR}/../clingo/linux/gringo
+    PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/linux
+    COMPONENT Development EXCLUDE_FROM_ALL
+  )
+#
+install(FILES
+    ${CMAKE_BINARY_DIR}/../clingo/darwin/gringo
+    PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/darwin
+    COMPONENT Runtime
+  )
+install(FILES
+    ${CMAKE_BINARY_DIR}/../clingo/darwin/gringo
+    PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/darwin
+    COMPONENT Development EXCLUDE_FROM_ALL
+  )
+#
+install(FILES
+    ${CMAKE_BINARY_DIR}/../clingo/win32/gringo.exe
+    PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/win32
+    COMPONENT Runtime
+  )
+install(FILES
+    ${CMAKE_BINARY_DIR}/../clingo/win32/gringo.exe
+    PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/win32
     COMPONENT Development EXCLUDE_FROM_ALL
   )
 
