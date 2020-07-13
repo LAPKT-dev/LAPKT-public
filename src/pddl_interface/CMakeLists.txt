@@ -30,6 +30,8 @@ install(
     DESTINATION lib/lapkt/interface
     COMPONENT Development EXCLUDE_FROM_ALL
     EXPORT LAPKTTargets
+    LIBRARY DESTINATION lib
+    INCLUDES DESTINATION include
     )
 
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/__init__.py "from .libpddl_py_interface import *")
