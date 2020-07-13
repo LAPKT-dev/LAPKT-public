@@ -107,11 +107,11 @@ if __name__ == '__main__' :
     cmake_install   =   [cmake_exec,]
 
     # Apply build_dir
-    cmake_configure +=  ['-B', join(args.build_dir, 'lapkt'), '-S', SRC_PATH,
+    cmake_configure +=  ['-B', join(args.build_dir, ), '-S', SRC_PATH,
             '-DCMAKE_INSTALL_PREFIX='+args.install_dir]
-    cmake_build     +=  ['--build', join(args.build_dir,'lapkt'),'-j'+str(cpu_count())]
+    cmake_build     +=  ['--build', join(args.build_dir,),'-j'+str(cpu_count())]
     #cmake_install   +=  ['--install', args.build_dir]
-    cmake_install   +=  ['--install', join(args.build_dir, "lapkt")]
+    cmake_install   +=  ['--install', join(args.build_dir, )]
 
     # Choice of additional components 'FF_Parser', 'FD_Translate', 'Validate'
     if args.additional_package and user_agreement("All additional features "+

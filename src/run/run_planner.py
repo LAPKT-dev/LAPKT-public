@@ -1,4 +1,4 @@
-from lapkt import planner
+from .. import planner
 from os import access, X_OK, environ, pathsep
 from contextlib import contextmanager
 from time import time, process_time
@@ -84,16 +84,16 @@ class Run_planner:
         load problem from pddl files
         """
         if self.config['lapkt_instance_generator']['value'] == 'Tarski' :
-            from lapkt.tarski import ground_generate_task as process_task
+            from ..tarski import ground_generate_task as process_task
         elif self.config['lapkt_instance_generator']['value'] == 'FF' :
             try :
-                from lapkt.ff import gen_problem_description as process_task
+                from ..ff import gen_problem_description as process_task
             except :
                 print('FF Translate is not installed!')
                 exit()
         elif self.config['lapkt_instance_generator']['value'] == 'FD' :
             try :
-                from lapkt.fd import default as process_task
+                from ..fd import default as process_task
             except :
                 print('FD Translate is not installed!')
                 exit()

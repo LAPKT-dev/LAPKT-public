@@ -134,7 +134,7 @@ install(FILES
   )
 #
 file(WRITE ${PROJECT_BINARY_DIR}/setup.cfg 
-    "[options]\nscripts=\n\tlapkt\n")
+    "[options]\nscripts=\n\tbin/lapkt\n")
 if(CMAKE_VAL)
     file(APPEND ${PROJECT_BINARY_DIR}/setup.cfg 
         "\tbin/validate.py\n\tbin/gringo\n")
