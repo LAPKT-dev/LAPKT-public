@@ -178,39 +178,39 @@ install(DIRECTORY
   )
 #
 install(FILES
-    ${CMAKE_BINARY_DIR}/../clingo/linux/gringo
+    ${CMAKE_BINARY_DIR}/clingo/linux/gringo
     PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
     DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/linux
     COMPONENT Runtime
   )
 install(FILES
-    ${CMAKE_BINARY_DIR}/../clingo/linux/gringo
+    ${CMAKE_BINARY_DIR}/clingo/linux/gringo
     PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
     DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/linux
     COMPONENT Development EXCLUDE_FROM_ALL
   )
 #
 install(FILES
-    ${CMAKE_BINARY_DIR}/../clingo/darwin/gringo
+    ${CMAKE_BINARY_DIR}/clingo/darwin/gringo
     PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
     DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/darwin
     COMPONENT Runtime
   )
 install(FILES
-    ${CMAKE_BINARY_DIR}/../clingo/darwin/gringo
+    ${CMAKE_BINARY_DIR}/clingo/darwin/gringo
     PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
     DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/darwin
     COMPONENT Development EXCLUDE_FROM_ALL
   )
 #
 install(FILES
-    ${CMAKE_BINARY_DIR}/../clingo/win32/gringo.exe
+    ${CMAKE_BINARY_DIR}/clingo/win32/gringo.exe
     PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
     DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/win32
     COMPONENT Runtime
   )
 install(FILES
-    ${CMAKE_BINARY_DIR}/../clingo/win32/gringo.exe
+    ${CMAKE_BINARY_DIR}/clingo/win32/gringo.exe
     PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE
     DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/clingo/win32
     COMPONENT Development EXCLUDE_FROM_ALL
