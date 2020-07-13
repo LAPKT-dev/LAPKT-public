@@ -2,12 +2,12 @@
 
 include("${CMAKE_CURRENT_LIST_DIR}/LAPKTTargets.cmake")
 
-set(_supported_components Development Runtime)
+#set(_supported_components Development Runtime)
 
-foreach(_comp ${LAPKT_FIND_COMPONENTS})
-  if (NOT ";${_supported_components};" MATCHES _comp)
-    set(LAPKT_FOUND False)
-    set(LAPKT_NOT_FOUND_MESSAGE "Unsupported component: ${_comp}")
-  endif()
-  include("${CMAKE_CURRENT_LIST_DIR}/LAPKT${_comp}Targets.cmake")
-endforeach()
+#foreach(_comp ${LAPKT_FIND_COMPONENTS})
+#  if (NOT ";${_supported_components};" MATCHES _comp)
+#    set(LAPKT_FOUND False)
+#    set(LAPKT_NOT_FOUND_MESSAGE "Unsupported component: ${_comp}")
+#  endif()
+#  include("${CMAKE_CURRENT_LIST_DIR}/LAPKT${_comp}Targets.cmake")
+#endforeach()
