@@ -23,12 +23,13 @@ if(${Python3_VERSION} GREATER 3.8 OR ${Python3_VERSION} LESS 3.7)
 endif()
 #-----------------------------#
 
+message("The PYTHON_VERSION is " ${CMAKE_PYTHON_VERSION})
+message("The CMAKE_INSTALL_PREFIX is " ${CMAKE_INSTALL_PREFIX})
+message("Building LAPKT in " ${CMAKE_BUILD_TYPE} " mode")
+
 find_package(Boost REQUIRED COMPONENTS python${CMAKE_PYTHON_VERSION} program_options)
 
-
-message("The CMAKE_INSTALL_PREFIX is " ${CMAKE_INSTALL_PREFIX})
 message("THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
-message("Building LAPKT in " ${CMAKE_BUILD_TYPE} " mode")
 
 set(CMAKE_CXX_STANDARD 17)
 
