@@ -56,7 +56,7 @@ install(
     )
 install(
     TARGETS ff_cpp_interface ff_py_interface
-    DESTINATION lib/lapk/ff
+    DESTINATION lib/lapkt/ff
     COMPONENT Runtime 
     )
 install(
