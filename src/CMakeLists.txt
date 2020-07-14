@@ -135,12 +135,16 @@ install(FILES
 #
 file(WRITE ${PROJECT_BINARY_DIR}/setup.cfg 
     "[options]\nscripts=\n\tbin/lapkt\n")
+
+
 if(CMAKE_VAL)
     file(APPEND ${PROJECT_BINARY_DIR}/setup.cfg 
         "\tbin/validate.py\n\tbin/gringo\n")
 endif(CMAKE_VAL)
 install(FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+    ${CMAKE_CURRENT_SOURCE_DIR}/../README.md
+    ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE.txt
     ${PROJECT_BINARY_DIR}/setup.cfg
     PERMISSIONS OWNER_WRITE OWNER_READ
     DESTINATION ${CMAKE_INSTALL_PREFIX}
@@ -148,6 +152,8 @@ install(FILES
   )
 install(FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
+    ${CMAKE_CURRENT_SOURCE_DIR}/../README.md
+    ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE.txt
     ${PROJECT_BINARY_DIR}/setup.cfg
     PERMISSIONS OWNER_WRITE OWNER_READ
     DESTINATION ${CMAKE_INSTALL_PREFIX}

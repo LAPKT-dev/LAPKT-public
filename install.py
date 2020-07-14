@@ -177,10 +177,10 @@ if __name__ == '__main__' :
     # run cmake install
     if x :
         x = not run(cmake_install).returncode
-        if isfile(README_PATH) :
-           copy(README_PATH, args.install_dir)
-        if isfile(LICENSE_PATH) :
-           copy(LICENSE_PATH, args.install_dir)
+        #if isfile(README_PATH) :
+        #   copy(README_PATH, args.install_dir)
+        #if isfile(LICENSE_PATH) :
+        #   copy(LICENSE_PATH, args.install_dir)
         if run([executable, '-m', 'pip', 'install', '-e', args.install_dir],
                 check=True).returncode :
             print('Installation of lapkt library failed')
