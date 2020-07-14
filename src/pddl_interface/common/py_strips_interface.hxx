@@ -1,5 +1,6 @@
 #ifndef __PY_FOD_PROBLEM__
 #define __PY_FOD_PROBLEM__
+#define BOOST_BIND_GLOBAL_PLACEHOLDERS
 
 #include <strips_prob.hxx>
 #include <fluent.hxx>
