@@ -36,24 +36,8 @@ void Match_Tree::build() {
 	
 	for (unsigned i = 0; i < m_problem.num_actions(); ++i)
 	    actions.push_back(i);
-
-    std::vector< std::pair<int,int> > var_count = std::vector< std::pair<int,int> >(m_problem.fluents().size());
 	
-	for (unsigned i = 0; i < m_problem.fluents().size(); ++i) {
-		var_count[i] = std::pair<int,int>(0, i);
-	}
-	// Count number of preconditions in actions
-	for (unsigned i = 0; i < actions.size(); ++i) {
-		const Action* act = m_problem.actions()[actions[i]];
-		for (unsigned j = 0; j < act->prec_varval().size(); ++j) {
-			var_count[act->prec_varval()[j].first].first++;
-		}
-	}
-	
-    //Distribution count is needed!!!
-	sort(var_count.begin(), var_count.end());
-	
-	root_node = new SwitchNode( actions, vars_seen, var_count, m_problem );
+	root_node = new SwitchNode( actions, vars_seen, m_problem );
 }
 
 void Match_Tree::retrieve_applicable( const State& s, std::vector<int>& actions ) const {
@@ -62,7 +46,7 @@ void Match_Tree::retrieve_applicable( const State& s, std::vector<int>& actions 
 
 /********************/
 
-BaseNode * BaseNode::create_tree( std::vector<int>& actions, std::vector<bool> &vars_seen, std::vector< std::pair<int,int> >& var_count, const STRIPS_Problem& prob ) {
+BaseNode * BaseNode::create_tree( std::vector<int>& actions, std::vector<bool> &vars_seen, const STRIPS_Problem& prob ) {
 	
 	if (actions.empty())
 		return new EmptyNode;
@@ -78,23 +62,33 @@ BaseNode * BaseNode::create_tree( std::vector<int>& actions, std::vector<bool> &
 	if (all_done) {
 		return new LeafNode(actions);
 	} else {
-		return new SwitchNode(actions, vars_seen, var_count, prob);
+		return new SwitchNode(actions, vars_seen, prob);
 	}
 
 }
 
-int BaseNode::get_best_var( std::vector<int>& actions, std::vector<bool> &vars_seen, std::vector< std::pair<int,int> >& var_count, const STRIPS_Problem& prob ) {
+int BaseNode::get_best_var( std::vector<int>& actions, std::vector<bool> &vars_seen, const STRIPS_Problem& prob ) {
 	
 	// TODO: This fluents.size() stuff needs to change to the number of mutexes once they're computed
-	
-	
-	
-	for (int i = var_count.size() - 1; i >= 0; --i) {
-		if (vars_seen[var_count[i].second] == false) {
-			//cout << "Best var " << var_count[i].second << " with a count of " << var_count[i].first << endl;
-			return var_count[i].second;
+	static std::vector< int > var_count = std::vector< int >(prob.fluents().size(), 0);
+	std::fill(var_count.begin(), var_count.end(), 0);
+
+	int max_size = 0;
+	int best_var = 0;
+	for (unsigned i = 0; i < actions.size(); ++i) {
+		const Action* act = prob.actions()[actions[i]];
+		for (unsigned j = 0; j < act->prec_varval().size(); ++j) {
+			unsigned idx = act->prec_varval()[j].first;
+			var_count[idx]++;
+			if( var_count[idx] > max_size && vars_seen[idx] == false ) {
+				max_size = var_count[idx];
+				best_var = idx;
+			}
 		}
 	}
+
+	//std::cout << "Best var " << best_var << " with a count of " << var_count[best_var] << std::endl;
+	return best_var;
 	
 	assert(false);
 	return -1;
@@ -146,9 +140,9 @@ void SwitchNode::generate_applicable_items( const State& s, std::vector<int>& ac
     default_child->generate_applicable_items( s, actions );
 }
 
-SwitchNode::SwitchNode( std::vector<int>& actions, std::vector<bool> &vars_seen, std::vector< std::pair<int,int> >& var_count, const STRIPS_Problem& prob ) {
+SwitchNode::SwitchNode( std::vector<int>& actions, std::vector<bool> &vars_seen, const STRIPS_Problem& prob ) {
 
-    switch_var = get_best_var(actions, vars_seen, var_count, prob);
+    switch_var = get_best_var(actions, vars_seen, prob);
     
     std::vector< std::vector<int> > value_items;
     std::vector<int> default_items;
@@ -176,11 +170,11 @@ SwitchNode::SwitchNode( std::vector<int>& actions, std::vector<bool> &vars_seen,
     
     // Create the switch generators
     for (unsigned i = 0; i < value_items.size(); i++) {
-        children.push_back(create_tree(value_items[i], vars_seen, var_count, prob));
+        children.push_back(create_tree(value_items[i], vars_seen, prob));
     }
     
     // Create the default generator
-    default_child = create_tree(default_items, vars_seen, var_count, prob);
+    default_child = create_tree(default_items, vars_seen, prob);
     
     vars_seen[switch_var] = false;
 }
