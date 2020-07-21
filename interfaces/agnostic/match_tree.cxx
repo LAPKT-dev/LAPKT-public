@@ -89,9 +89,6 @@ int BaseNode::get_best_var( std::vector<int>& actions, std::vector<bool> &vars_s
 
 	//std::cout << "Best var " << best_var << " with a count of " << var_count[best_var] << std::endl;
 	return best_var;
-	
-	assert(false);
-	return -1;
 }
 
 bool BaseNode::action_done( int action_id, std::vector<bool> &vars_seen, const STRIPS_Problem& prob ) {
