@@ -35,7 +35,7 @@ defining planning tasks programatically.
 
 * 'ff': this interface wraps FF parsing components to obtain 'agnostic' looking
 tasks. **NOTE**: this requires to compile the FF planner as a library. See the 
-documentation on ```external/libff``` for instructions.
+documentation on [`external/libff`](./external/libff) for instructions.
 
 Future interfaces planned are:
 
@@ -106,7 +106,7 @@ is achieved by invoking scons in a similar manner in the corresponding folder.
 
 The examples for the 'planner agnostic' interface can be found on
 
-examples/agnostic-examples
+[`examples/agnostic-examples`](./examples/agnostic-examples)
 
 and cover the following topics:
 
