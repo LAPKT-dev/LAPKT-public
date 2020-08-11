@@ -222,6 +222,7 @@ def ground_generate_task( domain_file, problem_file, out_task) :
             c_effect_dict = {}
             cond_str_map = {}
             for effect in action.effects :
+                #print(effect.condition)
                 if isinstance( effect.condition,
                 (CompoundFormula, Atom, Tautology)) :
                     c_effect_dict.setdefault( str(effect.condition),
@@ -399,11 +400,35 @@ def process_formula( formula, lang) :
         sub_f   =   []
         if formula.connective==Connective.Or :
             formula.dnf_check   =   True
+                    
         for f in formula.subformulas :
             sub_f.append( process_formula( f, lang))
             if f.dnf_check==True :
                 formula.dnf_check = True
         formula.subformulas =   sub_f
+        # Process Not connective with Compound subformulas
+        if (formula.connective == Connective.Not and 
+                not isinstance(formula.subformulas[0], Atom)):
+            assert len(formula.subformulas)==1
+            assert isinstance(formula.subformulas[0], CompoundFormula)
+            if formula.subformulas[0].connective==Connective.Not :
+                assert len(formula.subformulas[0].subformulas)==1
+                formula = process_formula(formula.subformulas[0].subformulas[0], lang)
+            else :
+                if formula.subformulas[0].connective==Connective.Or :
+                    formula.connective = Connective.And
+                elif formula.subformulas[0].connective==Connective.And :
+                    formula.connective = Connective.Or
+                else :
+                    raise TransformationError("Process compound formula", 
+                            formula.subformulas[0].connective,
+                    "Cannot process connective type '{}'"
+                    .format( st.sort.name))
+                new_f = []
+                for f in formula.subformulas[0].subformulas :
+                    new_f.append(process_formula(
+                        CompoundFormula(Connective.Not, [f,]), lang))
+                formula.subformulas = new_f
         return formula
     elif isinstance( formula, QuantifiedFormula) :
         return process_formula( ( QuantifierElimination.rewrite( lang, formula,

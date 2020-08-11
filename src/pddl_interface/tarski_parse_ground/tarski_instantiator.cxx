@@ -306,7 +306,12 @@ Formula::process_not( std::map<Identifier, std::string>& var_map,
     std::pair<std::vector<std::vector<std::pair<int, bool>>>, bool> ret_val;
     // Check with reserve later
     std::map<std::string, std::string>::iterator it;
-            // only atoms accepted inside "not" formula
+    //for(auto atom : m_subatom)
+    //    std::cout << "HERE HERE" << " " << atom.publish() << std::endl;
+    //for(auto f : m_subformula)
+    //    std::cout << "HERE HERE" << " " << f.publish() << std::endl;
+    
+    // only atoms accepted inside "not" formula
     assert (m_subatom.size() == 1);
 
     std::pair<int, bool> x (m_subatom[0].compile( var_map, init, fluent));
@@ -324,6 +329,8 @@ Formula::process_not( std::map<Identifier, std::string>& var_map,
         // Add a negated atom to STRIPS Problem
         out_task->notify_negated_atom( index);
     }
+    //std::cout << "XXXXXXXXX"<< " " << m_subformula.size() << std::endl;
+
     return ret_val;
 }
 //############################################################################//
@@ -371,7 +378,7 @@ Formula::process_or( std::map<Identifier, std::string>& var_map,
             m_subformula[i].instantiate( var_map, init, fluent, out_task));
         //std::cout << "error"<<m_subformula[i].publish() <<std::endl;
         if (x.first.size() > 0) {
-            for( size_t j=0; j<x.first.size(); i++) {
+            for( size_t j=0; j<x.first.size(); j++) {
                 ret_val.first.push_back( x.first[j]);
             }
         }
@@ -645,10 +652,16 @@ void Action::instantiate( STRIPS_Interface* out_task, boost::python::tuple& para
                     name.append( p);
                 }
                 name.append( ")");
+
+                // Anu - How to correctly split action with OR precond.?
+                // Anu - Add a "-#" at the end of action signature. 
+                //          However, then plan can't be validated 
+                /*
                 if (i > 0) {
                     name.append("-");
                     name.append( std::to_string( i));
                 }
+                */
                 out_task->add_action( name, true);
                 out_task->add_precondition( next_action_id, pre.first[i]);
                 if (effect.size()>0) {

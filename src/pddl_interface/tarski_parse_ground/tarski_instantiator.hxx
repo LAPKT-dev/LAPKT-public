@@ -130,9 +130,9 @@ namespace tarski{
                     params, long& next_action_id, std::map<std::string,
                     int>& fluent, std::vector<std::string>& init,
                     std::map<std::string, int>& fval);
+            std::string                             m_name;
         private:
             std::vector<std::pair<Atom, float>>     m_cost;
-            std::string                             m_name;
             Formula*                                m_pre;
             std::vector<Identifier>                 m_var;
             std::vector<std::pair<Formula,
