@@ -307,9 +307,7 @@ Formula::process_not( std::map<Identifier, std::string>& var_map,
     // Check with reserve later
     std::map<std::string, std::string>::iterator it;
     //for(auto atom : m_subatom)
-    //    std::cout << "HERE HERE" << " " << atom.publish() << std::endl;
     //for(auto f : m_subformula)
-    //    std::cout << "HERE HERE" << " " << f.publish() << std::endl;
     
     // only atoms accepted inside "not" formula
     assert (m_subatom.size() == 1);
@@ -329,7 +327,6 @@ Formula::process_not( std::map<Identifier, std::string>& var_map,
         // Add a negated atom to STRIPS Problem
         out_task->notify_negated_atom( index);
     }
-    //std::cout << "XXXXXXXXX"<< " " << m_subformula.size() << std::endl;
 
     return ret_val;
 }
@@ -348,16 +345,13 @@ Formula::process_or( std::map<Identifier, std::string>& var_map,
     std::pair<std::vector<std::vector<std::pair<int, bool>>>, bool> ret_val;
     // Check with reserve later
     // process subatoms
-    //std::cout << this->publish() <<std::endl;
     for( size_t i=0; i<m_subatom.size(); i++)
     {
         // Anu - OPTIMIZATION- Move semantic should be automatic here since
         //                     passing rvalue to contructor- CONFIRM THIS!
         std::pair<int, bool> x( m_subatom[i].compile( var_map, init, fluent));
-        //std::cout<< x.second <<std::endl;
         if (x.first  == -1) {
             if (x.second == true) {
-                //std::cout<< x.second <<std::endl;
                 ret_val.second  =   true;
                 ret_val.first.clear();
                 return ret_val;
@@ -368,7 +362,6 @@ Formula::process_or( std::map<Identifier, std::string>& var_map,
         }
         else {
             ret_val.first.push_back( std::vector<std::pair<int, bool>> {std::move(x)});
-            //std::cout<<ret_val.first[0].size() << std::endl;
         }
     }
     // process subformulas
@@ -376,7 +369,6 @@ Formula::process_or( std::map<Identifier, std::string>& var_map,
     {
         std::pair<std::vector<std::vector<std::pair<int, bool>>>, bool> x(
             m_subformula[i].instantiate( var_map, init, fluent, out_task));
-        //std::cout << "error"<<m_subformula[i].publish() <<std::endl;
         if (x.first.size() > 0) {
             for( size_t j=0; j<x.first.size(); j++) {
                 ret_val.first.push_back( x.first[j]);
@@ -393,8 +385,6 @@ Formula::process_or( std::map<Identifier, std::string>& var_map,
         ret_val.first.clear();
         ret_val.second  =   false;
     }
-    //std::cout << "Here"<<m_subformula.size()<<" "<<m_subatom.size()<<std::endl;
-    //std::cout << "Here"<<ret_val.first[0].size()<<" "<<m_subatom.size()<<std::endl;
     return ret_val;
 }
 //############################################################################//
@@ -409,15 +399,12 @@ Formula::process_and( std::map<Identifier, std::string>& var_map,
     ret_val.first.push_back( std::vector<std::pair<int, bool>>{});
     // Check with reserve later
     // process subatoms
-    //std::cout << this->publish() <<std::endl;
     for( size_t i = 0; i<m_subatom.size(); i++){
         std::pair<int, bool> x( m_subatom[i].compile( var_map,
                 init, fluent));
-        //std::cout<< x.second <<std::endl;
         if (x.first  == -1) {
             ret_val.second  =   false;
             if (x.second == false) {
-            //std::cout<< x.second <<std::endl;
                 ret_val.first.clear();
                 return ret_val;
             }
@@ -430,7 +417,6 @@ Formula::process_and( std::map<Identifier, std::string>& var_map,
     for( size_t i = 0; i<m_subformula.size(); i++){
         std::pair<std::vector<std::vector<std::pair<int, bool>>>, bool> x(
             m_subformula[i].instantiate( var_map, init, fluent, out_task));
-        //std::cout << "error"<<m_subformula[i].publish() <<std::endl;
         if (x.first.size() > 0) {
             size_t n    =   ret_val.first.size();
             ret_val.first.reserve(n*x.first.size());
@@ -641,29 +627,18 @@ void Action::instantiate( STRIPS_Interface* out_task, boost::python::tuple& para
             } // cond.size>0
         } // loop over m_effect
         // add actions for all precondition(s), more than 1 if OR in prec
-        for( size_t i = 0; i<pre.first.size(); i++){
-            if( effect.size()>0 || c_effect.size()>0){
-                std::string name;
-                //name.reserve( 100);
-                name.append( "(");
-                name.append( m_name);
-                for( auto p : v_params){
-                    name.append(" ");
-                    name.append( p);
-                }
-                name.append( ")");
-
-                // Anu - How to correctly split action with OR precond.?
-                // Anu - Add a "-#" at the end of action signature. 
-                //          However, then plan can't be validated 
-                /*
-                if (i > 0) {
-                    name.append("-");
-                    name.append( std::to_string( i));
-                }
-                */
+        if( effect.size()>0 || c_effect.size()>0){
+            std::string name;
+            //name.reserve( 100);
+            name.append( "(");
+            name.append( m_name);
+            for( auto p : v_params){
+                name.append(" ");
+                name.append( p);
+            }
+            name.append( ")");
+            if (pre.second == true){
                 out_task->add_action( name, true);
-                out_task->add_precondition( next_action_id, pre.first[i]);
                 if (effect.size()>0) {
                     out_task->add_effect( next_action_id, effect);
                 }
@@ -674,7 +649,31 @@ void Action::instantiate( STRIPS_Interface* out_task, boost::python::tuple& para
                 out_task->set_cost( next_action_id, cost);
                 next_action_id++;
             }
-        }
+            else {
+                for( size_t i = 0; i<pre.first.size(); i++){
+                    // Anu - How to correctly split action with OR precond.?
+                    // Anu - Add a "-#" at the end of action signature. 
+                    //          However, then plan can't be validated 
+                    /*
+                    if (i > 0) {
+                        name.append("-");
+                        name.append( std::to_string( i));
+                    }
+                    */
+                    out_task->add_action( name, true);
+                    out_task->add_precondition( next_action_id, pre.first[i]);
+                    if (effect.size()>0) {
+                        out_task->add_effect( next_action_id, effect);
+                    }
+                    for( auto c_e : c_effect){
+                        out_task->add_cond_effect( next_action_id, c_e.first,
+                             c_e.second);
+                    }
+                    out_task->set_cost( next_action_id, cost);
+                    next_action_id++;
+                }
+            } //pre.second == true 
+        } //effect.size > 0
     }// pre exists and is not false
 }
 //############################################################################//
@@ -760,7 +759,6 @@ void Tarski_Instantiator::set_init()
     for ( auto atom : m_init) {
         it = m_fluent.find( atom);
         if (it!=m_fluent.end()){
-            //std::cout<< "x---" << atom <<std::endl;
             enc_init.push_back( std::make_pair( m_fluent[atom], false));
         }
     }
