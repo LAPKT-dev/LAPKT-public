@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespacetarski" kind="namespace" language="C++">
+    <compoundname>tarski</compoundname>
+    <innerclass refid="classtarski_1_1Action" prot="public">tarski::Action</innerclass>
+    <innerclass refid="classtarski_1_1Atom" prot="public">tarski::Atom</innerclass>
+    <innerclass refid="classtarski_1_1Formula" prot="public">tarski::Formula</innerclass>
+    <innerclass refid="classtarski_1_1Identifier" prot="public">tarski::Identifier</innerclass>
+    <innerclass refid="classtarski_1_1Tarski__Instantiator" prot="public">tarski::Tarski_Instantiator</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="30" column="1"/>
+  </compounddef>
+</doxygen>

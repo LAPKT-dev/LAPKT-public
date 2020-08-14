@@ -1,0 +1,349 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classPlanner" kind="class" language="C++" prot="public">
+    <compoundname>Planner</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classPlanner_1aa366241cdd5c712340c1431e92cd67b6" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Planner::m_log_filename</definition>
+        <argsstring></argsstring>
+        <name>m_log_filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="27" column="20" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPlanner_1a69ea5295e940f8051fbeef6d11df4ae0" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Planner::m_plan_filename</definition>
+        <argsstring></argsstring>
+        <name>m_plan_filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="28" column="20" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classPlanner_1aa015777f5fc75d6c77fa8a7aabdd691f" prot="protected" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">aptk::STRIPS_Problem</ref> *</type>
+        <definition>aptk::STRIPS_Problem* Planner::m_problem</definition>
+        <argsstring></argsstring>
+        <name>m_problem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="41" column="25" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPlanner_1aceff4e3c859cc6bea1fda3c9e4ad034f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Planner::Planner</definition>
+        <argsstring>()</argsstring>
+        <name>Planner</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="8" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1a4c4e7c98c6d24b6e2ea2c03b7f82d91e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Planner::Planner</definition>
+        <argsstring>(aptk::STRIPS_Problem *instance)</argsstring>
+        <name>Planner</name>
+        <param>
+          <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">aptk::STRIPS_Problem</ref> *</type>
+          <declname>instance</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="9" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1aff801cbef97ac0431bd71a9850c8de33" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual Planner::~Planner</definition>
+        <argsstring>()</argsstring>
+        <name>~Planner</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="10" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1a607fac1318d41f1dc75d322d10f27c09" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Planner::setup</definition>
+        <argsstring>()</argsstring>
+        <name>setup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="12" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1a0ed99fe1240ae6287a8d38d67fdfe90c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Planner::solve</definition>
+        <argsstring>()</argsstring>
+        <name>solve</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="13" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1a393d00addc37715bd5d05bd0e74c9d02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Planner::print_action</definition>
+        <argsstring>(int index)</argsstring>
+        <name>print_action</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="14" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1ab01024b1b0d373c328086315d852932f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Planner::print_fluents</definition>
+        <argsstring>()</argsstring>
+        <name>print_fluents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="15" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1a37926992960f4043de0f28e5fb75d9a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Planner::print_actions</definition>
+        <argsstring>()</argsstring>
+        <name>print_actions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="16" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1abc2bdc09d7b6c398cf33c07d8e9be8e7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">aptk::STRIPS_Problem</ref> *</type>
+        <definition>aptk::STRIPS_Problem* Planner::instance</definition>
+        <argsstring>()</argsstring>
+        <name>instance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="18" column="29" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" bodystart="18" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1a0c5439da644650f879ecf76d7c776e5e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Planner::get_atom_name</definition>
+        <argsstring>(int idx) const</argsstring>
+        <name>get_atom_name</name>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="21" column="20" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" bodystart="21" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1a976f1aea68a7f96e96e8d4f22ad2fd76" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Planner::get_domain_name</definition>
+        <argsstring>() const</argsstring>
+        <name>get_domain_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="23" column="20" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1a2dece3be897bba234b4de8097a17eb3d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Planner::get_problem_name</definition>
+        <argsstring>() const</argsstring>
+        <name>get_problem_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="24" column="20" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" bodystart="24" bodyend="24"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classPlanner_1a51954c8ebbc33d79547cc6aa9ce184af" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Search_Engine</type>
+          </param>
+        </templateparamlist>
+        <type>float</type>
+        <definition>float Planner::do_search</definition>
+        <argsstring>(Search_Engine &amp;engine, aptk::STRIPS_Problem &amp;plan_prob, std::ofstream &amp;plan_stream)</argsstring>
+        <name>do_search</name>
+        <param>
+          <type>Search_Engine &amp;</type>
+          <declname>engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">aptk::STRIPS_Problem</ref> &amp;</type>
+          <declname>plan_prob</declname>
+        </param>
+        <param>
+          <type>std::ofstream &amp;</type>
+          <declname>plan_stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="33" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classPlanner_1a19d5870c3be01168cbd28813702df60e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Search_Engine</type>
+          </param>
+        </templateparamlist>
+        <type>float</type>
+        <definition>float Planner::do_search_single_goal</definition>
+        <argsstring>(Search_Engine &amp;engine, aptk::STRIPS_Problem &amp;plan_prob, std::ofstream &amp;plan_stream)</argsstring>
+        <name>do_search_single_goal</name>
+        <param>
+          <type>Search_Engine &amp;</type>
+          <declname>engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">aptk::STRIPS_Problem</ref> &amp;</type>
+          <declname>plan_prob</declname>
+        </param>
+        <param>
+          <type>std::ofstream &amp;</type>
+          <declname>plan_stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="37" column="15"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>aptk::STRIPS_Problem</label>
+        <link refid="classaptk_1_1STRIPS__Problem"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_succ_gen</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_succ_gen_v3</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_mutexes</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_succ_gen_v2</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>aptk::agnostic::Match_Tree</label>
+        <link refid="classaptk_1_1agnostic_1_1Match__Tree"/>
+      </node>
+      <node id="1">
+        <label>Planner</label>
+        <link refid="classPlanner"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_problem</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aptk::WatchedLitSuccGen</label>
+        <link refid="classaptk_1_1WatchedLitSuccGen"/>
+      </node>
+      <node id="5">
+        <label>aptk::agnostic::Mutex_Set</label>
+        <link refid="classaptk_1_1agnostic_1_1Mutex__Set"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_model</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aptk::agnostic::Successor_Generator</label>
+        <link refid="classaptk_1_1agnostic_1_1Successor__Generator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" line="5" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/planner.hxx" bodystart="6" bodyend="42"/>
+    <listofallmembers>
+      <member refid="classPlanner_1a51954c8ebbc33d79547cc6aa9ce184af" prot="protected" virt="non-virtual"><scope>Planner</scope><name>do_search</name></member>
+      <member refid="classPlanner_1a19d5870c3be01168cbd28813702df60e" prot="protected" virt="non-virtual"><scope>Planner</scope><name>do_search_single_goal</name></member>
+      <member refid="classPlanner_1a0c5439da644650f879ecf76d7c776e5e" prot="public" virt="non-virtual"><scope>Planner</scope><name>get_atom_name</name></member>
+      <member refid="classPlanner_1a976f1aea68a7f96e96e8d4f22ad2fd76" prot="public" virt="non-virtual"><scope>Planner</scope><name>get_domain_name</name></member>
+      <member refid="classPlanner_1a2dece3be897bba234b4de8097a17eb3d" prot="public" virt="non-virtual"><scope>Planner</scope><name>get_problem_name</name></member>
+      <member refid="classPlanner_1abc2bdc09d7b6c398cf33c07d8e9be8e7" prot="public" virt="non-virtual"><scope>Planner</scope><name>instance</name></member>
+      <member refid="classPlanner_1aa366241cdd5c712340c1431e92cd67b6" prot="public" virt="non-virtual"><scope>Planner</scope><name>m_log_filename</name></member>
+      <member refid="classPlanner_1a69ea5295e940f8051fbeef6d11df4ae0" prot="public" virt="non-virtual"><scope>Planner</scope><name>m_plan_filename</name></member>
+      <member refid="classPlanner_1aa015777f5fc75d6c77fa8a7aabdd691f" prot="protected" virt="non-virtual"><scope>Planner</scope><name>m_problem</name></member>
+      <member refid="classPlanner_1aceff4e3c859cc6bea1fda3c9e4ad034f" prot="public" virt="non-virtual"><scope>Planner</scope><name>Planner</name></member>
+      <member refid="classPlanner_1a4c4e7c98c6d24b6e2ea2c03b7f82d91e" prot="public" virt="non-virtual"><scope>Planner</scope><name>Planner</name></member>
+      <member refid="classPlanner_1a393d00addc37715bd5d05bd0e74c9d02" prot="public" virt="non-virtual"><scope>Planner</scope><name>print_action</name></member>
+      <member refid="classPlanner_1a37926992960f4043de0f28e5fb75d9a7" prot="public" virt="non-virtual"><scope>Planner</scope><name>print_actions</name></member>
+      <member refid="classPlanner_1ab01024b1b0d373c328086315d852932f" prot="public" virt="non-virtual"><scope>Planner</scope><name>print_fluents</name></member>
+      <member refid="classPlanner_1a607fac1318d41f1dc75d322d10f27c09" prot="public" virt="virtual"><scope>Planner</scope><name>setup</name></member>
+      <member refid="classPlanner_1a0ed99fe1240ae6287a8d38d67fdfe90c" prot="public" virt="non-virtual"><scope>Planner</scope><name>solve</name></member>
+      <member refid="classPlanner_1aff801cbef97ac0431bd71a9850c8de33" prot="public" virt="virtual"><scope>Planner</scope><name>~Planner</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

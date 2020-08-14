@@ -1,0 +1,465 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1Bit__Array" kind="class" language="C++" prot="public">
+    <compoundname>aptk::Bit_Array</compoundname>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1Bit__Array_1a0751c014456ae3ea398031ee8c05adb5" prot="protected" static="no" mutable="no">
+        <type>uint32_t *</type>
+        <definition>uint32_t* aptk::Bit_Array::m_packs</definition>
+        <argsstring></argsstring>
+        <name>m_packs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="146" column="15" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Bit__Array_1a818926cabe2e3ab0ebeba7ccf370b762" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Array::m_n_packs</definition>
+        <argsstring></argsstring>
+        <name>m_n_packs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="147" column="16" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Bit__Array_1a1deb584aa137823032f90112aa0c62d2" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Array::m_pack_sz</definition>
+        <argsstring></argsstring>
+        <name>m_pack_sz</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="148" column="16" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Bit__Array_1af6f1e0fbb2fab124f000a707154fe2f7" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Array::m_max_idx</definition>
+        <argsstring></argsstring>
+        <name>m_max_idx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="149" column="16" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a961dea4b4b8378f4ffd3bbab4f6df966" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Bit_Array::Bit_Array</definition>
+        <argsstring>()</argsstring>
+        <name>Bit_Array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="35" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.cxx" bodystart="26" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a2cb61f40dd789af03d00f4c39efdad00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Bit_Array::Bit_Array</definition>
+        <argsstring>(unsigned dim)</argsstring>
+        <name>Bit_Array</name>
+        <param>
+          <type>unsigned</type>
+          <declname>dim</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="36" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.cxx" bodystart="31" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1ac34ccbc87f5707e77d52d2cd568e3367" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Bit_Array::Bit_Array</definition>
+        <argsstring>(const Bit_Array &amp;other)</argsstring>
+        <name>Bit_Array</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="37" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.cxx" bodystart="41" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1aaa60f81a0fc7e2ae5b0efd8177bcfec5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Bit_Array::Bit_Array</definition>
+        <argsstring>(Bit_Array &amp;&amp;other)</argsstring>
+        <name>Bit_Array</name>
+        <param>
+          <type><ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="38" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.cxx" bodystart="52" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1ab4c86044d029795eb7d7bec66b58fd74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;</type>
+        <definition>const Bit_Array &amp; aptk::Bit_Array::operator=</definition>
+        <argsstring>(Bit_Array &amp;&amp;other)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type><ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="39" column="17" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.cxx" bodystart="61" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a4157afe0445910711af45668e3d40bc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;</type>
+        <definition>const Bit_Array &amp; aptk::Bit_Array::operator=</definition>
+        <argsstring>(const Bit_Array &amp;other)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="40" column="17" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.cxx" bodystart="72" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a0e593e2e54275e9d91f8b05aee4ae85a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Bit_Array::~Bit_Array</definition>
+        <argsstring>()</argsstring>
+        <name>~Bit_Array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="42" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.cxx" bodystart="91" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a738eee52552843d577c07dfbbc0f35a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Array::resize</definition>
+        <argsstring>(unsigned dim)</argsstring>
+        <name>resize</name>
+        <param>
+          <type>unsigned</type>
+          <declname>dim</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="44" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.cxx" bodystart="82" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a8ad2506c3c9321a64cb883e47f57b809" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t *</type>
+        <definition>uint32_t* aptk::Bit_Array::packs</definition>
+        <argsstring>()</argsstring>
+        <name>packs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="46" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="46" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a5bc1793345e2cd8a4312ac077def37e4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const uint32_t *</type>
+        <definition>const uint32_t* aptk::Bit_Array::packs</definition>
+        <argsstring>() const</argsstring>
+        <name>packs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="51" column="16" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="51" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a52eeacdb6dea2270ac9401dccf057715" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Array::npacks</definition>
+        <argsstring>() const</argsstring>
+        <name>npacks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="56" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="56" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a32879c7d72b34c83cacc05fffa823179" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Array::max_index</definition>
+        <argsstring>() const</argsstring>
+        <name>max_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="61" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="61" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1ae1d598dfb84814249ccdf9ab87c94b81" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Array::size</definition>
+        <argsstring>() const</argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="66" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="66" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1ad017f235abaff7531ba1e27e5cb5ac5c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Array::set_all</definition>
+        <argsstring>()</argsstring>
+        <name>set_all</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="71" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="71" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1af2f0d6ad04b6ba8bfe5943b5c64c5e10" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Array::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="76" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="76" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a835e518bf5d26a2142ecf75dcc5411f6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::Bit_Array::equal</definition>
+        <argsstring>(const Bit_Array &amp;other) const</argsstring>
+        <name>equal</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="81" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="81" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a27f923f4d44f85188ceadea19e22dab0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Array::set</definition>
+        <argsstring>(unsigned i)</argsstring>
+        <name>set</name>
+        <param>
+          <type>unsigned</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="89" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="89" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a5ed612a625ea415a201f80f621d518a8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Array::set</definition>
+        <argsstring>(const Bit_Array &amp;other)</argsstring>
+        <name>set</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="98" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="98" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a8c8e6d27200ed0438178a83e54ba908d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Array::unset</definition>
+        <argsstring>(unsigned i)</argsstring>
+        <name>unset</name>
+        <param>
+          <type>unsigned</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="104" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="104" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a06d6986dd9f322684ff6a74a18e48dcc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Array::unset</definition>
+        <argsstring>(Bit_Array &amp;other)</argsstring>
+        <name>unset</name>
+        <param>
+          <type><ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="114" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="114" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1aecc9829e02a03fb4da27b360a47ad6fd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t aptk::Bit_Array::isset</definition>
+        <argsstring>(unsigned i) const</argsstring>
+        <name>isset</name>
+        <param>
+          <type>unsigned</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="121" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="121" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1ab8f5f6848b1bebf5b453715bf172c143" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t aptk::Bit_Array::operator[]</definition>
+        <argsstring>(uint32_t i) const</argsstring>
+        <name>operator[]</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="127" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="127" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a30474de90603706d3bf9798b806d70ef" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int aptk::Bit_Array::count_elements</definition>
+        <argsstring>() const</argsstring>
+        <name>count_elements</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="132" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="132" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Array_1a6aefad61fba43d43e30cb295358174d4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::Bit_Array::operator==</definition>
+        <argsstring>(const Bit_Array &amp;arr) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;</type>
+          <declname>arr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="141" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="141" bodyend="143"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" line="31" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_array.hxx" bodystart="32" bodyend="151"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1Bit__Array_1a961dea4b4b8378f4ffd3bbab4f6df966" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>Bit_Array</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a2cb61f40dd789af03d00f4c39efdad00" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>Bit_Array</name></member>
+      <member refid="classaptk_1_1Bit__Array_1ac34ccbc87f5707e77d52d2cd568e3367" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>Bit_Array</name></member>
+      <member refid="classaptk_1_1Bit__Array_1aaa60f81a0fc7e2ae5b0efd8177bcfec5" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>Bit_Array</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a30474de90603706d3bf9798b806d70ef" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>count_elements</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a835e518bf5d26a2142ecf75dcc5411f6" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>equal</name></member>
+      <member refid="classaptk_1_1Bit__Array_1aecc9829e02a03fb4da27b360a47ad6fd" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>isset</name></member>
+      <member refid="classaptk_1_1Bit__Array_1af6f1e0fbb2fab124f000a707154fe2f7" prot="protected" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>m_max_idx</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a818926cabe2e3ab0ebeba7ccf370b762" prot="protected" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>m_n_packs</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a1deb584aa137823032f90112aa0c62d2" prot="protected" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>m_pack_sz</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a0751c014456ae3ea398031ee8c05adb5" prot="protected" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>m_packs</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a32879c7d72b34c83cacc05fffa823179" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>max_index</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a52eeacdb6dea2270ac9401dccf057715" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>npacks</name></member>
+      <member refid="classaptk_1_1Bit__Array_1ab4c86044d029795eb7d7bec66b58fd74" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>operator=</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a4157afe0445910711af45668e3d40bc4" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>operator=</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a6aefad61fba43d43e30cb295358174d4" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>operator==</name></member>
+      <member refid="classaptk_1_1Bit__Array_1ab8f5f6848b1bebf5b453715bf172c143" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>operator[]</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a8ad2506c3c9321a64cb883e47f57b809" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>packs</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a5bc1793345e2cd8a4312ac077def37e4" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>packs</name></member>
+      <member refid="classaptk_1_1Bit__Array_1af2f0d6ad04b6ba8bfe5943b5c64c5e10" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>reset</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a738eee52552843d577c07dfbbc0f35a2" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>resize</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a27f923f4d44f85188ceadea19e22dab0" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>set</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a5ed612a625ea415a201f80f621d518a8" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>set</name></member>
+      <member refid="classaptk_1_1Bit__Array_1ad017f235abaff7531ba1e27e5cb5ac5c" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>set_all</name></member>
+      <member refid="classaptk_1_1Bit__Array_1ae1d598dfb84814249ccdf9ab87c94b81" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>size</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a8c8e6d27200ed0438178a83e54ba908d" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>unset</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a06d6986dd9f322684ff6a74a18e48dcc" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>unset</name></member>
+      <member refid="classaptk_1_1Bit__Array_1a0e593e2e54275e9d91f8b05aee4ae85a" prot="public" virt="non-virtual"><scope>aptk::Bit_Array</scope><name>~Bit_Array</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

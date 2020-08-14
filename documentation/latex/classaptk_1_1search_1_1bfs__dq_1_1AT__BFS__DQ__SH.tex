@@ -1,0 +1,202 @@
+\hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH}{}\doxysection{aptk\+::search\+::bfs\+\_\+dq\+::A\+T\+\_\+\+B\+F\+S\+\_\+\+D\+Q\+\_\+\+SH$<$ Search\+\_\+\+Model, Abstract\+\_\+\+Heuristic, Open\+\_\+\+List\+\_\+\+Type $>$ Class Template Reference}
+\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH}\index{aptk::search::bfs\_dq::AT\_BFS\_DQ\_SH$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$@{aptk::search::bfs\_dq::AT\_BFS\_DQ\_SH$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$}}
+Inheritance diagram for aptk\+::search\+::bfs\+\_\+dq\+::A\+T\+\_\+\+B\+F\+S\+\_\+\+D\+Q\+\_\+\+SH$<$ Search\+\_\+\+Model, Abstract\+\_\+\+Heuristic, Open\+\_\+\+List\+\_\+\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.975610cm]{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a549859df825495c20a0a9b1a179999d0}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a549859df825495c20a0a9b1a179999d0}} 
+typedef Search\+\_\+\+Model\+::\+State\+\_\+\+Type {\bfseries State}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a982df22ee02dc1e61288077d46476f97}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a982df22ee02dc1e61288077d46476f97}} 
+typedef Open\+\_\+\+List\+\_\+\+Type\+::\+Node\+\_\+\+Type {\bfseries Search\+\_\+\+Node}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a557aac28e743f740d679d2dd830d9c2d}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a557aac28e743f740d679d2dd830d9c2d}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List}}$<$ Search\+\_\+\+Node $>$ {\bfseries Closed\+\_\+\+List\+\_\+\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a265b5823e4442578371930fc846ae1f3}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a265b5823e4442578371930fc846ae1f3}} 
+{\bfseries A\+T\+\_\+\+B\+F\+S\+\_\+\+D\+Q\+\_\+\+SH} (const Search\+\_\+\+Model \&search\+\_\+problem)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a62ff46a3ab329dcf4f9ea4691b9bd9e8}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a62ff46a3ab329dcf4f9ea4691b9bd9e8}} 
+{\bfseries A\+T\+\_\+\+B\+F\+S\+\_\+\+D\+Q\+\_\+\+SH} (const Search\+\_\+\+Model \&search\+\_\+problem, Abstract\+\_\+\+Heuristic \&h)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ab430e8ffb240bbf32ff3267ce42741ba}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ab430e8ffb240bbf32ff3267ce42741ba}} 
+void {\bfseries start} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ada8cefa724798bd09543f50cfab9b59b}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ada8cefa724798bd09543f50cfab9b59b}} 
+bool {\bfseries find\+\_\+solution} (float \&cost, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&plan)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a3fd6edb046571fda8b6b3fc658c16e5e}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a3fd6edb046571fda8b6b3fc658c16e5e}} 
+void {\bfseries set\+\_\+schedule} (int max\+\_\+po\+\_\+exp, int max\+\_\+non\+\_\+po\+\_\+exp)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_aa29caf7ba297f757880e0ecbb65dd7ec}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_aa29caf7ba297f757880e0ecbb65dd7ec}} 
+float {\bfseries bound} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_adb6d92696b598de1b41fd48650392026}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_adb6d92696b598de1b41fd48650392026}} 
+void {\bfseries set\+\_\+bound} (float v)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a5a359ada592504c7fbcdb9150dc3b4b5}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a5a359ada592504c7fbcdb9150dc3b4b5}} 
+void {\bfseries inc\+\_\+gen} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a14f17061c76b33df134e1c3bcb14a344}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a14f17061c76b33df134e1c3bcb14a344}} 
+unsigned {\bfseries generated} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a34d3825ef467cc646760fbc1c5b77a52}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a34d3825ef467cc646760fbc1c5b77a52}} 
+void {\bfseries inc\+\_\+eval} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ac2c76ec8e2f3dba59ff7af02fda9be2f}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ac2c76ec8e2f3dba59ff7af02fda9be2f}} 
+unsigned {\bfseries expanded} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ab0d7f838afe5c45f7f741624d282335c}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ab0d7f838afe5c45f7f741624d282335c}} 
+void {\bfseries inc\+\_\+pruned\+\_\+bound} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a7574eae3c0120437b8674114d8bdbb1e}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a7574eae3c0120437b8674114d8bdbb1e}} 
+unsigned {\bfseries pruned\+\_\+by\+\_\+bound} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ac1c9622e68f47410f6e2530d5a3c154e}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ac1c9622e68f47410f6e2530d5a3c154e}} 
+void {\bfseries inc\+\_\+dead\+\_\+end} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a3c3d8871776248fed64c52f26f6f9f61}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a3c3d8871776248fed64c52f26f6f9f61}} 
+unsigned {\bfseries dead\+\_\+ends} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a37eff95ac48e5386023ec8d1d14ae821}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a37eff95ac48e5386023ec8d1d14ae821}} 
+void {\bfseries inc\+\_\+replaced\+\_\+open} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a97cbe604149e5229367dacbf64ae82e4}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a97cbe604149e5229367dacbf64ae82e4}} 
+unsigned {\bfseries open\+\_\+repl} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a964343686cc88707b280c1e21d84584f}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a964343686cc88707b280c1e21d84584f}} 
+void {\bfseries set\+\_\+budget} (float v)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ac0132e983826d87b9461f5fa6546da81}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ac0132e983826d87b9461f5fa6546da81}} 
+float {\bfseries time\+\_\+budget} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a3463482128b957b818e238617821a875}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a3463482128b957b818e238617821a875}} 
+float {\bfseries t0} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_aef8ab239be004b9f87b1c6cb95ea673f}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_aef8ab239be004b9f87b1c6cb95ea673f}} 
+void {\bfseries close} (Search\+\_\+\+Node $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a531facb2346c89be69392abb860090c9}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a531facb2346c89be69392abb860090c9}} 
+const Search\+\_\+\+Model \& {\bfseries problem} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_afbbc47ed05af4be9a788ecebb8968e40}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_afbbc47ed05af4be9a788ecebb8968e40}} 
+Search\+\_\+\+Node $\ast$ {\bfseries root} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_af8b7e54498a1096c790c1109519df70a}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_af8b7e54498a1096c790c1109519df70a}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List\+\_\+\+Type}} \& {\bfseries closed} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a21cf87f5ebc3f1f6fae3bc95ea4ca8e8}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a21cf87f5ebc3f1f6fae3bc95ea4ca8e8}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List\+\_\+\+Type}} \& {\bfseries open\+\_\+hash} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a56484c9c679c8fa56ce56d1340eb4834}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a56484c9c679c8fa56ce56d1340eb4834}} 
+Abstract\+\_\+\+Heuristic \& {\bfseries heuristic} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_af9473a1d5ca58786ea5126c40cc43895}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_af9473a1d5ca58786ea5126c40cc43895}} 
+virtual void {\bfseries eval} (Search\+\_\+\+Node $\ast$candidate)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a7462dcc64ff24b0168f1a1db388c20dd}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a7462dcc64ff24b0168f1a1db388c20dd}} 
+Search\+\_\+\+Node $\ast$ {\bfseries get\+\_\+node} (Open\+\_\+\+List\+\_\+\+Type \&open)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_aa30373d53ad80e5eb249ceda0d475143}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_aa30373d53ad80e5eb249ceda0d475143}} 
+Search\+\_\+\+Node $\ast$ {\bfseries get\+\_\+node} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a890b72ab92e8326d28e8f199bc0a7373}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a890b72ab92e8326d28e8f199bc0a7373}} 
+void {\bfseries open\+\_\+node} (Search\+\_\+\+Node $\ast$n, bool preferred)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a0edb93ef9240290db56914e907992eb8}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a0edb93ef9240290db56914e907992eb8}} 
+virtual void {\bfseries process} (Search\+\_\+\+Node $\ast$head)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a54ac562308b0a110f83a605ecb33b0a8}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a54ac562308b0a110f83a605ecb33b0a8}} 
+virtual Search\+\_\+\+Node $\ast$ {\bfseries do\+\_\+search} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a3b08bb53d39b4dff5f00aae07608750c}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a3b08bb53d39b4dff5f00aae07608750c}} 
+virtual bool {\bfseries is\+\_\+open} (Search\+\_\+\+Node $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a97be6a482be9e2434442b9e2374033f2}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a97be6a482be9e2434442b9e2374033f2}} 
+bool {\bfseries is\+\_\+closed} (Search\+\_\+\+Node $\ast$n)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a5823024ea3b20320d66ade43d74eea7b}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a5823024ea3b20320d66ade43d74eea7b}} 
+void {\bfseries extract\+\_\+plan} (Search\+\_\+\+Node $\ast$s, Search\+\_\+\+Node $\ast$t, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&plan, float \&cost)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ae55f04a25a7ecd73d2483e9fe5bcfe90}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ae55f04a25a7ecd73d2483e9fe5bcfe90}} 
+void {\bfseries extract\+\_\+path} (Search\+\_\+\+Node $\ast$s, Search\+\_\+\+Node $\ast$t, std\+::vector$<$ Search\+\_\+\+Node $\ast$ $>$ \&plan)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_afbbb49596aa78f88e38e7fb19b2b25c3}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_afbbb49596aa78f88e38e7fb19b2b25c3}} 
+const Search\+\_\+\+Model \& {\bfseries m\+\_\+problem}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a0760e86fb5b857d70f92346b8043500d}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a0760e86fb5b857d70f92346b8043500d}} 
+Abstract\+\_\+\+Heuristic $\ast$ {\bfseries m\+\_\+heuristic\+\_\+func}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a311ec4e6d94989036f833209a7509bb6}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a311ec4e6d94989036f833209a7509bb6}} 
+Open\+\_\+\+List\+\_\+\+Type {\bfseries m\+\_\+open\+\_\+po}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a7f5839192c96aef0f06360ac62b0f132}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a7f5839192c96aef0f06360ac62b0f132}} 
+Open\+\_\+\+List\+\_\+\+Type {\bfseries m\+\_\+open}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a27aded563b48d263a9fb3d7b45fc1013}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a27aded563b48d263a9fb3d7b45fc1013}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List\+\_\+\+Type}} {\bfseries m\+\_\+closed}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a10b6b21d1d88acaf9c6ddbdf68344a78}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a10b6b21d1d88acaf9c6ddbdf68344a78}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List\+\_\+\+Type}} {\bfseries m\+\_\+open\+\_\+hash}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a432e91149a2c09a093784ba87a7c8c89}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a432e91149a2c09a093784ba87a7c8c89}} 
+unsigned {\bfseries m\+\_\+exp\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_abdba541f3f3352b07191cd21ae345a69}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_abdba541f3f3352b07191cd21ae345a69}} 
+unsigned {\bfseries m\+\_\+gen\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a7e0aa0f70e84d37d36fb2752ad0aeceb}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a7e0aa0f70e84d37d36fb2752ad0aeceb}} 
+unsigned {\bfseries m\+\_\+pruned\+\_\+\+B\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a703ffdc5978cacd8ab53e83ef4ee1414}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a703ffdc5978cacd8ab53e83ef4ee1414}} 
+unsigned {\bfseries m\+\_\+dead\+\_\+end\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_aeb648c4049c6a0a8f5957ccc465b66b3}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_aeb648c4049c6a0a8f5957ccc465b66b3}} 
+unsigned {\bfseries m\+\_\+open\+\_\+repl\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a02ab6268a23e22e3f25dfc12fbe4f9a8}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a02ab6268a23e22e3f25dfc12fbe4f9a8}} 
+float {\bfseries m\+\_\+B}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a824ee23ea57bbf62bc5357a1cdac8e30}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a824ee23ea57bbf62bc5357a1cdac8e30}} 
+float {\bfseries m\+\_\+time\+\_\+budget}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a821fbd454c335cff42bd6b9024f8e7e7}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a821fbd454c335cff42bd6b9024f8e7e7}} 
+float {\bfseries m\+\_\+t0}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ad8516fc20896c76d3175b45102c9b858}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ad8516fc20896c76d3175b45102c9b858}} 
+Search\+\_\+\+Node $\ast$ {\bfseries m\+\_\+root}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ac0ed6beaa5717000db0c4e90102f2d09}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_ac0ed6beaa5717000db0c4e90102f2d09}} 
+unsigned {\bfseries m\+\_\+po\+\_\+exp\+\_\+left}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a7c383b71e5ac07905d1b1d82b2cacb34}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a7c383b71e5ac07905d1b1d82b2cacb34}} 
+unsigned {\bfseries m\+\_\+non\+\_\+po\+\_\+exp\+\_\+left}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a8ec96200b322e2a25a738d9d6228ece1}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a8ec96200b322e2a25a738d9d6228ece1}} 
+unsigned {\bfseries m\+\_\+po\+\_\+exp\+\_\+max}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a05254f53e25c2639e9a7e240f34e1c5a}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_a05254f53e25c2639e9a7e240f34e1c5a}} 
+unsigned {\bfseries m\+\_\+non\+\_\+po\+\_\+exp\+\_\+max}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_abadd305b34f7154d188213a3bcdef3fb}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_abadd305b34f7154d188213a3bcdef3fb}} 
+std\+::vector$<$ Action\+\_\+\+Idx $>$ {\bfseries m\+\_\+app\+\_\+set}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/search/at\+\_\+bfs\+\_\+dq.\+hxx\end{DoxyCompactItemize}

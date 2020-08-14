@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1agnostic_1_1Match__Tree" kind="class" language="C++" prot="public">
+    <compoundname>aptk::agnostic::Match_Tree</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Match__Tree_1a3ba561e85cba1442009b62b36d8a7a8d" prot="private" static="no" mutable="no">
+        <type>const <ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+        <definition>const STRIPS_Problem&amp; aptk::agnostic::Match_Tree::m_problem</definition>
+        <argsstring></argsstring>
+        <name>m_problem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" line="101" column="22" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Match__Tree_1a2aff1deb8dec1b2f809fb2711c617fdf" prot="private" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1BaseNode" kindref="compound">BaseNode</ref> *</type>
+        <definition>BaseNode* aptk::agnostic::Match_Tree::root_node</definition>
+        <argsstring></argsstring>
+        <name>root_node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" line="102" column="11" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Match__Tree_1ad6345271970842c16ca904e8cb16b226" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Match_Tree::Match_Tree</definition>
+        <argsstring>(const STRIPS_Problem &amp;prob)</argsstring>
+        <name>Match_Tree</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+          <declname>prob</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" line="90" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" bodystart="90" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Match__Tree_1a0feda5541cedf683c6980c348778dd56" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Match_Tree::~Match_Tree</definition>
+        <argsstring>()</argsstring>
+        <name>~Match_Tree</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" line="92" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" bodystart="92" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Match__Tree_1ac0b37af6370bc5cc0da5f3c43c3215c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Match_Tree::build</definition>
+        <argsstring>()</argsstring>
+        <name>build</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" line="94" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.cxx" bodystart="33" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Match__Tree_1a1d3dd98804f339bbd97af331be03135d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Match_Tree::retrieve_applicable</definition>
+        <argsstring>(const State &amp;s, std::vector&lt; int &gt; &amp;actions) const</argsstring>
+        <name>retrieve_applicable</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; int &gt; &amp;</type>
+          <declname>actions</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" line="95" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.cxx" bodystart="43" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Match__Tree_1a85768f7c20737e4f0cc894f853059413" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int aptk::agnostic::Match_Tree::count</definition>
+        <argsstring>()</argsstring>
+        <name>count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" line="96" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" bodystart="96" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Match__Tree_1af97030e8f36bdd52cbc51a7c669c0986" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Match_Tree::dump</definition>
+        <argsstring>()</argsstring>
+        <name>dump</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" line="97" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" bodystart="97" bodyend="97"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" line="86" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/match_tree.hxx" bodystart="86" bodyend="104"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1agnostic_1_1Match__Tree_1ac0b37af6370bc5cc0da5f3c43c3215c7" prot="public" virt="non-virtual"><scope>aptk::agnostic::Match_Tree</scope><name>build</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Match__Tree_1a85768f7c20737e4f0cc894f853059413" prot="public" virt="non-virtual"><scope>aptk::agnostic::Match_Tree</scope><name>count</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Match__Tree_1af97030e8f36bdd52cbc51a7c669c0986" prot="public" virt="non-virtual"><scope>aptk::agnostic::Match_Tree</scope><name>dump</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Match__Tree_1a3ba561e85cba1442009b62b36d8a7a8d" prot="private" virt="non-virtual"><scope>aptk::agnostic::Match_Tree</scope><name>m_problem</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Match__Tree_1ad6345271970842c16ca904e8cb16b226" prot="public" virt="non-virtual"><scope>aptk::agnostic::Match_Tree</scope><name>Match_Tree</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Match__Tree_1a1d3dd98804f339bbd97af331be03135d" prot="public" virt="non-virtual"><scope>aptk::agnostic::Match_Tree</scope><name>retrieve_applicable</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Match__Tree_1a2aff1deb8dec1b2f809fb2711c617fdf" prot="private" virt="non-virtual"><scope>aptk::agnostic::Match_Tree</scope><name>root_node</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Match__Tree_1a0feda5541cedf683c6980c348778dd56" prot="public" virt="non-virtual"><scope>aptk::agnostic::Match_Tree</scope><name>~Match_Tree</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

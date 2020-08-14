@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespacetarski__util" kind="namespace" language="Python">
+    <compoundname>tarski_util</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="tarski__util_8py_1a80324f3d8def398d4680cfe1fb0068da" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int tarski_util.DEFAULTCOST</definition>
+        <argsstring></argsstring>
+        <name>DEFAULTCOST</name>
+        <initializer>=    1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="57" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tarski__util_8py_1a48433faa475f8f75afbace0f471dd0ae" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int tarski_util.DEFAULTCOST_METRIC</definition>
+        <argsstring></argsstring>
+        <name>DEFAULTCOST_METRIC</name>
+        <initializer>=    1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="58" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="tarski__util_8py_1a5ee45ca1f76c28ebe9eecb3bfbc96ca2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def tarski_util.time_taken</definition>
+        <argsstring>(str task_name)</argsstring>
+        <name>time_taken</name>
+        <param>
+          <type>str</type>
+          <declname>task_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Track the time taken for a task.
+Usage - &quot;with time_taken(&quot;&lt;process name&gt;&quot;) :&quot;
+Arguments
+=========
+time_taken: string - name of the task
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="62" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" bodystart="62" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="tarski__util_8py_1ad9649e66c8f8afd54256751a698f9e65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def tarski_util.convert_to_TI_formula</definition>
+        <argsstring>(formula)</argsstring>
+        <name>convert_to_TI_formula</name>
+        <param>
+          <type>formula</type>
+          <defname>formula</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Convert Tarski CompoundFormula to C++ Formula class object
+C++ Formula class is minimalistic in comparison, utilized for instantiation
+Any action with OR in condition is distintegrated into multiple actions 
+    without ORs.
+Arguments
+=========
+formula:
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="84" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" bodystart="84" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="tarski__util_8py_1a685f6811599f3b9e8d64efa618083122" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def tarski_util.ground_generate_task</definition>
+        <argsstring>(domain_file, problem_file, out_task)</argsstring>
+        <name>ground_generate_task</name>
+        <param>
+          <type>domain_file</type>
+          <defname>domain_file</defname>
+        </param>
+        <param>
+          <type>problem_file</type>
+          <defname>problem_file</defname>
+        </param>
+        <param>
+          <type>out_task</type>
+          <defname>out_task</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Uses Tarski Grounder to generate the output task using pddl
+
+Arguments
+=========
+domain_file  : domain pddl file location
+problem_file : problem pddl file location
+output_task  : C++ container to store/process domain and problem
+
+Returns
+=======
+None
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="160" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" bodystart="160" bodyend="275"/>
+      </memberdef>
+      <memberdef kind="function" id="tarski__util_8py_1a9dfa809a0dca89026697651339fe4b8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def tarski_util.process_problem</definition>
+        <argsstring>(problem, task_id=[0,])</argsstring>
+        <name>process_problem</name>
+        <param>
+          <type>problem</type>
+          <defname>problem</defname>
+        </param>
+        <param>
+          <type>task_id</type>
+          <defname>task_id</defname>
+          <defval>[0</defval>
+        </param>
+        <param>
+          <type>]</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>1. Eliminates univeral effects from problem by transforming to multiple
+    conditional effects
+2. Extract action cost from total-cost action effect or 1(default) and
+    remove total cost atoms from problem.init
+
+Arguments
+=========
+problem: object of Problem class
+task_id: list of integers
+    0 - All tasks (default)
+    1 - Eliminate Unviseral Effects and Quantifiers
+    2 - Extract cost from &apos;total-cost&apos; atoms in prob. description
+Returns
+=======
+None
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="276" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" bodystart="276" bodyend="323"/>
+      </memberdef>
+      <memberdef kind="function" id="tarski__util_8py_1a6d013562e8469b263f9a5d85f5e8d560" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def tarski_util.process_effects</definition>
+        <argsstring>(eff, action, lang, plan_metric, task_id=[0,])</argsstring>
+        <name>process_effects</name>
+        <param>
+          <type>eff</type>
+          <defname>eff</defname>
+        </param>
+        <param>
+          <type>action</type>
+          <defname>action</defname>
+        </param>
+        <param>
+          <type>lang</type>
+          <defname>lang</defname>
+        </param>
+        <param>
+          <type>plan_metric</type>
+          <defname>plan_metric</defname>
+        </param>
+        <param>
+          <type>task_id</type>
+          <defname>task_id</defname>
+          <defval>[0</defval>
+        </param>
+        <param>
+          <type>]</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Elimates univeral effects by transforming to multiple conditional effects
+
+Arguments
+=========
+lang: object of type FirstOrderLanguage
+eff:  any effect type object
+task_id - Usage same as &apos;process_problem&apos; method
+Returns
+=======
+list: list of effects
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="324" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" bodystart="324" bodyend="384"/>
+      </memberdef>
+      <memberdef kind="function" id="tarski__util_8py_1a100d3223d7f564a4835b4cdfadc6d5c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def tarski_util.process_formula</definition>
+        <argsstring>(formula, lang)</argsstring>
+        <name>process_formula</name>
+        <param>
+          <type>formula</type>
+          <defname>formula</defname>
+        </param>
+        <param>
+          <type>lang</type>
+          <defname>lang</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Recursively eliminate quantified formulas in formulas
+
+Arguments
+=========
+formula: CompoundFormula or QuantifiedFormula
+
+Returns
+=======
+Transformed formula
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="385" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" bodystart="385" bodyend="440"/>
+      </memberdef>
+      <memberdef kind="function" id="tarski__util_8py_1aa3eb70fb34b0ce07d40326185b914365" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def tarski_util._enumerate_instantiations</definition>
+        <argsstring>(variables)</argsstring>
+        <name>_enumerate_instantiations</name>
+        <param>
+          <type>variables</type>
+          <defname>variables</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Enumerate Instantiations
+
+Argument
+========
+variables: iterator of type class Variable
+
+Returns
+=======
+cardinality: int
+symbols: list
+instantiations: list
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="441" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" bodystart="441" bodyend="469"/>
+      </memberdef>
+      <memberdef kind="function" id="tarski__util_8py_1a01aa10b5e1d4110852afc89c8105dda8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def tarski_util.visit</definition>
+        <argsstring>(phi, subst)</argsstring>
+        <name>visit</name>
+        <param>
+          <type>phi</type>
+          <defname>phi</defname>
+        </param>
+        <param>
+          <type>subst</type>
+          <defname>subst</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="470" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" bodystart="470" bodyend="506"/>
+      </memberdef>
+      <memberdef kind="function" id="tarski__util_8py_1aec7f90318a5e5a556314e64efefddca6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def tarski_util.term_substitution</definition>
+        <argsstring>(language, phi, substitution, inplace=False)</argsstring>
+        <name>term_substitution</name>
+        <param>
+          <type>language</type>
+          <defname>language</defname>
+        </param>
+        <param>
+          <type>phi</type>
+          <defname>phi</defname>
+        </param>
+        <param>
+          <type>substitution</type>
+          <defname>substitution</defname>
+        </param>
+        <param>
+          <type>inplace</type>
+          <defname>inplace</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Return the result of applying the given substitution to the given formula or term of the language.
+If `inplace` is true, the given formula is the one modified.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="507" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" bodystart="507" bodyend="516"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_util.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

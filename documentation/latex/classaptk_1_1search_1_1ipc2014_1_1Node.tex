@@ -1,0 +1,565 @@
+\hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node}{}\doxysection{aptk\+::search\+::ipc2014\+::Node$<$ State $>$ Class Template Reference}
+\label{classaptk_1_1search_1_1ipc2014_1_1Node}\index{aptk::search::ipc2014::Node$<$ State $>$@{aptk::search::ipc2014::Node$<$ State $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7a7e0cd567cd1a97a255db1ff84cbc73}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7a7e0cd567cd1a97a255db1ff84cbc73}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1Fibonacci__Open__List}{Fibonacci\+\_\+\+Open\+\_\+\+List}}$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}} $>$ {\bfseries Open\+\_\+\+List}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ae7b54dfa567f96e5b9771c91564c2afc}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ae7b54dfa567f96e5b9771c91564c2afc}} 
+typedef \mbox{\hyperlink{classaptk_1_1State}{State}} {\bfseries State\+\_\+\+Type}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ad86677489d5233a27f8724bd8f3e7345}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ad86677489d5233a27f8724bd8f3e7345}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries Node\+\_\+\+Ptr}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a98c9d870a0c7926a0e0ee695d6ac0c9b}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a98c9d870a0c7926a0e0ee695d6ac0c9b}} 
+typedef std\+::list$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$ {\bfseries Node\+\_\+\+Ptr\+\_\+\+List}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_addd9073c7c6585e0df11e68be0e36858}\label{classaptk_1_1search_1_1ipc2014_1_1Node_addd9073c7c6585e0df11e68be0e36858}} 
+typedef std\+::list$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$\+::reverse\+\_\+iterator {\bfseries Node\+\_\+\+Ptr\+\_\+\+List\+\_\+\+Rit}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a4bcbf59213d2208afbe7461e073658e1}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a4bcbf59213d2208afbe7461e073658e1}} 
+typedef std\+::list$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$\+::iterator {\bfseries Node\+\_\+\+Ptr\+\_\+\+List\+\_\+\+It}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7a7e0cd567cd1a97a255db1ff84cbc73}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7a7e0cd567cd1a97a255db1ff84cbc73}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1Fibonacci__Open__List}{Fibonacci\+\_\+\+Open\+\_\+\+List}}$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}} $>$ {\bfseries Open\+\_\+\+List}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ae7b54dfa567f96e5b9771c91564c2afc}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ae7b54dfa567f96e5b9771c91564c2afc}} 
+typedef \mbox{\hyperlink{classaptk_1_1State}{State}} {\bfseries State\+\_\+\+Type}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ad86677489d5233a27f8724bd8f3e7345}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ad86677489d5233a27f8724bd8f3e7345}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries Node\+\_\+\+Ptr}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aee787dbcde9d2fbaae57f6203e5966d9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aee787dbcde9d2fbaae57f6203e5966d9}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$ {\bfseries Node\+\_\+\+Vec\+\_\+\+Ptr}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a700c7462ed916cd28cb9b2976f023112}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a700c7462ed916cd28cb9b2976f023112}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$\+::reverse\+\_\+iterator {\bfseries Node\+\_\+\+Vec\+\_\+\+Ptr\+\_\+\+Rit}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a0b1a9495826881e88f29f98d069bb67c}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a0b1a9495826881e88f29f98d069bb67c}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$\+::iterator {\bfseries Node\+\_\+\+Vec\+\_\+\+Ptr\+\_\+\+It}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7a7e0cd567cd1a97a255db1ff84cbc73}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7a7e0cd567cd1a97a255db1ff84cbc73}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1Fibonacci__Open__List}{Fibonacci\+\_\+\+Open\+\_\+\+List}}$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}} $>$ {\bfseries Open\+\_\+\+List}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ae7b54dfa567f96e5b9771c91564c2afc}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ae7b54dfa567f96e5b9771c91564c2afc}} 
+typedef \mbox{\hyperlink{classaptk_1_1State}{State}} {\bfseries State\+\_\+\+Type}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ad86677489d5233a27f8724bd8f3e7345}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ad86677489d5233a27f8724bd8f3e7345}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries Node\+\_\+\+Ptr}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aee787dbcde9d2fbaae57f6203e5966d9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aee787dbcde9d2fbaae57f6203e5966d9}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$ {\bfseries Node\+\_\+\+Vec\+\_\+\+Ptr}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a700c7462ed916cd28cb9b2976f023112}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a700c7462ed916cd28cb9b2976f023112}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$\+::reverse\+\_\+iterator {\bfseries Node\+\_\+\+Vec\+\_\+\+Ptr\+\_\+\+Rit}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a0b1a9495826881e88f29f98d069bb67c}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a0b1a9495826881e88f29f98d069bb67c}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$\+::iterator {\bfseries Node\+\_\+\+Vec\+\_\+\+Ptr\+\_\+\+It}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7a7e0cd567cd1a97a255db1ff84cbc73}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7a7e0cd567cd1a97a255db1ff84cbc73}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1Fibonacci__Open__List}{Fibonacci\+\_\+\+Open\+\_\+\+List}}$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}} $>$ {\bfseries Open\+\_\+\+List}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ae7b54dfa567f96e5b9771c91564c2afc}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ae7b54dfa567f96e5b9771c91564c2afc}} 
+typedef \mbox{\hyperlink{classaptk_1_1State}{State}} {\bfseries State\+\_\+\+Type}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ad86677489d5233a27f8724bd8f3e7345}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ad86677489d5233a27f8724bd8f3e7345}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries Node\+\_\+\+Ptr}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aee787dbcde9d2fbaae57f6203e5966d9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aee787dbcde9d2fbaae57f6203e5966d9}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$ {\bfseries Node\+\_\+\+Vec\+\_\+\+Ptr}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a700c7462ed916cd28cb9b2976f023112}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a700c7462ed916cd28cb9b2976f023112}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$\+::reverse\+\_\+iterator {\bfseries Node\+\_\+\+Vec\+\_\+\+Ptr\+\_\+\+Rit}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a0b1a9495826881e88f29f98d069bb67c}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a0b1a9495826881e88f29f98d069bb67c}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ $>$\+::iterator {\bfseries Node\+\_\+\+Vec\+\_\+\+Ptr\+\_\+\+It}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a1bcd09a5b2dd4304eccee5a40990d221}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a1bcd09a5b2dd4304eccee5a40990d221}} 
+{\bfseries Node} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, float cost, Action\+\_\+\+Idx action, \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$parent, int num\+\_\+actions)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a9bacd9687b6a8625d0954e26d1a8807e}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a9bacd9687b6a8625d0954e26d1a8807e}} 
+float \& {\bfseries h1n} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aeca8dfe60701aa70c8bb1d8f334818c9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aeca8dfe60701aa70c8bb1d8f334818c9}} 
+float {\bfseries h1n} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a08f224d374a4a4e73e462580ff104256}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a08f224d374a4a4e73e462580ff104256}} 
+float \& {\bfseries h2n} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a0fa0eb45ccab44a8c89e227da46b6ee2}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a0fa0eb45ccab44a8c89e227da46b6ee2}} 
+float {\bfseries h2n} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ade90a3987657908be09515468d1c02be}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ade90a3987657908be09515468d1c02be}} 
+float \& {\bfseries gn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7b36175c60fb4c77bd3e2b5243b284ed}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7b36175c60fb4c77bd3e2b5243b284ed}} 
+float {\bfseries gn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aed53e742ead30f470418eeb9fdfdb62a}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aed53e742ead30f470418eeb9fdfdb62a}} 
+float \& {\bfseries gn\+\_\+unit} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a8c18fc1390a863a084f7e7557d851e81}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a8c18fc1390a863a084f7e7557d851e81}} 
+float {\bfseries gn\+\_\+unit} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ad2f18dbf7a880bf1566db5f753857336}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ad2f18dbf7a880bf1566db5f753857336}} 
+float \& {\bfseries fn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ae36c1ab6b9678587f924f29d02876140}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ae36c1ab6b9678587f924f29d02876140}} 
+float {\bfseries fn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a4326b7d05b7a8624e727e17062a85163}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a4326b7d05b7a8624e727e17062a85163}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries parent} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aa4d5d594cc372e6629be586a7556b723}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aa4d5d594cc372e6629be586a7556b723}} 
+Action\+\_\+\+Idx {\bfseries action} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a070ff96bb90d7949bc708c5b916324b5}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a070ff96bb90d7949bc708c5b916324b5}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries state} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a61367b5c0f364f29c2a6fdbc7bc2cf0e}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a61367b5c0f364f29c2a6fdbc7bc2cf0e}} 
+const \mbox{\hyperlink{classaptk_1_1State}{State}} \& {\bfseries state} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a756cba5619a549b9661466ade1eb9041}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a756cba5619a549b9661466ade1eb9041}} 
+void {\bfseries add\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a6588ccb4f188a8e38be8a2692f449ac9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a6588ccb4f188a8e38be8a2692f449ac9}} 
+void {\bfseries remove\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ab1046e55d390e2f292f4d1e94afdea8f}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ab1046e55d390e2f292f4d1e94afdea8f}} 
+void {\bfseries add\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_adb999e1686d6042873add1ee322bf0c4}\label{classaptk_1_1search_1_1ipc2014_1_1Node_adb999e1686d6042873add1ee322bf0c4}} 
+void {\bfseries remove\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_afff67b8487319568043f9eafd85bc599}\label{classaptk_1_1search_1_1ipc2014_1_1Node_afff67b8487319568043f9eafd85bc599}} 
+bool {\bfseries is\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a6ec3f0289f985b1017a774ffa9bebe20}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a6ec3f0289f985b1017a774ffa9bebe20}} 
+bool {\bfseries is\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_af82077f32591f56f0bcec5e2e90bb86d}\label{classaptk_1_1search_1_1ipc2014_1_1Node_af82077f32591f56f0bcec5e2e90bb86d}} 
+void {\bfseries set\+\_\+seen} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a843307d10aa7924ecab1637a13bc90d3}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a843307d10aa7924ecab1637a13bc90d3}} 
+bool {\bfseries seen} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a348b8f047d537914d313983a2ed234bf}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a348b8f047d537914d313983a2ed234bf}} 
+Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\& {\bfseries land\+\_\+consumed} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a89978b053f080efd4886fc6ba6476f80}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a89978b053f080efd4886fc6ba6476f80}} 
+Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\& {\bfseries land\+\_\+unconsumed} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7417953e3a340b944724fc7ac6577189}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7417953e3a340b944724fc7ac6577189}} 
+void {\bfseries print} (std\+::ostream \&os) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aa653f8d67c0aaf3f0b87e9c8871b46bd}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aa653f8d67c0aaf3f0b87e9c8871b46bd}} 
+{\footnotesize template$<$typename Landmarks\+\_\+\+Graph\+\_\+\+Manager $>$ }\\void {\bfseries update\+\_\+land\+\_\+graph} (Landmarks\+\_\+\+Graph\+\_\+\+Manager $\ast$lgm)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a79ebc00442c7880742207c4db0735f2c}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a79ebc00442c7880742207c4db0735f2c}} 
+{\footnotesize template$<$typename Landmarks\+\_\+\+Graph\+\_\+\+Manager $>$ }\\void {\bfseries undo\+\_\+land\+\_\+graph} (Landmarks\+\_\+\+Graph\+\_\+\+Manager $\ast$lgm)
+\item 
+bool \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}{operator==}} (const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a72b7e40279c37e417015cb22824c37a6}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a72b7e40279c37e417015cb22824c37a6}} 
+bool {\bfseries operator$<$} (const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7427b5126c9fd25478597255239124e9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7427b5126c9fd25478597255239124e9}} 
+size\+\_\+t {\bfseries hash} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a4be976d942675e6827cbf020ad525251}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a4be976d942675e6827cbf020ad525251}} 
+void {\bfseries notify\+\_\+update} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a280e6d8f0d239a1a515fada58887caab}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a280e6d8f0d239a1a515fada58887caab}} 
+void {\bfseries detach} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a1bcd09a5b2dd4304eccee5a40990d221}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a1bcd09a5b2dd4304eccee5a40990d221}} 
+{\bfseries Node} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, float cost, Action\+\_\+\+Idx action, \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$parent, int num\+\_\+actions)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a9bacd9687b6a8625d0954e26d1a8807e}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a9bacd9687b6a8625d0954e26d1a8807e}} 
+float \& {\bfseries h1n} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aeca8dfe60701aa70c8bb1d8f334818c9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aeca8dfe60701aa70c8bb1d8f334818c9}} 
+float {\bfseries h1n} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a08f224d374a4a4e73e462580ff104256}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a08f224d374a4a4e73e462580ff104256}} 
+float \& {\bfseries h2n} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a0fa0eb45ccab44a8c89e227da46b6ee2}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a0fa0eb45ccab44a8c89e227da46b6ee2}} 
+float {\bfseries h2n} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ade90a3987657908be09515468d1c02be}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ade90a3987657908be09515468d1c02be}} 
+float \& {\bfseries gn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7b36175c60fb4c77bd3e2b5243b284ed}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7b36175c60fb4c77bd3e2b5243b284ed}} 
+float {\bfseries gn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aed53e742ead30f470418eeb9fdfdb62a}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aed53e742ead30f470418eeb9fdfdb62a}} 
+float \& {\bfseries gn\+\_\+unit} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a8c18fc1390a863a084f7e7557d851e81}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a8c18fc1390a863a084f7e7557d851e81}} 
+float {\bfseries gn\+\_\+unit} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ad2f18dbf7a880bf1566db5f753857336}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ad2f18dbf7a880bf1566db5f753857336}} 
+float \& {\bfseries fn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ae36c1ab6b9678587f924f29d02876140}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ae36c1ab6b9678587f924f29d02876140}} 
+float {\bfseries fn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a4326b7d05b7a8624e727e17062a85163}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a4326b7d05b7a8624e727e17062a85163}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries parent} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aa4d5d594cc372e6629be586a7556b723}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aa4d5d594cc372e6629be586a7556b723}} 
+Action\+\_\+\+Idx {\bfseries action} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a070ff96bb90d7949bc708c5b916324b5}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a070ff96bb90d7949bc708c5b916324b5}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries state} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a61367b5c0f364f29c2a6fdbc7bc2cf0e}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a61367b5c0f364f29c2a6fdbc7bc2cf0e}} 
+const \mbox{\hyperlink{classaptk_1_1State}{State}} \& {\bfseries state} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a756cba5619a549b9661466ade1eb9041}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a756cba5619a549b9661466ade1eb9041}} 
+void {\bfseries add\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a6588ccb4f188a8e38be8a2692f449ac9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a6588ccb4f188a8e38be8a2692f449ac9}} 
+void {\bfseries remove\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ab1046e55d390e2f292f4d1e94afdea8f}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ab1046e55d390e2f292f4d1e94afdea8f}} 
+void {\bfseries add\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_adb999e1686d6042873add1ee322bf0c4}\label{classaptk_1_1search_1_1ipc2014_1_1Node_adb999e1686d6042873add1ee322bf0c4}} 
+void {\bfseries remove\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_afff67b8487319568043f9eafd85bc599}\label{classaptk_1_1search_1_1ipc2014_1_1Node_afff67b8487319568043f9eafd85bc599}} 
+bool {\bfseries is\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a6ec3f0289f985b1017a774ffa9bebe20}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a6ec3f0289f985b1017a774ffa9bebe20}} 
+bool {\bfseries is\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_af82077f32591f56f0bcec5e2e90bb86d}\label{classaptk_1_1search_1_1ipc2014_1_1Node_af82077f32591f56f0bcec5e2e90bb86d}} 
+void {\bfseries set\+\_\+seen} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a843307d10aa7924ecab1637a13bc90d3}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a843307d10aa7924ecab1637a13bc90d3}} 
+bool {\bfseries seen} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a348b8f047d537914d313983a2ed234bf}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a348b8f047d537914d313983a2ed234bf}} 
+Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\& {\bfseries land\+\_\+consumed} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a89978b053f080efd4886fc6ba6476f80}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a89978b053f080efd4886fc6ba6476f80}} 
+Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\& {\bfseries land\+\_\+unconsumed} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7417953e3a340b944724fc7ac6577189}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7417953e3a340b944724fc7ac6577189}} 
+void {\bfseries print} (std\+::ostream \&os) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aa653f8d67c0aaf3f0b87e9c8871b46bd}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aa653f8d67c0aaf3f0b87e9c8871b46bd}} 
+{\footnotesize template$<$typename Landmarks\+\_\+\+Graph\+\_\+\+Manager $>$ }\\void {\bfseries update\+\_\+land\+\_\+graph} (Landmarks\+\_\+\+Graph\+\_\+\+Manager $\ast$lgm)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a79ebc00442c7880742207c4db0735f2c}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a79ebc00442c7880742207c4db0735f2c}} 
+{\footnotesize template$<$typename Landmarks\+\_\+\+Graph\+\_\+\+Manager $>$ }\\void {\bfseries undo\+\_\+land\+\_\+graph} (Landmarks\+\_\+\+Graph\+\_\+\+Manager $\ast$lgm)
+\item 
+bool \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}{operator==}} (const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a72b7e40279c37e417015cb22824c37a6}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a72b7e40279c37e417015cb22824c37a6}} 
+bool {\bfseries operator$<$} (const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7427b5126c9fd25478597255239124e9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7427b5126c9fd25478597255239124e9}} 
+size\+\_\+t {\bfseries hash} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a4be976d942675e6827cbf020ad525251}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a4be976d942675e6827cbf020ad525251}} 
+void {\bfseries notify\+\_\+update} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a280e6d8f0d239a1a515fada58887caab}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a280e6d8f0d239a1a515fada58887caab}} 
+void {\bfseries detach} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a1bcd09a5b2dd4304eccee5a40990d221}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a1bcd09a5b2dd4304eccee5a40990d221}} 
+{\bfseries Node} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, float cost, Action\+\_\+\+Idx action, \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$parent, int num\+\_\+actions)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a9bacd9687b6a8625d0954e26d1a8807e}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a9bacd9687b6a8625d0954e26d1a8807e}} 
+float \& {\bfseries h1n} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aeca8dfe60701aa70c8bb1d8f334818c9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aeca8dfe60701aa70c8bb1d8f334818c9}} 
+float {\bfseries h1n} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a08f224d374a4a4e73e462580ff104256}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a08f224d374a4a4e73e462580ff104256}} 
+float \& {\bfseries h2n} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a0fa0eb45ccab44a8c89e227da46b6ee2}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a0fa0eb45ccab44a8c89e227da46b6ee2}} 
+float {\bfseries h2n} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ade90a3987657908be09515468d1c02be}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ade90a3987657908be09515468d1c02be}} 
+float \& {\bfseries gn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7b36175c60fb4c77bd3e2b5243b284ed}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7b36175c60fb4c77bd3e2b5243b284ed}} 
+float {\bfseries gn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aed53e742ead30f470418eeb9fdfdb62a}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aed53e742ead30f470418eeb9fdfdb62a}} 
+float \& {\bfseries gn\+\_\+unit} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a8c18fc1390a863a084f7e7557d851e81}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a8c18fc1390a863a084f7e7557d851e81}} 
+float {\bfseries gn\+\_\+unit} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ad2f18dbf7a880bf1566db5f753857336}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ad2f18dbf7a880bf1566db5f753857336}} 
+float \& {\bfseries fn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ae36c1ab6b9678587f924f29d02876140}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ae36c1ab6b9678587f924f29d02876140}} 
+float {\bfseries fn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a4326b7d05b7a8624e727e17062a85163}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a4326b7d05b7a8624e727e17062a85163}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries parent} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aa4d5d594cc372e6629be586a7556b723}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aa4d5d594cc372e6629be586a7556b723}} 
+Action\+\_\+\+Idx {\bfseries action} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a070ff96bb90d7949bc708c5b916324b5}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a070ff96bb90d7949bc708c5b916324b5}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries state} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a61367b5c0f364f29c2a6fdbc7bc2cf0e}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a61367b5c0f364f29c2a6fdbc7bc2cf0e}} 
+const \mbox{\hyperlink{classaptk_1_1State}{State}} \& {\bfseries state} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a756cba5619a549b9661466ade1eb9041}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a756cba5619a549b9661466ade1eb9041}} 
+void {\bfseries add\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a6588ccb4f188a8e38be8a2692f449ac9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a6588ccb4f188a8e38be8a2692f449ac9}} 
+void {\bfseries remove\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ab1046e55d390e2f292f4d1e94afdea8f}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ab1046e55d390e2f292f4d1e94afdea8f}} 
+void {\bfseries add\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_adb999e1686d6042873add1ee322bf0c4}\label{classaptk_1_1search_1_1ipc2014_1_1Node_adb999e1686d6042873add1ee322bf0c4}} 
+void {\bfseries remove\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_afff67b8487319568043f9eafd85bc599}\label{classaptk_1_1search_1_1ipc2014_1_1Node_afff67b8487319568043f9eafd85bc599}} 
+bool {\bfseries is\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a6ec3f0289f985b1017a774ffa9bebe20}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a6ec3f0289f985b1017a774ffa9bebe20}} 
+bool {\bfseries is\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_af82077f32591f56f0bcec5e2e90bb86d}\label{classaptk_1_1search_1_1ipc2014_1_1Node_af82077f32591f56f0bcec5e2e90bb86d}} 
+void {\bfseries set\+\_\+seen} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a843307d10aa7924ecab1637a13bc90d3}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a843307d10aa7924ecab1637a13bc90d3}} 
+bool {\bfseries seen} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a348b8f047d537914d313983a2ed234bf}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a348b8f047d537914d313983a2ed234bf}} 
+Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\& {\bfseries land\+\_\+consumed} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a89978b053f080efd4886fc6ba6476f80}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a89978b053f080efd4886fc6ba6476f80}} 
+Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\& {\bfseries land\+\_\+unconsumed} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7417953e3a340b944724fc7ac6577189}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7417953e3a340b944724fc7ac6577189}} 
+void {\bfseries print} (std\+::ostream \&os) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aa653f8d67c0aaf3f0b87e9c8871b46bd}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aa653f8d67c0aaf3f0b87e9c8871b46bd}} 
+{\footnotesize template$<$typename Landmarks\+\_\+\+Graph\+\_\+\+Manager $>$ }\\void {\bfseries update\+\_\+land\+\_\+graph} (Landmarks\+\_\+\+Graph\+\_\+\+Manager $\ast$lgm)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a79ebc00442c7880742207c4db0735f2c}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a79ebc00442c7880742207c4db0735f2c}} 
+{\footnotesize template$<$typename Landmarks\+\_\+\+Graph\+\_\+\+Manager $>$ }\\void {\bfseries undo\+\_\+land\+\_\+graph} (Landmarks\+\_\+\+Graph\+\_\+\+Manager $\ast$lgm)
+\item 
+bool \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}{operator==}} (const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a72b7e40279c37e417015cb22824c37a6}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a72b7e40279c37e417015cb22824c37a6}} 
+bool {\bfseries operator$<$} (const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7427b5126c9fd25478597255239124e9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7427b5126c9fd25478597255239124e9}} 
+size\+\_\+t {\bfseries hash} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a4be976d942675e6827cbf020ad525251}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a4be976d942675e6827cbf020ad525251}} 
+void {\bfseries notify\+\_\+update} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a280e6d8f0d239a1a515fada58887caab}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a280e6d8f0d239a1a515fada58887caab}} 
+void {\bfseries detach} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a1bcd09a5b2dd4304eccee5a40990d221}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a1bcd09a5b2dd4304eccee5a40990d221}} 
+{\bfseries Node} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, float cost, Action\+\_\+\+Idx action, \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$parent, int num\+\_\+actions)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a9bacd9687b6a8625d0954e26d1a8807e}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a9bacd9687b6a8625d0954e26d1a8807e}} 
+float \& {\bfseries h1n} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aeca8dfe60701aa70c8bb1d8f334818c9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aeca8dfe60701aa70c8bb1d8f334818c9}} 
+float {\bfseries h1n} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a08f224d374a4a4e73e462580ff104256}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a08f224d374a4a4e73e462580ff104256}} 
+float \& {\bfseries h2n} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a0fa0eb45ccab44a8c89e227da46b6ee2}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a0fa0eb45ccab44a8c89e227da46b6ee2}} 
+float {\bfseries h2n} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ade90a3987657908be09515468d1c02be}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ade90a3987657908be09515468d1c02be}} 
+float \& {\bfseries gn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7b36175c60fb4c77bd3e2b5243b284ed}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7b36175c60fb4c77bd3e2b5243b284ed}} 
+float {\bfseries gn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aed53e742ead30f470418eeb9fdfdb62a}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aed53e742ead30f470418eeb9fdfdb62a}} 
+float \& {\bfseries gn\+\_\+unit} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a8c18fc1390a863a084f7e7557d851e81}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a8c18fc1390a863a084f7e7557d851e81}} 
+float {\bfseries gn\+\_\+unit} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ad2f18dbf7a880bf1566db5f753857336}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ad2f18dbf7a880bf1566db5f753857336}} 
+float \& {\bfseries fn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ae36c1ab6b9678587f924f29d02876140}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ae36c1ab6b9678587f924f29d02876140}} 
+float {\bfseries fn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a4326b7d05b7a8624e727e17062a85163}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a4326b7d05b7a8624e727e17062a85163}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries parent} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aa4d5d594cc372e6629be586a7556b723}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aa4d5d594cc372e6629be586a7556b723}} 
+Action\+\_\+\+Idx {\bfseries action} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a070ff96bb90d7949bc708c5b916324b5}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a070ff96bb90d7949bc708c5b916324b5}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries state} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a61367b5c0f364f29c2a6fdbc7bc2cf0e}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a61367b5c0f364f29c2a6fdbc7bc2cf0e}} 
+const \mbox{\hyperlink{classaptk_1_1State}{State}} \& {\bfseries state} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ac82511e6c993cf5afa31ad14d4be32ab}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ac82511e6c993cf5afa31ad14d4be32ab}} 
+void {\bfseries set\+\_\+state} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a756cba5619a549b9661466ade1eb9041}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a756cba5619a549b9661466ade1eb9041}} 
+void {\bfseries add\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a6588ccb4f188a8e38be8a2692f449ac9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a6588ccb4f188a8e38be8a2692f449ac9}} 
+void {\bfseries remove\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ab1046e55d390e2f292f4d1e94afdea8f}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ab1046e55d390e2f292f4d1e94afdea8f}} 
+void {\bfseries add\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_adb999e1686d6042873add1ee322bf0c4}\label{classaptk_1_1search_1_1ipc2014_1_1Node_adb999e1686d6042873add1ee322bf0c4}} 
+void {\bfseries remove\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_afff67b8487319568043f9eafd85bc599}\label{classaptk_1_1search_1_1ipc2014_1_1Node_afff67b8487319568043f9eafd85bc599}} 
+bool {\bfseries is\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a6ec3f0289f985b1017a774ffa9bebe20}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a6ec3f0289f985b1017a774ffa9bebe20}} 
+bool {\bfseries is\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_af82077f32591f56f0bcec5e2e90bb86d}\label{classaptk_1_1search_1_1ipc2014_1_1Node_af82077f32591f56f0bcec5e2e90bb86d}} 
+void {\bfseries set\+\_\+seen} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a843307d10aa7924ecab1637a13bc90d3}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a843307d10aa7924ecab1637a13bc90d3}} 
+bool {\bfseries seen} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a348b8f047d537914d313983a2ed234bf}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a348b8f047d537914d313983a2ed234bf}} 
+Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\& {\bfseries land\+\_\+consumed} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a89978b053f080efd4886fc6ba6476f80}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a89978b053f080efd4886fc6ba6476f80}} 
+Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\& {\bfseries land\+\_\+unconsumed} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7417953e3a340b944724fc7ac6577189}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7417953e3a340b944724fc7ac6577189}} 
+void {\bfseries print} (std\+::ostream \&os) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aa653f8d67c0aaf3f0b87e9c8871b46bd}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aa653f8d67c0aaf3f0b87e9c8871b46bd}} 
+{\footnotesize template$<$typename Landmarks\+\_\+\+Graph\+\_\+\+Manager $>$ }\\void {\bfseries update\+\_\+land\+\_\+graph} (Landmarks\+\_\+\+Graph\+\_\+\+Manager $\ast$lgm)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a79ebc00442c7880742207c4db0735f2c}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a79ebc00442c7880742207c4db0735f2c}} 
+{\footnotesize template$<$typename Landmarks\+\_\+\+Graph\+\_\+\+Manager $>$ }\\void {\bfseries undo\+\_\+land\+\_\+graph} (Landmarks\+\_\+\+Graph\+\_\+\+Manager $\ast$lgm)
+\item 
+bool \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}{operator==}} (const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a72b7e40279c37e417015cb22824c37a6}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a72b7e40279c37e417015cb22824c37a6}} 
+bool {\bfseries operator$<$} (const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7427b5126c9fd25478597255239124e9}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7427b5126c9fd25478597255239124e9}} 
+size\+\_\+t {\bfseries hash} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a4a6f5be643ff10d96a06837dc2c619c2}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a4a6f5be643ff10d96a06837dc2c619c2}} 
+void {\bfseries update\+\_\+hash} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a4be976d942675e6827cbf020ad525251}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a4be976d942675e6827cbf020ad525251}} 
+void {\bfseries notify\+\_\+update} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a280e6d8f0d239a1a515fada58887caab}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a280e6d8f0d239a1a515fada58887caab}} 
+void {\bfseries detach} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a5cb503415d67b3533e1c57247330354b}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a5cb503415d67b3533e1c57247330354b}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries m\+\_\+state}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a4742bda310f8e47fe47a8ffeef96f1d4}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a4742bda310f8e47fe47a8ffeef96f1d4}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries m\+\_\+parent}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a694056d09be6090f265f2c79bcbfd075}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a694056d09be6090f265f2c79bcbfd075}} 
+float {\bfseries m\+\_\+h1}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a32b4b9242e4bc110439ddef6c36f9755}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a32b4b9242e4bc110439ddef6c36f9755}} 
+float {\bfseries m\+\_\+h2}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a497f9263a9247e675b82040842ec0377}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a497f9263a9247e675b82040842ec0377}} 
+Action\+\_\+\+Idx {\bfseries m\+\_\+action}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a83c9687e56f7f3e4b4d7609261938b64}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a83c9687e56f7f3e4b4d7609261938b64}} 
+float {\bfseries m\+\_\+g}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_ac3f7d4887ad2afecc7e0a222302e8ed4}\label{classaptk_1_1search_1_1ipc2014_1_1Node_ac3f7d4887ad2afecc7e0a222302e8ed4}} 
+float {\bfseries m\+\_\+g\+\_\+unit}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_aa8044c4fd53817014db7c4e5f0923924}\label{classaptk_1_1search_1_1ipc2014_1_1Node_aa8044c4fd53817014db7c4e5f0923924}} 
+float {\bfseries m\+\_\+f}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a75a7d1ea5df132adfae9d6af87c876f4}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a75a7d1ea5df132adfae9d6af87c876f4}} 
+\mbox{\hyperlink{classaptk_1_1Bit__Set}{Bit\+\_\+\+Set}} {\bfseries m\+\_\+po\+\_\+1}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a0cfba1df45af3e6478c68ef554315871}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a0cfba1df45af3e6478c68ef554315871}} 
+\mbox{\hyperlink{classaptk_1_1Bit__Set}{Bit\+\_\+\+Set}} {\bfseries m\+\_\+po\+\_\+2}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a18deddaadee1e01e4228e275aa3f0927}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a18deddaadee1e01e4228e275aa3f0927}} 
+bool {\bfseries m\+\_\+seen}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_af6d40834429fbc2ea7fafa2b0456baca}\label{classaptk_1_1search_1_1ipc2014_1_1Node_af6d40834429fbc2ea7fafa2b0456baca}} 
+Open\+\_\+\+List\+::\+Handle {\bfseries heap\+\_\+handle}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a20523e95a7f00dffa1bce20fa8deb3c6}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a20523e95a7f00dffa1bce20fa8deb3c6}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Fibonacci__Open__List}{Open\+\_\+\+List}} $\ast$ {\bfseries current}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a21692565d897ee6df17f9b492cb45b4f}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a21692565d897ee6df17f9b492cb45b4f}} 
+Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$ {\bfseries m\+\_\+land\+\_\+consumed}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_abb2ed68310e5b83187dc602b1ad9bc6a}\label{classaptk_1_1search_1_1ipc2014_1_1Node_abb2ed68310e5b83187dc602b1ad9bc6a}} 
+Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$ {\bfseries m\+\_\+land\+\_\+unconsumed}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a7d7e79b6ed90a7edf244dd8dc774dcfe}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a7d7e79b6ed90a7edf244dd8dc774dcfe}} 
+size\+\_\+t {\bfseries m\+\_\+hash}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}} 
+\index{aptk::search::ipc2014::Node$<$ State $>$@{aptk::search::ipc2014::Node$<$ State $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!aptk::search::ipc2014::Node$<$ State $>$@{aptk::search::ipc2014::Node$<$ State $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename State $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{aptk\+::search\+::ipc2014\+::\+Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&}]{o }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Lazy\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}} 
+\index{aptk::search::ipc2014::Node$<$ State $>$@{aptk::search::ipc2014::Node$<$ State $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!aptk::search::ipc2014::Node$<$ State $>$@{aptk::search::ipc2014::Node$<$ State $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$typename State $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{aptk\+::search\+::ipc2014\+::\+Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&}]{o }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Lazy\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}} 
+\index{aptk::search::ipc2014::Node$<$ State $>$@{aptk::search::ipc2014::Node$<$ State $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!aptk::search::ipc2014::Node$<$ State $>$@{aptk::search::ipc2014::Node$<$ State $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$typename State $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{aptk\+::search\+::ipc2014\+::\+Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&}]{o }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Lazy\mbox{\Hypertarget{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}\label{classaptk_1_1search_1_1ipc2014_1_1Node_a60e389533083804e6af4674bc5c1018f}} 
+\index{aptk::search::ipc2014::Node$<$ State $>$@{aptk::search::ipc2014::Node$<$ State $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!aptk::search::ipc2014::Node$<$ State $>$@{aptk::search::ipc2014::Node$<$ State $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$typename State $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{aptk\+::search\+::ipc2014\+::\+Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classaptk_1_1search_1_1ipc2014_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&}]{o }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Lazy
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/legacy\+\_\+ff/at\+\_\+bfs\+\_\+f-\/ffparser/ipc2014\+\_\+rwa.\+hxx\end{DoxyCompactItemize}

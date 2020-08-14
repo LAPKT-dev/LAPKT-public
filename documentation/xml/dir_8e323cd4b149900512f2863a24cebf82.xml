@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_8e323cd4b149900512f2863a24cebf82" kind="dir">
+    <compoundname>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model</compoundname>
+    <innerfile refid="action_8cxx">action.cxx</innerfile>
+    <innerfile refid="action_8hxx">action.hxx</innerfile>
+    <innerfile refid="cond__eff_8cxx">cond_eff.cxx</innerfile>
+    <innerfile refid="cond__eff_8hxx">cond_eff.hxx</innerfile>
+    <innerfile refid="conj__comp__prob_8cxx">conj_comp_prob.cxx</innerfile>
+    <innerfile refid="conj__comp__prob_8hxx">conj_comp_prob.hxx</innerfile>
+    <innerfile refid="fl__conj_8cxx">fl_conj.cxx</innerfile>
+    <innerfile refid="fl__conj_8hxx">fl_conj.hxx</innerfile>
+    <innerfile refid="fluent_8cxx">fluent.cxx</innerfile>
+    <innerfile refid="fluent_8hxx">fluent.hxx</innerfile>
+    <innerfile refid="fwd__search__prob_8cxx">fwd_search_prob.cxx</innerfile>
+    <innerfile refid="fwd__search__prob_8hxx">fwd_search_prob.hxx</innerfile>
+    <innerfile refid="mutex__set_8cxx">mutex_set.cxx</innerfile>
+    <innerfile refid="mutex__set_8hxx">mutex_set.hxx</innerfile>
+    <innerfile refid="search__prob_8hxx">search_prob.hxx</innerfile>
+    <innerfile refid="strips__prob_8cxx">strips_prob.cxx</innerfile>
+    <innerfile refid="strips__prob_8hxx">strips_prob.hxx</innerfile>
+    <innerfile refid="strips__state_8cxx">strips_state.cxx</innerfile>
+    <innerfile refid="strips__state_8hxx">strips_state.hxx</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/"/>
+  </compounddef>
+</doxygen>

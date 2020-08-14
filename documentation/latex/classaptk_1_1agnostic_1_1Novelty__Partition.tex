@@ -1,0 +1,208 @@
+\hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition}{}\doxysection{aptk\+::agnostic\+::Novelty\+\_\+\+Partition$<$ Search\+\_\+\+Model, Search\+\_\+\+Node $>$ Class Template Reference}
+\label{classaptk_1_1agnostic_1_1Novelty__Partition}\index{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$@{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$}}
+Inheritance diagram for aptk\+::agnostic\+::Novelty\+\_\+\+Partition$<$ Search\+\_\+\+Model, Search\+\_\+\+Node $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classaptk_1_1agnostic_1_1Novelty__Partition}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a6e7eda1d5cd928f2f95f5d884f9d93ca}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a6e7eda1d5cd928f2f95f5d884f9d93ca}} 
+{\bfseries Novelty\+\_\+\+Partition} (const Search\+\_\+\+Model \&prob, unsigned max\+\_\+arity=1, const unsigned max\+\_\+\+MB=2048)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a583e5366946554f4545d3a7e5f1b8a21}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a583e5366946554f4545d3a7e5f1b8a21}} 
+void {\bfseries init} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a62e24db2c9cd82af09cc97f4ac249e2a}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a62e24db2c9cd82af09cc97f4ac249e2a}} 
+unsigned {\bfseries arity} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a925d00a2ce1e38282a08bbdd78696625}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a925d00a2ce1e38282a08bbdd78696625}} 
+void {\bfseries set\+\_\+full\+\_\+state\+\_\+computation} (bool b)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a96f2c9302bd78ae96e141a4d1b7ab3c8}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a96f2c9302bd78ae96e141a4d1b7ab3c8}} 
+void {\bfseries set\+\_\+verbose} (bool v)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_aaa4ed71e35a4a96dbf30fdb37f9693a8}\label{classaptk_1_1agnostic_1_1Novelty__Partition_aaa4ed71e35a4a96dbf30fdb37f9693a8}} 
+unsigned \& {\bfseries partition\+\_\+size} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a380760f32cf59bef6b81c362969734f2}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a380760f32cf59bef6b81c362969734f2}} 
+bool {\bfseries is\+\_\+partition\+\_\+empty} (unsigned partition)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a931fcb2497869c639211ab22cb340b17}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a931fcb2497869c639211ab22cb340b17}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$ {\bfseries table} (unsigned partition, unsigned idx)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a981517f4395015618f309ad17ff01746}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a981517f4395015618f309ad17ff01746}} 
+void {\bfseries set\+\_\+arity} (unsigned max\+\_\+arity, unsigned partition\+\_\+size=0)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_ab161db8d1647b2f615f03a60621d0e7d}\label{classaptk_1_1agnostic_1_1Novelty__Partition_ab161db8d1647b2f615f03a60621d0e7d}} 
+virtual void {\bfseries eval} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, unsigned \&h\+\_\+val)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_acaa2a4d85973361b3ef92e950f64f026}\label{classaptk_1_1agnostic_1_1Novelty__Partition_acaa2a4d85973361b3ef92e950f64f026}} 
+virtual void {\bfseries eval} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, float \&h\+\_\+val)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_afa067cb199da3213ef43e63c01bfdfc9}\label{classaptk_1_1agnostic_1_1Novelty__Partition_afa067cb199da3213ef43e63c01bfdfc9}} 
+virtual void {\bfseries eval} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, unsigned \&h\+\_\+val)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a0d3b0c0609d749a7d555695cca694769}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a0d3b0c0609d749a7d555695cca694769}} 
+virtual void {\bfseries eval} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, unsigned \&h\+\_\+val, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&pref\+\_\+ops)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a6e7eda1d5cd928f2f95f5d884f9d93ca}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a6e7eda1d5cd928f2f95f5d884f9d93ca}} 
+{\bfseries Novelty\+\_\+\+Partition} (const Search\+\_\+\+Model \&prob, unsigned max\+\_\+arity=1, const unsigned max\+\_\+\+MB=2048)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a583e5366946554f4545d3a7e5f1b8a21}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a583e5366946554f4545d3a7e5f1b8a21}} 
+void {\bfseries init} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a62e24db2c9cd82af09cc97f4ac249e2a}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a62e24db2c9cd82af09cc97f4ac249e2a}} 
+unsigned {\bfseries arity} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a925d00a2ce1e38282a08bbdd78696625}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a925d00a2ce1e38282a08bbdd78696625}} 
+void {\bfseries set\+\_\+full\+\_\+state\+\_\+computation} (bool b)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a96f2c9302bd78ae96e141a4d1b7ab3c8}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a96f2c9302bd78ae96e141a4d1b7ab3c8}} 
+void {\bfseries set\+\_\+verbose} (bool v)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_aaa4ed71e35a4a96dbf30fdb37f9693a8}\label{classaptk_1_1agnostic_1_1Novelty__Partition_aaa4ed71e35a4a96dbf30fdb37f9693a8}} 
+unsigned \& {\bfseries partition\+\_\+size} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a981517f4395015618f309ad17ff01746}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a981517f4395015618f309ad17ff01746}} 
+void {\bfseries set\+\_\+arity} (unsigned max\+\_\+arity, unsigned partition\+\_\+size=0)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_ab161db8d1647b2f615f03a60621d0e7d}\label{classaptk_1_1agnostic_1_1Novelty__Partition_ab161db8d1647b2f615f03a60621d0e7d}} 
+virtual void {\bfseries eval} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, unsigned \&h\+\_\+val)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_acaa2a4d85973361b3ef92e950f64f026}\label{classaptk_1_1agnostic_1_1Novelty__Partition_acaa2a4d85973361b3ef92e950f64f026}} 
+virtual void {\bfseries eval} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, float \&h\+\_\+val)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_afa067cb199da3213ef43e63c01bfdfc9}\label{classaptk_1_1agnostic_1_1Novelty__Partition_afa067cb199da3213ef43e63c01bfdfc9}} 
+virtual void {\bfseries eval} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, unsigned \&h\+\_\+val)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a0d3b0c0609d749a7d555695cca694769}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a0d3b0c0609d749a7d555695cca694769}} 
+virtual void {\bfseries eval} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, unsigned \&h\+\_\+val, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&pref\+\_\+ops)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a0970a537790570c1b59b692a130b5db0}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a0970a537790570c1b59b692a130b5db0}} 
+void {\bfseries check\+\_\+table\+\_\+size} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n)
+\item 
+void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty__Partition_a8991e66d3e2f20ef74ffb0a0a38c384b}{compute}} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, unsigned \&novelty)
+\item 
+bool \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty__Partition_afeb10872393fa5c876d597109ffedcd2}{cover\+\_\+tuples}} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, unsigned arity)
+\item 
+bool \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty__Partition_ad4f1b95fa654e36736ad78bcdabccb78}{cover\+\_\+tuples\+\_\+op}} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, unsigned arity)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_ad60f231d7d355f65ef5230ccb6ad5d17}\label{classaptk_1_1agnostic_1_1Novelty__Partition_ad60f231d7d355f65ef5230ccb6ad5d17}} 
+unsigned {\bfseries tuple2idx\+\_\+size2} (std\+::vector$<$ unsigned $>$ \&indexes, unsigned arity) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_aec8542125c744987e8d7c59f273e7332}\label{classaptk_1_1agnostic_1_1Novelty__Partition_aec8542125c744987e8d7c59f273e7332}} 
+unsigned {\bfseries tuple2idx} (std\+::vector$<$ unsigned $>$ \&indexes, unsigned arity) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a0d0e46c20578574d819728feabfe503a}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a0d0e46c20578574d819728feabfe503a}} 
+void {\bfseries idx2tuple} (std\+::vector$<$ unsigned $>$ \&tuple, Fluent\+\_\+\+Vec \&fl, unsigned idx, unsigned arity) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a02705f0b6a45731637c7ece283b2a667}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a02705f0b6a45731637c7ece283b2a667}} 
+bool {\bfseries is\+\_\+better} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, const \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$new\+\_\+n) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a0970a537790570c1b59b692a130b5db0}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a0970a537790570c1b59b692a130b5db0}} 
+void {\bfseries check\+\_\+table\+\_\+size} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n)
+\item 
+void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty__Partition_a8991e66d3e2f20ef74ffb0a0a38c384b}{compute}} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, unsigned \&novelty)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a50632c1e18baebdf4dfc21cf4a2576c7}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a50632c1e18baebdf4dfc21cf4a2576c7}} 
+void {\bfseries set\+\_\+union} (\mbox{\hyperlink{classaptk_1_1Bit__Set}{Bit\+\_\+\+Set}} $\ast$table, \mbox{\hyperlink{classaptk_1_1Bit__Set}{Bit\+\_\+\+Set}} \&other, bool \&new\+\_\+covers)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_afeb10872393fa5c876d597109ffedcd2}\label{classaptk_1_1agnostic_1_1Novelty__Partition_afeb10872393fa5c876d597109ffedcd2}} 
+bool {\bfseries cover\+\_\+tuples} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, unsigned arity)
+\item 
+bool \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty__Partition_ad4f1b95fa654e36736ad78bcdabccb78}{cover\+\_\+tuples\+\_\+op}} (\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, unsigned arity)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_abbd3db187fd20719463110a69e06d73e}\label{classaptk_1_1agnostic_1_1Novelty__Partition_abbd3db187fd20719463110a69e06d73e}} 
+const \mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{S\+T\+R\+I\+P\+S\+\_\+\+Problem}} \& {\bfseries m\+\_\+strips\+\_\+model}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_ab5a426f7b632b91ec73d8c9cf1ebb907}\label{classaptk_1_1agnostic_1_1Novelty__Partition_ab5a426f7b632b91ec73d8c9cf1ebb907}} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$ $>$ $>$ {\bfseries m\+\_\+nodes\+\_\+tuples\+\_\+by\+\_\+partition}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a7500241b470b039feac083c4371527fd}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a7500241b470b039feac083c4371527fd}} 
+unsigned {\bfseries m\+\_\+arity}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_aa3b6767a6b4c16b2d4e40a7b27274ca4}\label{classaptk_1_1agnostic_1_1Novelty__Partition_aa3b6767a6b4c16b2d4e40a7b27274ca4}} 
+unsigned long {\bfseries m\+\_\+num\+\_\+tuples}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a7c58b8cc242800f83e124c7b482d138a}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a7c58b8cc242800f83e124c7b482d138a}} 
+unsigned {\bfseries m\+\_\+num\+\_\+fluents}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a5e43b0b15168030d86b8f99da6286229}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a5e43b0b15168030d86b8f99da6286229}} 
+unsigned {\bfseries m\+\_\+max\+\_\+memory\+\_\+size\+\_\+\+MB}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a1ce8a960b95f2195091f5af7c63c9650}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a1ce8a960b95f2195091f5af7c63c9650}} 
+bool {\bfseries m\+\_\+always\+\_\+full\+\_\+state}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_aaf0550b73c95a0d8f8d5a15eff2fd25d}\label{classaptk_1_1agnostic_1_1Novelty__Partition_aaf0550b73c95a0d8f8d5a15eff2fd25d}} 
+unsigned {\bfseries m\+\_\+partition\+\_\+size}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_ab1a876bdbc4ef822e772ef41fe0a20b6}\label{classaptk_1_1agnostic_1_1Novelty__Partition_ab1a876bdbc4ef822e772ef41fe0a20b6}} 
+bool {\bfseries m\+\_\+verbose}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a71c3e45333174708a58ac3b5a9f08426}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a71c3e45333174708a58ac3b5a9f08426}} 
+std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1Bit__Set}{Fluent\+\_\+\+Set}} $\ast$ $>$ {\bfseries m\+\_\+nodes\+\_\+tuples1\+\_\+by\+\_\+partition}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a837f31676f8e283e3907820f939330f4}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a837f31676f8e283e3907820f939330f4}} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1Bit__Set}{Fluent\+\_\+\+Set}} $\ast$ $>$ $\ast$ $>$ {\bfseries m\+\_\+nodes\+\_\+tuples2\+\_\+by\+\_\+partition}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a8991e66d3e2f20ef74ffb0a0a38c384b}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a8991e66d3e2f20ef74ffb0a0a38c384b}} 
+\index{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$@{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$}!compute@{compute}}
+\index{compute@{compute}!aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$@{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model , typename Search\+\_\+\+Node $>$ \\
+void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty__Partition}{aptk\+::agnostic\+::\+Novelty\+\_\+\+Partition}}$<$ Search\+\_\+\+Model, \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $>$\+::compute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$}]{n,  }\item[{unsigned \&}]{novelty }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+If parent node is in the same space partition, check only new atoms, otherwise check all atoms in state \mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_a8991e66d3e2f20ef74ffb0a0a38c384b}\label{classaptk_1_1agnostic_1_1Novelty__Partition_a8991e66d3e2f20ef74ffb0a0a38c384b}} 
+\index{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$@{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$}!compute@{compute}}
+\index{compute@{compute}!aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$@{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$}}
+\doxysubsubsection{\texorpdfstring{compute()}{compute()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model , typename Search\+\_\+\+Node $>$ \\
+void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty__Partition}{aptk\+::agnostic\+::\+Novelty\+\_\+\+Partition}}$<$ Search\+\_\+\+Model, \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $>$\+::compute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$}]{n,  }\item[{unsigned \&}]{novelty }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+If parent node is in the same space partition, check only new atoms, otherwise check all oatoms in state \mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_afeb10872393fa5c876d597109ffedcd2}\label{classaptk_1_1agnostic_1_1Novelty__Partition_afeb10872393fa5c876d597109ffedcd2}} 
+\index{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$@{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$}!cover\_tuples@{cover\_tuples}}
+\index{cover\_tuples@{cover\_tuples}!aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$@{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$}}
+\doxysubsubsection{\texorpdfstring{cover\_tuples()}{cover\_tuples()}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model , typename Search\+\_\+\+Node $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty__Partition}{aptk\+::agnostic\+::\+Novelty\+\_\+\+Partition}}$<$ Search\+\_\+\+Model, \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $>$\+::cover\+\_\+tuples (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$}]{n,  }\item[{unsigned}]{arity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+get tuples from indexes
+
+Check if tuple is covered
+
+new\+\_\+tuple if -\/$>$ none was registered OR -\/$>$ n better than old\+\_\+n\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_ad4f1b95fa654e36736ad78bcdabccb78}\label{classaptk_1_1agnostic_1_1Novelty__Partition_ad4f1b95fa654e36736ad78bcdabccb78}} 
+\index{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$@{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$}!cover\_tuples\_op@{cover\_tuples\_op}}
+\index{cover\_tuples\_op@{cover\_tuples\_op}!aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$@{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$}}
+\doxysubsubsection{\texorpdfstring{cover\_tuples\_op()}{cover\_tuples\_op()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model , typename Search\+\_\+\+Node $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty__Partition}{aptk\+::agnostic\+::\+Novelty\+\_\+\+Partition}}$<$ Search\+\_\+\+Model, \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $>$\+::cover\+\_\+tuples\+\_\+op (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$}]{n,  }\item[{unsigned}]{arity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Instead of checking the whole state, checks the new atoms permutations only! Check if tuple is covered
+
+get tuples from indexes
+
+new\+\_\+tuple if -\/$>$ none was registered OR -\/$>$ n better than old\+\_\+n\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Novelty__Partition_ad4f1b95fa654e36736ad78bcdabccb78}\label{classaptk_1_1agnostic_1_1Novelty__Partition_ad4f1b95fa654e36736ad78bcdabccb78}} 
+\index{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$@{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$}!cover\_tuples\_op@{cover\_tuples\_op}}
+\index{cover\_tuples\_op@{cover\_tuples\_op}!aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$@{aptk::agnostic::Novelty\_Partition$<$ Search\_Model, Search\_Node $>$}}
+\doxysubsubsection{\texorpdfstring{cover\_tuples\_op()}{cover\_tuples\_op()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model , typename Search\+\_\+\+Node $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty__Partition}{aptk\+::agnostic\+::\+Novelty\+\_\+\+Partition}}$<$ Search\+\_\+\+Model, \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $>$\+::cover\+\_\+tuples\+\_\+op (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$}]{n,  }\item[{unsigned}]{arity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Instead of checking the whole state, checks the new atoms permutations only! 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/compute/novelty/novelty\+\_\+partition.\+hxx\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/compute/novelty/novelty\+\_\+partition\+\_\+1.\+hxx\end{DoxyCompactItemize}

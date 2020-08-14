@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classfd__util_1_1PropositionalDetAction" kind="class" language="Python" prot="public">
+    <compoundname>fd_util::PropositionalDetAction</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classfd__util_1_1PropositionalDetAction_1a7ae6d64b6b2686ab9433b59fd1a1f480" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>fd_util.PropositionalDetAction::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" line="88" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classfd__util_1_1PropositionalDetAction_1a9d6cc9b71a7a0b3e011629fb0d6d8e59" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>fd_util.PropositionalDetAction::cost</definition>
+        <argsstring></argsstring>
+        <name>cost</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" line="89" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classfd__util_1_1PropositionalDetAction_1a4c848a2660e9c9bc26e05faab2473612" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>fd_util.PropositionalDetAction::precondition</definition>
+        <argsstring></argsstring>
+        <name>precondition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" line="90" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classfd__util_1_1PropositionalDetAction_1a40fed8587a32c8ae5fb4d894d9ab9e01" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>fd_util.PropositionalDetAction::effects</definition>
+        <argsstring></argsstring>
+        <name>effects</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" line="91" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classfd__util_1_1PropositionalDetAction_1aee7a548c298de5775c97d1e92cc7ba82" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>fd_util.PropositionalDetAction::cond_effs</definition>
+        <argsstring></argsstring>
+        <name>cond_effs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" line="92" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classfd__util_1_1PropositionalDetAction_1acbddf66344b0669bba578e463b7dc8dd" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>fd_util.PropositionalDetAction::negated_conditions</definition>
+        <argsstring></argsstring>
+        <name>negated_conditions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" line="93" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classfd__util_1_1PropositionalDetAction_1ab004e878faddcd91c95d6557316d5819" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def fd_util.PropositionalDetAction.__init__</definition>
+        <argsstring>(self, name, cost)</argsstring>
+        <name>__init__</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>name</type>
+          <defname>name</defname>
+        </param>
+        <param>
+          <type>cost</type>
+          <defname>cost</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" line="87" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" bodystart="87" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classfd__util_1_1PropositionalDetAction_1a741cbe7a2f48313bfd09b4c17b5e2577" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def fd_util.PropositionalDetAction.set_precondition</definition>
+        <argsstring>(self, prec, atom_table)</argsstring>
+        <name>set_precondition</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>prec</type>
+          <defname>prec</defname>
+        </param>
+        <param>
+          <type>atom_table</type>
+          <defname>atom_table</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" line="95" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" bodystart="95" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classfd__util_1_1PropositionalDetAction_1aab2c4413313e49b9fbce69b09db0db34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def fd_util.PropositionalDetAction.add_effect</definition>
+        <argsstring>(self, adds, dels, atom_table, atom_names, axioms)</argsstring>
+        <name>add_effect</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>adds</type>
+          <defname>adds</defname>
+        </param>
+        <param>
+          <type>dels</type>
+          <defname>dels</defname>
+        </param>
+        <param>
+          <type>atom_table</type>
+          <defname>atom_table</defname>
+        </param>
+        <param>
+          <type>atom_names</type>
+          <defname>atom_names</defname>
+        </param>
+        <param>
+          <type>axioms</type>
+          <defname>axioms</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" line="109" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" bodystart="109" bodyend="190"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" line="85" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground/fd_util.py" bodystart="85" bodyend="191"/>
+    <listofallmembers>
+      <member refid="classfd__util_1_1PropositionalDetAction_1ab004e878faddcd91c95d6557316d5819" prot="public" virt="non-virtual"><scope>fd_util::PropositionalDetAction</scope><name>__init__</name></member>
+      <member refid="classfd__util_1_1PropositionalDetAction_1aab2c4413313e49b9fbce69b09db0db34" prot="public" virt="non-virtual"><scope>fd_util::PropositionalDetAction</scope><name>add_effect</name></member>
+      <member refid="classfd__util_1_1PropositionalDetAction_1aee7a548c298de5775c97d1e92cc7ba82" prot="public" virt="non-virtual"><scope>fd_util::PropositionalDetAction</scope><name>cond_effs</name></member>
+      <member refid="classfd__util_1_1PropositionalDetAction_1a9d6cc9b71a7a0b3e011629fb0d6d8e59" prot="public" virt="non-virtual"><scope>fd_util::PropositionalDetAction</scope><name>cost</name></member>
+      <member refid="classfd__util_1_1PropositionalDetAction_1a40fed8587a32c8ae5fb4d894d9ab9e01" prot="public" virt="non-virtual"><scope>fd_util::PropositionalDetAction</scope><name>effects</name></member>
+      <member refid="classfd__util_1_1PropositionalDetAction_1a7ae6d64b6b2686ab9433b59fd1a1f480" prot="public" virt="non-virtual"><scope>fd_util::PropositionalDetAction</scope><name>name</name></member>
+      <member refid="classfd__util_1_1PropositionalDetAction_1acbddf66344b0669bba578e463b7dc8dd" prot="public" virt="non-virtual"><scope>fd_util::PropositionalDetAction</scope><name>negated_conditions</name></member>
+      <member refid="classfd__util_1_1PropositionalDetAction_1a4c848a2660e9c9bc26e05faab2473612" prot="public" virt="non-virtual"><scope>fd_util::PropositionalDetAction</scope><name>precondition</name></member>
+      <member refid="classfd__util_1_1PropositionalDetAction_1a741cbe7a2f48313bfd09b4c17b5e2577" prot="public" virt="non-virtual"><scope>fd_util::PropositionalDetAction</scope><name>set_precondition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

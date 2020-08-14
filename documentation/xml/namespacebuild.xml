@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespacebuild" kind="namespace" language="Python">
+    <compoundname>build</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="at__bfs__f_2build_8py_1a1db0330fac75a64a955f439673f1f836" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string build::LWAPTK_ROOT</definition>
+        <argsstring></argsstring>
+        <name>LWAPTK_ROOT</name>
+        <initializer>=  &apos;../..&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/at_bfs_f/build.py" line="5" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/at_bfs_f/build.py" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="at__bfs__f_2build_8py_1a65701220fa85c8ad640bf94485bc5125" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def build::main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/at_bfs_f/build.py" line="7" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/at_bfs_f/build.py" bodystart="7" bodyend="30"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/at_bfs_f/build.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

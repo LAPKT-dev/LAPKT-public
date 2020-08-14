@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespaceaptk_1_1search_1_1gbfs__3h" kind="namespace" language="C++">
+    <compoundname>aptk::search::gbfs_3h</compoundname>
+    <innerclass refid="classaptk_1_1search_1_1gbfs__3h_1_1AT__GBFS__3H" prot="public">aptk::search::gbfs_3h::AT_GBFS_3H</innerclass>
+    <innerclass refid="classaptk_1_1search_1_1gbfs__3h_1_1Node" prot="public">aptk::search::gbfs_3h::Node</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_gbfs_3h.hxx" line="37" column="1"/>
+  </compounddef>
+</doxygen>

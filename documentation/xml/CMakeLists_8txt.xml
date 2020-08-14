@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="CMakeLists_8txt" kind="file" language="C++">
+    <compoundname>CMakeLists.txt</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="CMakeLists_8txt_1addcbd62c141d6d53b879861b6c6cbe42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cmake_minimum_required</definition>
+        <argsstring>(VERSION 3.15) option(USE_SUPERBUILD &quot;flag that a superbuild should be invoked&quot; ON) if(USE_SUPERBUILD) project(SUPERBUILD NONE) include(config/SuperBuild.cmake) return() else() project(LAPKT VERSION 1.0) endif(USE_SUPERBUILD) find_package(Python3 COMPONENTS Interpreter Development) if($</argsstring>
+        <name>cmake_minimum_required</name>
+        <param>
+          <type>VERSION 3.</type>
+          <declname>15</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/CMakeLists.txt" line="1" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/CMakeLists.txt" bodystart="1" bodyend="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.15)</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#----BEGIN<sp/>SUPER.BUILD<sp/>for<sp/>BOOST----#</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>This<sp/>must<sp/>stay<sp/>at<sp/>the<sp/>beginning<sp/>of<sp/>the<sp/>top<sp/>level<sp/>CMakeLists.txt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">option<sp/>(USE_SUPERBUILD<sp/></highlight><highlight class="stringliteral">&quot;flag<sp/>that<sp/>a<sp/>superbuild<sp/>should<sp/>be<sp/>invoked&quot;</highlight><highlight class="normal"><sp/>ON)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(USE_SUPERBUILD)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>project(SUPERBUILD<sp/>NONE)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>include(config/SuperBuild.cmake)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>return()</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">else()</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>project(LAPKT<sp/>VERSION<sp/>1.0)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">endif(USE_SUPERBUILD)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#----END<sp/><sp/><sp/>SUPER.BUILD<sp/>for<sp/>BOOST----#</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#----Check<sp/>Python<sp/>Version<sp/>----#</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal">find_package(Python3<sp/>COMPONENTS<sp/>Interpreter<sp/>Development)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(${Python3_VERSION}<sp/>GREATER<sp/>3.8<sp/>OR<sp/>${Python3_VERSION}<sp/>LESS<sp/>3.7)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>message(SEND_ERROR<sp/></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;INCOMPATIBLE<sp/>PYTHON<sp/>VERSION,<sp/>expected<sp/>3.7.x<sp/>or<sp/>3.8.x.<sp/>Found<sp/>-<sp/>&quot;</highlight><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>${Python3_VERSION})</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">endif()</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#-----------------------------#</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">message(</highlight><highlight class="stringliteral">&quot;The<sp/>PYTHON_VERSION<sp/>is<sp/>&quot;</highlight><highlight class="normal"><sp/>${CMAKE_PYTHON_VERSION})</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">message(</highlight><highlight class="stringliteral">&quot;The<sp/>CMAKE_INSTALL_PREFIX<sp/>is<sp/>&quot;</highlight><highlight class="normal"><sp/>${CMAKE_INSTALL_PREFIX})</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">message(</highlight><highlight class="stringliteral">&quot;Building<sp/>LAPKT<sp/>in<sp/>&quot;</highlight><highlight class="normal"><sp/>${CMAKE_BUILD_TYPE}<sp/></highlight><highlight class="stringliteral">&quot;<sp/>mode&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal">find_package(Boost<sp/>REQUIRED<sp/>COMPONENTS<sp/>python${CMAKE_PYTHON_VERSION}<sp/>program_options)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">message(</highlight><highlight class="stringliteral">&quot;THE<sp/>BOOST<sp/>INCLUDE<sp/>dirs<sp/>search<sp/>path<sp/>is<sp/>&quot;</highlight><highlight class="normal"><sp/>${Boost_INCLUDE_DIRS}<sp/>)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">set(CMAKE_CXX_STANDARD<sp/>17)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">####<sp/>THIS<sp/>IS<sp/>SPECIFIC<sp/>TO<sp/>LINUX/SOLARIS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">set(CMAKE_INSTALL_RPATH<sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_RPATH}:$ORIGIN/../shared;\</highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral">${CMAKE_INSTALL_RPATH}:$ORIGIN/../interface;\</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral">${CMAKE_INSTALL_RPATH}:$ORIGIN/../boost/;\</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral">${CMAKE_INSTALL_RPATH}:$ORIGIN/../ff&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>Link<sp/>with<sp/>static<sp/>Boost<sp/>libraries<sp/>instead<sp/>of<sp/>dynamic</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">set(Boost_USE_STATIC_LIBS<sp/>ON)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#set(Boost_USE_DEBUG_PYTHON<sp/>OFF)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#set(CMAKE_INSTALL_RPATH<sp/>&quot;$ORIGIN/../lib&quot;)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#set(CMAKE_CXX_STANDARD_REQUIRED<sp/>False)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">option(BUILD_SHARED_LIBS<sp/></highlight><highlight class="stringliteral">&quot;Build<sp/>using<sp/>shared<sp/>libraries&quot;</highlight><highlight class="normal"><sp/>ON)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">option(CMAKE_FF<sp/></highlight><highlight class="stringliteral">&quot;CMAKE_FF&quot;</highlight><highlight class="normal"><sp/>OFF)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">option(CMAKE_FD<sp/></highlight><highlight class="stringliteral">&quot;CMAKE_FD&quot;</highlight><highlight class="normal"><sp/>OFF)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">option(CMAKE_VAL<sp/></highlight><highlight class="stringliteral">&quot;CMAKE_FD&quot;</highlight><highlight class="normal"><sp/>OFF)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">option(CMAKE_STATIC_BOOST<sp/></highlight><highlight class="stringliteral">&quot;CMAKE_STATIC_BOOST&quot;</highlight><highlight class="normal"><sp/>OFF)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#add_definitions(/DBOOST_PYTHON_STATIC_LIB)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(CMAKE_STATIC_BOOST)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>set(Boost_USE_STATIC_LIBS<sp/>ON)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">endif(CMAKE_STATIC_BOOST)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">function</highlight><highlight class="normal">(cat<sp/>FROM<sp/>TO)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>file(READ<sp/>${FROM}<sp/>CONTENTS)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>file(APPEND<sp/>${TO}<sp/></highlight><highlight class="stringliteral">&quot;${CONTENTS}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">endfunction()</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">file(WRITE<sp/>${PROJECT_BINARY_DIR}/lapkt_planner_config.yml<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">file(WRITE<sp/>${PROJECT_BINARY_DIR}/__init__.py<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">#<sp/>There<sp/>should<sp/>be<sp/>a<sp/>single<sp/>shared<sp/>library<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>source<sp/>inside<sp/></highlight><highlight class="stringliteral">&quot;shared&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal">add_subdirectory(shared)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>Need<sp/>to<sp/>compile<sp/>external<sp/>ff-parser<sp/>grounder<sp/>library</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal">add_subdirectory(external)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>A<sp/>single<sp/>shared<sp/>library<sp/>for<sp/>fd<sp/>and<sp/>tarski<sp/>interface,<sp/>ff<sp/>interface<sp/>lib<sp/>is<sp/>seperate</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal">add_subdirectory(pddl_interface)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>Libraries<sp/>for<sp/>fd<sp/>and<sp/>tarski<sp/>planners<sp/>and<sp/>executables<sp/>for<sp/>ff-planners</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">add_subdirectory(planners)</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">add_subdirectory(config)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(CMAKE_FF)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>add_subdirectory(legacy_ff)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">endif(CMAKE_FF)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>Add<sp/>run<sp/>scripts</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">add_subdirectory(run)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">add_subdirectory(scripts)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">configure_file(config/lapkt_cmake_config.h.in<sp/>lapkt_cmake_config.h)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal">install(FILES<sp/>&quot;${PROJECT_BINARY_DIR}/lapkt_cmake_config.h</highlight><highlight class="stringliteral">&quot;</highlight></codeline>
+<codeline lineno="93"><highlight class="stringliteral"><sp/><sp/>DESTINATION<sp/>include</highlight></codeline>
+<codeline lineno="94"><highlight class="stringliteral"><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="95"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="96"><highlight class="stringliteral">install(</highlight></codeline>
+<codeline lineno="97"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>EXPORT<sp/><sp/><sp/><sp/><sp/><sp/>LAPKTTargets</highlight></codeline>
+<codeline lineno="98"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>FILE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LAPKTTargets.cmake</highlight></codeline>
+<codeline lineno="99"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>cmake/LAPKT</highlight></codeline>
+<codeline lineno="100"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="101"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="102"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="103"><highlight class="stringliteral">include(CMakePackageConfigHelpers)</highlight></codeline>
+<codeline lineno="104"><highlight class="stringliteral">#<sp/>generate<sp/>the<sp/>config<sp/>file<sp/>that<sp/>includes<sp/>the<sp/>exports</highlight></codeline>
+<codeline lineno="105"><highlight class="stringliteral">configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/config/Config.cmake.in</highlight></codeline>
+<codeline lineno="106"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;</highlight><highlight class="normal">${CMAKE_CURRENT_BINARY_DIR}/LAPKTConfig.cmake</highlight><highlight class="stringliteral">&quot;</highlight></codeline>
+<codeline lineno="107"><highlight class="stringliteral"><sp/><sp/>INSTALL_DESTINATION<sp/>&quot;</highlight><highlight class="normal">cmake/example</highlight><highlight class="stringliteral">&quot;</highlight></codeline>
+<codeline lineno="108"><highlight class="stringliteral"><sp/><sp/>NO_SET_AND_CHECK_MACRO</highlight></codeline>
+<codeline lineno="109"><highlight class="stringliteral"><sp/><sp/>NO_CHECK_REQUIRED_COMPONENTS_MACRO</highlight></codeline>
+<codeline lineno="110"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="111"><highlight class="stringliteral">#<sp/>generate<sp/>the<sp/>version<sp/>file<sp/>for<sp/>the<sp/>config<sp/>file</highlight></codeline>
+<codeline lineno="112"><highlight class="stringliteral">write_basic_package_version_file(</highlight></codeline>
+<codeline lineno="113"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;</highlight><highlight class="normal">${CMAKE_CURRENT_BINARY_DIR}/LAPKTConfigVersion.cmake</highlight><highlight class="stringliteral">&quot;</highlight></codeline>
+<codeline lineno="114"><highlight class="stringliteral"><sp/><sp/>VERSION<sp/>&quot;</highlight><highlight class="normal">${LAPKT_VERSION_MAJOR}.${LAPKT_VERSION_MINOR}</highlight><highlight class="stringliteral">&quot;</highlight></codeline>
+<codeline lineno="115"><highlight class="stringliteral"><sp/><sp/>COMPATIBILITY<sp/>AnyNewerVersion</highlight></codeline>
+<codeline lineno="116"><highlight class="stringliteral">)</highlight></codeline>
+<codeline lineno="117"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="118"><highlight class="stringliteral">#<sp/>install<sp/>the<sp/>configuration<sp/>file</highlight></codeline>
+<codeline lineno="119"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="120"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_BINARY_DIR}/LAPKTConfig.cmake</highlight></codeline>
+<codeline lineno="121"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>cmake/LAPKT</highlight></codeline>
+<codeline lineno="122"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="123"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="124"><highlight class="stringliteral">#</highlight></codeline>
+<codeline lineno="125"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="126"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_BINARY_DIR}/lapkt_planner_config.yml</highlight></codeline>
+<codeline lineno="127"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>lib/lapkt/config</highlight></codeline>
+<codeline lineno="128"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Runtime</highlight></codeline>
+<codeline lineno="129"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="130"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="131"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_BINARY_DIR}/lapkt_planner_config.yml</highlight></codeline>
+<codeline lineno="132"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>lib/lapkt/config</highlight></codeline>
+<codeline lineno="133"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="134"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="135"><highlight class="stringliteral">#</highlight></codeline>
+<codeline lineno="136"><highlight class="stringliteral">file(WRITE<sp/>${PROJECT_BINARY_DIR}/setup.cfg<sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;</highlight><highlight class="normal">[options]\nscripts=\n\tbin/lapkt\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="138"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="139"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="140"><highlight class="stringliteral">if(CMAKE_VAL)</highlight></codeline>
+<codeline lineno="141"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>file(APPEND<sp/>${PROJECT_BINARY_DIR}/setup.cfg<sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;</highlight><highlight class="normal">\tbin/validate.py\n\tbin/gringo\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="143"><highlight class="stringliteral">endif(CMAKE_VAL)</highlight></codeline>
+<codeline lineno="144"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="145"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_SOURCE_DIR}/setup.py</highlight></codeline>
+<codeline lineno="146"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_SOURCE_DIR}/../README.md</highlight></codeline>
+<codeline lineno="147"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE.txt</highlight></codeline>
+<codeline lineno="148"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${PROJECT_BINARY_DIR}/setup.cfg</highlight></codeline>
+<codeline lineno="149"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ</highlight></codeline>
+<codeline lineno="150"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}</highlight></codeline>
+<codeline lineno="151"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Runtime</highlight></codeline>
+<codeline lineno="152"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="153"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="154"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_SOURCE_DIR}/setup.py</highlight></codeline>
+<codeline lineno="155"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_SOURCE_DIR}/../README.md</highlight></codeline>
+<codeline lineno="156"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE.txt</highlight></codeline>
+<codeline lineno="157"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${PROJECT_BINARY_DIR}/setup.cfg</highlight></codeline>
+<codeline lineno="158"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ</highlight></codeline>
+<codeline lineno="159"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}</highlight></codeline>
+<codeline lineno="160"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="161"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="162"><highlight class="stringliteral">#</highlight></codeline>
+<codeline lineno="163"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="164"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${Boost_LIBRARIES}</highlight></codeline>
+<codeline lineno="165"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${Boost_PROGRAM_OPTIONS_LIBRARY}</highlight></codeline>
+<codeline lineno="166"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${Boost_REGEX_LIBRARY}</highlight></codeline>
+<codeline lineno="167"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ</highlight></codeline>
+<codeline lineno="168"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost</highlight></codeline>
+<codeline lineno="169"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Runtime</highlight></codeline>
+<codeline lineno="170"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="171"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="172"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${Boost_LIBRARIES}</highlight></codeline>
+<codeline lineno="173"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${Boost_PROGRAM_OPTIONS_LIBRARY}</highlight></codeline>
+<codeline lineno="174"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${Boost_REGEX_LIBRARY}</highlight></codeline>
+<codeline lineno="175"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ</highlight></codeline>
+<codeline lineno="176"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost</highlight></codeline>
+<codeline lineno="177"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="178"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="179"><highlight class="stringliteral">#</highlight></codeline>
+<codeline lineno="180"><highlight class="stringliteral">install(DIRECTORY</highlight></codeline>
+<codeline lineno="181"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${Boost_INCLUDE_DIRS}</highlight></codeline>
+<codeline lineno="182"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}</highlight></codeline>
+<codeline lineno="183"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="184"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="185"><highlight class="stringliteral">#</highlight></codeline>
+<codeline lineno="186"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="187"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_BINARY_DIR}/clingo/linux/gringo</highlight></codeline>
+<codeline lineno="188"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ<sp/>OWNER_EXECUTE</highlight></codeline>
+<codeline lineno="189"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/bin/clingo/linux</highlight></codeline>
+<codeline lineno="190"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Runtime</highlight></codeline>
+<codeline lineno="191"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="192"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="193"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_BINARY_DIR}/clingo/linux/gringo</highlight></codeline>
+<codeline lineno="194"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ<sp/>OWNER_EXECUTE</highlight></codeline>
+<codeline lineno="195"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/bin/clingo/linux</highlight></codeline>
+<codeline lineno="196"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="197"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="198"><highlight class="stringliteral">#</highlight></codeline>
+<codeline lineno="199"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="200"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_BINARY_DIR}/clingo/darwin/gringo</highlight></codeline>
+<codeline lineno="201"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ<sp/>OWNER_EXECUTE</highlight></codeline>
+<codeline lineno="202"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/bin/clingo/darwin</highlight></codeline>
+<codeline lineno="203"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Runtime</highlight></codeline>
+<codeline lineno="204"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="205"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="206"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_BINARY_DIR}/clingo/darwin/gringo</highlight></codeline>
+<codeline lineno="207"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ<sp/>OWNER_EXECUTE</highlight></codeline>
+<codeline lineno="208"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/bin/clingo/darwin</highlight></codeline>
+<codeline lineno="209"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="210"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="211"><highlight class="stringliteral">#</highlight></codeline>
+<codeline lineno="212"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="213"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_BINARY_DIR}/clingo/win32/gringo.exe</highlight></codeline>
+<codeline lineno="214"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ<sp/>OWNER_EXECUTE</highlight></codeline>
+<codeline lineno="215"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/bin/clingo/win32</highlight></codeline>
+<codeline lineno="216"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Runtime</highlight></codeline>
+<codeline lineno="217"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="218"><highlight class="stringliteral">install(FILES</highlight></codeline>
+<codeline lineno="219"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>${CMAKE_BINARY_DIR}/clingo/win32/gringo.exe</highlight></codeline>
+<codeline lineno="220"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ<sp/>OWNER_EXECUTE</highlight></codeline>
+<codeline lineno="221"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/bin/clingo/win32</highlight></codeline>
+<codeline lineno="222"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="223"><highlight class="stringliteral"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="224"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="225"><highlight class="stringliteral">include(InstallRequiredSystemLibraries)</highlight></codeline>
+<codeline lineno="226"><highlight class="stringliteral">set(CPACK_RESOURCE_FILE_LICENSE<sp/>&quot;</highlight><highlight class="normal">${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE.txt</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="227"><highlight class="stringliteral">set(CPACK_PACKAGE_VERSION_MAJOR<sp/>&quot;</highlight><highlight class="normal">${LAPKT_VERSION_MAJOR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="228"><highlight class="stringliteral">set(CPACK_PACKAGE_VERSION_MINOR<sp/>&quot;</highlight><highlight class="normal">${LAPKT_VERSION_MINOR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="229"><highlight class="stringliteral">include(CPack)</highlight></codeline>
+<codeline lineno="230"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="231"><highlight class="stringliteral">#enable_testing()</highlight></codeline>
+    </programlisting>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

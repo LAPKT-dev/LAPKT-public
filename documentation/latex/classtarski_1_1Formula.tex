@@ -1,0 +1,44 @@
+\hypertarget{classtarski_1_1Formula}{}\doxysection{tarski\+::Formula Class Reference}
+\label{classtarski_1_1Formula}\index{tarski::Formula@{tarski::Formula}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classtarski_1_1Formula_ac7b2b0569f9d9410d2f2a72d39326723}\label{classtarski_1_1Formula_ac7b2b0569f9d9410d2f2a72d39326723}} 
+typedef std\+::pair$<$ std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, bool $>$ $>$ $>$, bool $>$(Formula\+::$\ast$ {\bfseries functionpointer}) (std\+::map$<$ \mbox{\hyperlink{classtarski_1_1Identifier}{Identifier}}, std\+::string $>$ \&, std\+::vector$<$ std\+::string $>$ \&, std\+::map$<$ std\+::string, int $>$ \&, \mbox{\hyperlink{classSTRIPS__Interface}{S\+T\+R\+I\+P\+S\+\_\+\+Interface}} $\ast$)
+\item 
+\mbox{\Hypertarget{classtarski_1_1Formula_ac1bb597a6503dcf68c0cab4375714cbf}\label{classtarski_1_1Formula_ac1bb597a6503dcf68c0cab4375714cbf}} 
+typedef std\+::pair$<$ std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, bool $>$ $>$ $>$, bool $>$(func)(std func \mbox{\hyperlink{classtarski_1_1Formula_ac1bb597a6503dcf68c0cab4375714cbf}{process\+\_\+not}}
+\begin{DoxyCompactList}\small\item\em ================ Applies to all C\+O\+N\+N\+E\+C\+T\+I\+VE\+: X\+XX methods ===================// \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classtarski_1_1Formula_acc9786b26e06035cb9c4dbd34afe81dd}\label{classtarski_1_1Formula_acc9786b26e06035cb9c4dbd34afe81dd}} 
+{\bfseries Formula} (std\+::string symbol, boost\+::python\+::list \&atom, boost\+::python\+::list \&formula, bool dnf\+\_\+check)
+\item 
+\mbox{\Hypertarget{classtarski_1_1Formula_a29399e9c41a1450466d597df39e22e1f}\label{classtarski_1_1Formula_a29399e9c41a1450466d597df39e22e1f}} 
+std\+::pair$<$ std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, bool $>$ $>$ $>$, bool $>$ {\bfseries instantiate} (std\+::map$<$ \mbox{\hyperlink{classtarski_1_1Identifier}{Identifier}}, std\+::string $>$ \&var\+\_\+map, std\+::vector$<$ std\+::string $>$ \&init, std\+::map$<$ std\+::string, int $>$ \&fluent, \mbox{\hyperlink{classSTRIPS__Interface}{S\+T\+R\+I\+P\+S\+\_\+\+Interface}} $\ast$out\+\_\+task)
+\item 
+\mbox{\Hypertarget{classtarski_1_1Formula_a96436d8fb23c907c32c0b0d6232f3ea2}\label{classtarski_1_1Formula_a96436d8fb23c907c32c0b0d6232f3ea2}} 
+std\+::string {\bfseries publish} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classtarski_1_1Formula_a37ca78ebf3e483de0911e6cbbd72b7dc}\label{classtarski_1_1Formula_a37ca78ebf3e483de0911e6cbbd72b7dc}} 
+func {\bfseries process\+\_\+and}
+\item 
+\mbox{\Hypertarget{classtarski_1_1Formula_a5546d9bfa159a4e36e4973a0ab03b08e}\label{classtarski_1_1Formula_a5546d9bfa159a4e36e4973a0ab03b08e}} 
+func {\bfseries process\+\_\+or}
+\item 
+\mbox{\Hypertarget{classtarski_1_1Formula_a3564724aede275bfa778054e71d6d5ec}\label{classtarski_1_1Formula_a3564724aede275bfa778054e71d6d5ec}} 
+func {\bfseries process\+\_\+tautology}
+\item 
+\mbox{\Hypertarget{classtarski_1_1Formula_aa56e463a9cf0944b9cdac6105f4277bc}\label{classtarski_1_1Formula_aa56e463a9cf0944b9cdac6105f4277bc}} 
+func {\bfseries process\+\_\+contradiction}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/pddl\+\_\+interface/tarski\+\_\+parse\+\_\+ground/tarski\+\_\+instantiator.\+hxx\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/pddl\+\_\+interface/tarski\+\_\+parse\+\_\+ground/tarski\+\_\+instantiator.\+cxx\end{DoxyCompactItemize}

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_525ed562d8f1719b09a389e3d74a911b" kind="dir">
+    <compoundname>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/siw</compoundname>
+    <innerfile refid="siw_2run-siw-blocks_8py">run-siw-blocks.py</innerfile>
+    <innerfile refid="siw-unit-cost_8py">siw-unit-cost.py</innerfile>
+    <innerfile refid="siw_8py">siw.py</innerfile>
+    <innerfile refid="siw__planner_8cxx">siw_planner.cxx</innerfile>
+    <innerfile refid="siw__planner_8hxx">siw_planner.hxx</innerfile>
+    <innerfile refid="siw__unit__cost_8py">siw_unit_cost.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/siw/"/>
+  </compounddef>
+</doxygen>

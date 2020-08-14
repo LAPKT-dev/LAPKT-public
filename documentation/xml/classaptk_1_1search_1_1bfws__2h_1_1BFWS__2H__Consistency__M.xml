@@ -1,0 +1,379 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M" kind="class" language="C++" prot="public">
+    <compoundname>aptk::search::bfws_2h::BFWS_2H_Consistency_M</compoundname>
+    <basecompoundref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency" prot="public" virt="non-virtual">aptk::search::bfws_2h::BFWS_2H_Consistency&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename Search_Model</type>
+      </param>
+      <param>
+        <type>typename First_Heuristic</type>
+      </param>
+      <param>
+        <type>typename Second_Heuristic</type>
+      </param>
+      <param>
+        <type>typename Relevant_Fluents_Heuristic</type>
+      </param>
+      <param>
+        <type>typename Open_List_Type</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a546452592f82e83c45a63cff616e568a" prot="public" static="no">
+        <type>Search_Model::State_Type</type>
+        <definition>typedef Search_Model::State_Type aptk::search::bfws_2h::BFWS_2H_Consistency_M&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" line="48" column="57" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1ab0871446676a8706c5a76c4faaff6b32" prot="public" static="no">
+        <type>Open_List_Type::Node_Type</type>
+        <definition>typedef Open_List_Type::Node_Type aptk::search::bfws_2h::BFWS_2H_Consistency_M&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;::Search_Node</definition>
+        <argsstring></argsstring>
+        <name>Search_Node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" line="49" column="52" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a79092b27e3a4e79ab268d2482cd00167" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1Closed__List" kindref="compound">Closed_List</ref>&lt; Search_Node &gt;</type>
+        <definition>typedef Closed_List&lt; Search_Node &gt; aptk::search::bfws_2h::BFWS_2H_Consistency_M&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;::Closed_List_Type</definition>
+        <argsstring></argsstring>
+        <name>Closed_List_Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" line="50" column="28" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1adaaf1eaf121d18c06fb952da5b673160" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" kindref="compound">aptk::agnostic::Landmarks_Graph_Manager</ref>&lt; Search_Model &gt;</type>
+        <definition>typedef aptk::agnostic::Landmarks_Graph_Manager&lt;Search_Model&gt; aptk::search::bfws_2h::BFWS_2H_Consistency_M&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;::Landmarks_Graph_Manager</definition>
+        <argsstring></argsstring>
+        <name>Landmarks_Graph_Manager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" line="51" column="59" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a11ae75fd0a3e61f7e057dd98c0d567db" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfws_2h::BFWS_2H_Consistency_M&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;::m_M</definition>
+        <argsstring></argsstring>
+        <name>m_M</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" line="173" column="41" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a2fb0488112435af02b2029b97b972f6c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::search::bfws_2h::BFWS_2H_Consistency_M&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;::BFWS_2H_Consistency_M</definition>
+        <argsstring>(const Search_Model &amp;search_problem)</argsstring>
+        <name>BFWS_2H_Consistency_M</name>
+        <param>
+          <type>const Search_Model &amp;</type>
+          <declname>search_problem</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" line="53" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" bodystart="53" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a094098c7a24a70b30a7e206c55b554cc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual aptk::search::bfws_2h::BFWS_2H_Consistency_M&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;::~BFWS_2H_Consistency_M</definition>
+        <argsstring>()</argsstring>
+        <name>~BFWS_2H_Consistency_M</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" line="59" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" bodystart="59" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a49574828ef44d409f9db448f1b1c2b66" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfws_2h::BFWS_2H_Consistency_M&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;::set_M</definition>
+        <argsstring>(unsigned m)</argsstring>
+        <name>set_M</name>
+        <param>
+          <type>unsigned</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" line="63" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" bodystart="63" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a9268426e6977d1b7881354b33792948b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void aptk::search::bfws_2h::BFWS_2H_Consistency_M&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;::process</definition>
+        <argsstring>(Search_Node *head)</argsstring>
+        <name>process</name>
+        <reimplements refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a5cc093ab34ec36479c73392650ede06f">process</reimplements>
+        <param>
+          <type>Search_Node *</type>
+          <declname>head</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Allow M pruned nodes in a given path</para>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" line="65" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" bodystart="65" bodyend="169"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>aptk::search::bfws_2h::BFWS_2H&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H"/>
+      </node>
+      <node id="2">
+        <label>aptk::search::bfws_2h::BFWS_2H_Consistency&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>aptk::search::bfws_2h::BFWS_2H_Consistency_M&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="15">
+        <label>aptk::agnostic::Reachability_Test</label>
+        <link refid="classaptk_1_1agnostic_1_1Reachability__Test"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_problem</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>m_action_mask</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>aptk::STRIPS_Problem</label>
+        <link refid="classaptk_1_1STRIPS__Problem"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>m_succ_gen</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>m_succ_gen_v3</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>m_mutexes</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>m_succ_gen_v2</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aptk::search::bfws_2h::BFWS_2H&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_lgm</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>m_closed</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>aptk::agnostic::Landmarks_Graph</label>
+        <link refid="classaptk_1_1agnostic_1_1Landmarks__Graph"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_strips_model</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>m_fl_in_graph</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aptk::agnostic::Landmarks_Graph_Manager&lt; Search_Model &gt;</label>
+        <link refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_graph</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_strips_model</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>aptk::agnostic::Match_Tree</label>
+        <link refid="classaptk_1_1agnostic_1_1Match__Tree"/>
+      </node>
+      <node id="12">
+        <label>aptk::Bit_Array</label>
+        <link refid="classaptk_1_1Bit__Array"/>
+      </node>
+      <node id="13">
+        <label>aptk::search::Closed_List&lt; Search_Node &gt;</label>
+        <link refid="classaptk_1_1search_1_1Closed__List"/>
+        <childnode refid="14" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aptk::search::bfws_2h::BFWS_2H_Consistency&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>m_reachability</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>aptk::Bit_Set</label>
+        <link refid="classaptk_1_1Bit__Set"/>
+        <childnode refid="12" relation="usage">
+          <edgelabel>m_fset</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>std::unordered_multimap&lt; size_t, Search_Node  * &gt;</label>
+      </node>
+      <node id="8">
+        <label>aptk::WatchedLitSuccGen</label>
+        <link refid="classaptk_1_1WatchedLitSuccGen"/>
+      </node>
+      <node id="1">
+        <label>aptk::search::bfws_2h::BFWS_2H_Consistency_M&lt; Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>aptk::agnostic::Mutex_Set</label>
+        <link refid="classaptk_1_1agnostic_1_1Mutex__Set"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_model</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>aptk::agnostic::Successor_Generator</label>
+        <link refid="classaptk_1_1agnostic_1_1Successor__Generator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" line="43" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/bfws_2h_consistency_M.hxx" bodystart="44" bodyend="174"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a5187c205663d99ebd48352be95f6658f" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>BFWS_2H</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_1a01efc91a58d023bfa8458deb88b1c658" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>BFWS_2H_Consistency</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a2fb0488112435af02b2029b97b972f6c" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>BFWS_2H_Consistency_M</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1acdbb784bdc578d16f1d31e0a69fdcda3" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>close</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a2bf1a4937a4dd1a7ee5e9e93302e6494" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>closed</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a79092b27e3a4e79ab268d2482cd00167" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>Closed_List_Type</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_1a9120249018d25bdacb7528e6e3330c0f" prot="public" virt="virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>consistent_goal_counting</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a19f575a049544504b21cb9ae9fb34208" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>dead_ends</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1ab151cca49749f20c4c6da10b929311aa" prot="public" virt="virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>do_search</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_1ac3edd0b947d4dfb40f14b5a35c71a4fa" prot="public" virt="virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>eval</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a0fbca56c1606b1de3a1bbede84fd7c9b" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>eval_novel</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a38b54bb4bbf10e0d69b3240384db24ed" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>eval_relevant_fluents</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1abd5e906a7eea0d65196445002155e19a" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>eval_rp</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_1ab3e470b6d42e320ab40b47b1f6443535" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>exclude_actions</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a1b6231cce4748687cdd0e354ac5350ff" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>expanded</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a88e22b12f42304842ba2dce4c6fe3ee7" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>extract_path</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a8a7997ff5dc82c6d0bcae8dc025bafbf" prot="protected" virt="virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>extract_plan</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a57114a5842d6643b00af8864f7ec0c2d" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>find_solution</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a4df5b8485bbe7ccaa0ac2a74fbf40449" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>generated</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1ad06df96eb784c85a0ec260855196783a" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>get_node</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1af88630e3ff15370463acc06e568f879e" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>h1</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a49cac17b342126c4f7c0502c16f85398" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>h2</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a0b06555b61b6180ccc867b671e7c17bc" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>inc_dead_end</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1ae8828f357825276589b226d3b370cc12" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>inc_eval</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a4a5a57672eac5d77a3ad93fc5316526c" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>inc_gen</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1aaf01201e7f3f6a542fd36947d91238de" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>inc_replaced_open</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a8b2c9b693f2350adcee060f7986c71fa" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>is_closed</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1adaaf1eaf121d18c06fb952da5b673160" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>Landmarks_Graph_Manager</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a3ae33ed9188a57832ecae3fa1ba64398" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_app_set</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a47d41de07ad94064cda9f81d34e736f5" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_closed</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a9b15ea91b092fcfbcec5518f43f7339e" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_dead_end_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1adca9c6c24746b5a054b108f82a02ff71" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_exp_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a374dc8d492d827ac8676d7bbe400a612" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_first_h</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1ab1fe9e0ae7d141c65591ff38324b0277" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_gen_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a0545e9e8f30275554184d6bedb62c813" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_lgm</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a11ae75fd0a3e61f7e057dd98c0d567db" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_M</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a67785aa376993060158e0cdfc771ce9c" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_max_depth</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1abea7cd2e3660cd8cc5a1c7b0ceb5e0cf" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_max_h2n</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a1a7ba14d61545358a17486f91f36ad8c" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_max_novelty</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a54f60d73bcec41f0bf74df71e1163fa5" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_max_r</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a82d17f50003271342976fef8513db214" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_open</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a4cf828653c409377cf714865dfabdf9f" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_open_repl_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a913f79c93a9c1db1a3e9bb76d942ccec" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_problem</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_1a48106247e6d592bd401f9b6d6f5b2465" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_reachability</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1aef33e0d725e1b77be6f837f04eda8307" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_relevant_fluents_h</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a53fbee42db711a7fbc414cbaa50c4765" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_root</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a064d39058b15f3c63d8cd9a7131c7423" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_second_h</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a7c8e835df146a972c125f99cc113fe74" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_t0</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a71f89f4d50aa5e1f03fc7706830d0eb0" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_time_budget</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a99f84619914d3d40da544b0655262bdc" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_use_novelty</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1af594b9fc6d476bcea130403ebb98f7ca" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_use_novelty_pruning</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a64912e230a1a922e330116505c23ce07" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_use_rp</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a33e4ced456702706bdd4f4ab296a2538" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_use_rp_from_init_only</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a05c4fd9b2ab473392462d3e6153fc257" prot="protected" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>m_verbose</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1aa1d5e81f16f72e605e15f7f6d2ee90c2" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>max_depth</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a15c9a7155ff6a53d7166de82c9b8fcfc" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>open_node</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a7a0d14ad0aa202a5d7e57241a0bd477b" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>open_repl</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a4b58f88d0f50880a6db93069bd783a28" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>problem</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a9268426e6977d1b7881354b33792948b" prot="public" virt="virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>process</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a43cff8ad964e0ce63de27d5f2df28131" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>rel_fl_h</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a5d8f5674cf1e3b49d4f5951dec050cf3" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>rp_fl_achieved</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1ab0871446676a8706c5a76c4faaff6b32" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>Search_Node</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1ad59154d507d9cafa10e761c28e3b6ea7" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>set_arity</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a8b26d30fa34d85c627cb3ea90423756d" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>set_budget</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a49574828ef44d409f9db448f1b1c2b66" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>set_M</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1af1d790725279b25ad264c2445eb985de" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>set_max_depth</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a357e1c9cbfefcd83511f0f3ec026c57e" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>set_max_novelty</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a6b508964fde2efd54b26397acddb45ee" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>set_relplan</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a51f4c13e94373b8abedf39db98f27328" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>set_use_novelty</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a6d2f908017afd53172cac38cf7595ae5" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>set_use_novelty_pruning</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a2bbb790a48d200bbb534777268980b56" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>set_use_rp</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a811401a29115e56fefb05725bd67cdb6" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>set_use_rp_from_init_only</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a7b1402c5550721165fa557adf757536a" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>set_verbose</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_1aff810d12ea8c981e7e1e4dead988da79" prot="public" virt="virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>start</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a546452592f82e83c45a63cff616e568a" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>State</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a48bcb2c5adc5167dbf95f0f6a91d1aa6" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>t0</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1a5a037acb9ab10bea2900f0a0b23406a6" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>time_budget</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1ad5f2b3af2329c101339e938f24456e38" prot="public" virt="non-virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>use_land_graph_manager</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H_1aa20c8f2a372ad3bcc6f83979aaa0f900" prot="public" virt="virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>~BFWS_2H</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_1ab028caff1e73c88a1bd51b5ee04b2271" prot="public" virt="virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>~BFWS_2H_Consistency</name></member>
+      <member refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M_1a094098c7a24a70b30a7e206c55b554cc" prot="public" virt="virtual"><scope>aptk::search::bfws_2h::BFWS_2H_Consistency_M</scope><name>~BFWS_2H_Consistency_M</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

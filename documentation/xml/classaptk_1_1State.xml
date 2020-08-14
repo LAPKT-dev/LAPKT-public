@@ -1,0 +1,602 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1State" kind="class" language="C++" prot="public">
+    <compoundname>aptk::State</compoundname>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1State_1a86adb01ff173cac51a5a90f89295cc3d" prot="protected" static="no" mutable="no">
+        <type>Fluent_Vec</type>
+        <definition>Fluent_Vec aptk::State::m_fluent_vec</definition>
+        <argsstring></argsstring>
+        <name>m_fluent_vec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="77" column="11" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1State_1a66d3474a67ce4008f25714fae8401a2b" prot="protected" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1Bit__Set" kindref="compound">Fluent_Set</ref></type>
+        <definition>Fluent_Set aptk::State::m_fluent_set</definition>
+        <argsstring></argsstring>
+        <name>m_fluent_set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="78" column="11" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1State_1a35b09bd71ba22f82671b426efb806ee2" prot="protected" static="no" mutable="no">
+        <type>const <ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+        <definition>const STRIPS_Problem&amp; aptk::State::m_problem</definition>
+        <argsstring></argsstring>
+        <name>m_problem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="79" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1State_1a2e1ac021da38cb1c30cb51eeca452af1" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t aptk::State::m_hash</definition>
+        <argsstring></argsstring>
+        <name>m_hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="80" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1State_1afb8a9cbb562b1f818f5bc595e5f9b659" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::State::State</definition>
+        <argsstring>(const STRIPS_Problem &amp;p)</argsstring>
+        <name>State</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="37" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.cxx" bodystart="32" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a42c2d9f3a7dca7d71691c3fe6c0f901b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::State::~State</definition>
+        <argsstring>()</argsstring>
+        <name>~State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="38" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.cxx" bodystart="37" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1aa001c6028d7b7e591b6be0c3231a5d00" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Fluent_Vec &amp;</type>
+        <definition>Fluent_Vec&amp; aptk::State::fluent_vec</definition>
+        <argsstring>()</argsstring>
+        <name>fluent_vec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="40" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1afa4c87dda449fe763bb58ad147feec8a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1Bit__Set" kindref="compound">Fluent_Set</ref> &amp;</type>
+        <definition>Fluent_Set&amp; aptk::State::fluent_set</definition>
+        <argsstring>()</argsstring>
+        <name>fluent_set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="41" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a5ea7bb7a3f4890fbe72cb128b62ba5cf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const Fluent_Vec &amp;</type>
+        <definition>const Fluent_Vec&amp; aptk::State::fluent_vec</definition>
+        <argsstring>() const</argsstring>
+        <name>fluent_vec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="42" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a4b13c736da3b85550a3e09f16e47b2b1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Fluent_Set</ref> &amp;</type>
+        <definition>const Fluent_Set&amp; aptk::State::fluent_set</definition>
+        <argsstring>() const</argsstring>
+        <name>fluent_set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="43" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a47f5ecc4c74b9d4ab2c9d652d9b5601d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::State::value_for_var</definition>
+        <argsstring>(unsigned var) const</argsstring>
+        <name>value_for_var</name>
+        <param>
+          <type>unsigned</type>
+          <declname>var</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="45" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1af11a9de36756ef5088d90bb6186dc657" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::State::set</definition>
+        <argsstring>(unsigned f)</argsstring>
+        <name>set</name>
+        <param>
+          <type>unsigned</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="47" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="96" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1ae93338a2a280bf75130ec684c436e703" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::State::unset</definition>
+        <argsstring>(unsigned f)</argsstring>
+        <name>unset</name>
+        <param>
+          <type>unsigned</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="48" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="116" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a541b2a1168d2bb91786e331f02064069" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::State::set</definition>
+        <argsstring>(const Fluent_Vec &amp;fv)</argsstring>
+        <name>set</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>fv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="49" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="103" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a35ed8d5504fd349803c0597740662ada" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::State::unset</definition>
+        <argsstring>(const Fluent_Vec &amp;fv)</argsstring>
+        <name>unset</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>fv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="50" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="132" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a282d427a2913c33297497fa6e3c1bf6a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::State::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="51" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="151" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a31417736541dfc0493f94c7acc1eab09" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::State::entails</definition>
+        <argsstring>(unsigned f) const</argsstring>
+        <name>entails</name>
+        <param>
+          <type>unsigned</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="52" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="52" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a7dc6af61f2f141edf8895530ba9c8d52" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::State::entails</definition>
+        <argsstring>(const State &amp;s) const</argsstring>
+        <name>entails</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="53" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="157" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1add5de2a59d4fea5a906af2ab4749d96a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::State::entails</definition>
+        <argsstring>(const Fluent_Vec &amp;fv) const</argsstring>
+        <name>entails</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>fv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="54" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="166" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a622b4d35b653fdc4a75a1a6126c11af4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::State::entails</definition>
+        <argsstring>(const Fluent_Vec &amp;fv, unsigned &amp;num_unsat) const</argsstring>
+        <name>entails</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>fv</declname>
+        </param>
+        <param>
+          <type>unsigned &amp;</type>
+          <declname>num_unsat</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="55" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="175" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1aef64d35704cb155dac4114ef14201236" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t aptk::State::hash</definition>
+        <argsstring>() const</argsstring>
+        <name>hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="56" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="83" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a3813998ed7adfb1ab1e257d1945db495" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::State::update_hash</definition>
+        <argsstring>()</argsstring>
+        <name>update_hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="57" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.cxx" bodystart="41" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a6889a3ac836c0567c79b0a85101a4eb8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaptk_1_1State" kindref="compound">State</ref> *</type>
+        <definition>State * aptk::State::progress_through</definition>
+        <argsstring>(const Action &amp;a, Fluent_Vec *added=NULL, Fluent_Vec *deleted=NULL) const</argsstring>
+        <name>progress_through</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Action" kindref="compound">Action</ref> &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Fluent_Vec *</type>
+          <declname>added</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>Fluent_Vec *</type>
+          <declname>deleted</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="59" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.cxx" bodystart="78" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a24c1096aa0da5ccc2d1e19d28f2f5149" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaptk_1_1State" kindref="compound">State</ref> *</type>
+        <definition>State * aptk::State::progress_through_df</definition>
+        <argsstring>(const Action &amp;a) const</argsstring>
+        <name>progress_through_df</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Action" kindref="compound">Action</ref> &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="61" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.cxx" bodystart="47" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1adf5d9571f36d05670f0a3ea95802a194" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classaptk_1_1State" kindref="compound">State</ref> *</type>
+        <definition>State * aptk::State::regress_through</definition>
+        <argsstring>(const Action &amp;a) const</argsstring>
+        <name>regress_through</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Action" kindref="compound">Action</ref> &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="63" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.cxx" bodystart="152" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a85fe544fb60f8ef21970542e31b00248" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::State::progress_lazy_state</definition>
+        <argsstring>(const Action *a, Fluent_Vec *added=NULL, Fluent_Vec *deleted=NULL)</argsstring>
+        <name>progress_lazy_state</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Action" kindref="compound">Action</ref> *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Fluent_Vec *</type>
+          <declname>added</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>Fluent_Vec *</type>
+          <declname>deleted</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>progress action</para>
+<para>If given, update the inclusion set</para>
+<para>If given, update the inclusion set</para>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="65" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.cxx" bodystart="195" bodyend="276"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1ab36661e0f17c165aaeae4449584443e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::State::regress_lazy_state</definition>
+        <argsstring>(const Action *a, Fluent_Vec *added=NULL, Fluent_Vec *deleted=NULL)</argsstring>
+        <name>regress_lazy_state</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Action" kindref="compound">Action</ref> *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Fluent_Vec *</type>
+          <declname>added</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>Fluent_Vec *</type>
+          <declname>deleted</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>If given, update the inclusion set</para>
+<para>regress action</para>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="67" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.cxx" bodystart="278" bodyend="343"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a3c6c504a2ce94c6680a1255b7a61719e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+        <definition>const STRIPS_Problem &amp; aptk::State::problem</definition>
+        <argsstring>() const</argsstring>
+        <name>problem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="69" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="91" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a72d6cf55dd1a713e9a0c855008ff8a3c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::State::operator==</definition>
+        <argsstring>(const State &amp;a) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="71" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="87" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1State_1a13e4a3d8df7db4b55880f7bb90d2be1a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::State::print</definition>
+        <argsstring>(std::ostream &amp;os) const</argsstring>
+        <name>print</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="73" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.cxx" bodystart="346" bodyend="352"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>aptk::STRIPS_Problem</label>
+        <link refid="classaptk_1_1STRIPS__Problem"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_succ_gen</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_succ_gen_v3</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_mutexes</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_succ_gen_v2</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>aptk::agnostic::Match_Tree</label>
+        <link refid="classaptk_1_1agnostic_1_1Match__Tree"/>
+      </node>
+      <node id="8">
+        <label>aptk::Bit_Array</label>
+        <link refid="classaptk_1_1Bit__Array"/>
+      </node>
+      <node id="7">
+        <label>aptk::Bit_Set</label>
+        <link refid="classaptk_1_1Bit__Set"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>m_fset</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>aptk::State</label>
+        <link refid="classaptk_1_1State"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_problem</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>m_fluent_set</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aptk::WatchedLitSuccGen</label>
+        <link refid="classaptk_1_1WatchedLitSuccGen"/>
+      </node>
+      <node id="5">
+        <label>aptk::agnostic::Mutex_Set</label>
+        <link refid="classaptk_1_1agnostic_1_1Mutex__Set"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_model</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aptk::agnostic::Successor_Generator</label>
+        <link refid="classaptk_1_1agnostic_1_1Successor__Generator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" line="34" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/strips_state.hxx" bodystart="35" bodyend="81"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1State_1a31417736541dfc0493f94c7acc1eab09" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>entails</name></member>
+      <member refid="classaptk_1_1State_1a7dc6af61f2f141edf8895530ba9c8d52" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>entails</name></member>
+      <member refid="classaptk_1_1State_1add5de2a59d4fea5a906af2ab4749d96a" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>entails</name></member>
+      <member refid="classaptk_1_1State_1a622b4d35b653fdc4a75a1a6126c11af4" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>entails</name></member>
+      <member refid="classaptk_1_1State_1afa4c87dda449fe763bb58ad147feec8a" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>fluent_set</name></member>
+      <member refid="classaptk_1_1State_1a4b13c736da3b85550a3e09f16e47b2b1" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>fluent_set</name></member>
+      <member refid="classaptk_1_1State_1aa001c6028d7b7e591b6be0c3231a5d00" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>fluent_vec</name></member>
+      <member refid="classaptk_1_1State_1a5ea7bb7a3f4890fbe72cb128b62ba5cf" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>fluent_vec</name></member>
+      <member refid="classaptk_1_1State_1aef64d35704cb155dac4114ef14201236" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>hash</name></member>
+      <member refid="classaptk_1_1State_1a66d3474a67ce4008f25714fae8401a2b" prot="protected" virt="non-virtual"><scope>aptk::State</scope><name>m_fluent_set</name></member>
+      <member refid="classaptk_1_1State_1a86adb01ff173cac51a5a90f89295cc3d" prot="protected" virt="non-virtual"><scope>aptk::State</scope><name>m_fluent_vec</name></member>
+      <member refid="classaptk_1_1State_1a2e1ac021da38cb1c30cb51eeca452af1" prot="protected" virt="non-virtual"><scope>aptk::State</scope><name>m_hash</name></member>
+      <member refid="classaptk_1_1State_1a35b09bd71ba22f82671b426efb806ee2" prot="protected" virt="non-virtual"><scope>aptk::State</scope><name>m_problem</name></member>
+      <member refid="classaptk_1_1State_1a72d6cf55dd1a713e9a0c855008ff8a3c" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>operator==</name></member>
+      <member refid="classaptk_1_1State_1a13e4a3d8df7db4b55880f7bb90d2be1a" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>print</name></member>
+      <member refid="classaptk_1_1State_1a3c6c504a2ce94c6680a1255b7a61719e" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>problem</name></member>
+      <member refid="classaptk_1_1State_1a85fe544fb60f8ef21970542e31b00248" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>progress_lazy_state</name></member>
+      <member refid="classaptk_1_1State_1a6889a3ac836c0567c79b0a85101a4eb8" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>progress_through</name></member>
+      <member refid="classaptk_1_1State_1a24c1096aa0da5ccc2d1e19d28f2f5149" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>progress_through_df</name></member>
+      <member refid="classaptk_1_1State_1ab36661e0f17c165aaeae4449584443e5" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>regress_lazy_state</name></member>
+      <member refid="classaptk_1_1State_1adf5d9571f36d05670f0a3ea95802a194" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>regress_through</name></member>
+      <member refid="classaptk_1_1State_1a282d427a2913c33297497fa6e3c1bf6a" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>reset</name></member>
+      <member refid="classaptk_1_1State_1af11a9de36756ef5088d90bb6186dc657" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>set</name></member>
+      <member refid="classaptk_1_1State_1a541b2a1168d2bb91786e331f02064069" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>set</name></member>
+      <member refid="classaptk_1_1State_1afb8a9cbb562b1f818f5bc595e5f9b659" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>State</name></member>
+      <member refid="classaptk_1_1State_1ae93338a2a280bf75130ec684c436e703" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>unset</name></member>
+      <member refid="classaptk_1_1State_1a35ed8d5504fd349803c0597740662ada" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>unset</name></member>
+      <member refid="classaptk_1_1State_1a3813998ed7adfb1ab1e257d1945db495" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>update_hash</name></member>
+      <member refid="classaptk_1_1State_1a47f5ecc4c74b9d4ab2c9d652d9b5601d" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>value_for_var</name></member>
+      <member refid="classaptk_1_1State_1a42c2d9f3a7dca7d71691c3fe6c0f901b" prot="public" virt="non-virtual"><scope>aptk::State</scope><name>~State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

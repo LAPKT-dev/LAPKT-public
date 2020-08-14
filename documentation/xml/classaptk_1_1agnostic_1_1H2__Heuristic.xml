@@ -1,0 +1,766 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1agnostic_1_1H2__Heuristic" kind="class" language="C++" prot="public">
+    <compoundname>aptk::agnostic::H2_Heuristic</compoundname>
+    <basecompoundref refid="classaptk_1_1Heuristic" prot="public" virt="non-virtual">aptk::Heuristic&lt; State &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename Search_Model</type>
+      </param>
+      <param>
+        <type>H2_Cost_Function</type>
+        <declname>cost_opt</declname>
+        <defname>cost_opt</defname>
+        <defval>H2_Cost_Function::Use_Costs</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1H2__Heuristic_1afc0324373a1575ab1df4fc0945cb0b01" prot="protected" static="no" mutable="no">
+        <type>const <ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+        <definition>const STRIPS_Problem&amp; aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::m_strips_model</definition>
+        <argsstring></argsstring>
+        <name>m_strips_model</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="676" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="676" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a1510b6d0ddbd4377731eb796a34804e8" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::m_values</definition>
+        <argsstring></argsstring>
+        <name>m_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="677" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="677" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a3e10982988f7c476985794a9c8829f75" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::m_op_values</definition>
+        <argsstring></argsstring>
+        <name>m_op_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="678" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="678" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a335f429d0b3ead4c98cff97c13c925fa" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> * &gt;</type>
+        <definition>std::vector&lt; Bit_Set* &gt; aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::m_interfering_ops</definition>
+        <argsstring></argsstring>
+        <name>m_interfering_ops</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="679" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="679" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1H2__Heuristic_1aeb8296555cd8b5297807d2610f793a11" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; std::set&lt; unsigned &gt; &gt;</type>
+        <definition>std::vector&lt; std::set&lt;unsigned&gt; &gt; aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::m_relevant_actions</definition>
+        <argsstring></argsstring>
+        <name>m_relevant_actions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="681" column="19" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="681" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a9b1a7845217b4a4f8f01b8c14a8102c2" prot="protected" static="no" mutable="no">
+        <type>boost::circular_buffer&lt; int &gt;</type>
+        <definition>boost::circular_buffer&lt;int&gt; aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::m_updated</definition>
+        <argsstring></argsstring>
+        <name>m_updated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="682" column="23" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="682" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1H2__Heuristic_1aadb1ce3503329f4ac05b2718156688cb" prot="protected" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref></type>
+        <definition>Bit_Set aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::m_already_updated</definition>
+        <argsstring></argsstring>
+        <name>m_already_updated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="683" column="8" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="683" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a74d5e0d1e6efc3674780098af2fa293c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::H2_Heuristic</definition>
+        <argsstring>(const Search_Model &amp;prob)</argsstring>
+        <name>H2_Heuristic</name>
+        <param>
+          <type>const Search_Model &amp;</type>
+          <declname>prob</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="52" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="52" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1afd5a209f244c4bbf8f881cdccbf389a2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::~H2_Heuristic</definition>
+        <argsstring>()</argsstring>
+        <name>~H2_Heuristic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="98" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="98" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a9743b000119e9dda2bb2d9071ba75509" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename <ref refid="classaptk_1_1search_1_1gbfs__3h_1_1Node" kindref="compound">Search_Node</ref></type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::eval</definition>
+        <argsstring>(const Search_Node *n, float &amp;h_val, std::vector&lt; Action_Idx &gt; &amp;pref_ops)</argsstring>
+        <name>eval</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1search_1_1gbfs__3h_1_1Node" kindref="compound">Search_Node</ref> *</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>h_val</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Action_Idx &gt; &amp;</type>
+          <declname>pref_ops</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="102" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="102" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1aac99101b581323a5a78e807e28b6cf33" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename <ref refid="classaptk_1_1search_1_1gbfs__3h_1_1Node" kindref="compound">Search_Node</ref></type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::eval</definition>
+        <argsstring>(const Search_Node *n, float &amp;h_val)</argsstring>
+        <name>eval</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1search_1_1gbfs__3h_1_1Node" kindref="compound">Search_Node</ref> *</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>h_val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="108" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="108" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a5d3efb240d3e086ba8151198975a64b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::eval</definition>
+        <argsstring>(const State &amp;s, float &amp;h_val)</argsstring>
+        <name>eval</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>h_val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="113" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="113" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a0561041da0371f200d1f4c4c320466d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::eval</definition>
+        <argsstring>(const State &amp;s, float &amp;h_val, std::vector&lt; Action_Idx &gt; &amp;pref_ops)</argsstring>
+        <name>eval</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>h_val</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Action_Idx &gt; &amp;</type>
+          <declname>pref_ops</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="121" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="121" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a9832932ddd4cd4ca759b377d4907a90c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float &amp;</type>
+        <definition>float&amp; aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::op_value</definition>
+        <argsstring>(unsigned a)</argsstring>
+        <name>op_value</name>
+        <param>
+          <type>unsigned</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="125" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="125" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a86ce7ee5170f61e073656bc15ebfe582" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::op_value</definition>
+        <argsstring>(unsigned a) const</argsstring>
+        <name>op_value</name>
+        <param>
+          <type>unsigned</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="126" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="126" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a2896682786a258ebef4e2708e2ba2d48" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float &amp;</type>
+        <definition>float&amp; aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::value</definition>
+        <argsstring>(unsigned p, unsigned q)</argsstring>
+        <name>value</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="128" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="128" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1aadcd6e5b3d439b7969847a5a27a54ede" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::value</definition>
+        <argsstring>(unsigned p, unsigned q) const</argsstring>
+        <name>value</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="133" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="133" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a18b0498f67afd65be33cc6507a16895c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float &amp;</type>
+        <definition>float&amp; aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::value</definition>
+        <argsstring>(unsigned p)</argsstring>
+        <name>value</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="138" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="138" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a5b45b5620b3277200f0838e01b9da726" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::value</definition>
+        <argsstring>(unsigned p) const</argsstring>
+        <name>value</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="143" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="143" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a43550edd759f5be02f1e911d575dcc13" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::eval</definition>
+        <argsstring>(const Fluent_Vec &amp;s) const</argsstring>
+        <name>eval</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="148" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="148" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1ade539a873fa8625888ddc7700463a2f5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::is_mutex</definition>
+        <argsstring>(const Fluent_Vec &amp;s) const</argsstring>
+        <name>is_mutex</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="159" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="159" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a3b7cb5f7a860e7587d22753fb3191e73" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::is_mutex</definition>
+        <argsstring>(unsigned p, unsigned q) const</argsstring>
+        <name>is_mutex</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="163" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="163" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a2e07ffc16af4ca846f44571ff5f63ee6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::eval</definition>
+        <argsstring>(const Fluent_Vec &amp;s, unsigned p) const</argsstring>
+        <name>eval</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="167" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="167" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1ac1fa744840ea7710adde58a37ccd6851" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::interferes</definition>
+        <argsstring>(unsigned a, unsigned p) const</argsstring>
+        <name>interferes</name>
+        <param>
+          <type>unsigned</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="178" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="178" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1af43a7c4e2a73ed3f9ea32ab3dd9c17cd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::print_values</definition>
+        <argsstring>(std::ostream &amp;os) const</argsstring>
+        <name>print_values</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="182" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="182" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a4d8048389740f7e3bc8c062a0d003f54" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::compute_mutexes_only</definition>
+        <argsstring>(const State &amp;s)</argsstring>
+        <name>compute_mutexes_only</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="193" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="193" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a8c477e288eeb8263e0ba9c79829eee90" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::compute_edeletes</definition>
+        <argsstring>(STRIPS_Problem &amp;prob)</argsstring>
+        <name>compute_edeletes</name>
+        <param>
+          <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+          <declname>prob</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="202" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="202" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a6ec48ae3f82eea31ba9459dc514f8f79" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::compute_edeletes_aij</definition>
+        <argsstring>(STRIPS_Problem &amp;prob)</argsstring>
+        <name>compute_edeletes_aij</name>
+        <param>
+          <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+          <declname>prob</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="216" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="216" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a6e1d530de9aa8e989a524927204c0c88" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::goal_mutex_closure</definition>
+        <argsstring>(STRIPS_Problem &amp;prob)</argsstring>
+        <name>goal_mutex_closure</name>
+        <param>
+          <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+          <declname>prob</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="228" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="228" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1ad15d9a6a0ea6c4ba18648d923e529109" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::compute_mutexes_only_aij</definition>
+        <argsstring>()</argsstring>
+        <name>compute_mutexes_only_aij</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="268" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="268" bodyend="353"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a5ae14420fb9c237645fe25dbd70a46fd" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::extract_edeletes</definition>
+        <argsstring>(STRIPS_Problem &amp;prob)</argsstring>
+        <name>extract_edeletes</name>
+        <param>
+          <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+          <declname>prob</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="357" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="357" bodyend="395"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a18291169963b45f601f56cd63ca4b396" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::initialize_ceffs_and_emtpy_precs</definition>
+        <argsstring>()</argsstring>
+        <name>initialize_ceffs_and_emtpy_precs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="397" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="397" bodyend="442"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a796f0d7d736fe5b7a72814e0c805c74e" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::initialize</definition>
+        <argsstring>(const State &amp;s)</argsstring>
+        <name>initialize</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="443" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="443" bodyend="474"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a3c7cb4d02960babad1e409323c7b902f" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::initialize</definition>
+        <argsstring>(const Fluent_Vec &amp;f)</argsstring>
+        <name>initialize</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="476" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="476" bodyend="507"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1afb48eaaf2be366676df38466292a153d" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::compute</definition>
+        <argsstring>()</argsstring>
+        <name>compute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="509" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="509" bodyend="591"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1H2__Heuristic_1a4c6af58205ecf3797ae894688452aca1" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;::compute_mutexes_only</definition>
+        <argsstring>()</argsstring>
+        <name>compute_mutexes_only</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="594" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="594" bodyend="670"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;</label>
+        <link refid="classaptk_1_1agnostic_1_1H2__Heuristic"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aptk::Heuristic&lt; State &gt;</label>
+        <link refid="classaptk_1_1Heuristic"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aptk::agnostic::H2_Heuristic&lt; Search_Model, cost_opt &gt;</label>
+        <link refid="classaptk_1_1agnostic_1_1H2__Heuristic"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_strips_model</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>m_already_updated</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aptk::STRIPS_Problem</label>
+        <link refid="classaptk_1_1STRIPS__Problem"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_succ_gen</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_succ_gen_v3</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_mutexes</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>m_succ_gen_v2</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>aptk::agnostic::Match_Tree</label>
+        <link refid="classaptk_1_1agnostic_1_1Match__Tree"/>
+      </node>
+      <node id="9">
+        <label>aptk::Bit_Array</label>
+        <link refid="classaptk_1_1Bit__Array"/>
+      </node>
+      <node id="8">
+        <label>aptk::Bit_Set</label>
+        <link refid="classaptk_1_1Bit__Set"/>
+        <childnode refid="9" relation="usage">
+          <edgelabel>m_fset</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aptk::Heuristic&lt; State &gt;</label>
+        <link refid="classaptk_1_1Heuristic"/>
+      </node>
+      <node id="5">
+        <label>aptk::WatchedLitSuccGen</label>
+        <link refid="classaptk_1_1WatchedLitSuccGen"/>
+      </node>
+      <node id="6">
+        <label>aptk::agnostic::Mutex_Set</label>
+        <link refid="classaptk_1_1agnostic_1_1Mutex__Set"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_model</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aptk::agnostic::Successor_Generator</label>
+        <link refid="classaptk_1_1agnostic_1_1Successor__Generator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="49" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="49" bodyend="684"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1afb48eaaf2be366676df38466292a153d" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>compute</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a8c477e288eeb8263e0ba9c79829eee90" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>compute_edeletes</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a6ec48ae3f82eea31ba9459dc514f8f79" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>compute_edeletes_aij</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a4d8048389740f7e3bc8c062a0d003f54" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>compute_mutexes_only</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a4c6af58205ecf3797ae894688452aca1" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>compute_mutexes_only</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1ad15d9a6a0ea6c4ba18648d923e529109" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>compute_mutexes_only_aij</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a9743b000119e9dda2bb2d9071ba75509" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>eval</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1aac99101b581323a5a78e807e28b6cf33" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>eval</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a5d3efb240d3e086ba8151198975a64b2" prot="public" virt="virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>eval</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a0561041da0371f200d1f4c4c320466d2" prot="public" virt="virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>eval</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a43550edd759f5be02f1e911d575dcc13" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>eval</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a2e07ffc16af4ca846f44571ff5f63ee6" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>eval</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a5ae14420fb9c237645fe25dbd70a46fd" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>extract_edeletes</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a6e1d530de9aa8e989a524927204c0c88" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>goal_mutex_closure</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a74d5e0d1e6efc3674780098af2fa293c" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>H2_Heuristic</name></member>
+      <member refid="classaptk_1_1Heuristic_1a86eeb6445f46d830c14b319b7e5a2fda" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>Heuristic</name></member>
+      <member refid="classaptk_1_1Heuristic_1a13825fc30fc7f2d3f4ba5da0b4ee32f7" prot="public" virt="virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>init</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a796f0d7d736fe5b7a72814e0c805c74e" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>initialize</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a3c7cb4d02960babad1e409323c7b902f" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>initialize</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a18291169963b45f601f56cd63ca4b396" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>initialize_ceffs_and_emtpy_precs</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1ac1fa744840ea7710adde58a37ccd6851" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>interferes</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1ade539a873fa8625888ddc7700463a2f5" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>is_mutex</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a3b7cb5f7a860e7587d22753fb3191e73" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>is_mutex</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1aadb1ce3503329f4ac05b2718156688cb" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>m_already_updated</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a335f429d0b3ead4c98cff97c13c925fa" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>m_interfering_ops</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a3e10982988f7c476985794a9c8829f75" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>m_op_values</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1aeb8296555cd8b5297807d2610f793a11" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>m_relevant_actions</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1afc0324373a1575ab1df4fc0945cb0b01" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>m_strips_model</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a9b1a7845217b4a4f8f01b8c14a8102c2" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>m_updated</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a1510b6d0ddbd4377731eb796a34804e8" prot="protected" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>m_values</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a9832932ddd4cd4ca759b377d4907a90c" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>op_value</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a86ce7ee5170f61e073656bc15ebfe582" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>op_value</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1af43a7c4e2a73ed3f9ea32ab3dd9c17cd" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>print_values</name></member>
+      <member refid="classaptk_1_1Heuristic_1a44636224e625098eafd41fe54990b9d1" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>problem</name></member>
+      <member refid="classaptk_1_1Heuristic_1a95f567fe7f990819bfe72d08758b195e" prot="public" virt="virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>reset</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a2896682786a258ebef4e2708e2ba2d48" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>value</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1aadcd6e5b3d439b7969847a5a27a54ede" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>value</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a18b0498f67afd65be33cc6507a16895c" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>value</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1a5b45b5620b3277200f0838e01b9da726" prot="public" virt="non-virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>value</name></member>
+      <member refid="classaptk_1_1agnostic_1_1H2__Heuristic_1afd5a209f244c4bbf8f881cdccbf389a2" prot="public" virt="virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>~H2_Heuristic</name></member>
+      <member refid="classaptk_1_1Heuristic_1a2b0f4d681e5a565be755a3d2a8c30608" prot="public" virt="virtual"><scope>aptk::agnostic::H2_Heuristic</scope><name>~Heuristic</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

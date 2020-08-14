@@ -1,0 +1,13 @@
+var searchData=
+[
+  ['cc_5faction_32',['CC_Action',['../classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action.html',1,'aptk::agnostic::CC_Problem']]],
+  ['cc_5fproblem_33',['CC_Problem',['../classaptk_1_1agnostic_1_1CC__Problem.html',1,'aptk::agnostic']]],
+  ['closed_5flist_34',['Closed_List',['../classaptk_1_1search_1_1Closed__List.html',1,'aptk::search']]],
+  ['closed_5flist_3c_20search_5fnode_20_3e_35',['Closed_List&lt; Search_Node &gt;',['../classaptk_1_1search_1_1Closed__List.html',1,'aptk::search']]],
+  ['compute_36',['compute',['../classaptk_1_1agnostic_1_1Novelty.html#ad858d20d402b76519ecad4c2eb3b1c76',1,'aptk::agnostic::Novelty::compute()'],['../classaptk_1_1agnostic_1_1Novelty__Partition.html#a8991e66d3e2f20ef74ffb0a0a38c384b',1,'aptk::agnostic::Novelty_Partition::compute(Search_Node *n, unsigned &amp;novelty)'],['../classaptk_1_1agnostic_1_1Novelty__Partition.html#a8991e66d3e2f20ef74ffb0a0a38c384b',1,'aptk::agnostic::Novelty_Partition::compute(Search_Node *n, unsigned &amp;novelty)'],['../classaptk_1_1agnostic_1_1Novelty__Partition__2.html#a0ef27760adf139e53a8e786c1e4651f8',1,'aptk::agnostic::Novelty_Partition_2::compute()']]],
+  ['compute_5flm_5fgraph_5fset_5fadditive_37',['compute_lm_graph_set_additive',['../classaptk_1_1agnostic_1_1Landmarks__Graph__Generator.html#a8b9689af22c4ea3e65371b936fac9d4e',1,'aptk::agnostic::Landmarks_Graph_Generator']]],
+  ['compute_5freachability_38',['compute_reachability',['../classaptk_1_1agnostic_1_1H1__Heuristic.html#a9e7adbf684f2a32aa6f046b0bdd82e84',1,'aptk::agnostic::H1_Heuristic']]],
+  ['conditional_5feffect_39',['Conditional_Effect',['../classaptk_1_1Conditional__Effect.html',1,'aptk']]],
+  ['cover_5ftuples_40',['cover_tuples',['../classaptk_1_1agnostic_1_1Novelty.html#a802943328adba90f7802c8e26e8f3730',1,'aptk::agnostic::Novelty::cover_tuples()'],['../classaptk_1_1agnostic_1_1Novelty__Partition.html#afeb10872393fa5c876d597109ffedcd2',1,'aptk::agnostic::Novelty_Partition::cover_tuples()']]],
+  ['cover_5ftuples_5fop_41',['cover_tuples_op',['../classaptk_1_1agnostic_1_1Novelty.html#aa37f0cdfdea73f4af665d33a77b96bc7',1,'aptk::agnostic::Novelty::cover_tuples_op()'],['../classaptk_1_1agnostic_1_1Novelty__Partition.html#ad4f1b95fa654e36736ad78bcdabccb78',1,'aptk::agnostic::Novelty_Partition::cover_tuples_op(Search_Node *n, unsigned arity)'],['../classaptk_1_1agnostic_1_1Novelty__Partition.html#ad4f1b95fa654e36736ad78bcdabccb78',1,'aptk::agnostic::Novelty_Partition::cover_tuples_op(Search_Node *n, unsigned arity)'],['../classaptk_1_1agnostic_1_1Novelty__Partition__2.html#a047fa7ba0718ac11fe16d7ba100446ed',1,'aptk::agnostic::Novelty_Partition_2::cover_tuples_op()']]]
+];

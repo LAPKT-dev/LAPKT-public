@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="ff__to__aptk_8hxx" kind="file" language="C++">
+    <compoundname>ff_to_aptk.hxx</compoundname>
+    <includes local="no">string</includes>
+    <includes refid="strips__prob_8hxx" local="no">strips_prob.hxx</includes>
+    <includedby refid="at__bfs__f-ffparser_2main_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/at_bfs_f-ffparser/main.cxx</includedby>
+    <includedby refid="bfs__f-ffparser_2main_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx</includedby>
+    <includedby refid="dfs__plus-ffparser_2main_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/dfs_plus-ffparser/main.cxx</includedby>
+    <includedby refid="ff-ffparser_2main_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/ff-ffparser/main.cxx</includedby>
+    <includedby refid="generic-best__first-ffparser_2main_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/main.cxx</includedby>
+    <includedby refid="iw_2main_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/iw/main.cxx</includedby>
+    <includedby refid="iw__plus-ffparser_2main_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/iw_plus-ffparser/main.cxx</includedby>
+    <includedby refid="siw-ffparser_2main_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/siw-ffparser/main.cxx</includedby>
+    <includedby refid="siw__plus-ffparser_2main_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/siw_plus-ffparser/main.cxx</includedby>
+    <includedby refid="siw__plus-then-bfs__f-ffparser_2main_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/siw_plus-then-bfs_f-ffparser/main.cxx</includedby>
+    <includedby refid="ff__to__aptk_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt/ff_to_aptk.cxx</includedby>
+    <includedby refid="py__ff__to__aptk_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt/py_ff_to_aptk.cxx</includedby>
+    <incdepgraph>
+      <node id="20">
+        <label>functional</label>
+      </node>
+      <node id="19">
+        <label>queue</label>
+      </node>
+      <node id="8">
+        <label>limits</label>
+      </node>
+      <node id="25">
+        <label>mutex_set.hxx</label>
+        <link refid="mutex__set_8hxx_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>cstdint</label>
+      </node>
+      <node id="22">
+        <label>match_tree.hxx</label>
+        <link refid="match__tree_8hxx_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>succ_gen.hxx</label>
+        <link refid="succ__gen_8hxx_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>watched_lit_succ_gen.hxx</label>
+        <link refid="watched__lit__succ__gen_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>cassert</label>
+      </node>
+      <node id="2">
+        <label>string</label>
+      </node>
+      <node id="4">
+        <label>map</label>
+      </node>
+      <node id="1">
+        <label>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt/ff_to_aptk.hxx</label>
+        <link refid="ff__to__aptk_8hxx"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>vector</label>
+      </node>
+      <node id="9">
+        <label>utility</label>
+      </node>
+      <node id="11">
+        <label>bit_array.hxx</label>
+        <link refid="bit__array_8hxx_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>bit_set.hxx</label>
+        <link refid="bit__set_8hxx_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>types.hxx</label>
+        <link refid="types_8hxx_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>iosfwd</label>
+      </node>
+      <node id="15">
+        <label>iostream</label>
+      </node>
+      <node id="17">
+        <label>deque</label>
+      </node>
+      <node id="3">
+        <label>strips_prob.hxx</label>
+        <link refid="strips__prob_8hxx_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>set</label>
+      </node>
+      <node id="24">
+        <label>algorithm</label>
+      </node>
+      <node id="12">
+        <label>cstring</label>
+      </node>
+      <node id="21">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespaceaptk">aptk</innernamespace>
+    <innernamespace refid="namespaceaptk_1_1FF__Parser">aptk::FF_Parser</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">Lightweight<sp/>Automated<sp/>Planning<sp/>Toolkit</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">Copyright<sp/>(C)<sp/>2012</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">Miquel<sp/>Ramirez<sp/>&lt;miquel.ramirez@rmit.edu.au&gt;</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">Nir<sp/>Lipovetzky<sp/>&lt;nirlipo@gmail.com&gt;</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"></highlight></codeline>
+<codeline lineno="7"><highlight class="comment">This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify</highlight></codeline>
+<codeline lineno="8"><highlight class="comment">it<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>GNU<sp/>General<sp/>Public<sp/>License<sp/>as<sp/>published<sp/>by</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">the<sp/>Free<sp/>Software<sp/>Foundation,<sp/>either<sp/>version<sp/>3<sp/>of<sp/>the<sp/>License,<sp/>or</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">(at<sp/>your<sp/>option)<sp/>any<sp/>later<sp/>version.</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"></highlight></codeline>
+<codeline lineno="12"><highlight class="comment">This<sp/>program<sp/>is<sp/>distributed<sp/>in<sp/>the<sp/>hope<sp/>that<sp/>it<sp/>will<sp/>be<sp/>useful,</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">but<sp/>WITHOUT<sp/>ANY<sp/>WARRANTY;<sp/>without<sp/>even<sp/>the<sp/>implied<sp/>warranty<sp/>of</highlight></codeline>
+<codeline lineno="14"><highlight class="comment">MERCHANTABILITY<sp/>or<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE.<sp/><sp/>See<sp/>the</highlight></codeline>
+<codeline lineno="15"><highlight class="comment">GNU<sp/>General<sp/>Public<sp/>License<sp/>for<sp/>more<sp/>details.</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"></highlight></codeline>
+<codeline lineno="17"><highlight class="comment">You<sp/>should<sp/>have<sp/>received<sp/>a<sp/>copy<sp/>of<sp/>the<sp/>GNU<sp/>General<sp/>Public<sp/>License</highlight></codeline>
+<codeline lineno="18"><highlight class="comment">along<sp/>with<sp/>this<sp/>program.<sp/><sp/>If<sp/>not,<sp/>see<sp/>&lt;http://www.gnu.org/licenses/&gt;.</highlight></codeline>
+<codeline lineno="19"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__FF_PDDL_TO_STRIPS__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>__FF_PDDL_TO_STRIPS__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;strips_prob.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">aptk</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">FF_Parser</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>get_problem_description(<sp/><sp/><sp/>std::string<sp/>pddl_domain_path,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>pddl_problem_path,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STRIPS_Problem&amp;<sp/>strips_problem,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ignore_action_costs<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>get_detailed_fluent_names<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>flag_py_interface<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>FF_PDDL_To_STRIPS.hxx</highlight></codeline>
+    </programlisting>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt/ff_to_aptk.hxx"/>
+  </compounddef>
+</doxygen>

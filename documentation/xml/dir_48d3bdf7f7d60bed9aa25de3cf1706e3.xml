@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_48d3bdf7f7d60bed9aa25de3cf1706e3" kind="dir">
+    <compoundname>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/novelty</compoundname>
+    <innerfile refid="node__novelty__spaces_8hxx">node_novelty_spaces.hxx</innerfile>
+    <innerfile refid="novelty_8hxx">novelty.hxx</innerfile>
+    <innerfile refid="novelty__partition_8hxx">novelty_partition.hxx</innerfile>
+    <innerfile refid="novelty__partition__1_8hxx">novelty_partition_1.hxx</innerfile>
+    <innerfile refid="novelty__partition__2_8hxx">novelty_partition_2.hxx</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/novelty/"/>
+  </compounddef>
+</doxygen>

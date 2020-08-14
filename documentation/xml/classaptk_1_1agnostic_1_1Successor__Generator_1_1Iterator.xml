@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator" kind="class" language="C++" prot="public">
+    <compoundname>aptk::agnostic::Successor_Generator::Iterator</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a07cb110fa8e93a586f6699a9bcc4f1ae" prot="private" static="no" mutable="no">
+        <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+        <definition>const State&amp; aptk::agnostic::Successor_Generator::Iterator::m_state</definition>
+        <argsstring></argsstring>
+        <name>m_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="87" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1ae32b515d7a5c1528900508cf3375b364" prot="private" static="no" mutable="no">
+        <type>const std::vector&lt; Node * &gt; &amp;</type>
+        <definition>const std::vector&lt;Node*&gt;&amp; aptk::agnostic::Successor_Generator::Iterator::m_nodes</definition>
+        <argsstring></argsstring>
+        <name>m_nodes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="88" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1ae4a194d3fbe3630fe0ac692ab50257df" prot="private" static="no" mutable="no">
+        <type>const Node *</type>
+        <definition>const Node* aptk::agnostic::Successor_Generator::Iterator::m_current_node</definition>
+        <argsstring></argsstring>
+        <name>m_current_node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="89" column="11" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a2786f9704823b9be8eaad48681568884" prot="private" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::agnostic::Successor_Generator::Iterator::m_index</definition>
+        <argsstring></argsstring>
+        <name>m_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="90" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1af6361dad7d4bdef2c4380283e2eb03a4" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; bool &gt;</type>
+        <definition>std::vector&lt;bool&gt; aptk::agnostic::Successor_Generator::Iterator::m_open</definition>
+        <argsstring></argsstring>
+        <name>m_open</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="92" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1aa3cd7f386229d017e5643fe4f0b10f8c" prot="private" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::agnostic::Successor_Generator::Iterator::m_open_index</definition>
+        <argsstring></argsstring>
+        <name>m_open_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="93" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a80b25ff1221535836e1fec6f46ec16c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Successor_Generator::Iterator::Iterator</definition>
+        <argsstring>(const State &amp;s, const std::vector&lt; Node * &gt; &amp;nodes)</argsstring>
+        <name>Iterator</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; Node * &gt; &amp;</type>
+          <declname>nodes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="79" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="185" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a990bd2597f04926e173ae3d569728bd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Successor_Generator::Iterator::~Iterator</definition>
+        <argsstring>()</argsstring>
+        <name>~Iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="80" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="190" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a402482e1fa3ec1c13a08129d7fda5026" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int aptk::agnostic::Successor_Generator::Iterator::first</definition>
+        <argsstring>()</argsstring>
+        <name>first</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="82" column="4" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="193" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1af6d083e4e93ce13a6805dc582be45001" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int aptk::agnostic::Successor_Generator::Iterator::advance</definition>
+        <argsstring>()</argsstring>
+        <name>advance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="83" column="4" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="200" bodyend="226"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a6e8a0a5a12fcfffb41ffccdfb11f25f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int aptk::agnostic::Successor_Generator::Iterator::next</definition>
+        <argsstring>()</argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="84" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="228" bodyend="233"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a721acc0da63342965b6062ffb5fc4c16" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int aptk::agnostic::Successor_Generator::Iterator::last</definition>
+        <argsstring>()</argsstring>
+        <name>last</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="85" column="4" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="85" bodyend="85"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="77" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="77" bodyend="94"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1af6d083e4e93ce13a6805dc582be45001" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>advance</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a402482e1fa3ec1c13a08129d7fda5026" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>first</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a80b25ff1221535836e1fec6f46ec16c4" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>Iterator</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a721acc0da63342965b6062ffb5fc4c16" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>last</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1ae4a194d3fbe3630fe0ac692ab50257df" prot="private" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>m_current_node</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a2786f9704823b9be8eaad48681568884" prot="private" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>m_index</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1ae32b515d7a5c1528900508cf3375b364" prot="private" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>m_nodes</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1af6361dad7d4bdef2c4380283e2eb03a4" prot="private" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>m_open</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1aa3cd7f386229d017e5643fe4f0b10f8c" prot="private" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>m_open_index</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a07cb110fa8e93a586f6699a9bcc4f1ae" prot="private" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>m_state</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a6e8a0a5a12fcfffb41ffccdfb11f25f2" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>next</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator_1a990bd2597f04926e173ae3d569728bd1" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator::Iterator</scope><name>~Iterator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

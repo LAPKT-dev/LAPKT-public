@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1search_1_1Node__Comparer__HA" kind="class" language="C++" prot="public">
+    <compoundname>aptk::search::Node_Comparer_HA</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename Node</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1search_1_1Node__Comparer__HA_1ad5f10e68ef26d321470689fdd8c0e87a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::search::Node_Comparer_HA&lt; Node &gt;::operator()</definition>
+        <argsstring>(Node *a, Node *b) const</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>Node *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Node *</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_gbfs.hxx" line="18" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_gbfs.hxx" bodystart="18" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1Node__Comparer__HA_1ad5f10e68ef26d321470689fdd8c0e87a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::search::Node_Comparer_HA&lt; Node &gt;::operator()</definition>
+        <argsstring>(Node *a, Node *b) const</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>Node *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Node *</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/ff_gbfs.hxx" line="18" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/ff_gbfs.hxx" bodystart="18" bodyend="27"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_gbfs.hxx" line="15" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_gbfs.hxx" bodystart="16" bodyend="28"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1search_1_1Node__Comparer__HA_1ad5f10e68ef26d321470689fdd8c0e87a" prot="public" virt="non-virtual"><scope>aptk::search::Node_Comparer_HA</scope><name>operator()</name></member>
+      <member refid="classaptk_1_1search_1_1Node__Comparer__HA_1ad5f10e68ef26d321470689fdd8c0e87a" prot="public" virt="non-virtual"><scope>aptk::search::Node_Comparer_HA</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

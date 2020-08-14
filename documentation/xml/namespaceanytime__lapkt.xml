@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespaceanytime__lapkt" kind="namespace" language="Python">
+    <compoundname>anytime_lapkt</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="anytime__lapkt_8py_1a80bc7189de08331b0f19d12f56ae5260" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def anytime_lapkt.main</definition>
+        <argsstring>(domain_file, problem_file, plan_file)</argsstring>
+        <name>main</name>
+        <param>
+          <type>domain_file</type>
+          <defname>domain_file</defname>
+        </param>
+        <param>
+          <type>problem_file</type>
+          <defname>problem_file</defname>
+        </param>
+        <param>
+          <type>plan_file</type>
+          <defname>plan_file</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/anytime_lapkt/anytime_lapkt.py" line="9" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/anytime_lapkt/anytime_lapkt.py" bodystart="9" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="anytime__lapkt_8py_1a8a3324b946cae536a336897b7083ddc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def anytime_lapkt.debug</definition>
+        <argsstring>()</argsstring>
+        <name>debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/anytime_lapkt/anytime_lapkt.py" line="49" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/anytime_lapkt/anytime_lapkt.py" bodystart="49" bodyend="62"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/anytime_lapkt/anytime_lapkt.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

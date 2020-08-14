@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1Sliding__Window" kind="class" language="C++" prot="public">
+    <compoundname>aptk::Sliding_Window</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classaptk_1_1Sliding__Window_1ad1adf2f0f951b82808296a3deafab116" prot="private" static="no">
+        <type>std::vector&lt; T &gt;</type>
+        <definition>typedef std::vector&lt;T&gt; aptk::Sliding_Window&lt; T &gt;::Container</definition>
+        <argsstring></argsstring>
+        <name>Container</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="33" column="20" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1Sliding__Window_1a416b341cef5a2dc6dc60265023d75e65" prot="protected" static="no" mutable="no">
+        <type>Container</type>
+        <definition>Container aptk::Sliding_Window&lt; T &gt;::m_buffer</definition>
+        <argsstring></argsstring>
+        <name>m_buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="87" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Sliding__Window_1a7fe9c15559fd4156df14d9862c45ff21" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double aptk::Sliding_Window&lt; T &gt;::m_sum</definition>
+        <argsstring></argsstring>
+        <name>m_sum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="88" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Sliding__Window_1ab0769ec7f0989b5f570cee6fb642d3c6" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Sliding_Window&lt; T &gt;::m_oldest</definition>
+        <argsstring></argsstring>
+        <name>m_oldest</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="89" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Sliding__Window_1a40efe94ea73305b0474e692db80ce084" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Sliding_Window&lt; T &gt;::m_count</definition>
+        <argsstring></argsstring>
+        <name>m_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="90" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Sliding__Window_1a35626d86634f79c34bd7680beb5fe399" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Sliding_Window&lt; T &gt;::m_threshold</definition>
+        <argsstring></argsstring>
+        <name>m_threshold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="91" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Sliding__Window_1afe75f6ef7373ae0e3e9c8ae3e3fe78d4" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool aptk::Sliding_Window&lt; T &gt;::m_settled</definition>
+        <argsstring></argsstring>
+        <name>m_settled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="92" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Sliding__Window_1a23c91fb8c8b19288fbb05f6521953869" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Sliding_Window&lt; T &gt;::m_total</definition>
+        <argsstring></argsstring>
+        <name>m_total</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="93" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1Sliding__Window_1a6f2b817219fbb636bc81931e5fd7f90c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Sliding_Window&lt; T &gt;::Sliding_Window</definition>
+        <argsstring>(unsigned N, unsigned thr)</argsstring>
+        <name>Sliding_Window</name>
+        <param>
+          <type>unsigned</type>
+          <declname>N</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>thr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="37" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="37" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Sliding__Window_1a6cf2eb2d77990a4a15dd3a72269da929" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Sliding_Window&lt; T &gt;::~Sliding_Window</definition>
+        <argsstring>()</argsstring>
+        <name>~Sliding_Window</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="42" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="42" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Sliding__Window_1a2b56b6632a1b31429fbbbd9f45a52dcf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Sliding_Window&lt; T &gt;::push</definition>
+        <argsstring>(T v)</argsstring>
+        <name>push</name>
+        <param>
+          <type>T</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="45" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="45" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Sliding__Window_1a8269049392d4724267ac77c0bada0d4b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::Sliding_Window&lt; T &gt;::settled</definition>
+        <argsstring>() const</argsstring>
+        <name>settled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="61" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="61" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Sliding__Window_1ab1d5ba1c998d2fbdcafecb40a3ef4faa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Sliding_Window&lt; T &gt;::set_settled</definition>
+        <argsstring>()</argsstring>
+        <name>set_settled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="65" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="65" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Sliding__Window_1a3f34d2600f7b31e4fbb0894c55fc23ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Sliding_Window&lt; T &gt;::unset_settled</definition>
+        <argsstring>()</argsstring>
+        <name>unset_settled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="69" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="69" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Sliding__Window_1a62648b3367cc3cf8ccc713c6c2a4b7ef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Sliding_Window&lt; T &gt;::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="73" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="73" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Sliding__Window_1a573d378695bf2d119531e258fe198e01" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double aptk::Sliding_Window&lt; T &gt;::get_avg</definition>
+        <argsstring>() const</argsstring>
+        <name>get_avg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="81" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="81" bodyend="83"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" line="31" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/sliding_window.hxx" bodystart="31" bodyend="94"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1Sliding__Window_1ad1adf2f0f951b82808296a3deafab116" prot="private" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>Container</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a573d378695bf2d119531e258fe198e01" prot="public" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>get_avg</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a416b341cef5a2dc6dc60265023d75e65" prot="protected" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>m_buffer</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a40efe94ea73305b0474e692db80ce084" prot="protected" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>m_count</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1ab0769ec7f0989b5f570cee6fb642d3c6" prot="protected" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>m_oldest</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1afe75f6ef7373ae0e3e9c8ae3e3fe78d4" prot="protected" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>m_settled</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a7fe9c15559fd4156df14d9862c45ff21" prot="protected" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>m_sum</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a35626d86634f79c34bd7680beb5fe399" prot="protected" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>m_threshold</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a23c91fb8c8b19288fbb05f6521953869" prot="protected" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>m_total</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a2b56b6632a1b31429fbbbd9f45a52dcf" prot="public" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>push</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a62648b3367cc3cf8ccc713c6c2a4b7ef" prot="public" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>reset</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1ab1d5ba1c998d2fbdcafecb40a3ef4faa" prot="public" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>set_settled</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a8269049392d4724267ac77c0bada0d4b" prot="public" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>settled</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a6f2b817219fbb636bc81931e5fd7f90c" prot="public" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>Sliding_Window</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a3f34d2600f7b31e4fbb0894c55fc23ed" prot="public" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>unset_settled</name></member>
+      <member refid="classaptk_1_1Sliding__Window_1a6cf2eb2d77990a4a15dd3a72269da929" prot="public" virt="non-virtual"><scope>aptk::Sliding_Window</scope><name>~Sliding_Window</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

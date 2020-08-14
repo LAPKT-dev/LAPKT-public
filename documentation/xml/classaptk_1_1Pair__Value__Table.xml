@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1Pair__Value__Table" kind="class" language="C++" prot="public">
+    <compoundname>aptk::Pair_Value_Table</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::map&lt; Fluent_Pair, unsigned &gt;</basecompoundref>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classaptk_1_1Pair__Value__Table_1aa9dfc23aa7bf543b1975100ad26aa7c7" prot="private" static="no">
+        <type>std::map&lt; Fluent_Pair, unsigned &gt;::iterator</type>
+        <definition>typedef std::map&lt; Fluent_Pair, unsigned &gt;::iterator aptk::Pair_Value_Table::pv_iterator</definition>
+        <argsstring></argsstring>
+        <name>pv_iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/types.hxx" line="69" column="29" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/types.hxx" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1Pair__Value__Table_1a18ec218fc4243f9ec22bfdb2b8ec9ec0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Pair_Value_Table::get_value</definition>
+        <argsstring>(unsigned p, unsigned q)</argsstring>
+        <name>get_value</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/types.hxx" line="72" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/types.hxx" bodystart="72" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Pair__Value__Table_1afb7e29e03632f770737875432740fb15" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Pair_Value_Table::update_value</definition>
+        <argsstring>(unsigned p, unsigned q, unsigned value)</argsstring>
+        <name>update_value</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>q</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/types.hxx" line="79" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/types.hxx" bodystart="79" bodyend="89"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aptk::Pair_Value_Table</label>
+        <link refid="classaptk_1_1Pair__Value__Table"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::map&lt; Fluent_Pair, unsigned &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aptk::Pair_Value_Table</label>
+        <link refid="classaptk_1_1Pair__Value__Table"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::map&lt; Fluent_Pair, unsigned &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/types.hxx" line="67" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/types.hxx" bodystart="68" bodyend="90"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1Pair__Value__Table_1a18ec218fc4243f9ec22bfdb2b8ec9ec0" prot="public" virt="non-virtual"><scope>aptk::Pair_Value_Table</scope><name>get_value</name></member>
+      <member refid="classaptk_1_1Pair__Value__Table_1aa9dfc23aa7bf543b1975100ad26aa7c7" prot="private" virt="non-virtual"><scope>aptk::Pair_Value_Table</scope><name>pv_iterator</name></member>
+      <member refid="classaptk_1_1Pair__Value__Table_1afb7e29e03632f770737875432740fb15" prot="public" virt="non-virtual"><scope>aptk::Pair_Value_Table</scope><name>update_value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

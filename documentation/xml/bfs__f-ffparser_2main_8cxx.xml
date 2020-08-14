@@ -1,0 +1,1270 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="bfs__f-ffparser_2main_8cxx" kind="file" language="C++">
+    <compoundname>main.cxx</compoundname>
+    <includes local="no">iostream</includes>
+    <includes local="no">fstream</includes>
+    <includes refid="ff__to__aptk_8hxx" local="no">ff_to_aptk.hxx</includes>
+    <includes refid="strips__prob_8hxx" local="no">strips_prob.hxx</includes>
+    <includes refid="fluent_8hxx" local="no">fluent.hxx</includes>
+    <includes refid="action_8hxx" local="no">action.hxx</includes>
+    <includes refid="cond__eff_8hxx" local="no">cond_eff.hxx</includes>
+    <includes refid="strips__state_8hxx" local="no">strips_state.hxx</includes>
+    <includes refid="fwd__search__prob_8hxx" local="no">fwd_search_prob.hxx</includes>
+    <includes refid="novelty__partition_8hxx" local="no">novelty_partition.hxx</includes>
+    <includes refid="landmark__graph_8hxx" local="no">landmark_graph.hxx</includes>
+    <includes refid="landmark__graph__generator_8hxx" local="no">landmark_graph_generator.hxx</includes>
+    <includes refid="landmark__graph__manager_8hxx" local="no">landmark_graph_manager.hxx</includes>
+    <includes refid="landmark__count_8hxx" local="no">landmark_count.hxx</includes>
+    <includes refid="h__2_8hxx" local="no">h_2.hxx</includes>
+    <includes refid="h__1_8hxx" local="no">h_1.hxx</includes>
+    <includes refid="layered__h__max_8hxx" local="no">layered_h_max.hxx</includes>
+    <includes refid="rp__heuristic_8hxx" local="no">rp_heuristic.hxx</includes>
+    <includes local="no">ff_rp_heuristic.hxx</includes>
+    <includes refid="open__list_8hxx" local="no">open_list.hxx</includes>
+    <includes refid="at__gbfs__3h_8hxx" local="no">at_gbfs_3h.hxx</includes>
+    <includes refid="string__conversions_8hxx" local="no">string_conversions.hxx</includes>
+    <includes local="no">boost/program_options.hpp</includes>
+    <incdepgraph>
+      <node id="47">
+        <label>list</label>
+      </node>
+      <node id="53">
+        <label>at_gbfs_3h.hxx</label>
+        <link refid="at__gbfs__3h_8hxx_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>iomanip</label>
+      </node>
+      <node id="22">
+        <label>functional</label>
+      </node>
+      <node id="21">
+        <label>queue</label>
+      </node>
+      <node id="11">
+        <label>limits</label>
+      </node>
+      <node id="27">
+        <label>mutex_set.hxx</label>
+        <link refid="mutex__set_8hxx_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>sys/times.h</label>
+      </node>
+      <node id="33">
+        <label>search_prob.hxx</label>
+        <link refid="search__prob_8hxx_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>fluent.hxx</label>
+        <link refid="fluent_8hxx_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>cstdint</label>
+      </node>
+      <node id="24">
+        <label>match_tree.hxx</label>
+        <link refid="match__tree_8hxx_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>hash_table.hxx</label>
+        <link refid="hash__table_8hxx_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>landmark_graph_manager.hxx</label>
+        <link refid="landmark__graph__manager_8hxx_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>succ_gen.hxx</label>
+        <link refid="succ__gen_8hxx_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>watched_lit_succ_gen.hxx</label>
+        <link refid="watched__lit__succ__gen_8hxx_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>cassert</label>
+      </node>
+      <node id="52">
+        <label>boost/heap/fibonacci_heap.hpp</label>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+      <node id="7">
+        <label>map</label>
+      </node>
+      <node id="32">
+        <label>fwd_search_prob.hxx</label>
+        <link refid="fwd__search__prob_8hxx_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>action.hxx</label>
+        <link refid="action_8hxx_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>fstream</label>
+      </node>
+      <node id="66">
+        <label>boost/program_options.hpp</label>
+      </node>
+      <node id="39">
+        <label>landmark_graph_generator.hxx</label>
+        <link refid="landmark__graph__generator_8hxx_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>boost/circular_buffer.hpp</label>
+      </node>
+      <node id="59">
+        <label>closed_list.hxx</label>
+        <link refid="closed__list_8hxx_source"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>cond_eff.hxx</label>
+        <link refid="cond__eff_8hxx_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>sys/resource.h</label>
+      </node>
+      <node id="35">
+        <label>heuristic.hxx</label>
+        <link refid="heuristic_8hxx_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>jenkins_12bit.hxx</label>
+        <link refid="jenkins__12bit_8hxx_source"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ff_to_aptk.hxx</label>
+        <link refid="ff__to__aptk_8hxx_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>unistd.h</label>
+      </node>
+      <node id="45">
+        <label>stack</label>
+      </node>
+      <node id="10">
+        <label>vector</label>
+      </node>
+      <node id="41">
+        <label>h_1.hxx</label>
+        <link refid="h__1_8hxx_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>layered_h_max.hxx</label>
+        <link refid="layered__h__max_8hxx_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>utility</label>
+      </node>
+      <node id="65">
+        <label>sstream</label>
+      </node>
+      <node id="14">
+        <label>bit_array.hxx</label>
+        <link refid="bit__array_8hxx_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>landmark_graph.hxx</label>
+        <link refid="landmark__graph_8hxx_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>resources_control.hxx</label>
+        <link refid="resources__control_8hxx_source"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>math.h</label>
+      </node>
+      <node id="13">
+        <label>bit_set.hxx</label>
+        <link refid="bit__set_8hxx_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>types.hxx</label>
+        <link refid="types_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>iosfwd</label>
+      </node>
+      <node id="63">
+        <label>cstdlib</label>
+      </node>
+      <node id="2">
+        <label>iostream</label>
+      </node>
+      <node id="34">
+        <label>novelty_partition.hxx</label>
+        <link refid="novelty__partition_8hxx_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>landmark_count.hxx</label>
+        <link refid="landmark__count_8hxx_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>deque</label>
+      </node>
+      <node id="60">
+        <label>unordered_map</label>
+      </node>
+      <node id="49">
+        <label>rp_heuristic.hxx</label>
+        <link refid="rp__heuristic_8hxx_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>reachability.hxx</label>
+        <link refid="reachability_8hxx_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>ext_math.hxx</label>
+        <link refid="ext__math_8hxx_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>open_list.hxx</label>
+        <link refid="open__list_8hxx_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>ff_rp_heuristic.hxx</label>
+      </node>
+      <node id="6">
+        <label>strips_prob.hxx</label>
+        <link refid="strips__prob_8hxx_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>set</label>
+      </node>
+      <node id="26">
+        <label>algorithm</label>
+      </node>
+      <node id="15">
+        <label>cstring</label>
+      </node>
+      <node id="46">
+        <label>h_2.hxx</label>
+        <link refid="h__2_8hxx_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>strips_state.hxx</label>
+        <link refid="strips__state_8hxx_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>string_conversions.hxx</label>
+        <link refid="string__conversions_8hxx_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>memory</label>
+      </node>
+      <node id="1">
+        <label>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx</label>
+        <link refid="bfs__f-ffparser_2main_8cxx"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1ad8a6f0bd1bfc313443cccbbeff126314" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1H2__Heuristic" kindref="compound">H2_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref> &gt;</type>
+        <definition>typedef H2_Heuristic&lt;Fwd_Search_Problem&gt; H2_Fwd</definition>
+        <argsstring></argsstring>
+        <name>H2_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="79" column="47" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1a84f7592c0dd1a46f42b4dec3f3b13c7a" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Generator" kindref="compound">Landmarks_Graph_Generator</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref> &gt;</type>
+        <definition>typedef Landmarks_Graph_Generator&lt;Fwd_Search_Problem&gt; Gen_Lms_Fwd</definition>
+        <argsstring></argsstring>
+        <name>Gen_Lms_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="80" column="47" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1a27f6e9b85dffe056281089338da9ac54" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">Landmarks_Count_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref> &gt;</type>
+        <definition>typedef Landmarks_Count_Heuristic&lt;Fwd_Search_Problem&gt; H_Lmcount_Fwd</definition>
+        <argsstring></argsstring>
+        <name>H_Lmcount_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="81" column="47" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1ad18cd26152c0b7422ecccd6476d53ac7" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" kindref="compound">Landmarks_Graph_Manager</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref> &gt;</type>
+        <definition>typedef Landmarks_Graph_Manager&lt;Fwd_Search_Problem&gt; Land_Graph_Man</definition>
+        <argsstring></argsstring>
+        <name>Land_Graph_Man</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="82" column="47" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1aa2303733f6e4f0e7775ee0c6aaff2f91" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1Node" kindref="compound">aptk::search::gbfs_3h::Node</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1State" kindref="compound">aptk::State</ref> &gt;</type>
+        <definition>typedef aptk::search::gbfs_3h::Node&lt; Fwd_Search_Problem, aptk::State &gt; Search_Node</definition>
+        <argsstring></argsstring>
+        <name>Search_Node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="87" column="35" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1a1d6356ed16a0d53791f518314eb02c5b" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">Novelty_Partition</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1search_1_1gbfs__3h_1_1Node" kindref="compound">Search_Node</ref> &gt;</type>
+        <definition>typedef Novelty_Partition&lt;Fwd_Search_Problem, Search_Node&gt; H_Novel_Fwd</definition>
+        <argsstring></argsstring>
+        <name>H_Novel_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="89" column="47" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1aa39518dd301b1c8c4c13ec22fc628555" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1Node__Comparer__3H" kindref="compound">Node_Comparer_3H</ref>&lt; <ref refid="classaptk_1_1search_1_1gbfs__3h_1_1Node" kindref="compound">Search_Node</ref> &gt;</type>
+        <definition>typedef Node_Comparer_3H&lt; Search_Node &gt; Tie_Breaking_Algorithm</definition>
+        <argsstring></argsstring>
+        <name>Tie_Breaking_Algorithm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="93" column="24" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1aecd3cd638d1d02720b9ba10829aa6508" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">Open_List</ref>&lt; <ref refid="classaptk_1_1search_1_1Node__Comparer__3H" kindref="compound">Tie_Breaking_Algorithm</ref>, <ref refid="classaptk_1_1search_1_1gbfs__3h_1_1Node" kindref="compound">Search_Node</ref> &gt;</type>
+        <definition>typedef Open_List&lt; Tie_Breaking_Algorithm, Search_Node &gt; BFS_Open_List</definition>
+        <argsstring></argsstring>
+        <name>BFS_Open_List</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="96" column="17" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1a99a5f596999cb2f3e37f4dd1f69f7fc9" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H1_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1H__Add__Evaluation__Function" kindref="compound">H_Add_Evaluation_Function</ref> &gt;</type>
+        <definition>typedef H1_Heuristic&lt;Fwd_Search_Problem, H_Add_Evaluation_Function&gt; H_Add_Fwd</definition>
+        <argsstring></argsstring>
+        <name>H_Add_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="99" column="20" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1aacad699a82f234a2f21837aec324098e" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">Relaxed_Plan_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H_Add_Fwd</ref> &gt;</type>
+        <definition>typedef Relaxed_Plan_Heuristic&lt; Fwd_Search_Problem, H_Add_Fwd &gt; H_Add_Rp_Fwd</definition>
+        <argsstring></argsstring>
+        <name>H_Add_Rp_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="100" column="30" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1a628600b296a42c0d3627843885b653dc" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Layered__H__Max" kindref="compound">Layered_H_Max</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref> &gt;</type>
+        <definition>typedef Layered_H_Max&lt; Fwd_Search_Problem &gt; Alt_H_Max</definition>
+        <argsstring></argsstring>
+        <name>Alt_H_Max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="102" column="36" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1a5a596336b469b124cc65906fb2370813" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1FF__Relaxed__Plan__Heuristic" kindref="compound">FF_Relaxed_Plan_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1Layered__H__Max" kindref="compound">Alt_H_Max</ref>, unsigned &gt;</type>
+        <definition>typedef FF_Relaxed_Plan_Heuristic&lt; Fwd_Search_Problem, Alt_H_Max, unsigned &gt; Classic_FF_H_Max</definition>
+        <argsstring></argsstring>
+        <name>Classic_FF_H_Max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="103" column="47" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1af3279da5da6010d9bce840520a86a4e4" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1AT__GBFS__3H" kindref="compound">AT_GBFS_3H</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">H_Novel_Fwd</ref>, <ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">H_Lmcount_Fwd</ref>, <ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">H_Add_Rp_Fwd</ref>, <ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">BFS_Open_List</ref> &gt;</type>
+        <definition>typedef AT_GBFS_3H&lt; Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List &gt; Anytime_GBFS_H_Add_Rp_Fwd</definition>
+        <argsstring></argsstring>
+        <name>Anytime_GBFS_H_Add_Rp_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="106" column="22" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfs__f-ffparser_2main_8cxx_1ac880119b2b9cec0e15fea530b8e679c7" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1AT__GBFS__3H" kindref="compound">AT_GBFS_3H</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">H_Novel_Fwd</ref>, <ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">H_Lmcount_Fwd</ref>, <ref refid="classaptk_1_1agnostic_1_1FF__Relaxed__Plan__Heuristic" kindref="compound">Classic_FF_H_Max</ref>, <ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">BFS_Open_List</ref> &gt;</type>
+        <definition>typedef AT_GBFS_3H&lt; Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, Classic_FF_H_Max, BFS_Open_List &gt; Anytime_GBFS_FF_Rp_Fwd</definition>
+        <argsstring></argsstring>
+        <name>Anytime_GBFS_FF_Rp_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="107" column="22" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="bfs__f-ffparser_2main_8cxx_1aeb912c706b7f203878d4d505cb107117" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Search_Engine</type>
+          </param>
+        </templateparamlist>
+        <type>float</type>
+        <definition>float do_search</definition>
+        <argsstring>(Search_Engine &amp;engine, STRIPS_Problem &amp;plan_prob, float max_novelty, std::ofstream &amp;plan_stream)</argsstring>
+        <name>do_search</name>
+        <param>
+          <type>Search_Engine &amp;</type>
+          <declname>engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+          <declname>plan_prob</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>max_novelty</declname>
+        </param>
+        <param>
+          <type>std::ofstream &amp;</type>
+          <declname>plan_stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="112" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="112" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="bfs__f-ffparser_2main_8cxx_1a7a3c155521f22e294f3a071859403bfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void process_command_line_options</definition>
+        <argsstring>(int ac, char **av, po::variables_map &amp;vars)</argsstring>
+        <name>process_command_line_options</name>
+        <param>
+          <type>int</type>
+          <declname>ac</declname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>av</declname>
+        </param>
+        <param>
+          <type>po::variables_map &amp;</type>
+          <declname>vars</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="160" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="160" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="bfs__f-ffparser_2main_8cxx_1aac39cae05bbd5b4c95bdb321013b1676" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void report_no_solution</definition>
+        <argsstring>(std::string reason, std::ofstream &amp;plan_stream)</argsstring>
+        <name>report_no_solution</name>
+        <param>
+          <type>std::string</type>
+          <declname>reason</declname>
+        </param>
+        <param>
+          <type>std::ofstream &amp;</type>
+          <declname>plan_stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="195" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="195" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="bfs__f-ffparser_2main_8cxx_1a3c04138a5bfe5d72780bb7e82a18e627" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(int argc, char **argv)</argsstring>
+        <name>main</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>argv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" line="201" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx" bodystart="201" bodyend="312"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">Lightweight<sp/>Automated<sp/>Planning<sp/>Toolkit</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">Copyright<sp/>(C)<sp/>2012</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">Miquel<sp/>Ramirez<sp/>&lt;miquel.ramirez@rmit.edu.au&gt;</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">Nir<sp/>Lipovetzky<sp/>&lt;nirlipo@gmail.com&gt;</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"></highlight></codeline>
+<codeline lineno="7"><highlight class="comment">This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify</highlight></codeline>
+<codeline lineno="8"><highlight class="comment">it<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>GNU<sp/>General<sp/>Public<sp/>License<sp/>as<sp/>published<sp/>by</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">the<sp/>Free<sp/>Software<sp/>Foundation,<sp/>either<sp/>version<sp/>3<sp/>of<sp/>the<sp/>License,<sp/>or</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">(at<sp/>your<sp/>option)<sp/>any<sp/>later<sp/>version.</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"></highlight></codeline>
+<codeline lineno="12"><highlight class="comment">This<sp/>program<sp/>is<sp/>distributed<sp/>in<sp/>the<sp/>hope<sp/>that<sp/>it<sp/>will<sp/>be<sp/>useful,</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">but<sp/>WITHOUT<sp/>ANY<sp/>WARRANTY;<sp/>without<sp/>even<sp/>the<sp/>implied<sp/>warranty<sp/>of</highlight></codeline>
+<codeline lineno="14"><highlight class="comment">MERCHANTABILITY<sp/>or<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE.<sp/><sp/>See<sp/>the</highlight></codeline>
+<codeline lineno="15"><highlight class="comment">GNU<sp/>General<sp/>Public<sp/>License<sp/>for<sp/>more<sp/>details.</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"></highlight></codeline>
+<codeline lineno="17"><highlight class="comment">You<sp/>should<sp/>have<sp/>received<sp/>a<sp/>copy<sp/>of<sp/>the<sp/>GNU<sp/>General<sp/>Public<sp/>License</highlight></codeline>
+<codeline lineno="18"><highlight class="comment">along<sp/>with<sp/>this<sp/>program.<sp/><sp/>If<sp/>not,<sp/>see<sp/>&lt;http://www.gnu.org/licenses/&gt;.</highlight></codeline>
+<codeline lineno="19"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/>MRJ:<sp/>In<sp/>this<sp/>example,<sp/>we&apos;ll<sp/>show<sp/>how<sp/>to<sp/>create<sp/>a<sp/>search<sp/>problem<sp/>out<sp/>of</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//<sp/>a<sp/>planning<sp/>problem<sp/>we<sp/>acquired<sp/>from<sp/>some<sp/>external<sp/>source</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ff_to_aptk.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;strips_prob.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fluent.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;action.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cond_eff.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;strips_state.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fwd_search_prob.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;novelty_partition.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;landmark_graph.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;landmark_graph_generator.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;landmark_graph_manager.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;landmark_count.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;h_2.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;h_1.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;layered_h_max.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;rp_heuristic.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ff_rp_heuristic.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;open_list.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;at_gbfs_3h.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string_conversions.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/program_options.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">po<sp/>=<sp/>boost::program_options;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">aptk::STRIPS_Problem</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">aptk::agnostic::Fwd_Search_Problem</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1Action" kindref="compound">aptk::Action</ref>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph" kindref="compound">aptk::agnostic::Landmarks_Graph</ref>;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Generator" kindref="compound">aptk::agnostic::Landmarks_Graph_Generator</ref>;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" kindref="compound">aptk::agnostic::Landmarks_Graph_Manager</ref>;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">aptk::agnostic::Landmarks_Count_Heuristic</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H2__Heuristic" kindref="compound">aptk::agnostic::H2_Heuristic</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">aptk::agnostic::H1_Heuristic</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Layered__H__Max" kindref="compound">aptk::agnostic::Layered_H_Max</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H__Add__Evaluation__Function" kindref="compound">aptk::agnostic::H_Add_Evaluation_Function</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H__Max__Evaluation__Function" kindref="compound">aptk::agnostic::H_Max_Evaluation_Function</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">aptk::agnostic::Relaxed_Plan_Heuristic</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1FF__Relaxed__Plan__Heuristic" kindref="compound">aptk::agnostic::FF_Relaxed_Plan_Heuristic</ref>;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">aptk::agnostic::Novelty_Partition</ref>;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">aptk::search::Open_List</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Node__Comparer__3H" kindref="compound">aptk::search::Node_Comparer_3H</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1AT__GBFS__3H" kindref="compound">aptk::search::gbfs_3h::AT_GBFS_3H</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">//using<sp/>aptk::search::gbfs_mh::Node;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H2__Heuristic" kindref="compound">H2_Heuristic&lt;Fwd_Search_Problem&gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H2__Heuristic" kindref="compound">H2_Fwd</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Generator" kindref="compound">Landmarks_Graph_Generator&lt;Fwd_Search_Problem&gt;</ref><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Generator" kindref="compound">Gen_Lms_Fwd</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">Landmarks_Count_Heuristic&lt;Fwd_Search_Problem&gt;</ref><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">H_Lmcount_Fwd</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" kindref="compound">Landmarks_Graph_Manager&lt;Fwd_Search_Problem&gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" kindref="compound">Land_Graph_Man</ref>;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">//<sp/>MRJ:<sp/>We<sp/>start<sp/>defining<sp/>the<sp/>type<sp/>of<sp/>nodes<sp/>for<sp/>our<sp/>planner</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1Node" kindref="compound">aptk::search::gbfs_3h::Node&lt; Fwd_Search_Problem, aptk::State &gt;</ref><sp/><sp/><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1Node" kindref="compound">Search_Node</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">Novelty_Partition&lt;Fwd_Search_Problem, Search_Node&gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">H_Novel_Fwd</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">//<sp/>MRJ:<sp/>Then<sp/>we<sp/>define<sp/>the<sp/>type<sp/>of<sp/>the<sp/>tie-breaking<sp/>algorithm</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">//<sp/>for<sp/>the<sp/>open<sp/>list<sp/>we<sp/>are<sp/>going<sp/>to<sp/>use</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Node__Comparer__3H" kindref="compound">Node_Comparer_3H&lt; Search_Node &gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Node__Comparer__3H" kindref="compound">Tie_Breaking_Algorithm</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">//<sp/>MRJ:<sp/>Now<sp/>we<sp/>define<sp/>the<sp/>Open<sp/>List<sp/>type<sp/>by<sp/>combining<sp/>the<sp/>types<sp/>we<sp/>have<sp/>defined<sp/>before</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">Open_List&lt; Tie_Breaking_Algorithm, Search_Node &gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">BFS_Open_List</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">//<sp/>MRJ:<sp/>Now<sp/>we<sp/>define<sp/>the<sp/>heuristics</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H1_Heuristic&lt;Fwd_Search_Problem, H_Add_Evaluation_Function&gt;</ref><sp/><ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H_Add_Fwd</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">Relaxed_Plan_Heuristic&lt; Fwd_Search_Problem, H_Add_Fwd &gt;</ref><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">H_Add_Rp_Fwd</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Layered__H__Max" kindref="compound">Layered_H_Max&lt; Fwd_Search_Problem &gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Layered__H__Max" kindref="compound">Alt_H_Max</ref>;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1FF__Relaxed__Plan__Heuristic" kindref="compound">FF_Relaxed_Plan_Heuristic&lt; Fwd_Search_Problem, Alt_H_Max, unsigned &gt;</ref><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1FF__Relaxed__Plan__Heuristic" kindref="compound">Classic_FF_H_Max</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">//<sp/>MRJ:<sp/>Now<sp/>we&apos;re<sp/>ready<sp/>to<sp/>define<sp/>the<sp/>BFS<sp/>algorithm<sp/>we&apos;re<sp/>going<sp/>to<sp/>use</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1AT__GBFS__3H" kindref="compound">AT_GBFS_3H&lt; Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List &gt;</ref><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1AT__GBFS__3H" kindref="compound">Anytime_GBFS_H_Add_Rp_Fwd</ref>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1AT__GBFS__3H" kindref="compound">AT_GBFS_3H&lt; Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, Classic_FF_H_Max, BFS_Open_List &gt;</ref><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1AT__GBFS__3H" kindref="compound">Anytime_GBFS_FF_Rp_Fwd</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Search_Engine&gt;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>do_search(<sp/>Search_Engine&amp;<sp/>engine,<sp/><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref>&amp;<sp/>plan_prob,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>max_novelty,<sp/>std::ofstream&amp;<sp/>plan_stream<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>std::ofstream<sp/><sp/><sp/>details(<sp/></highlight><highlight class="stringliteral">&quot;execution.details&quot;</highlight><highlight class="normal"><sp/>);<sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>engine.start();</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;<sp/>aptk::Action_Idx<sp/>&gt;<sp/>plan;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cost;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ref<sp/>=<sp/>aptk::time_used();</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>t0<sp/>=<sp/>aptk::time_used();</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>expanded_0<sp/>=<sp/>engine.expanded();</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>generated_0<sp/>=<sp/>engine.generated();</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>engine.find_solution(<sp/>cost,<sp/>plan<sp/>)<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>details<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Plan<sp/>found<sp/>with<sp/>cost:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cost<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>plan.size();<sp/>k++<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>details<sp/>&lt;&lt;<sp/>k+1<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;.<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classaptk_1_1Action" kindref="compound">aptk::Action</ref>&amp;<sp/>a<sp/>=<sp/>*(plan_prob.actions()[<sp/>plan[k]<sp/>]);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>details<sp/>&lt;&lt;<sp/>a.signature();</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>details<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>plan_stream<sp/>&lt;&lt;<sp/>a.signature()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tf<sp/>=<sp/>aptk::time_used();</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>expanded_f<sp/>=<sp/>engine.expanded();</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>generated_f<sp/>=<sp/>engine.generated();</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>details<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Time:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>tf<sp/>-<sp/>t0<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>details<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Generated:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>generated_f<sp/>-<sp/>generated_0<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>details<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Expanded:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>expanded_f<sp/>-<sp/>expanded_0<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t0<sp/>=<sp/>tf;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expanded_0<sp/>=<sp/>expanded_f;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>generated_0<sp/>=<sp/>generated_f;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>plan.clear();</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>total_time<sp/>=<sp/>aptk::time_used()<sp/>-<sp/>ref;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Total<sp/>time:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>total_time<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Nodes<sp/>generated<sp/>during<sp/>search:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>engine.generated()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Nodes<sp/>expanded<sp/>during<sp/>search:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>engine.expanded()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Plan<sp/>found<sp/>with<sp/>cost:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>cost<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>details.close();</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>total_time;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>process_command_line_options(<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ac,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>av,<sp/>po::variables_map&amp;<sp/>vars<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>po::options_description<sp/>desc(<sp/></highlight><highlight class="stringliteral">&quot;Options:&quot;</highlight><highlight class="normal"><sp/>);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>desc.add_options()</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/></highlight><highlight class="stringliteral">&quot;help&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Show<sp/>help<sp/>message&quot;</highlight><highlight class="normal"><sp/>)</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/></highlight><highlight class="stringliteral">&quot;domain&quot;</highlight><highlight class="normal">,<sp/>po::value&lt;std::string&gt;(),<sp/></highlight><highlight class="stringliteral">&quot;Input<sp/>PDDL<sp/>domain<sp/>description&quot;</highlight><highlight class="normal"><sp/>)</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/></highlight><highlight class="stringliteral">&quot;problem&quot;</highlight><highlight class="normal">,<sp/>po::value&lt;std::string&gt;(),<sp/></highlight><highlight class="stringliteral">&quot;Input<sp/>PDDL<sp/>problem<sp/>description&quot;</highlight><highlight class="normal"><sp/>)</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/></highlight><highlight class="stringliteral">&quot;bound&quot;</highlight><highlight class="normal">,<sp/>po::value&lt;int&gt;()-&gt;default_value(2),<sp/></highlight><highlight class="stringliteral">&quot;Max<sp/>width<sp/>w<sp/>for<sp/>novelty<sp/>(default<sp/>2)&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/></highlight><highlight class="stringliteral">&quot;output&quot;</highlight><highlight class="normal">,<sp/>po::value&lt;std::string&gt;(),<sp/></highlight><highlight class="stringliteral">&quot;Output<sp/>file<sp/>for<sp/>plan&quot;</highlight><highlight class="normal"><sp/>)</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/></highlight><highlight class="stringliteral">&quot;one-ha-per-fluent&quot;</highlight><highlight class="normal">,<sp/>po::value&lt;bool&gt;()-&gt;default_value(</highlight><highlight class="keyword">false</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Extract<sp/>only<sp/>one<sp/>helpful<sp/>action<sp/>per<sp/>fluent&quot;</highlight><highlight class="normal"><sp/>)</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/></highlight><highlight class="stringliteral">&quot;use-original-ff-heur&quot;</highlight><highlight class="normal">,<sp/>po::value&lt;bool&gt;()-&gt;default_value(</highlight><highlight class="keyword">false</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Use<sp/>original<sp/>FF<sp/>heuristic<sp/>computed<sp/>by<sp/>layers&quot;</highlight><highlight class="normal"><sp/>)</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>po::store(<sp/>po::parse_command_line(<sp/>ac,<sp/>av,<sp/>desc<sp/>),<sp/>vars<sp/>);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>po::notify(<sp/>vars<sp/>);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(<sp/>std::exception&amp;<sp/>e<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Error:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>e.what()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::exit(1);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(<sp/>...<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Exception<sp/>of<sp/>unknown<sp/>type!&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::exit(1);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>vars.count(</highlight><highlight class="stringliteral">&quot;help&quot;</highlight><highlight class="normal">)<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>desc<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::exit(0);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>report_no_solution(<sp/>std::string<sp/>reason,<sp/>std::ofstream&amp;<sp/>plan_stream<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/>plan_stream<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;;;<sp/>No<sp/>solution<sp/>found&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/>plan_stream<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;;;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>reason<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/>plan_stream.close();</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main(<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>po::variables_map<sp/>vm;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>process_command_line_options(<sp/>argc,<sp/>argv,<sp/>vm<sp/>);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>!vm.count(<sp/></highlight><highlight class="stringliteral">&quot;domain&quot;</highlight><highlight class="normal"><sp/>)<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;No<sp/>PDDL<sp/>domain<sp/>was<sp/>specified!&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::exit(1);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>!vm.count(<sp/></highlight><highlight class="stringliteral">&quot;problem&quot;</highlight><highlight class="normal"><sp/>)<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;No<sp/>PDDL<sp/>problem<sp/>was<sp/>specified!&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::exit(1);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/>std::ofstream<sp/><sp/><sp/>plan_stream;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>!vm.count(<sp/></highlight><highlight class="stringliteral">&quot;output&quot;</highlight><highlight class="normal"><sp/>)<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;No<sp/>output<sp/>plan<sp/>file<sp/>specified,<sp/>defaulting<sp/>to<sp/>&apos;plan.ipc&apos;&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>plan_stream.open(<sp/></highlight><highlight class="stringliteral">&quot;plan.ipc&quot;</highlight><highlight class="normal"><sp/>);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>plan_stream.open(<sp/>vm[</highlight><highlight class="stringliteral">&quot;output&quot;</highlight><highlight class="normal">].as&lt;std::string&gt;()<sp/>);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref><sp/><sp/>prob;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ignore_costs<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/>aptk::FF_Parser::get_problem_description(<sp/>vm[</highlight><highlight class="stringliteral">&quot;domain&quot;</highlight><highlight class="normal">].as&lt;std::string&gt;(),<sp/>vm[</highlight><highlight class="stringliteral">&quot;problem&quot;</highlight><highlight class="normal">].as&lt;std::string&gt;(),<sp/>prob,<sp/>ignore_costs<sp/><sp/>);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;PDDL<sp/>problem<sp/>description<sp/>loaded:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\tDomain:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>prob.domain_name()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\tProblem:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>prob.problem_name()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\t#Actions:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>prob.num_actions()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\t#Fluents:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>prob.num_fluents()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref><sp/><sp/>search_prob(<sp/>&amp;prob<sp/>);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//if<sp/>(<sp/>!prob.has_conditional_effects()<sp/>)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>H2_Fwd<sp/><sp/><sp/><sp/>h2(<sp/>search_prob<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>h2.compute_edeletes(<sp/>prob<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>if<sp/>(<sp/>h2.eval(<sp/>prob.goal()<sp/>)<sp/>==<sp/>infty<sp/>)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>std::ofstream<sp/><sp/><sp/>details(<sp/>&quot;execution.details&quot;<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>details<sp/>&lt;&lt;<sp/>&quot;Problem<sp/>has<sp/>no<sp/>solution!&quot;<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>details.close();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>report_no_solution(<sp/>&quot;h2(s0)<sp/>=<sp/>infty&quot;,<sp/>plan_stream<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>0;<sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>prob.compute_edeletes();<sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Generator" kindref="compound">Gen_Lms_Fwd</ref><sp/><sp/><sp/><sp/>gen_lms(<sp/>search_prob<sp/>);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph" kindref="compound">Landmarks_Graph</ref><sp/>graph(<sp/>prob<sp/>);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//gen_lms.set_only_goals(<sp/>true<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/>gen_lms.compute_lm_graph_set_additive(<sp/>graph<sp/>);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Landmarks<sp/>found:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>graph.num_landmarks()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//graph.print(<sp/>std::cout<sp/>);<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(vm[</highlight><highlight class="stringliteral">&quot;use-original-ff-heur&quot;</highlight><highlight class="normal">].as&lt;bool&gt;()){</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Starting<sp/>search<sp/>with<sp/>BFS(novel,land,h_ff)...&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1AT__GBFS__3H" kindref="compound">Anytime_GBFS_FF_Rp_Fwd</ref><sp/>bfs_engine(<sp/>search_prob<sp/>);<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bfs_engine.h3().set_one_HA_per_fluent(<sp/>vm[</highlight><highlight class="stringliteral">&quot;one-ha-per-fluent&quot;</highlight><highlight class="normal">].as&lt;bool&gt;()<sp/>);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bfs_engine.h3().ignore_rp_h_value(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" kindref="compound">Land_Graph_Man</ref><sp/>lgm(<sp/>search_prob,<sp/>&amp;graph);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bfs_engine.use_land_graph_manager(<sp/>&amp;lgm<sp/>);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>max_novelty<sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bfs_engine.set_arity(<sp/>max_novelty,<sp/>graph.num_landmarks_and_edges()<sp/>);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bfs_t<sp/>=<sp/>do_search(<sp/>bfs_engine,<sp/>prob,<sp/>max_novelty,<sp/>plan_stream<sp/>);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;BFS<sp/>search<sp/>completed<sp/>in<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>bfs_t<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>secs&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Starting<sp/>search<sp/>with<sp/>BFS(novel,land,h_add)...&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1gbfs__3h_1_1AT__GBFS__3H" kindref="compound">Anytime_GBFS_H_Add_Rp_Fwd</ref><sp/>bfs_engine(<sp/>search_prob<sp/>);<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bfs_engine.h3().set_one_HA_per_fluent(<sp/>vm[</highlight><highlight class="stringliteral">&quot;one-ha-per-fluent&quot;</highlight><highlight class="normal">].as&lt;bool&gt;()<sp/>);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" kindref="compound">Land_Graph_Man</ref><sp/>lgm(<sp/>search_prob,<sp/>&amp;graph);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bfs_engine.use_land_graph_manager(<sp/>&amp;lgm<sp/>);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>max_novelty<sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bfs_engine.set_arity(<sp/>max_novelty,<sp/>graph.num_landmarks_and_edges()<sp/>);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>bfs_t<sp/>=<sp/>do_search(<sp/>bfs_engine,<sp/>prob,<sp/>max_novelty,<sp/>plan_stream<sp/>);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;BFS<sp/>search<sp/>completed<sp/>in<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>bfs_t<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>secs&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/>plan_stream.close();</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="312"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/main.cxx"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1agnostic_1_1Successor__Generator" kind="class" language="C++" prot="public">
+    <compoundname>aptk::agnostic::Successor_Generator</compoundname>
+    <innerclass refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Heuristic__Iterator" prot="public">aptk::agnostic::Successor_Generator::Heuristic_Iterator</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator" prot="public">aptk::agnostic::Successor_Generator::Iterator</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Successor__Generator_1_1Node" prot="private">aptk::agnostic::Successor_Generator::Node</innerclass>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Successor__Generator_1a3e1d859fe91198f62149e1f81155ae58" prot="private" static="no" mutable="no">
+        <type>const <ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+        <definition>const STRIPS_Problem&amp; aptk::agnostic::Successor_Generator::m_problem</definition>
+        <argsstring></argsstring>
+        <name>m_problem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="135" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Successor__Generator_1a28d7a999cfc1a2964bea803e3b5b9b67" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; Node * &gt;</type>
+        <definition>std::vector&lt;Node*&gt; aptk::agnostic::Successor_Generator::m_nodes</definition>
+        <argsstring></argsstring>
+        <name>m_nodes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="136" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1a7d3b8913e71b2ea083af10cdff42eb22" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Successor_Generator::Successor_Generator</definition>
+        <argsstring>(const STRIPS_Problem &amp;prob)</argsstring>
+        <name>Successor_Generator</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+          <declname>prob</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="114" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="114" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1a59504c614375d2c50da9dc6f89e5ccc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Successor_Generator::~Successor_Generator</definition>
+        <argsstring>()</argsstring>
+        <name>~Successor_Generator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="118" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="32" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1a16136168be51e30cff0039797e83da90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Successor_Generator::build</definition>
+        <argsstring>()</argsstring>
+        <name>build</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="120" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="105" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1acb072e117396e6b8132de77f57642d7e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Successor_Generator::retrieve_applicable</definition>
+        <argsstring>(const State &amp;s, std::vector&lt; const Action * &gt; &amp;actions) const</argsstring>
+        <name>retrieve_applicable</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; const <ref refid="classaptk_1_1Action" kindref="compound">Action</ref> * &gt; &amp;</type>
+          <declname>actions</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="122" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="136" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1add3bdd03fdca49d913c108582c03c5b3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Successor_Generator::retrieve_applicable</definition>
+        <argsstring>(const State &amp;s, std::vector&lt; int &gt; &amp;actions) const</argsstring>
+        <name>retrieve_applicable</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; int &gt; &amp;</type>
+          <declname>actions</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="123" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="114" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1afbbcb5ef3dff4499b48dae69d90722f1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Successor_Generator::retrieve_applicable</definition>
+        <argsstring>(const std::vector&lt; float &gt; &amp;v, std::vector&lt; const Action * &gt; &amp;actions) const</argsstring>
+        <name>retrieve_applicable</name>
+        <param>
+          <type>const std::vector&lt; float &gt; &amp;</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; const <ref refid="classaptk_1_1Action" kindref="compound">Action</ref> * &gt; &amp;</type>
+          <declname>actions</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="124" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="158" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1a453733bbf7750d50f0864e7ef18af827" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::vector&lt; Node * &gt; &amp;</type>
+        <definition>const std::vector&lt;Node*&gt;&amp; aptk::agnostic::Successor_Generator::nodes</definition>
+        <argsstring>() const</argsstring>
+        <name>nodes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="126" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="126" bodyend="126"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1a10e476272c419d98ab498f46a60bb546" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Successor_Generator::build_fluent_ordering</definition>
+        <argsstring>(std::vector&lt; unsigned &gt; &amp;ord_fluents)</argsstring>
+        <name>build_fluent_ordering</name>
+        <param>
+          <type>std::vector&lt; unsigned &gt; &amp;</type>
+          <declname>ord_fluents</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="130" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="52" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Successor__Generator_1a9062964fc2925d5614b4edbb2e792c5d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::agnostic::Successor_Generator::make_nodes</definition>
+        <argsstring>(unsigned index, std::vector&lt; unsigned &gt; &amp;ord_fluents, const std::vector&lt; const Action * &gt; &amp;actions)</argsstring>
+        <name>make_nodes</name>
+        <param>
+          <type>unsigned</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; unsigned &gt; &amp;</type>
+          <declname>ord_fluents</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; const <ref refid="classaptk_1_1Action" kindref="compound">Action</ref> * &gt; &amp;</type>
+          <declname>actions</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="131" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.cxx" bodystart="63" bodyend="103"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" line="38" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/succ_gen.hxx" bodystart="38" bodyend="137"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1a16136168be51e30cff0039797e83da90" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator</scope><name>build</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1a10e476272c419d98ab498f46a60bb546" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator</scope><name>build_fluent_ordering</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1a28d7a999cfc1a2964bea803e3b5b9b67" prot="private" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator</scope><name>m_nodes</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1a3e1d859fe91198f62149e1f81155ae58" prot="private" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator</scope><name>m_problem</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1a9062964fc2925d5614b4edbb2e792c5d" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator</scope><name>make_nodes</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1a453733bbf7750d50f0864e7ef18af827" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator</scope><name>nodes</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1acb072e117396e6b8132de77f57642d7e" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator</scope><name>retrieve_applicable</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1add3bdd03fdca49d913c108582c03c5b3" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator</scope><name>retrieve_applicable</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1afbbcb5ef3dff4499b48dae69d90722f1" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator</scope><name>retrieve_applicable</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1a7d3b8913e71b2ea083af10cdff42eb22" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator</scope><name>Successor_Generator</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Successor__Generator_1a59504c614375d2c50da9dc6f89e5ccc5" prot="public" virt="non-virtual"><scope>aptk::agnostic::Successor_Generator</scope><name>~Successor_Generator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

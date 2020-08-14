@@ -1,0 +1,103 @@
+\hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node}{}\doxysection{aptk\+::search\+::novelty\+\_\+spaces\+::Node$<$ State $>$ Class Template Reference}
+\label{classaptk_1_1search_1_1novelty__spaces_1_1Node}\index{aptk::search::novelty\_spaces::Node$<$ State $>$@{aptk::search::novelty\_spaces::Node$<$ State $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_ac4b6e10981ec3bfc69f4ef5f5dd2f2cf}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_ac4b6e10981ec3bfc69f4ef5f5dd2f2cf}} 
+typedef \mbox{\hyperlink{classaptk_1_1State}{State}} {\bfseries State\+\_\+\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a71e5149f85040fa0b3b8a81b9d3d3170}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a71e5149f85040fa0b3b8a81b9d3d3170}} 
+{\bfseries Node} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, Action\+\_\+\+Idx action, \mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$parent=nullptr, float cost=1.\+0f, bool compute\+\_\+hash=true)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a3dacb6e67a0796e94591cfd0ff19b211}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a3dacb6e67a0796e94591cfd0ff19b211}} 
+unsigned \& {\bfseries gn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_ae45510e9df59370c9a616e57921f7b50}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_ae45510e9df59370c9a616e57921f7b50}} 
+unsigned {\bfseries gn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_ac15b8c1b6cbbeeb3c72a66933c7a43df}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_ac15b8c1b6cbbeeb3c72a66933c7a43df}} 
+unsigned \& {\bfseries partition} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_afb5477da747f6c51a68b37d88c8f8433}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_afb5477da747f6c51a68b37d88c8f8433}} 
+unsigned {\bfseries partition} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a2d6f27c31da364720c2f5ee59990cad1}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a2d6f27c31da364720c2f5ee59990cad1}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries parent} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_ada6130bdefa138ba3f2848991bf9d332}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_ada6130bdefa138ba3f2848991bf9d332}} 
+Action\+\_\+\+Idx {\bfseries action} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a537e84215da860030b23abf3c4e83aba}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a537e84215da860030b23abf3c4e83aba}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries state} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a53ddce7255adbb15379d4402c2ae9f0f}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a53ddce7255adbb15379d4402c2ae9f0f}} 
+void {\bfseries set\+\_\+state} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a256d5ff7383e76f6b7ba9d837fda4193}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a256d5ff7383e76f6b7ba9d837fda4193}} 
+bool {\bfseries has\+\_\+state} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_ad8a27fb2faffa39c31c4da4fbce4a5e5}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_ad8a27fb2faffa39c31c4da4fbce4a5e5}} 
+const \mbox{\hyperlink{classaptk_1_1State}{State}} \& {\bfseries state} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_acefd5761b2006fbd5865b6f075f2bd72}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_acefd5761b2006fbd5865b6f075f2bd72}} 
+void {\bfseries compare\+\_\+only\+\_\+state} (bool b)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a9e34e835b15bc18257006cd7276aee76}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a9e34e835b15bc18257006cd7276aee76}} 
+void {\bfseries print} (std\+::ostream \&os) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a6ac1f30b5d8b9be49f30e2bef2df281c}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a6ac1f30b5d8b9be49f30e2bef2df281c}} 
+virtual bool {\bfseries is\+\_\+better} (\mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1Node}{Node}} $\ast$n) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a31f8f298e873a8e3adf25824ea32501e}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a31f8f298e873a8e3adf25824ea32501e}} 
+size\+\_\+t {\bfseries hash} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a10a0a542c9c300c211087e51b610a7cb}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a10a0a542c9c300c211087e51b610a7cb}} 
+void {\bfseries update\+\_\+hash} ()
+\item 
+bool \mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1Node_ac463f21cf7192729df02c3fb2f47a3b7}{operator==}} (const \mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_aa75263460ba7b580ba129a8fd4c5d3f0}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_aa75263460ba7b580ba129a8fd4c5d3f0}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries m\+\_\+state}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_ab009f30844079725937a0fb7b77a303c}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_ab009f30844079725937a0fb7b77a303c}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries m\+\_\+parent}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_adae9f528c14d1ba7ab589ff2fd826028}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_adae9f528c14d1ba7ab589ff2fd826028}} 
+float {\bfseries m\+\_\+h}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_ad6b58862e1ea8356e7ec1a74f0f7baa9}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_ad6b58862e1ea8356e7ec1a74f0f7baa9}} 
+Action\+\_\+\+Idx {\bfseries m\+\_\+action}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_aee214dd1c74e6844487ff90133b094d1}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_aee214dd1c74e6844487ff90133b094d1}} 
+unsigned {\bfseries m\+\_\+g}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a6186a0d6a3dd62a6a981ce040e89dddf}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a6186a0d6a3dd62a6a981ce040e89dddf}} 
+unsigned {\bfseries m\+\_\+partition}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a4ebc27a5867d127db47c2781602ce494}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a4ebc27a5867d127db47c2781602ce494}} 
+size\+\_\+t {\bfseries m\+\_\+hash}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_a7bf6d39cea83a5b9881f09327d906df0}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_a7bf6d39cea83a5b9881f09327d906df0}} 
+bool {\bfseries m\+\_\+compare\+\_\+only\+\_\+state}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1Node_ac463f21cf7192729df02c3fb2f47a3b7}\label{classaptk_1_1search_1_1novelty__spaces_1_1Node_ac463f21cf7192729df02c3fb2f47a3b7}} 
+\index{aptk::search::novelty\_spaces::Node$<$ State $>$@{aptk::search::novelty\_spaces::Node$<$ State $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!aptk::search::novelty\_spaces::Node$<$ State $>$@{aptk::search::novelty\_spaces::Node$<$ State $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename State $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1Node}{aptk\+::search\+::novelty\+\_\+spaces\+::\+Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&}]{o }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Lazy
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/compute/novelty/node\+\_\+novelty\+\_\+spaces.\+hxx\end{DoxyCompactItemize}

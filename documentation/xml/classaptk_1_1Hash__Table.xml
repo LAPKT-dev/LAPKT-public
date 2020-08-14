@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1Hash__Table" kind="class" language="C++" prot="public">
+    <compoundname>aptk::Hash_Table</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classaptk_1_1Hash__Table_1a319aeb00c09759a547a267f33db83e11" prot="public" static="no">
+        <type>T</type>
+        <definition>typedef T aptk::Hash_Table&lt; T &gt;::Object</definition>
+        <argsstring></argsstring>
+        <name>Object</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="113" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classaptk_1_1Hash__Table_1af31f814173918f3a05d41505cb77c9ae" prot="public" static="no">
+        <type>std::list&lt; std::pair&lt; unsigned, Object * &gt; &gt;</type>
+        <definition>typedef std::list&lt; std::pair&lt; unsigned, Object* &gt; &gt; aptk::Hash_Table&lt; T &gt;::Node_List</definition>
+        <argsstring></argsstring>
+        <name>Node_List</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="114" column="19" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classaptk_1_1Hash__Table_1a7faa8f337e0e9f32291c2294346080a2" prot="public" static="no">
+        <type>std::vector&lt; Node_List &gt;</type>
+        <definition>typedef std::vector&lt; Node_List &gt; aptk::Hash_Table&lt; T &gt;::Table</definition>
+        <argsstring></argsstring>
+        <name>Table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="115" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1Hash__Table_1acb107326d39f6f8c7db2bb5ac3684c63" prot="protected" static="no" mutable="no">
+        <type>Table</type>
+        <definition>Table aptk::Hash_Table&lt; T &gt;::m_buckets</definition>
+        <argsstring></argsstring>
+        <name>m_buckets</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="189" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Hash__Table_1a810e6a4592c518cc3f319ec53506c33c" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool aptk::Hash_Table&lt; T &gt;::m_owner</definition>
+        <argsstring></argsstring>
+        <name>m_owner</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="192" column="24" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1Hash__Table_1a4e532a26ae9c88d663041a0dc515c213" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Hash_Table&lt; T &gt;::Hash_Table</definition>
+        <argsstring>(unsigned hash_sz)</argsstring>
+        <name>Hash_Table</name>
+        <param>
+          <type>unsigned</type>
+          <declname>hash_sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="117" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="198" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Hash__Table_1a6a373cf2cb6ad00c8e12b27c49c46240" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Hash_Table&lt; T &gt;::~Hash_Table</definition>
+        <argsstring>()</argsstring>
+        <name>~Hash_Table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="118" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="205" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Hash__Table_1a814414ef1ab4474291ae79fdc4445b23" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Hash_Table&lt; T &gt;::setOwner</definition>
+        <argsstring>(bool o)</argsstring>
+        <name>setOwner</name>
+        <param>
+          <type>bool</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="120" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="120" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Hash__Table_1aeb0e90d36cbe54dfd5ccbd7200201cf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Hash_Table&lt; T &gt;::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="121" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="219" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Hash__Table_1a84eda12ff9979034abbfee8e098defa2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Object *</type>
+        <definition>Object* aptk::Hash_Table&lt; T &gt;::get_element</definition>
+        <argsstring>(Hash_Key &amp;h, Object *other)</argsstring>
+        <name>get_element</name>
+        <param>
+          <type><ref refid="classaptk_1_1Hash__Key" kindref="compound">Hash_Key</ref> &amp;</type>
+          <declname>h</declname>
+        </param>
+        <param>
+          <type>Object *</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="142" column="8" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="142" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Hash__Table_1aecac7b97e0cb885d40f22cf1cee27acf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Object *</type>
+        <definition>Object* aptk::Hash_Table&lt; T &gt;::get_element</definition>
+        <argsstring>(unsigned h, Object *other)</argsstring>
+        <name>get_element</name>
+        <param>
+          <type>unsigned</type>
+          <declname>h</declname>
+        </param>
+        <param>
+          <type>Object *</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="143" column="8" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="143" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Hash__Table_1a2fbe9ca7d075d92a63f3e977aad49d80" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Hash_Table&lt; T &gt;::add_element</definition>
+        <argsstring>(Hash_Key &amp;h, Object *obj)</argsstring>
+        <name>add_element</name>
+        <param>
+          <type><ref refid="classaptk_1_1Hash__Key" kindref="compound">Hash_Key</ref> &amp;</type>
+          <declname>h</declname>
+        </param>
+        <param>
+          <type>Object *</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="160" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="160" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Hash__Table_1a26dfaf74da38eff015fce0689aa79dfc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Hash_Table&lt; T &gt;::add_element</definition>
+        <argsstring>(unsigned h, Object *obj)</argsstring>
+        <name>add_element</name>
+        <param>
+          <type>unsigned</type>
+          <declname>h</declname>
+        </param>
+        <param>
+          <type>Object *</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="161" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="161" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Hash__Table_1ab8f30e15f52a02b4560fab1966fe9994" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Hash_Table&lt; T &gt;::remove_element</definition>
+        <argsstring>(Hash_Key &amp;h, Object *obj)</argsstring>
+        <name>remove_element</name>
+        <param>
+          <type><ref refid="classaptk_1_1Hash__Key" kindref="compound">Hash_Key</ref> &amp;</type>
+          <declname>h</declname>
+        </param>
+        <param>
+          <type>Object *</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="167" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="167" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Hash__Table_1a07aa9e1bfc1fccd48c6fdb65d42488da" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Hash_Table&lt; T &gt;::remove_element</definition>
+        <argsstring>(unsigned h, Object *obj)</argsstring>
+        <name>remove_element</name>
+        <param>
+          <type>unsigned</type>
+          <declname>h</declname>
+        </param>
+        <param>
+          <type>Object *</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="168" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="168" bodyend="186"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" line="110" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/hash_table.hxx" bodystart="111" bodyend="194"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1Hash__Table_1a2fbe9ca7d075d92a63f3e977aad49d80" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>add_element</name></member>
+      <member refid="classaptk_1_1Hash__Table_1a26dfaf74da38eff015fce0689aa79dfc" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>add_element</name></member>
+      <member refid="classaptk_1_1Hash__Table_1aeb0e90d36cbe54dfd5ccbd7200201cf1" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>clear</name></member>
+      <member refid="classaptk_1_1Hash__Table_1a84eda12ff9979034abbfee8e098defa2" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>get_element</name></member>
+      <member refid="classaptk_1_1Hash__Table_1aecac7b97e0cb885d40f22cf1cee27acf" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>get_element</name></member>
+      <member refid="classaptk_1_1Hash__Table_1a4e532a26ae9c88d663041a0dc515c213" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>Hash_Table</name></member>
+      <member refid="classaptk_1_1Hash__Table_1acb107326d39f6f8c7db2bb5ac3684c63" prot="protected" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>m_buckets</name></member>
+      <member refid="classaptk_1_1Hash__Table_1a810e6a4592c518cc3f319ec53506c33c" prot="protected" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>m_owner</name></member>
+      <member refid="classaptk_1_1Hash__Table_1af31f814173918f3a05d41505cb77c9ae" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>Node_List</name></member>
+      <member refid="classaptk_1_1Hash__Table_1a319aeb00c09759a547a267f33db83e11" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>Object</name></member>
+      <member refid="classaptk_1_1Hash__Table_1ab8f30e15f52a02b4560fab1966fe9994" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>remove_element</name></member>
+      <member refid="classaptk_1_1Hash__Table_1a07aa9e1bfc1fccd48c6fdb65d42488da" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>remove_element</name></member>
+      <member refid="classaptk_1_1Hash__Table_1a814414ef1ab4474291ae79fdc4445b23" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>setOwner</name></member>
+      <member refid="classaptk_1_1Hash__Table_1a7faa8f337e0e9f32291c2294346080a2" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>Table</name></member>
+      <member refid="classaptk_1_1Hash__Table_1a6a373cf2cb6ad00c8e12b27c49c46240" prot="public" virt="non-virtual"><scope>aptk::Hash_Table</scope><name>~Hash_Table</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

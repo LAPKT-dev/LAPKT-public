@@ -1,0 +1,140 @@
+\hypertarget{classSTRIPS__Interface}{}\doxysection{S\+T\+R\+I\+P\+S\+\_\+\+Interface Class Reference}
+\label{classSTRIPS__Interface}\index{STRIPS\_Interface@{STRIPS\_Interface}}
+Inheritance diagram for S\+T\+R\+I\+P\+S\+\_\+\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=12.000000cm]{classSTRIPS__Interface}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a2c1791478f14c9a3b2c6cdc978b2c175}\label{classSTRIPS__Interface_a2c1791478f14c9a3b2c6cdc978b2c175}} 
+{\bfseries S\+T\+R\+I\+P\+S\+\_\+\+Interface} (std\+::string, std\+::string)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_ad70c8285c19eee8d7a50393850011616}\label{classSTRIPS__Interface_ad70c8285c19eee8d7a50393850011616}} 
+\mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{aptk\+::\+S\+T\+R\+I\+P\+S\+\_\+\+Problem}} $\ast$ {\bfseries instance} ()
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_aea74586a3c4fec2d6c18c98347538d53}\label{classSTRIPS__Interface_aea74586a3c4fec2d6c18c98347538d53}} 
+\mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{aptk\+::\+S\+T\+R\+I\+P\+S\+\_\+\+Problem}} {\bfseries boost\+\_\+instance} ()
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a2f15bd04c71cd62ebfaf550497abbf20}\label{classSTRIPS__Interface_a2f15bd04c71cd62ebfaf550497abbf20}} 
+void {\bfseries add\+\_\+atom} (std\+::string name)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_af7e8907ce4b6b9ca09fd860b45ab3225}\label{classSTRIPS__Interface_af7e8907ce4b6b9ca09fd860b45ab3225}} 
+void {\bfseries add\+\_\+action} (std\+::string name, bool flag\+\_\+tarski=false)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a25796b296c432afae525e609356d9ff9}\label{classSTRIPS__Interface_a25796b296c432afae525e609356d9ff9}} 
+void {\bfseries add\+\_\+precondition} (int index, std\+::vector$<$ std\+::pair$<$ int, bool $>$$>$ \&lits)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_afb59d6afad4ca57d9b3f2be7968b7e0e}\label{classSTRIPS__Interface_afb59d6afad4ca57d9b3f2be7968b7e0e}} 
+void {\bfseries add\+\_\+precondition} (int index, boost\+::python\+::list \&lits)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a71710771f112651e0cb13bc989ed1a19}\label{classSTRIPS__Interface_a71710771f112651e0cb13bc989ed1a19}} 
+void {\bfseries add\+\_\+cond\+\_\+effect} (int index, std\+::vector$<$ std\+::pair$<$ int, bool $>$$>$ \&cond\+\_\+lits, std\+::vector$<$ std\+::pair$<$ int, bool $>$$>$ \&eff\+\_\+lits)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_abd19dab045446baa2ad4553b4538e621}\label{classSTRIPS__Interface_abd19dab045446baa2ad4553b4538e621}} 
+void {\bfseries add\+\_\+cond\+\_\+effect} (int index, boost\+::python\+::list \&cond\+\_\+lits, boost\+::python\+::list \&eff\+\_\+lits)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a0be5ac4c93a831a70f2a7c7f58424ac1}\label{classSTRIPS__Interface_a0be5ac4c93a831a70f2a7c7f58424ac1}} 
+void {\bfseries add\+\_\+effect} (int index, std\+::vector$<$ std\+::pair$<$ int, bool $>$$>$ \&list)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_aaad07b02eac0d294a1ad62b9e7c8f36b}\label{classSTRIPS__Interface_aaad07b02eac0d294a1ad62b9e7c8f36b}} 
+void {\bfseries add\+\_\+effect} (int index, boost\+::python\+::list \&list)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_aaad82db319df7d6433cf8563d0623f04}\label{classSTRIPS__Interface_aaad82db319df7d6433cf8563d0623f04}} 
+void {\bfseries set\+\_\+cost} (int index, float v)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a171597b1cec14b29c776216d4a84a0e9}\label{classSTRIPS__Interface_a171597b1cec14b29c776216d4a84a0e9}} 
+void {\bfseries finalize\+\_\+actions} ()
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a73351e126dfa21d7144bc1df4832e515}\label{classSTRIPS__Interface_a73351e126dfa21d7144bc1df4832e515}} 
+virtual void {\bfseries add\+\_\+mutex\+\_\+group} (boost\+::python\+::list \&list)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_aeb9a0c95df2039cbb626a40bf9dce705}\label{classSTRIPS__Interface_aeb9a0c95df2039cbb626a40bf9dce705}} 
+void {\bfseries notify\+\_\+negated\+\_\+conditions} (boost\+::python\+::list \&list)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_abe8d276698470770ecefa3efbe3a3391}\label{classSTRIPS__Interface_abe8d276698470770ecefa3efbe3a3391}} 
+void {\bfseries notify\+\_\+negated\+\_\+atom} (unsigned \&fl\+\_\+idx)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_aa42707020083c3ba93b380bfa85bb526}\label{classSTRIPS__Interface_aa42707020083c3ba93b380bfa85bb526}} 
+void {\bfseries create\+\_\+negated\+\_\+fluents} ()
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_ad541c170efd494d9b875ae86a5a74bb6}\label{classSTRIPS__Interface_ad541c170efd494d9b875ae86a5a74bb6}} 
+void {\bfseries set\+\_\+size\+\_\+negated\+\_\+fluents} (size\+\_\+t size)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a302dcf0c5a39fc90b76f54109cf0cdc7}\label{classSTRIPS__Interface_a302dcf0c5a39fc90b76f54109cf0cdc7}} 
+void {\bfseries set\+\_\+init} (std\+::vector$<$ std\+::pair$<$ int, bool $>$$>$ \&list)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_ac598e0212e1b732367e34b35a7ec7520}\label{classSTRIPS__Interface_ac598e0212e1b732367e34b35a7ec7520}} 
+void {\bfseries set\+\_\+init} (boost\+::python\+::list \&list)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_acf3685cb3334cb06b2db0f44b20ed7cb}\label{classSTRIPS__Interface_acf3685cb3334cb06b2db0f44b20ed7cb}} 
+void {\bfseries set\+\_\+goal} (std\+::vector$<$ std\+::pair$<$ int, bool $>$$>$ \&list)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_aa3101256cc25d4890dc8a2d2e0f58adb}\label{classSTRIPS__Interface_aa3101256cc25d4890dc8a2d2e0f58adb}} 
+void {\bfseries set\+\_\+goal} (boost\+::python\+::list \&list)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a29a7cef2f670c00389a183854324291a}\label{classSTRIPS__Interface_a29a7cef2f670c00389a183854324291a}} 
+void {\bfseries set\+\_\+domain\+\_\+name} (std\+::string name)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a13019cff3cead632dc158bc59525adbe}\label{classSTRIPS__Interface_a13019cff3cead632dc158bc59525adbe}} 
+void {\bfseries set\+\_\+problem\+\_\+name} (std\+::string name)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a6450f9847ede4304e387d1320b23b507}\label{classSTRIPS__Interface_a6450f9847ede4304e387d1320b23b507}} 
+virtual void {\bfseries setup} (bool gen\+\_\+match\+\_\+tree=true)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a7acbcf18d7ad3047ad1a0da0b12d3ad1}\label{classSTRIPS__Interface_a7acbcf18d7ad3047ad1a0da0b12d3ad1}} 
+void {\bfseries print\+\_\+action} (int index)
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a4affb904f4785ea5f65edff20a10a462}\label{classSTRIPS__Interface_a4affb904f4785ea5f65edff20a10a462}} 
+void {\bfseries print\+\_\+fluents} ()
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a4d8836258a64bfdc7dd9203868efdce6}\label{classSTRIPS__Interface_a4d8836258a64bfdc7dd9203868efdce6}} 
+void {\bfseries print\+\_\+actions} ()
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a4ec9790f86bdacf38d9398976e3ad680}\label{classSTRIPS__Interface_a4ec9790f86bdacf38d9398976e3ad680}} 
+std\+::string {\bfseries get\+\_\+atom\+\_\+name} (int idx) const
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a8127f632a393d7608f90f8598fc07dbc}\label{classSTRIPS__Interface_a8127f632a393d7608f90f8598fc07dbc}} 
+std\+::string {\bfseries get\+\_\+domain\+\_\+name} () const
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a1f8c4a5d805dff93ed9a8024a03a40f2}\label{classSTRIPS__Interface_a1f8c4a5d805dff93ed9a8024a03a40f2}} 
+std\+::string {\bfseries get\+\_\+problem\+\_\+name} () const
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_aa77e357f0f1d5cf5b0ac43980a60cfc1}\label{classSTRIPS__Interface_aa77e357f0f1d5cf5b0ac43980a60cfc1}} 
+size\+\_\+t {\bfseries n\+\_\+atoms} () const
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a4ff4c44392256fc423913b3a584cfece}\label{classSTRIPS__Interface_a4ff4c44392256fc423913b3a584cfece}} 
+size\+\_\+t {\bfseries n\+\_\+actions} () const
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a4e3e614bcf9c4adfa707ae994edf6d23}\label{classSTRIPS__Interface_a4e3e614bcf9c4adfa707ae994edf6d23}} 
+void {\bfseries write\+\_\+ground\+\_\+pddl} (std\+::string domain, std\+::string instance)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a972b0002d30e8aa0af8c89bc3a3845cb}\label{classSTRIPS__Interface_a972b0002d30e8aa0af8c89bc3a3845cb}} 
+float {\bfseries m\+\_\+parsing\+\_\+time}
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_ad33d6d520a2dfa5bae0d633d247c3965}\label{classSTRIPS__Interface_ad33d6d520a2dfa5bae0d633d247c3965}} 
+bool {\bfseries m\+\_\+ignore\+\_\+action\+\_\+costs}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_ae4eb700989ab07c997476c3685576da6}\label{classSTRIPS__Interface_ae4eb700989ab07c997476c3685576da6}} 
+\mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{aptk\+::\+S\+T\+R\+I\+P\+S\+\_\+\+Problem}} $\ast$ {\bfseries m\+\_\+problem}
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_af1226d68ea62e6a9d72eb499c32d01fb}\label{classSTRIPS__Interface_af1226d68ea62e6a9d72eb499c32d01fb}} 
+std\+::set$<$ int $>$ {\bfseries m\+\_\+negated\+\_\+conditions}
+\item 
+\mbox{\Hypertarget{classSTRIPS__Interface_a75a10da9b688fa7f814c495577de7b59}\label{classSTRIPS__Interface_a75a10da9b688fa7f814c495577de7b59}} 
+aptk\+::\+Fluent\+\_\+\+Ptr\+\_\+\+Vec {\bfseries m\+\_\+negated}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/pddl\+\_\+interface/common/py\+\_\+strips\+\_\+interface.\+hxx\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/pddl\+\_\+interface/common/py\+\_\+strips\+\_\+interface.\+cxx\end{DoxyCompactItemize}

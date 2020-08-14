@@ -1,0 +1,49 @@
+\hypertarget{classaptk_1_1Search__Problem}{}\doxysection{aptk\+::Search\+\_\+\+Problem$<$ State $>$ Class Template Reference}
+\label{classaptk_1_1Search__Problem}\index{aptk::Search\_Problem$<$ State $>$@{aptk::Search\_Problem$<$ State $>$}}
+Inheritance diagram for aptk\+::Search\+\_\+\+Problem$<$ State $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classaptk_1_1Search__Problem}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1Search__Problem_a50a40340410eef5d7df6b3d1461e01a7}\label{classaptk_1_1Search__Problem_a50a40340410eef5d7df6b3d1461e01a7}} 
+typedef \mbox{\hyperlink{classaptk_1_1State}{State}} {\bfseries State\+\_\+\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1Search__Problem_ac877aa0294542a0c68772d040f9a4c42}\label{classaptk_1_1Search__Problem_ac877aa0294542a0c68772d040f9a4c42}} 
+virtual int {\bfseries num\+\_\+actions} () const =0
+\item 
+\mbox{\Hypertarget{classaptk_1_1Search__Problem_ab909aa01cffa7798b6d984dc2f5e4bce}\label{classaptk_1_1Search__Problem_ab909aa01cffa7798b6d984dc2f5e4bce}} 
+virtual \mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries init} () const =0
+\item 
+\mbox{\Hypertarget{classaptk_1_1Search__Problem_a79d2e4f427b5893c21ad5b28d80f4dda}\label{classaptk_1_1Search__Problem_a79d2e4f427b5893c21ad5b28d80f4dda}} 
+virtual bool {\bfseries goal} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s) const =0
+\item 
+\mbox{\Hypertarget{classaptk_1_1Search__Problem_a97a8ff0cc63018469c37dab6929e0713}\label{classaptk_1_1Search__Problem_a97a8ff0cc63018469c37dab6929e0713}} 
+virtual bool {\bfseries is\+\_\+applicable} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, Action\+\_\+\+Idx a) const =0
+\item 
+\mbox{\Hypertarget{classaptk_1_1Search__Problem_a2a9017ce3b4036b01ee9f71329200ed2}\label{classaptk_1_1Search__Problem_a2a9017ce3b4036b01ee9f71329200ed2}} 
+virtual void {\bfseries applicable\+\_\+set} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&app\+\_\+set) const =0
+\item 
+\mbox{\Hypertarget{classaptk_1_1Search__Problem_ac2a330b6f40e024f295ff2796617ddc5}\label{classaptk_1_1Search__Problem_ac2a330b6f40e024f295ff2796617ddc5}} 
+virtual void {\bfseries applicable\+\_\+set\+\_\+v2} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&app\+\_\+set) const =0
+\item 
+\mbox{\Hypertarget{classaptk_1_1Search__Problem_a3556250f6ae11d60e0ea591ea7965b4e}\label{classaptk_1_1Search__Problem_a3556250f6ae11d60e0ea591ea7965b4e}} 
+virtual float {\bfseries cost} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, Action\+\_\+\+Idx a) const =0
+\item 
+\mbox{\Hypertarget{classaptk_1_1Search__Problem_a805e181df9c13d5f99a32a0a7424c24d}\label{classaptk_1_1Search__Problem_a805e181df9c13d5f99a32a0a7424c24d}} 
+virtual \mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries next} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, Action\+\_\+\+Idx a) const =0
+\item 
+\mbox{\Hypertarget{classaptk_1_1Search__Problem_a4654c612aa8450ed50f830a5fb8f531b}\label{classaptk_1_1Search__Problem_a4654c612aa8450ed50f830a5fb8f531b}} 
+virtual void {\bfseries print} (std\+::ostream \&os) const =0
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/model/search\+\_\+prob.\+hxx\end{DoxyCompactItemize}

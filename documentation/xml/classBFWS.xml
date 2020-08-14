@@ -1,0 +1,421 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classBFWS" kind="class" language="C++" prot="public">
+    <compoundname>BFWS</compoundname>
+    <basecompoundref refid="classSTRIPS__Interface" prot="public" virt="non-virtual">STRIPS_Interface</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classBFWS_1a286d1feeac8451680aeb01db932299d7" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string BFWS::m_log_filename</definition>
+        <argsstring></argsstring>
+        <name>m_log_filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="177" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBFWS_1ad28d3315617b50595a2fb776dbc0de14" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string BFWS::m_plan_filename</definition>
+        <argsstring></argsstring>
+        <name>m_plan_filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="178" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBFWS_1ae91735299cb8ab292b6194d358fe21c2" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string BFWS::m_search_alg</definition>
+        <argsstring></argsstring>
+        <name>m_search_alg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="179" column="17" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBFWS_1ad2f44776b0e0dbb086ed78bc50fda51b" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned BFWS::m_M</definition>
+        <argsstring></argsstring>
+        <name>m_M</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="180" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBFWS_1a75c963bab96d80e328b2a96deb1f48e4" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned BFWS::m_max_novelty</definition>
+        <argsstring></argsstring>
+        <name>m_max_novelty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="181" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBFWS_1a68f3e8eb3623397aae2b607faccd944e" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool BFWS::m_anytime</definition>
+        <argsstring></argsstring>
+        <name>m_anytime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="182" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBFWS_1af2e56bd46d8228a39afa630b79a15668" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool BFWS::m_found_plan</definition>
+        <argsstring></argsstring>
+        <name>m_found_plan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="183" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBFWS_1a7033727e61266399903413ccebef551d" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float BFWS::m_cost</definition>
+        <argsstring></argsstring>
+        <name>m_cost</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="184" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBFWS_1a4fd6c9bb1fc0fb84cb04aa962ebb3f4d" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float BFWS::m_cost_bound</definition>
+        <argsstring></argsstring>
+        <name>m_cost_bound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="185" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classBFWS_1a82555c3298cc8e5fc58d5d13ee5b265b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>BFWS::BFWS</definition>
+        <argsstring>()</argsstring>
+        <name>BFWS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="168" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.cxx" bodystart="13" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classBFWS_1ad73a31b252424dd3db60c5cc7ae9227f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>BFWS::BFWS</definition>
+        <argsstring>(std::string, std::string)</argsstring>
+        <name>BFWS</name>
+        <param>
+          <type>std::string</type>
+          <defname>domain_file</defname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <defname>instance_file</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="169" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.cxx" bodystart="17" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classBFWS_1a556dc556c61f237e375f951cedf7e662" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>BFWS::~BFWS</definition>
+        <argsstring>()</argsstring>
+        <name>~BFWS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="170" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.cxx" bodystart="21" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classBFWS_1abfd4f0a0668bb6148969bdb43d8e11cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void BFWS::setup</definition>
+        <argsstring>(bool gen_match_tree=true)</argsstring>
+        <name>setup</name>
+        <reimplements refid="classSTRIPS__Interface_1a6450f9847ede4304e387d1320b23b507">setup</reimplements>
+        <param>
+          <type>bool</type>
+          <declname>gen_match_tree</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="173" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.cxx" bodystart="26" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classBFWS_1ac0733531f7547382636e4145a4862f6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void BFWS::solve</definition>
+        <argsstring>()</argsstring>
+        <name>solve</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>If goal is compiled away into a single dummy goal, then use landmark count instead of goal count</para>
+<para>Use landmark count instead of goal count</para>
+<para>Use a new goal count</para>
+<para>Use landmark count instead of goal count</para>
+<para>Use landmark count instead of goal count</para>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="174" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.cxx" bodystart="191" bodyend="547"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classBFWS_1a5c62b699ca04690502dd41ede3ac2f83" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Search_Engine</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void BFWS::bfws_options</definition>
+        <argsstring>(Fwd_Search_Problem &amp;search_prob, Search_Engine &amp;bfs_engine, unsigned max_novelty, Landmarks_Graph &amp;graph)</argsstring>
+        <name>bfws_options</name>
+        <param>
+          <type><ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref> &amp;</type>
+          <declname>search_prob</declname>
+        </param>
+        <param>
+          <type>Search_Engine &amp;</type>
+          <declname>bfs_engine</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>max_novelty</declname>
+        </param>
+        <param>
+          <type><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph" kindref="compound">Landmarks_Graph</ref> &amp;</type>
+          <declname>graph</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="188" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.cxx" bodystart="38" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classBFWS_1ad3471790c84c9d8ee328c05cc3487a47" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Search_Engine</type>
+          </param>
+        </templateparamlist>
+        <type>float</type>
+        <definition>float BFWS::do_search</definition>
+        <argsstring>(Search_Engine &amp;engine, aptk::STRIPS_Problem &amp;plan_prob, std::ofstream &amp;plan_stream)</argsstring>
+        <name>do_search</name>
+        <param>
+          <type>Search_Engine &amp;</type>
+          <declname>engine</declname>
+        </param>
+        <param>
+          <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">aptk::STRIPS_Problem</ref> &amp;</type>
+          <declname>plan_prob</declname>
+        </param>
+        <param>
+          <type>std::ofstream &amp;</type>
+          <declname>plan_stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="191" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.cxx" bodystart="64" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classBFWS_1ad2effd1031d8a614bcd4b76ac8c0850b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float BFWS::do_anytime</definition>
+        <argsstring>(Anytime_RWA &amp;engine)</argsstring>
+        <name>do_anytime</name>
+        <param>
+          <type><ref refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA" kindref="compound">Anytime_RWA</ref> &amp;</type>
+          <declname>engine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="193" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.cxx" bodystart="130" bodyend="188"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>BFWS</label>
+        <link refid="classBFWS"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>STRIPS_Interface</label>
+        <link refid="classSTRIPS__Interface"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>BFWS</label>
+        <link refid="classBFWS"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aptk::STRIPS_Problem</label>
+        <link refid="classaptk_1_1STRIPS__Problem"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_succ_gen</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_succ_gen_v3</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_mutexes</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>m_succ_gen_v2</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>aptk::agnostic::Match_Tree</label>
+        <link refid="classaptk_1_1agnostic_1_1Match__Tree"/>
+      </node>
+      <node id="2">
+        <label>STRIPS_Interface</label>
+        <link refid="classSTRIPS__Interface"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_problem</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>aptk::WatchedLitSuccGen</label>
+        <link refid="classaptk_1_1WatchedLitSuccGen"/>
+      </node>
+      <node id="6">
+        <label>aptk::agnostic::Mutex_Set</label>
+        <link refid="classaptk_1_1agnostic_1_1Mutex__Set"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_model</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aptk::agnostic::Successor_Generator</label>
+        <link refid="classaptk_1_1agnostic_1_1Successor__Generator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="164" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="165" bodyend="194"/>
+    <listofallmembers>
+      <member refid="classSTRIPS__Interface_1af7e8907ce4b6b9ca09fd860b45ab3225" prot="public" virt="non-virtual"><scope>BFWS</scope><name>add_action</name></member>
+      <member refid="classSTRIPS__Interface_1a2f15bd04c71cd62ebfaf550497abbf20" prot="public" virt="non-virtual"><scope>BFWS</scope><name>add_atom</name></member>
+      <member refid="classSTRIPS__Interface_1a71710771f112651e0cb13bc989ed1a19" prot="public" virt="non-virtual"><scope>BFWS</scope><name>add_cond_effect</name></member>
+      <member refid="classSTRIPS__Interface_1abd19dab045446baa2ad4553b4538e621" prot="public" virt="non-virtual"><scope>BFWS</scope><name>add_cond_effect</name></member>
+      <member refid="classSTRIPS__Interface_1a0be5ac4c93a831a70f2a7c7f58424ac1" prot="public" virt="non-virtual"><scope>BFWS</scope><name>add_effect</name></member>
+      <member refid="classSTRIPS__Interface_1aaad07b02eac0d294a1ad62b9e7c8f36b" prot="public" virt="non-virtual"><scope>BFWS</scope><name>add_effect</name></member>
+      <member refid="classSTRIPS__Interface_1a73351e126dfa21d7144bc1df4832e515" prot="public" virt="virtual"><scope>BFWS</scope><name>add_mutex_group</name></member>
+      <member refid="classSTRIPS__Interface_1a25796b296c432afae525e609356d9ff9" prot="public" virt="non-virtual"><scope>BFWS</scope><name>add_precondition</name></member>
+      <member refid="classSTRIPS__Interface_1afb59d6afad4ca57d9b3f2be7968b7e0e" prot="public" virt="non-virtual"><scope>BFWS</scope><name>add_precondition</name></member>
+      <member refid="classBFWS_1a82555c3298cc8e5fc58d5d13ee5b265b" prot="public" virt="non-virtual"><scope>BFWS</scope><name>BFWS</name></member>
+      <member refid="classBFWS_1ad73a31b252424dd3db60c5cc7ae9227f" prot="public" virt="non-virtual"><scope>BFWS</scope><name>BFWS</name></member>
+      <member refid="classBFWS_1a5c62b699ca04690502dd41ede3ac2f83" prot="protected" virt="non-virtual"><scope>BFWS</scope><name>bfws_options</name></member>
+      <member refid="classSTRIPS__Interface_1aea74586a3c4fec2d6c18c98347538d53" prot="public" virt="non-virtual"><scope>BFWS</scope><name>boost_instance</name></member>
+      <member refid="classSTRIPS__Interface_1aa42707020083c3ba93b380bfa85bb526" prot="public" virt="non-virtual"><scope>BFWS</scope><name>create_negated_fluents</name></member>
+      <member refid="classBFWS_1ad2effd1031d8a614bcd4b76ac8c0850b" prot="protected" virt="non-virtual"><scope>BFWS</scope><name>do_anytime</name></member>
+      <member refid="classBFWS_1ad3471790c84c9d8ee328c05cc3487a47" prot="protected" virt="non-virtual"><scope>BFWS</scope><name>do_search</name></member>
+      <member refid="classSTRIPS__Interface_1a171597b1cec14b29c776216d4a84a0e9" prot="public" virt="non-virtual"><scope>BFWS</scope><name>finalize_actions</name></member>
+      <member refid="classSTRIPS__Interface_1a4ec9790f86bdacf38d9398976e3ad680" prot="public" virt="non-virtual"><scope>BFWS</scope><name>get_atom_name</name></member>
+      <member refid="classSTRIPS__Interface_1a8127f632a393d7608f90f8598fc07dbc" prot="public" virt="non-virtual"><scope>BFWS</scope><name>get_domain_name</name></member>
+      <member refid="classSTRIPS__Interface_1a1f8c4a5d805dff93ed9a8024a03a40f2" prot="public" virt="non-virtual"><scope>BFWS</scope><name>get_problem_name</name></member>
+      <member refid="classSTRIPS__Interface_1ad70c8285c19eee8d7a50393850011616" prot="public" virt="non-virtual"><scope>BFWS</scope><name>instance</name></member>
+      <member refid="classBFWS_1a68f3e8eb3623397aae2b607faccd944e" prot="public" virt="non-virtual"><scope>BFWS</scope><name>m_anytime</name></member>
+      <member refid="classBFWS_1a7033727e61266399903413ccebef551d" prot="public" virt="non-virtual"><scope>BFWS</scope><name>m_cost</name></member>
+      <member refid="classBFWS_1a4fd6c9bb1fc0fb84cb04aa962ebb3f4d" prot="public" virt="non-virtual"><scope>BFWS</scope><name>m_cost_bound</name></member>
+      <member refid="classBFWS_1af2e56bd46d8228a39afa630b79a15668" prot="public" virt="non-virtual"><scope>BFWS</scope><name>m_found_plan</name></member>
+      <member refid="classSTRIPS__Interface_1ad33d6d520a2dfa5bae0d633d247c3965" prot="public" virt="non-virtual"><scope>BFWS</scope><name>m_ignore_action_costs</name></member>
+      <member refid="classBFWS_1a286d1feeac8451680aeb01db932299d7" prot="public" virt="non-virtual"><scope>BFWS</scope><name>m_log_filename</name></member>
+      <member refid="classBFWS_1ad2f44776b0e0dbb086ed78bc50fda51b" prot="public" virt="non-virtual"><scope>BFWS</scope><name>m_M</name></member>
+      <member refid="classBFWS_1a75c963bab96d80e328b2a96deb1f48e4" prot="public" virt="non-virtual"><scope>BFWS</scope><name>m_max_novelty</name></member>
+      <member refid="classSTRIPS__Interface_1a75a10da9b688fa7f814c495577de7b59" prot="protected" virt="non-virtual"><scope>BFWS</scope><name>m_negated</name></member>
+      <member refid="classSTRIPS__Interface_1af1226d68ea62e6a9d72eb499c32d01fb" prot="protected" virt="non-virtual"><scope>BFWS</scope><name>m_negated_conditions</name></member>
+      <member refid="classSTRIPS__Interface_1a972b0002d30e8aa0af8c89bc3a3845cb" prot="public" virt="non-virtual"><scope>BFWS</scope><name>m_parsing_time</name></member>
+      <member refid="classBFWS_1ad28d3315617b50595a2fb776dbc0de14" prot="public" virt="non-virtual"><scope>BFWS</scope><name>m_plan_filename</name></member>
+      <member refid="classSTRIPS__Interface_1ae4eb700989ab07c997476c3685576da6" prot="protected" virt="non-virtual"><scope>BFWS</scope><name>m_problem</name></member>
+      <member refid="classBFWS_1ae91735299cb8ab292b6194d358fe21c2" prot="public" virt="non-virtual"><scope>BFWS</scope><name>m_search_alg</name></member>
+      <member refid="classSTRIPS__Interface_1a4ff4c44392256fc423913b3a584cfece" prot="public" virt="non-virtual"><scope>BFWS</scope><name>n_actions</name></member>
+      <member refid="classSTRIPS__Interface_1aa77e357f0f1d5cf5b0ac43980a60cfc1" prot="public" virt="non-virtual"><scope>BFWS</scope><name>n_atoms</name></member>
+      <member refid="classSTRIPS__Interface_1abe8d276698470770ecefa3efbe3a3391" prot="public" virt="non-virtual"><scope>BFWS</scope><name>notify_negated_atom</name></member>
+      <member refid="classSTRIPS__Interface_1aeb9a0c95df2039cbb626a40bf9dce705" prot="public" virt="non-virtual"><scope>BFWS</scope><name>notify_negated_conditions</name></member>
+      <member refid="classSTRIPS__Interface_1a7acbcf18d7ad3047ad1a0da0b12d3ad1" prot="public" virt="non-virtual"><scope>BFWS</scope><name>print_action</name></member>
+      <member refid="classSTRIPS__Interface_1a4d8836258a64bfdc7dd9203868efdce6" prot="public" virt="non-virtual"><scope>BFWS</scope><name>print_actions</name></member>
+      <member refid="classSTRIPS__Interface_1a4affb904f4785ea5f65edff20a10a462" prot="public" virt="non-virtual"><scope>BFWS</scope><name>print_fluents</name></member>
+      <member refid="classSTRIPS__Interface_1aaad82db319df7d6433cf8563d0623f04" prot="public" virt="non-virtual"><scope>BFWS</scope><name>set_cost</name></member>
+      <member refid="classSTRIPS__Interface_1a29a7cef2f670c00389a183854324291a" prot="public" virt="non-virtual"><scope>BFWS</scope><name>set_domain_name</name></member>
+      <member refid="classSTRIPS__Interface_1acf3685cb3334cb06b2db0f44b20ed7cb" prot="public" virt="non-virtual"><scope>BFWS</scope><name>set_goal</name></member>
+      <member refid="classSTRIPS__Interface_1aa3101256cc25d4890dc8a2d2e0f58adb" prot="public" virt="non-virtual"><scope>BFWS</scope><name>set_goal</name></member>
+      <member refid="classSTRIPS__Interface_1a302dcf0c5a39fc90b76f54109cf0cdc7" prot="public" virt="non-virtual"><scope>BFWS</scope><name>set_init</name></member>
+      <member refid="classSTRIPS__Interface_1ac598e0212e1b732367e34b35a7ec7520" prot="public" virt="non-virtual"><scope>BFWS</scope><name>set_init</name></member>
+      <member refid="classSTRIPS__Interface_1a13019cff3cead632dc158bc59525adbe" prot="public" virt="non-virtual"><scope>BFWS</scope><name>set_problem_name</name></member>
+      <member refid="classSTRIPS__Interface_1ad541c170efd494d9b875ae86a5a74bb6" prot="public" virt="non-virtual"><scope>BFWS</scope><name>set_size_negated_fluents</name></member>
+      <member refid="classBFWS_1abfd4f0a0668bb6148969bdb43d8e11cc" prot="public" virt="virtual"><scope>BFWS</scope><name>setup</name></member>
+      <member refid="classBFWS_1ac0733531f7547382636e4145a4862f6c" prot="public" virt="non-virtual"><scope>BFWS</scope><name>solve</name></member>
+      <member refid="classSTRIPS__Interface_1a255bd416cc3e1597b5d954b9c22e55a2" prot="public" virt="non-virtual"><scope>BFWS</scope><name>STRIPS_Interface</name></member>
+      <member refid="classSTRIPS__Interface_1a2c1791478f14c9a3b2c6cdc978b2c175" prot="public" virt="non-virtual"><scope>BFWS</scope><name>STRIPS_Interface</name></member>
+      <member refid="classSTRIPS__Interface_1a4e3e614bcf9c4adfa707ae994edf6d23" prot="public" virt="non-virtual"><scope>BFWS</scope><name>write_ground_pddl</name></member>
+      <member refid="classBFWS_1a556dc556c61f237e375f951cedf7e662" prot="public" virt="virtual"><scope>BFWS</scope><name>~BFWS</name></member>
+      <member refid="classSTRIPS__Interface_1a5580c4ac98ad04b159b61c4b9ae12081" prot="public" virt="virtual"><scope>BFWS</scope><name>~STRIPS_Interface</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

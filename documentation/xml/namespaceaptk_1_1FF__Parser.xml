@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespaceaptk_1_1FF__Parser" kind="namespace" language="C++">
+    <compoundname>aptk::FF_Parser</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ff__to__aptk_8cxx_1aab937027e81a1cad4c7ec456e2a7606b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::FF_Parser::get_problem_description</definition>
+        <argsstring>(std::string pddl_domain_path, std::string pddl_problem_path, STRIPS_Problem &amp;strips_problem, bool ignore_action_costs, bool get_detailed_fluent_names, bool flag_py_interface)</argsstring>
+        <name>get_problem_description</name>
+        <param>
+          <type>std::string</type>
+          <declname>pddl_domain_path</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>pddl_problem_path</declname>
+        </param>
+        <param>
+          <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+          <declname>strips_problem</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>ignore_action_costs</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>get_detailed_fluent_names</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>flag_py_interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt/ff_to_aptk.cxx" line="32" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt/ff_to_aptk.cxx" bodystart="32" bodyend="226" declfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt/ff_to_aptk.hxx" declline="33" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="py__ff__to__aptk_8cxx_1ad183c8c4458cb8d8e2178ad3cb0a312a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::FF_Parser::py_get_problem_description</definition>
+        <argsstring>(std::string pddl_domain_path, std::string pddl_problem_path, STRIPS_Interface &amp;strips_interface, bool ignore_action_costs, bool get_detailed_fluent_names)</argsstring>
+        <name>py_get_problem_description</name>
+        <param>
+          <type>std::string</type>
+          <declname>pddl_domain_path</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>pddl_problem_path</declname>
+        </param>
+        <param>
+          <type><ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref> &amp;</type>
+          <declname>strips_interface</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>ignore_action_costs</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>get_detailed_fluent_names</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt/py_ff_to_aptk.cxx" line="7" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt/py_ff_to_aptk.cxx" bodystart="7" bodyend="16" declfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt/py_ff_to_aptk.hxx" declline="11" declcolumn="10"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt/ff_to_aptk.cxx" line="30" column="1"/>
+  </compounddef>
+</doxygen>

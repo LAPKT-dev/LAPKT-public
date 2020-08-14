@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespaceaptk_1_1agnostic" kind="namespace" language="C++">
+    <compoundname>aptk::agnostic</compoundname>
+    <innerclass refid="classaptk_1_1agnostic_1_1BaseNode" prot="public">aptk::agnostic::BaseNode</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Best__Supports__Graph" prot="public">aptk::agnostic::Best_Supports_Graph</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1CC__Problem" prot="public">aptk::agnostic::CC_Problem</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1EmptyNode" prot="public">aptk::agnostic::EmptyNode</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1FF__Relaxed__Plan__Extractor" prot="public">aptk::agnostic::FF_Relaxed_Plan_Extractor</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1FF__Relaxed__Plan__Heuristic" prot="public">aptk::agnostic::FF_Relaxed_Plan_Heuristic</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Fluent__Cmp" prot="public">aptk::agnostic::Fluent_Cmp</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Fluent__Conjunction" prot="public">aptk::agnostic::Fluent_Conjunction</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" prot="public">aptk::agnostic::Fwd_Search_Problem</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Goal__Node" prot="public">aptk::agnostic::Goal_Node</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1H1__Heuristic" prot="public">aptk::agnostic::H1_Heuristic</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1H2__Heuristic" prot="public">aptk::agnostic::H2_Heuristic</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1H__Add__Evaluation__Function" prot="public">aptk::agnostic::H_Add_Evaluation_Function</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1H__Max__Evaluation__Function" prot="public">aptk::agnostic::H_Max_Evaluation_Function</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1HC__Heuristic" prot="public">aptk::agnostic::HC_Heuristic</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1HC__Max__Evaluation__Function" prot="public">aptk::agnostic::HC_Max_Evaluation_Function</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" prot="public">aptk::agnostic::Landmarks_Count_Heuristic</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Landmarks__Graph" prot="public">aptk::agnostic::Landmarks_Graph</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Generator" prot="public">aptk::agnostic::Landmarks_Graph_Generator</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" prot="public">aptk::agnostic::Landmarks_Graph_Manager</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Layered__H__Max" prot="public">aptk::agnostic::Layered_H_Max</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1LeafNode" prot="public">aptk::agnostic::LeafNode</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Match__Tree" prot="public">aptk::agnostic::Match_Tree</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Mutex__Set" prot="public">aptk::agnostic::Mutex_Set</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Novelty" prot="public">aptk::agnostic::Novelty</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Novelty__Partition" prot="public">aptk::agnostic::Novelty_Partition</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Novelty__Partition__2" prot="public">aptk::agnostic::Novelty_Partition_2</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Null__Heuristic" prot="public">aptk::agnostic::Null_Heuristic</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Reachability__Test" prot="public">aptk::agnostic::Reachability_Test</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Extractor" prot="public">aptk::agnostic::Relaxed_Plan_Extractor</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" prot="public">aptk::agnostic::Relaxed_Plan_Heuristic</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Successor__Generator" prot="public">aptk::agnostic::Successor_Generator</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1SwitchNode" prot="public">aptk::agnostic::SwitchNode</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Unsat__Goals__Heuristic" prot="public">aptk::agnostic::Unsat_Goals_Heuristic</innerclass>
+    <innerclass refid="classaptk_1_1agnostic_1_1Unsat__Goals__Mutexes__Heuristic" prot="public">aptk::agnostic::Unsat_Goals_Mutexes_Heuristic</innerclass>
+    <innernamespace refid="namespaceaptk_1_1agnostic_1_1H2__Helper">aptk::agnostic::H2_Helper</innernamespace>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="legacy__ff_2generic-best__first-ffparser_2ff__rp__heuristic_8hxx_1ad6245fb295c416f8580de90661c524b3" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>FF_RP_Cost_Function</name>
+        <enumvalue id="legacy__ff_2generic-best__first-ffparser_2ff__rp__heuristic_8hxx_1ad6245fb295c416f8580de90661c524b3a24f9aa07b44358b24f89c513c433ba93" prot="public">
+          <name>Ignore_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="legacy__ff_2generic-best__first-ffparser_2ff__rp__heuristic_8hxx_1ad6245fb295c416f8580de90661c524b3a239ce795da8b148f25c297f55ff831d3" prot="public">
+          <name>Use_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="legacy__ff_2generic-best__first-ffparser_2ff__rp__heuristic_8hxx_1ad6245fb295c416f8580de90661c524b3a24f9aa07b44358b24f89c513c433ba93" prot="public">
+          <name>Ignore_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="legacy__ff_2generic-best__first-ffparser_2ff__rp__heuristic_8hxx_1ad6245fb295c416f8580de90661c524b3a239ce795da8b148f25c297f55ff831d3" prot="public">
+          <name>Use_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" line="73" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" bodystart="73" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="enum" id="shared_2compute_2heuristic_2ff__rp__heuristic_8hxx_1ad6245fb295c416f8580de90661c524b3" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>FF_RP_Cost_Function</name>
+        <enumvalue id="shared_2compute_2heuristic_2ff__rp__heuristic_8hxx_1ad6245fb295c416f8580de90661c524b3a24f9aa07b44358b24f89c513c433ba93" prot="public">
+          <name>Ignore_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="shared_2compute_2heuristic_2ff__rp__heuristic_8hxx_1ad6245fb295c416f8580de90661c524b3a239ce795da8b148f25c297f55ff831d3" prot="public">
+          <name>Use_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="shared_2compute_2heuristic_2ff__rp__heuristic_8hxx_1ad6245fb295c416f8580de90661c524b3a24f9aa07b44358b24f89c513c433ba93" prot="public">
+          <name>Ignore_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="shared_2compute_2heuristic_2ff__rp__heuristic_8hxx_1ad6245fb295c416f8580de90661c524b3a239ce795da8b148f25c297f55ff831d3" prot="public">
+          <name>Use_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/ff_rp_heuristic.hxx" line="40" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/ff_rp_heuristic.hxx" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="enum" id="h__1_8hxx_1ab3c0629cdcd1d8186e840bd19939e7b4" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>H1_Cost_Function</name>
+        <enumvalue id="h__1_8hxx_1ab3c0629cdcd1d8186e840bd19939e7b4a24f9aa07b44358b24f89c513c433ba93" prot="public">
+          <name>Ignore_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="h__1_8hxx_1ab3c0629cdcd1d8186e840bd19939e7b4a239ce795da8b148f25c297f55ff831d3" prot="public">
+          <name>Use_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="h__1_8hxx_1ab3c0629cdcd1d8186e840bd19939e7b4a3b358c9ad14f5758b84ec74fd6f52a55" prot="public">
+          <name>LAMA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_1.hxx" line="83" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_1.hxx" bodystart="83" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="enum" id="h__2_8hxx_1a16ecbc6a37178210fde30428ed07b3ba" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>H2_Cost_Function</name>
+        <enumvalue id="h__2_8hxx_1a16ecbc6a37178210fde30428ed07b3baafe5ad7780e921cd8194dad93c95d5d7d" prot="public">
+          <name>Zero_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="h__2_8hxx_1a16ecbc6a37178210fde30428ed07b3baa19131506c416efc560b0845572fcc3ca" prot="public">
+          <name>Unit_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="h__2_8hxx_1a16ecbc6a37178210fde30428ed07b3baa239ce795da8b148f25c297f55ff831d3" prot="public">
+          <name>Use_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="46" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="enum" id="h__C_8hxx_1ac3909099abc2cc980ce3bf78cc4e5807" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>HC_Cost_Function</name>
+        <enumvalue id="h__C_8hxx_1ac3909099abc2cc980ce3bf78cc4e5807a24f9aa07b44358b24f89c513c433ba93" prot="public">
+          <name>Ignore_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="h__C_8hxx_1ac3909099abc2cc980ce3bf78cc4e5807a239ce795da8b148f25c297f55ff831d3" prot="public">
+          <name>Use_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_C.hxx" line="59" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_C.hxx" bodystart="59" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="enum" id="rp__heuristic_8hxx_1a0963c948196386daa485aebc5b2f1ef1" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>RP_Cost_Function</name>
+        <enumvalue id="rp__heuristic_8hxx_1a0963c948196386daa485aebc5b2f1ef1a24f9aa07b44358b24f89c513c433ba93" prot="public">
+          <name>Ignore_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="rp__heuristic_8hxx_1a0963c948196386daa485aebc5b2f1ef1a239ce795da8b148f25c297f55ff831d3" prot="public">
+          <name>Use_Costs</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/rp_heuristic.hxx" line="38" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/rp_heuristic.hxx" bodystart="38" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" line="36" column="1"/>
+  </compounddef>
+</doxygen>

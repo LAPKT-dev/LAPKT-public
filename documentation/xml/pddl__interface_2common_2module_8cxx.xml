@@ -1,0 +1,480 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="pddl__interface_2common_2module_8cxx" kind="file" language="C++">
+    <compoundname>module.cxx</compoundname>
+    <includes refid="py__strips__interface_8hxx" local="no">py_strips_interface.hxx</includes>
+    <includes refid="strips__prob_8hxx" local="no">strips_prob.hxx</includes>
+    <incdepgraph>
+      <node id="21">
+        <label>functional</label>
+      </node>
+      <node id="20">
+        <label>queue</label>
+      </node>
+      <node id="9">
+        <label>limits</label>
+      </node>
+      <node id="26">
+        <label>mutex_set.hxx</label>
+        <link refid="mutex__set_8hxx_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>fluent.hxx</label>
+        <link refid="fluent_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>cstdint</label>
+      </node>
+      <node id="23">
+        <label>match_tree.hxx</label>
+        <link refid="match__tree_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>succ_gen.hxx</label>
+        <link refid="succ__gen_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>watched_lit_succ_gen.hxx</label>
+        <link refid="watched__lit__succ__gen_8hxx_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>cassert</label>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="5">
+        <label>map</label>
+      </node>
+      <node id="2">
+        <label>py_strips_interface.hxx</label>
+        <link refid="py__strips__interface_8hxx_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>action.hxx</label>
+        <link refid="action_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>cond_eff.hxx</label>
+        <link refid="cond__eff_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>boost/python.hpp</label>
+      </node>
+      <node id="8">
+        <label>vector</label>
+      </node>
+      <node id="10">
+        <label>utility</label>
+      </node>
+      <node id="12">
+        <label>bit_array.hxx</label>
+        <link refid="bit__array_8hxx_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>bit_set.hxx</label>
+        <link refid="bit__set_8hxx_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>types.hxx</label>
+        <link refid="types_8hxx_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>iosfwd</label>
+      </node>
+      <node id="16">
+        <label>iostream</label>
+      </node>
+      <node id="18">
+        <label>deque</label>
+      </node>
+      <node id="3">
+        <label>strips_prob.hxx</label>
+        <link refid="strips__prob_8hxx_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>set</label>
+      </node>
+      <node id="25">
+        <label>algorithm</label>
+      </node>
+      <node id="13">
+        <label>cstring</label>
+      </node>
+      <node id="29">
+        <label>strips_state.hxx</label>
+        <link refid="strips__state_8hxx_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>memory</label>
+      </node>
+      <node id="1">
+        <label>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx</label>
+        <link refid="pddl__interface_2common_2module_8cxx"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespaceboost_1_1python">boost::python</innernamespace>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="pddl__interface_2common_2module_8cxx_1a8290fd7cfafaa006fc05a7f9b2f9e320" prot="public" static="no" mutable="no">
+        <type>void(STRIPS_Interface::*</type>
+        <definition>void(STRIPS_Interface::* pre) (int, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;)</definition>
+        <argsstring>)(int, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;)</argsstring>
+        <name>pre</name>
+        <initializer>= 
+    &amp;STRIPS_Interface::add_precondition</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" line="4" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pddl__interface_2common_2module_8cxx_1ae1a7b3e2444c65248b2da5d5d0a85a5e" prot="public" static="no" mutable="no">
+        <type>void(STRIPS_Interface::*</type>
+        <definition>void(STRIPS_Interface::* ce) (int, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;)</definition>
+        <argsstring>)(int, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;)</argsstring>
+        <name>ce</name>
+        <initializer>=   
+    &amp;STRIPS_Interface::add_cond_effect</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" line="6" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pddl__interface_2common_2module_8cxx_1a63e86caa6d245810a573e69bc77ceaf3" prot="public" static="no" mutable="no">
+        <type>void(STRIPS_Interface::*</type>
+        <definition>void(STRIPS_Interface::* eff) (int, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;)</definition>
+        <argsstring>)(int, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;)</argsstring>
+        <name>eff</name>
+        <initializer>=
+    &amp;STRIPS_Interface::add_effect</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" line="9" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pddl__interface_2common_2module_8cxx_1a9d8a0a07759c97901abe16602a363fc9" prot="public" static="no" mutable="no">
+        <type>void(STRIPS_Interface::*</type>
+        <definition>void(STRIPS_Interface::* si) (std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;)</definition>
+        <argsstring>)(std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;)</argsstring>
+        <name>si</name>
+        <initializer>=
+    &amp;STRIPS_Interface::set_init</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" line="11" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pddl__interface_2common_2module_8cxx_1a17361c7a409ede39d66655fb5a995535" prot="public" static="no" mutable="no">
+        <type>void(STRIPS_Interface::*</type>
+        <definition>void(STRIPS_Interface::* sg) (std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;)</definition>
+        <argsstring>)(std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;)</argsstring>
+        <name>sg</name>
+        <initializer>=
+    &amp;STRIPS_Interface::set_goal</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" line="13" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pddl__interface_2common_2module_8cxx_1ad2acfd2db36f92aaca4ec1d709c2d2cd" prot="public" static="no" mutable="no">
+        <type>void(STRIPS_Interface::*</type>
+        <definition>void(STRIPS_Interface::* pre_fd) (int, boost::python::list &amp;)</definition>
+        <argsstring>)(int, boost::python::list &amp;)</argsstring>
+        <name>pre_fd</name>
+        <initializer>=   &amp;STRIPS_Interface::add_precondition</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" line="16" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pddl__interface_2common_2module_8cxx_1ac245d2b34d8d4b08b01a069ad56b20aa" prot="public" static="no" mutable="no">
+        <type>void(STRIPS_Interface::*</type>
+        <definition>void(STRIPS_Interface::* ce_fd) (int, boost::python::list &amp;, boost::python::list &amp;)</definition>
+        <argsstring>)(int, boost::python::list &amp;, boost::python::list &amp;)</argsstring>
+        <name>ce_fd</name>
+        <initializer>=   &amp;STRIPS_Interface::add_cond_effect</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" line="18" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pddl__interface_2common_2module_8cxx_1a728ac63f763b2e40c8c8fb785ef7e2bd" prot="public" static="no" mutable="no">
+        <type>void(STRIPS_Interface::*</type>
+        <definition>void(STRIPS_Interface::* eff_fd) (int, boost::python::list &amp;)</definition>
+        <argsstring>)(int, boost::python::list &amp;)</argsstring>
+        <name>eff_fd</name>
+        <initializer>=   &amp;STRIPS_Interface::add_effect</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" line="21" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pddl__interface_2common_2module_8cxx_1a0b6497f992d2af3c9ea3df4f4369fca8" prot="public" static="no" mutable="no">
+        <type>void(STRIPS_Interface::*</type>
+        <definition>void(STRIPS_Interface::* si_fd) (boost::python::list &amp;)</definition>
+        <argsstring>)(boost::python::list &amp;)</argsstring>
+        <name>si_fd</name>
+        <initializer>=   &amp;STRIPS_Interface::set_init</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" line="23" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pddl__interface_2common_2module_8cxx_1a0a548186f12e2103a59325fed5dcb1b2" prot="public" static="no" mutable="no">
+        <type>void(STRIPS_Interface::*</type>
+        <definition>void(STRIPS_Interface::* sg_fd) (boost::python::list &amp;)</definition>
+        <argsstring>)(boost::python::list &amp;)</argsstring>
+        <name>sg_fd</name>
+        <initializer>=   &amp;STRIPS_Interface::set_goal</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" line="25" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="pddl__interface_2common_2module_8cxx_1a9be92114d41b521907660697bdcabe63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>BOOST_PYTHON_MODULE</definition>
+        <argsstring>(libpddl_py_interface)</argsstring>
+        <name>BOOST_PYTHON_MODULE</name>
+        <param>
+          <type>libpddl_py_interface</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" line="28" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx" bodystart="28" bodyend="74"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;py_strips_interface.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include&lt;strips_prob.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">boost::python;</highlight></codeline>
+<codeline lineno="4"><highlight class="normal">void<sp/>(<ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref>::*pre)<sp/><sp/><sp/>(int,<sp/>std::vector&lt;std::pair&lt;int,<sp/>bool&gt;&gt;&amp;)<sp/>=<sp/></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>&amp;STRIPS_Interface::add_precondition;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">void<sp/>(<ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref>::*ce)<sp/><sp/><sp/><sp/>(int,<sp/>std::vector&lt;std::pair&lt;int,<sp/>bool&gt;&gt;&amp;<sp/>,<sp/></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::pair&lt;int,<sp/>bool&gt;&gt;&amp;)<sp/>=<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>&amp;STRIPS_Interface::add_cond_effect;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">void<sp/>(<ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref>::*eff)<sp/><sp/><sp/>(int<sp/>,<sp/>std::vector&lt;std::pair&lt;int,<sp/>bool&gt;&gt;&amp;)=</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>&amp;STRIPS_Interface::add_effect;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">void<sp/>(<ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref>::*si)<sp/><sp/><sp/><sp/>(std::vector&lt;std::pair&lt;int,<sp/>bool&gt;&gt;&amp;)<sp/><sp/><sp/><sp/><sp/><sp/>=</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>&amp;STRIPS_Interface::set_init;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">void<sp/>(<ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref>::*sg)<sp/><sp/><sp/><sp/>(<sp/>std::vector&lt;std::pair&lt;int,<sp/>bool&gt;&gt;&amp;)<sp/><sp/><sp/><sp/>=</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>&amp;STRIPS_Interface::set_goal;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">void<sp/>(<ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref>::*pre_fd)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>(int,<sp/>boost::python::list&amp;)<sp/>=<sp/><sp/><sp/>&amp;STRIPS_Interface::add_precondition;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">void<sp/>(<ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref>::*ce_fd)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>(int,<sp/>boost::python::list&amp;,<sp/>boost::python::list&amp;)<sp/></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/><sp/>&amp;STRIPS_Interface::add_cond_effect;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">void<sp/>(<ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref>::*eff_fd)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>(int,<sp/>boost::python::list&amp;<sp/>)=<sp/><sp/><sp/>&amp;STRIPS_Interface::add_effect;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">void<sp/>(<ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref>::*si_fd)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>(boost::python::list&amp;)<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/><sp/>&amp;STRIPS_Interface::set_init;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">void<sp/>(<ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref>::*sg_fd)<sp/></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>(boost::python::list&amp;)<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/><sp/>&amp;STRIPS_Interface::set_goal;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal">BOOST_PYTHON_MODULE(libpddl_py_interface)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>class_&lt;aptk::STRIPS_Problem&gt;(</highlight><highlight class="stringliteral">&quot;STRIPS_Problem&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::python::type_info<sp/>info<sp/>=<sp/>boost::python::type_id&lt;STRIPS_Interface&gt;();</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>boost::python::converter::registration*<sp/>reg_pointer<sp/>=<sp/></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>boost::python::converter::registry::query(info);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(reg_pointer<sp/>==<sp/>NULL<sp/>||(*reg_pointer).m_to_python<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>class_&lt;STRIPS_Interface&gt;(</highlight><highlight class="stringliteral">&quot;STRIPS_Interface&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/>init&lt;<sp/>std::string,<sp/>std::string<sp/>&gt;()<sp/>)</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;instance&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::boost_instance<sp/>)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;add_atom&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::add_atom<sp/>)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;add_action&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::add_action<sp/>)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;add_mutex_group&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::add_mutex_group<sp/>)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;num_atoms&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::n_atoms<sp/>)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;num_actions&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::n_actions<sp/>)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;get_atom_name&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::get_atom_name<sp/>)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;get_domain_name&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::get_domain_name<sp/>)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;get_problem_name&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::get_problem_name<sp/>)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;add_precondition&quot;</highlight><highlight class="normal">,<sp/>pre<sp/>)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;add_precondition&quot;</highlight><highlight class="normal">,<sp/>pre_fd<sp/>)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;add_effect&quot;</highlight><highlight class="normal">,<sp/>eff<sp/>)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;add_effect&quot;</highlight><highlight class="normal">,<sp/>eff_fd<sp/>)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;add_cond_effect&quot;</highlight><highlight class="normal">,<sp/>ce<sp/>)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;add_cond_effect&quot;</highlight><highlight class="normal">,<sp/>ce_fd<sp/>)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;set_cost&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::set_cost<sp/>)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;notify_negated_conditions&quot;</highlight><highlight class="normal">,<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;STRIPS_Interface::notify_negated_conditions<sp/>)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;create_negated_fluents&quot;</highlight><highlight class="normal">,<sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;STRIPS_Interface::create_negated_fluents<sp/>)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;set_init&quot;</highlight><highlight class="normal">,<sp/>si<sp/>)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;set_init&quot;</highlight><highlight class="normal">,<sp/>si_fd<sp/>)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;set_goal&quot;</highlight><highlight class="normal">,<sp/>sg<sp/>)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;set_goal&quot;</highlight><highlight class="normal">,<sp/>sg_fd<sp/>)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;set_domain_name&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::set_domain_name<sp/>)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;set_problem_name&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::set_problem_name<sp/>)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;write_ground_pddl&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::write_ground_pddl<sp/>)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;print_action&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::print_action<sp/>)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;print_actions&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::print_actions<sp/>)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;print_fluents&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::print_fluents<sp/>)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def(<sp/></highlight><highlight class="stringliteral">&quot;finalize_actions&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::finalize_actions<sp/>)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def_readwrite(<sp/></highlight><highlight class="stringliteral">&quot;parsing_time&quot;</highlight><highlight class="normal">,<sp/>&amp;STRIPS_Interface::m_parsing_time<sp/>)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.def_readwrite(<sp/></highlight><highlight class="stringliteral">&quot;ignore_action_costs&quot;</highlight><highlight class="normal">,<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;STRIPS_Interface::m_ignore_action_costs<sp/>)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/module.cxx"/>
+  </compounddef>
+</doxygen>

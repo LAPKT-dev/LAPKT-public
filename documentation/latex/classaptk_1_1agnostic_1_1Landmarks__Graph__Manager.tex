@@ -1,0 +1,55 @@
+\hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager}{}\doxysection{aptk\+::agnostic\+::Landmarks\+\_\+\+Graph\+\_\+\+Manager$<$ Search\+\_\+\+Model $>$ Class Template Reference}
+\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager}\index{aptk::agnostic::Landmarks\_Graph\_Manager$<$ Search\_Model $>$@{aptk::agnostic::Landmarks\_Graph\_Manager$<$ Search\_Model $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a25924c88c11ee37b4f0a3fac162561ac}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a25924c88c11ee37b4f0a3fac162561ac}} 
+{\bfseries Landmarks\+\_\+\+Graph\+\_\+\+Manager} (const Search\+\_\+\+Model \&prob, \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph}{Landmarks\+\_\+\+Graph}} $\ast$lg)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_ad5b398b23de021209e07a798694ecbcc}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_ad5b398b23de021209e07a798694ecbcc}} 
+void {\bfseries reset\+\_\+graph} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a1795fa2d682b2532ff38aa5b030797b5}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a1795fa2d682b2532ff38aa5b030797b5}} 
+void {\bfseries update\+\_\+graph} (Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\&keep\+\_\+consumed, Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\&keep\+\_\+unconsumed)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_afc1ce7436c5adf13f1bcab94575e2bb0}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_afc1ce7436c5adf13f1bcab94575e2bb0}} 
+void {\bfseries undo\+\_\+graph} (Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\&undo\+\_\+consumed, Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\&undo\+\_\+unconsumed)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a3fba2bc5d9d2da07d2665497dc953701}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a3fba2bc5d9d2da07d2665497dc953701}} 
+void {\bfseries apply\+\_\+action} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, Action\+\_\+\+Idx a\+\_\+idx, Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\&keep\+\_\+consumed, Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\&keep\+\_\+unconsumed)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a4bddd35c560f3cda5ba2885547c04a84}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a4bddd35c560f3cda5ba2885547c04a84}} 
+void {\bfseries apply\+\_\+cond\+\_\+eff} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, \mbox{\hyperlink{classaptk_1_1Conditional__Effect}{Conditional\+\_\+\+Effect}} $\ast$ce, Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\&keep\+\_\+consumed, Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\&keep\+\_\+unconsumed)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a4fbdc4af447274a741523e481cfc15c1}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a4fbdc4af447274a741523e481cfc15c1}} 
+void {\bfseries apply\+\_\+action} (const \mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, Action\+\_\+\+Idx a\+\_\+idx)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a4636088fcec145b7649f23c4dab5e5ae}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a4636088fcec145b7649f23c4dab5e5ae}} 
+void {\bfseries apply\+\_\+cond\+\_\+eff} (const \mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, \mbox{\hyperlink{classaptk_1_1Conditional__Effect}{Conditional\+\_\+\+Effect}} $\ast$ce)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a8ab7d4a62bdbc1b9c1fe1c735a7532fb}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a8ab7d4a62bdbc1b9c1fe1c735a7532fb}} 
+void {\bfseries apply\+\_\+state} (const Fluent\+\_\+\+Vec \&fl, Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\&keep\+\_\+consumed, Bool\+\_\+\+Vec\+\_\+\+Ptr $\ast$\&keep\+\_\+unconsumed)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_ab163d9369dc9d6d0c879999a3b70486d}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_ab163d9369dc9d6d0c879999a3b70486d}} 
+void {\bfseries apply\+\_\+state} (const Fluent\+\_\+\+Vec \&fl)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a6b26b8965e44e0c89c1cccd204ae2e50}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a6b26b8965e44e0c89c1cccd204ae2e50}} 
+\mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph}{Landmarks\+\_\+\+Graph}} $\ast$ {\bfseries graph} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a30523a636aca1ab8a66c2450024a735f}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a30523a636aca1ab8a66c2450024a735f}} 
+const \mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{S\+T\+R\+I\+P\+S\+\_\+\+Problem}} \& {\bfseries problem} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_ad28ca6d9cb59a8c995187b56c1578e9c}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_ad28ca6d9cb59a8c995187b56c1578e9c}} 
+const \mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{S\+T\+R\+I\+P\+S\+\_\+\+Problem}} \& {\bfseries m\+\_\+strips\+\_\+model}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a2b8161d263144f88c4c14702e03c7aa5}\label{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager_a2b8161d263144f88c4c14702e03c7aa5}} 
+\mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph}{Landmarks\+\_\+\+Graph}} $\ast$ {\bfseries m\+\_\+graph}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/compute/heuristic/landmark\+\_\+graph\+\_\+manager.\+hxx\end{DoxyCompactItemize}

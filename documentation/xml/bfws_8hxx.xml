@@ -1,0 +1,1354 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="bfws_8hxx" kind="file" language="C++">
+    <compoundname>bfws.hxx</compoundname>
+    <includes refid="py__strips__interface_8hxx" local="no">py_strips_interface.hxx</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">fstream</includes>
+    <includes refid="fluent_8hxx" local="no">fluent.hxx</includes>
+    <includes refid="action_8hxx" local="no">action.hxx</includes>
+    <includes refid="cond__eff_8hxx" local="no">cond_eff.hxx</includes>
+    <includes refid="strips__state_8hxx" local="no">strips_state.hxx</includes>
+    <includes refid="fwd__search__prob_8hxx" local="no">fwd_search_prob.hxx</includes>
+    <includes refid="landmark__graph_8hxx" local="no">landmark_graph.hxx</includes>
+    <includes refid="landmark__graph__generator_8hxx" local="no">landmark_graph_generator.hxx</includes>
+    <includes refid="landmark__graph__manager_8hxx" local="no">landmark_graph_manager.hxx</includes>
+    <includes refid="landmark__count_8hxx" local="yes">landmark_count.hxx</includes>
+    <includes refid="h__2_8hxx" local="no">h_2.hxx</includes>
+    <includes refid="h__1_8hxx" local="no">h_1.hxx</includes>
+    <includes refid="layered__h__max_8hxx" local="no">layered_h_max.hxx</includes>
+    <includes refid="open__list_8hxx" local="no">open_list.hxx</includes>
+    <includes refid="string__conversions_8hxx" local="no">string_conversions.hxx</includes>
+    <includes local="no">boost/program_options.hpp</includes>
+    <includes refid="novelty__partition__1_8hxx" local="yes">novelty_partition_1.hxx</includes>
+    <includes refid="novelty__partition__2_8hxx" local="yes">novelty_partition_2.hxx</includes>
+    <includes local="yes">ff_rp_heuristic.hxx</includes>
+    <includes refid="rp__heuristic_8hxx" local="yes">rp_heuristic.hxx</includes>
+    <includes refid="bfws__4h_8hxx" local="yes">bfws_4h.hxx</includes>
+    <includes refid="bfws__2h_8hxx" local="yes">bfws_2h.hxx</includes>
+    <includes refid="bfws__2h__M_8hxx" local="yes">bfws_2h_M.hxx</includes>
+    <includes refid="bfws__2h__consistency_8hxx" local="yes">bfws_2h_consistency.hxx</includes>
+    <includes refid="bfws__2h__consistency__M_8hxx" local="yes">bfws_2h_consistency_M.hxx</includes>
+    <includes local="yes">ipc2014_rwa.hxx</includes>
+    <includes refid="new__node__comparer_8hxx" local="yes">new_node_comparer.hxx</includes>
+    <includedby refid="bfws_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.cxx</includedby>
+    <includedby refid="planners_2common_2module_8cxx" local="no">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/common/module.cxx</includedby>
+    <incdepgraph>
+      <node id="47">
+        <label>list</label>
+      </node>
+      <node id="63">
+        <label>iomanip</label>
+      </node>
+      <node id="21">
+        <label>functional</label>
+      </node>
+      <node id="20">
+        <label>queue</label>
+      </node>
+      <node id="9">
+        <label>limits</label>
+      </node>
+      <node id="26">
+        <label>mutex_set.hxx</label>
+        <link refid="mutex__set_8hxx_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>sys/times.h</label>
+      </node>
+      <node id="34">
+        <label>search_prob.hxx</label>
+        <link refid="search__prob_8hxx_source"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>fluent.hxx</label>
+        <link refid="fluent_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>cstdint</label>
+      </node>
+      <node id="23">
+        <label>match_tree.hxx</label>
+        <link refid="match__tree_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>bfws_2h.hxx</label>
+        <link refid="bfws__2h_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx</label>
+        <link refid="bfws_8hxx"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>hash_table.hxx</label>
+        <link refid="hash__table_8hxx_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>ipc2014_rwa.hxx</label>
+      </node>
+      <node id="43">
+        <label>landmark_graph_manager.hxx</label>
+        <link refid="landmark__graph__manager_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>succ_gen.hxx</label>
+        <link refid="succ__gen_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>watched_lit_succ_gen.hxx</label>
+        <link refid="watched__lit__succ__gen_8hxx_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>cassert</label>
+      </node>
+      <node id="50">
+        <label>boost/heap/fibonacci_heap.hpp</label>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="5">
+        <label>map</label>
+      </node>
+      <node id="2">
+        <label>py_strips_interface.hxx</label>
+        <link refid="py__strips__interface_8hxx_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>fwd_search_prob.hxx</label>
+        <link refid="fwd__search__prob_8hxx_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>bfws_2h_consistency.hxx</label>
+        <link refid="bfws__2h__consistency_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>action.hxx</label>
+        <link refid="action_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>fstream</label>
+      </node>
+      <node id="53">
+        <label>boost/program_options.hpp</label>
+      </node>
+      <node id="37">
+        <label>landmark_graph_generator.hxx</label>
+        <link refid="landmark__graph__generator_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>boost/circular_buffer.hpp</label>
+      </node>
+      <node id="64">
+        <label>closed_list.hxx</label>
+        <link refid="closed__list_8hxx_source"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>cond_eff.hxx</label>
+        <link refid="cond__eff_8hxx_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>sys/resource.h</label>
+      </node>
+      <node id="72">
+        <label>bfws_2h_consistency_M.hxx</label>
+        <link refid="bfws__2h__consistency__M_8hxx_source"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>heuristic.hxx</label>
+        <link refid="heuristic_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
+        <label>jenkins_12bit.hxx</label>
+        <link refid="jenkins__12bit_8hxx_source"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>boost/python.hpp</label>
+      </node>
+      <node id="62">
+        <label>unistd.h</label>
+      </node>
+      <node id="58">
+        <label>bfws_4h.hxx</label>
+        <link refid="bfws__4h_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>stack</label>
+      </node>
+      <node id="8">
+        <label>vector</label>
+      </node>
+      <node id="39">
+        <label>h_1.hxx</label>
+        <link refid="h__1_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>layered_h_max.hxx</label>
+        <link refid="layered__h__max_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>utility</label>
+      </node>
+      <node id="52">
+        <label>sstream</label>
+      </node>
+      <node id="12">
+        <label>bit_array.hxx</label>
+        <link refid="bit__array_8hxx_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>novelty_partition_1.hxx</label>
+        <link refid="novelty__partition__1_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>landmark_graph.hxx</label>
+        <link refid="landmark__graph_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>bfws_2h_M.hxx</label>
+        <link refid="bfws__2h__M_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>resources_control.hxx</label>
+        <link refid="resources__control_8hxx_source"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>math.h</label>
+      </node>
+      <node id="11">
+        <label>bit_set.hxx</label>
+        <link refid="bit__set_8hxx_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>types.hxx</label>
+        <link refid="types_8hxx_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>iosfwd</label>
+      </node>
+      <node id="68">
+        <label>cstdlib</label>
+      </node>
+      <node id="16">
+        <label>iostream</label>
+      </node>
+      <node id="74">
+        <label>new_node_comparer.hxx</label>
+        <link refid="new__node__comparer_8hxx_source"/>
+      </node>
+      <node id="44">
+        <label>landmark_count.hxx</label>
+        <link refid="landmark__count_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>deque</label>
+      </node>
+      <node id="65">
+        <label>unordered_map</label>
+      </node>
+      <node id="57">
+        <label>rp_heuristic.hxx</label>
+        <link refid="rp__heuristic_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>reachability.hxx</label>
+        <link refid="reachability_8hxx_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>novelty_partition_2.hxx</label>
+        <link refid="novelty__partition__2_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>ext_math.hxx</label>
+        <link refid="ext__math_8hxx_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>open_list.hxx</label>
+        <link refid="open__list_8hxx_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>ff_rp_heuristic.hxx</label>
+      </node>
+      <node id="3">
+        <label>strips_prob.hxx</label>
+        <link refid="strips__prob_8hxx_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>set</label>
+      </node>
+      <node id="25">
+        <label>algorithm</label>
+      </node>
+      <node id="13">
+        <label>cstring</label>
+      </node>
+      <node id="46">
+        <label>h_2.hxx</label>
+        <link refid="h__2_8hxx_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>strips_state.hxx</label>
+        <link refid="strips__state_8hxx_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>string_conversions.hxx</label>
+        <link refid="string__conversions_8hxx_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classBFWS" prot="public">BFWS</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="bfws_8hxx_1ad8a6f0bd1bfc313443cccbbeff126314" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1H2__Heuristic" kindref="compound">H2_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref> &gt;</type>
+        <definition>typedef H2_Heuristic&lt;Fwd_Search_Problem&gt; H2_Fwd</definition>
+        <argsstring></argsstring>
+        <name>H2_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>DEFINITIONS </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="104" column="47" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a84f7592c0dd1a46f42b4dec3f3b13c7a" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Generator" kindref="compound">Landmarks_Graph_Generator</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref> &gt;</type>
+        <definition>typedef Landmarks_Graph_Generator&lt;Fwd_Search_Problem&gt; Gen_Lms_Fwd</definition>
+        <argsstring></argsstring>
+        <name>Gen_Lms_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="105" column="47" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a27f6e9b85dffe056281089338da9ac54" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">Landmarks_Count_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref> &gt;</type>
+        <definition>typedef Landmarks_Count_Heuristic&lt;Fwd_Search_Problem&gt; H_Lmcount_Fwd</definition>
+        <argsstring></argsstring>
+        <name>H_Lmcount_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="106" column="47" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1ad18cd26152c0b7422ecccd6476d53ac7" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" kindref="compound">Landmarks_Graph_Manager</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref> &gt;</type>
+        <definition>typedef Landmarks_Graph_Manager&lt;Fwd_Search_Problem&gt; Land_Graph_Man</definition>
+        <argsstring></argsstring>
+        <name>Land_Graph_Man</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="107" column="47" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a61fcaa5aa133ceb29752f1ca541d7b8c" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1bfws__4h_1_1Node" kindref="compound">aptk::search::bfws_4h::Node</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1State" kindref="compound">aptk::State</ref> &gt;</type>
+        <definition>typedef aptk::search::bfws_4h::Node&lt; Fwd_Search_Problem, aptk::State &gt; Search_Node_4h</definition>
+        <argsstring></argsstring>
+        <name>Search_Node_4h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="112" column="35" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1aed5ea72f26e67a44f4f3a6b52993c9bd" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1bfws__2h_1_1Node" kindref="compound">aptk::search::bfws_2h::Node</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1State" kindref="compound">aptk::State</ref> &gt;</type>
+        <definition>typedef aptk::search::bfws_2h::Node&lt; Fwd_Search_Problem, aptk::State &gt; Search_Node_2h</definition>
+        <argsstring></argsstring>
+        <name>Search_Node_2h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="113" column="35" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a0dd7061c6ee000b7dde5b475fff304e4" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1ipc2014_1_1Node" kindref="compound">aptk::search::ipc2014::Node</ref>&lt; <ref refid="classaptk_1_1State" kindref="compound">aptk::State</ref> &gt;</type>
+        <definition>typedef aptk::search::ipc2014::Node&lt; aptk::State &gt; AT_Search_Node</definition>
+        <argsstring></argsstring>
+        <name>AT_Search_Node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="114" column="43" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a228c7bcf49b06a510a7844f74a23ba6a" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">Novelty_Partition</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1search_1_1bfws__4h_1_1Node" kindref="compound">Search_Node_4h</ref> &gt;</type>
+        <definition>typedef Novelty_Partition&lt;Fwd_Search_Problem, Search_Node_4h&gt; H_Novel_Fwd_4h</definition>
+        <argsstring></argsstring>
+        <name>H_Novel_Fwd_4h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="118" column="49" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a6eb2049021805cf723702175e30c5abd" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition__2" kindref="compound">Novelty_Partition_2</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1search_1_1bfws__4h_1_1Node" kindref="compound">Search_Node_4h</ref> &gt;</type>
+        <definition>typedef Novelty_Partition_2&lt;Fwd_Search_Problem, Search_Node_4h&gt; H_Novel_2_Fwd_4h</definition>
+        <argsstring></argsstring>
+        <name>H_Novel_2_Fwd_4h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="119" column="49" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a897d729b73a7170ecb3f924e29bea661" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">Novelty_Partition</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1search_1_1bfws__2h_1_1Node" kindref="compound">Search_Node_2h</ref> &gt;</type>
+        <definition>typedef Novelty_Partition&lt;Fwd_Search_Problem, Search_Node_2h&gt; H_Novel_Fwd_2h</definition>
+        <argsstring></argsstring>
+        <name>H_Novel_Fwd_2h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="121" column="49" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a6bddf5fc962060732c85d6c27f037941" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1Node__Comparer__4H" kindref="compound">Node_Comparer_4H</ref>&lt; <ref refid="classaptk_1_1search_1_1bfws__4h_1_1Node" kindref="compound">Search_Node_4h</ref> &gt;</type>
+        <definition>typedef Node_Comparer_4H&lt; Search_Node_4h &gt; Tie_Breaking_Algorithm_4h</definition>
+        <argsstring></argsstring>
+        <name>Tie_Breaking_Algorithm_4h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="127" column="24" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a365820b409a69dcffd38d6ed0ae5f02b" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1Node__Comparer__2H__gn__unit" kindref="compound">Node_Comparer_2H_gn_unit</ref>&lt; <ref refid="classaptk_1_1search_1_1bfws__2h_1_1Node" kindref="compound">Search_Node_2h</ref> &gt;</type>
+        <definition>typedef Node_Comparer_2H_gn_unit&lt; Search_Node_2h &gt; Tie_Breaking_Algorithm_2h_ignore_costs</definition>
+        <argsstring></argsstring>
+        <name>Tie_Breaking_Algorithm_2h_ignore_costs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="128" column="40" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a8b7511cea75a2a75e2a65541e87c92c4" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">Open_List</ref>&lt; <ref refid="classaptk_1_1search_1_1Node__Comparer__4H" kindref="compound">Tie_Breaking_Algorithm_4h</ref>, <ref refid="classaptk_1_1search_1_1bfws__4h_1_1Node" kindref="compound">Search_Node_4h</ref> &gt;</type>
+        <definition>typedef Open_List&lt; Tie_Breaking_Algorithm_4h, Search_Node_4h &gt; BFS_Open_List_4h</definition>
+        <argsstring></argsstring>
+        <name>BFS_Open_List_4h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="134" column="35" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1af978498e6c042f305501a00cd09633a6" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">Open_List</ref>&lt; <ref refid="classaptk_1_1search_1_1Node__Comparer__2H__gn__unit" kindref="compound">Tie_Breaking_Algorithm_2h_ignore_costs</ref>, <ref refid="classaptk_1_1search_1_1bfws__2h_1_1Node" kindref="compound">Search_Node_2h</ref> &gt;</type>
+        <definition>typedef Open_List&lt; Tie_Breaking_Algorithm_2h_ignore_costs, Search_Node_2h &gt; BFS_Open_List_2h</definition>
+        <argsstring></argsstring>
+        <name>BFS_Open_List_2h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="135" column="30" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a60c77206eb57b79c3a5971e9a7c2744d" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1Fibonacci__Open__List" kindref="compound">AT_Search_Node::Open_List</ref></type>
+        <definition>typedef AT_Search_Node::Open_List AT_BFS_Open_List</definition>
+        <argsstring></argsstring>
+        <name>AT_BFS_Open_List</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="136" column="49" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1aeaf327474ac447d2659fd60e1fd58fe8" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H1_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1H__Add__Evaluation__Function" kindref="compound">H_Add_Evaluation_Function</ref>, H1_Cost_Function::Ignore_Costs &gt;</type>
+        <definition>typedef H1_Heuristic&lt;Fwd_Search_Problem, H_Add_Evaluation_Function, H1_Cost_Function::Ignore_Costs&gt; H_Add_Fwd</definition>
+        <argsstring></argsstring>
+        <name>H_Add_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="141" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1ab8f59f3810c0ccc34dbd40d0d1dba663" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">Relaxed_Plan_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H_Add_Fwd</ref>, RP_Cost_Function::Ignore_Costs &gt;</type>
+        <definition>typedef Relaxed_Plan_Heuristic&lt; Fwd_Search_Problem, H_Add_Fwd, RP_Cost_Function::Ignore_Costs &gt; H_Add_Rp_Fwd</definition>
+        <argsstring></argsstring>
+        <name>H_Add_Rp_Fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="142" column="35" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1aac9bc8a6056e3489de216c3cd8fadeee" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H1_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1H__Add__Evaluation__Function" kindref="compound">H_Add_Evaluation_Function</ref>, H1_Cost_Function::Use_Costs &gt;</type>
+        <definition>typedef H1_Heuristic&lt;Fwd_Search_Problem, H_Add_Evaluation_Function, H1_Cost_Function::Use_Costs&gt; H_Add_Fwd_use_costs</definition>
+        <argsstring></argsstring>
+        <name>H_Add_Fwd_use_costs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="144" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1af0004d22aa912d8a6088e0a482743052" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">Relaxed_Plan_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H_Add_Fwd</ref>, RP_Cost_Function::Use_Costs &gt;</type>
+        <definition>typedef Relaxed_Plan_Heuristic&lt; Fwd_Search_Problem, H_Add_Fwd, RP_Cost_Function::Use_Costs &gt; H_Add_Rp_Fwd_use_costs</definition>
+        <argsstring></argsstring>
+        <name>H_Add_Rp_Fwd_use_costs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="145" column="35" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a628600b296a42c0d3627843885b653dc" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1Layered__H__Max" kindref="compound">Layered_H_Max</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref> &gt;</type>
+        <definition>typedef Layered_H_Max&lt; Fwd_Search_Problem &gt; Alt_H_Max</definition>
+        <argsstring></argsstring>
+        <name>Alt_H_Max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="147" column="36" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a5a596336b469b124cc65906fb2370813" prot="public" static="no">
+        <type><ref refid="classaptk_1_1agnostic_1_1FF__Relaxed__Plan__Heuristic" kindref="compound">FF_Relaxed_Plan_Heuristic</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1Layered__H__Max" kindref="compound">Alt_H_Max</ref>, unsigned &gt;</type>
+        <definition>typedef FF_Relaxed_Plan_Heuristic&lt; Fwd_Search_Problem, Alt_H_Max, unsigned &gt; Classic_FF_H_Max</definition>
+        <argsstring></argsstring>
+        <name>Classic_FF_H_Max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="148" column="47" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a3caa7e96b541b5f0f21a0b6a9808623f" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H" kindref="compound">BFWS_2H</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">H_Novel_Fwd_2h</ref>, <ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">H_Lmcount_Fwd</ref>, <ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">H_Add_Rp_Fwd</ref>, <ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">BFS_Open_List_2h</ref> &gt;</type>
+        <definition>typedef BFWS_2H&lt; Fwd_Search_Problem, H_Novel_Fwd_2h, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List_2h&gt; k_BFWS</definition>
+        <argsstring></argsstring>
+        <name>k_BFWS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="152" column="38" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1ac29a24a954fd6263008149be34867348" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__M" kindref="compound">BFWS_2H_M</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">H_Novel_Fwd_2h</ref>, <ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">H_Lmcount_Fwd</ref>, <ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">H_Add_Rp_Fwd</ref>, <ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">BFS_Open_List_2h</ref> &gt;</type>
+        <definition>typedef BFWS_2H_M&lt; Fwd_Search_Problem, H_Novel_Fwd_2h, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List_2h &gt; k_BFWS_M</definition>
+        <argsstring></argsstring>
+        <name>k_BFWS_M</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="153" column="37" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1aca353e87122d8a6b73b923a93972973e" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1bfws__4h_1_1BFWS__4H" kindref="compound">BFWS_4H</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">H_Novel_Fwd_4h</ref>, <ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">H_Lmcount_Fwd</ref>, <ref refid="classaptk_1_1agnostic_1_1Novelty__Partition__2" kindref="compound">H_Novel_2_Fwd_4h</ref>, <ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">H_Add_Rp_Fwd</ref>, <ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">BFS_Open_List_4h</ref> &gt;</type>
+        <definition>typedef BFWS_4H&lt; Fwd_Search_Problem, H_Novel_Fwd_4h, H_Lmcount_Fwd, H_Novel_2_Fwd_4h, H_Add_Rp_Fwd, BFS_Open_List_4h &gt; BFWS_w_hlm_hadd</definition>
+        <argsstring></argsstring>
+        <name>BFWS_w_hlm_hadd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="154" column="27" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a11e4aa2ec54b40a5fe42421b299009e0" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency" kindref="compound">BFWS_2H_Consistency</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">H_Novel_Fwd_2h</ref>, <ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">H_Lmcount_Fwd</ref>, <ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">H_Add_Rp_Fwd</ref>, <ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">BFS_Open_List_2h</ref> &gt;</type>
+        <definition>typedef BFWS_2H_Consistency&lt; Fwd_Search_Problem, H_Novel_Fwd_2h, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List_2h &gt; k_BFWS_Consistency</definition>
+        <argsstring></argsstring>
+        <name>k_BFWS_Consistency</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="157" column="31" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1a4da47c11361014a4265610c04e7b396e" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M" kindref="compound">BFWS_2H_Consistency_M</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">H_Novel_Fwd_2h</ref>, <ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">H_Lmcount_Fwd</ref>, <ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">H_Add_Rp_Fwd</ref>, <ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">BFS_Open_List_2h</ref> &gt;</type>
+        <definition>typedef BFWS_2H_Consistency_M&lt; Fwd_Search_Problem, H_Novel_Fwd_2h, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List_2h &gt; k_BFWS_Consistency_M</definition>
+        <argsstring></argsstring>
+        <name>k_BFWS_Consistency_M</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="158" column="32" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bfws_8hxx_1af0846e7c86fc0aaa9e3bcce3f3dd324d" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA" kindref="compound">IPC2014_RWA</ref>&lt; <ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>, <ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">H_Add_Rp_Fwd_use_costs</ref>, <ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">H_Lmcount_Fwd</ref>, <ref refid="classaptk_1_1search_1_1Fibonacci__Open__List" kindref="compound">AT_BFS_Open_List</ref> &gt;</type>
+        <definition>typedef IPC2014_RWA&lt; Fwd_Search_Problem, H_Add_Rp_Fwd_use_costs, H_Lmcount_Fwd, AT_BFS_Open_List &gt; Anytime_RWA</definition>
+        <argsstring></argsstring>
+        <name>Anytime_RWA</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" line="162" column="19" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>__BFWS__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>__BFWS__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor">#include<sp/>&lt;py_strips_interface.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fluent.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;action.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cond_eff.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;strips_state.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fwd_search_prob.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;landmark_graph.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;landmark_graph_generator.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;landmark_graph_manager.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;landmark_count.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;h_2.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;h_1.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;layered_h_max.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;open_list.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string_conversions.hxx&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/program_options.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="comment">//NIR:<sp/>Files<sp/>adapted<sp/>from<sp/>LAPKT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;novelty_partition_1.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;novelty_partition_2.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ff_rp_heuristic.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rp_heuristic.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;bfws_4h.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;bfws_2h.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;bfws_2h_M.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;bfws_2h_consistency.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;bfws_2h_consistency_M.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ipc2014_rwa.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;new_node_comparer.hxx&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">po<sp/>=<sp/>boost::program_options;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="comment">//NIR:<sp/>Model<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">aptk::agnostic::Fwd_Search_Problem</ref>;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1Action" kindref="compound">aptk::Action</ref>;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//NIR:<sp/>Heuristics</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph" kindref="compound">aptk::agnostic::Landmarks_Graph</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Generator" kindref="compound">aptk::agnostic::Landmarks_Graph_Generator</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" kindref="compound">aptk::agnostic::Landmarks_Graph_Manager</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">aptk::agnostic::Landmarks_Count_Heuristic</ref>;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H2__Heuristic" kindref="compound">aptk::agnostic::H2_Heuristic</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">aptk::agnostic::H1_Heuristic</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/>aptk::agnostic::H1_Cost_Function;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/>aptk::agnostic::RP_Cost_Function;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Layered__H__Max" kindref="compound">aptk::agnostic::Layered_H_Max</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H__Add__Evaluation__Function" kindref="compound">aptk::agnostic::H_Add_Evaluation_Function</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H__Max__Evaluation__Function" kindref="compound">aptk::agnostic::H_Max_Evaluation_Function</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">aptk::agnostic::Relaxed_Plan_Heuristic</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1FF__Relaxed__Plan__Heuristic" kindref="compound">aptk::agnostic::FF_Relaxed_Plan_Heuristic</ref>;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">//NIR:<sp/>Novelties</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">aptk::agnostic::Novelty_Partition</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition__2" kindref="compound">aptk::agnostic::Novelty_Partition_2</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">//NIR:<sp/>Open<sp/>List<sp/>and<sp/>evaluation<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">aptk::search::Open_List</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Node__Comparer__4H" kindref="compound">aptk::search::Node_Comparer_4H</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Node__Comparer__2H" kindref="compound">aptk::search::Node_Comparer_2H</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Node__Comparer__2H__gn__unit" kindref="compound">aptk::search::Node_Comparer_2H_gn_unit</ref>;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">//NIR:<sp/>Search<sp/>Engines</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__4h_1_1BFWS__4H" kindref="compound">aptk::search::bfws_4h::BFWS_4H</ref>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H" kindref="compound">aptk::search::bfws_2h::BFWS_2H</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__M" kindref="compound">aptk::search::bfws_2h::BFWS_2H_M</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency" kindref="compound">aptk::search::bfws_2h::BFWS_2H_Consistency</ref>;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M" kindref="compound">aptk::search::bfws_2h::BFWS_2H_Consistency_M</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA" kindref="compound">aptk::search::bfs_dq_mh::IPC2014_RWA</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="comment">//NIR:<sp/>Heuristics</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H2__Heuristic" kindref="compound">H2_Heuristic&lt;Fwd_Search_Problem&gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H2__Heuristic" kindref="compound">H2_Fwd</ref>;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Generator" kindref="compound">Landmarks_Graph_Generator&lt;Fwd_Search_Problem&gt;</ref><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Generator" kindref="compound">Gen_Lms_Fwd</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">Landmarks_Count_Heuristic&lt;Fwd_Search_Problem&gt;</ref><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic" kindref="compound">H_Lmcount_Fwd</ref>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" kindref="compound">Landmarks_Graph_Manager&lt;Fwd_Search_Problem&gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph__Manager" kindref="compound">Land_Graph_Man</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">//<sp/>NIR:<sp/>Node<sp/>representations<sp/>for<sp/>each<sp/>search<sp/>algorithm</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__4h_1_1Node" kindref="compound">aptk::search::bfws_4h::Node&lt; Fwd_Search_Problem, aptk::State &gt;</ref><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__4h_1_1Node" kindref="compound">Search_Node_4h</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1Node" kindref="compound">aptk::search::bfws_2h::Node&lt; Fwd_Search_Problem, aptk::State &gt;</ref><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1Node" kindref="compound">Search_Node_2h</ref>;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1ipc2014_1_1Node" kindref="compound">aptk::search::ipc2014::Node&lt; aptk::State &gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1ipc2014_1_1Node" kindref="compound">AT_Search_Node</ref>;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">//<sp/>NIR:<sp/>Novelty<sp/>functions<sp/>for<sp/>each<sp/>node<sp/>type.<sp/>Novelty<sp/>partition<sp/>expects<sp/>class</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">//<sp/>node<sp/>to<sp/>define<sp/>partition()<sp/>function.<sp/>&apos;_2&apos;<sp/>version<sp/>expects<sp/>partition2()<sp/>function.<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">Novelty_Partition&lt;Fwd_Search_Problem, Search_Node_4h&gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">H_Novel_Fwd_4h</ref>;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition__2" kindref="compound">Novelty_Partition_2&lt;Fwd_Search_Problem, Search_Node_4h&gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition__2" kindref="compound">H_Novel_2_Fwd_4h</ref>;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">Novelty_Partition&lt;Fwd_Search_Problem, Search_Node_2h&gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Novelty__Partition" kindref="compound">H_Novel_Fwd_2h</ref>;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">//<sp/>NIR:<sp/>Then<sp/>we<sp/>define<sp/>the<sp/>type<sp/>of<sp/>the<sp/>tie-breaking<sp/>algorithm</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">//<sp/>for<sp/>the<sp/>open<sp/>list<sp/>we<sp/>are<sp/>going<sp/>to<sp/>use</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Node__Comparer__4H" kindref="compound">Node_Comparer_4H&lt; Search_Node_4h &gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Node__Comparer__4H" kindref="compound">Tie_Breaking_Algorithm_4h</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Node__Comparer__2H__gn__unit" kindref="compound">Node_Comparer_2H_gn_unit&lt; Search_Node_2h &gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Node__Comparer__2H__gn__unit" kindref="compound">Tie_Breaking_Algorithm_2h_ignore_costs</ref>;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">//NIR:<sp/>use<sp/>this<sp/>node<sp/>comparer<sp/>if<sp/>you<sp/>want<sp/>BFWS<sp/>to<sp/>use<sp/>gn<sp/>with<sp/>real<sp/>costs</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">//<sp/>NIR:<sp/>Now<sp/>we<sp/>define<sp/>the<sp/>Open<sp/>List<sp/>type<sp/>by<sp/>combining<sp/>the<sp/>types<sp/>we<sp/>have<sp/>defined<sp/>before</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">Open_List&lt; Tie_Breaking_Algorithm_4h, Search_Node_4h &gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">BFS_Open_List_4h</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">Open_List&lt; Tie_Breaking_Algorithm_2h_ignore_costs, Search_Node_2h &gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Open__List" kindref="compound">BFS_Open_List_2h</ref>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Fibonacci__Open__List" kindref="compound">AT_Search_Node::Open_List</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1Fibonacci__Open__List" kindref="compound">AT_BFS_Open_List</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">//<sp/>NIR:<sp/>Now<sp/>we<sp/>define<sp/>the<sp/>heuristics</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H1_Heuristic&lt;Fwd_Search_Problem, H_Add_Evaluation_Function, H1_Cost_Function::Ignore_Costs&gt;</ref><sp/><ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H_Add_Fwd</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">Relaxed_Plan_Heuristic&lt; Fwd_Search_Problem, H_Add_Fwd, RP_Cost_Function::Ignore_Costs &gt;</ref><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">H_Add_Rp_Fwd</ref>;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H1_Heuristic&lt;Fwd_Search_Problem, H_Add_Evaluation_Function, H1_Cost_Function::Use_Costs&gt;</ref><sp/><ref refid="classaptk_1_1agnostic_1_1H1__Heuristic" kindref="compound">H_Add_Fwd_use_costs</ref>;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">Relaxed_Plan_Heuristic&lt; Fwd_Search_Problem, H_Add_Fwd, RP_Cost_Function::Use_Costs &gt;</ref><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Relaxed__Plan__Heuristic" kindref="compound">H_Add_Rp_Fwd_use_costs</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Layered__H__Max" kindref="compound">Layered_H_Max&lt; Fwd_Search_Problem &gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1Layered__H__Max" kindref="compound">Alt_H_Max</ref>;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1FF__Relaxed__Plan__Heuristic" kindref="compound">FF_Relaxed_Plan_Heuristic&lt; Fwd_Search_Problem, Alt_H_Max, unsigned &gt;</ref><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1agnostic_1_1FF__Relaxed__Plan__Heuristic" kindref="compound">Classic_FF_H_Max</ref>;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">//<sp/>NIR:<sp/>Now<sp/>we&apos;re<sp/>ready<sp/>to<sp/>define<sp/>the<sp/>BFS<sp/>algorithm<sp/>we&apos;re<sp/>going<sp/>to<sp/>use,<sp/>H_Lmcount<sp/>can<sp/>be<sp/>used<sp/>only<sp/>with<sp/>goals,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">//<sp/>or<sp/>with<sp/>landmarks<sp/>computed<sp/>from<sp/>s0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H" kindref="compound">BFWS_2H&lt; Fwd_Search_Problem, H_Novel_Fwd_2h, H_Lmcount_Fwd, H_Add_Rp_Fwd,  BFS_Open_List_2h&gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H" kindref="compound">k_BFWS</ref>;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__M" kindref="compound">BFWS_2H_M&lt; Fwd_Search_Problem, H_Novel_Fwd_2h, H_Lmcount_Fwd, H_Add_Rp_Fwd,  BFS_Open_List_2h &gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__M" kindref="compound">k_BFWS_M</ref>;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__4h_1_1BFWS__4H" kindref="compound">BFWS_4H&lt; Fwd_Search_Problem, H_Novel_Fwd_4h, H_Lmcount_Fwd, H_Novel_2_Fwd_4h, H_Add_Rp_Fwd,  BFS_Open_List_4h &gt;</ref><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__4h_1_1BFWS__4H" kindref="compound">BFWS_w_hlm_hadd</ref>;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">//<sp/>NIR:<sp/>Consistency<sp/>Search<sp/>variants</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency" kindref="compound">BFWS_2H_Consistency&lt; Fwd_Search_Problem, H_Novel_Fwd_2h, H_Lmcount_Fwd, H_Add_Rp_Fwd,  BFS_Open_List_2h &gt;</ref><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency" kindref="compound">k_BFWS_Consistency</ref>;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M" kindref="compound">BFWS_2H_Consistency_M&lt; Fwd_Search_Problem, H_Novel_Fwd_2h, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List_2h &gt;</ref><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency__M" kindref="compound">k_BFWS_Consistency_M</ref>;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">//<sp/>NIR:<sp/>Anytime<sp/>RWA*</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA" kindref="compound">IPC2014_RWA&lt; Fwd_Search_Problem, H_Add_Rp_Fwd_use_costs, H_Lmcount_Fwd, AT_BFS_Open_List &gt;</ref><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA" kindref="compound">Anytime_RWA</ref>;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164" refid="classBFWS" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/><sp/><sp/></highlight><highlight class="normal"><ref refid="classBFWS" kindref="compound">BFWS</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref></highlight></codeline>
+<codeline lineno="165"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classBFWS" kindref="compound">BFWS</ref>(<sp/>);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classBFWS" kindref="compound">BFWS</ref>(<sp/>std::string,<sp/>std::string<sp/>);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~<ref refid="classBFWS" kindref="compound">BFWS</ref>();</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/>setup(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>gen_match_tree=</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classBFWS_1ac0733531f7547382636e4145a4862f6c" kindref="member">solve</ref>();</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>m_log_filename;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>m_plan_filename;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><sp/><sp/><sp/><sp/>m_search_alg;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>m_M;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>m_max_novelty;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>m_anytime;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>m_found_plan;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>m_cost;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>m_cost_bound;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Search_Engine&gt;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>bfws_options(<sp/><ref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" kindref="compound">Fwd_Search_Problem</ref>&amp;<sp/>search_prob,<sp/>Search_Engine&amp;<sp/>bfs_engine,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>max_novelty,<sp/><ref refid="classaptk_1_1agnostic_1_1Landmarks__Graph" kindref="compound">Landmarks_Graph</ref>&amp;<sp/>graph);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Search_Engine&gt;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>do_search(<sp/>Search_Engine&amp;<sp/>engine,<sp/><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">aptk::STRIPS_Problem</ref>&amp;<sp/>plan_prob,<sp/>std::ofstream&amp;<sp/>plan_stream<sp/>);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>do_anytime(<sp/><ref refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA" kindref="compound">Anytime_RWA</ref>&amp;<sp/>engine<sp/>);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws/bfws.hxx"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_3987029439f77b4820b03b4e811dc220" kind="dir">
+    <compoundname>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/at_bfs_f</compoundname>
+    <innerfile refid="at__bfs__f-2-no-bfs__f_8py">at_bfs_f-2-no-bfs_f.py</innerfile>
+    <innerfile refid="at__bfs__f-2-no-siw_8py">at_bfs_f-2-no-siw.py</innerfile>
+    <innerfile refid="at__bfs__f-no-siw-no-bfs__f_8py">at_bfs_f-no-siw-no-bfs_f.py</innerfile>
+    <innerfile refid="at__bfs__f_8py">at_bfs_f.py</innerfile>
+    <innerfile refid="at__bfsf__planner_8cxx">at_bfsf_planner.cxx</innerfile>
+    <innerfile refid="at__bfsf__planner_8hxx">at_bfsf_planner.hxx</innerfile>
+    <innerfile refid="at__bfs__f_2build_8py">build.py</innerfile>
+    <innerfile refid="planners_2at__bfs__f_2ipc2014__rwa_8hxx">ipc2014_rwa.hxx</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/at_bfs_f/"/>
+  </compounddef>
+</doxygen>

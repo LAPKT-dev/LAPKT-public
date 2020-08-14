@@ -1,0 +1,549 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1agnostic_1_1Layered__H__Max" kind="class" language="C++" prot="public">
+    <compoundname>aptk::agnostic::Layered_H_Max</compoundname>
+    <basecompoundref refid="classaptk_1_1Heuristic" prot="public" virt="non-virtual">aptk::Heuristic&lt; State &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename Search_Model</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classaptk_1_1agnostic_1_1Layered__H__Max_1ad7061bfd3ede6900959d050c9820b078" prot="public" static="no">
+        <type><ref refid="classaptk_1_1STRIPS__Problem_1_1Best__Supporter" kindref="compound">STRIPS_Problem::Best_Supporter</ref></type>
+        <definition>typedef STRIPS_Problem::Best_Supporter aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::Best_Supporter</definition>
+        <argsstring></argsstring>
+        <name>Best_Supporter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="42" column="40" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Layered__H__Max_1ae9c54be50813c2e31513898f94065713" prot="protected" static="no" mutable="no">
+        <type>const <ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">STRIPS_Problem</ref> &amp;</type>
+        <definition>const STRIPS_Problem&amp; aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::m_strips_model</definition>
+        <argsstring></argsstring>
+        <name>m_strips_model</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="239" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Layered__H__Max_1ad49976e1a95e706ecf171728b853325c" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; unsigned &gt;</type>
+        <definition>std::vector&lt;unsigned&gt; aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::m_values</definition>
+        <argsstring></argsstring>
+        <name>m_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="240" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Layered__H__Max_1aee681567f98db16176d610ceab5f5027" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; unsigned &gt;</type>
+        <definition>std::vector&lt;unsigned&gt; aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::m_difficulties</definition>
+        <argsstring></argsstring>
+        <name>m_difficulties</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="241" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a5636daabcbeb11dd072c27f2ab545715" prot="protected" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref></type>
+        <definition>Bit_Set aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::m_reached</definition>
+        <argsstring></argsstring>
+        <name>m_reached</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="242" column="8" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Layered__H__Max_1afa07924f262df32d28209142123ff8d8" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classaptk_1_1STRIPS__Problem_1_1Best__Supporter" kindref="compound">Best_Supporter</ref> &gt;</type>
+        <definition>std::vector&lt; Best_Supporter &gt; aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::m_best_supporters</definition>
+        <argsstring></argsstring>
+        <name>m_best_supporters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="243" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Layered__H__Max_1ac952bb8e0164eb05bfe2ce482038ae51" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::m_changed</definition>
+        <argsstring></argsstring>
+        <name>m_changed</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="244" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a77153b4e79fadfb38d0442ea4bce96b7" prot="protected" static="no" mutable="no">
+        <type>std::list&lt; unsigned &gt;</type>
+        <definition>std::list&lt; unsigned &gt; aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::m_triggered_effects</definition>
+        <argsstring></argsstring>
+        <name>m_triggered_effects</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="245" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Layered__H__Max_1ad6435e87969ecb28e90427b85db278af" prot="protected" static="no" mutable="no">
+        <type>std::list&lt; unsigned &gt;</type>
+        <definition>std::list&lt; unsigned &gt; aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::m_current_effects</definition>
+        <argsstring></argsstring>
+        <name>m_current_effects</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="246" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a6b32e1f0f367cfe691db98d542112e02" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>static unsigned aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::infinity</definition>
+        <argsstring>()</argsstring>
+        <name>infinity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="44" column="17" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="44" bodyend="44"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1ac02031324526b56527e3709bc5e8b557" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::Layered_H_Max</definition>
+        <argsstring>(const Search_Model &amp;prob)</argsstring>
+        <name>Layered_H_Max</name>
+        <param>
+          <type>const Search_Model &amp;</type>
+          <declname>prob</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="46" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="46" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a52fa6270f98d70307a1d27090cec17fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::~Layered_H_Max</definition>
+        <argsstring>()</argsstring>
+        <name>~Layered_H_Max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="54" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="54" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1ad869b6be76b1dae700054525736a457b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::value</definition>
+        <argsstring>(unsigned p) const</argsstring>
+        <name>value</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="57" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a0b83e971ec80c1c42c0703c408100ca6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::reachable</definition>
+        <argsstring>(unsigned p) const</argsstring>
+        <name>reachable</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="59" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="59" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a842dcb76130e3cda4dd59b06c996f7c8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::eval</definition>
+        <argsstring>(const Fluent_Vec &amp;s, unsigned &amp;h) const</argsstring>
+        <name>eval</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>unsigned &amp;</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="61" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="61" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1ad0c61f0a052dbf00896827bd635f8552" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::eval</definition>
+        <argsstring>(const Fluent_Vec &amp;s, float &amp;h_out)</argsstring>
+        <name>eval</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>h_out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="68" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="68" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1af34596eae7f7d46cef3527690262153e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::eval</definition>
+        <argsstring>(const State &amp;s, unsigned &amp;h)</argsstring>
+        <name>eval</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>unsigned &amp;</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="74" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="74" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1ac3e6c22c29dee92660ea6c38a3ea92ba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::eval</definition>
+        <argsstring>(const State &amp;s, float &amp;h_out)</argsstring>
+        <name>eval</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>h_out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="81" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="81" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a7172712017a92042b49e98b6d7a6adfa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::print_values</definition>
+        <argsstring>(std::ostream &amp;os) const</argsstring>
+        <name>print_values</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="88" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="88" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a00f6402c81fb5fc106ac9d601e85449f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1STRIPS__Problem_1_1Best__Supporter" kindref="compound">Best_Supporter</ref></type>
+        <definition>Best_Supporter aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::get_best_supporter</definition>
+        <argsstring>(unsigned p) const</argsstring>
+        <name>get_best_supporter</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="96" column="15" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="96" bodyend="98"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a75e8b6a1f6460f97e936bc0984e167dc" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::update</definition>
+        <argsstring>(unsigned p, unsigned v, Best_Supporter bs)</argsstring>
+        <name>update</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type><ref refid="classaptk_1_1STRIPS__Problem_1_1Best__Supporter" kindref="compound">Best_Supporter</ref></type>
+          <declname>bs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="102" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="102" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a7070a016b43abd4da008cd170d59c61f" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::eval_diff</definition>
+        <argsstring>(const Best_Supporter &amp;bs) const</argsstring>
+        <name>eval_diff</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1STRIPS__Problem_1_1Best__Supporter" kindref="compound">Best_Supporter</ref> &amp;</type>
+          <declname>bs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="106" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="106" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a228d636b8f38875f10e43d3ace61b210" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::update</definition>
+        <argsstring>(unsigned p, unsigned v, unsigned act_idx, unsigned eff_idx)</argsstring>
+        <name>update</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>act_idx</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>eff_idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="119" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="119" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a8688c54d78b9d912cbae428d5cc1ce8e" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::compute</definition>
+        <argsstring>(const State &amp;s)</argsstring>
+        <name>compute</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="163" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="163" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Layered__H__Max_1a87ad474e2923095dd235c6eee62038af" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;::goal_reached</definition>
+        <argsstring>() const</argsstring>
+        <name>goal_reached</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="231" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="231" bodyend="235"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>aptk::Heuristic&lt; State &gt;</label>
+        <link refid="classaptk_1_1Heuristic"/>
+      </node>
+      <node id="1">
+        <label>aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;</label>
+        <link refid="classaptk_1_1agnostic_1_1Layered__H__Max"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>aptk::STRIPS_Problem</label>
+        <link refid="classaptk_1_1STRIPS__Problem"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_succ_gen</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_succ_gen_v3</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_mutexes</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>m_succ_gen_v2</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>aptk::agnostic::Match_Tree</label>
+        <link refid="classaptk_1_1agnostic_1_1Match__Tree"/>
+      </node>
+      <node id="9">
+        <label>aptk::Bit_Array</label>
+        <link refid="classaptk_1_1Bit__Array"/>
+      </node>
+      <node id="8">
+        <label>aptk::Bit_Set</label>
+        <link refid="classaptk_1_1Bit__Set"/>
+        <childnode refid="9" relation="usage">
+          <edgelabel>m_fset</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aptk::Heuristic&lt; State &gt;</label>
+        <link refid="classaptk_1_1Heuristic"/>
+      </node>
+      <node id="5">
+        <label>aptk::WatchedLitSuccGen</label>
+        <link refid="classaptk_1_1WatchedLitSuccGen"/>
+      </node>
+      <node id="6">
+        <label>aptk::agnostic::Mutex_Set</label>
+        <link refid="classaptk_1_1agnostic_1_1Mutex__Set"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_model</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>aptk::agnostic::Layered_H_Max&lt; Search_Model &gt;</label>
+        <link refid="classaptk_1_1agnostic_1_1Layered__H__Max"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_strips_model</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>m_reached</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aptk::agnostic::Successor_Generator</label>
+        <link refid="classaptk_1_1agnostic_1_1Successor__Generator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" line="38" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/layered_h_max.hxx" bodystart="38" bodyend="247"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1ad7061bfd3ede6900959d050c9820b078" prot="public" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>Best_Supporter</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a8688c54d78b9d912cbae428d5cc1ce8e" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>compute</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a842dcb76130e3cda4dd59b06c996f7c8" prot="public" virt="virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>eval</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1ad0c61f0a052dbf00896827bd635f8552" prot="public" virt="virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>eval</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1af34596eae7f7d46cef3527690262153e" prot="public" virt="virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>eval</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1ac3e6c22c29dee92660ea6c38a3ea92ba" prot="public" virt="virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>eval</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a7070a016b43abd4da008cd170d59c61f" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>eval_diff</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a00f6402c81fb5fc106ac9d601e85449f" prot="public" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>get_best_supporter</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a87ad474e2923095dd235c6eee62038af" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>goal_reached</name></member>
+      <member refid="classaptk_1_1Heuristic_1a86eeb6445f46d830c14b319b7e5a2fda" prot="public" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>Heuristic</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a6b32e1f0f367cfe691db98d542112e02" prot="public" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>infinity</name></member>
+      <member refid="classaptk_1_1Heuristic_1a13825fc30fc7f2d3f4ba5da0b4ee32f7" prot="public" virt="virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>init</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1ac02031324526b56527e3709bc5e8b557" prot="public" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>Layered_H_Max</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1afa07924f262df32d28209142123ff8d8" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>m_best_supporters</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1ac952bb8e0164eb05bfe2ce482038ae51" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>m_changed</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1ad6435e87969ecb28e90427b85db278af" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>m_current_effects</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1aee681567f98db16176d610ceab5f5027" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>m_difficulties</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a5636daabcbeb11dd072c27f2ab545715" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>m_reached</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1ae9c54be50813c2e31513898f94065713" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>m_strips_model</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a77153b4e79fadfb38d0442ea4bce96b7" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>m_triggered_effects</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1ad49976e1a95e706ecf171728b853325c" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>m_values</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a7172712017a92042b49e98b6d7a6adfa" prot="public" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>print_values</name></member>
+      <member refid="classaptk_1_1Heuristic_1a44636224e625098eafd41fe54990b9d1" prot="public" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>problem</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a0b83e971ec80c1c42c0703c408100ca6" prot="public" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>reachable</name></member>
+      <member refid="classaptk_1_1Heuristic_1a95f567fe7f990819bfe72d08758b195e" prot="public" virt="virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>reset</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a75e8b6a1f6460f97e936bc0984e167dc" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>update</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a228d636b8f38875f10e43d3ace61b210" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>update</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1ad869b6be76b1dae700054525736a457b" prot="public" virt="non-virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>value</name></member>
+      <member refid="classaptk_1_1Heuristic_1a2b0f4d681e5a565be755a3d2a8c30608" prot="public" virt="virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>~Heuristic</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Layered__H__Max_1a52fa6270f98d70307a1d27090cec17fe" prot="public" virt="virtual"><scope>aptk::agnostic::Layered_H_Max</scope><name>~Layered_H_Max</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

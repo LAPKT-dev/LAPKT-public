@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespaceaptk_1_1agnostic_1_1H2__Helper" kind="namespace" language="C++">
+    <compoundname>aptk::agnostic::H2_Helper</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="h__2_8hxx_1a26c409dfc5b21b2b1948ad2aec8cac71" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int aptk::agnostic::H2_Helper::pair_index</definition>
+        <argsstring>(unsigned p, unsigned q)</argsstring>
+        <name>pair_index</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="40" column="11" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" bodystart="40" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/heuristic/h_2.hxx" line="38" column="1"/>
+  </compounddef>
+</doxygen>

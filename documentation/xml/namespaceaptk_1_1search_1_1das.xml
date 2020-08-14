@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespaceaptk_1_1search_1_1das" kind="namespace" language="C++">
+    <compoundname>aptk::search::das</compoundname>
+    <innerclass refid="classaptk_1_1search_1_1das_1_1Deadline__Aware__Search" prot="public">aptk::search::das::Deadline_Aware_Search</innerclass>
+    <innerclass refid="classaptk_1_1search_1_1das_1_1Node" prot="public">aptk::search::das::Node</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/das.hxx" line="36" column="1"/>
+  </compounddef>
+</doxygen>

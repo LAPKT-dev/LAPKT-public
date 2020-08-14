@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_865f42b4e9125b67e73acae54b4d94df" kind="dir">
+    <compoundname>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners</compoundname>
+    <innerdir refid="dir_7dc6c91e99d9f966d4458de824741d42">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/anytime_lapkt</innerdir>
+    <innerdir refid="dir_3987029439f77b4820b03b4e811dc220">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/at_bfs_f</innerdir>
+    <innerdir refid="dir_9ccffb8935e870f8be962e2a15971ed2">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfs_f</innerdir>
+    <innerdir refid="dir_1d005a1328667666755ec1ecdc763d35">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfws</innerdir>
+    <innerdir refid="dir_8d6e880151af5121cbd5c3e34193167a">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/brfs</innerdir>
+    <innerdir refid="dir_3dfdd7877fc491a631a94bec9f453d2f">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/common</innerdir>
+    <innerdir refid="dir_09facaafe0521cbe04a2ff7babbc3952">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/delete-free-iw</innerdir>
+    <innerdir refid="dir_1f89d74c859c812624dd4640f3bb5241">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/delete-free-siw</innerdir>
+    <innerdir refid="dir_98b52b21ab83c2f54007dc4a57da99c5">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus</innerdir>
+    <innerdir refid="dir_879dc97fb5cfbd45038a94551edb7584">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/iw</innerdir>
+    <innerdir refid="dir_0203398ad406877f95e284e4f174d99e">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/iw_plus</innerdir>
+    <innerdir refid="dir_525ed562d8f1719b09a389e3d74a911b">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/siw</innerdir>
+    <innerdir refid="dir_883b6e21000ebb95167c2cbfb85dccfc">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/siw_plus</innerdir>
+    <innerdir refid="dir_434263bb4f1bd80a8dd511159a2ddfc4">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/siw_plus-then-bfs_f</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/"/>
+  </compounddef>
+</doxygen>

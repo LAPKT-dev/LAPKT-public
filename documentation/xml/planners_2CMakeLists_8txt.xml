@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="planners_2CMakeLists_8txt" kind="file" language="C++">
+    <compoundname>CMakeLists.txt</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="planners_2CMakeLists_8txt_1ac6831c1a93229819b5c45a9a989b33cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>list</definition>
+        <argsstring>(APPEND EXTRA_LIBS lapkt_shared) list(APPEND EXTRA_LIBS pddl_py_interface) add_library(Planners &quot;&quot;) add_subdirectory(common) add_subdirectory(anytime_lapkt) add_subdirectory(at_bfs_f) add_subdirectory(bfs_f) add_subdirectory(brfs) add_subdirectory(bfws) add_subdirectory(delete-free-iw) add_subdirectory(delete-free-siw) add_subdirectory(dfs_plus) add_subdirectory(iw) add_subdirectory(iw_plus) add_subdirectory(siw) add_subdirectory(siw_plus) add_subdirectory(siw_plus-then-bfs_f) target_include_directories(Planners PRIVATE $</argsstring>
+        <name>list</name>
+        <param>
+          <type>APPEND EXTRA_LIBS</type>
+          <declname>lapkt_shared</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/CMakeLists.txt" line="1" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/CMakeLists.txt" bodystart="1" bodyend="20"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">list(APPEND<sp/>EXTRA_LIBS<sp/>lapkt_shared)</highlight></codeline>
+<codeline lineno="2"><highlight class="normal">list(APPEND<sp/>EXTRA_LIBS<sp/>pddl_py_interface)</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">add_library(Planners<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">add_subdirectory(common)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">add_subdirectory(anytime_lapkt)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">add_subdirectory(at_bfs_f)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">add_subdirectory(bfs_f)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">add_subdirectory(brfs)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">add_subdirectory(bfws)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">add_subdirectory(</highlight><highlight class="keyword">delete</highlight><highlight class="normal">-free-iw)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">add_subdirectory(</highlight><highlight class="keyword">delete</highlight><highlight class="normal">-free-siw)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">add_subdirectory(dfs_plus)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">add_subdirectory(iw)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">add_subdirectory(iw_plus)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">add_subdirectory(siw)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">add_subdirectory(siw_plus)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">add_subdirectory(siw_plus-then-bfs_f)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">target_include_directories(Planners<sp/>PRIVATE<sp/>${Python3_INCLUDE_DIRS}<sp/>${Boost_INCLUDE_DIRS}<sp/>)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">target_link_libraries(Planners<sp/>PRIVATE</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>${Boost_LIBRARIES}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>${EXTRA_LIBS}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal">install(</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>TARGETS<sp/>Planners</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>DESTINATION<sp/>lib/lapkt/planner</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Runtime</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">install(</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>TARGETS<sp/>Planners</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>DESTINATION<sp/>lib/lapkt/planner</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>Write<sp/>__init__.py<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">file(WRITE<sp/>${CMAKE_CURRENT_BINARY_DIR}/__init__.py<sp/></highlight><highlight class="stringliteral">&quot;from<sp/>.libPlanners<sp/>import<sp/>*&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">install(</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>FILES<sp/>${CMAKE_CURRENT_BINARY_DIR}/__init__.py</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/lib/lapkt/planner</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Runtime</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">install(</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>FILES<sp/>${CMAKE_CURRENT_BINARY_DIR}/__init__.py</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/lib/lapkt/planner</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">#</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">install(FILES</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>${PROJECT_BINARY_DIR}/__init__.py</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/lib</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">install(FILES</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>${PROJECT_BINARY_DIR}/__init__.py</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/lib</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Runtime</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">#</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">install(FILES</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>${PROJECT_BINARY_DIR}/__init__.py</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/lib/lapkt</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">install(FILES</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>${PROJECT_BINARY_DIR}/__init__.py</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/lib/lapkt</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Runtime</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>)</highlight></codeline>
+    </programlisting>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

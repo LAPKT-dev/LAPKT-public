@@ -1,0 +1,88 @@
+\hypertarget{classaptk_1_1search_1_1bfs_1_1Node}{}\doxysection{aptk\+::search\+::bfs\+::Node$<$ State $>$ Class Template Reference}
+\label{classaptk_1_1search_1_1bfs_1_1Node}\index{aptk::search::bfs::Node$<$ State $>$@{aptk::search::bfs::Node$<$ State $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_aff0c6293ba8735f9843eece1e7326c08}\label{classaptk_1_1search_1_1bfs_1_1Node_aff0c6293ba8735f9843eece1e7326c08}} 
+typedef \mbox{\hyperlink{classaptk_1_1State}{State}} {\bfseries State\+\_\+\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_acd30e16940421d800baf877c614f84b2}\label{classaptk_1_1search_1_1bfs_1_1Node_acd30e16940421d800baf877c614f84b2}} 
+{\bfseries Node} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, float cost, Action\+\_\+\+Idx action, \mbox{\hyperlink{classaptk_1_1search_1_1bfs_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$parent)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_ab4f0b652bddc7872065e192794df0530}\label{classaptk_1_1search_1_1bfs_1_1Node_ab4f0b652bddc7872065e192794df0530}} 
+float \& {\bfseries hn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a788bbec683ed0ea7c68dbc643c737559}\label{classaptk_1_1search_1_1bfs_1_1Node_a788bbec683ed0ea7c68dbc643c737559}} 
+float {\bfseries hn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a91f3ab63c798e5acdd490de795abc47c}\label{classaptk_1_1search_1_1bfs_1_1Node_a91f3ab63c798e5acdd490de795abc47c}} 
+float \& {\bfseries gn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_af51a6f4b96416a99bf09975219cad9fb}\label{classaptk_1_1search_1_1bfs_1_1Node_af51a6f4b96416a99bf09975219cad9fb}} 
+float {\bfseries gn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a3420dad4e752b1f676f1c58e93fcdba1}\label{classaptk_1_1search_1_1bfs_1_1Node_a3420dad4e752b1f676f1c58e93fcdba1}} 
+float \& {\bfseries fn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a1660f350026f83ad18e474d5f06cb1ce}\label{classaptk_1_1search_1_1bfs_1_1Node_a1660f350026f83ad18e474d5f06cb1ce}} 
+float {\bfseries fn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a29ec541e62c667131d451c165ee26810}\label{classaptk_1_1search_1_1bfs_1_1Node_a29ec541e62c667131d451c165ee26810}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1bfs_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries parent} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_aa764b8654c4b7149cf1f51add898a538}\label{classaptk_1_1search_1_1bfs_1_1Node_aa764b8654c4b7149cf1f51add898a538}} 
+Action\+\_\+\+Idx {\bfseries action} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a449eb3235fad7d2a7bf0b6d3da011373}\label{classaptk_1_1search_1_1bfs_1_1Node_a449eb3235fad7d2a7bf0b6d3da011373}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries state} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a9431ebade5957f7fcc9234a5b466c805}\label{classaptk_1_1search_1_1bfs_1_1Node_a9431ebade5957f7fcc9234a5b466c805}} 
+const \mbox{\hyperlink{classaptk_1_1State}{State}} \& {\bfseries state} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_ac9806943bd3f617a8460b2cc796f6fed}\label{classaptk_1_1search_1_1bfs_1_1Node_ac9806943bd3f617a8460b2cc796f6fed}} 
+void {\bfseries print} (std\+::ostream \&os) const
+\item 
+bool \mbox{\hyperlink{classaptk_1_1search_1_1bfs_1_1Node_a94fc01e86de61749043ce4e8b8f24e39}{operator==}} (const \mbox{\hyperlink{classaptk_1_1search_1_1bfs_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_aa77d18bb3c70c5feeb864ec8f96589d8}\label{classaptk_1_1search_1_1bfs_1_1Node_aa77d18bb3c70c5feeb864ec8f96589d8}} 
+size\+\_\+t {\bfseries hash} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a6dd564bc0ce8805964646dcc14bee53e}\label{classaptk_1_1search_1_1bfs_1_1Node_a6dd564bc0ce8805964646dcc14bee53e}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries m\+\_\+state}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a44d3fd7310f9103af00e3eed288a4196}\label{classaptk_1_1search_1_1bfs_1_1Node_a44d3fd7310f9103af00e3eed288a4196}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1bfs_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries m\+\_\+parent}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_ac11a933e2d63b11349955e5f4b662e00}\label{classaptk_1_1search_1_1bfs_1_1Node_ac11a933e2d63b11349955e5f4b662e00}} 
+float {\bfseries m\+\_\+h}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_ac6eaae7b38729cc9e5a6813f786f0570}\label{classaptk_1_1search_1_1bfs_1_1Node_ac6eaae7b38729cc9e5a6813f786f0570}} 
+Action\+\_\+\+Idx {\bfseries m\+\_\+action}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a780006712d26a71f64b9ad8ffc86324f}\label{classaptk_1_1search_1_1bfs_1_1Node_a780006712d26a71f64b9ad8ffc86324f}} 
+float {\bfseries m\+\_\+g}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a8ba4304f02eff8cf5a9ea2715a717e68}\label{classaptk_1_1search_1_1bfs_1_1Node_a8ba4304f02eff8cf5a9ea2715a717e68}} 
+float {\bfseries m\+\_\+f}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs_1_1Node_a94fc01e86de61749043ce4e8b8f24e39}\label{classaptk_1_1search_1_1bfs_1_1Node_a94fc01e86de61749043ce4e8b8f24e39}} 
+\index{aptk::search::bfs::Node$<$ State $>$@{aptk::search::bfs::Node$<$ State $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!aptk::search::bfs::Node$<$ State $>$@{aptk::search::bfs::Node$<$ State $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename State $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1search_1_1bfs_1_1Node}{aptk\+::search\+::bfs\+::\+Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classaptk_1_1search_1_1bfs_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&}]{o }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Lazy
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/search/at\+\_\+bfs.\+hxx\end{DoxyCompactItemize}

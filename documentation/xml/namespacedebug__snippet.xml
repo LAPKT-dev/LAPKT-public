@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespacedebug__snippet" kind="namespace" language="Python">
+    <compoundname>debug_snippet</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacedebug__snippet_1a9ca7f9e6841d96abdd7669a08d4da10e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def debug_snippet.wait_debug</definition>
+        <argsstring>(str)</argsstring>
+        <name>wait_debug</name>
+        <param>
+          <type>str</type>
+          <defname>str</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/config/debug_snippet.py" line="50" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/config/debug_snippet.py" bodystart="50" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Info- The below snippet is for use when debugging mixed Python and C++ code. 
+This should be added at the beginning of the python frontend.
+
+Effect - It will cause the python script to wait for user input, giving the 
+developer enough time to attach a gdb session to the python programs PID.
+
+We can attach gdb from command line or use an IDE like vscode.
+1. from command line:
+    sudo gdb --pid=&lt;python program&apos;s pid&gt;
+2. Attach gdb from vscode with the following launch config.
+{
+    &quot;version&quot;: &quot;0.2.0&quot;,
+    &quot;configurations&quot;: [
+        {
+            &quot;name&quot;: &quot;Python launch&quot;,
+            &quot;type&quot;: &quot;python&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            //&quot;stopOnEntry&quot;: true,
+            &quot;pythonPath&quot;: &quot;/usr/bin/python3&quot;,
+            &quot;program&quot;: &quot;${workspaceRoot}/release/lapkt&quot;,
+            &quot;args&quot;: [&quot;BFWS&quot;, &quot;-d&quot;, &quot;${workspaceRoot}/tests/sample_instance/domain.pddl&quot;,
+                &quot;-p&quot;, &quot;${workspaceRoot}/tests/sample_instance/problem.pddl&quot;],
+            //&quot;cwd&quot;: &quot;${workspaceFolder}&quot;,
+        },
+        {
+            &quot;name&quot;: &quot;(gdb) Attach&quot;,
+            &quot;type&quot;: &quot;cppdbg&quot;,
+            &quot;request&quot;: &quot;attach&quot;,
+            &quot;program&quot;: &quot;/usr/bin/python3&quot;,
+            &quot;processId&quot;: &quot;${command:pickProcess}&quot;,
+            &quot;MIMode&quot;: &quot;gdb&quot;,
+            &quot;setupCommands&quot;: [
+                {
+                    &quot;description&quot;: &quot;Enable pretty-printing for gdb&quot;,
+                    &quot;text&quot;: &quot;-enable-pretty-printing&quot;,
+                    &quot;ignoreFailures&quot;: true
+                }
+            ]
+        }
+    ]
+}
+
+NOTE - Trying to attach gdb at pdb breakpoints or by setting stopOnEntry true
+will not work as gdb is unable to load symbol table properly when python is 
+paused like that. - The root cause is unknown.
+</verbatim> </para>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/config/debug_snippet.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

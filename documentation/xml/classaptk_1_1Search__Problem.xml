@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1Search__Problem" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>aptk::Search_Problem</compoundname>
+    <derivedcompoundref refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem" prot="public" virt="non-virtual">aptk::agnostic::Fwd_Search_Problem</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename <ref refid="classaptk_1_1State" kindref="compound">State</ref></type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classaptk_1_1Search__Problem_1a50a40340410eef5d7df6b3d1461e01a7" prot="public" static="no">
+        <type><ref refid="classaptk_1_1State" kindref="compound">State</ref></type>
+        <definition>typedef State aptk::Search_Problem&lt; State &gt;::State_Type</definition>
+        <argsstring></argsstring>
+        <name>State_Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="40" column="15" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1Search__Problem_1a6e40668eba565aa1afc54f1c3fdc0fed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Search_Problem&lt; State &gt;::Search_Problem</definition>
+        <argsstring>()</argsstring>
+        <name>Search_Problem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="42" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Search__Problem_1a27ee8f627161b3a9311ca99d3652b9e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual aptk::Search_Problem&lt; State &gt;::~Search_Problem</definition>
+        <argsstring>()</argsstring>
+        <name>~Search_Problem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="43" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Search__Problem_1ac877aa0294542a0c68772d040f9a4c42" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int aptk::Search_Problem&lt; State &gt;::num_actions</definition>
+        <argsstring>() const =0</argsstring>
+        <name>num_actions</name>
+        <reimplementedby refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem_1abc016e3d0e6a1c456d1d674be5fca401">num_actions</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="46" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Search__Problem_1ab909aa01cffa7798b6d984dc2f5e4bce" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classaptk_1_1State" kindref="compound">State</ref> *</type>
+        <definition>virtual State* aptk::Search_Problem&lt; State &gt;::init</definition>
+        <argsstring>() const =0</argsstring>
+        <name>init</name>
+        <reimplementedby refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem_1a9619d41948779b02a3e9b1c9397cc841">init</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="48" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Search__Problem_1a79d2e4f427b5893c21ad5b28d80f4dda" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool aptk::Search_Problem&lt; State &gt;::goal</definition>
+        <argsstring>(const State &amp;s) const =0</argsstring>
+        <name>goal</name>
+        <reimplementedby refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem_1a5ae488f9b2c7da692ef03708fe071f91">goal</reimplementedby>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="50" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Search__Problem_1a97a8ff0cc63018469c37dab6929e0713" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool aptk::Search_Problem&lt; State &gt;::is_applicable</definition>
+        <argsstring>(const State &amp;s, Action_Idx a) const =0</argsstring>
+        <name>is_applicable</name>
+        <reimplementedby refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem_1a6eae6c89188c1afc8b2388c669b62d0f">is_applicable</reimplementedby>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>Action_Idx</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="52" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Search__Problem_1a2a9017ce3b4036b01ee9f71329200ed2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void aptk::Search_Problem&lt; State &gt;::applicable_set</definition>
+        <argsstring>(const State &amp;s, std::vector&lt; Action_Idx &gt; &amp;app_set) const =0</argsstring>
+        <name>applicable_set</name>
+        <reimplementedby refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem_1a536dade929e155f32a27f6d0f4ec6e32">applicable_set</reimplementedby>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Action_Idx &gt; &amp;</type>
+          <declname>app_set</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="53" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Search__Problem_1ac2a330b6f40e024f295ff2796617ddc5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void aptk::Search_Problem&lt; State &gt;::applicable_set_v2</definition>
+        <argsstring>(const State &amp;s, std::vector&lt; Action_Idx &gt; &amp;app_set) const =0</argsstring>
+        <name>applicable_set_v2</name>
+        <reimplementedby refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem_1aefd3d5955f76726e1b1ad4f4bc5d65fb">applicable_set_v2</reimplementedby>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Action_Idx &gt; &amp;</type>
+          <declname>app_set</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="54" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Search__Problem_1a3556250f6ae11d60e0ea591ea7965b4e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>float</type>
+        <definition>virtual float aptk::Search_Problem&lt; State &gt;::cost</definition>
+        <argsstring>(const State &amp;s, Action_Idx a) const =0</argsstring>
+        <name>cost</name>
+        <reimplementedby refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem_1abea645e30c88c56bcb3fe15361b25b30">cost</reimplementedby>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>Action_Idx</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="56" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Search__Problem_1a805e181df9c13d5f99a32a0a7424c24d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classaptk_1_1State" kindref="compound">State</ref> *</type>
+        <definition>virtual State* aptk::Search_Problem&lt; State &gt;::next</definition>
+        <argsstring>(const State &amp;s, Action_Idx a) const =0</argsstring>
+        <name>next</name>
+        <reimplementedby refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem_1af6780cb0d705e39173c8d379c727fa04">next</reimplementedby>
+        <param>
+          <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>Action_Idx</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="58" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Search__Problem_1a4654c612aa8450ed50f830a5fb8f531b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void aptk::Search_Problem&lt; State &gt;::print</definition>
+        <argsstring>(std::ostream &amp;os) const =0</argsstring>
+        <name>print</name>
+        <reimplementedby refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem_1a9fefa6472966ff5594ed70091fbff168">print</reimplementedby>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="60" column="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aptk::Search_Problem&lt; State &gt;</label>
+        <link refid="classaptk_1_1Search__Problem"/>
+      </node>
+      <node id="2">
+        <label>aptk::agnostic::Fwd_Search_Problem&lt; State &gt;</label>
+        <link refid="classaptk_1_1agnostic_1_1Fwd__Search__Problem"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" line="37" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/search_prob.hxx" bodystart="37" bodyend="64"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1Search__Problem_1a2a9017ce3b4036b01ee9f71329200ed2" prot="public" virt="pure-virtual"><scope>aptk::Search_Problem</scope><name>applicable_set</name></member>
+      <member refid="classaptk_1_1Search__Problem_1ac2a330b6f40e024f295ff2796617ddc5" prot="public" virt="pure-virtual"><scope>aptk::Search_Problem</scope><name>applicable_set_v2</name></member>
+      <member refid="classaptk_1_1Search__Problem_1a3556250f6ae11d60e0ea591ea7965b4e" prot="public" virt="pure-virtual"><scope>aptk::Search_Problem</scope><name>cost</name></member>
+      <member refid="classaptk_1_1Search__Problem_1a79d2e4f427b5893c21ad5b28d80f4dda" prot="public" virt="pure-virtual"><scope>aptk::Search_Problem</scope><name>goal</name></member>
+      <member refid="classaptk_1_1Search__Problem_1ab909aa01cffa7798b6d984dc2f5e4bce" prot="public" virt="pure-virtual"><scope>aptk::Search_Problem</scope><name>init</name></member>
+      <member refid="classaptk_1_1Search__Problem_1a97a8ff0cc63018469c37dab6929e0713" prot="public" virt="pure-virtual"><scope>aptk::Search_Problem</scope><name>is_applicable</name></member>
+      <member refid="classaptk_1_1Search__Problem_1a805e181df9c13d5f99a32a0a7424c24d" prot="public" virt="pure-virtual"><scope>aptk::Search_Problem</scope><name>next</name></member>
+      <member refid="classaptk_1_1Search__Problem_1ac877aa0294542a0c68772d040f9a4c42" prot="public" virt="pure-virtual"><scope>aptk::Search_Problem</scope><name>num_actions</name></member>
+      <member refid="classaptk_1_1Search__Problem_1a4654c612aa8450ed50f830a5fb8f531b" prot="public" virt="pure-virtual"><scope>aptk::Search_Problem</scope><name>print</name></member>
+      <member refid="classaptk_1_1Search__Problem_1a6e40668eba565aa1afc54f1c3fdc0fed" prot="public" virt="non-virtual"><scope>aptk::Search_Problem</scope><name>Search_Problem</name></member>
+      <member refid="classaptk_1_1Search__Problem_1a50a40340410eef5d7df6b3d1461e01a7" prot="public" virt="non-virtual"><scope>aptk::Search_Problem</scope><name>State_Type</name></member>
+      <member refid="classaptk_1_1Search__Problem_1a27ee8f627161b3a9311ca99d3652b9e8" prot="public" virt="virtual"><scope>aptk::Search_Problem</scope><name>~Search_Problem</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

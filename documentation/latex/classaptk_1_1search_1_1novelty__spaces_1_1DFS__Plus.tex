@@ -1,0 +1,121 @@
+\hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus}{}\doxysection{aptk\+::search\+::novelty\+\_\+spaces\+::D\+F\+S\+\_\+\+Plus$<$ Search\+\_\+\+Model, Search\+\_\+\+Strategy, Search\+\_\+\+Node $>$ Class Template Reference}
+\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus}\index{aptk::search::novelty\_spaces::DFS\_Plus$<$ Search\_Model, Search\_Strategy, Search\_Node $>$@{aptk::search::novelty\_spaces::DFS\_Plus$<$ Search\_Model, Search\_Strategy, Search\_Node $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_ad3f51d60f8cdb8ab022627b31cdf447a}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_ad3f51d60f8cdb8ab022627b31cdf447a}} 
+typedef \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph}{aptk\+::agnostic\+::\+Landmarks\+\_\+\+Graph}} {\bfseries Landmarks\+\_\+\+Graph}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a5615045b85743d8f798b1e828b5b6127}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a5615045b85743d8f798b1e828b5b6127}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List}}$<$ \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $>$ {\bfseries Closed\+\_\+\+List\+\_\+\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a839cb294e38e1467e3c84b30c0c08bab}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a839cb294e38e1467e3c84b30c0c08bab}} 
+{\bfseries D\+F\+S\+\_\+\+Plus} (const Search\+\_\+\+Model \&search\+\_\+problem)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a4a6b6fea74f2d972700e51a008c4349f}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a4a6b6fea74f2d972700e51a008c4349f}} 
+void {\bfseries set\+\_\+goal\+\_\+agenda} (\mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph}{Landmarks\+\_\+\+Graph}} $\ast$lg)
+\item 
+bool \mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a9f62ff7a5b49f8dcdc46b0a881366731}{dfs\+\_\+search}} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$init, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&plan, float \&cost, Fluent\+\_\+\+Vec goals\+\_\+achieved)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_abfd5bfaa547d2af65816acbb7a3d7767}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_abfd5bfaa547d2af65816acbb7a3d7767}} 
+virtual bool {\bfseries find\+\_\+solution} (float \&cost, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&plan)
+\item 
+void \mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a0d7c2b3883647da3a35a7421cb9cc42e}{start}} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s=N\+U\+LL)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_ae1dbd9d9b274019a07953684aac097cc}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_ae1dbd9d9b274019a07953684aac097cc}} 
+void {\bfseries set\+\_\+bound} (float b)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a0d008a69c6087eee87d2f4c65f45c3d7}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a0d008a69c6087eee87d2f4c65f45c3d7}} 
+unsigned {\bfseries expanded} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_aebcad26f0c22b4e034cfd3df9f6b8466}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_aebcad26f0c22b4e034cfd3df9f6b8466}} 
+unsigned {\bfseries generated} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_ac27a9680f041e1dc81f06e4acc0b54d6}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_ac27a9680f041e1dc81f06e4acc0b54d6}} 
+unsigned {\bfseries sum\+\_\+pruned\+\_\+by\+\_\+bound} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_aab05e19635b235564334eac7be717c5a}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_aab05e19635b235564334eac7be717c5a}} 
+float {\bfseries avg\+\_\+B} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a1a89d69e55ce9ce4301b8257efe95a26}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a1a89d69e55ce9ce4301b8257efe95a26}} 
+unsigned {\bfseries max\+\_\+B} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a039fbcfbbbe7b162557184c828850c45}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a039fbcfbbbe7b162557184c828850c45}} 
+unsigned {\bfseries max\+\_\+bound} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_aaa98d53915bf791748a06bb34afdfc5e}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_aaa98d53915bf791748a06bb34afdfc5e}} 
+unsigned {\bfseries backtracks} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a606c2be533415f4ea1862580d5fa6933}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a606c2be533415f4ea1862580d5fa6933}} 
+const Search\+\_\+\+Model \& {\bfseries problem} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_ad45622673e55412f20a29da5d5816c15}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_ad45622673e55412f20a29da5d5816c15}} 
+const Search\+\_\+\+Model \& {\bfseries m\+\_\+problem}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a8830e1569185a2f0fa282dee44e16124}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a8830e1569185a2f0fa282dee44e16124}} 
+unsigned {\bfseries m\+\_\+pruned\+\_\+sum\+\_\+\+B\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_ad72a98dea22b7f1cce040d512ebae889}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_ad72a98dea22b7f1cce040d512ebae889}} 
+unsigned {\bfseries m\+\_\+sum\+\_\+\+B\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a470be966eea54a02ebd50466b53c33b9}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a470be966eea54a02ebd50466b53c33b9}} 
+unsigned {\bfseries m\+\_\+max\+\_\+\+B\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a693e762d4fd4d8d233802609bfe3d63c}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a693e762d4fd4d8d233802609bfe3d63c}} 
+unsigned {\bfseries m\+\_\+iw\+\_\+calls}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a19cab5c6bdee75ce199257d7c42cf12f}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a19cab5c6bdee75ce199257d7c42cf12f}} 
+unsigned {\bfseries m\+\_\+expanded}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a43595ddd0c30300349529a45e69b28a1}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a43595ddd0c30300349529a45e69b28a1}} 
+unsigned {\bfseries m\+\_\+generated}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_af1a5c9294a660443afcc4a40c866d8c8}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_af1a5c9294a660443afcc4a40c866d8c8}} 
+\mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph}{Landmarks\+\_\+\+Graph}} $\ast$ {\bfseries m\+\_\+goal\+\_\+agenda}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_af986301ba425b0e7dc393f2dd15e8b14}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_af986301ba425b0e7dc393f2dd15e8b14}} 
+float {\bfseries m\+\_\+max\+\_\+bound}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a48fbffe3009c067fa89ed5b0e32598db}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a48fbffe3009c067fa89ed5b0e32598db}} 
+unsigned {\bfseries m\+\_\+backtracks}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a6b3b64f642d3dead8ec92207e3dabe06}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a6b3b64f642d3dead8ec92207e3dabe06}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$ {\bfseries m\+\_\+root}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a1a7a441716f815b559d2917c4face4b7}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a1a7a441716f815b559d2917c4face4b7}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Serialized__Search}{Serialized\+\_\+\+Search}}$<$ Search\+\_\+\+Model, Search\+\_\+\+Strategy, \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $>$ {\bfseries m\+\_\+iw\+\_\+engine}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a9f62ff7a5b49f8dcdc46b0a881366731}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a9f62ff7a5b49f8dcdc46b0a881366731}} 
+\index{aptk::search::novelty\_spaces::DFS\_Plus$<$ Search\_Model, Search\_Strategy, Search\_Node $>$@{aptk::search::novelty\_spaces::DFS\_Plus$<$ Search\_Model, Search\_Strategy, Search\_Node $>$}!dfs\_search@{dfs\_search}}
+\index{dfs\_search@{dfs\_search}!aptk::search::novelty\_spaces::DFS\_Plus$<$ Search\_Model, Search\_Strategy, Search\_Node $>$@{aptk::search::novelty\_spaces::DFS\_Plus$<$ Search\_Model, Search\_Strategy, Search\_Node $>$}}
+\doxysubsubsection{\texorpdfstring{dfs\_search()}{dfs\_search()}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model , typename Search\+\_\+\+Strategy , typename Search\+\_\+\+Node $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus}{aptk\+::search\+::novelty\+\_\+spaces\+::\+D\+F\+S\+\_\+\+Plus}}$<$ Search\+\_\+\+Model, Search\+\_\+\+Strategy, \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $>$\+::dfs\+\_\+search (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$}]{init,  }\item[{std\+::vector$<$ Action\+\_\+\+Idx $>$ \&}]{plan,  }\item[{float \&}]{cost,  }\item[{Fluent\+\_\+\+Vec}]{goals\+\_\+achieved }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+If no partial plan to achieve any goal is found, throw IW(b+1) from same root node
+
+If no state has been pruned by bound, then IW is in a dead-\/end, return N\+O-\/\+P\+L\+AN
+
+std\+::cout $<$$<$ std\+::endl $<$$<$ \char`\"{}$<$-\/-\/\{\char`\"{} $<$$<$ gsize $<$$<$ \char`\"{}/\char`\"{} $<$$<$ m\+\_\+iw\+\_\+engine.\+goal\+\_\+candidates().size() $<$$<$ \char`\"{}/\char`\"{} $<$$<$ m\+\_\+iw\+\_\+engine.\+goals\+\_\+achieved().size() $<$$<$ \char`\"{}\}\+:\+I\+W(\char`\"{} $<$$<$ m\+\_\+iw\+\_\+engine.\+bound() $<$$<$ \char`\"{}) \char`\"{} $<$$<$ std\+::endl;
+
+If a partial plan extending the achieved goals set is found, I\+W(1) is thrown from end\+\_\+state\mbox{\Hypertarget{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a0d7c2b3883647da3a35a7421cb9cc42e}\label{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus_a0d7c2b3883647da3a35a7421cb9cc42e}} 
+\index{aptk::search::novelty\_spaces::DFS\_Plus$<$ Search\_Model, Search\_Strategy, Search\_Node $>$@{aptk::search::novelty\_spaces::DFS\_Plus$<$ Search\_Model, Search\_Strategy, Search\_Node $>$}!start@{start}}
+\index{start@{start}!aptk::search::novelty\_spaces::DFS\_Plus$<$ Search\_Model, Search\_Strategy, Search\_Node $>$@{aptk::search::novelty\_spaces::DFS\_Plus$<$ Search\_Model, Search\_Strategy, Search\_Node $>$}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model , typename Search\+\_\+\+Strategy , typename Search\+\_\+\+Node $>$ \\
+void \mbox{\hyperlink{classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus}{aptk\+::search\+::novelty\+\_\+spaces\+::\+D\+F\+S\+\_\+\+Plus}}$<$ Search\+\_\+\+Model, Search\+\_\+\+Strategy, \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $>$\+::start (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$}]{s = {\ttfamily NULL} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+D\+FS instantiating new IW each level, and keeping the state of the search. More memory intense. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/search/dfs\+\_\+plus.\+hxx\end{DoxyCompactItemize}

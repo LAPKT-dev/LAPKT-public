@@ -1,0 +1,521 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1search_1_1bfs__dq_1_1Node" kind="class" language="C++" prot="public">
+    <compoundname>aptk::search::bfs_dq::Node</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename <ref refid="classaptk_1_1State" kindref="compound">State</ref></type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1ae0edd7608abc01273a61429b493319f9" prot="public" static="no">
+        <type><ref refid="classaptk_1_1State" kindref="compound">State</ref></type>
+        <definition>typedef State aptk::search::bfs_dq::Node&lt; State &gt;::State_Type</definition>
+        <argsstring></argsstring>
+        <name>State_Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="41" column="15" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a1ec49f326062d6b60773217f173edb0d" prot="public" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1State" kindref="compound">State</ref> *</type>
+        <definition>State* aptk::search::bfs_dq::Node&lt; State &gt;::m_state</definition>
+        <argsstring></argsstring>
+        <name>m_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="93" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a4652090b70acc05ccc29012487084cf6" prot="public" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1search_1_1bfs__dq_1_1Node" kindref="compound">Node</ref>&lt; <ref refid="classaptk_1_1State" kindref="compound">State</ref> &gt; *</type>
+        <definition>Node&lt;State&gt;* aptk::search::bfs_dq::Node&lt; State &gt;::m_parent</definition>
+        <argsstring></argsstring>
+        <name>m_parent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="94" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a049fc86d3b30091c22669743466ad102" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::Node&lt; State &gt;::m_h</definition>
+        <argsstring></argsstring>
+        <name>m_h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="95" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a5b80334ce690c857b3bd977550c4264c" prot="public" static="no" mutable="no">
+        <type>Action_Idx</type>
+        <definition>Action_Idx aptk::search::bfs_dq::Node&lt; State &gt;::m_action</definition>
+        <argsstring></argsstring>
+        <name>m_action</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="96" column="11" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a22dc0215afb28c785e4308888d4572c8" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::Node&lt; State &gt;::m_g</definition>
+        <argsstring></argsstring>
+        <name>m_g</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="97" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a11d22cdc49c139220e37fafde3a81d3a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::Node&lt; State &gt;::m_f</definition>
+        <argsstring></argsstring>
+        <name>m_f</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="98" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1abd6356649e3accd3e1e4688f4ea243bc" prot="public" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref></type>
+        <definition>Bit_Set aptk::search::bfs_dq::Node&lt; State &gt;::m_po</definition>
+        <argsstring></argsstring>
+        <name>m_po</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="99" column="8" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1adecbc651a04f7b8bc150aaadcc90e79b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool aptk::search::bfs_dq::Node&lt; State &gt;::m_seen</definition>
+        <argsstring></argsstring>
+        <name>m_seen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="100" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1aab228f248c831d8c780d556d552cdfb0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::search::bfs_dq::Node&lt; State &gt;::Node</definition>
+        <argsstring>(State *s, float cost, Action_Idx action, Node&lt; State &gt; *parent, int num_actions)</argsstring>
+        <name>Node</name>
+        <param>
+          <type><ref refid="classaptk_1_1State" kindref="compound">State</ref> *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>cost</declname>
+        </param>
+        <param>
+          <type>Action_Idx</type>
+          <declname>action</declname>
+        </param>
+        <param>
+          <type><ref refid="classaptk_1_1search_1_1bfs__dq_1_1Node" kindref="compound">Node</ref>&lt; <ref refid="classaptk_1_1State" kindref="compound">State</ref> &gt; *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_actions</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="43" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="43" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a912092e548d1ac144dc016257bad330a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual aptk::search::bfs_dq::Node&lt; State &gt;::~Node</definition>
+        <argsstring>()</argsstring>
+        <name>~Node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="49" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="49" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a6e003db04204792d7a36d1abad674c01" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float &amp;</type>
+        <definition>float&amp; aptk::search::bfs_dq::Node&lt; State &gt;::hn</definition>
+        <argsstring>()</argsstring>
+        <name>hn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="53" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a5f9c13a42b3572fc0b316fd723b9221b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::Node&lt; State &gt;::hn</definition>
+        <argsstring>() const</argsstring>
+        <name>hn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="54" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a40a46d27973de4ce271bfb141ec8da50" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float &amp;</type>
+        <definition>float&amp; aptk::search::bfs_dq::Node&lt; State &gt;::gn</definition>
+        <argsstring>()</argsstring>
+        <name>gn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="55" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1aeb355212434bcff41c7c7b1b9c0efea6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::Node&lt; State &gt;::gn</definition>
+        <argsstring>() const</argsstring>
+        <name>gn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="56" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1afae749e47e9e3b5114911ae162468d29" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float &amp;</type>
+        <definition>float&amp; aptk::search::bfs_dq::Node&lt; State &gt;::fn</definition>
+        <argsstring>()</argsstring>
+        <name>fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="57" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1ac5f919a46bac6eb2ff93752c3ec438d7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::Node&lt; State &gt;::fn</definition>
+        <argsstring>() const</argsstring>
+        <name>fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="58" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="58" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1aff03aa5e4962b720af4dde57051c05a8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1search_1_1bfs__dq_1_1Node" kindref="compound">Node</ref>&lt; <ref refid="classaptk_1_1State" kindref="compound">State</ref> &gt; *</type>
+        <definition>Node&lt;State&gt;* aptk::search::bfs_dq::Node&lt; State &gt;::parent</definition>
+        <argsstring>()</argsstring>
+        <name>parent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="59" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="59" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1ad3f15cc6fa5ac0e7cc72b5a1c5df3257" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>Action_Idx</type>
+        <definition>Action_Idx aptk::search::bfs_dq::Node&lt; State &gt;::action</definition>
+        <argsstring>() const</argsstring>
+        <name>action</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="60" column="11" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a47e998ae0cd1155ab3e3011e402afba8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1State" kindref="compound">State</ref> *</type>
+        <definition>State* aptk::search::bfs_dq::Node&lt; State &gt;::state</definition>
+        <argsstring>()</argsstring>
+        <name>state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="61" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="61" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1ac125d3c6edc0afb7a5b9932c8e1c74a7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classaptk_1_1State" kindref="compound">State</ref> &amp;</type>
+        <definition>const State&amp; aptk::search::bfs_dq::Node&lt; State &gt;::state</definition>
+        <argsstring>() const</argsstring>
+        <name>state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="62" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="62" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1aa4a179d71c853e0989cb9e7930dff8d7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::Node&lt; State &gt;::add_po</definition>
+        <argsstring>(Action_Idx index)</argsstring>
+        <name>add_po</name>
+        <param>
+          <type>Action_Idx</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="63" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="63" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a6c25de8a5bea85ce111d289524ea6e9d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::search::bfs_dq::Node&lt; State &gt;::is_po</definition>
+        <argsstring>(Action_Idx index) const</argsstring>
+        <name>is_po</name>
+        <param>
+          <type>Action_Idx</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="64" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1aa7feca6c2da4ad7ac355f4361f310f71" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::Node&lt; State &gt;::set_seen</definition>
+        <argsstring>()</argsstring>
+        <name>set_seen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="65" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="65" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a98bfa0c981a926e3908af322320d67af" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::search::bfs_dq::Node&lt; State &gt;::seen</definition>
+        <argsstring>() const</argsstring>
+        <name>seen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="66" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="66" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1aeede0f51fcd339fd9eb36c5dc0cdd0f6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::Node&lt; State &gt;::print</definition>
+        <argsstring>(std::ostream &amp;os) const</argsstring>
+        <name>print</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="68" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="68" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1a5f6bcda8271c801712cadd9a11340e96" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::search::bfs_dq::Node&lt; State &gt;::operator==</definition>
+        <argsstring>(const Node&lt; State &gt; &amp;o) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1search_1_1bfs__dq_1_1Node" kindref="compound">Node</ref>&lt; <ref refid="classaptk_1_1State" kindref="compound">State</ref> &gt; &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Lazy</para>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="72" column="8" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="72" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1Node_1adf01d6bf1860c49357c60fab57bd08d3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t aptk::search::bfs_dq::Node&lt; State &gt;::hash</definition>
+        <argsstring>() const</argsstring>
+        <name>hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="89" column="25" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="89" bodyend="89"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>aptk::STRIPS_Problem</label>
+        <link refid="classaptk_1_1STRIPS__Problem"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_succ_gen</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>m_succ_gen_v3</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>m_mutexes</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>m_succ_gen_v2</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>aptk::agnostic::Match_Tree</label>
+        <link refid="classaptk_1_1agnostic_1_1Match__Tree"/>
+      </node>
+      <node id="3">
+        <label>aptk::Bit_Array</label>
+        <link refid="classaptk_1_1Bit__Array"/>
+      </node>
+      <node id="2">
+        <label>aptk::Bit_Set</label>
+        <link refid="classaptk_1_1Bit__Set"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_fset</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aptk::State</label>
+        <link refid="classaptk_1_1State"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_problem</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_fluent_set</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>aptk::WatchedLitSuccGen</label>
+        <link refid="classaptk_1_1WatchedLitSuccGen"/>
+      </node>
+      <node id="8">
+        <label>aptk::agnostic::Mutex_Set</label>
+        <link refid="classaptk_1_1agnostic_1_1Mutex__Set"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_model</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>aptk::agnostic::Successor_Generator</label>
+        <link refid="classaptk_1_1agnostic_1_1Successor__Generator"/>
+      </node>
+      <node id="1">
+        <label>aptk::search::bfs_dq::Node&lt; State &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfs__dq_1_1Node"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_po</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_state</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="38" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="38" bodyend="101"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1ad3f15cc6fa5ac0e7cc72b5a1c5df3257" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>action</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1aa4a179d71c853e0989cb9e7930dff8d7" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>add_po</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1afae749e47e9e3b5114911ae162468d29" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>fn</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1ac5f919a46bac6eb2ff93752c3ec438d7" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>fn</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a40a46d27973de4ce271bfb141ec8da50" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>gn</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1aeb355212434bcff41c7c7b1b9c0efea6" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>gn</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1adf01d6bf1860c49357c60fab57bd08d3" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>hash</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a6e003db04204792d7a36d1abad674c01" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>hn</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a5f9c13a42b3572fc0b316fd723b9221b" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>hn</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a6c25de8a5bea85ce111d289524ea6e9d" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>is_po</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a5b80334ce690c857b3bd977550c4264c" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>m_action</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a11d22cdc49c139220e37fafde3a81d3a" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>m_f</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a22dc0215afb28c785e4308888d4572c8" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>m_g</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a049fc86d3b30091c22669743466ad102" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>m_h</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a4652090b70acc05ccc29012487084cf6" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>m_parent</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1abd6356649e3accd3e1e4688f4ea243bc" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>m_po</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1adecbc651a04f7b8bc150aaadcc90e79b" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>m_seen</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a1ec49f326062d6b60773217f173edb0d" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>m_state</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1aab228f248c831d8c780d556d552cdfb0" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>Node</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a5f6bcda8271c801712cadd9a11340e96" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>operator==</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1aff03aa5e4962b720af4dde57051c05a8" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>parent</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1aeede0f51fcd339fd9eb36c5dc0cdd0f6" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>print</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a98bfa0c981a926e3908af322320d67af" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>seen</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1aa7feca6c2da4ad7ac355f4361f310f71" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>set_seen</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a47e998ae0cd1155ab3e3011e402afba8" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>state</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1ac125d3c6edc0afb7a5b9932c8e1c74a7" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>state</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1ae0edd7608abc01273a61429b493319f9" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::Node</scope><name>State_Type</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1Node_1a912092e548d1ac144dc016257bad330a" prot="public" virt="virtual"><scope>aptk::search::bfs_dq::Node</scope><name>~Node</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

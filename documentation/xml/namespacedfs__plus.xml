@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespacedfs__plus" kind="namespace" language="Python">
+    <compoundname>dfs_plus</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="dfs__plus_8py_1a441ee0c91bd044979f2fa63c81c13504" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>dfs_plus.DEFAULT_IW_BOUND</definition>
+        <argsstring></argsstring>
+        <name>DEFAULT_IW_BOUND</name>
+        <initializer>=    100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="9" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dfs__plus_8py_1ad80a851433370fceae4b6c8d433d0cb3" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>dfs_plus.DEFAULT_LOG_FILE</definition>
+        <argsstring></argsstring>
+        <name>DEFAULT_LOG_FILE</name>
+        <initializer>=    &quot;iw.log&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="10" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dfs__plus_8py_1a6e0f25eff7affba24e0a8e8df8ee1fb1" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>dfs_plus.DEFAULT_PLAN_FILE</definition>
+        <argsstring></argsstring>
+        <name>DEFAULT_PLAN_FILE</name>
+        <initializer>=    &quot;plan.ipc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="11" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dfs__plus_8py_1aa10f7177b87bfbc409c7abfac3416c23" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dfs_plus.parser</definition>
+        <argsstring></argsstring>
+        <name>parser</name>
+        <initializer>=    argparse.ArgumentParser( description= &quot;Process planner input&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="63" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dfs__plus_8py_1a56615b2ef55949063348370181f0b444" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dfs_plus.action</definition>
+        <argsstring></argsstring>
+        <name>action</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="64" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dfs__plus_8py_1afecf29309aaba855f18ae535da806a15" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dfs_plus.nargs</definition>
+        <argsstring></argsstring>
+        <name>nargs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="64" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dfs__plus_8py_1afe245cd3c64d381ea73de985146b7c48" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dfs_plus.default</definition>
+        <argsstring></argsstring>
+        <name>default</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="65" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dfs__plus_8py_1a10c8042b8ce204623a5c569d541b3c44" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dfs_plus.type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="65" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dfs__plus_8py_1acbe31c189be2ebb2be47f6d1df30a6f9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dfs_plus.help</definition>
+        <argsstring></argsstring>
+        <name>help</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="66" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dfs__plus_8py_1a15f9a4cc83ad43e99876047022c95ab0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dfs_plus.required</definition>
+        <argsstring></argsstring>
+        <name>required</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="68" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dfs__plus_8py_1ad745dbde3a1beeb63ebf6897cafd34f2" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dfs_plus.True</definition>
+        <argsstring></argsstring>
+        <name>True</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="68" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="dfs__plus_8py_1aeedc81a7e028061d347f948acc7fb2a9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>dfs_plus.args</definition>
+        <argsstring></argsstring>
+        <name>args</name>
+        <initializer>=    parser.parse_args()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="76" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="dfs__plus_8py_1a84077fce1a2dedfd783285ce4b53f40c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def dfs_plus.main</definition>
+        <argsstring>(domain_file, problem_file, plan_file, log_file, bound)</argsstring>
+        <name>main</name>
+        <param>
+          <type>domain_file</type>
+          <defname>domain_file</defname>
+        </param>
+        <param>
+          <type>problem_file</type>
+          <defname>problem_file</defname>
+        </param>
+        <param>
+          <type>plan_file</type>
+          <defname>plan_file</defname>
+        </param>
+        <param>
+          <type>log_file</type>
+          <defname>log_file</defname>
+        </param>
+        <param>
+          <type>bound</type>
+          <defname>bound</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="17" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="17" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="dfs__plus_8py_1ac5045de1ecc280200da33ff7577d7040" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def dfs_plus.debug</definition>
+        <argsstring>()</argsstring>
+        <name>debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="57" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" bodystart="57" bodyend="61"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/dfs_plus.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1014 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH" kind="class" language="C++" prot="public">
+    <compoundname>aptk::search::bfs_dq::AT_BFS_DQ_SH</compoundname>
+    <derivedcompoundref refid="classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH" prot="public" virt="non-virtual">aptk::search::bfs_dq::AT_RWBFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classaptk_1_1search_1_1bfs__dq_1_1AT__WBFS__DQ__SH" prot="public" virt="non-virtual">aptk::search::bfs_dq::AT_WBFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename Search_Model</type>
+      </param>
+      <param>
+        <type>typename Abstract_Heuristic</type>
+      </param>
+      <param>
+        <type>typename Open_List_Type</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a549859df825495c20a0a9b1a179999d0" prot="public" static="no">
+        <type>Search_Model::State_Type</type>
+        <definition>typedef Search_Model::State_Type aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="111" column="41" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a982df22ee02dc1e61288077d46476f97" prot="public" static="no">
+        <type>Open_List_Type::Node_Type</type>
+        <definition>typedef Open_List_Type::Node_Type aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::Search_Node</definition>
+        <argsstring></argsstring>
+        <name>Search_Node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="112" column="44" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a557aac28e743f740d679d2dd830d9c2d" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1Closed__List" kindref="compound">Closed_List</ref>&lt; Search_Node &gt;</type>
+        <definition>typedef Closed_List&lt; Search_Node &gt; aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::Closed_List_Type</definition>
+        <argsstring></argsstring>
+        <name>Closed_List_Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="113" column="20" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1afbbb49596aa78f88e38e7fb19b2b25c3" prot="protected" static="no" mutable="no">
+        <type>const Search_Model &amp;</type>
+        <definition>const Search_Model&amp; aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_problem</definition>
+        <argsstring></argsstring>
+        <name>m_problem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="383" column="19" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a0760e86fb5b857d70f92346b8043500d" prot="protected" static="no" mutable="no">
+        <type>Abstract_Heuristic *</type>
+        <definition>Abstract_Heuristic* aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_heuristic_func</definition>
+        <argsstring></argsstring>
+        <name>m_heuristic_func</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="384" column="19" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="384" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a311ec4e6d94989036f833209a7509bb6" prot="protected" static="no" mutable="no">
+        <type>Open_List_Type</type>
+        <definition>Open_List_Type aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_open_po</definition>
+        <argsstring></argsstring>
+        <name>m_open_po</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="385" column="15" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a7f5839192c96aef0f06360ac62b0f132" prot="protected" static="no" mutable="no">
+        <type>Open_List_Type</type>
+        <definition>Open_List_Type aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_open</definition>
+        <argsstring></argsstring>
+        <name>m_open</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="386" column="15" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a27aded563b48d263a9fb3d7b45fc1013" prot="protected" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1search_1_1Closed__List" kindref="compound">Closed_List_Type</ref></type>
+        <definition>Closed_List_Type aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_closed</definition>
+        <argsstring></argsstring>
+        <name>m_closed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="387" column="17" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a10b6b21d1d88acaf9c6ddbdf68344a78" prot="protected" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1search_1_1Closed__List" kindref="compound">Closed_List_Type</ref></type>
+        <definition>Closed_List_Type aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_open_hash</definition>
+        <argsstring></argsstring>
+        <name>m_open_hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="387" column="26" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a432e91149a2c09a093784ba87a7c8c89" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_exp_count</definition>
+        <argsstring></argsstring>
+        <name>m_exp_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="388" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="388" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1abdba541f3f3352b07191cd21ae345a69" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_gen_count</definition>
+        <argsstring></argsstring>
+        <name>m_gen_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="389" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a7e0aa0f70e84d37d36fb2752ad0aeceb" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_pruned_B_count</definition>
+        <argsstring></argsstring>
+        <name>m_pruned_B_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="390" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a703ffdc5978cacd8ab53e83ef4ee1414" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_dead_end_count</definition>
+        <argsstring></argsstring>
+        <name>m_dead_end_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="391" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="391" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1aeb648c4049c6a0a8f5957ccc465b66b3" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_open_repl_count</definition>
+        <argsstring></argsstring>
+        <name>m_open_repl_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="392" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="392" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a02ab6268a23e22e3f25dfc12fbe4f9a8" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_B</definition>
+        <argsstring></argsstring>
+        <name>m_B</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="393" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="393" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a824ee23ea57bbf62bc5357a1cdac8e30" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_time_budget</definition>
+        <argsstring></argsstring>
+        <name>m_time_budget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="394" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="394" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a821fbd454c335cff42bd6b9024f8e7e7" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_t0</definition>
+        <argsstring></argsstring>
+        <name>m_t0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="395" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ad8516fc20896c76d3175b45102c9b858" prot="protected" static="no" mutable="no">
+        <type>Search_Node *</type>
+        <definition>Search_Node* aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_root</definition>
+        <argsstring></argsstring>
+        <name>m_root</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="396" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ac0ed6beaa5717000db0c4e90102f2d09" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_po_exp_left</definition>
+        <argsstring></argsstring>
+        <name>m_po_exp_left</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="397" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="397" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a7c383b71e5ac07905d1b1d82b2cacb34" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_non_po_exp_left</definition>
+        <argsstring></argsstring>
+        <name>m_non_po_exp_left</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="398" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a8ec96200b322e2a25a738d9d6228ece1" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_po_exp_max</definition>
+        <argsstring></argsstring>
+        <name>m_po_exp_max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="399" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="399" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a05254f53e25c2639e9a7e240f34e1c5a" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_non_po_exp_max</definition>
+        <argsstring></argsstring>
+        <name>m_non_po_exp_max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="400" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="400" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1abadd305b34f7154d188213a3bcdef3fb" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; Action_Idx &gt;</type>
+        <definition>std::vector&lt;Action_Idx&gt; aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::m_app_set</definition>
+        <argsstring></argsstring>
+        <name>m_app_set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="401" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a265b5823e4442578371930fc846ae1f3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::AT_BFS_DQ_SH</definition>
+        <argsstring>(const Search_Model &amp;search_problem)</argsstring>
+        <name>AT_BFS_DQ_SH</name>
+        <param>
+          <type>const Search_Model &amp;</type>
+          <declname>search_problem</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="115" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="115" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a62ff46a3ab329dcf4f9ea4691b9bd9e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::AT_BFS_DQ_SH</definition>
+        <argsstring>(const Search_Model &amp;search_problem, Abstract_Heuristic &amp;h)</argsstring>
+        <name>AT_BFS_DQ_SH</name>
+        <param>
+          <type>const Search_Model &amp;</type>
+          <declname>search_problem</declname>
+        </param>
+        <param>
+          <type>Abstract_Heuristic &amp;</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="122" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="122" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a406cf3e7849e425b0a9a40331ced26d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::~AT_BFS_DQ_SH</definition>
+        <argsstring>()</argsstring>
+        <name>~AT_BFS_DQ_SH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="128" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="128" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ab430e8ffb240bbf32ff3267ce42741ba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::start</definition>
+        <argsstring>()</argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="143" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="143" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ada8cefa724798bd09543f50cfab9b59b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::find_solution</definition>
+        <argsstring>(float &amp;cost, std::vector&lt; Action_Idx &gt; &amp;plan)</argsstring>
+        <name>find_solution</name>
+        <param>
+          <type>float &amp;</type>
+          <declname>cost</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Action_Idx &gt; &amp;</type>
+          <declname>plan</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="157" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="157" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a3fd6edb046571fda8b6b3fc658c16e5e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::set_schedule</definition>
+        <argsstring>(int max_po_exp, int max_non_po_exp)</argsstring>
+        <name>set_schedule</name>
+        <param>
+          <type>int</type>
+          <declname>max_po_exp</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>max_non_po_exp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="168" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="168" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1aa29caf7ba297f757880e0ecbb65dd7ec" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::bound</definition>
+        <argsstring>() const</argsstring>
+        <name>bound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="173" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="173" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1adb6d92696b598de1b41fd48650392026" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::set_bound</definition>
+        <argsstring>(float v)</argsstring>
+        <name>set_bound</name>
+        <param>
+          <type>float</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="174" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="174" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a5a359ada592504c7fbcdb9150dc3b4b5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::inc_gen</definition>
+        <argsstring>()</argsstring>
+        <name>inc_gen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="176" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="176" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a14f17061c76b33df134e1c3bcb14a344" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::generated</definition>
+        <argsstring>() const</argsstring>
+        <name>generated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="177" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="177" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a34d3825ef467cc646760fbc1c5b77a52" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::inc_eval</definition>
+        <argsstring>()</argsstring>
+        <name>inc_eval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="178" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="178" bodyend="178"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ac2c76ec8e2f3dba59ff7af02fda9be2f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::expanded</definition>
+        <argsstring>() const</argsstring>
+        <name>expanded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="179" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="179" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ab0d7f838afe5c45f7f741624d282335c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::inc_pruned_bound</definition>
+        <argsstring>()</argsstring>
+        <name>inc_pruned_bound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="180" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="180" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a7574eae3c0120437b8674114d8bdbb1e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::pruned_by_bound</definition>
+        <argsstring>() const</argsstring>
+        <name>pruned_by_bound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="181" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="181" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ac1c9622e68f47410f6e2530d5a3c154e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::inc_dead_end</definition>
+        <argsstring>()</argsstring>
+        <name>inc_dead_end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="182" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="182" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a3c3d8871776248fed64c52f26f6f9f61" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::dead_ends</definition>
+        <argsstring>() const</argsstring>
+        <name>dead_ends</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="183" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="183" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a37eff95ac48e5386023ec8d1d14ae821" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::inc_replaced_open</definition>
+        <argsstring>()</argsstring>
+        <name>inc_replaced_open</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="184" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="184" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a97cbe604149e5229367dacbf64ae82e4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::open_repl</definition>
+        <argsstring>() const</argsstring>
+        <name>open_repl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="185" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="185" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a964343686cc88707b280c1e21d84584f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::set_budget</definition>
+        <argsstring>(float v)</argsstring>
+        <name>set_budget</name>
+        <param>
+          <type>float</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="187" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="187" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ac0132e983826d87b9461f5fa6546da81" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::time_budget</definition>
+        <argsstring>() const</argsstring>
+        <name>time_budget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="188" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="188" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a3463482128b957b818e238617821a875" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::t0</definition>
+        <argsstring>() const</argsstring>
+        <name>t0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="190" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="190" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1aef8ab239be004b9f87b1c6cb95ea673f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::close</definition>
+        <argsstring>(Search_Node *n)</argsstring>
+        <name>close</name>
+        <param>
+          <type>Search_Node *</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="192" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="192" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a531facb2346c89be69392abb860090c9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const Search_Model &amp;</type>
+        <definition>const Search_Model&amp; aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::problem</definition>
+        <argsstring>() const</argsstring>
+        <name>problem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="194" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="194" bodyend="194"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1afbbc47ed05af4be9a788ecebb8968e40" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Search_Node *</type>
+        <definition>Search_Node* aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::root</definition>
+        <argsstring>()</argsstring>
+        <name>root</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="196" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="196" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1af8b7e54498a1096c790c1109519df70a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1search_1_1Closed__List" kindref="compound">Closed_List_Type</ref> &amp;</type>
+        <definition>Closed_List_Type&amp; aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::closed</definition>
+        <argsstring>()</argsstring>
+        <name>closed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="198" column="17" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="198" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a21cf87f5ebc3f1f6fae3bc95ea4ca8e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1search_1_1Closed__List" kindref="compound">Closed_List_Type</ref> &amp;</type>
+        <definition>Closed_List_Type&amp; aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::open_hash</definition>
+        <argsstring>()</argsstring>
+        <name>open_hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="199" column="17" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="199" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a56484c9c679c8fa56ce56d1340eb4834" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Abstract_Heuristic &amp;</type>
+        <definition>Abstract_Heuristic&amp; aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::heuristic</definition>
+        <argsstring>()</argsstring>
+        <name>heuristic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="200" column="19" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="200" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1af9473a1d5ca58786ea5126c40cc43895" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::eval</definition>
+        <argsstring>(Search_Node *candidate)</argsstring>
+        <name>eval</name>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_1ae1a084e2318c3d96c3888e9f9972085e">eval</reimplementedby>
+        <param>
+          <type>Search_Node *</type>
+          <declname>candidate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="202" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="202" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a7462dcc64ff24b0168f1a1db388c20dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Search_Node *</type>
+        <definition>Search_Node* aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::get_node</definition>
+        <argsstring>(Open_List_Type &amp;open)</argsstring>
+        <name>get_node</name>
+        <param>
+          <type>Open_List_Type &amp;</type>
+          <declname>open</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="209" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="209" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1aa30373d53ad80e5eb249ceda0d475143" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Search_Node *</type>
+        <definition>Search_Node* aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::get_node</definition>
+        <argsstring>()</argsstring>
+        <name>get_node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="218" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="218" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a890b72ab92e8326d28e8f199bc0a7373" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::open_node</definition>
+        <argsstring>(Search_Node *n, bool preferred)</argsstring>
+        <name>open_node</name>
+        <param>
+          <type>Search_Node *</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>preferred</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="252" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="252" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a0edb93ef9240290db56914e907992eb8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::process</definition>
+        <argsstring>(Search_Node *head)</argsstring>
+        <name>process</name>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq_1_1AT__WBFS__DQ__SH_1afdb1bbca84fd692f1551fe021a476f9a">process</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_1aafad2c2577d7113add3b3c8a153bca46">process</reimplementedby>
+        <param>
+          <type>Search_Node *</type>
+          <declname>head</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="269" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="269" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a54ac562308b0a110f83a605ecb33b0a8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>Search_Node *</type>
+        <definition>virtual Search_Node* aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::do_search</definition>
+        <argsstring>()</argsstring>
+        <name>do_search</name>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq_1_1AT__WBFS__DQ__SH_1a16146b1c5f2a44455e269a6932aa6dcc">do_search</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_1a8d7c404c652a7e8959fe0ab06155220f">do_search</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="294" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="294" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a3b08bb53d39b4dff5f00aae07608750c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::is_open</definition>
+        <argsstring>(Search_Node *n)</argsstring>
+        <name>is_open</name>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq_1_1AT__WBFS__DQ__SH_1aacd11ae7a76f03ed0f040e0263cc474f">is_open</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_1abc51509088d099586fb8b65b49f82f24">is_open</reimplementedby>
+        <param>
+          <type>Search_Node *</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="322" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="322" bodyend="339"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a97be6a482be9e2434442b9e2374033f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::is_closed</definition>
+        <argsstring>(Search_Node *n)</argsstring>
+        <name>is_closed</name>
+        <param>
+          <type>Search_Node *</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="341" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="341" bodyend="355"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a5823024ea3b20320d66ade43d74eea7b" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::extract_plan</definition>
+        <argsstring>(Search_Node *s, Search_Node *t, std::vector&lt; Action_Idx &gt; &amp;plan, float &amp;cost)</argsstring>
+        <name>extract_plan</name>
+        <param>
+          <type>Search_Node *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>Search_Node *</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Action_Idx &gt; &amp;</type>
+          <declname>plan</declname>
+        </param>
+        <param>
+          <type>float &amp;</type>
+          <declname>cost</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="359" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="359" bodyend="369"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ae55f04a25a7ecd73d2483e9fe5bcfe90" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;::extract_path</definition>
+        <argsstring>(Search_Node *s, Search_Node *t, std::vector&lt; Search_Node * &gt; &amp;plan)</argsstring>
+        <name>extract_path</name>
+        <param>
+          <type>Search_Node *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>Search_Node *</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Search_Node * &gt; &amp;</type>
+          <declname>plan</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="371" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="371" bodyend="379"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH"/>
+      </node>
+      <node id="3">
+        <label>aptk::search::bfs_dq::AT_WBFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfs__dq_1_1AT__WBFS__DQ__SH"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aptk::search::bfs_dq::AT_RWBFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aptk::search::bfs_dq::AT_BFS_DQ_SH&lt; Search_Model, Abstract_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_closed</edgelabel>
+          <edgelabel>m_open_hash</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>aptk::search::Closed_List&lt; Search_Node &gt;</label>
+        <link refid="classaptk_1_1search_1_1Closed__List"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::unordered_multimap&lt; size_t, Search_Node  * &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" line="107" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_bfs_dq.hxx" bodystart="107" bodyend="402"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a265b5823e4442578371930fc846ae1f3" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>AT_BFS_DQ_SH</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a62ff46a3ab329dcf4f9ea4691b9bd9e8" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>AT_BFS_DQ_SH</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1aa29caf7ba297f757880e0ecbb65dd7ec" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>bound</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1aef8ab239be004b9f87b1c6cb95ea673f" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>close</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1af8b7e54498a1096c790c1109519df70a" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>closed</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a557aac28e743f740d679d2dd830d9c2d" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>Closed_List_Type</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a3c3d8871776248fed64c52f26f6f9f61" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>dead_ends</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a54ac562308b0a110f83a605ecb33b0a8" prot="public" virt="virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>do_search</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1af9473a1d5ca58786ea5126c40cc43895" prot="public" virt="virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>eval</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ac2c76ec8e2f3dba59ff7af02fda9be2f" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>expanded</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ae55f04a25a7ecd73d2483e9fe5bcfe90" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>extract_path</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a5823024ea3b20320d66ade43d74eea7b" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>extract_plan</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ada8cefa724798bd09543f50cfab9b59b" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>find_solution</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a14f17061c76b33df134e1c3bcb14a344" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>generated</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a7462dcc64ff24b0168f1a1db388c20dd" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>get_node</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1aa30373d53ad80e5eb249ceda0d475143" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>get_node</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a56484c9c679c8fa56ce56d1340eb4834" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>heuristic</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ac1c9622e68f47410f6e2530d5a3c154e" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>inc_dead_end</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a34d3825ef467cc646760fbc1c5b77a52" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>inc_eval</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a5a359ada592504c7fbcdb9150dc3b4b5" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>inc_gen</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ab0d7f838afe5c45f7f741624d282335c" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>inc_pruned_bound</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a37eff95ac48e5386023ec8d1d14ae821" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>inc_replaced_open</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a97be6a482be9e2434442b9e2374033f2" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>is_closed</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a3b08bb53d39b4dff5f00aae07608750c" prot="public" virt="virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>is_open</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1abadd305b34f7154d188213a3bcdef3fb" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_app_set</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a02ab6268a23e22e3f25dfc12fbe4f9a8" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_B</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a27aded563b48d263a9fb3d7b45fc1013" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_closed</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a703ffdc5978cacd8ab53e83ef4ee1414" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_dead_end_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a432e91149a2c09a093784ba87a7c8c89" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_exp_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1abdba541f3f3352b07191cd21ae345a69" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_gen_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a0760e86fb5b857d70f92346b8043500d" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_heuristic_func</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a7c383b71e5ac07905d1b1d82b2cacb34" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_non_po_exp_left</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a05254f53e25c2639e9a7e240f34e1c5a" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_non_po_exp_max</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a7f5839192c96aef0f06360ac62b0f132" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_open</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a10b6b21d1d88acaf9c6ddbdf68344a78" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_open_hash</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a311ec4e6d94989036f833209a7509bb6" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_open_po</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1aeb648c4049c6a0a8f5957ccc465b66b3" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_open_repl_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ac0ed6beaa5717000db0c4e90102f2d09" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_po_exp_left</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a8ec96200b322e2a25a738d9d6228ece1" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_po_exp_max</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1afbbb49596aa78f88e38e7fb19b2b25c3" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_problem</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a7e0aa0f70e84d37d36fb2752ad0aeceb" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_pruned_B_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ad8516fc20896c76d3175b45102c9b858" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_root</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a821fbd454c335cff42bd6b9024f8e7e7" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_t0</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a824ee23ea57bbf62bc5357a1cdac8e30" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>m_time_budget</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a21cf87f5ebc3f1f6fae3bc95ea4ca8e8" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>open_hash</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a890b72ab92e8326d28e8f199bc0a7373" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>open_node</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a97cbe604149e5229367dacbf64ae82e4" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>open_repl</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a531facb2346c89be69392abb860090c9" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>problem</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a0edb93ef9240290db56914e907992eb8" prot="public" virt="virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>process</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a7574eae3c0120437b8674114d8bdbb1e" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>pruned_by_bound</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1afbbc47ed05af4be9a788ecebb8968e40" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>root</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a982df22ee02dc1e61288077d46476f97" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>Search_Node</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1adb6d92696b598de1b41fd48650392026" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>set_bound</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a964343686cc88707b280c1e21d84584f" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>set_budget</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a3fd6edb046571fda8b6b3fc658c16e5e" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>set_schedule</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ab430e8ffb240bbf32ff3267ce42741ba" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>start</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a549859df825495c20a0a9b1a179999d0" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>State</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a3463482128b957b818e238617821a875" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>t0</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1ac0132e983826d87b9461f5fa6546da81" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>time_budget</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq_1_1AT__BFS__DQ__SH_1a406cf3e7849e425b0a9a40331ced26d6" prot="public" virt="virtual"><scope>aptk::search::bfs_dq::AT_BFS_DQ_SH</scope><name>~AT_BFS_DQ_SH</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

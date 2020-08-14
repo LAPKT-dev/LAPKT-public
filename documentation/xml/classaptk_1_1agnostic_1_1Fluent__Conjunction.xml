@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1agnostic_1_1Fluent__Conjunction" kind="class" language="C++" prot="public">
+    <compoundname>aptk::agnostic::Fluent_Conjunction</compoundname>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a9fdd20e08b1f84288fa39424ed8ce485" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::agnostic::Fluent_Conjunction::m_index</definition>
+        <argsstring></argsstring>
+        <name>m_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="46" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Fluent__Conjunction_1aa3aa5dbfc9abce0a7e54405906cbb66d" prot="protected" static="no" mutable="no">
+        <type>Fluent_Vec</type>
+        <definition>Fluent_Vec aptk::agnostic::Fluent_Conjunction::m_fluents</definition>
+        <argsstring></argsstring>
+        <name>m_fluents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="47" column="11" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a17aba1ca3feb933bc2c5a48444541d2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Fluent_Conjunction::Fluent_Conjunction</definition>
+        <argsstring>(unsigned index)</argsstring>
+        <name>Fluent_Conjunction</name>
+        <param>
+          <type>unsigned</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="15" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.cxx" bodystart="7" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a49d49bfb632c8ef522d1a41dfe530d30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Fluent_Conjunction::Fluent_Conjunction</definition>
+        <argsstring>(unsigned index, const Fluent_Vec &amp;fv)</argsstring>
+        <name>Fluent_Conjunction</name>
+        <param>
+          <type>unsigned</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>fv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="16" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.cxx" bodystart="12" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a928877b69b76546409ac323408eb9afa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Fluent_Conjunction::~Fluent_Conjunction</definition>
+        <argsstring>()</argsstring>
+        <name>~Fluent_Conjunction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="17" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.cxx" bodystart="20" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a7c1918e45054e14920176eb1a9b6bd37" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::agnostic::Fluent_Conjunction::index</definition>
+        <argsstring>() const</argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="19" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" bodystart="19" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Fluent__Conjunction_1ab1ac66f15ad3b0b029294d1f43c75ec1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::Fluent_Conjunction::in_set</definition>
+        <argsstring>(unsigned p) const</argsstring>
+        <name>in_set</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="21" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" bodystart="21" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a977d40f2a6b4d7a1752e5b93ed4cc4b9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::Fluent_Conjunction::in_set</definition>
+        <argsstring>(const Fluent_Vec &amp;fv) const</argsstring>
+        <name>in_set</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>fv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="25" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" bodystart="25" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Fluent__Conjunction_1aa1f126e85faab5215ace8c09de3c0f6e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::Fluent_Conjunction::intersects</definition>
+        <argsstring>(const Fluent_Vec &amp;fv) const</argsstring>
+        <name>intersects</name>
+        <param>
+          <type>const Fluent_Vec &amp;</type>
+          <declname>fv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="33" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" bodystart="33" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a55c7d19f7975694ff17ae27741328d40" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::Fluent_Conjunction::singleton</definition>
+        <argsstring>() const</argsstring>
+        <name>singleton</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="41" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Fluent__Conjunction_1ad89ba83cdf79693510888697707553f2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const Fluent_Vec &amp;</type>
+        <definition>const Fluent_Vec&amp; aptk::agnostic::Fluent_Conjunction::fluents</definition>
+        <argsstring>() const</argsstring>
+        <name>fluents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="43" column="17" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" bodystart="43" bodyend="43"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" line="13" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/model/fl_conj.hxx" bodystart="13" bodyend="48"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a17aba1ca3feb933bc2c5a48444541d2d" prot="public" virt="non-virtual"><scope>aptk::agnostic::Fluent_Conjunction</scope><name>Fluent_Conjunction</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a49d49bfb632c8ef522d1a41dfe530d30" prot="public" virt="non-virtual"><scope>aptk::agnostic::Fluent_Conjunction</scope><name>Fluent_Conjunction</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Fluent__Conjunction_1ad89ba83cdf79693510888697707553f2" prot="public" virt="non-virtual"><scope>aptk::agnostic::Fluent_Conjunction</scope><name>fluents</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Fluent__Conjunction_1ab1ac66f15ad3b0b029294d1f43c75ec1" prot="public" virt="non-virtual"><scope>aptk::agnostic::Fluent_Conjunction</scope><name>in_set</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a977d40f2a6b4d7a1752e5b93ed4cc4b9" prot="public" virt="non-virtual"><scope>aptk::agnostic::Fluent_Conjunction</scope><name>in_set</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a7c1918e45054e14920176eb1a9b6bd37" prot="public" virt="non-virtual"><scope>aptk::agnostic::Fluent_Conjunction</scope><name>index</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Fluent__Conjunction_1aa1f126e85faab5215ace8c09de3c0f6e" prot="public" virt="non-virtual"><scope>aptk::agnostic::Fluent_Conjunction</scope><name>intersects</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Fluent__Conjunction_1aa3aa5dbfc9abce0a7e54405906cbb66d" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Fluent_Conjunction</scope><name>m_fluents</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a9fdd20e08b1f84288fa39424ed8ce485" prot="protected" virt="non-virtual"><scope>aptk::agnostic::Fluent_Conjunction</scope><name>m_index</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a55c7d19f7975694ff17ae27741328d40" prot="public" virt="non-virtual"><scope>aptk::agnostic::Fluent_Conjunction</scope><name>singleton</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Fluent__Conjunction_1a928877b69b76546409ac323408eb9afa" prot="public" virt="non-virtual"><scope>aptk::agnostic::Fluent_Conjunction</scope><name>~Fluent_Conjunction</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

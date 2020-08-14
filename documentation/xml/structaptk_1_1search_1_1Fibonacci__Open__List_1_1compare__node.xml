@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="structaptk_1_1search_1_1Fibonacci__Open__List_1_1compare__node" kind="struct" language="C++" prot="private">
+    <compoundname>aptk::search::Fibonacci_Open_List::compare_node</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structaptk_1_1search_1_1Fibonacci__Open__List_1_1compare__node_1a873996625c5e9837d1fcc19398a76eb2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::search::Fibonacci_Open_List&lt; Node &gt;::compare_node::operator()</definition>
+        <argsstring>(Node *n1, Node *n2) const</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>Node *</type>
+          <declname>n1</declname>
+        </param>
+        <param>
+          <type>Node *</type>
+          <declname>n2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/open_list.hxx" line="264" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/open_list.hxx" bodystart="264" bodyend="266"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/open_list.hxx" line="263" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/open_list.hxx" bodystart="263" bodyend="267"/>
+    <listofallmembers>
+      <member refid="structaptk_1_1search_1_1Fibonacci__Open__List_1_1compare__node_1a873996625c5e9837d1fcc19398a76eb2" prot="public" virt="non-virtual"><scope>aptk::search::Fibonacci_Open_List::compare_node</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

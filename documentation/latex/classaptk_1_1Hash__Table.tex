@@ -1,0 +1,58 @@
+\hypertarget{classaptk_1_1Hash__Table}{}\doxysection{aptk\+::Hash\+\_\+\+Table$<$ T $>$ Class Template Reference}
+\label{classaptk_1_1Hash__Table}\index{aptk::Hash\_Table$<$ T $>$@{aptk::Hash\_Table$<$ T $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_a319aeb00c09759a547a267f33db83e11}\label{classaptk_1_1Hash__Table_a319aeb00c09759a547a267f33db83e11}} 
+typedef T {\bfseries Object}
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_af31f814173918f3a05d41505cb77c9ae}\label{classaptk_1_1Hash__Table_af31f814173918f3a05d41505cb77c9ae}} 
+typedef std\+::list$<$ std\+::pair$<$ unsigned, Object $\ast$ $>$ $>$ {\bfseries Node\+\_\+\+List}
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_a7faa8f337e0e9f32291c2294346080a2}\label{classaptk_1_1Hash__Table_a7faa8f337e0e9f32291c2294346080a2}} 
+typedef std\+::vector$<$ Node\+\_\+\+List $>$ {\bfseries Table}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_a4e532a26ae9c88d663041a0dc515c213}\label{classaptk_1_1Hash__Table_a4e532a26ae9c88d663041a0dc515c213}} 
+{\bfseries Hash\+\_\+\+Table} (unsigned hash\+\_\+sz)
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_a814414ef1ab4474291ae79fdc4445b23}\label{classaptk_1_1Hash__Table_a814414ef1ab4474291ae79fdc4445b23}} 
+void {\bfseries set\+Owner} (bool o)
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_aeb0e90d36cbe54dfd5ccbd7200201cf1}\label{classaptk_1_1Hash__Table_aeb0e90d36cbe54dfd5ccbd7200201cf1}} 
+void {\bfseries clear} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_a84eda12ff9979034abbfee8e098defa2}\label{classaptk_1_1Hash__Table_a84eda12ff9979034abbfee8e098defa2}} 
+Object $\ast$ {\bfseries get\+\_\+element} (\mbox{\hyperlink{classaptk_1_1Hash__Key}{Hash\+\_\+\+Key}} \&h, Object $\ast$other)
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_aecac7b97e0cb885d40f22cf1cee27acf}\label{classaptk_1_1Hash__Table_aecac7b97e0cb885d40f22cf1cee27acf}} 
+Object $\ast$ {\bfseries get\+\_\+element} (unsigned h, Object $\ast$other)
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_a2fbe9ca7d075d92a63f3e977aad49d80}\label{classaptk_1_1Hash__Table_a2fbe9ca7d075d92a63f3e977aad49d80}} 
+void {\bfseries add\+\_\+element} (\mbox{\hyperlink{classaptk_1_1Hash__Key}{Hash\+\_\+\+Key}} \&h, Object $\ast$obj)
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_a26dfaf74da38eff015fce0689aa79dfc}\label{classaptk_1_1Hash__Table_a26dfaf74da38eff015fce0689aa79dfc}} 
+void {\bfseries add\+\_\+element} (unsigned h, Object $\ast$obj)
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_ab8f30e15f52a02b4560fab1966fe9994}\label{classaptk_1_1Hash__Table_ab8f30e15f52a02b4560fab1966fe9994}} 
+void {\bfseries remove\+\_\+element} (\mbox{\hyperlink{classaptk_1_1Hash__Key}{Hash\+\_\+\+Key}} \&h, Object $\ast$obj)
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_a07aa9e1bfc1fccd48c6fdb65d42488da}\label{classaptk_1_1Hash__Table_a07aa9e1bfc1fccd48c6fdb65d42488da}} 
+void {\bfseries remove\+\_\+element} (unsigned h, Object $\ast$obj)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_acb107326d39f6f8c7db2bb5ac3684c63}\label{classaptk_1_1Hash__Table_acb107326d39f6f8c7db2bb5ac3684c63}} 
+Table {\bfseries m\+\_\+buckets}
+\item 
+\mbox{\Hypertarget{classaptk_1_1Hash__Table_a810e6a4592c518cc3f319ec53506c33c}\label{classaptk_1_1Hash__Table_a810e6a4592c518cc3f319ec53506c33c}} 
+bool {\bfseries m\+\_\+owner}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/utility/hash\+\_\+table.\+hxx\end{DoxyCompactItemize}

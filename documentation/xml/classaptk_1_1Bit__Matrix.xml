@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1Bit__Matrix" kind="class" language="C++" prot="public">
+    <compoundname>aptk::Bit_Matrix</compoundname>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1Bit__Matrix_1a13813ed5266e582c5679e6135d6edd7a" prot="protected" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> *</type>
+        <definition>Bit_Array* aptk::Bit_Matrix::m_data</definition>
+        <argsstring></argsstring>
+        <name>m_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="90" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Bit__Matrix_1a8fe261091ea97e7f7cb994d3061a8ac6" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Matrix::m_M</definition>
+        <argsstring></argsstring>
+        <name>m_M</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="91" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Bit__Matrix_1a6e0fb00159c20a6b4ce0f01c1a29f262" prot="protected" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Matrix::m_N</definition>
+        <argsstring></argsstring>
+        <name>m_N</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="92" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1Bit__Matrix_1a45d9f4c9082da2124c569f069885527b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Bit_Matrix::Bit_Matrix</definition>
+        <argsstring>()</argsstring>
+        <name>Bit_Matrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="33" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="33" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Matrix_1a6f1bcaf8762d3cf15cbf176e2e922b4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Bit_Matrix::Bit_Matrix</definition>
+        <argsstring>(unsigned M, unsigned N)</argsstring>
+        <name>Bit_Matrix</name>
+        <param>
+          <type>unsigned</type>
+          <declname>M</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>N</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="38" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="38" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Matrix_1aa4f048546b3a64cf57fa7cc3844ab447" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Bit_Matrix::Bit_Matrix</definition>
+        <argsstring>(Bit_Matrix &amp;other)</argsstring>
+        <name>Bit_Matrix</name>
+        <param>
+          <type><ref refid="classaptk_1_1Bit__Matrix" kindref="compound">Bit_Matrix</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="44" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="44" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Matrix_1a6cb3531756efb076f55702a258017e0c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Bit_Matrix::~Bit_Matrix</definition>
+        <argsstring>()</argsstring>
+        <name>~Bit_Matrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="51" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="51" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Matrix_1aa138fa36f5cf0db421ad9b70864cad1b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Matrix::set_dims</definition>
+        <argsstring>(unsigned M, unsigned N)</argsstring>
+        <name>set_dims</name>
+        <param>
+          <type>unsigned</type>
+          <declname>M</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>N</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="56" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="56" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Matrix_1ab88af17c4d79c6b47d1bd642816823ff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Matrix::set</definition>
+        <argsstring>(unsigned i, unsigned j)</argsstring>
+        <name>set</name>
+        <param>
+          <type>unsigned</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>j</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="63" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="63" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Matrix_1ad309381bafd78a9ea4e4ce4e72f24943" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Matrix::unset</definition>
+        <argsstring>(unsigned i, unsigned j)</argsstring>
+        <name>unset</name>
+        <param>
+          <type>unsigned</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>j</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="68" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="68" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Matrix_1ab0661ac59c0032234e1b248ae96087ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Matrix::isset</definition>
+        <argsstring>(unsigned i, unsigned j)</argsstring>
+        <name>isset</name>
+        <param>
+          <type>unsigned</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>j</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="73" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="73" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Matrix_1ae7317c2c79b9f8c89560509c23f4c547" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Matrix::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="78" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="78" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Matrix_1a6ba7d3e59deb89c624a8f132c5448d3a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Matrix::resize</definition>
+        <argsstring>(unsigned sz)</argsstring>
+        <name>resize</name>
+        <param>
+          <type>unsigned</type>
+          <declname>sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="83" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="83" bodyend="87"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>aptk::Bit_Array</label>
+        <link refid="classaptk_1_1Bit__Array"/>
+      </node>
+      <node id="1">
+        <label>aptk::Bit_Matrix</label>
+        <link refid="classaptk_1_1Bit__Matrix"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_data</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" line="29" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_matrix.hxx" bodystart="30" bodyend="93"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1Bit__Matrix_1a45d9f4c9082da2124c569f069885527b" prot="public" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>Bit_Matrix</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1a6f1bcaf8762d3cf15cbf176e2e922b4b" prot="public" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>Bit_Matrix</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1aa4f048546b3a64cf57fa7cc3844ab447" prot="public" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>Bit_Matrix</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1ae7317c2c79b9f8c89560509c23f4c547" prot="public" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>clear</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1ab0661ac59c0032234e1b248ae96087ea" prot="public" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>isset</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1a13813ed5266e582c5679e6135d6edd7a" prot="protected" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>m_data</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1a8fe261091ea97e7f7cb994d3061a8ac6" prot="protected" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>m_M</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1a6e0fb00159c20a6b4ce0f01c1a29f262" prot="protected" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>m_N</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1a6ba7d3e59deb89c624a8f132c5448d3a" prot="public" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>resize</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1ab88af17c4d79c6b47d1bd642816823ff" prot="public" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>set</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1aa138fa36f5cf0db421ad9b70864cad1b" prot="public" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>set_dims</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1ad309381bafd78a9ea4e4ce4e72f24943" prot="public" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>unset</name></member>
+      <member refid="classaptk_1_1Bit__Matrix_1a6cb3531756efb076f55702a258017e0c" prot="public" virt="non-virtual"><scope>aptk::Bit_Matrix</scope><name>~Bit_Matrix</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

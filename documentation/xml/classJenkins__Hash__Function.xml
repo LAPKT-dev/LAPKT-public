@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classJenkins__Hash__Function" kind="class" language="C++" prot="public">
+    <compoundname>Jenkins_Hash_Function</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classJenkins__Hash__Function_1a7f4f624821d544a0a826d9608adaaffd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Jenkins_Hash_Function&lt; T &gt;::Jenkins_Hash_Function</definition>
+        <argsstring>()</argsstring>
+        <name>Jenkins_Hash_Function</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/jenkins_12bit.hxx" line="131" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/jenkins_12bit.hxx" bodystart="131" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="classJenkins__Hash__Function_1a1ffb09937b852a6ab62279653824c4ee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Jenkins_Hash_Function&lt; T &gt;::~Jenkins_Hash_Function</definition>
+        <argsstring>()</argsstring>
+        <name>~Jenkins_Hash_Function</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/jenkins_12bit.hxx" line="132" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/jenkins_12bit.hxx" bodystart="132" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classJenkins__Hash__Function_1a5cfe4774deea01996c6b2b223bf661b5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t Jenkins_Hash_Function&lt; T &gt;::operator()</definition>
+        <argsstring>(const T &amp;obj) const</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/jenkins_12bit.hxx" line="134" column="8" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/jenkins_12bit.hxx" bodystart="134" bodyend="138"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/jenkins_12bit.hxx" line="127" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/jenkins_12bit.hxx" bodystart="128" bodyend="141"/>
+    <listofallmembers>
+      <member refid="classJenkins__Hash__Function_1a7f4f624821d544a0a826d9608adaaffd" prot="public" virt="non-virtual"><scope>Jenkins_Hash_Function</scope><name>Jenkins_Hash_Function</name></member>
+      <member refid="classJenkins__Hash__Function_1a5cfe4774deea01996c6b2b223bf661b5" prot="public" virt="non-virtual"><scope>Jenkins_Hash_Function</scope><name>operator()</name></member>
+      <member refid="classJenkins__Hash__Function_1a1ffb09937b852a6ab62279653824c4ee" prot="public" virt="non-virtual"><scope>Jenkins_Hash_Function</scope><name>~Jenkins_Hash_Function</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,106 @@
+\hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node}{}\doxysection{aptk\+::search\+::bfs\+\_\+dq\+::Node$<$ State $>$ Class Template Reference}
+\label{classaptk_1_1search_1_1bfs__dq_1_1Node}\index{aptk::search::bfs\_dq::Node$<$ State $>$@{aptk::search::bfs\_dq::Node$<$ State $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_ae0edd7608abc01273a61429b493319f9}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_ae0edd7608abc01273a61429b493319f9}} 
+typedef \mbox{\hyperlink{classaptk_1_1State}{State}} {\bfseries State\+\_\+\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_aab228f248c831d8c780d556d552cdfb0}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_aab228f248c831d8c780d556d552cdfb0}} 
+{\bfseries Node} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, float cost, Action\+\_\+\+Idx action, \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$parent, int num\+\_\+actions)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a6e003db04204792d7a36d1abad674c01}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a6e003db04204792d7a36d1abad674c01}} 
+float \& {\bfseries hn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a5f9c13a42b3572fc0b316fd723b9221b}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a5f9c13a42b3572fc0b316fd723b9221b}} 
+float {\bfseries hn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a40a46d27973de4ce271bfb141ec8da50}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a40a46d27973de4ce271bfb141ec8da50}} 
+float \& {\bfseries gn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_aeb355212434bcff41c7c7b1b9c0efea6}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_aeb355212434bcff41c7c7b1b9c0efea6}} 
+float {\bfseries gn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_afae749e47e9e3b5114911ae162468d29}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_afae749e47e9e3b5114911ae162468d29}} 
+float \& {\bfseries fn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_ac5f919a46bac6eb2ff93752c3ec438d7}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_ac5f919a46bac6eb2ff93752c3ec438d7}} 
+float {\bfseries fn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_aff03aa5e4962b720af4dde57051c05a8}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_aff03aa5e4962b720af4dde57051c05a8}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries parent} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_ad3f15cc6fa5ac0e7cc72b5a1c5df3257}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_ad3f15cc6fa5ac0e7cc72b5a1c5df3257}} 
+Action\+\_\+\+Idx {\bfseries action} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a47e998ae0cd1155ab3e3011e402afba8}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a47e998ae0cd1155ab3e3011e402afba8}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries state} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_ac125d3c6edc0afb7a5b9932c8e1c74a7}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_ac125d3c6edc0afb7a5b9932c8e1c74a7}} 
+const \mbox{\hyperlink{classaptk_1_1State}{State}} \& {\bfseries state} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_aa4a179d71c853e0989cb9e7930dff8d7}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_aa4a179d71c853e0989cb9e7930dff8d7}} 
+void {\bfseries add\+\_\+po} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a6c25de8a5bea85ce111d289524ea6e9d}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a6c25de8a5bea85ce111d289524ea6e9d}} 
+bool {\bfseries is\+\_\+po} (Action\+\_\+\+Idx index) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_aa7feca6c2da4ad7ac355f4361f310f71}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_aa7feca6c2da4ad7ac355f4361f310f71}} 
+void {\bfseries set\+\_\+seen} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a98bfa0c981a926e3908af322320d67af}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a98bfa0c981a926e3908af322320d67af}} 
+bool {\bfseries seen} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_aeede0f51fcd339fd9eb36c5dc0cdd0f6}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_aeede0f51fcd339fd9eb36c5dc0cdd0f6}} 
+void {\bfseries print} (std\+::ostream \&os) const
+\item 
+bool \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq_1_1Node_a5f6bcda8271c801712cadd9a11340e96}{operator==}} (const \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_adf01d6bf1860c49357c60fab57bd08d3}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_adf01d6bf1860c49357c60fab57bd08d3}} 
+size\+\_\+t {\bfseries hash} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a1ec49f326062d6b60773217f173edb0d}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a1ec49f326062d6b60773217f173edb0d}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries m\+\_\+state}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a4652090b70acc05ccc29012487084cf6}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a4652090b70acc05ccc29012487084cf6}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries m\+\_\+parent}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a049fc86d3b30091c22669743466ad102}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a049fc86d3b30091c22669743466ad102}} 
+float {\bfseries m\+\_\+h}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a5b80334ce690c857b3bd977550c4264c}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a5b80334ce690c857b3bd977550c4264c}} 
+Action\+\_\+\+Idx {\bfseries m\+\_\+action}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a22dc0215afb28c785e4308888d4572c8}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a22dc0215afb28c785e4308888d4572c8}} 
+float {\bfseries m\+\_\+g}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a11d22cdc49c139220e37fafde3a81d3a}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a11d22cdc49c139220e37fafde3a81d3a}} 
+float {\bfseries m\+\_\+f}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_abd6356649e3accd3e1e4688f4ea243bc}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_abd6356649e3accd3e1e4688f4ea243bc}} 
+\mbox{\hyperlink{classaptk_1_1Bit__Set}{Bit\+\_\+\+Set}} {\bfseries m\+\_\+po}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_adecbc651a04f7b8bc150aaadcc90e79b}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_adecbc651a04f7b8bc150aaadcc90e79b}} 
+bool {\bfseries m\+\_\+seen}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1Node_a5f6bcda8271c801712cadd9a11340e96}\label{classaptk_1_1search_1_1bfs__dq_1_1Node_a5f6bcda8271c801712cadd9a11340e96}} 
+\index{aptk::search::bfs\_dq::Node$<$ State $>$@{aptk::search::bfs\_dq::Node$<$ State $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!aptk::search::bfs\_dq::Node$<$ State $>$@{aptk::search::bfs\_dq::Node$<$ State $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename State $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq_1_1Node}{aptk\+::search\+::bfs\+\_\+dq\+::\+Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&}]{o }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Lazy
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/search/at\+\_\+bfs\+\_\+dq.\+hxx\end{DoxyCompactItemize}

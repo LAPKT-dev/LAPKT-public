@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1agnostic_1_1Goal__Node" kind="class" language="C++" prot="public">
+    <compoundname>aptk::agnostic::Goal_Node</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Goal__Node_1a02bc997f5f77c4f2efee4fdf6aa158cf" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned aptk::agnostic::Goal_Node::m_fluent</definition>
+        <argsstring></argsstring>
+        <name>m_fluent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" line="68" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1agnostic_1_1Goal__Node_1ae0fedde6f51a1a56769ff5daa63aac2f" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float aptk::agnostic::Goal_Node::m_h</definition>
+        <argsstring></argsstring>
+        <name>m_h</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" line="69" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Goal__Node_1af481ca3d6cbdba5c3da3c4abe60697fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Goal_Node::Goal_Node</definition>
+        <argsstring>(unsigned p, float h)</argsstring>
+        <name>Goal_Node</name>
+        <param>
+          <type>unsigned</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" line="41" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" bodystart="41" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Goal__Node_1a976809ccf0d5c3f5e4adda82ca1a9f02" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Goal_Node::Goal_Node</definition>
+        <argsstring>(Goal_Node &amp;&amp;other)</argsstring>
+        <name>Goal_Node</name>
+        <param>
+          <type><ref refid="classaptk_1_1agnostic_1_1Goal__Node" kindref="compound">Goal_Node</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" line="45" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" bodystart="45" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Goal__Node_1a82ceb053dd856ac997bda87429e1bec4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::agnostic::Goal_Node::Goal_Node</definition>
+        <argsstring>(const Goal_Node &amp;other)</argsstring>
+        <name>Goal_Node</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1agnostic_1_1Goal__Node" kindref="compound">Goal_Node</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" line="50" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" bodystart="50" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Goal__Node_1ac0c6f02e1e9a9c0341ae4f8035645985" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1agnostic_1_1Goal__Node" kindref="compound">Goal_Node</ref> &amp;</type>
+        <definition>Goal_Node&amp; aptk::agnostic::Goal_Node::operator=</definition>
+        <argsstring>(Goal_Node &amp;&amp;other)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type><ref refid="classaptk_1_1agnostic_1_1Goal__Node" kindref="compound">Goal_Node</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" line="54" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" bodystart="54" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Goal__Node_1a9947379e4d956bebf17fdc8a4ff6142e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::Goal_Node::operator&gt;</definition>
+        <argsstring>(const Goal_Node &amp;n) const</argsstring>
+        <name>operator&gt;</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1agnostic_1_1Goal__Node" kindref="compound">Goal_Node</ref> &amp;</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" line="60" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" bodystart="60" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1agnostic_1_1Goal__Node_1a7c3997d0fefd99ab782211fbdbea72bd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::agnostic::Goal_Node::operator&lt;</definition>
+        <argsstring>(const Goal_Node &amp;n) const</argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1agnostic_1_1Goal__Node" kindref="compound">Goal_Node</ref> &amp;</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" line="64" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" bodystart="64" bodyend="66"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" line="38" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/generic-best_first-ffparser/ff_rp_heuristic.hxx" bodystart="38" bodyend="71"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1agnostic_1_1Goal__Node_1af481ca3d6cbdba5c3da3c4abe60697fe" prot="public" virt="non-virtual"><scope>aptk::agnostic::Goal_Node</scope><name>Goal_Node</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Goal__Node_1a976809ccf0d5c3f5e4adda82ca1a9f02" prot="public" virt="non-virtual"><scope>aptk::agnostic::Goal_Node</scope><name>Goal_Node</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Goal__Node_1a82ceb053dd856ac997bda87429e1bec4" prot="public" virt="non-virtual"><scope>aptk::agnostic::Goal_Node</scope><name>Goal_Node</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Goal__Node_1a02bc997f5f77c4f2efee4fdf6aa158cf" prot="public" virt="non-virtual"><scope>aptk::agnostic::Goal_Node</scope><name>m_fluent</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Goal__Node_1ae0fedde6f51a1a56769ff5daa63aac2f" prot="public" virt="non-virtual"><scope>aptk::agnostic::Goal_Node</scope><name>m_h</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Goal__Node_1a7c3997d0fefd99ab782211fbdbea72bd" prot="public" virt="non-virtual"><scope>aptk::agnostic::Goal_Node</scope><name>operator&lt;</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Goal__Node_1ac0c6f02e1e9a9c0341ae4f8035645985" prot="public" virt="non-virtual"><scope>aptk::agnostic::Goal_Node</scope><name>operator=</name></member>
+      <member refid="classaptk_1_1agnostic_1_1Goal__Node_1a9947379e4d956bebf17fdc8a4ff6142e" prot="public" virt="non-virtual"><scope>aptk::agnostic::Goal_Node</scope><name>operator&gt;</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespacebfs__f-unit-cost" kind="namespace" language="Python">
+    <compoundname>bfs_f-unit-cost</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="bfs__f-unit-cost_8py_1a3e42aaf935ccdc153c6961516a56b417" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def bfs_f-unit-cost.main</definition>
+        <argsstring>(domain_file, problem_file, plan_file)</argsstring>
+        <name>main</name>
+        <param>
+          <type>domain_file</type>
+          <defname>domain_file</defname>
+        </param>
+        <param>
+          <type>problem_file</type>
+          <defname>problem_file</defname>
+        </param>
+        <param>
+          <type>plan_file</type>
+          <defname>plan_file</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfs_f/bfs_f-unit-cost.py" line="9" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfs_f/bfs_f-unit-cost.py" bodystart="9" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="bfs__f-unit-cost_8py_1a20de2b4351109df3fce08f2e5c023113" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def bfs_f-unit-cost.debug</definition>
+        <argsstring>()</argsstring>
+        <name>debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfs_f/bfs_f-unit-cost.py" line="51" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfs_f/bfs_f-unit-cost.py" bodystart="51" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/bfs_f/bfs_f-unit-cost.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

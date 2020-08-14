@@ -1,0 +1,75 @@
+\hypertarget{classIW__Planner}{}\doxysection{I\+W\+\_\+\+Planner Class Reference}
+\label{classIW__Planner}\index{IW\_Planner@{IW\_Planner}}
+Inheritance diagram for I\+W\+\_\+\+Planner\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classIW__Planner}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classIW__Planner_a15279f699c036971125ff206a9f9c4da}\label{classIW__Planner_a15279f699c036971125ff206a9f9c4da}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1brfs_1_1Node}{aptk\+::search\+::brfs\+::\+Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{aptk\+::\+State}} $>$ {\bfseries I\+W\+\_\+\+Node}
+\item 
+\mbox{\Hypertarget{classIW__Planner_ad5bf86e33476f9c0fbbabf823586c8b5}\label{classIW__Planner_ad5bf86e33476f9c0fbbabf823586c8b5}} 
+typedef \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty}{Novelty}}$<$ \mbox{\hyperlink{classaptk_1_1agnostic_1_1Fwd__Search__Problem}{Fwd\+\_\+\+Search\+\_\+\+Problem}}, \mbox{\hyperlink{classaptk_1_1search_1_1brfs_1_1Node}{I\+W\+\_\+\+Node}} $>$ {\bfseries H\+\_\+\+Novel\+\_\+\+Fwd}
+\item 
+\mbox{\Hypertarget{classIW__Planner_a7d6fc25e278f64c34ed0b7c5f8c11fbd}\label{classIW__Planner_a7d6fc25e278f64c34ed0b7c5f8c11fbd}} 
+typedef \mbox{\hyperlink{classaptk_1_1agnostic_1_1H2__Heuristic}{H2\+\_\+\+Heuristic}}$<$ \mbox{\hyperlink{classaptk_1_1agnostic_1_1Fwd__Search__Problem}{Fwd\+\_\+\+Search\+\_\+\+Problem}} $>$ {\bfseries H2\+\_\+\+Fwd}
+\item 
+\mbox{\Hypertarget{classIW__Planner_a7af99cf1a714dccc013f4befb6456854}\label{classIW__Planner_a7af99cf1a714dccc013f4befb6456854}} 
+typedef \mbox{\hyperlink{classaptk_1_1agnostic_1_1H1__Heuristic}{H1\+\_\+\+Heuristic}}$<$ \mbox{\hyperlink{classaptk_1_1agnostic_1_1Fwd__Search__Problem}{Fwd\+\_\+\+Search\+\_\+\+Problem}}, \mbox{\hyperlink{classaptk_1_1agnostic_1_1H__Max__Evaluation__Function}{H\+\_\+\+Max\+\_\+\+Evaluation\+\_\+\+Function}} $>$ {\bfseries H1\+\_\+\+Fwd}
+\item 
+\mbox{\Hypertarget{classIW__Planner_aece6c630c3c57eb323532e0a18ead7f7}\label{classIW__Planner_aece6c630c3c57eb323532e0a18ead7f7}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1brfs_1_1IW}{IW}}$<$ \mbox{\hyperlink{classaptk_1_1agnostic_1_1Fwd__Search__Problem}{Fwd\+\_\+\+Search\+\_\+\+Problem}}, \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty}{H\+\_\+\+Novel\+\_\+\+Fwd}} $>$ {\bfseries I\+W\+\_\+\+Fwd}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classIW__Planner_a7c4ba0e694b708a79bf0901a8de7066b}\label{classIW__Planner_a7c4ba0e694b708a79bf0901a8de7066b}} 
+{\bfseries I\+W\+\_\+\+Planner} (std\+::string, std\+::string)
+\item 
+\mbox{\Hypertarget{classIW__Planner_a394fe812e564839d27268f39d9d6af41}\label{classIW__Planner_a394fe812e564839d27268f39d9d6af41}} 
+{\bfseries I\+W\+\_\+\+Planner} (std\+::string, std\+::string, unsigned, std\+::string, std\+::string)
+\item 
+\mbox{\Hypertarget{classIW__Planner_a6f79555962031f7237e2dcc6848e961a}\label{classIW__Planner_a6f79555962031f7237e2dcc6848e961a}} 
+virtual void {\bfseries setup} (bool gen\+\_\+match\+\_\+tree=true)
+\item 
+\mbox{\Hypertarget{classIW__Planner_a9ded92d3079962eea426fe7d99b5f903}\label{classIW__Planner_a9ded92d3079962eea426fe7d99b5f903}} 
+void {\bfseries solve} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classIW__Planner_a75db7fc6e2d292417de5abc9871e9ac2}\label{classIW__Planner_a75db7fc6e2d292417de5abc9871e9ac2}} 
+unsigned {\bfseries m\+\_\+iw\+\_\+bound}
+\item 
+\mbox{\Hypertarget{classIW__Planner_ae919b3f7bc5163ac697ffd9f62ae6bf1}\label{classIW__Planner_ae919b3f7bc5163ac697ffd9f62ae6bf1}} 
+std\+::string {\bfseries m\+\_\+log\+\_\+filename}
+\item 
+\mbox{\Hypertarget{classIW__Planner_a2afa54e387307daaf3bf2f7ae05618c8}\label{classIW__Planner_a2afa54e387307daaf3bf2f7ae05618c8}} 
+std\+::string {\bfseries m\+\_\+plan\+\_\+filename}
+\item 
+\mbox{\Hypertarget{classIW__Planner_a24c4d4110636c3748e2a5e28a7cd054b}\label{classIW__Planner_a24c4d4110636c3748e2a5e28a7cd054b}} 
+bool {\bfseries m\+\_\+atomic} =false
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classIW__Planner_ac35a673110a95b9c85b07965734052d2}\label{classIW__Planner_ac35a673110a95b9c85b07965734052d2}} 
+{\footnotesize template$<$typename Search\+\_\+\+Engine $>$ }\\float {\bfseries do\+\_\+search} (Search\+\_\+\+Engine \&engine, \mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{aptk\+::\+S\+T\+R\+I\+P\+S\+\_\+\+Problem}} \&plan\+\_\+prob, std\+::ofstream \&plan\+\_\+stream)
+\item 
+\mbox{\Hypertarget{classIW__Planner_aa6bc1be0173fda99bff3c9c3505e2d0f}\label{classIW__Planner_aa6bc1be0173fda99bff3c9c3505e2d0f}} 
+{\footnotesize template$<$typename Search\+\_\+\+Engine $>$ }\\float {\bfseries do\+\_\+inc\+\_\+bound\+\_\+search} (Search\+\_\+\+Engine \&engine, \mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{aptk\+::\+S\+T\+R\+I\+P\+S\+\_\+\+Problem}} \&plan\+\_\+prob, std\+::ofstream \&plan\+\_\+stream)
+\item 
+\mbox{\Hypertarget{classIW__Planner_acee524c9021c2fd734543d60d1705e35}\label{classIW__Planner_acee524c9021c2fd734543d60d1705e35}} 
+{\footnotesize template$<$typename Search\+\_\+\+Engine $>$ }\\float {\bfseries do\+\_\+search\+\_\+single\+\_\+goal} (Search\+\_\+\+Engine \&engine, \mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{aptk\+::\+S\+T\+R\+I\+P\+S\+\_\+\+Problem}} \&plan\+\_\+prob, std\+::ofstream \&plan\+\_\+stream)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/planners/iw/iw\+\_\+planner.\+hxx\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/planners/iw/iw\+\_\+planner.\+cxx\end{DoxyCompactItemize}

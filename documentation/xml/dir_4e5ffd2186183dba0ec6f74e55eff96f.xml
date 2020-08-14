@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_4e5ffd2186183dba0ec6f74e55eff96f" kind="dir">
+    <compoundname>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface</compoundname>
+    <innerdir refid="dir_891da2e3e95ef344a6d64826a9fbbde7">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common</innerdir>
+    <innerdir refid="dir_392787c2ed1295257b1fbd474514d112">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/fd_parse_ground</innerdir>
+    <innerdir refid="dir_05d71071c22d04b64ed2c9b85b7fd341">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/ff_lapkt</innerdir>
+    <innerdir refid="dir_b885725c566535cfc7384241910207c7">/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1search_1_1Closed__List" kind="class" language="C++" prot="public">
+    <compoundname>aptk::search::Closed_List</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::unordered_multimap&lt; size_t, Node * &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename Node</type>
+      </param>
+      <param>
+        <type>Node_Generation</type>
+        <declname>gen_opt</declname>
+        <defname>gen_opt</defname>
+        <defval>Node_Generation::Eager</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1Closed__List_1a90b903838465b62d5d6d428de997f435" prot="public" static="no">
+        <type>Node::State_Type</type>
+        <definition>typedef Node::State_Type aptk::search::Closed_List&lt; Node, gen_opt &gt;::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" line="35" column="34" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1Closed__List_1a685c3a2722e8718b2a7ce2e94d741a68" prot="public" static="no">
+        <type>std::unordered_multimap&lt; size_t, Node * &gt;::iterator</type>
+        <definition>typedef std::unordered_multimap&lt; size_t, Node* &gt;::iterator aptk::search::Closed_List&lt; Node, gen_opt &gt;::iterator</definition>
+        <argsstring></argsstring>
+        <name>iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" line="36" column="53" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1Closed__List_1ab540733bd3dbf11b90e695856ddd4525" prot="public" static="no">
+        <type>std::unordered_multimap&lt; size_t, Node * &gt;::const_iterator</type>
+        <definition>typedef std::unordered_multimap&lt; size_t, Node* &gt;::const_iterator aptk::search::Closed_List&lt; Node, gen_opt &gt;::const_iterator</definition>
+        <argsstring></argsstring>
+        <name>const_iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" line="37" column="58" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1search_1_1Closed__List_1abfde3de02b071dffb743a25f3749a20f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Node *</type>
+        <definition>Node* aptk::search::Closed_List&lt; Node, gen_opt &gt;::retrieve</definition>
+        <argsstring>(Node *n)</argsstring>
+        <name>retrieve</name>
+        <param>
+          <type>Node *</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" line="39" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" bodystart="39" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1Closed__List_1a0f9b6b01a8de54db1314fe8db713bbbe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>iterator</type>
+        <definition>iterator aptk::search::Closed_List&lt; Node, gen_opt &gt;::retrieve_iterator</definition>
+        <argsstring>(Node *n)</argsstring>
+        <name>retrieve_iterator</name>
+        <param>
+          <type>Node *</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" line="76" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" bodystart="76" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1Closed__List_1a989227dcc4736fd818f0d3b006bede96" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const_iterator</type>
+        <definition>const_iterator aptk::search::Closed_List&lt; Node, gen_opt &gt;::retrieve_iterator</definition>
+        <argsstring>(Node *n) const</argsstring>
+        <name>retrieve_iterator</name>
+        <param>
+          <type>Node *</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" line="111" column="16" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" bodystart="111" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1Closed__List_1afdbf77b727949f261a473c8583c0b9af" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::Closed_List&lt; Node, gen_opt &gt;::put</definition>
+        <argsstring>(Node *n)</argsstring>
+        <name>put</name>
+        <param>
+          <type>Node *</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" line="146" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" bodystart="146" bodyend="152"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>aptk::search::Closed_List&lt; Node, gen_opt &gt;</label>
+        <link refid="classaptk_1_1search_1_1Closed__List"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::unordered_multimap&lt; size_t, Node * &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>aptk::search::Closed_List&lt; Node, gen_opt &gt;</label>
+        <link refid="classaptk_1_1search_1_1Closed__List"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::unordered_multimap&lt; size_t, Node * &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" line="33" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/closed_list.hxx" bodystart="33" bodyend="153"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1search_1_1Closed__List_1ab540733bd3dbf11b90e695856ddd4525" prot="public" virt="non-virtual"><scope>aptk::search::Closed_List</scope><name>const_iterator</name></member>
+      <member refid="classaptk_1_1search_1_1Closed__List_1a685c3a2722e8718b2a7ce2e94d741a68" prot="public" virt="non-virtual"><scope>aptk::search::Closed_List</scope><name>iterator</name></member>
+      <member refid="classaptk_1_1search_1_1Closed__List_1afdbf77b727949f261a473c8583c0b9af" prot="public" virt="non-virtual"><scope>aptk::search::Closed_List</scope><name>put</name></member>
+      <member refid="classaptk_1_1search_1_1Closed__List_1abfde3de02b071dffb743a25f3749a20f" prot="public" virt="non-virtual"><scope>aptk::search::Closed_List</scope><name>retrieve</name></member>
+      <member refid="classaptk_1_1search_1_1Closed__List_1a0f9b6b01a8de54db1314fe8db713bbbe" prot="public" virt="non-virtual"><scope>aptk::search::Closed_List</scope><name>retrieve_iterator</name></member>
+      <member refid="classaptk_1_1search_1_1Closed__List_1a989227dcc4736fd818f0d3b006bede96" prot="public" virt="non-virtual"><scope>aptk::search::Closed_List</scope><name>retrieve_iterator</name></member>
+      <member refid="classaptk_1_1search_1_1Closed__List_1a90b903838465b62d5d6d428de997f435" prot="public" virt="non-virtual"><scope>aptk::search::Closed_List</scope><name>State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

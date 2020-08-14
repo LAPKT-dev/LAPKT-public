@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="planner__config_8py" kind="file" language="Python">
+    <compoundname>planner_config.py</compoundname>
+    <innernamespace refid="namespaceplanner__config">planner_config</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>ruamel.yaml<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>YAML</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>pathlib<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Path</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>os.path<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>join</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">load_planner_config():</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>parent_folder<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/><sp/>Path(__file__).parent.absolute()</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>rel_config_file<sp/><sp/><sp/><sp/><sp/>=<sp/><sp/><sp/>Path(</highlight><highlight class="stringliteral">&apos;lapkt_planner_config.yml&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>PLANNER_CONFIG_PATH<sp/>=<sp/><sp/><sp/>join(parent_folder,<sp/>rel_config_file)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">with</highlight><highlight class="normal"><sp/>open(PLANNER_CONFIG_PATH)<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>from_f<sp/>:</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>YAML(typ=</highlight><highlight class="stringliteral">&apos;safe&apos;</highlight><highlight class="normal">).load(from_f)</highlight></codeline>
+    </programlisting>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/config/planner_config.py"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,45 @@
+\hypertarget{classaptk_1_1agnostic_1_1Successor__Generator}{}\doxysection{aptk\+::agnostic\+::Successor\+\_\+\+Generator Class Reference}
+\label{classaptk_1_1agnostic_1_1Successor__Generator}\index{aptk::agnostic::Successor\_Generator@{aptk::agnostic::Successor\_Generator}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classaptk_1_1agnostic_1_1Successor__Generator_1_1Heuristic__Iterator}{Heuristic\+\_\+\+Iterator}}
+\item 
+class \mbox{\hyperlink{classaptk_1_1agnostic_1_1Successor__Generator_1_1Iterator}{Iterator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Successor__Generator_a7d3b8913e71b2ea083af10cdff42eb22}\label{classaptk_1_1agnostic_1_1Successor__Generator_a7d3b8913e71b2ea083af10cdff42eb22}} 
+{\bfseries Successor\+\_\+\+Generator} (const \mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{S\+T\+R\+I\+P\+S\+\_\+\+Problem}} \&prob)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Successor__Generator_a16136168be51e30cff0039797e83da90}\label{classaptk_1_1agnostic_1_1Successor__Generator_a16136168be51e30cff0039797e83da90}} 
+void {\bfseries build} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Successor__Generator_acb072e117396e6b8132de77f57642d7e}\label{classaptk_1_1agnostic_1_1Successor__Generator_acb072e117396e6b8132de77f57642d7e}} 
+void {\bfseries retrieve\+\_\+applicable} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, std\+::vector$<$ const \mbox{\hyperlink{classaptk_1_1Action}{Action}} $\ast$ $>$ \&actions) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Successor__Generator_add3bdd03fdca49d913c108582c03c5b3}\label{classaptk_1_1agnostic_1_1Successor__Generator_add3bdd03fdca49d913c108582c03c5b3}} 
+void {\bfseries retrieve\+\_\+applicable} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, std\+::vector$<$ int $>$ \&actions) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Successor__Generator_afbbcb5ef3dff4499b48dae69d90722f1}\label{classaptk_1_1agnostic_1_1Successor__Generator_afbbcb5ef3dff4499b48dae69d90722f1}} 
+void {\bfseries retrieve\+\_\+applicable} (const std\+::vector$<$ float $>$ \&v, std\+::vector$<$ const \mbox{\hyperlink{classaptk_1_1Action}{Action}} $\ast$ $>$ \&actions) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Successor__Generator_a453733bbf7750d50f0864e7ef18af827}\label{classaptk_1_1agnostic_1_1Successor__Generator_a453733bbf7750d50f0864e7ef18af827}} 
+const std\+::vector$<$ Node $\ast$ $>$ \& {\bfseries nodes} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Successor__Generator_a10e476272c419d98ab498f46a60bb546}\label{classaptk_1_1agnostic_1_1Successor__Generator_a10e476272c419d98ab498f46a60bb546}} 
+void {\bfseries build\+\_\+fluent\+\_\+ordering} (std\+::vector$<$ unsigned $>$ \&ord\+\_\+fluents)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Successor__Generator_a9062964fc2925d5614b4edbb2e792c5d}\label{classaptk_1_1agnostic_1_1Successor__Generator_a9062964fc2925d5614b4edbb2e792c5d}} 
+unsigned {\bfseries make\+\_\+nodes} (unsigned index, std\+::vector$<$ unsigned $>$ \&ord\+\_\+fluents, const std\+::vector$<$ const \mbox{\hyperlink{classaptk_1_1Action}{Action}} $\ast$ $>$ \&actions)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/search/succ\+\_\+gen.\+hxx\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/search/succ\+\_\+gen.\+cxx\end{DoxyCompactItemize}

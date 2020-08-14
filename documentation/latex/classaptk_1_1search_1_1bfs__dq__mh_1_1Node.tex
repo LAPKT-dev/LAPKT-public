@@ -1,0 +1,148 @@
+\hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node}{}\doxysection{aptk\+::search\+::bfs\+\_\+dq\+\_\+mh\+::Node$<$ State $>$ Class Template Reference}
+\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node}\index{aptk::search::bfs\_dq\_mh::Node$<$ State $>$@{aptk::search::bfs\_dq\_mh::Node$<$ State $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a63b3dfe245bb2c204a44773fc5ed9117}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a63b3dfe245bb2c204a44773fc5ed9117}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1Fibonacci__Open__List}{Fibonacci\+\_\+\+Open\+\_\+\+List}}$<$ \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq__mh_1_1Node}{Node}} $>$ {\bfseries Open\+\_\+\+List}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a094157bd0dabb5a4630165d4dcef1f3e}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a094157bd0dabb5a4630165d4dcef1f3e}} 
+typedef \mbox{\hyperlink{classaptk_1_1State}{State}} {\bfseries State\+\_\+\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_acc8394f3216f4fa4a252374eb1f969de}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_acc8394f3216f4fa4a252374eb1f969de}} 
+{\bfseries Node} (\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$s, float cost, Action\+\_\+\+Idx action, \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq__mh_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$parent, int num\+\_\+actions)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aa472e5acc04695fcff5e382abb1bdf51}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aa472e5acc04695fcff5e382abb1bdf51}} 
+float \& {\bfseries h1n} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a24c31754fe9da33ea8d80e5035a489f3}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a24c31754fe9da33ea8d80e5035a489f3}} 
+float {\bfseries h1n} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_ad6ff90c9a0ab94dfe2eed511ceb85438}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_ad6ff90c9a0ab94dfe2eed511ceb85438}} 
+float \& {\bfseries h2n} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a16336417a8919813373f61e508e0017f}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a16336417a8919813373f61e508e0017f}} 
+float {\bfseries h2n} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a579caad4026ce4cf0cfd8ac1e33c497d}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a579caad4026ce4cf0cfd8ac1e33c497d}} 
+float \& {\bfseries gn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a498077933af55f4b35aca3f61a6ea3cd}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a498077933af55f4b35aca3f61a6ea3cd}} 
+float {\bfseries gn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a4816e0aab7928a8f3fc4ad7b17037307}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a4816e0aab7928a8f3fc4ad7b17037307}} 
+float \& {\bfseries fn} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a237c3f57a368cf7701e3e9d79a3010cf}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a237c3f57a368cf7701e3e9d79a3010cf}} 
+float {\bfseries fn} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a46ce77947223179521db7ab925f3e554}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a46ce77947223179521db7ab925f3e554}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq__mh_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries parent} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aa5164f4c711692c8160d9eaeaaa102e4}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aa5164f4c711692c8160d9eaeaaa102e4}} 
+Action\+\_\+\+Idx {\bfseries action} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a3890c1ee7d9300f5f0dde6e58706ad0b}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a3890c1ee7d9300f5f0dde6e58706ad0b}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries state} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a092e11aafeacf03b41842637f1b0788d}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a092e11aafeacf03b41842637f1b0788d}} 
+const \mbox{\hyperlink{classaptk_1_1State}{State}} \& {\bfseries state} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_acd24724a2cbb6446ac059b4c36549cc1}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_acd24724a2cbb6446ac059b4c36549cc1}} 
+void {\bfseries add\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aff6438a1419dc89f03c712aced4413db}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aff6438a1419dc89f03c712aced4413db}} 
+void {\bfseries remove\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a7c307bde1189a07d8fb654de2178d435}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a7c307bde1189a07d8fb654de2178d435}} 
+void {\bfseries add\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a4caf59b3532791824efada3d37f33f5a}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a4caf59b3532791824efada3d37f33f5a}} 
+void {\bfseries remove\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a3fc1c3c18739385c470cb686445d1942}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a3fc1c3c18739385c470cb686445d1942}} 
+bool {\bfseries is\+\_\+po\+\_\+1} (Action\+\_\+\+Idx index) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_acccc0dc6285d4a9ba669baa017d1ea3b}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_acccc0dc6285d4a9ba669baa017d1ea3b}} 
+bool {\bfseries is\+\_\+po\+\_\+2} (Action\+\_\+\+Idx index) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_af37f89f9b0d7cadf381b0306da85e860}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_af37f89f9b0d7cadf381b0306da85e860}} 
+void {\bfseries set\+\_\+seen} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aeacb7c46a891c4ee83de439fb558f31b}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aeacb7c46a891c4ee83de439fb558f31b}} 
+bool {\bfseries seen} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a61b66ab44e95cb516d70a5477397e93b}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a61b66ab44e95cb516d70a5477397e93b}} 
+void {\bfseries print} (std\+::ostream \&os) const
+\item 
+bool \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_af6df486b2ac6f5165040d077838527d1}{operator==}} (const \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq__mh_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a5f5d99e0b0540531e4161d45e6db3e49}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a5f5d99e0b0540531e4161d45e6db3e49}} 
+bool {\bfseries operator$<$} (const \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq__mh_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&o) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a3cd9ed42a0dec9691114b0802a125714}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a3cd9ed42a0dec9691114b0802a125714}} 
+size\+\_\+t {\bfseries hash} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_ada0026e19ada2714ea292f39dc1c93dc}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_ada0026e19ada2714ea292f39dc1c93dc}} 
+void {\bfseries notify\+\_\+update} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aebaf98fa391c97cbe370a111c08104ed}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aebaf98fa391c97cbe370a111c08104ed}} 
+void {\bfseries detach} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a2327bf4d3a2e58498402933f7cfb74e6}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a2327bf4d3a2e58498402933f7cfb74e6}} 
+\mbox{\hyperlink{classaptk_1_1State}{State}} $\ast$ {\bfseries m\+\_\+state}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aa980b900bc0b2a8cf1e5e64ea302634f}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aa980b900bc0b2a8cf1e5e64ea302634f}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq__mh_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ $\ast$ {\bfseries m\+\_\+parent}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a9c7835c70728530ff58291060b0eb8de}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a9c7835c70728530ff58291060b0eb8de}} 
+float {\bfseries m\+\_\+h1}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a72506ffa66df1acb291f755eb41e6120}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a72506ffa66df1acb291f755eb41e6120}} 
+float {\bfseries m\+\_\+h2}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a314cb48002da6a9025d56758ebfb81de}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a314cb48002da6a9025d56758ebfb81de}} 
+Action\+\_\+\+Idx {\bfseries m\+\_\+action}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_ab08ac3a832fc911f7e2fe382a339f259}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_ab08ac3a832fc911f7e2fe382a339f259}} 
+float {\bfseries m\+\_\+g}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a7fb6853eb54e290e365d9125de7f3e56}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a7fb6853eb54e290e365d9125de7f3e56}} 
+float {\bfseries m\+\_\+f}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a575515effe279efbb989693ded6a075c}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a575515effe279efbb989693ded6a075c}} 
+\mbox{\hyperlink{classaptk_1_1Bit__Set}{Bit\+\_\+\+Set}} {\bfseries m\+\_\+po\+\_\+1}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aa0cc08e2c137cc412057941d74b36cf9}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_aa0cc08e2c137cc412057941d74b36cf9}} 
+\mbox{\hyperlink{classaptk_1_1Bit__Set}{Bit\+\_\+\+Set}} {\bfseries m\+\_\+po\+\_\+2}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a5634295588fb14cd93eb292ef244a192}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a5634295588fb14cd93eb292ef244a192}} 
+bool {\bfseries m\+\_\+seen}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_ae094e4874bf39ccb8a2df6e82fa566ce}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_ae094e4874bf39ccb8a2df6e82fa566ce}} 
+Open\+\_\+\+List\+::\+Handle {\bfseries heap\+\_\+handle}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a955eaae1ee2088b4e4561b201f653fb6}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_a955eaae1ee2088b4e4561b201f653fb6}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Fibonacci__Open__List}{Open\+\_\+\+List}} $\ast$ {\bfseries current}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_af6df486b2ac6f5165040d077838527d1}\label{classaptk_1_1search_1_1bfs__dq__mh_1_1Node_af6df486b2ac6f5165040d077838527d1}} 
+\index{aptk::search::bfs\_dq\_mh::Node$<$ State $>$@{aptk::search::bfs\_dq\_mh::Node$<$ State $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!aptk::search::bfs\_dq\_mh::Node$<$ State $>$@{aptk::search::bfs\_dq\_mh::Node$<$ State $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename State $>$ \\
+bool \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq__mh_1_1Node}{aptk\+::search\+::bfs\+\_\+dq\+\_\+mh\+::\+Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq__mh_1_1Node}{Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{State}} $>$ \&}]{o }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Lazy
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/search/at\+\_\+bfs\+\_\+dq\+\_\+mh.\+hxx\end{DoxyCompactItemize}

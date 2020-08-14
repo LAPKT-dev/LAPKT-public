@@ -1,0 +1,428 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH" kind="class" language="C++" prot="public">
+    <compoundname>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</compoundname>
+    <basecompoundref refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH" prot="public" virt="non-virtual">aptk::search::bfs_dq_mh::AT_BFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;</basecompoundref>
+    <derivedcompoundref refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA" prot="public" virt="non-virtual">aptk::search::bfs_dq_mh::IPC2014_RWA&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename Search_Model</type>
+      </param>
+      <param>
+        <type>typename Primary_Heuristic</type>
+      </param>
+      <param>
+        <type>typename Secondary_Heuristic</type>
+      </param>
+      <param>
+        <type>typename Open_List_Type</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1aa67f77933ab002cf3c9dd165c669afc4" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH" kindref="compound">AT_BFS_DQ_MH</ref>&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::Search_Node</type>
+        <definition>typedef AT_BFS_DQ_MH&lt;Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::Search_Node aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::Search_Node</definition>
+        <argsstring></argsstring>
+        <name>Search_Node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="57" column="43" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1ac9a0e70acb61ce016ccd2127269ff2c2" prot="public" static="no">
+        <type>Search_Model::State_Type</type>
+        <definition>typedef Search_Model::State_Type aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="58" column="41" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1ae48c0ca51d518e90c3735ed304ca72b8" prot="public" static="no">
+        <type><ref refid="classaptk_1_1search_1_1Closed__List" kindref="compound">Closed_List</ref>&lt; Search_Node &gt;</type>
+        <definition>typedef Closed_List&lt; Search_Node &gt; aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::Closed_List_Type</definition>
+        <argsstring></argsstring>
+        <name>Closed_List_Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="59" column="20" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1ac3bf6fad8b078e466124617541dc0476" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::m_W</definition>
+        <argsstring></argsstring>
+        <name>m_W</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="253" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1aaaa00c91e65d782f20f028b6b08be282" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::m_decay</definition>
+        <argsstring></argsstring>
+        <name>m_decay</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="254" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1aff4fd8d2fbd185d56439faf202117e90" prot="protected" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1search_1_1Closed__List" kindref="compound">Closed_List_Type</ref></type>
+        <definition>Closed_List_Type aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::m_seen</definition>
+        <argsstring></argsstring>
+        <name>m_seen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="255" column="17" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a553dce88e053d3470e11516b6a4a1fe2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::AT_RWBFS_DQ_MH</definition>
+        <argsstring>(const Search_Model &amp;search_problem, float W=5.0f, float decay=0.75f)</argsstring>
+        <name>AT_RWBFS_DQ_MH</name>
+        <param>
+          <type>const Search_Model &amp;</type>
+          <declname>search_problem</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>W</declname>
+          <defval>5.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>decay</declname>
+          <defval>0.75f</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="61" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="61" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a01f50b019d2bd0d463b6e07b484b8917" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::~AT_RWBFS_DQ_MH</definition>
+        <argsstring>()</argsstring>
+        <name>~AT_RWBFS_DQ_MH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="65" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="65" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a5de418be8d025fc6538aad10ab12c4b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::eval</definition>
+        <argsstring>(Search_Node *candidate)</argsstring>
+        <name>eval</name>
+        <reimplements refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a91c046a586f2864f72e5c09f1279fca2">eval</reimplements>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a625dd45008534217d174d88817bedd73">eval</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a625dd45008534217d174d88817bedd73">eval</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a625dd45008534217d174d88817bedd73">eval</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a625dd45008534217d174d88817bedd73">eval</reimplementedby>
+        <param>
+          <type>Search_Node *</type>
+          <declname>candidate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="74" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="74" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a551188b6b343fd67e691b7401d51b2d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::process</definition>
+        <argsstring>(Search_Node *head)</argsstring>
+        <name>process</name>
+        <reimplements refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a86ab39e46374470e9377dd0fb6302b95">process</reimplements>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a25d3560183a90f68a1b2f45ff0e1d4de">process</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a25d3560183a90f68a1b2f45ff0e1d4de">process</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a25d3560183a90f68a1b2f45ff0e1d4de">process</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a25d3560183a90f68a1b2f45ff0e1d4de">process</reimplementedby>
+        <param>
+          <type>Search_Node *</type>
+          <declname>head</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="89" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="89" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1ae4266f1e815c71f7629afe4eb987167a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>Search_Node *</type>
+        <definition>virtual Search_Node* aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::do_search</definition>
+        <argsstring>()</argsstring>
+        <name>do_search</name>
+        <reimplements refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a5ad5a4a81318f9127ce845e22f337dd9">do_search</reimplements>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a19df018b668b29306ff35045dc0ff6ce">do_search</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a19df018b668b29306ff35045dc0ff6ce">do_search</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a19df018b668b29306ff35045dc0ff6ce">do_search</reimplementedby>
+        <reimplementedby refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA_1a19df018b668b29306ff35045dc0ff6ce">do_search</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="139" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="139" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a454fe0773f03343f426faf75102641b9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::update_weight</definition>
+        <argsstring>()</argsstring>
+        <name>update_weight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="179" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="179" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a5fdd984d0a84aab425ad6e91d4148731" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::restart_search</definition>
+        <argsstring>()</argsstring>
+        <name>restart_search</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="185" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="185" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a5a0290b45c58a29fcfd930d93b7301c6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::is_open</definition>
+        <argsstring>(Search_Node *n)</argsstring>
+        <name>is_open</name>
+        <reimplements refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1aa729845236060bc6a4c39017f6e6fdbf">is_open</reimplements>
+        <param>
+          <type>Search_Node *</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="212" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="212" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1ad83f8e1fce89c43f46a3ba02372f5a29" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::is_seen</definition>
+        <argsstring>(Search_Node *n)</argsstring>
+        <name>is_seen</name>
+        <param>
+          <type>Search_Node *</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="231" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="231" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a00bfcee0cfc1add5c7ec37ffef0546b5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::weight</definition>
+        <argsstring>() const</argsstring>
+        <name>weight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="247" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="247" bodyend="247"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1aab368600965757d1b92d1d734115e252" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1search_1_1Closed__List" kindref="compound">Closed_List_Type</ref> &amp;</type>
+        <definition>Closed_List_Type&amp; aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;::seen</definition>
+        <argsstring>()</argsstring>
+        <name>seen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="249" column="17" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="249" bodyend="249"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>aptk::search::bfs_dq_mh::AT_BFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH"/>
+      </node>
+      <node id="1">
+        <label>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aptk::search::bfs_dq_mh::IPC2014_RWA&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfs__dq__mh_1_1IPC2014__RWA"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>aptk::search::bfs_dq_mh::AT_BFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_closed</edgelabel>
+          <edgelabel>m_open_hash</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aptk::search::Closed_List&lt; Search_Node &gt;</label>
+        <link refid="classaptk_1_1search_1_1Closed__List"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH&lt; Search_Model, Primary_Heuristic, Secondary_Heuristic, Open_List_Type &gt;</label>
+        <link refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_seen</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>std::unordered_multimap&lt; size_t, Search_Node  * &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" line="54" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/at_rwbfs_dq_mh.hxx" bodystart="54" bodyend="256"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1acab1d9957927df5063e103426bce4683" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>AT_BFS_DQ_MH</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a553dce88e053d3470e11516b6a4a1fe2" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>AT_RWBFS_DQ_MH</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1ad83ebd7ab794c8959344e9a8a438adf7" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>bound</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1aa783bbf1214d28472509bba5f29061b5" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>close</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a61a18b8f8a19b67f88cabb7a3b5866dc" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>closed</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1ae48c0ca51d518e90c3735ed304ca72b8" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>Closed_List_Type</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1acfc6a87c81c83ed7966829a1a57d8458" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>dead_ends</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1ae4266f1e815c71f7629afe4eb987167a" prot="public" virt="virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>do_search</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a5de418be8d025fc6538aad10ab12c4b6" prot="public" virt="virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>eval</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a90a08c90e5548da4614b04e08a7e4aec" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>expanded</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a6e0b02a9ddb7b9a6b9bf5e2d2dcd2616" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>extract_path</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1af7007726dc15167cf5c1bd71dff9a813" prot="protected" virt="virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>extract_plan</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a828b92d1250a3d605406fbdbd192072b" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>find_solution</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a413feeaefb0ac2bae03c636f04f6221f" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>garbage</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a2158f6b9a34e4f1f10522f6fd243d48d" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>generated</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a6cddfe240029a6d945a42c5d92ecb5c5" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>get_node</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a65ea67c91a194e54ce7433905e6fb56f" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>get_node</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1acfd73e12cb4d11c9c8deaed59eddf5a0" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>h1</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a9ce3701d7e3fdbfad89f3e45ab0d5564" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>h2</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a26ca992bba26f88593f10316c52e8861" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>inc_dead_end</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1aeb991025012ca1c5e74dcdd5eb82d0e5" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>inc_eval</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a2ec6bdf2696fa49643e697d21266cd53" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>inc_gen</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a9ef587a94a35cb6cc386905853644b1d" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>inc_pruned_bound</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a5a7b672901e00c77678828f93a172e48" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>inc_replaced_open</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1ac63654d96fafaae7b10b3feef61ee25e" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>is_closed</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a5a0290b45c58a29fcfd930d93b7301c6" prot="public" virt="virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>is_open</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1ad83f8e1fce89c43f46a3ba02372f5a29" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>is_seen</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1ac3367544590d632f8786d57083ab8cc5" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_B</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1ae1e54010274b5f39cd029dc3301c4b8e" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_closed</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1aa5f4fd662ebf03897ab7481c834a79b5" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_dead_end_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1aaaa00c91e65d782f20f028b6b08be282" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_decay</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1af803edf1b88546097cebf1031f2561d0" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_exp_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a4a5badd6045e5ae5056d00ebad4e9ab1" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_garbage</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a22f768b9640bddabff4fc38763f2b487" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_gen_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a6d60758cc9bed9575370875ce3215fcf" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_non_po_exp_left</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1ae692f3239e149aff56ba3b20033a887e" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_non_po_exp_max</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1adf30cde9c0d64c756e024f495ebbd57a" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_open</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a2f2518d0c10a31f61541201d834c9c6f" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_open_hash</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a69f1401cc088e9275ecaba47d7f35ee7" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_open_po_1</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a624b25a820da1c62b95e4d4cfe6e6dc4" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_open_po_2</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a37c8d64355db03dc43a042db3d017dd7" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_open_po_joint</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1aa3be4563e918ef487e75e5b9e15c8df5" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_open_repl_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a8cbe948c54373b93ce14f553bb03301b" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_po_1_exp_left</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a7f74e6ea8a70efad4693e099183266bf" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_po_1_exp_max</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1aa3692aefc26ccb6958208211479624bd" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_po_joint_exp_left</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1aa5af826e06f877ff79789b02bbc0625a" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_po_joint_exp_max</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a526c18b33d5e876543f9acb8b3576b38" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_primary_h</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a742cb2bd5774c558174d0a8a5909ef64" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_problem</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1ae525c4d134d6f1482157e4a5812a2892" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_pruned_B_count</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a6f9723a65497d742e0f2453c454b3e7b" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_root</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a253ed4e4a89f3b1891c4ce405bf9d263" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_secondary_h</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1aff4fd8d2fbd185d56439faf202117e90" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_seen</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a6041c0a711aea56a0dd43bbf78570b10" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_t0</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a61bacca7c7e2704542b7b0486320a97d" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_time_budget</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1ac3bf6fad8b078e466124617541dc0476" prot="protected" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>m_W</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1aaefc7fe8786674c04fc91b4d7e8f6c2d" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>open</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1ab40b08fcf9887daeb6b312d85bbfea35" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>open_hash</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a4d93957f754b88ee3763916a3914de08" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>open_node</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1aaae6a4a68c1f0f2f29c4b1fdaf7c1fcb" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>open_repl</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a81433c7e293c36a687a1a26ad9fa6273" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>problem</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a551188b6b343fd67e691b7401d51b2d6" prot="public" virt="virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>process</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a0a6dc72eb9262840260969be4bccdeec" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>pruned_by_bound</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a2841f3270dd5abf77e60614553fda1ff" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>reset_expanded</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1ab3b5b9077d862a533c678c53ecca116e" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>reset_pruned_by_bound</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a5fdd984d0a84aab425ad6e91d4148731" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>restart_search</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1ab1ae08aa090daaea132713f976534aca" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>root</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1aa67f77933ab002cf3c9dd165c669afc4" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>Search_Node</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1aab368600965757d1b92d1d734115e252" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>seen</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1ae5b74da6da7b70cca42714bff7a75478" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>set_bound</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a65ed5f96f7b3c8a9c4c0d56093b881df" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>set_budget</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a8d8cffab74dfc9639c12ca24c1ee414a" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>set_root</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a98ba4b7714d5e9c7fd0dc80339359c5d" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>set_schedule</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a9f84d1e69ab39a3dc0902a9543559aae" prot="public" virt="virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>start</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1ac9a0e70acb61ce016ccd2127269ff2c2" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>State</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a4129966359cf262ef48e4c17a677fe57" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>t0</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a159501b6c428c5ebbc552387fa2b76eb" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>time_budget</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a454fe0773f03343f426faf75102641b9" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>update_weight</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a00bfcee0cfc1add5c7ec37ffef0546b5" prot="public" virt="non-virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>weight</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__BFS__DQ__MH_1a68156ec934a223bc49d1834d806d44d8" prot="public" virt="virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>~AT_BFS_DQ_MH</name></member>
+      <member refid="classaptk_1_1search_1_1bfs__dq__mh_1_1AT__RWBFS__DQ__MH_1a01f50b019d2bd0d463b6e07b484b8917" prot="public" virt="virtual"><scope>aptk::search::bfs_dq_mh::AT_RWBFS_DQ_MH</scope><name>~AT_RWBFS_DQ_MH</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

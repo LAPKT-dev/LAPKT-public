@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="debug__snippet_8py" kind="file" language="Python">
+    <compoundname>debug_snippet.py</compoundname>
+    <innernamespace refid="namespacedebug__snippet">debug_snippet</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespacedebug__snippet" refkind="compound"><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="2"><highlight class="stringliteral">Info-<sp/>The<sp/>below<sp/>snippet<sp/>is<sp/>for<sp/>use<sp/>when<sp/>debugging<sp/>mixed<sp/>Python<sp/>and<sp/>C++<sp/>code.<sp/></highlight></codeline>
+<codeline lineno="3"><highlight class="stringliteral">This<sp/>should<sp/>be<sp/>added<sp/>at<sp/>the<sp/>beginning<sp/>of<sp/>the<sp/>python<sp/>frontend.</highlight></codeline>
+<codeline lineno="4"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="5"><highlight class="stringliteral">Effect<sp/>-<sp/>It<sp/>will<sp/>cause<sp/>the<sp/>python<sp/>script<sp/>to<sp/>wait<sp/>for<sp/>user<sp/>input,<sp/>giving<sp/>the<sp/></highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral">developer<sp/>enough<sp/>time<sp/>to<sp/>attach<sp/>a<sp/>gdb<sp/>session<sp/>to<sp/>the<sp/>python<sp/>programs<sp/>PID.</highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral">We<sp/>can<sp/>attach<sp/>gdb<sp/>from<sp/>command<sp/>line<sp/>or<sp/>use<sp/>an<sp/>IDE<sp/>like<sp/>vscode.</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral">1.<sp/>from<sp/>command<sp/>line:</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>sudo<sp/>gdb<sp/>--pid=&lt;python<sp/>program&apos;s<sp/>pid&gt;</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral">2.<sp/>Attach<sp/>gdb<sp/>from<sp/>vscode<sp/>with<sp/>the<sp/>following<sp/>launch<sp/>config.</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral">{</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;version&quot;:<sp/>&quot;0.2.0&quot;,</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;configurations&quot;:<sp/>[</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;name&quot;:<sp/>&quot;Python<sp/>launch&quot;,</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;type&quot;:<sp/>&quot;python&quot;,</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;request&quot;:<sp/>&quot;launch&quot;,</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//&quot;stopOnEntry&quot;:<sp/>true,</highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;pythonPath&quot;:<sp/>&quot;/usr/bin/python3&quot;,</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;program&quot;:<sp/>&quot;${workspaceRoot}/release/lapkt&quot;,</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;args&quot;:<sp/>[&quot;BFWS&quot;,<sp/>&quot;-d&quot;,<sp/>&quot;${workspaceRoot}/tests/sample_instance/domain.pddl&quot;,</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;-p&quot;,<sp/>&quot;${workspaceRoot}/tests/sample_instance/problem.pddl&quot;],</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//&quot;cwd&quot;:<sp/>&quot;${workspaceFolder}&quot;,</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;name&quot;:<sp/>&quot;(gdb)<sp/>Attach&quot;,</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;type&quot;:<sp/>&quot;cppdbg&quot;,</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;request&quot;:<sp/>&quot;attach&quot;,</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;program&quot;:<sp/>&quot;/usr/bin/python3&quot;,</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;processId&quot;:<sp/>&quot;${command:pickProcess}&quot;,</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;MIMode&quot;:<sp/>&quot;gdb&quot;,</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;setupCommands&quot;:<sp/>[</highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;description&quot;:<sp/>&quot;Enable<sp/>pretty-printing<sp/>for<sp/>gdb&quot;,</highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;text&quot;:<sp/>&quot;-enable-pretty-printing&quot;,</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;ignoreFailures&quot;:<sp/>true</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>]</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>]</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral">}</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral">NOTE<sp/>-<sp/>Trying<sp/>to<sp/>attach<sp/>gdb<sp/>at<sp/>pdb<sp/>breakpoints<sp/>or<sp/>by<sp/>setting<sp/>stopOnEntry<sp/>true</highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral">will<sp/>not<sp/>work<sp/>as<sp/>gdb<sp/>is<sp/>unable<sp/>to<sp/>load<sp/>symbol<sp/>table<sp/>properly<sp/>when<sp/>python<sp/>is<sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral">paused<sp/>like<sp/>that.<sp/>-<sp/>The<sp/>root<sp/>cause<sp/>is<sp/>unknown.</highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">#&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>os</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">wait_debug(str):</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">print</highlight><highlight class="normal"><sp/>(str)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>wait<sp/>=<sp/>input()</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordflow">print</highlight><highlight class="normal"><sp/>(</highlight><highlight class="stringliteral">&quot;PID<sp/>=&quot;</highlight><highlight class="normal">,<sp/>os.getpid())</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">wait_debug(</highlight><highlight class="stringliteral">&apos;starting<sp/>main..press<sp/>a<sp/>key&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">#&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/config/debug_snippet.py"/>
+  </compounddef>
+</doxygen>

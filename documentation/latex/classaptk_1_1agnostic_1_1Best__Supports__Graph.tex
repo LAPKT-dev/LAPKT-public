@@ -1,0 +1,139 @@
+\hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph}{}\doxysection{aptk\+::agnostic\+::Best\+\_\+\+Supports\+\_\+\+Graph$<$ Best\+\_\+\+Support\+\_\+\+Function $>$ Class Template Reference}
+\label{classaptk_1_1agnostic_1_1Best__Supports__Graph}\index{aptk::agnostic::Best\_Supports\_Graph$<$ Best\_Support\_Function $>$@{aptk::agnostic::Best\_Supports\_Graph$<$ Best\_Support\_Function $>$}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classaptk_1_1agnostic_1_1Best__Supports__Graph_1_1Edge}{Edge}}
+\item 
+class \mbox{\hyperlink{classaptk_1_1agnostic_1_1Best__Supports__Graph_1_1Node}{Node}}
+\item 
+class \mbox{\hyperlink{classaptk_1_1agnostic_1_1Best__Supports__Graph_1_1Node__Comparer}{Node\+\_\+\+Comparer}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a036c763b770447c91dec03a89a3e7622}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a036c763b770447c91dec03a89a3e7622}} 
+typedef std\+::pair$<$ const \mbox{\hyperlink{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action}{C\+C\+\_\+\+Problem\+::\+C\+C\+\_\+\+Action}} $\ast$, unsigned $>$ {\bfseries Effect\+\_\+\+Handle}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a5aebfa194172abedec2986e7d97be296}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a5aebfa194172abedec2986e7d97be296}} 
+typedef std\+::map$<$ Effect\+\_\+\+Handle, unsigned $>$ {\bfseries Effect\+\_\+\+Table}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a6f250c9d373272a20455cc0ce0872caf}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a6f250c9d373272a20455cc0ce0872caf}} 
+typedef std\+::pair$<$ unsigned, unsigned $>$ {\bfseries Open\+\_\+\+Condition}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_aeb96cdb7c8bf9827f15357b802232e00}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_aeb96cdb7c8bf9827f15357b802232e00}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{classaptk_1_1agnostic_1_1Best__Supports__Graph_1_1Node}{Node}} $\ast$ $>$ {\bfseries Node\+\_\+\+Set}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a6abe608eda16beb97f13ee054ebcbf72}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a6abe608eda16beb97f13ee054ebcbf72}} 
+typedef std\+::list$<$ \mbox{\hyperlink{classaptk_1_1agnostic_1_1Best__Supports__Graph_1_1Edge}{Edge}} $\ast$ $>$ {\bfseries Adj\+\_\+\+List}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a35e193ed0ee78747f4c282c2f73d4def}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a35e193ed0ee78747f4c282c2f73d4def}} 
+typedef std\+::vector$<$ Adj\+\_\+\+List $>$ {\bfseries Adj\+\_\+\+Table}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_ab994c103dcd1b5fe7470cfd5bd6fa325}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_ab994c103dcd1b5fe7470cfd5bd6fa325}} 
+{\bfseries Best\+\_\+\+Supports\+\_\+\+Graph} (const \mbox{\hyperlink{classaptk_1_1agnostic_1_1CC__Problem}{C\+C\+\_\+\+Problem}} \&prob)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_ac4c3d890b0387cbb2078c0038842c06b}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_ac4c3d890b0387cbb2078c0038842c06b}} 
+void {\bfseries build} (const Best\+\_\+\+Support\+\_\+\+Function \&bs)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_aa92321aeaa8837a0b6dfeaacf6654b46}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_aa92321aeaa8837a0b6dfeaacf6654b46}} 
+unsigned {\bfseries num\+\_\+actions} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a10564c2a6ac6a62996b03705010b6899}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a10564c2a6ac6a62996b03705010b6899}} 
+float {\bfseries cost} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_ae3667117a00abb377987f8a7e4fc0dfe}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_ae3667117a00abb377987f8a7e4fc0dfe}} 
+void {\bfseries extract\+\_\+plan} (std\+::vector$<$ unsigned $>$ \&actions)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a3a08e430d82e7a278606cb139e163f5f}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a3a08e430d82e7a278606cb139e163f5f}} 
+void {\bfseries print} (std\+::ofstream \&os)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_ade92415e7d69cc2f7e94a940631baedb}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_ade92415e7d69cc2f7e94a940631baedb}} 
+const std\+::vector$<$ unsigned $>$ \& {\bfseries pref\+\_\+ops} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_aebb36d4c79fe7394bfcad833f85b0d01}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_aebb36d4c79fe7394bfcad833f85b0d01}} 
+bool {\bfseries check\+\_\+interference} (const Fluent\+\_\+\+Vec \&del, const std\+::vector$<$ bool $>$ \&mask, const Fluent\+\_\+\+Vec \&prec, unsigned \&deleted) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_aba87610172d5a3864267bcf5fbccacb1}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_aba87610172d5a3864267bcf5fbccacb1}} 
+bool {\bfseries check\+\_\+interference} (const Fluent\+\_\+\+Vec \&del, const Fluent\+\_\+\+Vec \&prec, Fluent\+\_\+\+Vec \&deleted) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a3d05ae61bd6a3d6daee3ba1aa797a0a5}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a3d05ae61bd6a3d6daee3ba1aa797a0a5}} 
+void {\bfseries find\+\_\+conflicts} (std\+::vector$<$ Fluent\+\_\+\+Vec $>$ \&vec)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a6efaaec790df787a364c2dffcaf8c3fe}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a6efaaec790df787a364c2dffcaf8c3fe}} 
+void {\bfseries topological\+\_\+sort} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a18dfe6eb29581a159fa14bfe12eb6219}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a18dfe6eb29581a159fa14bfe12eb6219}} 
+void {\bfseries update\+\_\+pref\+\_\+ops} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_adc68b743e5c7ea447f4734e4f9ea0dd4}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_adc68b743e5c7ea447f4734e4f9ea0dd4}} 
+void {\bfseries clean\+\_\+adj\+\_\+list} (Adj\+\_\+\+List \&alist)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_ad7ec320770080f3a1201e20f7401ce01}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_ad7ec320770080f3a1201e20f7401ce01}} 
+void {\bfseries remove\+\_\+redundant\+\_\+action\+\_\+nodes} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a219abe0e4087fac0f23624e48150809c}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a219abe0e4087fac0f23624e48150809c}} 
+void {\bfseries merge} (unsigned from, unsigned into)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a65c7db0fa63fe812350eceb3bdc2382d}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a65c7db0fa63fe812350eceb3bdc2382d}} 
+void {\bfseries collect\+\_\+siblings} (unsigned first\+\_\+index, std\+::vector$<$ unsigned $>$ \&sibling\+\_\+nodes)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_aac47e053890d9bde92ebc74431fc0927}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_aac47e053890d9bde92ebc74431fc0927}} 
+bool {\bfseries exists\+\_\+path\+\_\+between} (unsigned src, unsigned dst)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a84e1bfaa4a9190b43fca5f1ddde9cde6}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a84e1bfaa4a9190b43fca5f1ddde9cde6}} 
+bool {\bfseries exists\+\_\+path\+\_\+between} (unsigned src, unsigned dst, Fluent\+\_\+\+Vec \&precs)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a2d94fdf195743a36fb3a2a6e8840ff41}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a2d94fdf195743a36fb3a2a6e8840ff41}} 
+void {\bfseries add\+\_\+goal\+\_\+action\+\_\+node} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_ae5ece86cff97fca2c3b005297d4c7a90}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_ae5ece86cff97fca2c3b005297d4c7a90}} 
+void {\bfseries generate\+\_\+open\+\_\+conditions} (const Fluent\+\_\+\+Vec \&atom\+\_\+set, unsigned node\+\_\+idx)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a95918bc3dcda2774d1630cba0e93a2fa}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a95918bc3dcda2774d1630cba0e93a2fa}} 
+void {\bfseries add\+\_\+action\+\_\+node} (const Effect\+\_\+\+Handle \&eff, const Open\+\_\+\+Condition \&oc)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a61d81c454972d4f86ff709d33d33c197}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a61d81c454972d4f86ff709d33d33c197}} 
+void {\bfseries compute\+\_\+dominating\+\_\+preconditions} (const Effect\+\_\+\+Handle \&eff, Fluent\+\_\+\+Vec \&dom\+\_\+precs)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a4cf472337d7aea36e48f7f35d9009a84}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a4cf472337d7aea36e48f7f35d9009a84}} 
+void {\bfseries clear} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a057995aeee244c16359c4e354be14c00}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a057995aeee244c16359c4e354be14c00}} 
+const \mbox{\hyperlink{classaptk_1_1agnostic_1_1CC__Problem}{C\+C\+\_\+\+Problem}} \& {\bfseries m\+\_\+model}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_ac6a0050eda5da1afe4d91e8289f018b3}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_ac6a0050eda5da1afe4d91e8289f018b3}} 
+Effect\+\_\+\+Table {\bfseries m\+\_\+eff\+\_\+node}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a189513bad7e1a2b678751152e5d88211}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a189513bad7e1a2b678751152e5d88211}} 
+Node\+\_\+\+Set {\bfseries m\+\_\+nodes}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_ab0ce7e425dfdab6f232c8743f8e1e54c}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_ab0ce7e425dfdab6f232c8743f8e1e54c}} 
+Adj\+\_\+\+Table {\bfseries m\+\_\+adj\+\_\+lists\+\_\+out}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a035fae85832e57ce820f94e88840ffcd}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a035fae85832e57ce820f94e88840ffcd}} 
+Adj\+\_\+\+Table {\bfseries m\+\_\+adj\+\_\+lists\+\_\+in}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_af09ac80291f2cc3392ab24e2bb655a3c}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_af09ac80291f2cc3392ab24e2bb655a3c}} 
+std\+::deque$<$ Open\+\_\+\+Condition $>$ {\bfseries m\+\_\+open\+\_\+conditions}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_a4ec2c3dfce1eaeb82a702ab9f054b8da}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_a4ec2c3dfce1eaeb82a702ab9f054b8da}} 
+std\+::vector$<$ bool $>$ {\bfseries m\+\_\+valid}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Best__Supports__Graph_af59469bea04fd0fc76ca9dbbb20c0c09}\label{classaptk_1_1agnostic_1_1Best__Supports__Graph_af59469bea04fd0fc76ca9dbbb20c0c09}} 
+std\+::vector$<$ unsigned $>$ {\bfseries m\+\_\+pref\+\_\+ops}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/compute/heuristic/bs\+\_\+graph.\+hxx\end{DoxyCompactItemize}

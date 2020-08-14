@@ -1,0 +1,62 @@
+\hypertarget{classDFIW__Planner}{}\doxysection{D\+F\+I\+W\+\_\+\+Planner Class Reference}
+\label{classDFIW__Planner}\index{DFIW\_Planner@{DFIW\_Planner}}
+Inheritance diagram for D\+F\+I\+W\+\_\+\+Planner\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classDFIW__Planner}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDFIW__Planner_a546036c3b483c03fc8fed721255358fb}\label{classDFIW__Planner_a546036c3b483c03fc8fed721255358fb}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1brfs_1_1Node}{aptk\+::search\+::brfs\+::\+Node}}$<$ \mbox{\hyperlink{classaptk_1_1State}{aptk\+::\+State}} $>$ {\bfseries I\+W\+\_\+\+Node}
+\item 
+\mbox{\Hypertarget{classDFIW__Planner_a1f7df6ba87ea98d03f5473e08639d01b}\label{classDFIW__Planner_a1f7df6ba87ea98d03f5473e08639d01b}} 
+typedef \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty}{aptk\+::agnostic\+::\+Novelty}}$<$ \mbox{\hyperlink{classaptk_1_1agnostic_1_1Fwd__Search__Problem}{aptk\+::agnostic\+::\+Fwd\+\_\+\+Search\+\_\+\+Problem}}, \mbox{\hyperlink{classaptk_1_1search_1_1brfs_1_1Node}{I\+W\+\_\+\+Node}} $>$ {\bfseries H\+\_\+\+Novel\+\_\+\+Fwd}
+\item 
+\mbox{\Hypertarget{classDFIW__Planner_aa1c67e20325838c8eec9082a3a967cbe}\label{classDFIW__Planner_aa1c67e20325838c8eec9082a3a967cbe}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1brfs_1_1IW}{aptk\+::search\+::brfs\+::\+IW}}$<$ \mbox{\hyperlink{classaptk_1_1agnostic_1_1Fwd__Search__Problem}{aptk\+::agnostic\+::\+Fwd\+\_\+\+Search\+\_\+\+Problem}}, \mbox{\hyperlink{classaptk_1_1agnostic_1_1Novelty}{H\+\_\+\+Novel\+\_\+\+Fwd}} $>$ {\bfseries I\+W\+\_\+\+Fwd}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDFIW__Planner_a9fd47f8ada413814af27195c7239fbfa}\label{classDFIW__Planner_a9fd47f8ada413814af27195c7239fbfa}} 
+{\bfseries D\+F\+I\+W\+\_\+\+Planner} (std\+::string, std\+::string)
+\item 
+\mbox{\Hypertarget{classDFIW__Planner_ac93bce69f4580cd219f9a9c02f95afbd}\label{classDFIW__Planner_ac93bce69f4580cd219f9a9c02f95afbd}} 
+virtual void {\bfseries setup} (bool gen\+\_\+match\+\_\+tree=true)
+\item 
+\mbox{\Hypertarget{classDFIW__Planner_a45f3b6786140674211c88f62c80b1f74}\label{classDFIW__Planner_a45f3b6786140674211c88f62c80b1f74}} 
+void {\bfseries solve} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDFIW__Planner_a63b566dffb5c666cd84fb142e3e5a3af}\label{classDFIW__Planner_a63b566dffb5c666cd84fb142e3e5a3af}} 
+int {\bfseries m\+\_\+iw\+\_\+bound}
+\item 
+\mbox{\Hypertarget{classDFIW__Planner_ad8b6eb3a6869c95f8718c2da1b6874a7}\label{classDFIW__Planner_ad8b6eb3a6869c95f8718c2da1b6874a7}} 
+std\+::string {\bfseries m\+\_\+log\+\_\+filename}
+\item 
+\mbox{\Hypertarget{classDFIW__Planner_a37d77dd31b6a03ae7c926a2873cb9036}\label{classDFIW__Planner_a37d77dd31b6a03ae7c926a2873cb9036}} 
+std\+::string {\bfseries m\+\_\+plan\+\_\+filename}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDFIW__Planner_a933fa400b5b30923f84bbb58f01d4c8a}\label{classDFIW__Planner_a933fa400b5b30923f84bbb58f01d4c8a}} 
+float {\bfseries do\+\_\+search} (\mbox{\hyperlink{classaptk_1_1search_1_1brfs_1_1IW}{I\+W\+\_\+\+Fwd}} \&engine)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDFIW__Planner_a51cee9f74a043353d0bd2663cae7bedf}\label{classDFIW__Planner_a51cee9f74a043353d0bd2663cae7bedf}} 
+\mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{aptk\+::\+S\+T\+R\+I\+P\+S\+\_\+\+Problem}} {\bfseries m\+\_\+df\+\_\+relaxation}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/planners/delete-\/free-\/iw/dfiw\+\_\+planner.\+hxx\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/planners/delete-\/free-\/iw/dfiw\+\_\+planner.\+cxx\end{DoxyCompactItemize}

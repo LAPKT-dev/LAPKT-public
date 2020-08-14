@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_98b52b21ab83c2f54007dc4a57da99c5" kind="dir">
+    <compoundname>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus</compoundname>
+    <innerfile refid="dfs__plus_8py">dfs_plus.py</innerfile>
+    <innerfile refid="dfs__plus__planner_8cxx">dfs_plus_planner.cxx</innerfile>
+    <innerfile refid="dfs__plus__planner_8hxx">dfs_plus_planner.hxx</innerfile>
+    <innerfile refid="dfs__plus__unit__cost_8py">dfs_plus_unit_cost.py</innerfile>
+    <innerfile refid="dfs__plus_2run-siw-blocks_8py">run-siw-blocks.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/dfs_plus/"/>
+  </compounddef>
+</doxygen>

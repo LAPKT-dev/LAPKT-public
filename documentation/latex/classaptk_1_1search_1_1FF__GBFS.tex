@@ -1,0 +1,286 @@
+\hypertarget{classaptk_1_1search_1_1FF__GBFS}{}\doxysection{aptk\+::search\+::F\+F\+\_\+\+G\+B\+FS$<$ Search\+\_\+\+Model, Abstract\+\_\+\+Heuristic, Open\+\_\+\+List\+\_\+\+Type $>$ Class Template Reference}
+\label{classaptk_1_1search_1_1FF__GBFS}\index{aptk::search::FF\_GBFS$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$@{aptk::search::FF\_GBFS$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aab682a2e59a909b47c603d4103cf3bbf}\label{classaptk_1_1search_1_1FF__GBFS_aab682a2e59a909b47c603d4103cf3bbf}} 
+typedef Search\+\_\+\+Model\+::\+State\+\_\+\+Type {\bfseries State}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a3912aab3dbbade8beff0895632455641}\label{classaptk_1_1search_1_1FF__GBFS_a3912aab3dbbade8beff0895632455641}} 
+typedef Open\+\_\+\+List\+\_\+\+Type\+::\+Node\+\_\+\+Type {\bfseries Search\+\_\+\+Node}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a626687c2983c69a70d30dc8f65256f63}\label{classaptk_1_1search_1_1FF__GBFS_a626687c2983c69a70d30dc8f65256f63}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List}}$<$ Search\+\_\+\+Node $>$ {\bfseries Closed\+\_\+\+List\+\_\+\+Type}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aab682a2e59a909b47c603d4103cf3bbf}\label{classaptk_1_1search_1_1FF__GBFS_aab682a2e59a909b47c603d4103cf3bbf}} 
+typedef Search\+\_\+\+Model\+::\+State\+\_\+\+Type {\bfseries State}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a3912aab3dbbade8beff0895632455641}\label{classaptk_1_1search_1_1FF__GBFS_a3912aab3dbbade8beff0895632455641}} 
+typedef Open\+\_\+\+List\+\_\+\+Type\+::\+Node\+\_\+\+Type {\bfseries Search\+\_\+\+Node}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a626687c2983c69a70d30dc8f65256f63}\label{classaptk_1_1search_1_1FF__GBFS_a626687c2983c69a70d30dc8f65256f63}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List}}$<$ Search\+\_\+\+Node $>$ {\bfseries Closed\+\_\+\+List\+\_\+\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aeb70db395021d2088123c3853b12a6f2}\label{classaptk_1_1search_1_1FF__GBFS_aeb70db395021d2088123c3853b12a6f2}} 
+{\bfseries F\+F\+\_\+\+G\+B\+FS} (const Search\+\_\+\+Model \&search\+\_\+problem)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a405c62f1a952ccf45a2c51218680b5b5}\label{classaptk_1_1search_1_1FF__GBFS_a405c62f1a952ccf45a2c51218680b5b5}} 
+void {\bfseries start} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aeee11344c64f41ed732eae304a227721}\label{classaptk_1_1search_1_1FF__GBFS_aeee11344c64f41ed732eae304a227721}} 
+bool {\bfseries find\+\_\+solution} (float \&cost, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&plan)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ad9d7e940f659d3ed6c49e1b573777c76}\label{classaptk_1_1search_1_1FF__GBFS_ad9d7e940f659d3ed6c49e1b573777c76}} 
+float {\bfseries bound} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a1687165e7581341c1e668642ed6939f3}\label{classaptk_1_1search_1_1FF__GBFS_a1687165e7581341c1e668642ed6939f3}} 
+void {\bfseries set\+\_\+bound} (float v)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a49e990814a4655973216749a7953faca}\label{classaptk_1_1search_1_1FF__GBFS_a49e990814a4655973216749a7953faca}} 
+void {\bfseries inc\+\_\+gen} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a5285ffe6c1d6ce2d614cd40b00bc67d4}\label{classaptk_1_1search_1_1FF__GBFS_a5285ffe6c1d6ce2d614cd40b00bc67d4}} 
+unsigned {\bfseries generated} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aa4a0014557683646cf6be866d6b670ed}\label{classaptk_1_1search_1_1FF__GBFS_aa4a0014557683646cf6be866d6b670ed}} 
+void {\bfseries inc\+\_\+eval} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a3688bb3cac150a81ea772b0ed80b58da}\label{classaptk_1_1search_1_1FF__GBFS_a3688bb3cac150a81ea772b0ed80b58da}} 
+unsigned {\bfseries expanded} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a610fe50af0dd0144450a813fbc763111}\label{classaptk_1_1search_1_1FF__GBFS_a610fe50af0dd0144450a813fbc763111}} 
+void {\bfseries inc\+\_\+pruned\+\_\+bound} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a0b308d68229a86f43db0a7c5dc6af5d1}\label{classaptk_1_1search_1_1FF__GBFS_a0b308d68229a86f43db0a7c5dc6af5d1}} 
+unsigned {\bfseries pruned\+\_\+by\+\_\+bound} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a2539d998ec6cc66da4377bed0891494e}\label{classaptk_1_1search_1_1FF__GBFS_a2539d998ec6cc66da4377bed0891494e}} 
+void {\bfseries inc\+\_\+dead\+\_\+end} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a29b63e36692b1e75276b9407d158ffd2}\label{classaptk_1_1search_1_1FF__GBFS_a29b63e36692b1e75276b9407d158ffd2}} 
+unsigned {\bfseries dead\+\_\+ends} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aad5d634eef50f78827ce4353be7aa896}\label{classaptk_1_1search_1_1FF__GBFS_aad5d634eef50f78827ce4353be7aa896}} 
+void {\bfseries inc\+\_\+replaced\+\_\+open} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a072ceaa2de172de40f9df6c6d666b19b}\label{classaptk_1_1search_1_1FF__GBFS_a072ceaa2de172de40f9df6c6d666b19b}} 
+unsigned {\bfseries open\+\_\+repl} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_adbdaded545026cdf29ebe42fbc6997d2}\label{classaptk_1_1search_1_1FF__GBFS_adbdaded545026cdf29ebe42fbc6997d2}} 
+void {\bfseries set\+\_\+budget} (float v)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aff45c6fd9ee8fde9757fc7dcf8c1a795}\label{classaptk_1_1search_1_1FF__GBFS_aff45c6fd9ee8fde9757fc7dcf8c1a795}} 
+float {\bfseries time\+\_\+budget} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a1aa54dd670829134de7d425e6afe561c}\label{classaptk_1_1search_1_1FF__GBFS_a1aa54dd670829134de7d425e6afe561c}} 
+float {\bfseries t0} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aca8cd08a5c1225d02d74967f3f820ce4}\label{classaptk_1_1search_1_1FF__GBFS_aca8cd08a5c1225d02d74967f3f820ce4}} 
+void {\bfseries close} (Search\+\_\+\+Node $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aba9222e6c3d12ead94223b7eefe81ff2}\label{classaptk_1_1search_1_1FF__GBFS_aba9222e6c3d12ead94223b7eefe81ff2}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List\+\_\+\+Type}} \& {\bfseries closed} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_af03dfbc02702e93c4c9d1654e0c6d814}\label{classaptk_1_1search_1_1FF__GBFS_af03dfbc02702e93c4c9d1654e0c6d814}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List\+\_\+\+Type}} \& {\bfseries open\+\_\+hash} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a04a55f59a19af466b8450016d81549f6}\label{classaptk_1_1search_1_1FF__GBFS_a04a55f59a19af466b8450016d81549f6}} 
+const Search\+\_\+\+Model \& {\bfseries problem} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a96a0c0e61423738ff3b0ea7387f840d4}\label{classaptk_1_1search_1_1FF__GBFS_a96a0c0e61423738ff3b0ea7387f840d4}} 
+void {\bfseries eval} (Search\+\_\+\+Node $\ast$candidate)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ae255b8b1877087513a2f966692017dae}\label{classaptk_1_1search_1_1FF__GBFS_ae255b8b1877087513a2f966692017dae}} 
+bool {\bfseries is\+\_\+closed} (Search\+\_\+\+Node $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a80cf66bac1dbf317e19880e50d3aa2c3}\label{classaptk_1_1search_1_1FF__GBFS_a80cf66bac1dbf317e19880e50d3aa2c3}} 
+Search\+\_\+\+Node $\ast$ {\bfseries get\+\_\+node} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a8bc3e093c82a5ff19780d2a2872a77a5}\label{classaptk_1_1search_1_1FF__GBFS_a8bc3e093c82a5ff19780d2a2872a77a5}} 
+void {\bfseries open\+\_\+node} (Search\+\_\+\+Node $\ast$n)
+\item 
+virtual void \mbox{\hyperlink{classaptk_1_1search_1_1FF__GBFS_ac6d4c973ab73503724a24646f6eb0c0d}{process}} (Search\+\_\+\+Node $\ast$head)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a3d16efc3e63c41e78a5f95ef77d6c52a}\label{classaptk_1_1search_1_1FF__GBFS_a3d16efc3e63c41e78a5f95ef77d6c52a}} 
+virtual Search\+\_\+\+Node $\ast$ {\bfseries do\+\_\+search} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aa30a1ec2b49d15e8c3abc905487a88c3}\label{classaptk_1_1search_1_1FF__GBFS_aa30a1ec2b49d15e8c3abc905487a88c3}} 
+virtual bool {\bfseries previously\+\_\+hashed} (Search\+\_\+\+Node $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aeb70db395021d2088123c3853b12a6f2}\label{classaptk_1_1search_1_1FF__GBFS_aeb70db395021d2088123c3853b12a6f2}} 
+{\bfseries F\+F\+\_\+\+G\+B\+FS} (const Search\+\_\+\+Model \&search\+\_\+problem)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a405c62f1a952ccf45a2c51218680b5b5}\label{classaptk_1_1search_1_1FF__GBFS_a405c62f1a952ccf45a2c51218680b5b5}} 
+void {\bfseries start} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aeee11344c64f41ed732eae304a227721}\label{classaptk_1_1search_1_1FF__GBFS_aeee11344c64f41ed732eae304a227721}} 
+bool {\bfseries find\+\_\+solution} (float \&cost, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&plan)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a3c3ebf08e00450a9f7d3192e92d0019d}\label{classaptk_1_1search_1_1FF__GBFS_a3c3ebf08e00450a9f7d3192e92d0019d}} 
+unsigned {\bfseries bound} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aedbf3865567266b972df68634a4d2e93}\label{classaptk_1_1search_1_1FF__GBFS_aedbf3865567266b972df68634a4d2e93}} 
+void {\bfseries set\+\_\+bound} (unsigned v)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a49e990814a4655973216749a7953faca}\label{classaptk_1_1search_1_1FF__GBFS_a49e990814a4655973216749a7953faca}} 
+void {\bfseries inc\+\_\+gen} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a5285ffe6c1d6ce2d614cd40b00bc67d4}\label{classaptk_1_1search_1_1FF__GBFS_a5285ffe6c1d6ce2d614cd40b00bc67d4}} 
+unsigned {\bfseries generated} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aa4a0014557683646cf6be866d6b670ed}\label{classaptk_1_1search_1_1FF__GBFS_aa4a0014557683646cf6be866d6b670ed}} 
+void {\bfseries inc\+\_\+eval} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a3688bb3cac150a81ea772b0ed80b58da}\label{classaptk_1_1search_1_1FF__GBFS_a3688bb3cac150a81ea772b0ed80b58da}} 
+unsigned {\bfseries expanded} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a610fe50af0dd0144450a813fbc763111}\label{classaptk_1_1search_1_1FF__GBFS_a610fe50af0dd0144450a813fbc763111}} 
+void {\bfseries inc\+\_\+pruned\+\_\+bound} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a0b308d68229a86f43db0a7c5dc6af5d1}\label{classaptk_1_1search_1_1FF__GBFS_a0b308d68229a86f43db0a7c5dc6af5d1}} 
+unsigned {\bfseries pruned\+\_\+by\+\_\+bound} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a2539d998ec6cc66da4377bed0891494e}\label{classaptk_1_1search_1_1FF__GBFS_a2539d998ec6cc66da4377bed0891494e}} 
+void {\bfseries inc\+\_\+dead\+\_\+end} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a29b63e36692b1e75276b9407d158ffd2}\label{classaptk_1_1search_1_1FF__GBFS_a29b63e36692b1e75276b9407d158ffd2}} 
+unsigned {\bfseries dead\+\_\+ends} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aad5d634eef50f78827ce4353be7aa896}\label{classaptk_1_1search_1_1FF__GBFS_aad5d634eef50f78827ce4353be7aa896}} 
+void {\bfseries inc\+\_\+replaced\+\_\+open} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a072ceaa2de172de40f9df6c6d666b19b}\label{classaptk_1_1search_1_1FF__GBFS_a072ceaa2de172de40f9df6c6d666b19b}} 
+unsigned {\bfseries open\+\_\+repl} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aca8cd08a5c1225d02d74967f3f820ce4}\label{classaptk_1_1search_1_1FF__GBFS_aca8cd08a5c1225d02d74967f3f820ce4}} 
+void {\bfseries close} (Search\+\_\+\+Node $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aba9222e6c3d12ead94223b7eefe81ff2}\label{classaptk_1_1search_1_1FF__GBFS_aba9222e6c3d12ead94223b7eefe81ff2}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List\+\_\+\+Type}} \& {\bfseries closed} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_af03dfbc02702e93c4c9d1654e0c6d814}\label{classaptk_1_1search_1_1FF__GBFS_af03dfbc02702e93c4c9d1654e0c6d814}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List\+\_\+\+Type}} \& {\bfseries open\+\_\+hash} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a04a55f59a19af466b8450016d81549f6}\label{classaptk_1_1search_1_1FF__GBFS_a04a55f59a19af466b8450016d81549f6}} 
+const Search\+\_\+\+Model \& {\bfseries problem} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a96a0c0e61423738ff3b0ea7387f840d4}\label{classaptk_1_1search_1_1FF__GBFS_a96a0c0e61423738ff3b0ea7387f840d4}} 
+void {\bfseries eval} (Search\+\_\+\+Node $\ast$candidate)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ae255b8b1877087513a2f966692017dae}\label{classaptk_1_1search_1_1FF__GBFS_ae255b8b1877087513a2f966692017dae}} 
+bool {\bfseries is\+\_\+closed} (Search\+\_\+\+Node $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a80cf66bac1dbf317e19880e50d3aa2c3}\label{classaptk_1_1search_1_1FF__GBFS_a80cf66bac1dbf317e19880e50d3aa2c3}} 
+Search\+\_\+\+Node $\ast$ {\bfseries get\+\_\+node} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a8bc3e093c82a5ff19780d2a2872a77a5}\label{classaptk_1_1search_1_1FF__GBFS_a8bc3e093c82a5ff19780d2a2872a77a5}} 
+void {\bfseries open\+\_\+node} (Search\+\_\+\+Node $\ast$n)
+\item 
+virtual void \mbox{\hyperlink{classaptk_1_1search_1_1FF__GBFS_ac6d4c973ab73503724a24646f6eb0c0d}{process}} (Search\+\_\+\+Node $\ast$head)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aa43f3609d547e4b7ed749e72965157b2}\label{classaptk_1_1search_1_1FF__GBFS_aa43f3609d547e4b7ed749e72965157b2}} 
+unsigned {\bfseries infinity} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a3d16efc3e63c41e78a5f95ef77d6c52a}\label{classaptk_1_1search_1_1FF__GBFS_a3d16efc3e63c41e78a5f95ef77d6c52a}} 
+virtual Search\+\_\+\+Node $\ast$ {\bfseries do\+\_\+search} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ac134cee322f9a517884ad14cb9fde148}\label{classaptk_1_1search_1_1FF__GBFS_ac134cee322f9a517884ad14cb9fde148}} 
+void {\bfseries extract\+\_\+plan} (Search\+\_\+\+Node $\ast$s, Search\+\_\+\+Node $\ast$t, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&plan, float \&cost)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ab3b1df2dbacedc3b670a62f2186583bb}\label{classaptk_1_1search_1_1FF__GBFS_ab3b1df2dbacedc3b670a62f2186583bb}} 
+void {\bfseries extract\+\_\+path} (Search\+\_\+\+Node $\ast$s, Search\+\_\+\+Node $\ast$t, std\+::vector$<$ Search\+\_\+\+Node $\ast$ $>$ \&plan)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ac134cee322f9a517884ad14cb9fde148}\label{classaptk_1_1search_1_1FF__GBFS_ac134cee322f9a517884ad14cb9fde148}} 
+void {\bfseries extract\+\_\+plan} (Search\+\_\+\+Node $\ast$s, Search\+\_\+\+Node $\ast$t, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&plan, float \&cost)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ab3b1df2dbacedc3b670a62f2186583bb}\label{classaptk_1_1search_1_1FF__GBFS_ab3b1df2dbacedc3b670a62f2186583bb}} 
+void {\bfseries extract\+\_\+path} (Search\+\_\+\+Node $\ast$s, Search\+\_\+\+Node $\ast$t, std\+::vector$<$ Search\+\_\+\+Node $\ast$ $>$ \&plan)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a1d1c25a7595f54694fa91959d2be85e3}\label{classaptk_1_1search_1_1FF__GBFS_a1d1c25a7595f54694fa91959d2be85e3}} 
+const Search\+\_\+\+Model \& {\bfseries m\+\_\+problem}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aaabb710f4bdaeb37b15a499e250ee5f3}\label{classaptk_1_1search_1_1FF__GBFS_aaabb710f4bdaeb37b15a499e250ee5f3}} 
+Abstract\+\_\+\+Heuristic $\ast$ {\bfseries m\+\_\+heuristic\+\_\+func}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a273d287c4c448ba518a62afd82107613}\label{classaptk_1_1search_1_1FF__GBFS_a273d287c4c448ba518a62afd82107613}} 
+Open\+\_\+\+List\+\_\+\+Type {\bfseries m\+\_\+open}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a7df4b4d291a1bc5921509c4ad5d13f1f}\label{classaptk_1_1search_1_1FF__GBFS_a7df4b4d291a1bc5921509c4ad5d13f1f}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List\+\_\+\+Type}} {\bfseries m\+\_\+closed}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aed9ab5c721e030c437ad70445c693fed}\label{classaptk_1_1search_1_1FF__GBFS_aed9ab5c721e030c437ad70445c693fed}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List\+\_\+\+Type}} {\bfseries m\+\_\+open\+\_\+hash}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_aad308394760436b4fb55e997114fb081}\label{classaptk_1_1search_1_1FF__GBFS_aad308394760436b4fb55e997114fb081}} 
+unsigned {\bfseries m\+\_\+exp\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_abf435707dece4fd440faea04a7f7c4ad}\label{classaptk_1_1search_1_1FF__GBFS_abf435707dece4fd440faea04a7f7c4ad}} 
+unsigned {\bfseries m\+\_\+gen\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_adead5c1fec11ba8ab4d9ad7bc5d44dcb}\label{classaptk_1_1search_1_1FF__GBFS_adead5c1fec11ba8ab4d9ad7bc5d44dcb}} 
+unsigned {\bfseries m\+\_\+pruned\+\_\+\+B\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a29fbcd5836f8e51272569e7fdea8d421}\label{classaptk_1_1search_1_1FF__GBFS_a29fbcd5836f8e51272569e7fdea8d421}} 
+unsigned {\bfseries m\+\_\+dead\+\_\+end\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a4caa5ad38ec7a465fb070e8902137f1e}\label{classaptk_1_1search_1_1FF__GBFS_a4caa5ad38ec7a465fb070e8902137f1e}} 
+unsigned {\bfseries m\+\_\+open\+\_\+repl\+\_\+count}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a2a99febffbb8bfb3024026cd4c6cfbd1}\label{classaptk_1_1search_1_1FF__GBFS_a2a99febffbb8bfb3024026cd4c6cfbd1}} 
+float {\bfseries m\+\_\+B}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ab6eea2bd1d78860820409793f308af03}\label{classaptk_1_1search_1_1FF__GBFS_ab6eea2bd1d78860820409793f308af03}} 
+float {\bfseries m\+\_\+time\+\_\+budget}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_add6c2e00254e4e275f61ffa9a93f6d98}\label{classaptk_1_1search_1_1FF__GBFS_add6c2e00254e4e275f61ffa9a93f6d98}} 
+float {\bfseries m\+\_\+t0}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a450f71ff03d36fd63e872f34c1c82235}\label{classaptk_1_1search_1_1FF__GBFS_a450f71ff03d36fd63e872f34c1c82235}} 
+Search\+\_\+\+Node $\ast$ {\bfseries m\+\_\+root}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a069edf4e7e7aa0ebe785035081216214}\label{classaptk_1_1search_1_1FF__GBFS_a069edf4e7e7aa0ebe785035081216214}} 
+std\+::vector$<$ Action\+\_\+\+Idx $>$ {\bfseries m\+\_\+app\+\_\+set}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ad186fe51450cfcfc4e98853a5f9a667a}\label{classaptk_1_1search_1_1FF__GBFS_ad186fe51450cfcfc4e98853a5f9a667a}} 
+bool {\bfseries m\+\_\+greedy}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a5919fe219f3109e1f7ccbd53542d38f2}\label{classaptk_1_1search_1_1FF__GBFS_a5919fe219f3109e1f7ccbd53542d38f2}} 
+bool {\bfseries m\+\_\+delay\+\_\+eval}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_a1fa915718aec9110089b95441a6d7f9e}\label{classaptk_1_1search_1_1FF__GBFS_a1fa915718aec9110089b95441a6d7f9e}} 
+unsigned {\bfseries m\+\_\+B}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ac0d500e16f09acd121385b2481b057a2}\label{classaptk_1_1search_1_1FF__GBFS_ac0d500e16f09acd121385b2481b057a2}} 
+float {\bfseries m\+\_\+h\+\_\+time}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ac6d4c973ab73503724a24646f6eb0c0d}\label{classaptk_1_1search_1_1FF__GBFS_ac6d4c973ab73503724a24646f6eb0c0d}} 
+\index{aptk::search::FF\_GBFS$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$@{aptk::search::FF\_GBFS$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$}!process@{process}}
+\index{process@{process}!aptk::search::FF\_GBFS$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$@{aptk::search::FF\_GBFS$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model , typename Abstract\+\_\+\+Heuristic , typename Open\+\_\+\+List\+\_\+\+Type $>$ \\
+virtual void \mbox{\hyperlink{classaptk_1_1search_1_1FF__GBFS}{aptk\+::search\+::\+F\+F\+\_\+\+G\+B\+FS}}$<$ Search\+\_\+\+Model, Abstract\+\_\+\+Heuristic, Open\+\_\+\+List\+\_\+\+Type $>$\+::process (\begin{DoxyParamCaption}\item[{Search\+\_\+\+Node $\ast$}]{head }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Succ Generator Process \mbox{\Hypertarget{classaptk_1_1search_1_1FF__GBFS_ac6d4c973ab73503724a24646f6eb0c0d}\label{classaptk_1_1search_1_1FF__GBFS_ac6d4c973ab73503724a24646f6eb0c0d}} 
+\index{aptk::search::FF\_GBFS$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$@{aptk::search::FF\_GBFS$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$}!process@{process}}
+\index{process@{process}!aptk::search::FF\_GBFS$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$@{aptk::search::FF\_GBFS$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model , typename Abstract\+\_\+\+Heuristic , typename Open\+\_\+\+List\+\_\+\+Type $>$ \\
+virtual void \mbox{\hyperlink{classaptk_1_1search_1_1FF__GBFS}{aptk\+::search\+::\+F\+F\+\_\+\+G\+B\+FS}}$<$ Search\+\_\+\+Model, Abstract\+\_\+\+Heuristic, Open\+\_\+\+List\+\_\+\+Type $>$\+::process (\begin{DoxyParamCaption}\item[{Search\+\_\+\+Node $\ast$}]{head }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Succ Generator Process 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/legacy\+\_\+ff/generic-\/best\+\_\+first-\/ffparser/ff\+\_\+gbfs.\+hxx\end{DoxyCompactItemize}

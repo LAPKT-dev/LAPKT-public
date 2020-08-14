@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="config_2CMakeLists_8txt" kind="file" language="C++">
+    <compoundname>CMakeLists.txt</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="config_2CMakeLists_8txt_1a6be4d98f2492cc7baeb29b43a92e6548" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>file</definition>
+        <argsstring>(WRITE ${CMAKE_CURRENT_BINARY_DIR}/__init__.py &quot;from .planner_config import load_planner_config&quot;) install(FILES $</argsstring>
+        <name>file</name>
+        <param>
+          <type>WRITE ${CMAKE_CURRENT_BINARY_DIR}/__init__.py &quot;from .planner_config import load_planner_config&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/config/CMakeLists.txt" line="1" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/config/CMakeLists.txt" bodystart="1" bodyend="4"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">file(WRITE<sp/>${CMAKE_CURRENT_BINARY_DIR}/__init__.py<sp/></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;from<sp/>.planner_config<sp/>import<sp/>load_planner_config&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="3"><highlight class="normal">install(FILES</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_BINARY_DIR}/__init__.py</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_SOURCE_DIR}/planner_config.py</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/lib/lapkt/config</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Runtime</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/>)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">install(FILES</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_BINARY_DIR}/__init__.py</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>${CMAKE_CURRENT_SOURCE_DIR}/planner_config.py</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>PERMISSIONS<sp/>OWNER_WRITE<sp/>OWNER_READ</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>DESTINATION<sp/>${CMAKE_INSTALL_PREFIX}/lib/lapkt/config</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>COMPONENT<sp/>Development<sp/>EXCLUDE_FROM_ALL</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>)</highlight></codeline>
+    </programlisting>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/config/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

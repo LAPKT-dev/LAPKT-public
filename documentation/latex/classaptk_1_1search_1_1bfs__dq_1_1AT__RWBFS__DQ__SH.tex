@@ -1,0 +1,74 @@
+\hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH}{}\doxysection{aptk\+::search\+::bfs\+\_\+dq\+::A\+T\+\_\+\+R\+W\+B\+F\+S\+\_\+\+D\+Q\+\_\+\+SH$<$ Search\+\_\+\+Model, Abstract\+\_\+\+Heuristic, Open\+\_\+\+List\+\_\+\+Type $>$ Class Template Reference}
+\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH}\index{aptk::search::bfs\_dq::AT\_RWBFS\_DQ\_SH$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$@{aptk::search::bfs\_dq::AT\_RWBFS\_DQ\_SH$<$ Search\_Model, Abstract\_Heuristic, Open\_List\_Type $>$}}
+Inheritance diagram for aptk\+::search\+::bfs\+\_\+dq\+::A\+T\+\_\+\+R\+W\+B\+F\+S\+\_\+\+D\+Q\+\_\+\+SH$<$ Search\+\_\+\+Model, Abstract\+\_\+\+Heuristic, Open\+\_\+\+List\+\_\+\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.951219cm]{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ae4727cac049cd076ba1c7084f32034a1}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ae4727cac049cd076ba1c7084f32034a1}} 
+typedef Search\+\_\+\+Model\+::\+State\+\_\+\+Type {\bfseries State}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a8d2534c5457a4506b9117bc6ff9fbf33}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a8d2534c5457a4506b9117bc6ff9fbf33}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1bfs__dq_1_1Node}{Node}}$<$ State $>$ {\bfseries Search\+\_\+\+Node}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a98ab6c084eac41600ee57abb4c76a7c1}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a98ab6c084eac41600ee57abb4c76a7c1}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List}}$<$ Search\+\_\+\+Node $>$ {\bfseries Closed\+\_\+\+List\+\_\+\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a62f7d4a9261b5a6867d116638ac5622d}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a62f7d4a9261b5a6867d116638ac5622d}} 
+{\bfseries A\+T\+\_\+\+R\+W\+B\+F\+S\+\_\+\+D\+Q\+\_\+\+SH} (const Search\+\_\+\+Model \&search\+\_\+problem, float W=5.\+0f, float decay=0.\+75f)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a627d56503942bd18b65a5ad16ca31bac}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a627d56503942bd18b65a5ad16ca31bac}} 
+{\bfseries A\+T\+\_\+\+R\+W\+B\+F\+S\+\_\+\+D\+Q\+\_\+\+SH} (const Search\+\_\+\+Model \&search\+\_\+problem, Abstract\+\_\+\+Heuristic \&h, float W=5.\+0f, float decay=0.\+75f)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ae1a084e2318c3d96c3888e9f9972085e}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ae1a084e2318c3d96c3888e9f9972085e}} 
+virtual void {\bfseries eval} (Search\+\_\+\+Node $\ast$candidate)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ae695e2307ba83013610098c39c1fdb7c}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ae695e2307ba83013610098c39c1fdb7c}} 
+bool {\bfseries in\+\_\+closed} (Search\+\_\+\+Node $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a0b4ff9cc4b68a683b93b494165e1f659}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a0b4ff9cc4b68a683b93b494165e1f659}} 
+bool {\bfseries in\+\_\+open} (Search\+\_\+\+Node $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a8eaec6f69a403a98a4bcc0c3d34ef593}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a8eaec6f69a403a98a4bcc0c3d34ef593}} 
+bool {\bfseries in\+\_\+seen} (Search\+\_\+\+Node $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_aafad2c2577d7113add3b3c8a153bca46}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_aafad2c2577d7113add3b3c8a153bca46}} 
+virtual void {\bfseries process} (Search\+\_\+\+Node $\ast$head)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a8d7c404c652a7e8959fe0ab06155220f}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_a8d7c404c652a7e8959fe0ab06155220f}} 
+virtual Search\+\_\+\+Node $\ast$ {\bfseries do\+\_\+search} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_afb71020459fa4e78346a3fe4199e9e33}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_afb71020459fa4e78346a3fe4199e9e33}} 
+void {\bfseries restart\+\_\+search} ()
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_abc51509088d099586fb8b65b49f82f24}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_abc51509088d099586fb8b65b49f82f24}} 
+virtual bool {\bfseries is\+\_\+open} (Search\+\_\+\+Node $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ae7e3f0ed8b8d1bc0af0c1fb539696975}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ae7e3f0ed8b8d1bc0af0c1fb539696975}} 
+bool {\bfseries is\+\_\+seen} (Search\+\_\+\+Node $\ast$n)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_adffe8152631a20c9192241d65e4058dc}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_adffe8152631a20c9192241d65e4058dc}} 
+float {\bfseries m\+\_\+W}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ad9fda3df69ca7be6e1da5e6326590ade}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ad9fda3df69ca7be6e1da5e6326590ade}} 
+float {\bfseries m\+\_\+decay}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ad8145c10bf200734ca21514faf7cb962}\label{classaptk_1_1search_1_1bfs__dq_1_1AT__RWBFS__DQ__SH_ad8145c10bf200734ca21514faf7cb962}} 
+\mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List\+\_\+\+Type}} {\bfseries m\+\_\+seen}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/search/at\+\_\+rwbfs\+\_\+dq.\+hxx\end{DoxyCompactItemize}

@@ -1,0 +1,62 @@
+\hypertarget{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency}{}\doxysection{aptk\+::search\+::bfws\+\_\+2h\+::B\+F\+W\+S\+\_\+2\+H\+\_\+\+Consistency$<$ Search\+\_\+\+Model, First\+\_\+\+Heuristic, Second\+\_\+\+Heuristic, Relevant\+\_\+\+Fluents\+\_\+\+Heuristic, Open\+\_\+\+List\+\_\+\+Type $>$ Class Template Reference}
+\label{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency}\index{aptk::search::bfws\_2h::BFWS\_2H\_Consistency$<$ Search\_Model, First\_Heuristic, Second\_Heuristic, Relevant\_Fluents\_Heuristic, Open\_List\_Type $>$@{aptk::search::bfws\_2h::BFWS\_2H\_Consistency$<$ Search\_Model, First\_Heuristic, Second\_Heuristic, Relevant\_Fluents\_Heuristic, Open\_List\_Type $>$}}
+Inheritance diagram for aptk\+::search\+::bfws\+\_\+2h\+::B\+F\+W\+S\+\_\+2\+H\+\_\+\+Consistency$<$ Search\+\_\+\+Model, First\+\_\+\+Heuristic, Second\+\_\+\+Heuristic, Relevant\+\_\+\+Fluents\+\_\+\+Heuristic, Open\+\_\+\+List\+\_\+\+Type $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.931035cm]{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_ad8303d18468e26a1e11cce2e6f95071f}\label{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_ad8303d18468e26a1e11cce2e6f95071f}} 
+typedef Search\+\_\+\+Model\+::\+State\+\_\+\+Type {\bfseries State}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a4c8c975d9633b52f07c87247d3a7f8cf}\label{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a4c8c975d9633b52f07c87247d3a7f8cf}} 
+typedef Open\+\_\+\+List\+\_\+\+Type\+::\+Node\+\_\+\+Type {\bfseries Search\+\_\+\+Node}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a3527db16c7f32d223be5ba268d9e9d1d}\label{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a3527db16c7f32d223be5ba268d9e9d1d}} 
+typedef \mbox{\hyperlink{classaptk_1_1search_1_1Closed__List}{Closed\+\_\+\+List}}$<$ Search\+\_\+\+Node $>$ {\bfseries Closed\+\_\+\+List\+\_\+\+Type}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a4d98b1fe90332f2003c3232b1aef7c34}\label{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a4d98b1fe90332f2003c3232b1aef7c34}} 
+typedef \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager}{aptk\+::agnostic\+::\+Landmarks\+\_\+\+Graph\+\_\+\+Manager}}$<$ Search\+\_\+\+Model $>$ {\bfseries Landmarks\+\_\+\+Graph\+\_\+\+Manager}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a01efc91a58d023bfa8458deb88b1c658}\label{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a01efc91a58d023bfa8458deb88b1c658}} 
+{\bfseries B\+F\+W\+S\+\_\+2\+H\+\_\+\+Consistency} (const Search\+\_\+\+Model \&search\+\_\+problem)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_aff810d12ea8c981e7e1e4dead988da79}\label{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_aff810d12ea8c981e7e1e4dead988da79}} 
+virtual void {\bfseries start} (float B=infty)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_ac3edd0b947d4dfb40f14b5a35c71a4fa}\label{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_ac3edd0b947d4dfb40f14b5a35c71a4fa}} 
+virtual void {\bfseries eval} (Search\+\_\+\+Node $\ast$candidate)
+\item 
+void \mbox{\hyperlink{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_ab3e470b6d42e320ab40b47b1f6443535}{exclude\+\_\+actions}} (Search\+\_\+\+Node $\ast$n, \mbox{\hyperlink{classaptk_1_1Bit__Set}{Bit\+\_\+\+Set}} \&excluded)
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a9120249018d25bdacb7528e6e3330c0f}\label{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a9120249018d25bdacb7528e6e3330c0f}} 
+virtual unsigned {\bfseries consistent\+\_\+goal\+\_\+counting} (Search\+\_\+\+Node $\ast$n)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a48106247e6d592bd401f9b6d6f5b2465}\label{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_a48106247e6d592bd401f9b6d6f5b2465}} 
+\mbox{\hyperlink{classaptk_1_1agnostic_1_1Reachability__Test}{aptk\+::agnostic\+::\+Reachability\+\_\+\+Test}} $\ast$ {\bfseries m\+\_\+reachability}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_ab3e470b6d42e320ab40b47b1f6443535}\label{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency_ab3e470b6d42e320ab40b47b1f6443535}} 
+\index{aptk::search::bfws\_2h::BFWS\_2H\_Consistency$<$ Search\_Model, First\_Heuristic, Second\_Heuristic, Relevant\_Fluents\_Heuristic, Open\_List\_Type $>$@{aptk::search::bfws\_2h::BFWS\_2H\_Consistency$<$ Search\_Model, First\_Heuristic, Second\_Heuristic, Relevant\_Fluents\_Heuristic, Open\_List\_Type $>$}!exclude\_actions@{exclude\_actions}}
+\index{exclude\_actions@{exclude\_actions}!aptk::search::bfws\_2h::BFWS\_2H\_Consistency$<$ Search\_Model, First\_Heuristic, Second\_Heuristic, Relevant\_Fluents\_Heuristic, Open\_List\_Type $>$@{aptk::search::bfws\_2h::BFWS\_2H\_Consistency$<$ Search\_Model, First\_Heuristic, Second\_Heuristic, Relevant\_Fluents\_Heuristic, Open\_List\_Type $>$}}
+\doxysubsubsection{\texorpdfstring{exclude\_actions()}{exclude\_actions()}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model , typename First\+\_\+\+Heuristic , typename Second\+\_\+\+Heuristic , typename Relevant\+\_\+\+Fluents\+\_\+\+Heuristic , typename Open\+\_\+\+List\+\_\+\+Type $>$ \\
+void \mbox{\hyperlink{classaptk_1_1search_1_1bfws__2h_1_1BFWS__2H__Consistency}{aptk\+::search\+::bfws\+\_\+2h\+::\+B\+F\+W\+S\+\_\+2\+H\+\_\+\+Consistency}}$<$ Search\+\_\+\+Model, First\+\_\+\+Heuristic, Second\+\_\+\+Heuristic, Relevant\+\_\+\+Fluents\+\_\+\+Heuristic, Open\+\_\+\+List\+\_\+\+Type $>$\+::exclude\+\_\+actions (\begin{DoxyParamCaption}\item[{Search\+\_\+\+Node $\ast$}]{n,  }\item[{\mbox{\hyperlink{classaptk_1_1Bit__Set}{Bit\+\_\+\+Set}} \&}]{excluded }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+If actions edel or adds fluent that has to persist, exclude action.
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/search/bfws\+\_\+2h\+\_\+consistency.\+hxx\end{DoxyCompactItemize}

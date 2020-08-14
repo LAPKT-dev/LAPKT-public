@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="validate_8py" kind="file" language="Python">
+    <compoundname>validate.py</compoundname>
+    <innernamespace refid="namespacevalidate">validate</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">#!/usr/bin/env<sp/>python3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>lapkt.run<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>validate_plan</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>argparse<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>ArgumentParser</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>__name__<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;__main__&quot;</highlight><highlight class="normal"><sp/>:</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>parser<sp/><sp/>=<sp/><sp/><sp/>ArgumentParser(description=<sp/></highlight><highlight class="stringliteral">&quot;Run<sp/>validate&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>parser.add_argument(<sp/></highlight><highlight class="stringliteral">&apos;-d&apos;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&apos;--domain&apos;</highlight><highlight class="normal">,<sp/>action=</highlight><highlight class="stringliteral">&apos;store&apos;</highlight><highlight class="normal">,<sp/>nargs=</highlight><highlight class="stringliteral">&apos;?&apos;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>required=</highlight><highlight class="keyword">True</highlight><highlight class="normal">,<sp/>help=</highlight><highlight class="stringliteral">&apos;path<sp/>to<sp/>the<sp/>domain<sp/>pddl<sp/>file&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>parser.add_argument(<sp/></highlight><highlight class="stringliteral">&apos;-p&apos;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&apos;--problem&apos;</highlight><highlight class="normal">,<sp/>action=</highlight><highlight class="stringliteral">&apos;store&apos;</highlight><highlight class="normal">,<sp/>nargs=</highlight><highlight class="stringliteral">&apos;?&apos;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>required=</highlight><highlight class="keyword">True</highlight><highlight class="normal">,<sp/>help=</highlight><highlight class="stringliteral">&apos;path<sp/>to<sp/>the<sp/>problem<sp/>pddl<sp/>file&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>parser.add_argument(<sp/></highlight><highlight class="stringliteral">&apos;-c&apos;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&apos;--plan&apos;</highlight><highlight class="normal">,<sp/>action=</highlight><highlight class="stringliteral">&apos;store&apos;</highlight><highlight class="normal">,<sp/>nargs=</highlight><highlight class="stringliteral">&apos;?&apos;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>required=</highlight><highlight class="keyword">True</highlight><highlight class="normal">,<sp/>help=</highlight><highlight class="stringliteral">&apos;path<sp/>to<sp/>the<sp/>plan<sp/>file<sp/>with<sp/>the<sp/>plan&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>args<sp/><sp/><sp/><sp/>=<sp/><sp/><sp/>parser.parse_args()</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>validate_plan(args.domain,<sp/>args.problem,<sp/>args.plan)</highlight></codeline>
+    </programlisting>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/scripts/validate.py"/>
+  </compounddef>
+</doxygen>

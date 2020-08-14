@@ -1,0 +1,305 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classtarski_1_1Tarski__Instantiator" kind="class" language="C++" prot="public">
+    <compoundname>tarski::Tarski_Instantiator</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classtarski_1_1Tarski__Instantiator_1aee5fc706a6f16959489b1f9becbe318b" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long tarski::Tarski_Instantiator::m_next_action_id</definition>
+        <argsstring></argsstring>
+        <name>m_next_action_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="146" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classtarski_1_1Tarski__Instantiator_1abf2ea4bf63eef330e4426ab86cbef7ba" prot="private" static="no" mutable="no">
+        <type><ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref> *</type>
+        <definition>STRIPS_Interface* tarski::Tarski_Instantiator::m_task</definition>
+        <argsstring></argsstring>
+        <name>m_task</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="165" column="42" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtarski_1_1Tarski__Instantiator_1a4fb60236251d33b6bf79c4364a1f431e" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; tarski::Tarski_Instantiator::m_init</definition>
+        <argsstring></argsstring>
+        <name>m_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="166" column="28" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtarski_1_1Tarski__Instantiator_1a95a82e9c8cdb7fa05d7459704b3468fc" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, int &gt;</type>
+        <definition>std::map&lt;std::string, int&gt; tarski::Tarski_Instantiator::m_fluent</definition>
+        <argsstring></argsstring>
+        <name>m_fluent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="167" column="23" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtarski_1_1Tarski__Instantiator_1a4ce2220cf1f21768c124751be2501cbc" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, int &gt;</type>
+        <definition>std::map&lt;std::string, int&gt; tarski::Tarski_Instantiator::m_fval</definition>
+        <argsstring></argsstring>
+        <name>m_fval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="168" column="23" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtarski_1_1Tarski__Instantiator_1a16f10f4ccf40c4d2ba9b6af3297f288e" prot="private" static="no" mutable="no">
+        <type>std::pair&lt; std::vector&lt; std::vector&lt; std::pair&lt; int, bool &gt; &gt; &gt;, bool &gt;</type>
+        <definition>std::pair&lt;std::vector&lt; std::vector&lt;std::pair&lt; int, bool&gt; &gt; &gt;, bool&gt; tarski::Tarski_Instantiator::m_goal</definition>
+        <argsstring></argsstring>
+        <name>m_goal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="171" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classtarski_1_1Tarski__Instantiator_1a599a9d1ced6098ff3d2641460058132c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Tarski_Instantiator::Tarski_Instantiator</definition>
+        <argsstring>()</argsstring>
+        <name>Tarski_Instantiator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="148" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="685" bodyend="685"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Tarski__Instantiator_1aea83ad6410ed3345d0cf30a5a44a5c97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Tarski_Instantiator::Tarski_Instantiator</definition>
+        <argsstring>(STRIPS_Interface *strips_problem)</argsstring>
+        <name>Tarski_Instantiator</name>
+        <param>
+          <type><ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref> *</type>
+          <declname>strips_problem</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="149" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="690" bodyend="694"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Tarski__Instantiator_1a2f536919af9150f891ed824d4ad05223" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Tarski_Instantiator::Tarski_Instantiator</definition>
+        <argsstring>(STRIPS_Interface *task, boost::python::list &amp;init, Formula &amp;goal, boost::python::list &amp;fluent, boost::python::list &amp;f_value)</argsstring>
+        <name>Tarski_Instantiator</name>
+        <param>
+          <type><ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref> *</type>
+          <declname>task</declname>
+        </param>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>init</declname>
+        </param>
+        <param>
+          <type><ref refid="classtarski_1_1Formula" kindref="compound">Formula</ref> &amp;</type>
+          <declname>goal</declname>
+        </param>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>fluent</declname>
+        </param>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>f_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="150" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="705" bodyend="723"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Tarski__Instantiator_1a9a8f58c7b8eb63e2e32bc4fdeb1cb048" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tarski_Instantiator::add_init</definition>
+        <argsstring>(boost::python::list &amp;init)</argsstring>
+        <name>add_init</name>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>init</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="154" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="742" bodyend="749"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Tarski__Instantiator_1a186efca80783ae7b94608bb720a11721" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tarski_Instantiator::set_init</definition>
+        <argsstring>()</argsstring>
+        <name>set_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="155" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="754" bodyend="766"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Tarski__Instantiator_1a466f599a8607d0e619fca99ca01b2dbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tarski_Instantiator::add_goal</definition>
+        <argsstring>(Formula &amp;goal)</argsstring>
+        <name>add_goal</name>
+        <param>
+          <type><ref refid="classtarski_1_1Formula" kindref="compound">Formula</ref> &amp;</type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="156" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="774" bodyend="779"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Tarski__Instantiator_1ad3e1da478a18fe943607f96fdd3ae9e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tarski_Instantiator::set_goal</definition>
+        <argsstring>()</argsstring>
+        <name>set_goal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="157" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="785" bodyend="801"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Tarski__Instantiator_1a3bd5b26861eff25068937e0248dab5dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tarski_Instantiator::add_fluents</definition>
+        <argsstring>(boost::python::list &amp;fluent)</argsstring>
+        <name>add_fluents</name>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>fluent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="158" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="832" bodyend="841"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Tarski__Instantiator_1aa37cc0cb85091f0b2cc528c2a7c47881" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tarski_Instantiator::add_functions</definition>
+        <argsstring>(boost::python::list &amp;func)</argsstring>
+        <name>add_functions</name>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="159" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="730" bodyend="735"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Tarski__Instantiator_1a79c790671a21b5b424bfeb60a32a8be9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tarski_Instantiator::instantiate_action</definition>
+        <argsstring>(tarski::Action &amp;action, boost::python::list &amp;reachable_params)</argsstring>
+        <name>instantiate_action</name>
+        <param>
+          <type><ref refid="classtarski_1_1Action" kindref="compound">tarski::Action</ref> &amp;</type>
+          <declname>action</declname>
+        </param>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>reachable_params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="160" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="809" bodyend="817"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Tarski__Instantiator_1abf6f03bcb2b3fc01e518824741ed2ac8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tarski_Instantiator::finalize_actions</definition>
+        <argsstring>()</argsstring>
+        <name>finalize_actions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="162" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="822" bodyend="825"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="143" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="143" bodyend="172"/>
+    <listofallmembers>
+      <member refid="classtarski_1_1Tarski__Instantiator_1a3bd5b26861eff25068937e0248dab5dd" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>add_fluents</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1aa37cc0cb85091f0b2cc528c2a7c47881" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>add_functions</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1a466f599a8607d0e619fca99ca01b2dbf" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>add_goal</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1a9a8f58c7b8eb63e2e32bc4fdeb1cb048" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>add_init</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1abf6f03bcb2b3fc01e518824741ed2ac8" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>finalize_actions</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1a79c790671a21b5b424bfeb60a32a8be9" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>instantiate_action</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1a95a82e9c8cdb7fa05d7459704b3468fc" prot="private" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>m_fluent</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1a4ce2220cf1f21768c124751be2501cbc" prot="private" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>m_fval</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1a16f10f4ccf40c4d2ba9b6af3297f288e" prot="private" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>m_goal</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1a4fb60236251d33b6bf79c4364a1f431e" prot="private" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>m_init</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1aee5fc706a6f16959489b1f9becbe318b" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>m_next_action_id</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1abf2ea4bf63eef330e4426ab86cbef7ba" prot="private" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>m_task</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1ad3e1da478a18fe943607f96fdd3ae9e3" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>set_goal</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1a186efca80783ae7b94608bb720a11721" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>set_init</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1a599a9d1ced6098ff3d2641460058132c" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>Tarski_Instantiator</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1aea83ad6410ed3345d0cf30a5a44a5c97" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>Tarski_Instantiator</name></member>
+      <member refid="classtarski_1_1Tarski__Instantiator_1a2f536919af9150f891ed824d4ad05223" prot="public" virt="non-virtual"><scope>tarski::Tarski_Instantiator</scope><name>Tarski_Instantiator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

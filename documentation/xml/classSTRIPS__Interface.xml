@@ -1,0 +1,893 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classSTRIPS__Interface" kind="class" language="C++" prot="public">
+    <compoundname>STRIPS_Interface</compoundname>
+    <derivedcompoundref refid="classAT__BFS__f__Planner" prot="public" virt="non-virtual">AT_BFS_f_Planner</derivedcompoundref>
+    <derivedcompoundref refid="classAT__LAPKT__Planner" prot="public" virt="non-virtual">AT_LAPKT_Planner</derivedcompoundref>
+    <derivedcompoundref refid="classBFS__f__Planner" prot="public" virt="non-virtual">BFS_f_Planner</derivedcompoundref>
+    <derivedcompoundref refid="classBFWS" prot="public" virt="non-virtual">BFWS</derivedcompoundref>
+    <derivedcompoundref refid="classBRFS__Planner" prot="public" virt="non-virtual">BRFS_Planner</derivedcompoundref>
+    <derivedcompoundref refid="classDFIW__Planner" prot="public" virt="non-virtual">DFIW_Planner</derivedcompoundref>
+    <derivedcompoundref refid="classDFS__Plus__Planner" prot="public" virt="non-virtual">DFS_Plus_Planner</derivedcompoundref>
+    <derivedcompoundref refid="classDFSIW__Planner" prot="public" virt="non-virtual">DFSIW_Planner</derivedcompoundref>
+    <derivedcompoundref refid="classIW__Planner" prot="public" virt="non-virtual">IW_Planner</derivedcompoundref>
+    <derivedcompoundref refid="classRPIW__Planner" prot="public" virt="non-virtual">RPIW_Planner</derivedcompoundref>
+    <derivedcompoundref refid="classSIW__Planner" prot="public" virt="non-virtual">SIW_Planner</derivedcompoundref>
+    <derivedcompoundref refid="classSIW__PLUS__BFS__F__Planner" prot="public" virt="non-virtual">SIW_PLUS_BFS_F_Planner</derivedcompoundref>
+    <derivedcompoundref refid="classSIW__Plus__Planner" prot="public" virt="non-virtual">SIW_Plus_Planner</derivedcompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classSTRIPS__Interface_1a972b0002d30e8aa0af8c89bc3a3845cb" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float STRIPS_Interface::m_parsing_time</definition>
+        <argsstring></argsstring>
+        <name>m_parsing_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="79" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSTRIPS__Interface_1ad33d6d520a2dfa5bae0d633d247c3965" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool STRIPS_Interface::m_ignore_action_costs</definition>
+        <argsstring></argsstring>
+        <name>m_ignore_action_costs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="80" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classSTRIPS__Interface_1ae4eb700989ab07c997476c3685576da6" prot="protected" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">aptk::STRIPS_Problem</ref> *</type>
+        <definition>aptk::STRIPS_Problem* STRIPS_Interface::m_problem</definition>
+        <argsstring></argsstring>
+        <name>m_problem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="83" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSTRIPS__Interface_1af1226d68ea62e6a9d72eb499c32d01fb" prot="protected" static="no" mutable="no">
+        <type>std::set&lt; int &gt;</type>
+        <definition>std::set&lt;int&gt; STRIPS_Interface::m_negated_conditions</definition>
+        <argsstring></argsstring>
+        <name>m_negated_conditions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="84" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSTRIPS__Interface_1a75a10da9b688fa7f814c495577de7b59" prot="protected" static="no" mutable="no">
+        <type>aptk::Fluent_Ptr_Vec</type>
+        <definition>aptk::Fluent_Ptr_Vec STRIPS_Interface::m_negated</definition>
+        <argsstring></argsstring>
+        <name>m_negated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="85" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSTRIPS__Interface_1a255bd416cc3e1597b5d954b9c22e55a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>STRIPS_Interface::STRIPS_Interface</definition>
+        <argsstring>()</argsstring>
+        <name>STRIPS_Interface</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="14" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="8" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a2c1791478f14c9a3b2c6cdc978b2c175" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>STRIPS_Interface::STRIPS_Interface</definition>
+        <argsstring>(std::string, std::string)</argsstring>
+        <name>STRIPS_Interface</name>
+        <param>
+          <type>std::string</type>
+          <defname>domain</defname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <defname>instance</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="15" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="15" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a5580c4ac98ad04b159b61c4b9ae12081" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>STRIPS_Interface::~STRIPS_Interface</definition>
+        <argsstring>()</argsstring>
+        <name>~STRIPS_Interface</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="16" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="22" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1ad70c8285c19eee8d7a50393850011616" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">aptk::STRIPS_Problem</ref> *</type>
+        <definition>aptk::STRIPS_Problem* STRIPS_Interface::instance</definition>
+        <argsstring>()</argsstring>
+        <name>instance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="18" column="21" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="18" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1aea74586a3c4fec2d6c18c98347538d53" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1STRIPS__Problem" kindref="compound">aptk::STRIPS_Problem</ref></type>
+        <definition>aptk::STRIPS_Problem STRIPS_Interface::boost_instance</definition>
+        <argsstring>()</argsstring>
+        <name>boost_instance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="21" column="25" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="21" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a2f15bd04c71cd62ebfaf550497abbf20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::add_atom</definition>
+        <argsstring>(std::string name)</argsstring>
+        <name>add_atom</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="25" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="25" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1af7e8907ce4b6b9ca09fd860b45ab3225" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::add_action</definition>
+        <argsstring>(std::string name, bool flag_tarski=false)</argsstring>
+        <name>add_action</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>flag_tarski</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="26" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="32" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a25796b296c432afae525e609356d9ff9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::add_precondition</definition>
+        <argsstring>(int index, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;lits)</argsstring>
+        <name>add_precondition</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;</type>
+          <declname>lits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="27" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="105" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1afb59d6afad4ca57d9b3f2be7968b7e0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::add_precondition</definition>
+        <argsstring>(int index, boost::python::list &amp;lits)</argsstring>
+        <name>add_precondition</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>lits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="29" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="87" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a71710771f112651e0cb13bc989ed1a19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::add_cond_effect</definition>
+        <argsstring>(int index, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;cond_lits, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;eff_lits)</argsstring>
+        <name>add_cond_effect</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;</type>
+          <declname>cond_lits</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;</type>
+          <declname>eff_lits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="31" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="177" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1abd19dab045446baa2ad4553b4538e621" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::add_cond_effect</definition>
+        <argsstring>(int index, boost::python::list &amp;cond_lits, boost::python::list &amp;eff_lits)</argsstring>
+        <name>add_cond_effect</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>cond_lits</declname>
+        </param>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>eff_lits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="34" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="125" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a0be5ac4c93a831a70f2a7c7f58424ac1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::add_effect</definition>
+        <argsstring>(int index, std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;list)</argsstring>
+        <name>add_effect</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="37" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="273" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1aaad07b02eac0d294a1ad62b9e7c8f36b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::add_effect</definition>
+        <argsstring>(int index, boost::python::list &amp;list)</argsstring>
+        <name>add_effect</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="39" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="230" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1aaad82db319df7d6433cf8563d0623f04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::set_cost</definition>
+        <argsstring>(int index, float v)</argsstring>
+        <name>set_cost</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="40" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="376" bodyend="387"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a171597b1cec14b29c776216d4a84a0e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::finalize_actions</definition>
+        <argsstring>()</argsstring>
+        <name>finalize_actions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="41" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="296" bodyend="358"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a73351e126dfa21d7144bc1df4832e515" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::add_mutex_group</definition>
+        <argsstring>(boost::python::list &amp;list)</argsstring>
+        <name>add_mutex_group</name>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="44" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="361" bodyend="373"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1aeb9a0c95df2039cbb626a40bf9dce705" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::notify_negated_conditions</definition>
+        <argsstring>(boost::python::list &amp;list)</argsstring>
+        <name>notify_negated_conditions</name>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="46" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="57" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1abe8d276698470770ecefa3efbe3a3391" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::notify_negated_atom</definition>
+        <argsstring>(unsigned &amp;fl_idx)</argsstring>
+        <name>notify_negated_atom</name>
+        <param>
+          <type>unsigned &amp;</type>
+          <declname>fl_idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="48" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="42" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1aa42707020083c3ba93b380bfa85bb526" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::create_negated_fluents</definition>
+        <argsstring>()</argsstring>
+        <name>create_negated_fluents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="49" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="66" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1ad541c170efd494d9b875ae86a5a74bb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::set_size_negated_fluents</definition>
+        <argsstring>(size_t size)</argsstring>
+        <name>set_size_negated_fluents</name>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="50" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="82" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a302dcf0c5a39fc90b76f54109cf0cdc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::set_init</definition>
+        <argsstring>(std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;list)</argsstring>
+        <name>set_init</name>
+        <param>
+          <type>std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="53" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="419" bodyend="445"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1ac598e0212e1b732367e34b35a7ec7520" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::set_init</definition>
+        <argsstring>(boost::python::list &amp;list)</argsstring>
+        <name>set_init</name>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="55" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="390" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1acf3685cb3334cb06b2db0f44b20ed7cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::set_goal</definition>
+        <argsstring>(std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;list)</argsstring>
+        <name>set_goal</name>
+        <param>
+          <type>std::vector&lt; std::pair&lt; int, bool &gt;&gt; &amp;</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="57" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="465" bodyend="479"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1aa3101256cc25d4890dc8a2d2e0f58adb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::set_goal</definition>
+        <argsstring>(boost::python::list &amp;list)</argsstring>
+        <name>set_goal</name>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="58" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="447" bodyend="462"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a29a7cef2f670c00389a183854324291a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::set_domain_name</definition>
+        <argsstring>(std::string name)</argsstring>
+        <name>set_domain_name</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="59" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="482" bodyend="484"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a13019cff3cead632dc158bc59525adbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::set_problem_name</definition>
+        <argsstring>(std::string name)</argsstring>
+        <name>set_problem_name</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="60" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="487" bodyend="489"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a6450f9847ede4304e387d1320b23b507" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::setup</definition>
+        <argsstring>(bool gen_match_tree=true)</argsstring>
+        <name>setup</name>
+        <reimplementedby refid="classDFSIW__Planner_1ae4ebd81b266052160c2f66f5b1847cbd">setup</reimplementedby>
+        <reimplementedby refid="classSIW__Planner_1ac7b98250b72464dcc522f54f62777656">setup</reimplementedby>
+        <reimplementedby refid="classBRFS__Planner_1aa8e7d7e95bea2fcaa97fb2bb49abafcf">setup</reimplementedby>
+        <reimplementedby refid="classDFIW__Planner_1ac93bce69f4580cd219f9a9c02f95afbd">setup</reimplementedby>
+        <reimplementedby refid="classRPIW__Planner_1a6f64a6283ff0289ce9171cadda73ffb0">setup</reimplementedby>
+        <reimplementedby refid="classSIW__Plus__Planner_1ac3a4cede614256772567bb096999ba66">setup</reimplementedby>
+        <reimplementedby refid="classIW__Planner_1a6f79555962031f7237e2dcc6848e961a">setup</reimplementedby>
+        <reimplementedby refid="classDFS__Plus__Planner_1aac2f933675e22664858546c811f9726f">setup</reimplementedby>
+        <reimplementedby refid="classBFS__f__Planner_1ad4cde15c90f60f14474bfd1ac7fdfb90">setup</reimplementedby>
+        <reimplementedby refid="classSIW__PLUS__BFS__F__Planner_1ac2e302f7bb525bdf86a52275df5a6158">setup</reimplementedby>
+        <reimplementedby refid="classAT__BFS__f__Planner_1adc767dab0e94b09672091b23349d69a5">setup</reimplementedby>
+        <reimplementedby refid="classAT__LAPKT__Planner_1ad809ca24be27baf1199fd0df1cb57eeb">setup</reimplementedby>
+        <reimplementedby refid="classBFWS_1abfd4f0a0668bb6148969bdb43d8e11cc">setup</reimplementedby>
+        <param>
+          <type>bool</type>
+          <declname>gen_match_tree</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="62" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="507" bodyend="510"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a7acbcf18d7ad3047ad1a0da0b12d3ad1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::print_action</definition>
+        <argsstring>(int index)</argsstring>
+        <name>print_action</name>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="64" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="492" bodyend="494"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a4affb904f4785ea5f65edff20a10a462" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::print_fluents</definition>
+        <argsstring>()</argsstring>
+        <name>print_fluents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="66" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="513" bodyend="517"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a4d8836258a64bfdc7dd9203868efdce6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::print_actions</definition>
+        <argsstring>()</argsstring>
+        <name>print_actions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="67" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="520" bodyend="524"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a4ec9790f86bdacf38d9398976e3ad680" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string STRIPS_Interface::get_atom_name</definition>
+        <argsstring>(int idx) const</argsstring>
+        <name>get_atom_name</name>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="69" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="69" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a8127f632a393d7608f90f8598fc07dbc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string STRIPS_Interface::get_domain_name</definition>
+        <argsstring>() const</argsstring>
+        <name>get_domain_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="71" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="71" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a1f8c4a5d805dff93ed9a8024a03a40f2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string STRIPS_Interface::get_problem_name</definition>
+        <argsstring>() const</argsstring>
+        <name>get_problem_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="72" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1aa77e357f0f1d5cf5b0ac43980a60cfc1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t STRIPS_Interface::n_atoms</definition>
+        <argsstring>() const</argsstring>
+        <name>n_atoms</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="74" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="74" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a4ff4c44392256fc423913b3a584cfece" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t STRIPS_Interface::n_actions</definition>
+        <argsstring>() const</argsstring>
+        <name>n_actions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="75" column="7" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="75" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classSTRIPS__Interface_1a4e3e614bcf9c4adfa707ae994edf6d23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void STRIPS_Interface::write_ground_pddl</definition>
+        <argsstring>(std::string domain, std::string instance)</argsstring>
+        <name>write_ground_pddl</name>
+        <param>
+          <type>std::string</type>
+          <declname>domain</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>instance</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="77" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.cxx" bodystart="497" bodyend="504"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="13">
+        <label>SIW_PLUS_BFS_F_Planner</label>
+        <link refid="classSIW__PLUS__BFS__F__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>BRFS_Planner</label>
+        <link refid="classBRFS__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>BFWS</label>
+        <link refid="classBFWS"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>BFS_f_Planner</label>
+        <link refid="classBFS__f__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AT_BFS_f_Planner</label>
+        <link refid="classAT__BFS__f__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>RPIW_Planner</label>
+        <link refid="classRPIW__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>IW_Planner</label>
+        <link refid="classIW__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>DFIW_Planner</label>
+        <link refid="classDFIW__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>SIW_Plus_Planner</label>
+        <link refid="classSIW__Plus__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>SIW_Planner</label>
+        <link refid="classSIW__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>STRIPS_Interface</label>
+        <link refid="classSTRIPS__Interface"/>
+      </node>
+      <node id="9">
+        <label>DFSIW_Planner</label>
+        <link refid="classDFSIW__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>DFS_Plus_Planner</label>
+        <link refid="classDFS__Plus__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>AT_LAPKT_Planner</label>
+        <link refid="classAT__LAPKT__Planner"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>aptk::STRIPS_Problem</label>
+        <link refid="classaptk_1_1STRIPS__Problem"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_succ_gen</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>m_succ_gen_v3</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>m_mutexes</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>m_succ_gen_v2</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>aptk::agnostic::Match_Tree</label>
+        <link refid="classaptk_1_1agnostic_1_1Match__Tree"/>
+      </node>
+      <node id="1">
+        <label>STRIPS_Interface</label>
+        <link refid="classSTRIPS__Interface"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_problem</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>aptk::WatchedLitSuccGen</label>
+        <link refid="classaptk_1_1WatchedLitSuccGen"/>
+      </node>
+      <node id="5">
+        <label>aptk::agnostic::Mutex_Set</label>
+        <link refid="classaptk_1_1agnostic_1_1Mutex__Set"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_model</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>aptk::agnostic::Successor_Generator</label>
+        <link refid="classaptk_1_1agnostic_1_1Successor__Generator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" line="12" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/common/py_strips_interface.hxx" bodystart="12" bodyend="86"/>
+    <listofallmembers>
+      <member refid="classSTRIPS__Interface_1af7e8907ce4b6b9ca09fd860b45ab3225" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>add_action</name></member>
+      <member refid="classSTRIPS__Interface_1a2f15bd04c71cd62ebfaf550497abbf20" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>add_atom</name></member>
+      <member refid="classSTRIPS__Interface_1a71710771f112651e0cb13bc989ed1a19" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>add_cond_effect</name></member>
+      <member refid="classSTRIPS__Interface_1abd19dab045446baa2ad4553b4538e621" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>add_cond_effect</name></member>
+      <member refid="classSTRIPS__Interface_1a0be5ac4c93a831a70f2a7c7f58424ac1" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>add_effect</name></member>
+      <member refid="classSTRIPS__Interface_1aaad07b02eac0d294a1ad62b9e7c8f36b" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>add_effect</name></member>
+      <member refid="classSTRIPS__Interface_1a73351e126dfa21d7144bc1df4832e515" prot="public" virt="virtual"><scope>STRIPS_Interface</scope><name>add_mutex_group</name></member>
+      <member refid="classSTRIPS__Interface_1a25796b296c432afae525e609356d9ff9" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>add_precondition</name></member>
+      <member refid="classSTRIPS__Interface_1afb59d6afad4ca57d9b3f2be7968b7e0e" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>add_precondition</name></member>
+      <member refid="classSTRIPS__Interface_1aea74586a3c4fec2d6c18c98347538d53" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>boost_instance</name></member>
+      <member refid="classSTRIPS__Interface_1aa42707020083c3ba93b380bfa85bb526" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>create_negated_fluents</name></member>
+      <member refid="classSTRIPS__Interface_1a171597b1cec14b29c776216d4a84a0e9" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>finalize_actions</name></member>
+      <member refid="classSTRIPS__Interface_1a4ec9790f86bdacf38d9398976e3ad680" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>get_atom_name</name></member>
+      <member refid="classSTRIPS__Interface_1a8127f632a393d7608f90f8598fc07dbc" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>get_domain_name</name></member>
+      <member refid="classSTRIPS__Interface_1a1f8c4a5d805dff93ed9a8024a03a40f2" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>get_problem_name</name></member>
+      <member refid="classSTRIPS__Interface_1ad70c8285c19eee8d7a50393850011616" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>instance</name></member>
+      <member refid="classSTRIPS__Interface_1ad33d6d520a2dfa5bae0d633d247c3965" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>m_ignore_action_costs</name></member>
+      <member refid="classSTRIPS__Interface_1a75a10da9b688fa7f814c495577de7b59" prot="protected" virt="non-virtual"><scope>STRIPS_Interface</scope><name>m_negated</name></member>
+      <member refid="classSTRIPS__Interface_1af1226d68ea62e6a9d72eb499c32d01fb" prot="protected" virt="non-virtual"><scope>STRIPS_Interface</scope><name>m_negated_conditions</name></member>
+      <member refid="classSTRIPS__Interface_1a972b0002d30e8aa0af8c89bc3a3845cb" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>m_parsing_time</name></member>
+      <member refid="classSTRIPS__Interface_1ae4eb700989ab07c997476c3685576da6" prot="protected" virt="non-virtual"><scope>STRIPS_Interface</scope><name>m_problem</name></member>
+      <member refid="classSTRIPS__Interface_1a4ff4c44392256fc423913b3a584cfece" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>n_actions</name></member>
+      <member refid="classSTRIPS__Interface_1aa77e357f0f1d5cf5b0ac43980a60cfc1" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>n_atoms</name></member>
+      <member refid="classSTRIPS__Interface_1abe8d276698470770ecefa3efbe3a3391" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>notify_negated_atom</name></member>
+      <member refid="classSTRIPS__Interface_1aeb9a0c95df2039cbb626a40bf9dce705" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>notify_negated_conditions</name></member>
+      <member refid="classSTRIPS__Interface_1a7acbcf18d7ad3047ad1a0da0b12d3ad1" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>print_action</name></member>
+      <member refid="classSTRIPS__Interface_1a4d8836258a64bfdc7dd9203868efdce6" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>print_actions</name></member>
+      <member refid="classSTRIPS__Interface_1a4affb904f4785ea5f65edff20a10a462" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>print_fluents</name></member>
+      <member refid="classSTRIPS__Interface_1aaad82db319df7d6433cf8563d0623f04" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>set_cost</name></member>
+      <member refid="classSTRIPS__Interface_1a29a7cef2f670c00389a183854324291a" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>set_domain_name</name></member>
+      <member refid="classSTRIPS__Interface_1acf3685cb3334cb06b2db0f44b20ed7cb" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>set_goal</name></member>
+      <member refid="classSTRIPS__Interface_1aa3101256cc25d4890dc8a2d2e0f58adb" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>set_goal</name></member>
+      <member refid="classSTRIPS__Interface_1a302dcf0c5a39fc90b76f54109cf0cdc7" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>set_init</name></member>
+      <member refid="classSTRIPS__Interface_1ac598e0212e1b732367e34b35a7ec7520" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>set_init</name></member>
+      <member refid="classSTRIPS__Interface_1a13019cff3cead632dc158bc59525adbe" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>set_problem_name</name></member>
+      <member refid="classSTRIPS__Interface_1ad541c170efd494d9b875ae86a5a74bb6" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>set_size_negated_fluents</name></member>
+      <member refid="classSTRIPS__Interface_1a6450f9847ede4304e387d1320b23b507" prot="public" virt="virtual"><scope>STRIPS_Interface</scope><name>setup</name></member>
+      <member refid="classSTRIPS__Interface_1a255bd416cc3e1597b5d954b9c22e55a2" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>STRIPS_Interface</name></member>
+      <member refid="classSTRIPS__Interface_1a2c1791478f14c9a3b2c6cdc978b2c175" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>STRIPS_Interface</name></member>
+      <member refid="classSTRIPS__Interface_1a4e3e614bcf9c4adfa707ae994edf6d23" prot="public" virt="non-virtual"><scope>STRIPS_Interface</scope><name>write_ground_pddl</name></member>
+      <member refid="classSTRIPS__Interface_1a5580c4ac98ad04b159b61c4b9ae12081" prot="public" virt="virtual"><scope>STRIPS_Interface</scope><name>~STRIPS_Interface</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,116 @@
+\hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic}{}\doxysection{aptk\+::agnostic\+::Landmarks\+\_\+\+Count\+\_\+\+Heuristic$<$ Search\+\_\+\+Model $>$ Class Template Reference}
+\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic}\index{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$@{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$}}
+Inheritance diagram for aptk\+::agnostic\+::Landmarks\+\_\+\+Count\+\_\+\+Heuristic$<$ Search\+\_\+\+Model $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_acd943a3e250883b755fa30f14ade9bab}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_acd943a3e250883b755fa30f14ade9bab}} 
+typedef \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager}{aptk\+::agnostic\+::\+Landmarks\+\_\+\+Graph\+\_\+\+Manager}}$<$ Search\+\_\+\+Model $>$ {\bfseries Landmarks\+\_\+\+Graph\+\_\+\+Manager}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a2b3d5edbc4aac0b602268c50b5936b29}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a2b3d5edbc4aac0b602268c50b5936b29}} 
+{\bfseries Landmarks\+\_\+\+Count\+\_\+\+Heuristic} (const Search\+\_\+\+Model \&prob)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a63229238b658e0bbe347292a0d31287f}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a63229238b658e0bbe347292a0d31287f}} 
+{\bfseries Landmarks\+\_\+\+Count\+\_\+\+Heuristic} (const Search\+\_\+\+Model \&prob, \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph}{Landmarks\+\_\+\+Graph}} $\ast$lg)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a863f416d1e7bed527a7eadfcfbf7ebb6}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a863f416d1e7bed527a7eadfcfbf7ebb6}} 
+void {\bfseries set\+\_\+graph} (\mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph}{Landmarks\+\_\+\+Graph}} $\ast$lg)
+\item 
+void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a4859e28552e8abcc2f11b989f9c690ce}{set\+\_\+graph\+\_\+manager}} (\mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager}{Landmarks\+\_\+\+Graph\+\_\+\+Manager}} $\ast$lg)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a211cb3bb4176f311428ac56208f726e3}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a211cb3bb4176f311428ac56208f726e3}} 
+{\footnotesize template$<$typename Search\+\_\+\+Node $>$ }\\void {\bfseries update\+\_\+graph} (const \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a9a21684168411e741b7728fdf57710cd}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a9a21684168411e741b7728fdf57710cd}} 
+{\footnotesize template$<$typename Search\+\_\+\+Node $>$ }\\void {\bfseries eval} (const \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, float \&h\+\_\+val, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&pref\+\_\+ops)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a1d0bbc8c46af0c9d5d135e94a6fc622d}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a1d0bbc8c46af0c9d5d135e94a6fc622d}} 
+{\footnotesize template$<$typename Search\+\_\+\+Node $>$ }\\void {\bfseries eval} (const \mbox{\hyperlink{classaptk_1_1search_1_1gbfs__3h_1_1Node}{Search\+\_\+\+Node}} $\ast$n, float \&h\+\_\+val)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a78ff4b5d72660cdff9c3da3e2f48b13c}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a78ff4b5d72660cdff9c3da3e2f48b13c}} 
+void {\bfseries eval} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, float \&h\+\_\+val)
+\item 
+virtual void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a97f8eff5b083c36eef4d613d8d0e3ccc}{eval}} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, unsigned \&h\+\_\+val)
+\item 
+{\footnotesize template$<$typename Heuristic $>$ }\\void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_ae6af8d3023abc1b7361c91822b13a94d}{eval\+\_\+min}} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, unsigned \&h\+\_\+val, \mbox{\hyperlink{classaptk_1_1Heuristic}{Heuristic}} $\ast$heur)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a58876bc529be5766e25be57ae2c9e3c6}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a58876bc529be5766e25be57ae2c9e3c6}} 
+void {\bfseries eval} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, float \&h\+\_\+val, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&pref\+\_\+ops)
+\item 
+virtual void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a8db52190a569dd176a3560950a6baefe}{eval}} (const \mbox{\hyperlink{classaptk_1_1State}{State}} \&s, unsigned \&h\+\_\+val, std\+::vector$<$ Action\+\_\+\+Idx $>$ \&pref\+\_\+ops)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_ad07ea5b4eb6495f6acce5ba56292e574}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_ad07ea5b4eb6495f6acce5ba56292e574}} 
+unsigned {\bfseries max\+\_\+value} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a6c3bec44450e4ab3be35b6906d92771d}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a6c3bec44450e4ab3be35b6906d92771d}} 
+void {\bfseries update\+\_\+max\+\_\+value} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a056c67aa3dc5a43bd55166e8c4169a4d}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a056c67aa3dc5a43bd55166e8c4169a4d}} 
+const \mbox{\hyperlink{classaptk_1_1STRIPS__Problem}{S\+T\+R\+I\+P\+S\+\_\+\+Problem}} \& {\bfseries m\+\_\+strips\+\_\+model}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_ae8c8a6f9177e8679c451b1d012bb3643}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_ae8c8a6f9177e8679c451b1d012bb3643}} 
+\mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph}{Landmarks\+\_\+\+Graph}} $\ast$ {\bfseries m\+\_\+graph}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_ad01d37c073e6461607d47696d7ac2eb8}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_ad01d37c073e6461607d47696d7ac2eb8}} 
+\mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager}{Landmarks\+\_\+\+Graph\+\_\+\+Manager}} $\ast$ {\bfseries m\+\_\+lgm}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a32ee3fd7f4a36ac90b7aacb0240c0f2b}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a32ee3fd7f4a36ac90b7aacb0240c0f2b}} 
+\mbox{\hyperlink{classaptk_1_1Bit__Set}{Bit\+\_\+\+Set}} {\bfseries m\+\_\+in\+\_\+leafs}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_ac5f25ec26ab4d63594828e98b9cde981}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_ac5f25ec26ab4d63594828e98b9cde981}} 
+\mbox{\hyperlink{classaptk_1_1Bit__Set}{Bit\+\_\+\+Set}} {\bfseries m\+\_\+already\+\_\+counted}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a441bb3c90c555e4171ddca5042bf1ba8}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a441bb3c90c555e4171ddca5042bf1ba8}} 
+unsigned {\bfseries m\+\_\+max\+\_\+value}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a97f8eff5b083c36eef4d613d8d0e3ccc}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a97f8eff5b083c36eef4d613d8d0e3ccc}} 
+\index{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$@{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$}!eval@{eval}}
+\index{eval@{eval}!aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$@{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model $>$ \\
+virtual void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic}{aptk\+::agnostic\+::\+Landmarks\+\_\+\+Count\+\_\+\+Heuristic}}$<$ Search\+\_\+\+Model $>$\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classaptk_1_1State}{State}} \&}]{s,  }\item[{unsigned \&}]{h\+\_\+val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Counts edges \mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a8db52190a569dd176a3560950a6baefe}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a8db52190a569dd176a3560950a6baefe}} 
+\index{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$@{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$}!eval@{eval}}
+\index{eval@{eval}!aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$@{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model $>$ \\
+virtual void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic}{aptk\+::agnostic\+::\+Landmarks\+\_\+\+Count\+\_\+\+Heuristic}}$<$ Search\+\_\+\+Model $>$\+::eval (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classaptk_1_1State}{State}} \&}]{s,  }\item[{unsigned \&}]{h\+\_\+val,  }\item[{std\+::vector$<$ Action\+\_\+\+Idx $>$ \&}]{pref\+\_\+ops }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Graph should be updated already, otherwise use eval(\+Node,...). Counts edges \mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_ae6af8d3023abc1b7361c91822b13a94d}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_ae6af8d3023abc1b7361c91822b13a94d}} 
+\index{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$@{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$}!eval\_min@{eval\_min}}
+\index{eval\_min@{eval\_min}!aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$@{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$}}
+\doxysubsubsection{\texorpdfstring{eval\_min()}{eval\_min()}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model $>$ \\
+template$<$typename Heuristic $>$ \\
+void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic}{aptk\+::agnostic\+::\+Landmarks\+\_\+\+Count\+\_\+\+Heuristic}}$<$ Search\+\_\+\+Model $>$\+::eval\+\_\+min (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classaptk_1_1State}{State}} \&}]{s,  }\item[{unsigned \&}]{h\+\_\+val,  }\item[{\mbox{\hyperlink{classaptk_1_1Heuristic}{Heuristic}} $\ast$}]{heur }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Counts lands \mbox{\Hypertarget{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a4859e28552e8abcc2f11b989f9c690ce}\label{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic_a4859e28552e8abcc2f11b989f9c690ce}} 
+\index{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$@{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$}!set\_graph\_manager@{set\_graph\_manager}}
+\index{set\_graph\_manager@{set\_graph\_manager}!aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$@{aptk::agnostic::Landmarks\_Count\_Heuristic$<$ Search\_Model $>$}}
+\doxysubsubsection{\texorpdfstring{set\_graph\_manager()}{set\_graph\_manager()}}
+{\footnotesize\ttfamily template$<$typename Search\+\_\+\+Model $>$ \\
+void \mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Count__Heuristic}{aptk\+::agnostic\+::\+Landmarks\+\_\+\+Count\+\_\+\+Heuristic}}$<$ Search\+\_\+\+Model $>$\+::set\+\_\+graph\+\_\+manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classaptk_1_1agnostic_1_1Landmarks__Graph__Manager}{Landmarks\+\_\+\+Graph\+\_\+\+Manager}} $\ast$}]{lg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+If manager is defined, landmark graph is recomputed at every node. If it\textquotesingle{}s undefined, a land manager has to be used externally by the search algorithm to update the state of the graph before counting 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/compute/heuristic/landmark\+\_\+count.\+hxx\end{DoxyCompactItemize}

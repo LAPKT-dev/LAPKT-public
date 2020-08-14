@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classtarski_1_1Action" kind="class" language="C++" prot="public">
+    <compoundname>tarski::Action</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classtarski_1_1Action_1a7a9ab686bd3ac79ec8edbf869b5b4a51" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string tarski::Action::m_name</definition>
+        <argsstring></argsstring>
+        <name>m_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="133" column="53" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classtarski_1_1Action_1a1ecf9614d26fcd55f462f612d3da3315" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::pair&lt; <ref refid="classtarski_1_1Atom" kindref="compound">Atom</ref>, float &gt; &gt;</type>
+        <definition>std::vector&lt;std::pair&lt;Atom, float&gt; &gt; tarski::Action::m_cost</definition>
+        <argsstring></argsstring>
+        <name>m_cost</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="135" column="29" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtarski_1_1Action_1a20cdc7302da5cb368d1290dbffefa98d" prot="private" static="no" mutable="no">
+        <type><ref refid="classtarski_1_1Formula" kindref="compound">Formula</ref> *</type>
+        <definition>Formula* tarski::Action::m_pre</definition>
+        <argsstring></argsstring>
+        <name>m_pre</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="136" column="52" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtarski_1_1Action_1a11407b3e48c50a807325ab0a88e0fb53" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classtarski_1_1Identifier" kindref="compound">Identifier</ref> &gt;</type>
+        <definition>std::vector&lt;Identifier&gt; tarski::Action::m_var</definition>
+        <argsstring></argsstring>
+        <name>m_var</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="137" column="41" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classtarski_1_1Action_1a5ef0aab7f07becafdf4a50d23971b322" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::pair&lt; <ref refid="classtarski_1_1Formula" kindref="compound">Formula</ref>, std::vector&lt; std::pair&lt; <ref refid="classtarski_1_1Atom" kindref="compound">Atom</ref>, bool &gt; &gt; &gt; &gt;</type>
+        <definition>std::vector&lt;std::pair&lt;Formula, std::vector&lt; std::pair&lt;Atom, bool&gt; &gt; &gt; &gt; tarski::Action::m_effect</definition>
+        <argsstring></argsstring>
+        <name>m_effect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="140" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classtarski_1_1Action_1a4f457ccfc8336b565cadca56b36e0271" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Action::Action</definition>
+        <argsstring>()</argsstring>
+        <name>Action</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="125" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="505" bodyend="505"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Action_1acc9b506c045fe64e5f1cbf95d371fca6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Action::Action</definition>
+        <argsstring>(std::string name, boost::python::list &amp;var, Formula *pre, boost::python::list &amp;effect, boost::python::tuple &amp;cost)</argsstring>
+        <name>Action</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type><ref refid="classtarski_1_1Formula" kindref="compound">Formula</ref> *</type>
+          <declname>pre</declname>
+        </param>
+        <param>
+          <type>boost::python::list &amp;</type>
+          <declname>effect</declname>
+        </param>
+        <param>
+          <type>boost::python::tuple &amp;</type>
+          <declname>cost</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="126" column="13" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="518" bodyend="545"/>
+      </memberdef>
+      <memberdef kind="function" id="classtarski_1_1Action_1aa26e065af5763bd7efb6926183074856" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Action::instantiate</definition>
+        <argsstring>(STRIPS_Interface *out_task, boost::python::tuple &amp;params, long &amp;next_action_id, std::map&lt; std::string, int &gt; &amp;fluent, std::vector&lt; std::string &gt; &amp;init, std::map&lt; std::string, int &gt; &amp;fval)</argsstring>
+        <name>instantiate</name>
+        <param>
+          <type><ref refid="classSTRIPS__Interface" kindref="compound">STRIPS_Interface</ref> *</type>
+          <declname>out_task</declname>
+        </param>
+        <param>
+          <type>boost::python::tuple &amp;</type>
+          <declname>params</declname>
+        </param>
+        <param>
+          <type>long &amp;</type>
+          <declname>next_action_id</declname>
+        </param>
+        <param>
+          <type>std::map&lt; std::string, int &gt; &amp;</type>
+          <declname>fluent</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::string &gt; &amp;</type>
+          <declname>init</declname>
+        </param>
+        <param>
+          <type>std::map&lt; std::string, int &gt; &amp;</type>
+          <declname>fval</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="129" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.cxx" bodystart="556" bodyend="678"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" line="123" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/pddl_interface/tarski_parse_ground/tarski_instantiator.hxx" bodystart="123" bodyend="141"/>
+    <listofallmembers>
+      <member refid="classtarski_1_1Action_1a4f457ccfc8336b565cadca56b36e0271" prot="public" virt="non-virtual"><scope>tarski::Action</scope><name>Action</name></member>
+      <member refid="classtarski_1_1Action_1acc9b506c045fe64e5f1cbf95d371fca6" prot="public" virt="non-virtual"><scope>tarski::Action</scope><name>Action</name></member>
+      <member refid="classtarski_1_1Action_1aa26e065af5763bd7efb6926183074856" prot="public" virt="non-virtual"><scope>tarski::Action</scope><name>instantiate</name></member>
+      <member refid="classtarski_1_1Action_1a1ecf9614d26fcd55f462f612d3da3315" prot="private" virt="non-virtual"><scope>tarski::Action</scope><name>m_cost</name></member>
+      <member refid="classtarski_1_1Action_1a5ef0aab7f07becafdf4a50d23971b322" prot="private" virt="non-virtual"><scope>tarski::Action</scope><name>m_effect</name></member>
+      <member refid="classtarski_1_1Action_1a7a9ab686bd3ac79ec8edbf869b5b4a51" prot="public" virt="non-virtual"><scope>tarski::Action</scope><name>m_name</name></member>
+      <member refid="classtarski_1_1Action_1a20cdc7302da5cb368d1290dbffefa98d" prot="private" virt="non-virtual"><scope>tarski::Action</scope><name>m_pre</name></member>
+      <member refid="classtarski_1_1Action_1a11407b3e48c50a807325ab0a88e0fb53" prot="private" virt="non-virtual"><scope>tarski::Action</scope><name>m_var</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

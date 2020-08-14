@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1search_1_1Node__Comparer__2H" kind="class" language="C++" prot="public">
+    <compoundname>aptk::search::Node_Comparer_2H</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename Node</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1search_1_1Node__Comparer__2H_1a31f53f9580b333ddeec5301758a7a459" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::search::Node_Comparer_2H&lt; Node &gt;::operator()</definition>
+        <argsstring>(Node *a, Node *b) const</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>Node *</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Node *</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/new_node_comparer.hxx" line="59" column="14" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/new_node_comparer.hxx" bodystart="59" bodyend="70"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/new_node_comparer.hxx" line="55" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/new_node_comparer.hxx" bodystart="56" bodyend="74"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1search_1_1Node__Comparer__2H_1a31f53f9580b333ddeec5301758a7a459" prot="public" virt="non-virtual"><scope>aptk::search::Node_Comparer_2H</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

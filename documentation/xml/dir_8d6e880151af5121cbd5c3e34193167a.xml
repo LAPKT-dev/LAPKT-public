@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="dir_8d6e880151af5121cbd5c3e34193167a" kind="dir">
+    <compoundname>/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/brfs</compoundname>
+    <innerfile refid="brfs_8py">brfs.py</innerfile>
+    <innerfile refid="brfs__planner_8cxx">brfs_planner.cxx</innerfile>
+    <innerfile refid="brfs__planner_8hxx">brfs_planner.hxx</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/brfs/"/>
+  </compounddef>
+</doxygen>

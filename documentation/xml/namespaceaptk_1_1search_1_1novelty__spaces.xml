@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespaceaptk_1_1search_1_1novelty__spaces" kind="namespace" language="C++">
+    <compoundname>aptk::search::novelty_spaces</compoundname>
+    <innerclass refid="classaptk_1_1search_1_1novelty__spaces_1_1DFS__Plus" prot="public">aptk::search::novelty_spaces::DFS_Plus</innerclass>
+    <innerclass refid="classaptk_1_1search_1_1novelty__spaces_1_1Node" prot="public">aptk::search::novelty_spaces::Node</innerclass>
+    <innerclass refid="classaptk_1_1search_1_1novelty__spaces_1_1RP__IW" prot="public">aptk::search::novelty_spaces::RP_IW</innerclass>
+    <innerclass refid="classaptk_1_1search_1_1novelty__spaces_1_1SIW__Plus" prot="public">aptk::search::novelty_spaces::SIW_Plus</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/compute/novelty/node_novelty_spaces.hxx" line="38" column="1"/>
+  </compounddef>
+</doxygen>

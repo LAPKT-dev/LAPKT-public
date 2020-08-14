@@ -1,0 +1,572 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="classaptk_1_1Bit__Set" kind="class" language="C++" prot="public">
+    <compoundname>aptk::Bit_Set</compoundname>
+    <innerclass refid="structaptk_1_1Bit__Set_1_1iterator" prot="public">aptk::Bit_Set::iterator</innerclass>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classaptk_1_1Bit__Set_1a3d7a427716a60301a6ee402aee2be849" prot="protected" static="no" mutable="no">
+        <type><ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref></type>
+        <definition>Bit_Array aptk::Bit_Set::m_fset</definition>
+        <argsstring></argsstring>
+        <name>m_fset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="88" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="classaptk_1_1Bit__Set_1ac54087321290ba31455ad28ca0ff2651" prot="protected" static="yes" mutable="no">
+        <type>const int</type>
+        <definition>const int aptk::Bit_Set::Mod37BitPosition</definition>
+        <argsstring>[37]</argsstring>
+        <name>Mod37BitPosition</name>
+        <initializer>= 
+	{
+		32, 0, 1, 26, 2, 23, 27, 0, 3, 16, 24, 30, 28, 11, 0, 13, 4,
+		7, 17, 0, 25, 22, 31, 15, 29, 10, 12, 6, 0, 21, 14, 9, 5,
+		20, 8, 19, 18
+	}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="90" column="18" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaptk_1_1Bit__Set_1aa08895cb7230088df047d0870e2b2f53" prot="protected" static="yes" mutable="no">
+        <type>const unsigned</type>
+        <definition>const unsigned aptk::Bit_Set::bit_count</definition>
+        <argsstring>[256]</argsstring>
+        <name>bit_count</name>
+        <initializer>= {
+		0,1,1,2,1,2,2,3,1,2,2,3,2,3,3,4,1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,
+		1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,
+		1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,
+		2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,
+		1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,
+		2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,
+		2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,
+		3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,4,5,5,6,5,6,6,7,5,6,6,7,6,7,7,8
+	}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="91" column="23" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1ad3c65bdb4864e417f906374667be812c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Bit_Set::Bit_Set</definition>
+        <argsstring>()</argsstring>
+        <name>Bit_Set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="37" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.cxx" bodystart="26" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1aa9d3594bfdf04eb5693eaa3d110c2dcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>aptk::Bit_Set::Bit_Set</definition>
+        <argsstring>(unsigned sz)</argsstring>
+        <name>Bit_Set</name>
+        <param>
+          <type>unsigned</type>
+          <declname>sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="38" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.cxx" bodystart="30" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a6397d9c81ad9478229a693a1b2a760ab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Set::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="40" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="99" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1ab5c0bf31386ca4422af16cbfeb65d724" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Set::resize</definition>
+        <argsstring>(unsigned sz)</argsstring>
+        <name>resize</name>
+        <param>
+          <type>unsigned</type>
+          <declname>sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="41" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="104" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1afffa8b0068d2ca5e8a7a29fc31f619b8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Set::set</definition>
+        <argsstring>(unsigned f)</argsstring>
+        <name>set</name>
+        <param>
+          <type>unsigned</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="42" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="109" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a25f1c7c5625b42f6e2c28324eb32ac54" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Set::set_all</definition>
+        <argsstring>()</argsstring>
+        <name>set_all</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="43" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="94" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1ad0bd168ca9034dfb6726ffd28890174b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Set::unset</definition>
+        <argsstring>(unsigned f)</argsstring>
+        <name>unset</name>
+        <param>
+          <type>unsigned</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="44" column="6" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="114" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a0adb44c24ac143737d3b539fa14174dd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Set::isset</definition>
+        <argsstring>(unsigned f) const</argsstring>
+        <name>isset</name>
+        <param>
+          <type>unsigned</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="45" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="119" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a8d55c49b0e674988b1c11bab31332e51" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Set::next</definition>
+        <argsstring>(unsigned f) const</argsstring>
+        <name>next</name>
+        <param>
+          <type>unsigned</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="46" column="9" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="124" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a5f5cf489fd49c0b34c87c1e136800f36" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;</type>
+        <definition>const Bit_Array &amp; aptk::Bit_Set::bits</definition>
+        <argsstring>() const</argsstring>
+        <name>bits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="48" column="16" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="135" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a8b4d7b22ca0726c919561768bea64d37" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classaptk_1_1Bit__Array" kindref="compound">Bit_Array</ref> &amp;</type>
+        <definition>Bit_Array &amp; aptk::Bit_Set::bits</definition>
+        <argsstring>()</argsstring>
+        <name>bits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="49" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="130" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1aec044fee54cb6892ac27395ac17ea1ac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Set::add</definition>
+        <argsstring>(const Bit_Set &amp;other)</argsstring>
+        <name>add</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="50" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="140" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1aa47e596d7cca461ca9564369264c4a3a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Set::set_intersection</definition>
+        <argsstring>(const Bit_Set &amp;lhs, const Bit_Set &amp;rhs)</argsstring>
+        <name>set_intersection</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="51" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="150" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a6fa3038ab8668868b8b2ef53a287dbc3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Set::set_intersection</definition>
+        <argsstring>(const Bit_Set &amp;other)</argsstring>
+        <name>set_intersection</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="52" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="160" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a75dd903f687ece493677ec727b281b75" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Set::set_union</definition>
+        <argsstring>(const Bit_Set &amp;other)</argsstring>
+        <name>set_union</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="53" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="170" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a75650a81a371d37e479393d674fb76ac" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::Bit_Set::contains</definition>
+        <argsstring>(const Bit_Set &amp;other) const</argsstring>
+        <name>contains</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="55" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="188" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a7ea733928015b167d159ca7523e1ba7f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::Bit_Set::intersects</definition>
+        <argsstring>(const Bit_Set &amp;other) const</argsstring>
+        <name>intersects</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="56" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="201" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1ab12524a31198bb95332ce698c583710b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void aptk::Bit_Set::remove</definition>
+        <argsstring>(const Bit_Set &amp;other)</argsstring>
+        <name>remove</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="57" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="213" bodyend="221"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a94afbbb25383b8f26b53c71c4c47ea82" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool aptk::Bit_Set::operator==</definition>
+        <argsstring>(const Bit_Set &amp;other) const</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="61" column="5" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="61" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1aaabc0a46fd7ffb973bfcca2179cc46bb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Set::min_elem</definition>
+        <argsstring>(int lb=0) const</argsstring>
+        <name>min_elem</name>
+        <param>
+          <type>int</type>
+          <declname>lb</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="65" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="223" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a09774c52aa1eee516261d127989b03e4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Set::min_missing</definition>
+        <argsstring>(const Bit_Set &amp;other) const</argsstring>
+        <name>min_missing</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="66" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="245" bodyend="257"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a7bfdb563bdfe88e00972402e6938cb12" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Set::max_index</definition>
+        <argsstring>() const</argsstring>
+        <name>max_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="67" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="259" bodyend="261"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a2f1a77cc34a1496c2f5b5bbca1c3c6a8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Set::intersection_size</definition>
+        <argsstring>(const Bit_Set &amp;other) const</argsstring>
+        <name>intersection_size</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="68" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="280" bodyend="290"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1aa3ec3aa541a2fe3af0547d467230d1f2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned aptk::Bit_Set::size</definition>
+        <argsstring>() const</argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="69" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="270" bodyend="278"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a43d127c71b6dcc02a7bcbc5472d5ac83" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structaptk_1_1Bit__Set_1_1iterator" kindref="compound">iterator</ref></type>
+        <definition>iterator aptk::Bit_Set::begin</definition>
+        <argsstring>() const</argsstring>
+        <name>begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="81" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="81" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1ade66c1d90d578d721cfcb33fb073ca4e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structaptk_1_1Bit__Set_1_1iterator" kindref="compound">iterator</ref></type>
+        <definition>iterator aptk::Bit_Set::end</definition>
+        <argsstring>() const</argsstring>
+        <name>end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="82" column="10" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="82" bodyend="82"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classaptk_1_1Bit__Set_1a122918668a8b63ea4255d3de14f92b4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool do_intersect</definition>
+        <argsstring>(const Bit_Set &amp;lhs, const Bit_Set &amp;rhs)</argsstring>
+        <name>do_intersect</name>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classaptk_1_1Bit__Set" kindref="compound">Bit_Set</ref> &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="59" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="180" bodyend="186"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classaptk_1_1Bit__Set_1a2cd7eb25d6c62a5ec2d3c942a3a62a40" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int aptk::Bit_Set::bits_in_word</definition>
+        <argsstring>(unsigned w)</argsstring>
+        <name>bits_in_word</name>
+        <param>
+          <type>unsigned</type>
+          <declname>w</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="84" column="12" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="263" bodyend="268"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>aptk::Bit_Array</label>
+        <link refid="classaptk_1_1Bit__Array"/>
+      </node>
+      <node id="1">
+        <label>aptk::Bit_Set</label>
+        <link refid="classaptk_1_1Bit__Set"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>m_fset</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" line="32" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/utility/bit_set.hxx" bodystart="33" bodyend="92"/>
+    <listofallmembers>
+      <member refid="classaptk_1_1Bit__Set_1aec044fee54cb6892ac27395ac17ea1ac" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>add</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a43d127c71b6dcc02a7bcbc5472d5ac83" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>begin</name></member>
+      <member refid="classaptk_1_1Bit__Set_1aa08895cb7230088df047d0870e2b2f53" prot="protected" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>bit_count</name></member>
+      <member refid="classaptk_1_1Bit__Set_1ad3c65bdb4864e417f906374667be812c" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>Bit_Set</name></member>
+      <member refid="classaptk_1_1Bit__Set_1aa9d3594bfdf04eb5693eaa3d110c2dcd" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>Bit_Set</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a5f5cf489fd49c0b34c87c1e136800f36" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>bits</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a8b4d7b22ca0726c919561768bea64d37" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>bits</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a2cd7eb25d6c62a5ec2d3c942a3a62a40" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>bits_in_word</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a75650a81a371d37e479393d674fb76ac" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>contains</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a122918668a8b63ea4255d3de14f92b4f" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>do_intersect</name></member>
+      <member refid="classaptk_1_1Bit__Set_1ade66c1d90d578d721cfcb33fb073ca4e" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>end</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a2f1a77cc34a1496c2f5b5bbca1c3c6a8" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>intersection_size</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a7ea733928015b167d159ca7523e1ba7f" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>intersects</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a0adb44c24ac143737d3b539fa14174dd" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>isset</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a3d7a427716a60301a6ee402aee2be849" prot="protected" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>m_fset</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a7bfdb563bdfe88e00972402e6938cb12" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>max_index</name></member>
+      <member refid="classaptk_1_1Bit__Set_1aaabc0a46fd7ffb973bfcca2179cc46bb" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>min_elem</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a09774c52aa1eee516261d127989b03e4" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>min_missing</name></member>
+      <member refid="classaptk_1_1Bit__Set_1ac54087321290ba31455ad28ca0ff2651" prot="protected" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>Mod37BitPosition</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a8d55c49b0e674988b1c11bab31332e51" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>next</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a94afbbb25383b8f26b53c71c4c47ea82" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>operator==</name></member>
+      <member refid="classaptk_1_1Bit__Set_1ab12524a31198bb95332ce698c583710b" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>remove</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a6397d9c81ad9478229a693a1b2a760ab" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>reset</name></member>
+      <member refid="classaptk_1_1Bit__Set_1ab5c0bf31386ca4422af16cbfeb65d724" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>resize</name></member>
+      <member refid="classaptk_1_1Bit__Set_1afffa8b0068d2ca5e8a7a29fc31f619b8" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>set</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a25f1c7c5625b42f6e2c28324eb32ac54" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>set_all</name></member>
+      <member refid="classaptk_1_1Bit__Set_1aa47e596d7cca461ca9564369264c4a3a" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>set_intersection</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a6fa3038ab8668868b8b2ef53a287dbc3" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>set_intersection</name></member>
+      <member refid="classaptk_1_1Bit__Set_1a75dd903f687ece493677ec727b281b75" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>set_union</name></member>
+      <member refid="classaptk_1_1Bit__Set_1aa3ec3aa541a2fe3af0547d467230d1f2" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>size</name></member>
+      <member refid="classaptk_1_1Bit__Set_1ad0bd168ca9034dfb6726ffd28890174b" prot="public" virt="non-virtual"><scope>aptk::Bit_Set</scope><name>unset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

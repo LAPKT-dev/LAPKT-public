@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespacerp__iw" kind="namespace" language="Python">
+    <compoundname>rp_iw</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="rp__iw_8py_1adc3ea619651d2c854377c0195474cc57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def rp_iw.main</definition>
+        <argsstring>(domain_file, problem_file, plan_file)</argsstring>
+        <name>main</name>
+        <param>
+          <type>domain_file</type>
+          <defname>domain_file</defname>
+        </param>
+        <param>
+          <type>problem_file</type>
+          <defname>problem_file</defname>
+        </param>
+        <param>
+          <type>plan_file</type>
+          <defname>plan_file</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/iw_plus/rp_iw.py" line="9" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/iw_plus/rp_iw.py" bodystart="9" bodyend="51"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/planners/iw_plus/rp_iw.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

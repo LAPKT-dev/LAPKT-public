@@ -1,0 +1,62 @@
+\hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action}{}\doxysection{aptk\+::agnostic\+::C\+C\+\_\+\+Problem\+::C\+C\+\_\+\+Action Class Reference}
+\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action}\index{aptk::agnostic::CC\_Problem::CC\_Action@{aptk::agnostic::CC\_Problem::CC\_Action}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_ad2f676cd63c554310c98a09b11a13eca}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_ad2f676cd63c554310c98a09b11a13eca}} 
+{\bfseries C\+C\+\_\+\+Action} (const \mbox{\hyperlink{classaptk_1_1Action}{Action}} \&a)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a2d18a2465a9ed245c0578c76b6d5d89e}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a2d18a2465a9ed245c0578c76b6d5d89e}} 
+void {\bfseries add\+\_\+new\+\_\+pre} (unsigned p)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a6bdca7605b3e4d2926acc7c480c1f31b}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a6bdca7605b3e4d2926acc7c480c1f31b}} 
+void {\bfseries add\+\_\+new\+\_\+eff} (unsigned p)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a641245eb5dc5d95727e74fa7ce6fd761}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a641245eb5dc5d95727e74fa7ce6fd761}} 
+void {\bfseries add\+\_\+new\+\_\+cond\+\_\+eff} (Fluent\+\_\+\+Vec \&cond, Fluent\+\_\+\+Vec \&eff)
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_af15a06830a7dce6734297a0093af2eca}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_af15a06830a7dce6734297a0093af2eca}} 
+const Fluent\+\_\+\+Vec \& {\bfseries pre} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_ada95acab943a3bb83531e2d3c9487c55}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_ada95acab943a3bb83531e2d3c9487c55}} 
+bool {\bfseries requires} (unsigned p) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a0a6360d9cd525b846df028d35698fb12}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a0a6360d9cd525b846df028d35698fb12}} 
+const Fluent\+\_\+\+Vec \& {\bfseries add} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a2fb2e527b326b08c44994b836885bfa6}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a2fb2e527b326b08c44994b836885bfa6}} 
+bool {\bfseries adds} (unsigned p) const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a92fc379730b668317cee726edf85327e}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a92fc379730b668317cee726edf85327e}} 
+float {\bfseries cost} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a0fe272c062dd6d784a04efd98c73b137}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a0fe272c062dd6d784a04efd98c73b137}} 
+const \mbox{\hyperlink{classaptk_1_1Action}{Action}} \& {\bfseries original} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_aeb9b25516ddda53af8e626b9a2eb46c5}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_aeb9b25516ddda53af8e626b9a2eb46c5}} 
+const std\+::vector$<$ C\+C\+\_\+\+Cond\+\_\+\+Eff $>$ \& {\bfseries cond\+\_\+effs} () const
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_acaa98f07588246e423dfa19f72eb94bf}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_acaa98f07588246e423dfa19f72eb94bf}} 
+std\+::string {\bfseries signature} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_ad8c05a02846968da4cfe56c8348c6f08}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_ad8c05a02846968da4cfe56c8348c6f08}} 
+const \mbox{\hyperlink{classaptk_1_1Action}{Action}} \& {\bfseries m\+\_\+orig\+\_\+act}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a6b2322489ddfca39700d285b00302272}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a6b2322489ddfca39700d285b00302272}} 
+Fluent\+\_\+\+Vec {\bfseries m\+\_\+pre}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a041fe0afe4d8649d35ff186bc74f9d1d}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a041fe0afe4d8649d35ff186bc74f9d1d}} 
+Fluent\+\_\+\+Vec {\bfseries m\+\_\+add}
+\item 
+\mbox{\Hypertarget{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a6f85fad47b8f2cd4f4ed7ec78f7e6f9f}\label{classaptk_1_1agnostic_1_1CC__Problem_1_1CC__Action_a6f85fad47b8f2cd4f4ed7ec78f7e6f9f}} 
+std\+::vector$<$ C\+C\+\_\+\+Cond\+\_\+\+Eff $>$ {\bfseries m\+\_\+cond\+\_\+eff\+\_\+list}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/model/conj\+\_\+comp\+\_\+prob.\+hxx\item 
+/home/simhasama/\+Github/\+L\+A\+P\+K\+T\+\_\+dev/\+L\+A\+P\+K\+T-\/public/src/shared/model/conj\+\_\+comp\+\_\+prob.\+cxx\end{DoxyCompactItemize}

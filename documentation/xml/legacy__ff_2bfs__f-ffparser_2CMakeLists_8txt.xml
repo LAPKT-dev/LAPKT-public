@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="legacy__ff_2bfs__f-ffparser_2CMakeLists_8txt" kind="file" language="C++">
+    <compoundname>CMakeLists.txt</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="legacy__ff_2bfs__f-ffparser_2CMakeLists_8txt_1aeb1ea9ea48f815954fb99a82619dfb86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>target_sources</definition>
+        <argsstring>(run_bfs_f_ff_parser PRIVATE main.cxx) target_include_directories(run_bfs_f_ff_parser PRIVATE $</argsstring>
+        <name>target_sources</name>
+        <param>
+          <type>run_bfs_f_ff_parser PRIVATE main.</type>
+          <declname>cxx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/CMakeLists.txt" line="1" column="1" bodyfile="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/CMakeLists.txt" bodystart="1" bodyend="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">target_sources(run_bfs_f_ff_parser</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"><sp/><sp/><sp/><sp/>PRIVATE</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>main.cxx</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">target_include_directories(run_bfs_f_ff_parser<sp/>PRIVATE<sp/>${Boost_INCLUDE_DIRS})</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">target_link_libraries(run_bfs_f_ff_parser<sp/>PRIVATE</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>${EXTRA_LIBS}</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>${Boost_PROGRAM_OPTIONS_LIBRARY}<sp/></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>${Boost_REGEX_LIBRARY}</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+    </programlisting>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/legacy_ff/bfs_f-ffparser/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

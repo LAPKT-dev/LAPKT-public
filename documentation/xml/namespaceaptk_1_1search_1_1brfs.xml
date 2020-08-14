@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespaceaptk_1_1search_1_1brfs" kind="namespace" language="C++">
+    <compoundname>aptk::search::brfs</compoundname>
+    <innerclass refid="classaptk_1_1search_1_1brfs_1_1BRFS" prot="public">aptk::search::brfs::BRFS</innerclass>
+    <innerclass refid="classaptk_1_1search_1_1brfs_1_1IW" prot="public">aptk::search::brfs::IW</innerclass>
+    <innerclass refid="classaptk_1_1search_1_1brfs_1_1Node" prot="public">aptk::search::brfs::Node</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/simhasama/Github/LAPKT_dev/LAPKT-public/src/shared/search/brfs.hxx" line="38" column="1"/>
+  </compounddef>
+</doxygen>
