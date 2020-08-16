@@ -254,15 +254,15 @@ def ground_generate_task( domain_file, problem_file, out_task) :
                     term.symbol) for p in action.parameters],
              t_pre, effect_list, cost)
             instantiator.instantiate_action( t_action, param_list)
-        #out_task.print_actions()
-        #out_task.print_fluents()
-
         # finalize_actions Must be called after ALL actions are pushed to task
         # This adds neg_atoms to all Fluent_set(Bit_set) objects in actions
         instantiator.finalize_actions()
         # set init and goal AFTER finalize_actions
         instantiator.set_init();
         instantiator.set_goal();
+        #
+        #out_task.print_actions()
+        #out_task.print_fluents()
 
     # Not going to handle axioms - not required right now
     # axioms = None # they need to be transformed into actions as per Gazen's paper

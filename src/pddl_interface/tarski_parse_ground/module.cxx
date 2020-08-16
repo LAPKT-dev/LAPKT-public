@@ -34,5 +34,6 @@ BOOST_PYTHON_MODULE(libtarski_util)
     boost::python::class_<Action>("TI_Action")
         .def(  init< std::string,  boost::python::list&, Formula*,
                 boost::python::list&, boost::python::tuple& >() )
+        .def( "publish", &Action::publish)
     ;
 }

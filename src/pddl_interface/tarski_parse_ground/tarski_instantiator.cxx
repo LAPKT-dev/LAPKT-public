@@ -545,6 +545,57 @@ Action::Action( std::string name, boost::python::list& var, Formula* pre,
 }
 //############################################################################//
 
+//==== Return: String representation of atom
+//----------------------------------------------------------------------------//
+std::string Action::publish()
+{
+    std::string output;
+    output.append( "Action (");
+    output.append( m_name);
+    for( auto var = m_var.begin(); var!=m_var.end(); ) {
+        output.append( var->get_name());
+        if (++var != m_var.end()) {
+            output.append(" ");
+        }
+    }
+    output.append( ")\n");
+    output.append( "  Pre = ");
+    output.append( m_pre->publish());
+    output.append( "\n  Effects: \n");
+    for( auto eff = m_effect.begin(); eff!=m_effect.end(); ) {
+        output.append( "    Condition = ");
+        output.append( eff->first.publish());
+        output.append( "\n");
+
+        output.append( "    Effect = {");
+        for( auto e = eff->second.begin(); e!=eff->second.end(); ) {
+            output.append( e->first.publish());
+            output.append( " - ");
+            output.append( std::to_string(e->second));
+            if (++e != eff->second.end()) {
+                output.append(", ");
+            }
+        }
+        output.append( "}");
+        if (++eff != m_effect.end()) {
+            output.append("\n");
+        }
+    }
+    output.append("\n");
+    output.append( "  Cost = {");
+    for( auto c = m_cost.begin(); c!=m_cost.end(); ) {
+        output.append( c->first.publish());
+        output.append( " - ");
+        output.append( std::to_string(c->second));
+        if (++c != m_cost.end()) {
+            output.append(", ");
+        }
+    }
+    output.append( "}");
+    output.append("\n");
+    return output;
+}
+//############################################################################//
 //---- Instantiate Action
 //==== Arguments ====//
 //---- 1. out_task:         LAPKT planner object pointer
@@ -763,6 +814,9 @@ void Tarski_Instantiator::set_init()
         }
     }
     m_task->set_init( enc_init);
+    //for(auto i : m_task->instance()->init()){
+    //    std::cout << m_task->instance()->fluents()[i]->signature()<<std::endl;
+    //}
 }
 
 //############################################################################//
