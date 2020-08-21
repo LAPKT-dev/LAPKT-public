@@ -80,5 +80,13 @@ BFWS:
       action  : 'store'
       help    : 'For M-variants of BFWS, increases the number of expanded nodes by the constant factor.'
     var_name: 'm_value'
+  run_id: 
+    cmd_arg: 
+      default : 0
+      required: False
+      nargs   : '?'
+      type    : 'int'
+      action  : 'store'
+      help    : 'a dummy id to differentiate between multiple runs of the same planner'
 
 #END - Leave this line a empty line as it is
