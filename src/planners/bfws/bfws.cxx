@@ -230,7 +230,7 @@ BFWS::solve() {
 		
  		std::cout << "Starting search with BFWS-f5-landmarks..." << std::endl;
 			
-		k_BFWS bfs_engine( search_prob );	
+		k_BFWS bfs_engine( search_prob, m_verbose );	
 		
 		/**
 		 * Use landmark count instead of goal count
@@ -254,7 +254,7 @@ BFWS::solve() {
 		
 		std::cout << "Starting search with BFWS(w_(#G), #G)..." << std::endl;
 			
-		k_BFWS bfs_engine( search_prob );		      
+		k_BFWS bfs_engine( search_prob, m_verbose );		      
 		
 		bfws_options( search_prob, bfs_engine, m_max_novelty, graph );
 				
@@ -270,7 +270,7 @@ BFWS::solve() {
 		
 		std::cout << "Starting search with BFWS-f5..." << std::endl;
 			
-		k_BFWS bfs_engine( search_prob );	
+		k_BFWS bfs_engine( search_prob, m_verbose );	
 
 		bfws_options( search_prob, bfs_engine, m_max_novelty, graph );
 		
@@ -283,7 +283,7 @@ BFWS::solve() {
 		
 		std::cout << "Starting search with BFWS-f5... R computed once from s0" << std::endl;
 			
-		k_BFWS bfs_engine( search_prob );
+		k_BFWS bfs_engine( search_prob, m_verbose );
 		
 		bfws_options( search_prob, bfs_engine, m_max_novelty, graph );
 		
@@ -298,7 +298,7 @@ BFWS::solve() {
 		
 		std::cout << "Starting search with k-BFWS..." << std::endl;
 			
-		k_BFWS bfs_engine( search_prob );	
+		k_BFWS bfs_engine( search_prob, m_verbose );	
 		
 		bfws_options( search_prob, bfs_engine, m_max_novelty, graph );
 
@@ -316,7 +316,7 @@ BFWS::solve() {
 		
 		std::cout << "Starting search with k-M-BFWS..." << std::endl;     
 
-		k_BFWS_M bfs_engine( search_prob );	
+		k_BFWS_M bfs_engine( search_prob, m_verbose );	
 
 		bfws_options( search_prob, bfs_engine, m_max_novelty, graph );
 
@@ -337,7 +337,7 @@ BFWS::solve() {
 		
 		std::cout << "Starting search with k-M-C-BFWS..." << std::endl;
 		
-		k_BFWS_Consistency_M bfs_engine( search_prob );	
+		k_BFWS_Consistency_M bfs_engine( search_prob, m_verbose );	
 
 		bfws_options( search_prob, bfs_engine, m_max_novelty, graph );
 		
@@ -358,7 +358,7 @@ BFWS::solve() {
 		
 		std::cout << "Starting search with k-C-BFWS..." << std::endl;
 			
-		k_BFWS_Consistency bfs_engine( search_prob );	
+		k_BFWS_Consistency bfs_engine( search_prob, m_verbose );	
 
 		bfws_options( search_prob, bfs_engine, m_max_novelty, graph );
 
@@ -375,7 +375,7 @@ BFWS::solve() {
 		
 		std::cout << "Starting search with 1-C-BFWS..." << std::endl;
 			
-		k_BFWS_Consistency bfs_engine( search_prob );	
+		k_BFWS_Consistency bfs_engine( search_prob, m_verbose );	
 
 		bfws_options( search_prob, bfs_engine, 1, graph );
 
@@ -392,7 +392,7 @@ BFWS::solve() {
 	else if( m_search_alg.compare("1-BFWS") == 0 ){
 	        std::cout << "Starting search with 1-BFWS..." << std::endl;
 	
-		k_BFWS bfs_engine( search_prob );	
+		k_BFWS bfs_engine( search_prob, m_verbose );	
 
 		bfws_options( search_prob, bfs_engine, 1, graph );
 
@@ -407,7 +407,7 @@ BFWS::solve() {
 	else if( m_search_alg.compare("POLY-BFWS") == 0 ){
 	        std::cout << "Starting search with 1-BFWS..." << std::endl;
 	
-		k_BFWS* bfs_engine = new k_BFWS( search_prob );	
+		k_BFWS* bfs_engine = new k_BFWS( search_prob, m_verbose );	
 
 		bfws_options( search_prob, *bfs_engine, 1, graph );
 
@@ -433,7 +433,7 @@ BFWS::solve() {
 				
 				Land_Graph_Man lgm( search_prob, &graph1);
 				
-				k_BFWS_Consistency_M bfs_engine( search_prob );	
+				k_BFWS_Consistency_M bfs_engine( search_prob, m_verbose );	
 				
 				bfws_options( search_prob, bfs_engine, m_max_novelty, graph1 );
 				
@@ -463,7 +463,7 @@ BFWS::solve() {
     if( m_search_alg.compare("DUAL-C-BFWS") == 0 and !m_found_plan)	{
 	    std::cout << "Starting search with 1-C-BFWS..." << std::endl;
 	
-	    k_BFWS_Consistency bfs_engine( search_prob );	
+	    k_BFWS_Consistency bfs_engine( search_prob, m_verbose );	
 	   
 	    bfws_options( search_prob, bfs_engine, 1, graph );
 
@@ -475,9 +475,9 @@ BFWS::solve() {
     }
     //Fast First (FOR AAAI-17)
     if( m_search_alg.compare("DUAL-BFWS") == 0 and !m_found_plan)	{
-            std::cout << "Starting search with 1-BFWS..." << std::endl;
+            std::cout << "Starting search with 1-BFWS..." <<m_verbose << std::endl;
 	
-	    k_BFWS bfs_engine( search_prob );	
+	    k_BFWS bfs_engine( search_prob, m_verbose );	
 	    
 	    bfws_options( search_prob, bfs_engine, 1, graph );
 
@@ -492,7 +492,7 @@ BFWS::solve() {
     if(!m_found_plan && (m_search_alg.compare("DUAL-BFWS") == 0 or m_search_alg.compare("DUAL-C-BFWS") == 0 ) ){
 	    std::cout << "Starting search with BFWS(novel,land,h_ff)..." << std::endl;
 
-	    BFWS_w_hlm_hadd bfs_engine( search_prob );	
+	    BFWS_w_hlm_hadd bfs_engine( search_prob, m_verbose );	
 	    bfs_engine.h4().ignore_rp_h_value(true);
 
 	    /**

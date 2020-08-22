@@ -206,8 +206,8 @@ public:
 	typedef 	Closed_List< Search_Node >			        Closed_List_Type;
 	typedef         aptk::agnostic::Landmarks_Graph_Manager<Search_Model>   Landmarks_Graph_Manager;
 
-	BFWS_2H( 	const Search_Model& search_problem ) 
-		: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_dead_end_count(0), m_open_repl_count(0),m_max_depth( infty ), m_max_novelty(1), m_time_budget(infty), m_lgm(NULL), m_max_h2n(no_such_index), m_max_r(no_such_index), m_verbose( true ),  m_use_novelty(true), m_use_novelty_pruning(false), m_use_rp(true), m_use_rp_from_init_only(false) {	
+	BFWS_2H( 	const Search_Model& search_problem, bool verbose ) 
+		: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_dead_end_count(0), m_open_repl_count(0),m_max_depth( infty ), m_max_novelty(1), m_time_budget(infty), m_lgm(NULL), m_max_h2n(no_such_index), m_max_r(no_such_index), m_verbose( verbose ),  m_use_novelty(true), m_use_novelty_pruning(false), m_use_rp(true), m_use_rp_from_init_only(false) {	
 		m_first_h = new First_Heuristic( search_problem );
 		m_second_h = new Second_Heuristic( search_problem );
 		m_relevant_fluents_h = new Relevant_Fluents_Heuristic( search_problem );

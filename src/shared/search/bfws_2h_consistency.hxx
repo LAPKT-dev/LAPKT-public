@@ -51,8 +51,8 @@ public:
 	typedef 	Closed_List< Search_Node >			        Closed_List_Type;
 	typedef         aptk::agnostic::Landmarks_Graph_Manager<Search_Model>   Landmarks_Graph_Manager;
 
-	BFWS_2H_Consistency( 	const Search_Model& search_problem ) 
-	: BFWS_2H<Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type >(search_problem) {
+	BFWS_2H_Consistency( 	const Search_Model& search_problem, bool verbose ) 
+	: BFWS_2H<Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type >(search_problem, verbose) {
 		m_reachability = new aptk::agnostic::Reachability_Test( this->problem().task() );		
 	}
 

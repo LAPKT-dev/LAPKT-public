@@ -80,6 +80,13 @@ BFWS:
       action  : 'store'
       help    : 'For M-variants of BFWS, increases the number of expanded nodes by the constant factor.'
     var_name: 'm_value'
+  verbose: 
+    cmd_arg: 
+      default : False
+      required: False
+      action  : 'store_true'
+      help    : 'verbose standard output'
+    var_name: 'verbose'
   run_id: 
     cmd_arg: 
       default : 0

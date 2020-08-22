@@ -135,6 +135,7 @@ BOOST_PYTHON_MODULE(libPlanners)
         .def_readwrite( "found_plan", &BFWS::m_found_plan )
         .def_readwrite( "plan_cost", &BFWS::m_cost )
         .def_readwrite( "cost_bound", &BFWS::m_cost_bound )	    	    
+        .def_readwrite( "verbose", &BFWS::m_verbose )	    	    
 	;
 	class_<DFIW_Planner, bases<STRIPS_Interface>>("DFIW_Planner")
         .def( "setup", &DFIW_Planner::setup )

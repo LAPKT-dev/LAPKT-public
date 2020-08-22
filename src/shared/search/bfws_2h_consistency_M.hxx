@@ -50,8 +50,8 @@ public:
 	typedef 	Closed_List< Search_Node >			        Closed_List_Type;
 	typedef         aptk::agnostic::Landmarks_Graph_Manager<Search_Model>   Landmarks_Graph_Manager;
 
-	BFWS_2H_Consistency_M( 	const Search_Model& search_problem ) 
-		: BFWS_2H_Consistency<Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type >(search_problem), m_M(0)
+	BFWS_2H_Consistency_M( 	const Search_Model& search_problem, bool verbose ) 
+		: BFWS_2H_Consistency<Search_Model, First_Heuristic, Second_Heuristic, Relevant_Fluents_Heuristic, Open_List_Type >(search_problem, verbose ), m_M(0)
 	{	
 				
 	}

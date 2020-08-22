@@ -179,10 +179,11 @@ public:
 	std::string     m_search_alg;
 	unsigned m_M;
 	unsigned m_max_novelty;  	
-	bool m_anytime;
-	bool m_found_plan;
-	float m_cost;
-	float m_cost_bound;
+	bool    m_anytime;
+	bool    m_found_plan;
+	float   m_cost;
+	float   m_cost_bound;
+    bool    m_verbose=false;
 protected:
 	template <typename Search_Engine>
 	void bfws_options( Fwd_Search_Problem& search_prob, Search_Engine& bfs_engine, unsigned max_novelty, Landmarks_Graph& graph);
