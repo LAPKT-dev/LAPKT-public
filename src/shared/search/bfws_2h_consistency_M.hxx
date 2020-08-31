@@ -166,6 +166,8 @@ public:
 
 		} 
 		this->inc_eval();
+        this->m_expanded_count_by_novelty[head->h1n()-1]++;
+
 	}
 	
 protected:

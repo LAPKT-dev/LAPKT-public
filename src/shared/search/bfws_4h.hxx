@@ -335,6 +335,18 @@ public:
 		
 		return true;
 	}
+    unsigned get_max_novelty_expanded() {
+        return 0;
+    }
+    unsigned get_max_novelty_generated() {
+        return 0;
+    }
+    const unsigned*
+    count_solution_nodes_by_novelty() const { return nullptr; }
+    const unsigned*
+    generated_by_novelty() const { return nullptr; }
+    const unsigned*
+    expanded_by_novelty() const  { return nullptr; }
 
 	float			bound() const			{ return m_B; }
 	void			set_bound( float v ) 		{ m_B = v; }

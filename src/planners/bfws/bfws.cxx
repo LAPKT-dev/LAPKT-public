@@ -105,6 +105,27 @@ float BFWS::do_search( Search_Engine& engine, aptk::STRIPS_Problem& plan_prob, s
 		std::cout << "Nodes expanded during search: " << engine.expanded() << std::endl;
 		std::cout << "Plan found with cost: " << m_cost << std::endl;
         aptk::report_memory_usage();
+
+        const unsigned* generated_nov = engine.generated_by_novelty();
+        const unsigned* expanded_nov = engine.expanded_by_novelty();
+        const unsigned* count_sol_nodes_by_nov =
+                              engine.count_solution_nodes_by_novelty();
+        if (generated_nov!=nullptr)
+            for(unsigned i = 0; i < m_max_novelty+2; i++){
+                std::cout << "Count novelty "<<i+1<<" generated nodes: "<<
+                    generated_nov[i] << std::endl;
+            }
+        if (expanded_nov!=nullptr)
+            for(unsigned i = 0; i < m_max_novelty+2; i++){
+                std::cout << "Count novelty "<<i+1<<" expanded nodes: "<<
+                    expanded_nov[i] << std::endl;
+            }
+        if (count_sol_nodes_by_nov!=nullptr)
+            for(unsigned i = 0; i < m_max_novelty+2; i++){
+                std::cout << "Solution nodes of novelty "<<i+1<<": "<<
+                      count_sol_nodes_by_nov[i] << std::endl;
+            }
+
 		details.close();
 		return total_time;
 	}

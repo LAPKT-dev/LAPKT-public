@@ -207,7 +207,7 @@ public:
 	typedef         aptk::agnostic::Landmarks_Graph_Manager<Search_Model>   Landmarks_Graph_Manager;
 
 	BFWS_2H( 	const Search_Model& search_problem, bool verbose ) 
-		: m_problem( search_problem ), m_exp_count(0), m_gen_count(0), m_dead_end_count(0), m_open_repl_count(0),m_max_depth( infty ), m_max_novelty(1), m_time_budget(infty), m_lgm(NULL), m_max_h2n(no_such_index), m_max_r(no_such_index), m_verbose( verbose ),  m_use_novelty(true), m_use_novelty_pruning(false), m_use_rp(true), m_use_rp_from_init_only(false) {	
+		: m_problem( search_problem ), m_expanded_count_by_novelty(nullptr), m_generated_count_by_novelty(nullptr),m_novelty_count_plan(nullptr), m_exp_count(0), m_gen_count(0), m_dead_end_count(0), m_open_repl_count(0),m_max_depth( infty ), m_max_novelty(1), m_time_budget(infty), m_lgm(NULL), m_max_h2n(no_such_index), m_max_r(no_such_index), m_verbose( verbose ),  m_use_novelty(true), m_use_novelty_pruning(false), m_use_rp(true), m_use_rp_from_init_only(false) {	
 		m_first_h = new First_Heuristic( search_problem );
 		m_second_h = new Second_Heuristic( search_problem );
 		m_relevant_fluents_h = new Relevant_Fluents_Heuristic( search_problem );
@@ -228,7 +228,12 @@ public:
 		delete m_first_h;
 		delete m_second_h;
 		delete m_relevant_fluents_h;
-
+        if(m_expanded_count_by_novelty!=nullptr)
+              free(m_expanded_count_by_novelty);
+        if(m_generated_count_by_novelty!=nullptr)
+              free(m_generated_count_by_novelty);
+        if(m_novelty_count_plan!=nullptr)
+              free(m_novelty_count_plan);
 	}
 
 	/**
@@ -376,6 +381,7 @@ public:
 		#endif 
 		m_open.insert( m_root );
 
+        m_generated_count_by_novelty[m_root->h1n()-1]++;
 		inc_gen();
 	}
 
@@ -535,6 +541,7 @@ public:
 	void	 	open_node( Search_Node *n ) {
 		m_open.insert(n);
 		inc_gen();
+        m_generated_count_by_novelty[n->h1n()-1]++;
 	}
 	
 	virtual void 			process(  Search_Node *head ) {
@@ -632,6 +639,7 @@ public:
 
 		} 
 		inc_eval();
+        m_expanded_count_by_novelty[head->h1n()-1]++;
 	}
 
 	virtual Search_Node*	 	do_search() {
@@ -673,7 +681,18 @@ public:
 	}
 
         void	set_arity( float v, unsigned g ){ m_first_h->set_arity( v, g ); }
-	void    set_max_novelty( unsigned v )   { m_max_novelty = v; }
+	void    set_max_novelty( unsigned v )   { 
+        m_max_novelty = v; 
+        if (m_expanded_count_by_novelty!=nullptr)
+            free(m_expanded_count_by_novelty);
+        m_expanded_count_by_novelty = (unsigned*) calloc(v+2,sizeof(unsigned));
+        if (m_generated_count_by_novelty!=nullptr)
+            free(m_generated_count_by_novelty);
+        m_generated_count_by_novelty = (unsigned*) calloc(v+2,sizeof(unsigned));
+        if (m_novelty_count_plan!=nullptr)
+            free(m_novelty_count_plan);
+        m_novelty_count_plan = (unsigned*) calloc(v+2,sizeof(unsigned));
+    }
 
 
 	bool	find_solution( float& cost, std::vector<Action_Idx>& plan ) {
@@ -691,6 +710,29 @@ public:
       	void			set_use_rp_from_init_only( bool v ) { m_use_rp_from_init_only = v; }
     	void			set_use_novelty( bool v ) 	 { m_use_novelty = v; }
 	void			set_use_novelty_pruning( bool v ){ m_use_novelty_pruning = v; }
+
+    unsigned get_max_novelty_expanded() {
+        for(int i = m_max_novelty+1; i >=0; i--) {
+            if (m_expanded_count_by_novelty[i] > 0)
+                return i+1;
+        }
+    return 0;
+    }
+    unsigned get_max_novelty_generated() {
+        for(int i = m_max_novelty+1; i >=0; i--) {
+            if (m_generated_count_by_novelty[i] > 0)
+                return i+1;
+        }
+    return 0;
+    }
+
+    const unsigned*
+    count_solution_nodes_by_novelty() const { return m_novelty_count_plan; }
+    const unsigned*
+    generated_by_novelty() const { return m_generated_count_by_novelty; }
+    const unsigned*
+    expanded_by_novelty() const  { return m_expanded_count_by_novelty; }
+
 
 	void			inc_gen()			{ m_gen_count++; }
 	unsigned		generated() const		{ return m_gen_count; }
@@ -728,6 +770,7 @@ protected:
 		Search_Node *tmp = t;
 		cost = 0.0f;
 		while( tmp != s) {
+            m_novelty_count_plan[tmp->h1n()-1]++;
 			cost += m_problem.cost( *(tmp->state()), tmp->action() );
 			plan.push_back(tmp->action());
 			tmp = tmp->parent();
@@ -748,36 +791,40 @@ protected:
 	
 protected:
 
-	const Search_Model&			m_problem;
-	First_Heuristic*			m_first_h;
-	Second_Heuristic*			m_second_h;
-    	Relevant_Fluents_Heuristic*    		m_relevant_fluents_h;
+	const Search_Model&			    m_problem;
+	First_Heuristic*			    m_first_h;
+	Second_Heuristic*			    m_second_h;
+    Relevant_Fluents_Heuristic*    	m_relevant_fluents_h;
 	
 	Open_List_Type				m_open;
 	Closed_List_Type			m_closed;
 	
+    unsigned*               m_expanded_count_by_novelty;
+    unsigned*               m_generated_count_by_novelty;
+    unsigned*               m_novelty_count_plan;
+
 	unsigned				m_exp_count;
 	unsigned				m_gen_count;
 	unsigned				m_dead_end_count;
 	unsigned				m_open_repl_count;
 	
 	float					m_max_depth;
-	unsigned                                m_max_novelty;
+	unsigned                m_max_novelty;
 	float					m_time_budget;
 	float					m_t0;
 
 	Search_Node*				m_root;
-	std::vector<Action_Idx> 		m_app_set;
-	Landmarks_Graph_Manager*                m_lgm;
+	std::vector<Action_Idx> 	m_app_set;
+	Landmarks_Graph_Manager*    m_lgm;
 
-	unsigned                                m_max_h2n;
-	unsigned                                m_max_r;
-	bool					m_verbose;
+	unsigned                    m_max_h2n;
+	unsigned                    m_max_r;
+	bool					    m_verbose;
 
-	bool                                    m_use_novelty;
-	bool                                    m_use_novelty_pruning;
-        bool                                    m_use_rp;
-	bool                                    m_use_rp_from_init_only;
+	bool                        m_use_novelty;
+	bool                        m_use_novelty_pruning;
+    bool                        m_use_rp;
+	bool                        m_use_rp_from_init_only;
 };
 
 }

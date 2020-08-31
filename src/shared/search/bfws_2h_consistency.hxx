@@ -110,6 +110,7 @@ public:
 		this->m_open.insert( this->m_root );
 
 		this->inc_gen();
+        this->m_generated_count_by_novelty[this->m_root->h1n()-1]++;
 	}
 
 	virtual void      eval( Search_Node* candidate ) {
