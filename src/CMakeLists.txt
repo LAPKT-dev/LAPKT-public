@@ -16,7 +16,7 @@ endif(USE_SUPERBUILD)
 
 #----Check Python Version ----#
 find_package(Python3 COMPONENTS Interpreter Development)
-if(${Python3_VERSION} GREATER 3.8 OR ${Python3_VERSION} LESS 3.7)
+if(${Python3_VERSION} GREATER 3.9 OR ${Python3_VERSION} LESS 3.7)
     message(SEND_ERROR 
         "INCOMPATIBLE PYTHON VERSION, expected 3.7.x or 3.8.x. Found - " 
         ${Python3_VERSION})
