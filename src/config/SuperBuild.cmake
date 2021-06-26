@@ -55,8 +55,8 @@ ExternalProject_Add( external_clingo_win32
     )
 
 ExternalProject_Add( external_boost
-    URL https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.tar.bz2
-    URL_MD5 9273c8c4576423562bbe84574b07b2bd
+    URL https://boostorg.jfrog.io/artifactory/main/release/1.75.0/source/boost_1_75_0.tar.bz2
+    URL_MD5 ea217ed7c4414e93d44106c316966ae1
     DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/external
     TMP_DIR     ${CMAKE_BINARY_DIR}/boost/tmp
     SOURCE_DIR  ${CMAKE_BINARY_DIR}/boost/src
