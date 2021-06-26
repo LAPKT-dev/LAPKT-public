@@ -619,7 +619,7 @@ void Action::instantiate( STRIPS_Interface* out_task, boost::python::tuple& para
     // create a variable map
     assert( len(params)==m_var.size());
     for( int i = 0; i<len(params); i++){
-        std::string x(extract<std::string>( params[i]));
+        std::string x((extract<std::string>( params[i])));
         var_map[m_var[i]]   =   x;
         v_params[i]         =   std::move(x);
     }
@@ -794,7 +794,7 @@ void Tarski_Instantiator::add_init( boost::python::list& init)
 {
     m_init.reserve( len(init));
     for( int i=0; i<len(init); i++) {
-        std::string atom(extract<std::string>( init[i]));
+        std::string atom((extract<std::string>( init[i])));
         m_init.push_back( atom);
     }
 }
@@ -886,7 +886,7 @@ void Tarski_Instantiator::finalize_actions()
 void Tarski_Instantiator::add_fluents( boost::python::list& fluent)
 {
     for( int i=0; i < len(fluent); i++){
-        std::string atom(extract<std::string>(fluent[i]));
+        std::string atom((extract<std::string>(fluent[i])));
         m_fluent[atom]      = i;
         m_task->add_atom( atom);
     }
