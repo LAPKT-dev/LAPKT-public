@@ -102,7 +102,7 @@ if __name__ == '__main__' :
             print('Installation of psutil library failed')
             exit()
         
-    cmake_configure =   [cmake_exec, '--clean-first',]
+    cmake_configure =   [cmake_exec,]
     cmake_build     =   [cmake_exec,]
     cmake_install   =   [cmake_exec,]
 
