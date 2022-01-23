@@ -1,0 +1,5 @@
+name: github pages
+
+on:
+  push:
+    branches: [ Devel2.0 ]
