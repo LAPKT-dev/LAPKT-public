@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             //"stopOnEntry": true,
-            "pythonPath": "/usr/bin/python3",
+            "python": "/usr/bin/python3",
             "program": "${workspaceRoot}/release/lapkt.py",
             "args": ["AT_LAPKT_Planner", "-d", "${workspaceRoot}/lab_experiment_module/classical_fixed/movie/domain.pddl", 
                 "-p", "${workspaceRoot}/lab_experiment_module/classical_fixed/movie/prob01.pddl", "--wait_debug"],

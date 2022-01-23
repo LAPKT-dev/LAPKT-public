@@ -1,5 +1,4 @@
-list(APPEND EXTRA_LIBS lapkt_shared)
-list(APPEND EXTRA_LIBS ff_cpp_interface)
+list(APPEND EXTRA_LIBS legacy_ff LAPKT)
 
 set(CMAKE_INSTALL_RPATH 
 "${CMAKE_INSTALL_RPATH}:$ORIGIN/../lib/lapkt/shared;\

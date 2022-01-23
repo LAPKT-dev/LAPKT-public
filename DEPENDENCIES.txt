@@ -1,0 +1,5 @@
+- pip
+    - breathe
+    - sphinx-rtd-theme
+- doxygen awesome theme
+    - doxygen 1.9.1 (refer Github instructions for 1.9.2)
