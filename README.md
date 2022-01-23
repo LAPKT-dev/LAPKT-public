@@ -21,7 +21,8 @@ Lightweight Automated Planning Toolkit
 Miquel Ramirez <miquel.ramirez@gmail.com>
 Nir Lipovetzky <nirlipo@gmail.com>
 Christian Muise <christian.muise@gmail.com>
-Last update: September 2014
+Anubhav Singh <anubhav.singh.er@protonmail.com>
+Last update: January 2021
 
 CONTENTS
 ========
@@ -73,45 +74,56 @@ this in mind when using this library.
 
 2 - BUILDING LAPKT
 ==================
+`cmake` is the primary tool used to build the LAPKT's C++(backend) source code. We also use it to generate Python/C++ library package which is ready to go as a `pypi` package. 
 
-In order to build LAPKT you need to install scons (a GNU Makefile replacement)
-in your system. Refer to http://www.scons.org for directions on how to achieve
-this.
-
-In order to compile some of the examples, you will also need a version >= 1.49 of the Boost C++ libraries available on your system.
-You can check the version you have either manually by looking at the macro defined in `boost/version.hpp` or, on debian systems, by running
-`dpkg -s libboost-dev`.
-Be aware that systems such as the Ubuntu 12.04LTS release ship with older versions of Boost.
-
-Finally, LAPKT requires the Judy library (http://judy.sourceforge.net/index.html) to
-support the bitmap array class 'Varset Judy'. NOTE: This dependency will be optional
-or entirely deprecated in the future.
 
 2.1. Build instructions
 =======================
 
-Issue the command
+### A typical set of commands used to build LAPKT
 
-$ scons
+        cmake -Bbuild -Ssrc -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release
+        cmake --build build -j4
+        cmake  --install build
 
-at the root of the source directory to obtain the (static) library containing essential data structures and other miscellaneous utilities. If debug symbols are needed, the command
+It involves three steps, configure, build, and install which take the following user defined paramaters. 
 
-$ scons debug=1
+- *build_dir* - The directory where the build files are stored
+- *src_dir* - The root directory of the source with the top level `CMakeList` config file.
+- *install_dir* - The path of the directory where the installation files will be stored.
 
-builds the library with optimizations disabled and debug symbols enabled.
+**Configuration step**
+  
+        cmake -B<build_dir> -S<src_dir> -DCMAKE_INSTALL_PREFIX=<install_dir> -DCMAKE_BUILD_TYPE={Release|Debug}
 
-If you want to use the planners using the ```ff``` variants of our planners, you'll need to compile the ```FF``` sources included in this repository into a library by running the following commands:
+**Build step**
 
-```
-cd external/libff
-make clean
-make depend
-make
-```
+        cmake --build <build_dir> -j<cpu_count>
+        
+**Installation step**
 
-is achieved by invoking scons in a similar manner in the corresponding folder.
+        cmake  --install <build_dir> [--component {Runtime|Development}]
 
 
+### Cmake options to install features, including ff and fd pddl parsers
+
+- Include Fastdownward PDDL parser and grounder
+
+        -DCMAKE_FD=ON
+
+- Include FF parser and grounder
+        
+        -DCMAKE_FF=ON
+
+- Include KCL VAL plan validator
+  
+        -DCMAKE_VAL=ON
+
+### Extras
+
+- Compile using specific compiler
+
+        -DCMAKE_CXX_COMPILER=g++-8 -DCMAKE_C_COMPILER=gcc-8
 
 3 - EXAMPLES
 ===========
@@ -151,8 +163,8 @@ and cover the following topics:
 ==============
 
 LAPKT requires the following libraries:
-	* boost::program_options
-	* varjudy
+* boost::program_options
+* boost::python3
 
 In order to compile LAPKT, we recommend need g++ 4.6 or better. However, any 
 compiler able to handle both boost libraries and C++0x standard new features, 
