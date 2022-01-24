@@ -32,17 +32,23 @@ It involves three steps, configure, build, and install which take the following 
 
 ### Cmake options to install features, including ff and fd pddl parsers
 
-- Include Fastdownward PDDL parser and grounder
+- Sync the FF, FD and VAL submodule packages from github.com
 
-        -DCMAKE_FD=ON
+        git submodule update --init
 
-- Include FF parser and grounder
+- Update the CMAKE configuration step command with the following options
+
+  - for FD PDDL parser and grounder
+
+                -DCMAKE_FD=ON
+
+  - for FF parser and grounder
         
-        -DCMAKE_FF=ON
+                -DCMAKE_FF=ON
 
-- Include KCL VAL plan validator
+  - for KCL VAL plan validator
   
-        -DCMAKE_VAL=ON
+                -DCMAKE_VAL=ON
 
 ### Extras
 
