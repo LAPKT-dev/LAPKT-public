@@ -1,4 +1,3 @@
-add_library(tarski_wrapper)
 SET_TARGET_PROPERTIES(tarski_wrapper PROPERTIES PREFIX "")
 set_target_properties(tarski_wrapper PROPERTIES
          LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/_pywrapper)

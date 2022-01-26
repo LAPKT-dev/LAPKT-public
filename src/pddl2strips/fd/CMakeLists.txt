@@ -1,4 +1,3 @@
-add_library(fd_wrapper)
 SET_TARGET_PROPERTIES(fd_wrapper PROPERTIES PREFIX "")
 set_target_properties(fd_wrapper PROPERTIES
          LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/_pywrapper)

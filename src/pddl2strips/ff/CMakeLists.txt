@@ -18,7 +18,6 @@ target_link_libraries( legacy_ff PRIVATE
     )
 
 
-add_library(ff_wrapper)
 SET_TARGET_PROPERTIES(ff_wrapper PROPERTIES PREFIX "")
 set_target_properties(ff_wrapper PROPERTIES
          LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/_pywrapper)

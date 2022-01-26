@@ -5,10 +5,14 @@
 #     ${Boost_LIBRARIES}
 #     )
 
+add_library(tarski_wrapper)
+
 if(CMAKE_FF)
+    add_library(ff_wrapper) 
     add_subdirectory(ff)
 endif(CMAKE_FF)
 if(CMAKE_FD)
+    add_library(fd_wrapper)
     add_subdirectory(fd)
 endif(CMAKE_FD)
 add_subdirectory(tarski)
