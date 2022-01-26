@@ -3,6 +3,9 @@
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "git.ignoreLimitWarning": true,
     "cmake.configureOnOpen": true,
+    "cmake.configureArgs": [
+        "-DCMAKE_FF=ON", "-DCMAKE_FD=ON", "-DCMAKE_VAL=ON" 
+    ],
     "files.associations": {
         "*.ipp": "cpp",
         "cctype": "cpp",
