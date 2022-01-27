@@ -1,4 +1,5 @@
 #
+
 file(TOUCH ${PROJECT_BINARY_DIR}/setup.cfg)
 file(WRITE ${PROJECT_BINARY_DIR}/setup.cfg 
     "[options]\nscripts=\n\tpackage/lapkt/script/lapkt\n")
@@ -14,9 +15,9 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml
               ${PROJECT_BINARY_DIR}/pyproject.toml COPYONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/setup.py 
               ${PROJECT_BINARY_DIR}/setup.py COPYONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../../../README.md
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../../README.md
               ${PROJECT_BINARY_DIR}/README.md COPYONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../../../LICENSE.txt
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../../LICENSE.txt
               ${PROJECT_BINARY_DIR}/LICENSE.txt COPYONLY)
 
 install(FILES

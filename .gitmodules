@@ -1,12 +1,12 @@
 [submodule "lab_experiment_module"]
 	path = lab_experiment_module
     url = https://github.com/LAPKT-dev/lab_experiment_module.git
-[submodule "src/external/fd"]
-	path = src/external/fd
+[submodule "external_package/fd"]
+	path = external_package/fd
 	url = https://github.com/LAPKT-dev/fd_translate.git
-[submodule "src/external/libff"]
-	path = src/external/libff
+[submodule "external_package/libff"]
+	path = external_package/libff
 	url = https://github.com/LAPKT-dev/libff_parser.git
-[submodule "src/external/VAL-4.2.08"]
-	path = src/external/VAL-4.2.08
+[submodule "external_package/VAL-4.2.08"]
+	path = external_package/VAL-4.2.08
 	url = https://github.com/LAPKT-dev/VAL-4.2.08.git

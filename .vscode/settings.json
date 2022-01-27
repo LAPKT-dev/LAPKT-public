@@ -1,11 +1,16 @@
 {
-    "cmake.sourceDirectory": "${workspaceFolder}/src",
+    "cmake.sourceDirectory": "${workspaceFolder}",
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "git.ignoreLimitWarning": true,
     "cmake.configureOnOpen": true,
     "cmake.configureArgs": [
-        "-DCMAKE_FF=ON", "-DCMAKE_FD=ON", "-DCMAKE_VAL=ON" 
+        "-DCMAKE_FF=ON", "-DCMAKE_FD=ON", "-DCMAKE_VAL=ON", 
+        "-DCMAKE_DOXYGEN_DOCS=ON", 
+        "-DCMAKE_DOXYGEN_FLAT_THEME=ON",
+        "-DCMAKE_DOXYGEN_AWESOME_THEME=ON",
+        "-DCMAKE_SPHINX_DOCS=OFF"
     ],
+    "cmake.parallelJobs": 4,
     "files.associations": {
         "*.ipp": "cpp",
         "cctype": "cpp",
