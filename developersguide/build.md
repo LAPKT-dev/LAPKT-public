@@ -50,6 +50,19 @@ It involves three steps, configure, build, and install which take the following 
   
                 -DCMAKE_VAL=ON
 
+  - build doxygen docs
+
+                -DCMAKE_DOXYGEN_DOCS=ON
+
+  - doxygen themes
+
+                -DCMAKE_DOXYGEN_FLAT_THEME=ON
+                -DCMAKE_DOXYGEN_AWESOME_THEME=ON
+                
+  - sphinx rtf theme docs via Doxygen->exhale(Sphinx extension) pipline
+                
+                -DCMAKE_SPHINX_DOCS=ON
+
 ### Extras
 
 - Compile using specific compiler
