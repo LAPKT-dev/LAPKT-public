@@ -5,6 +5,10 @@ Building LAPKT {#build}
 
 `cmake` is the primary tool used to build the LAPKT's C++(backend) source code. We also use it to generate Python/C++ library package which is ready to go as a `pypi` package. 
 
+# IMPORTANT
+
+Install the manual build dependencies listed in `PREBUILD_DEPENDENCIES.txt` prior to the cmake build. The file is located in the repo's root directory.
+
 ### A typical set of commands used to build LAPKT
 
         cmake -Bbuild -Ssrc -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release

@@ -119,6 +119,9 @@ add_subdirectory(src)
 add_subdirectory(config)
 # All external depedencies(to be compiled/installed) are stored here
 add_subdirectory(external_package)
+# Unit tests
+add_subdirectory(test)
+
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
@@ -177,23 +180,6 @@ install(FILES
     COMPONENT Development EXCLUDE_FROM_ALL
   )
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
-
-
-#xxxxxxxxxxxxxxxxxx BEGIN TEST xxxxxxxxxxxxxxxxxxxxxxxxxxxx#
-#set(Catch2_ROOT )
-find_package(Catch2 3 REQUIRED PATHS ${CMAKE_BINARY_DIR}/../build_external/Catch2 NO_DEFAULT_PATH)
-if(Catch2_FOUND)
-    message(STATUS "Catch2 v3 found")
-endif()
-include(InstallRequiredSystemLibraries)
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt")
-set(CPACK_PACKAGE_VERSION_MAJOR "${LAPKT_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${LAPKT_VERSION_MINOR}")
-include(CPack)
-
-enable_testing()
-#xxxxxxxxxxxxxxxxxxxx END TEST xxxxxxxxxxxxxxxxxxxxxxxxxxx#
-
 
 # #
 # install(FILES

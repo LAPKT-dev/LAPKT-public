@@ -26,11 +26,13 @@
 #include <action.hxx>
 #include <cond_eff.hxx>
 #include <sstream>
-#include <common/toy_graph.hxx>
+#include <toy_graph.hxx>
+#include <catch2/catch_test_macros.hpp>
 
 /**
- * @brief A limited test of the interface to generate a STRIP_Problem instance
- *  using a graph. We reuse the code from the example - https://github.com/LAPKT-dev/LAPKT-public/blob/d54b68fcc67d5d75ea40b3921220c29f49c71814/examples/agnostic-examples/assembling_strips_problems/main.cxx#L30
+ * @brief A functional test of the interface to generate a STRIP_Problem
+ * instance using a graph. We reuse the code from the example - 
+ * https://github.com/LAPKT-dev/LAPKT-public/blob/d54b68fcc67d5d75ea40b3921220c29f49c71814/examples/agnostic-examples/assembling_strips_problems/main.cxx#L30
  * 
  */
 TEST_CASE("Assembling a STRIPS_Problem"){

@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef __NWN_HXX__
 #define __NWN_HXX__
 
-#include <common/toy_graph.hxx>
+#include <toy_graph.hxx>
 #include <strips_prob.hxx>
 
 // This class produces a planning domain

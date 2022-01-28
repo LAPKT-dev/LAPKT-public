@@ -5,7 +5,7 @@
     "cmake.configureOnOpen": true,
     "cmake.configureArgs": [
         "-DCMAKE_FF=ON", "-DCMAKE_FD=ON", "-DCMAKE_VAL=ON", 
-        "-DCMAKE_DOXYGEN_DOCS=ON", 
+        "-DCMAKE_DOXYGEN_DOCS=OFF", 
         "-DCMAKE_DOXYGEN_FLAT_THEME=ON",
         "-DCMAKE_DOXYGEN_AWESOME_THEME=ON",
         "-DCMAKE_SPHINX_DOCS=OFF"

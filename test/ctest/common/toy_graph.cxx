@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <common/toy_graph.hxx>
+#include <toy_graph.hxx>
 
 Graph::Vertex::Vertex( unsigned index, std::string l )
 	: m_index(index), m_label(l) {
