@@ -1,25 +1,26 @@
-/*
-Lightweight Automated Planning Toolkit
-Copyright (C) 2012
-Miquel Ramirez <miquel.ramirez@rmit.edu.au>
-Nir Lipovetzky <nirlipo@gmail.com>
+/**
+ * @file test_STRIPS_Problem.cxx
+ * @author Anubhav Singh a.k.a. Anu (anubhav.singh.er@protonmail.com)
+ * @brief A set of test cases for STRIPS_Problem class and its interface methods
+ * @version 0.1
+ * @date 2022-01-27
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-// MRJ: In this example, I'll try to show how can one assemble a simple
-// STRIPS planning problem from objects and data structures from an application.
 #include <strips_prob.hxx>
 #include <fluent.hxx>
 #include <action.hxx>
@@ -27,7 +28,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <sstream>
 #include <common/toy_graph.hxx>
 
-int main( int argc, char** argv ) {
+/**
+ * @brief A limited test of the interface to generate a STRIP_Problem instance
+ *  using a graph. We reuse the code from the example - https://github.com/LAPKT-dev/LAPKT-public/blob/d54b68fcc67d5d75ea40b3921220c29f49c71814/examples/agnostic-examples/assembling_strips_problems/main.cxx#L30
+ * 
+ */
+TEST_CASE("Assembling a STRIPS_Problem"){
 
 	// MRJ: We create our graph
 	Graph	g;
@@ -101,8 +107,4 @@ int main( int argc, char** argv ) {
 	aptk::STRIPS_Problem::set_init( prob, I );
 	aptk::STRIPS_Problem::set_goal( prob, G );
 
-	// MRJ: We'd be ready for solving this problem with a search algorithm
-	// but that's stuff to be covered by another example
-
-	return 0;
 }
