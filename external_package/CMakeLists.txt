@@ -3,11 +3,11 @@
 # endif(CMAKE_FF)
     
 if(CMAKE_FD)
-    install(DIRECTORY fd
+    install(DIRECTORY fd_translate
         DESTINATION lib/lapkt
         COMPONENT Runtime
         )
-    install(DIRECTORY fd
+    install(DIRECTORY fd_translate
         DESTINATION lib/lapkt
         COMPONENT Development EXCLUDE_FROM_ALL
         )
