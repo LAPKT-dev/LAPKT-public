@@ -1,5 +1,6 @@
 # Ignore .vscode settings
-.vscode
+.vscode/launch.json
+.vscode/c_cpp_properties.json
 
 # Compiled Object files
 *.slo
@@ -39,6 +40,10 @@ examples/agnostic-examples/bfs_f/bfs
 examples/agnostic-examples/successor_generation/succ-gen
 
 # Local directories 
+external_package/boost*
+external_package/clingo*
+external_package/doxygen*
+build_external
 build
 release
 Release

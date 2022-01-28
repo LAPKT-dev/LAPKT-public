@@ -6,6 +6,7 @@ option (USE_SUPERBUILD "flag that a superbuild should be invoked" ON)
 
 if (USE_SUPERBUILD)
     project(SUPERBUILD NONE)
+    set(CMAKE_BUILD_DIREC)
     include(config/cmake/SuperBuild.cmake)
     return()
 else()
@@ -38,6 +39,9 @@ set(CMAKE_INSTALL_RPATH
 "${CMAKE_INSTALL_RPATH}:$ORIGIN/../_cxx/lib;\
 ${CMAKE_INSTALL_RPATH}:$ORIGIN/../_pywrapper"
     )
+
+#### The Find<Package>.cmake file are located here
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/config/cmake)
 
 # Link with static Boost libraries instead of dynamic
 set(Boost_USE_STATIC_LIBS ON)
@@ -117,6 +121,7 @@ add_subdirectory(config)
 add_subdirectory(external_package)
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
+#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 ## NEED TO EXPLAIN THIS
 configure_file(${PROJECT_SOURCE_DIR}/config/cmake/lapkt_cmake_config.h.in lapkt_cmake_config.h)
 
@@ -171,6 +176,23 @@ install(FILES
     DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/planner
     COMPONENT Development EXCLUDE_FROM_ALL
   )
+#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
+
+
+#xxxxxxxxxxxxxxxxxx BEGIN TEST xxxxxxxxxxxxxxxxxxxxxxxxxxxx#
+#set(Catch2_ROOT )
+find_package(Catch2 3 REQUIRED PATHS ${CMAKE_BINARY_DIR}/../build_external/Catch2 NO_DEFAULT_PATH)
+if(Catch2_FOUND)
+    message(STATUS "Catch2 v3 found")
+endif()
+include(InstallRequiredSystemLibraries)
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt")
+set(CPACK_PACKAGE_VERSION_MAJOR "${LAPKT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${LAPKT_VERSION_MINOR}")
+include(CPack)
+
+enable_testing()
+#xxxxxxxxxxxxxxxxxxxx END TEST xxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
 
 # #
@@ -196,13 +218,3 @@ install(FILES
 #     DESTINATION ${CMAKE_INSTALL_PREFIX}
 #     COMPONENT Development EXCLUDE_FROM_ALL
 #   )
-
-
-include(InstallRequiredSystemLibraries)
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt")
-set(CPACK_PACKAGE_VERSION_MAJOR "${LAPKT_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${LAPKT_VERSION_MINOR}")
-include(CPack)
-
-enable_testing()
-

@@ -2,9 +2,9 @@
 
 @tableofcontents
 
-We use [Doxygen](https://www.doxygen.nl/manual/docblocks.html) for source code documentation, including class hierarchy diagrams. We recommend the developers to extensively comment their code using Doxygen format which is used to automatically generate a highly useful source code documentation. 
+We use [Doxygen](https://www.doxygen.nl/manual/docblocks.html) for source code documentation, including class hierarchy diagrams. We recommend the developers to extensively comment their code using Doxygen format which is used to automatically generate a highly useful source code documentation. You can also refer the coding style on this [CMU website](https://www.cs.cmu.edu/~410/doc/doxygen.html).
 
-In general, we use following syntax for commentary, but any Doxygen compatible syntax can be used.
+In general, we use following syntax for commentary, but any Doxygen compatible syntax can be used. 
 
 ## C++ Documentation
 
@@ -21,10 +21,18 @@ In general, we use following syntax for commentary, but any Doxygen compatible s
         *
         * @param <name> ... text ... (Explain a function parameter)
         * 
+        * @param[in] <name> ... text ... (Explain an input param)
+        * @param[out] <name> ... text ... (Explain an output param)
+        * @param[in/out] <name> ... text ... (BOTH)
+        *       
         * @bug ... text ... (A description of bug in the code)
+        *
         * @deprecated ... text ... (Put a deprecation warning)
+        *
         * @note ... text ... (Highlight some notes)
+        *
         * @warning ... text ... (Red Highlight something)
+        *
         * @todo ... text ... (Something to be done)
         */
 

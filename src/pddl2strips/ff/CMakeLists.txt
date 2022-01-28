@@ -1,6 +1,11 @@
 
 #
 add_library(legacy_ff)
+target_link_libraries( legacy_ff PRIVATE
+    ${FF_LIBRARIES}
+    LAPKT
+    "-Wl,--allow-multiple-definition" # multiple definitions of gbracket_count in libff.c and scan.#$$^.c file
+    )
 target_sources(legacy_ff
     PRIVATE
         ff_to_aptk.cxx
@@ -10,12 +15,9 @@ target_include_directories(legacy_ff
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:include>
+        ${FF_INCLUDE_DIR}
     )
-target_link_libraries( legacy_ff PRIVATE
-    ff
-    LAPKT
-    "-Wl,--allow-multiple-definition" # multiple definitions of gbracket_count in libff.c and scan.#$$^.c file
-    )
+
 
 
 SET_TARGET_PROPERTIES(ff_wrapper PROPERTIES PREFIX "")

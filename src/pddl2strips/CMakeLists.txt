@@ -6,8 +6,8 @@
 #     )
 
 add_library(tarski_wrapper)
-
 if(CMAKE_FF)
+    find_package(FF REQUIRED)
     add_library(ff_wrapper) 
     add_subdirectory(ff)
 endif(CMAKE_FF)

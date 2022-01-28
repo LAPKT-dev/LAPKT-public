@@ -3,13 +3,12 @@
 
 
 set(LINUX_BUILD OFF)
-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux" OR CYGWIN)
   set(LINUX_BUILD ON)
 endif()
 
 if(CMAKE_SPHINX_DOCS OR CMAKE_DOXYGEN_DOCS)
   if(LINUX_BUILD)
-    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/config/cmake)
     find_package(Doxygen_1_93)
     if(Doxygen_1_93_FOUND)
       message(${Doxygen} "will be used to generate C++ documentation")
