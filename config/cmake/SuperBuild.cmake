@@ -46,6 +46,19 @@ ExternalProject_Add( external_doxygen
     INSTALL_COMMAND "" # ./b2 install
 )
 
+
+# Update the submodule if not done manually 
+if(NOT EXISTS ${CMAKE_SOURCE_DIR}/external_package/libff/CMakeLists.txt OR
+    NOT EXISTS ${CMAKE_SOURCE_DIR}/external_package/Catch2/CMakeLists.txt OR
+    NOT EXISTS ${CMAKE_SOURCE_DIR}/external_package/fd_translate/translate.py OR
+    NOT EXISTS ${CMAKE_SOURCE_DIR}/external_package/VAL-4.2.08/Makefile
+    )
+  find_package(Git REQUIRED)
+  execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init 
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    COMMAND_ERROR_IS_FATAL ANY)
+endif()
+
 ExternalProject_Add(external_ff
     SOURCE_DIR ${CMAKE_SOURCE_DIR}/external_package/libff
     #SOURCE_SUBDIR src
