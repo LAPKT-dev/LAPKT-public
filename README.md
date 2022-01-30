@@ -1,10 +1,27 @@
-# Introduction to LAPKT 4 Devs
+[![BuildTestLAPKT](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/ubuntu_build_test.yml/badge.svg?branch=Devel2.0)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/ubuntu_build_test.yml)
+
+# LAPKT
 
 LAPKT stands for Lightweight Automated Planning Toolkit
 
+... < A more detailed description > ...
+
+# Jump right in!
+
+- Install using python pip
+
+		<pip install command>
+
+- Explore the options from shell
+
+		<lapkt help command>
+
+Introduction to LAPKT 4 Devs
+============================
+
 IMPORTANT! 
 ----------
-We require that the user **manually** install the following PRE-BUILD dependencies. These will not be handled by the cmake tool.
+Developers who intend to build from source are required to **manually** install the following PRE-BUILD dependencies. These will not be handled by the cmake tool.
 
 * Python 3.7 <= 3.9 
 * cmake >= 3.19
@@ -19,10 +36,10 @@ You would need the following if you plan to compile parser from FF to process PD
 AUTHORS
 =======
 
-Miquel Ramirez <miquel.ramirez@gmail.com>
-Nir Lipovetzky <nirlipo@gmail.com>
-Anubhav Singh <anubhav.singh.er@protonmail.com>
-Christian Muise <christian.muise@gmail.com>
+- Miquel Ramirez <miquel.ramirez@gmail.com>
+- Nir Lipovetzky <nirlipo@gmail.com>
+- Anubhav Singh <anubhav.singh.er@protonmail.com>
+- Christian Muise <christian.muise@gmail.com>
 
 CONTENTS
 ========
