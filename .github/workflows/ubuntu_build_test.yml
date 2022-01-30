@@ -68,7 +68,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Pytest
-      working-directory: ${{github.workspace}}/${{env.BUILD_TYPE}}
+      working-directory: ${{github.workspace}}
       run: |
         pytest
         
