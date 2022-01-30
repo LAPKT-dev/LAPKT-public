@@ -12,8 +12,9 @@ Install the manual build dependencies listed in `PREBUILD_DEPENDENCIES.txt` prio
 ### A typical set of commands used to build LAPKT
 
         cmake -Bbuild -Ssrc -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release
-        cmake --build build -j4
+        cmake --build build -j4 [--target clean](optional)
         cmake  --install build
+        cd Release && ctest && ctest ..
 
 It involves three steps, configure, build, and install which take the following user defined paramaters. 
 

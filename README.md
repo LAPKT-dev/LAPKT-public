@@ -1,28 +1,28 @@
-## 'Devel' BRANCH User Guide - (Brief)
+# Introduction to LAPKT 4 Devs
 
-- Working towards windows compatibility - not there yet
-- 'install.sh' will install the lapkt libraries in 'release' directory
-- Inside 'release', 'lapkt.py' is the primary frontend, use 'lapkt.py -h' for help
-- External Dependencies
-    * Tarski
-    * Python>=3.7
-    * cmake
-    * gcc
-    * flex
-    * bison
-    * boost-python
-    * clingo
+LAPKT stands for Lightweight Automated Planning Toolkit
 
-LAPKT
-======
+IMPORTANT! 
+----------
+We require that the user **manually** install the following PRE-BUILD dependencies. These will not be handled by the cmake tool.
 
-Lightweight Automated Planning Toolkit
+* Python 3.7 <= 3.9 
+* cmake >= 3.19
+  - As of 2022, the easiest way to get latest version is cmake's pypi package
+* gcc>=8
+* g++>=8
+
+You would need the following if you plan to compile parser from FF to process PDDL input. Otherwise these are not needed.
+* flex
+* bison
+
+AUTHORS
+=======
 
 Miquel Ramirez <miquel.ramirez@gmail.com>
 Nir Lipovetzky <nirlipo@gmail.com>
-Christian Muise <christian.muise@gmail.com>
 Anubhav Singh <anubhav.singh.er@protonmail.com>
-Last update: January 2021
+Christian Muise <christian.muise@gmail.com>
 
 CONTENTS
 ========
@@ -74,56 +74,10 @@ this in mind when using this library.
 
 2 - BUILDING LAPKT
 ==================
+
+[Build instructions](developersguide/build.md)
+
 `cmake` is the primary tool used to build the LAPKT's C++(backend) source code. We also use it to generate Python/C++ library package which is ready to go as a `pypi` package. 
-
-
-2.1. Build instructions
-=======================
-
-### A typical set of commands used to build LAPKT
-
-        cmake -Bbuild -Ssrc -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release
-        cmake --build build -j4
-        cmake  --install build
-
-It involves three steps, configure, build, and install which take the following user defined paramaters. 
-
-- *build_dir* - The directory where the build files are stored
-- *src_dir* - The root directory of the source with the top level `CMakeList` config file.
-- *install_dir* - The path of the directory where the installation files will be stored.
-
-**Configuration step**
-  
-        cmake -B<build_dir> -S<src_dir> -DCMAKE_INSTALL_PREFIX=<install_dir> -DCMAKE_BUILD_TYPE={Release|Debug}
-
-**Build step**
-
-        cmake --build <build_dir> -j<cpu_count>
-        
-**Installation step**
-
-        cmake  --install <build_dir> [--component {Runtime|Development}]
-
-
-### Cmake options to install features, including ff and fd pddl parsers
-
-- Include Fastdownward PDDL parser and grounder
-
-        -DCMAKE_FD=ON
-
-- Include FF parser and grounder
-        
-        -DCMAKE_FF=ON
-
-- Include KCL VAL plan validator
-  
-        -DCMAKE_VAL=ON
-
-### Extras
-
-- Compile using specific compiler
-
-        -DCMAKE_CXX_COMPILER=g++-8 -DCMAKE_C_COMPILER=gcc-8
 
 3 - EXAMPLES
 ===========
@@ -159,15 +113,4 @@ and cover the following topics:
 		planner built around Deadline Aware Search.
 
 
-4 - REQUIREMENTS
-==============
-
-LAPKT requires the following libraries:
-* boost::program_options
-* boost::python3
-
-In order to compile LAPKT, we recommend need g++ 4.6 or better. However, any 
-compiler able to handle both boost libraries and C++0x standard new features, 
-should also be usable (we have been able to compile it under Visual Studio 
-2010 and llvm).
 

@@ -1,4 +1,0 @@
-# List of manual build dependencies
-
- - cmake>=3.19 (The FindPython3, FindPython2 and FindPython modules gained the ability to handle a version range.)
- - graphviz (<https://graphviz.org/download/> for doxygen docs)

@@ -1,6 +1,0 @@
-breathe
-sphinx
-exhale
-cmake >= 3.19
-tarski
-graphviz

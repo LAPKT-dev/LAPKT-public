@@ -5,10 +5,12 @@
     "cmake.configureOnOpen": true,
     "cmake.configureArgs": [
         "-DCMAKE_FF=OFF", "-DCMAKE_FD=OFF", "-DCMAKE_VAL=OFF", 
-        "-DCMAKE_DOXYGEN_DOCS=ON", 
+        "-DCMAKE_DOXYGEN_DOCS=OFF", 
         "-DCMAKE_DOXYGEN_FLAT_THEME=OFF",
         "-DCMAKE_DOXYGEN_AWESOME_THEME=OFF",
-        "-DCMAKE_SPHINX_DOCS=OFF"
+        "-DCMAKE_SPHINX_DOCS=OFF",
+        "-DCMAKE_STATIC_BOOST=ON",
+        "-DCMAKE_TESTING_ENABLED=ON"
     ],
     "files.associations": {
         "*.ipp": "cpp",
@@ -63,6 +65,11 @@
         "numbers": "cpp"
     },
     "C_Cpp.default.cppStandard": "c++17",
+    "python.testing.pytestArgs": [
+        "test/pytest/tarski_interface"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
     // **** The following configurations should be added to you "User" settings
     // **** User setting locations: 
     //      https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations

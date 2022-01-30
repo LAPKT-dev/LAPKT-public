@@ -1,6 +1,7 @@
 # Ignore .vscode settings
 .vscode/launch.json
 .vscode/c_cpp_properties.json
+.vscode/tasks.json
 
 # Compiled Object files
 *.slo

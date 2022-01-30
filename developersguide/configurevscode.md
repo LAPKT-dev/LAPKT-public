@@ -47,3 +47,6 @@ VSCode has an active community of developers which has lead to creation of highl
 
 - twxs.cmake (cmake language support)
 - ms-python.python
+- ms-python.vscode-pylance
+- littlefoxteam.vscode-python-test-adapter
+
