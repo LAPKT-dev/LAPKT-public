@@ -23,15 +23,21 @@ IMPORTANT!
 ----------
 Developers who intend to build from source are required to **manually** install the following PRE-BUILD dependencies. These will not be handled by the cmake tool.
 
-* Python 3.7 <= 3.9 
-* cmake >= 3.19
-  - As of 2022, the easiest way to get latest version is cmake's pypi package
-* gcc>=8
-* g++>=8
+**@Ubuntu**
 
-You would need the following if you plan to compile parser from FF to process PDDL input. Otherwise these are not needed.
-* flex
-* bison
+	python3 >= 3.7 <= 3.9
+	python3-dev >= 3.7 <= 3.9
+	cmake >= 3.16
+	gcc>=8
+	g++>=8
+
+As of 2022, the easiest way to get latest version is cmake's pypi package
+
+*Note* -You would need the following if you plan to compile parser from FF to process PDDL input. Otherwise, these are not needed.
+
+	* flex
+	* bison
+	* libfl-dev
 
 AUTHORS
 =======

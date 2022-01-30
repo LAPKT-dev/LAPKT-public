@@ -10,6 +10,3 @@
 [submodule "external_package/libff"]
 	path = external_package/libff
 	url = https://github.com/LAPKT-dev/libff_parser
-[submodule "external_package/VAL-4.2.08"]
-	path = external_package/VAL-4.2.08
-	url = https://github.com/LAPKT-dev/VAL-4.2.08

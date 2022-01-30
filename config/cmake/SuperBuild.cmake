@@ -76,22 +76,32 @@ ExternalProject_Add(external_ff
     INSTALL_COMMAND  cmake --install ${CMAKE_BINARY_DIR}/../build_external/ff/build 
 )
 
-file(COPY ${CMAKE_SOURCE_DIR}/external_package/VAL-4.2.08 
-        DESTINATION ${PROJECT_BINARY_DIR}/../build_external)
+# file(COPY ${CMAKE_SOURCE_DIR}/external_package/VAL-4.2.08 
+#         DESTINATION ${PROJECT_BINARY_DIR}/../build_external)
 
-add_custom_target(external_VAL ALL COMMAND make
-    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/../build_external/VAL-4.2.08
+# add_custom_target(external_VAL ALL COMMAND make
+#     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/../build_external/VAL-4.2.08
+# )
+
+ExternalProject_Add( external_VAL
+    GIT_REPOSITORY https://github.com/KCL-Planning/VAL
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/external_package/VAL
+    BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/VAL
+    #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
+    CMAKE_ARGS 
+        -DCMAKE_BUILD_TYPE=Release
+    INSTALL_COMMAND ""
 )
 
 ExternalProject_Add(external_catch2
-  SOURCE_DIR ${CMAKE_SOURCE_DIR}/external_package/Catch2
-  #SOURCE_SUBDIR src
-  BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/Catch2/build
-  INSTALL_DIR ${CMAKE_BINARY_DIR}/../build_external/Catch2
-  #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
-  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/../build_external/Catch2
-  INSTALL_COMMAND  cmake --install ${CMAKE_BINARY_DIR}/../build_external/Catch2/build 
-  )
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/external_package/Catch2
+    #SOURCE_SUBDIR src
+    BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/Catch2/build
+    INSTALL_DIR ${CMAKE_BINARY_DIR}/../build_external/Catch2
+    #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/../build_external/Catch2
+    INSTALL_COMMAND  cmake --install ${CMAKE_BINARY_DIR}/../build_external/Catch2/build 
+)
 
 ExternalProject_Add( external_clingo_linux
     URL https://github.com/potassco/clingo/releases/download/v5.4.0/clingo-5.4.0-linux-x86_64.tar.gz
@@ -102,7 +112,7 @@ ExternalProject_Add( external_clingo_linux
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND "" # ./b2 install
-    )
+)
 
 ExternalProject_Add( external_clingo_darwin
     URL https://github.com/potassco/clingo/releases/download/v5.4.0/clingo-5.4.0-macos-x86_64.tar.gz
