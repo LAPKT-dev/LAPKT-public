@@ -4,7 +4,7 @@
     "git.ignoreLimitWarning": true,
     "cmake.configureOnOpen": true,
     "cmake.configureArgs": [
-        "-DCMAKE_FF=OFF", "-DCMAKE_FD=OFF", "-DCMAKE_VAL=OFF", 
+        "-DCMAKE_FF=ON", "-DCMAKE_FD=ON", "-DCMAKE_VAL=ON", 
         "-DCMAKE_DOXYGEN_DOCS=OFF", 
         "-DCMAKE_DOXYGEN_FLAT_THEME=OFF",
         "-DCMAKE_DOXYGEN_AWESOME_THEME=OFF",

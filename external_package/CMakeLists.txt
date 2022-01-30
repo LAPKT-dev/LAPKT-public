@@ -14,12 +14,12 @@ if(CMAKE_FD)
 endif(CMAKE_FD)
 #
 if(CMAKE_VAL)
-    install(FILES ${CMAKE_BUILD_DIR}/../build_external/VAL-4.2.08/validate
+    install(FILES ${PROJECT_BINARY_DIR}/../build_external/VAL-4.2.08/validate
         PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
         DESTINATION bin
         COMPONENT Runtime
         )
-    install(FILES ${CMAKE_BUILD_DIR}/../build_external/VAL-4.2.08/validate
+    install(FILES ${PROJECT_BINARY_DIR}/../build_external/VAL-4.2.08/validate
         PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
         DESTINATION bin
         COMPONENT Development EXCLUDE_FROM_ALL
