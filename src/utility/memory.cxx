@@ -27,8 +27,8 @@ namespace aptk
 void report_memory_usage()
 {
 	struct rusage usage_report;
-    //getrusage( RUSAGE_SELF, &usage_report );
-	getrusage( RUSAGE_THREAD, &usage_report );
+    getrusage( RUSAGE_SELF, &usage_report );
+	// getrusage( RUSAGE_THREAD, &usage_report );
 	std::cout << "Memory usage report:" << std::endl;
 	std::cout << "Max. Resident Set Size:" << usage_report.ru_maxrss/1024 << std::endl;
 	std::cout << "Shared Memory Size:" << usage_report.ru_ixrss/1024 << std::endl;
