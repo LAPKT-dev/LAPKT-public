@@ -16,7 +16,6 @@ message(STATUS "Python result: ${out}")
 
 include(ExternalProject)
 set(CMAKE_CXX_STANDARD 17)
-remove_definitions(-Werror)
 
 #set_property(DIRECTORY PROPERTY EP_BASE boost)
 
@@ -31,8 +30,6 @@ list(APPEND DEPENDENCIES
     external_clingo_darwin
     external_doxygen
     external_catch2
-    external_ff
-    external_VAL
     )
 
 if(CMAKE_BOOST_BUILD_TYPE STREQUAL "Debug")
@@ -67,17 +64,21 @@ if(NOT EXISTS ${CMAKE_SOURCE_DIR}/external_package/libff/CMakeLists.txt OR
     COMMAND_ERROR_IS_FATAL ANY)
 endif()
 
-ExternalProject_Add(external_ff
-    GIT_REPOSITORY https://github.com/LAPKT-dev/libff_parser
-    SOURCE_DIR ${CMAKE_SOURCE_DIR}/external_package/libff
-    #SOURCE_SUBDIR src
-    BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/ff/build
-    INSTALL_DIR ${CMAKE_BINARY_DIR}/../build_external/ff
-    #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/../build_external/ff
-    INSTALL_COMMAND  cmake --install ${CMAKE_BINARY_DIR}/../build_external/ff/build 
-)
-
+if(CMAKE_FF)
+    list(APPEND DEPENDENCIES 
+        external_ff
+    )
+    ExternalProject_Add(external_ff
+        GIT_REPOSITORY https://github.com/LAPKT-dev/libff_parser
+        SOURCE_DIR ${CMAKE_SOURCE_DIR}/external_package/libff
+        #SOURCE_SUBDIR src
+        BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/ff/build
+        INSTALL_DIR ${CMAKE_BINARY_DIR}/../build_external/ff
+        #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
+        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/../build_external/ff
+        INSTALL_COMMAND  cmake --install ${CMAKE_BINARY_DIR}/../build_external/ff/build 
+    )
+endif(CMAKE_FF)
 # file(COPY ${CMAKE_SOURCE_DIR}/external_package/VAL-4.2.08 
 #         DESTINATION ${PROJECT_BINARY_DIR}/../build_external)
 
@@ -85,15 +86,20 @@ ExternalProject_Add(external_ff
 #     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/../build_external/VAL-4.2.08
 # )
 
-ExternalProject_Add( external_VAL
-    GIT_REPOSITORY https://github.com/KCL-Planning/VAL
-    SOURCE_DIR ${CMAKE_SOURCE_DIR}/external_package/VAL
-    BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/VAL
-    #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
-    CMAKE_ARGS 
-        -DCMAKE_BUILD_TYPE=Release
-    INSTALL_COMMAND ""
-)
+if(CMAKE_VAL)
+    list(APPEND DEPENDENCIES 
+        external_VAL
+    )
+    ExternalProject_Add( external_VAL
+        GIT_REPOSITORY https://github.com/KCL-Planning/VAL
+        SOURCE_DIR ${CMAKE_SOURCE_DIR}/external_package/VAL
+        BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/VAL
+        #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
+        CMAKE_ARGS 
+            -DCMAKE_BUILD_TYPE=Release
+        INSTALL_COMMAND ""
+    )
+endif(CMAKE_VAL)
 
 ExternalProject_Add(external_catch2
     GIT_REPOSITORY https://github.com/catchorg/Catch2

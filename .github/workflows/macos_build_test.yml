@@ -1,4 +1,4 @@
-name: BuildTestMacOS
+name: BuildTestMacOS_NoFF
 
 on:
   push:
@@ -46,13 +46,13 @@ jobs:
       run: > 
         cmake -B ${{github.workspace}}/build 
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-        -DCMAKE_FF=ON -DCMAKE_FD=ON -DCMAKE_VAL=ON
+        -DCMAKE_FF=OFF -DCMAKE_FD=ON -DCMAKE_VAL=ON
         -DCMAKE_DOXYGEN_DOCS=OFF -DCMAKE_DOXYGEN_FLAT_THEME=OFF -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
         -DCMAKE_SPHINX_DOCS=OFF
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
         -DCMAKE_STATIC_BOOST=ON
         -DCMAKE_TESTING_ENABLED=ON
-        -DCMAKE_CXX_COMPILER=g++-11 -DCMAKE_C_COMPILER=gcc-11
+        -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc
 
     - name: Build
       # Build your program with the given configuration
