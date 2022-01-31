@@ -101,6 +101,7 @@ message("THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
 option(CMAKE_STATIC_BOOST "CMAKE_STATIC_BOOST" ON)
 if(CMAKE_STATIC_BOOST)
     set(Boost_USE_STATIC_LIBS ON)
+    set(BOOST_PYTHON_STATIC_LIB ON)
 endif(CMAKE_STATIC_BOOST)
 
 #---- Catch2 ----#

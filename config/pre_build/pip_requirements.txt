@@ -1,3 +1,4 @@
 breathe
 sphinx
 exhale
+numpy
