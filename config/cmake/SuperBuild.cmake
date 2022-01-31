@@ -73,7 +73,7 @@ ExternalProject_Add(external_ff
     BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/ff/build
     INSTALL_DIR ${CMAKE_BINARY_DIR}/../build_external/ff
     #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/../build_external/ff
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/../build_external/ff -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc
     INSTALL_COMMAND  cmake --install ${CMAKE_BINARY_DIR}/../build_external/ff/build 
 )
 
@@ -90,7 +90,7 @@ ExternalProject_Add( external_VAL
     BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/VAL
     #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
     CMAKE_ARGS 
-        -DCMAKE_BUILD_TYPE=Release
+        -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc
     INSTALL_COMMAND ""
 )
 
@@ -102,7 +102,7 @@ ExternalProject_Add(external_catch2
     BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/Catch2/build
     INSTALL_DIR ${CMAKE_BINARY_DIR}/../build_external/Catch2
     #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/../build_external/Catch2
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/../build_external/Catch2 -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc
     INSTALL_COMMAND  cmake --install ${CMAKE_BINARY_DIR}/../build_external/Catch2/build 
 )
 
