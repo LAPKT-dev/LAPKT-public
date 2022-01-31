@@ -52,6 +52,7 @@ jobs:
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
         -DCMAKE_STATIC_BOOST=ON
         -DCMAKE_TESTING_ENABLED=ON
+        -DCMAKE_CXX_COMPILER=g++-11 -DCMAKE_C_COMPILER=gcc-11
 
     - name: Build
       # Build your program with the given configuration
