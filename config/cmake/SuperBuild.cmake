@@ -146,6 +146,9 @@ ExternalProject_Add( external_clingo_win32
     INSTALL_COMMAND "" # ./b2 install
     )
 
+
+file(WRITE ${CMAKE_BINARY_DIR}/../build_external/boost/user-config.jam "using python  :  ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR} ;")
+
 ExternalProject_Add( external_boost
     URL https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.bz2
     URL_MD5 db0112a3a37a3742326471d20f1a186a
@@ -157,7 +160,7 @@ ExternalProject_Add( external_boost
     #CONFIGURE_COMMAND ./bootstrap.sh --libdir=${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost --includedir=${CMAKE_INSTALL_PREFIX}/include
     CONFIGURE_COMMAND ./bootstrap.sh --libdir=${CMAKE_BINARY_DIR}/../build_external/boost/lib --includedir=${CMAKE_BINARY_DIR}/../build_external/boost/include
     #BUILD_COMMAND ./b2 --user-config=${CMAKE_SOURCE_DIR}/config/user-config.jam --with-python --with-program_options --build-dir=${CMAKE_BINARY_DIR}/boost/build toolset=gcc variant=${BOOST_VARIANT} optimization=space link=shared install
-    BUILD_COMMAND ./b2 --user-config=${CMAKE_SOURCE_DIR}/config/boost/user-config.jam --with-python --with-program_options --build-dir=${CMAKE_BINARY_DIR}/../build_external/boost/build variant=${BOOST_VARIANT} optimization=space link=static install cxxflags=-fpic
+    BUILD_COMMAND ./b2 --user-config=${CMAKE_BINARY_DIR}/../build_external/boost/user-config.jam --with-python --with-program_options --build-dir=${CMAKE_BINARY_DIR}/../build_external/boost/build variant=${BOOST_VARIANT} optimization=space link=static install cxxflags=-fpic
     INSTALL_COMMAND "" # ./b2 install
     )
 
