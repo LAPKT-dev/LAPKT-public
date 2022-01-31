@@ -1,12 +1,3 @@
-[submodule "lab_experiment_module"]
-	path = lab_experiment_module
-    url = https://github.com/LAPKT-dev/lab_experiment_module.git
-[submodule "external_package/Catch2"]
-	path = external_package/Catch2
-	url = https://github.com/catchorg/Catch2.git
 [submodule "fd_translate"]
 	path = external_package/fd_translate
 	url = https://github.com/LAPKT-dev/fd_translate.git
-[submodule "external_package/libff"]
-	path = external_package/libff
-	url = https://github.com/LAPKT-dev/libff_parser

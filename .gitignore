@@ -41,6 +41,8 @@ examples/agnostic-examples/bfs_f/bfs
 examples/agnostic-examples/successor_generation/succ-gen
 
 # Local directories 
+external_package/Catch2
+external_package/libff
 external_package/VAL
 external_package/boost*
 external_package/clingo*

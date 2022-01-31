@@ -8,7 +8,7 @@ if(${Python3_VERSION} VERSION_LESS 3.7.0)
 endif()
 #-----------------------------#
 execute_process(COMMAND ${Python3_EXECUTABLE} -m pip install 
-    -r ${CMAKE_CURRENT_SOURCE_DIR}/../pre_build/pip_requirements.txt
+    -r ${PROJECT_SOURCE_DIR}/config/pre_build/pip_requirements.txt
     RESULT_VARIABLE out
 )
 message(STATUS "Python result: ${out}")
@@ -67,6 +67,7 @@ if(NOT EXISTS ${CMAKE_SOURCE_DIR}/external_package/libff/CMakeLists.txt OR
 endif()
 
 ExternalProject_Add(external_ff
+    GIT_REPOSITORY https://github.com/LAPKT-dev/libff_parser
     SOURCE_DIR ${CMAKE_SOURCE_DIR}/external_package/libff
     #SOURCE_SUBDIR src
     BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/ff/build
@@ -94,6 +95,8 @@ ExternalProject_Add( external_VAL
 )
 
 ExternalProject_Add(external_catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2
+    GIT_TAG  v3.0.0-preview4
     SOURCE_DIR ${CMAKE_SOURCE_DIR}/external_package/Catch2
     #SOURCE_SUBDIR src
     BINARY_DIR ${CMAKE_BINARY_DIR}/../build_external/Catch2/build
