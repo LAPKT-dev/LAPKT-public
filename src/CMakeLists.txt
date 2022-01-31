@@ -13,7 +13,7 @@ set_target_properties(planner PROPERTIES
          LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/_pywrapper)
 set_target_properties(planner PROPERTIES LINK_SEARCH_START_STATIC ON)
 set_target_properties(planner PROPERTIES LINK_SEARCH_END_STATIC ON)
-target_link_libraries(planner PRIVATE -static-libgcc -static-libstdc++)
+target_link_libraries(planner PRIVATE -static-libstdc++)
 
 target_include_directories(planner PRIVATE ${Python3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
 target_link_libraries( planner PRIVATE

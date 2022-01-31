@@ -3,7 +3,7 @@ set_target_properties(fd_wrapper PROPERTIES
          LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/_pywrapper)
 set_target_properties(fd_wrapper PROPERTIES LINK_SEARCH_START_STATIC ON)
 set_target_properties(fd_wrapper PROPERTIES LINK_SEARCH_END_STATIC ON)
-target_link_libraries(fd_wrapper PRIVATE -static-libgcc -static-libstdc++)
+target_link_libraries(fd_wrapper PRIVATE -static-libstdc++)
 
 target_include_directories(fd_wrapper PRIVATE ${Python3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
 target_link_libraries( fd_wrapper PRIVATE
