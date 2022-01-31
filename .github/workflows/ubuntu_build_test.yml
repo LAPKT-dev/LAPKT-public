@@ -1,4 +1,4 @@
-name: BuildTestLAPKT
+name: BuildTestLinux
 
 on:
   push:
