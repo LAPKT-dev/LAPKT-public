@@ -73,7 +73,7 @@ if(${Python3_VERSION} VERSION_LESS 3.7.0)
         ${Python3_VERSION})
 endif()
 
-message("The PYTHON_VERSION is " ${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR})
+message("The PYTHON_VERSION is ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
 
 #---- Boost ----#
 
@@ -105,7 +105,7 @@ if(CMAKE_STATIC_BOOST)
 endif(CMAKE_STATIC_BOOST)
 
 #---- Catch2 ----#
-find_package(Catch2 3 REQUIRED PATHS ${CMAKE_BINARY_DIR}/../build_external/Catch2 NO_DEFAULT_PATH)
+find_package(Catch2 3 REQUIRED PATHS ${PROJECT_BINARY_DIR}/../build_external/Catch2 NO_DEFAULT_PATH)
 
 # 
 if(CMAKE_TESTING_ENABLED)
