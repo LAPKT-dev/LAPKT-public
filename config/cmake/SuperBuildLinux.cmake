@@ -1,5 +1,9 @@
-#---- BEGIN install python prerequisites ----#
-#----Check Python Version ----#
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+#xxxx SECTION 1 - PREREQUISITES
+
+#----SECTION 1.1 -Install python prerequisites ----#
+
+# Fetch Python Exec
 find_package(Python3 COMPONENTS Interpreter Development)
 if(${Python3_VERSION} VERSION_LESS 3.7.0)
     message(SEND_ERROR 
@@ -7,176 +11,212 @@ if(${Python3_VERSION} VERSION_LESS 3.7.0)
         ${Python3_VERSION})
 endif()
 message("The PYTHON_VERSION is ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
-#-----------------------------#
+
+# Install pip requirements
 execute_process(COMMAND ${Python3_EXECUTABLE} -m pip install 
     -r ${PROJECT_SOURCE_DIR}/config/pre_build/pip_requirements.txt
     RESULT_VARIABLE out
 )
 message(STATUS "Python result: ${out}")
-#---- END install python prerequisites ----#
+
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+#xxxx SECTION 2 - ADD EXTERNAL PROJECTS
 
 include(ExternalProject)
 set(CMAKE_CXX_STANDARD 17)
 
-#set_property(DIRECTORY PROPERTY EP_BASE boost)
+# which compilers to use for C and C++
+set(CMAKE_C_COMPILER   gcc)
+set(CMAKE_CXX_COMPILER g++)
 
+# Dependencies of LAPKT
+set(DEPENDENCIES)  
 
-set(DEPENDENCIES)
-set(EXTRA_CMAKE_ARGS)
-
+# DOXYGEN EXTRACT BINARIES
 list(APPEND DEPENDENCIES 
-    external_boost 
-    external_clingo_linux 
-    external_clingo_win32 
-    external_clingo_darwin
     external_doxygen
-    external_catch2
-    )
-
-if(CMAKE_BOOST_BUILD_TYPE STREQUAL "Debug")
-    set(BOOST_VARIANT "debug")
-else()
-    set(BOOST_VARIANT "release")
-endif()
-message("Building Boost in " ${BOOST_VARIANT} " mode")
+)
 
 
 ExternalProject_Add( external_doxygen
     URL https://sourceforge.net/projects/doxygen/files/rel-1.9.3/doxygen-1.9.3.linux.bin.tar.gz
     URL_MD5 3aa5c8b282f194f0d0d3e9c5b8010e20
-    DOWNLOAD_DIR ${PROJECT_SOURCE_DIR}/external_package
-    SOURCE_DIR  ${PROJECT_BINARY_DIR}/../build_external/doxygen
+    DOWNLOAD_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}
+    SOURCE_DIR  ${CUSTOM_EXT_INSTALL_PREFIX}/doxygen
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND "" # ./b2 install
 )
-
+list (APPEND EXTRA_CMAKE_ARGS
+    -DDOXYGEN_ROOT=${CUSTOM_EXT_INSTALL_PREFIX}/doxygen
+)
 
 # Update the submodule if not done manually 
-if(NOT EXISTS ${PROJECT_SOURCE_DIR}/external_package/libff/CMakeLists.txt OR
-    NOT EXISTS ${PROJECT_SOURCE_DIR}/external_package/Catch2/CMakeLists.txt OR
-    NOT EXISTS ${PROJECT_SOURCE_DIR}/external_package/fd_translate/translate.py OR
-    NOT EXISTS ${PROJECT_SOURCE_DIR}/external_package/VAL-4.2.08/Makefile
-    )
+if(NOT EXISTS ${PROJECT_SOURCE_DIR}/external_package/fd_translate/translate.py)
   find_package(Git REQUIRED)
   execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init 
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     COMMAND_ERROR_IS_FATAL ANY)
 endif()
 
-if(CMAKE_FF)
+# BUILD FF
+if(CMAKE_FF_CXX OR CMAKE_FF_PYWRAPPER)
     list(APPEND DEPENDENCIES 
         external_ff
     )
     ExternalProject_Add(external_ff
         GIT_REPOSITORY https://github.com/LAPKT-dev/libff_parser
-        SOURCE_DIR ${PROJECT_SOURCE_DIR}/external_package/libff
+        SOURCE_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}/libff
         #SOURCE_SUBDIR src
-        BINARY_DIR ${PROJECT_BINARY_DIR}/../build_external/ff/build
-        INSTALL_DIR ${PROJECT_BINARY_DIR}/../build_external/ff
+        BINARY_DIR ${CUSTOM_EXT_BUILD_DIR}/ff/build
+        INSTALL_DIR ${CUSTOM_EXT_INSTALL_PREFIX}/ff
         #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${PROJECT_BINARY_DIR}/../build_external/ff
-        INSTALL_COMMAND  cmake --install ${PROJECT_BINARY_DIR}/../build_external/ff/build 
+        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CUSTOM_EXT_INSTALL_PREFIX}/ff
+        # INSTALL_COMMAND  cmake --install ${PROJECT_BINARY_DIR}/../build_external/ff/build 
     )
-endif(CMAKE_FF)
-# file(COPY ${PROJECT_SOURCE_DIR}/external_package/VAL-4.2.08 
-#         DESTINATION ${PROJECT_BINARY_DIR}/../build_external)
+endif()
+list (APPEND EXTRA_CMAKE_ARGS
+    -DFF_ROOT=${CUSTOM_EXT_INSTALL_PREFIX}/ff
+)
 
-# add_custom_target(external_VAL ALL COMMAND make
-#     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/../build_external/VAL-4.2.08
-# )
-
+# BUILD KCL-VAL
 if(CMAKE_VAL)
     list(APPEND DEPENDENCIES 
         external_VAL
     )
     ExternalProject_Add( external_VAL
         GIT_REPOSITORY https://github.com/KCL-Planning/VAL
-        SOURCE_DIR ${PROJECT_SOURCE_DIR}/external_package/VAL
-        BINARY_DIR ${PROJECT_BINARY_DIR}/../build_external/VAL
+        SOURCE_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}/VAL
+        BINARY_DIR ${CUSTOM_EXT_BUILD_DIR}/VAL
+        INSTALL_DIR ${CUSTOM_EXT_INSTALL_PREFIX}/VAL
         #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
-        CMAKE_ARGS 
-            -DCMAKE_BUILD_TYPE=Release
-        INSTALL_COMMAND ""
+        CMAKE_ARGS -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${CUSTOM_EXT_INSTALL_PREFIX}/VAL
+        # INSTALL_COMMAND ""
     )
 endif(CMAKE_VAL)
 
+# BUILD CATCH2
+list(APPEND DEPENDENCIES 
+    external_catch2
+)
 ExternalProject_Add(external_catch2
     GIT_REPOSITORY https://github.com/catchorg/Catch2
     GIT_TAG  v3.0.0-preview4
-    SOURCE_DIR ${PROJECT_SOURCE_DIR}/external_package/Catch2
+    SOURCE_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}/Catch2
     #SOURCE_SUBDIR src
-    BINARY_DIR ${PROJECT_BINARY_DIR}/../build_external/Catch2/build
-    INSTALL_DIR ${PROJECT_BINARY_DIR}/../build_external/Catch2
+    BINARY_DIR ${CUSTOM_EXT_BUILD_DIR}/Catch2/build
+    INSTALL_DIR ${CUSTOM_EXT_INSTALL_PREFIX}/Catch2
     #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${PROJECT_BINARY_DIR}/../build_external/Catch2
-    INSTALL_COMMAND  cmake --install ${PROJECT_BINARY_DIR}/../build_external/Catch2/build 
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CUSTOM_EXT_INSTALL_PREFIX}/Catch2
+    # INSTALL_COMMAND  cmake --install ${PROJECT_BINARY_DIR}/../build_external/Catch2/build 
+)
+list (APPEND EXTRA_CMAKE_ARGS
+    -DCATCH2_ROOT=${CUSTOM_EXT_INSTALL_PREFIX}/Catch2
 )
 
+# CLINGO BINARIES
+list(APPEND DEPENDENCIES 
+    external_clingo_linux 
+)
 ExternalProject_Add( external_clingo_linux
     URL https://github.com/potassco/clingo/releases/download/v5.4.0/clingo-5.4.0-linux-x86_64.tar.gz
     URL_MD5 d8e5767d1f482ddfc98d010191422af8
-    DOWNLOAD_DIR ${PROJECT_SOURCE_DIR}/external_package
-    SOURCE_DIR  ${PROJECT_BINARY_DIR}/../build_external/clingo/linux
+    DOWNLOAD_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}
+    SOURCE_DIR  ${CUSTOM_EXT_INSTALL_PREFIX}/clingo/linux
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND "" # ./b2 install
 )
 
+list(APPEND DEPENDENCIES 
+    external_clingo_darwin
+)
 ExternalProject_Add( external_clingo_darwin
     URL https://github.com/potassco/clingo/releases/download/v5.4.0/clingo-5.4.0-macos-x86_64.tar.gz
     URL_MD5 64b46fde3a75e02368c25cd9f2d37029
-    DOWNLOAD_DIR ${PROJECT_SOURCE_DIR}/external_package
-    SOURCE_DIR  ${PROJECT_BINARY_DIR}/../build_external/clingo/darwin
+    DOWNLOAD_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}
+    SOURCE_DIR  ${CUSTOM_EXT_INSTALL_PREFIX}/clingo/darwin
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND "" # ./b2 install
-    )
+)
 
+list(APPEND DEPENDENCIES 
+    external_clingo_win32 
+)
 ExternalProject_Add( external_clingo_win32
     URL https://github.com/potassco/clingo/releases/download/v5.4.0/clingo-5.4.0-win64.zip
     URL_MD5 61815445476e20d4ce4f00060626d2da
-    DOWNLOAD_DIR ${PROJECT_SOURCE_DIR}/external_package
-    SOURCE_DIR  ${PROJECT_BINARY_DIR}/../build_external/clingo/win32
+    DOWNLOAD_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}
+    SOURCE_DIR  ${CUSTOM_EXT_INSTALL_PREFIX}/clingo/win32
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND "" # ./b2 install
-    )
+)
 
 
-file(WRITE ${PROJECT_BINARY_DIR}/../build_external/boost/user-config.jam "using python  :  ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR} ;")
+# BUILD BOOST
 
+list(APPEND DEPENDENCIES 
+    external_boost 
+)
+
+# Allow boost to be compiled with debug flag
+if(CMAKE_BOOST_BUILD_TYPE STREQUAL "Debug")
+    set(BOOST_VARIANT "debug")
+else()
+    set(BOOST_VARIANT "release")
+endif()
+message("Building Boost in " ${BOOST_VARIANT} " mode")
+file(WRITE ${CUSTOM_EXT_BUILD_DIR}/boost/user-config.jam "using python  :  ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR} ;")
+
+# LOGS
 message("Boost is built using python  :  ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR} ;")
 message("The boost build command is : ./b2 --user-config=${PROJECT_BINARY_DIR}/../build_external/boost/user-config.jam --with-python --with-program_options --build-dir=${PROJECT_BINARY_DIR}/../build_external/boost/build variant=${BOOST_VARIANT} optimization=space link=static install cxxflags=-fpic")
 
+#
 ExternalProject_Add( external_boost
     URL https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.bz2
     URL_MD5 db0112a3a37a3742326471d20f1a186a
-    DOWNLOAD_DIR ${PROJECT_SOURCE_DIR}/external_package
-    TMP_DIR     ${PROJECT_BINARY_DIR}/../build_external/boost/tmp
-    SOURCE_DIR  ${PROJECT_BINARY_DIR}/../build_external/boost/src
+    DOWNLOAD_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}
+    TMP_DIR     ${CUSTOM_EXT_BUILD_DIR}/boost/tmp
+    SOURCE_DIR  ${CUSTOM_EXT_BUILD_DIR}/boost/src
     BUILD_IN_SOURCE 1
     #INSTALL_DIR ${PROJECT_BINARY_DIR}/boost/lib
     #CONFIGURE_COMMAND ./bootstrap.sh --libdir=${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost --includedir=${CMAKE_INSTALL_PREFIX}/include
-    CONFIGURE_COMMAND ./bootstrap.sh --libdir=${PROJECT_BINARY_DIR}/../build_external/boost/lib --includedir=${PROJECT_BINARY_DIR}/../build_external/boost/include
+    CONFIGURE_COMMAND ./bootstrap.sh #--libdir=${PROJECT_BINARY_DIR}/../build_external/boost/lib --includedir=${PROJECT_BINARY_DIR}/../build_external/boost/include
     #BUILD_COMMAND ./b2 --user-config=${PROJECT_SOURCE_DIR}/config/user-config.jam --with-python --with-program_options --build-dir=${PROJECT_BINARY_DIR}/boost/build toolset=gcc variant=${BOOST_VARIANT} optimization=space link=shared install
-    BUILD_COMMAND ./b2 --user-config=${PROJECT_BINARY_DIR}/../build_external/boost/user-config.jam --with-python --with-program_options --build-dir=${PROJECT_BINARY_DIR}/../build_external/boost/build variant=${BOOST_VARIANT} optimization=space link=static install cxxflags=-fpic
+    BUILD_COMMAND ./b2 --with-python --with-program_options --with-random 
+        --user-config=${CUSTOM_EXT_BUILD_DIR}/boost/user-config.jam 
+        --build-dir=${CUSTOM_EXT_BUILD_DIR}/boost/build variant=${BOOST_VARIANT} 
+        optimization=space link=static toolset=gcc
+        --prefix=${CUSTOM_EXT_INSTALL_PREFIX}/boost install
     INSTALL_COMMAND "" # ./b2 install
-    )
+)
+# Set the path to find Boost Cmake Config
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CUSTOM_EXT_INSTALL_PREFIX}/boost/lib/cmake/Boost-1.78.0")
 
 list (APPEND EXTRA_CMAKE_ARGS
-  -DBOOST_ROOT=${PROJECT_BINARY_DIR}/../build_external/boost/src
-  #-DBOOST_INCLUDEDIR=${CMAKE_INSTALL_PREFIX}/include
-  -DBOOST_INCLUDEDIR=${PROJECT_BINARY_DIR}/../build_external/boost/include
-  #-DBOOST_LIBRARYDIR=${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost/
-  -DBOOST_LIBRARYDIR=${PROJECT_BINARY_DIR}/../build_external/boost/lib
-  -DBoost_NO_SYSTEM_PATHS=ON
-  -DBoost_REALPATH=ON
-  -DBoost_NO_BOOST_CMAKE=ON)
+    -DBOOST_ROOT=${CUSTOM_EXT_INSTALL_PREFIX}/boost
+    -DBOOST_INCLUDEDIR=${BOOST_ROOT}/include
+    -DBOOST_LIBRARYDIR=${BOOST_ROOT}/lib
+#   -DBoost_NO_SYSTEM_PATHS=ON
+#   -DBoost_REALPATH=ON
+#   -DBoost_NO_BOOST_CMAKE=ON
+)
+
+
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+#xxxx SECTION 3 - CALL THE MAIN SCRIPT TO BUILD LAPKT
+    
+list(APPEND EXTRA_CMAKE_ARGS
+    -DUSE_SUPERBUILD=OFF
+    -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+)
 
 get_cmake_property(vars CACHE_VARIABLES)
 foreach(var ${vars})
@@ -190,6 +230,6 @@ endforeach()
 ExternalProject_Add (external_lapkt
   DEPENDS ${DEPENDENCIES}
   SOURCE_DIR ${PROJECT_SOURCE_DIR}
-  CMAKE_ARGS -DUSE_SUPERBUILD=OFF ${EXTRA_CMAKE_ARGS} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+  CMAKE_ARGS ${EXTRA_CMAKE_ARGS}
   INSTALL_COMMAND ""
   BINARY_DIR ${PROJECT_BINARY_DIR})

@@ -18,8 +18,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __MEMORY_TOOLS__
+#ifndef __MEMORY_TOOLS__ 
+#ifdef __linux__
 #define __MEMORY_TOOLS__
+
 
 #include <sys/time.h>
 #include <sys/resource.h>
@@ -31,4 +33,6 @@ void report_memory_usage();
 
 }
 
+
+#endif
 #endif

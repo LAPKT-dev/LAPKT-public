@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
-from lapkt.script.run_planner import validate_plan
-from argparse import ArgumentParser
 
-if __name__ == "__main__" :
-    parser  =   ArgumentParser(description= "Run validate")
-    parser.add_argument( '-d', '--domain', action='store', nargs='?',
-            required=True, help='path to the domain pddl file')
-    parser.add_argument( '-p', '--problem', action='store', nargs='?',
-            required=True, help='path to the problem pddl file')
-    parser.add_argument( '-c', '--plan', action='store', nargs='?',
-            required=True, help='path to the plan file with the plan')
-    args    =   parser.parse_args()
+import sys
+import subprocess
+import os
 
-    validate_plan(args.domain, args.problem, args.plan)
+def program(name, args):
+    return ([os.path.join(BIN_DIR, name)] + args)
+
+if __name__ == '__main__':
+    EXEC_PATH=os.path.join(os.path.dirname(__file__), "../bin/Validate")
+    sys.exit(subprocess.call([EXEC_PATH]+sys.argv[1:]))

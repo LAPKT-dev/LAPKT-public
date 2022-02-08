@@ -16,30 +16,9 @@ target_sources(LAPKT
         string_conversions.hxx
         time.hxx
         types.hxx
-    )
+)
 target_include_directories(LAPKT
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:include>
-    )
-
-install(
-    FILES
-        bit_array.hxx
-        bit_matrix.hxx
-        bit_set.hxx
-        bit_square_matrix.hxx
-        ext_math.hxx
-        hash_table.hxx
-        jenkins_12bit.hxx
-        memory.hxx
-        resources_control.hxx
-        sliding_window.hxx
-        string_conversions.hxx
-        time.hxx
-        types.hxx
-    DESTINATION
-    ${CMAKE_INSTALL_PREFIX}/package/lapkt/_cxx/include
-    COMPONENT
-        Development EXCLUDE_FROM_ALL
-    )
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/package/core/include>
+)

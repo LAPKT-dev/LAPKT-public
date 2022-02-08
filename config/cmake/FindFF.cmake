@@ -1,6 +1,6 @@
-find_path(FF_INCLUDE_DIR NAME libff.h PATHS ${PROJECT_BINARY_DIR}/../build_external/ff/include/
+find_path(FF_INCLUDE_DIR NAME libff.h PATHS ${FF_ROOT}/include/
             REQUIRED NO_DEFAULT_PATH)
-find_library(FF_LIBRARIES ff  PATHS ${PROJECT_BINARY_DIR}/../build_external/ff/ 
+find_library(FF_LIBRARIES ff  PATHS ${FF_ROOT}/ 
             REQUIRED NO_DEFAULT_PATH)
 
 find_package_handle_standard_args(FF

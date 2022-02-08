@@ -24,23 +24,7 @@ target_sources(LAPKT
 target_include_directories(LAPKT
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:include>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/package/core/include>
     )
 
-install(
-    FILES
-        action.hxx
-        cond_eff.hxx
-        conj_comp_prob.hxx
-        fl_conj.hxx
-        fluent.hxx
-        fwd_search_prob.hxx
-        mutex_set.hxx
-        strips_prob.hxx
-        strips_state.hxx
-        search_prob.hxx
-    DESTINATION
-        include
-    COMPONENT
-        Development EXCLUDE_FROM_ALL
-    )
+

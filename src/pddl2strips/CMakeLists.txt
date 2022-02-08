@@ -5,18 +5,14 @@
 #     ${Boost_LIBRARIES}
 #     )
 
-add_library(tarski_wrapper)
-if(CMAKE_FF)
-    find_package(FF REQUIRED)
-    add_library(ff_wrapper) 
+add_subdirectory(wrapper)
+
+if(CMAKE_FF_CXX OR CMAKE_FF_PYWRAPPER)
     add_subdirectory(ff)
-endif(CMAKE_FF)
-if(CMAKE_FD)
-    add_library(fd_wrapper)
-    add_subdirectory(fd)
-endif(CMAKE_FD)
+endif(CMAKE_FF_CXX OR CMAKE_FF_PYWRAPPER)
+
 add_subdirectory(tarski)
-add_subdirectory(common)
+
 
 # file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/__init__.py "from .libpddl_py_interface import *")
 # install(

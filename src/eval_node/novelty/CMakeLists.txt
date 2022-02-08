@@ -9,15 +9,5 @@ target_sources(LAPKT
 target_include_directories(LAPKT
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:include>
-    )
-install(
-    FILES
-        node_novelty_spaces.hxx
-        novelty.hxx
-        novelty_partition.hxx
-    DESTINATION
-    ${CMAKE_INSTALL_PREFIX}/package/lapkt/_cxx/include
-    COMPONENT
-        Development EXCLUDE_FROM_ALL
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/package/core/include>
     )

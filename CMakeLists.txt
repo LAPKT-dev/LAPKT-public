@@ -1,27 +1,70 @@
 cmake_minimum_required(VERSION 3.16)
 
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-#xxxx SECTION 0 - PRE-BUILD STEP/SUPERBUILD xxxx#
-# This must stay at the beginning of the top level CMakeLists.txt
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+#------------ PRE-BUILD STEP/SUPERBUILD -------------#
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+#xxxx SECTION 0 -  LAPKT DEPENDENCIES
+# THIS SECTION MUST STAY AT THE TOP OF ROOT CMakeLists.txt
+# Use -DUSE_SUPERBUILD=OFF to skip the section
 
+# LOG
+message(STATUS "SUPERBUILD IS ${USE_SUPERBUILD}")
+
+# SUPERBUILD is ON by default but can be disabled by -DUSE_SUPERBUILD=OFF
 option (USE_SUPERBUILD "flag that a superbuild should be invoked" ON)
+
+message(STATUS "SUPERBUILD IS ${USE_SUPERBUILD}")
 
 if (USE_SUPERBUILD)
     project(SUPERBUILD NONE)
-    set(CMAKE_BUILD_DIREC)
-    include(config/cmake/SuperBuild.cmake)
+
+    # Set pre_build user parameters
+    set(LINUX_BUILD OFF)
+    set(WINDOWS_BUILD OFF)
+    set(MACOS_BUILD OFF)
+    set(CUSTOM_EXT_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/../external_lib")
+    set(CUSTOM_EXT_DOWNLOAD_DIR "${PROJECT_BINARY_DIR}/../external_download")
+    set(CUSTOM_EXT_BUILD_DIR "${PROJECT_BINARY_DIR}/../external_build")
+
+    message(STATUS "THE LOCAL BUILD SYSTEM NAME IS : ${CMAKE_SYSTEM_NAME}")
+    if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        set(LINUX_BUILD ON)
+        add_subdirectory(config/cmake/SuperBuildLinux)
+        # include(config/cmake/SuperBuildLinux.cmake)
+    elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+        set(WINDOWS_BUILD ON)
+        include(config/cmake/SuperBuildWindows.cmake)
+    elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+        set(MACOS_BUILD ON)
+        include(config/cmake/SuperBuildMacos.cmake)
+    else()
+        message(FATAL_ERROR
+"The Super build is only configured for Linux, Windows, \
+and Darwin.\
+RESOLUTION: \
+1. Create the Superbuild cmake config specific to you system and \
+update the call to the script in the root CMakeLists.txt.\
+2. Create a Pull request on Github."
+        )
+    endif()
+
     return()
 else()
     project(LAPKT VERSION 1.0)
 endif(USE_SUPERBUILD)
 
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx#
+#--------- LAPKT PROJECT BUILD BEGINS HERE ----------#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #xxxx SECTION 1 - CMAKE CUSTOMIZATION xxxx#
 
 #---- SECTION 1.1 SETTINGS ----#
 
 set(CMAKE_CXX_STANDARD 17)
-#set(CMAKE_CXX_STANDARD_REQUIRED False)
+
+# which compilers to use for C and C++
+set(CMAKE_C_COMPILER   gcc)
+set(CMAKE_CXX_COMPILER g++)
 
 # https://stackoverflow.com/a/17032841/7248295
 # set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
@@ -32,23 +75,50 @@ set(BUILD_SHARED_LIBS ON)
 # The Find<Package>.cmake file are located here
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/config/cmake)
 
-# THIS IS SPECIFIC TO LINUX/SOLARIS
-set(CMAKE_INSTALL_RPATH 
-    "${CMAKE_INSTALL_RPATH}:$ORIGIN/../_cxx/lib;\
-    ${CMAKE_INSTALL_RPATH}:$ORIGIN/../_pywrapper"
-)
+# FLAG THE LOCAL BUILD SYSTEM
+message(STATUS "THE LOCAL BUILD SYSTEM NAME IS : ${CMAKE_SYSTEM_NAME}")
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    set(LINUX_BUILD ON)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set(MACOS_BUILD ON)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    set(WINDOWS_BUILD ON)
+else()
+    message(FATAL_ERROR
+"The Super build is only configured for Linux, Windows, \
+and Darwin.\
+RESOLUTION: \
+1. Create the Superbuild cmake config specific to you system and \
+update the call to the script in the root CMakeLists.txt.\
+2. Create a Pull request on Github."
+    )
+endif()
 
-# DEFAULT PARAMETER VALUES
-option(CMAKE_FF "CMAKE_FF" OFF)
+# Link with FF Library and include the wrapper over FF and LAPKT
+#   which acts as a pipe between output of FF parser and LAPKT
+option(CMAKE_FF_CXX "CMAKE_FF_CXX" OFF)
+option(CMAKE_FF_PYWRAPPER "CMAKE_FF_PYWRAPPER" OFF)
+
+# Link with FD Library and include the wrapper over FD and LAPKT
+#   which acts as a pipe between output of FD tarnslate and LAPKT
 option(CMAKE_FD "CMAKE_FD" OFF)
-option(CMAKE_VAL "CMAKE_FD" OFF)
+
+# Include the wrapper over Tarski and LAPKT
+#   which acts as a pipe between output of Tarski grounder and LAPKT
+option(CMAKE_TARSKI "CMAKE_TARSKI" ON)
+
+# Compile KCL VAL 
+option(CMAKE_VAL "CMAKE_VAL" OFF)
+
+# Create Sphinx Docs (Translated from Doxygen XML)
 option(CMAKE_SPHINX_DOCS "CMAKE_SPHINX_DOCS" OFF)
+
+# Create Doxygen html Docs
 option(CMAKE_DOXYGEN_DOCS "CMAKE_DOXYGEN_DOCS" OFF)
 
-# Echo Log
-
-message("The CMAKE_INSTALL_PREFIX is " ${CMAKE_INSTALL_PREFIX})
-message("Building LAPKT in " ${CMAKE_BUILD_TYPE} " mode")
+# LOG
+message(STATUS "The CMAKE_INSTALL_PREFIX is " ${CMAKE_INSTALL_PREFIX})
+message(STATUS "Building LAPKT in " ${CMAKE_BUILD_TYPE} " mode")
 
 #---- SECTION 1.2 CUSTOM METHODS ----#
 function(cat FROM TO)
@@ -77,25 +147,13 @@ message("The PYTHON_VERSION is ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}
 
 #---- Boost ----#
 
-find_package(Boost REQUIRED COMPONENTS python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR} program_options)
-
-message("THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
-
-#
-# install(FILES
-#     ${Boost_LIBRARIES}
-#     ${Boost_PROGRAM_OPTIONS_LIBRARY}
-#     ${Boost_REGEX_LIBRARY}
-#     PERMISSIONS OWNER_WRITE OWNER_READ
-#     DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost
-#     COMPONENT Development EXCLUDE_FROM_ALL
-#   )
-# #
-# install(DIRECTORY
-#     ${Boost_INCLUDE_DIRS}
-#     DESTINATION ${CMAKE_INSTALL_PREFIX}
-#     COMPONENT Development EXCLUDE_FROM_ALL
-#   )
+# LOGS
+message(STATUS "BOOST_ROOT is set to ${BOOST_ROOT}")
+message(STATUS "BOOST_INCLUDEDIR is set to ${BOOST_INCLUDEDIR}")
+message(STATUS "BOOST_LIBRARYDIR is set to ${BOOST_LIBRARYDIR}")
+message(STATUS "CMAKE_MODULE_PATH is set to ${CMAKE_MODULE_PATH}")
+set(Boost_VERBOSE ON)
+set(Boost_DEBUG ON)
 
 # Link with static Boost libraries instead of dynamic
 option(CMAKE_STATIC_BOOST "CMAKE_STATIC_BOOST" ON)
@@ -104,8 +162,19 @@ if(CMAKE_STATIC_BOOST)
     set(BOOST_PYTHON_STATIC_LIB ON)
 endif(CMAKE_STATIC_BOOST)
 
+message("Boost_USE_STATIC_LIBS is ${Boost_USE_STATIC_LIBS}")
+message("BOOST_PYTHON_STATIC_LIB is ${BOOST_PYTHON_STATIC_LIB}")
+# find_package(Boost REQUIRED COMPONENTS python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR} program_options)
+
+# set(BOOST_ROOT C:/Boost)
+# set(BOOST_INCLUDEDIR ${BOOST_ROOT}/include)
+# set(BOOST_LIBRARYDIR ${BOOST_ROOT}/lib)
+# set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "C:/Boost/lib/cmake/Boost-1.78.0")
+find_package(Boost REQUIRED COMPONENTS program_options  python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR})
+message("THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
+
 #---- Catch2 ----#
-find_package(Catch2 3 REQUIRED PATHS ${PROJECT_BINARY_DIR}/../build_external/Catch2 NO_DEFAULT_PATH)
+find_package(Catch2 3 REQUIRED PATHS ${CATCH2_ROOT} NO_DEFAULT_PATH)
 
 # 
 if(CMAKE_TESTING_ENABLED)
@@ -125,86 +194,34 @@ add_subdirectory(external_package)
 add_subdirectory(test)
 
 ##XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-#xxxx SECTION 4 Python Package
+#xxxx SECTION 4 Installed Package
 
-file(TOUCH ${PROJECT_BINARY_DIR}/lapkt_planner_config.yml)
-file(TOUCH ${PROJECT_BINARY_DIR}/__init__.py)
-install(
-    FILES ${PROJECT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt
-    COMPONENT Runtime
-)
-install(
-    FILES ${PROJECT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt
-    COMPONENT Development EXCLUDE_FROM_ALL
-)
-install(
-    FILES ${PROJECT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/pddl2strips
-    COMPONENT Runtime
-)
-install(
-    FILES ${PROJECT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/pddl2strips
-    COMPONENT Development EXCLUDE_FROM_ALL
-)
-install(
-    FILES ${PROJECT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/_pywrapper
-    COMPONENT Runtime
-)
-install(
-    FILES ${PROJECT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/_pywrapper
-    COMPONENT Development EXCLUDE_FROM_ALL
-)
-install(
-    FILES ${PROJECT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/script
-    COMPONENT Runtime
-)
-install(
-    FILES ${PROJECT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/script
-    COMPONENT Development EXCLUDE_FROM_ALL
-)
+# Package Structure and Configuration
+add_subdirectory(config/cmake/install)
 
-install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/lapkt_planner_config.yml
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/planner
-    COMPONENT Runtime
-)
-install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/lapkt_planner_config.yml
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/planner
-    COMPONENT Development EXCLUDE_FROM_ALL
-)
+#---- SECTION 4.1 CMAKE EXPORT CONFIGURATION
 
-###XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-#xxxx SECTION 5 CMAKE EXPORT CONFIGURATION
-
-## NEED TO EXPLAIN THIS
+## Allow developers using the LAPKT library to fetch information, including library version
 configure_file(${PROJECT_SOURCE_DIR}/config/cmake/lapkt_cmake_config.h.in lapkt_cmake_config.h)
 
-## NEED TO EXPLAIN THIS
 install(FILES "${PROJECT_BINARY_DIR}/lapkt_cmake_config.h"
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/_cxx/include
-  COMPONENT Development EXCLUDE_FROM_ALL
-  )
-  install(
-    EXPORT      LAPKTTargets
-    FILE        LAPKTTargets.cmake
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/_cxx/cmake
-    COMPONENT Runtime
-    )
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/core/include
+    COMPONENT LAPKT EXCLUDE_FROM_ALL
+)
+
+# Allows the developers to use find_package(...) to find LAPKT library from their cmake project
 install(
     EXPORT      LAPKTTargets
     FILE        LAPKTTargets.cmake
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/_cxx/cmake
-    COMPONENT Development EXCLUDE_FROM_ALL
-    )
-
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/core/cmake
+    COMPONENT LAPKT
+)
+install(
+    EXPORT      LAPKTTargets
+    FILE        LAPKTTargets.cmake
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/_lapkt_core/cmake
+    COMPONENT LAPKT EXCLUDE_FROM_ALL
+)
 include(CMakePackageConfigHelpers)
 # generate the config file that includes the exports
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/config/cmake/Config.cmake.in
@@ -218,24 +235,21 @@ write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/LAPKTConfigVersion.cmake"
   VERSION "${LAPKT_VERSION_MAJOR}.${LAPKT_VERSION_MINOR}"
   COMPATIBILITY AnyNewerVersion
-)
-
-# 
+) 
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/LAPKTConfig.cmake
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/_cxx/cmake/
-    COMPONENT Development EXCLUDE_FROM_ALL
-  )
-#
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/core/cmake/
+    COMPONENT LAPKT EXCLUDE_FROM_ALL
+)
 
 ###XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #xxxx SECTION 6 CPACK CONFIGURATIOn
 
-include(InstallRequiredSystemLibraries)
-set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE.txt")
-set(CPACK_PACKAGE_VERSION_MAJOR "${LAPKT_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${LAPKT_VERSION_MINOR}")
-include(CPack)
+# include(InstallRequiredSystemLibraries)
+# set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE.txt")
+# set(CPACK_PACKAGE_VERSION_MAJOR "${LAPKT_VERSION_MAJOR}")
+# set(CPACK_PACKAGE_VERSION_MINOR "${LAPKT_VERSION_MINOR}")
+# include(CPack)
 
 ###XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #xxxx SECTION 7 POST BUILD

@@ -1,4 +1,4 @@
-add_subdirectory(common)
+add_subdirectory(wrapper)
 add_subdirectory(anytime_lapkt)
 add_subdirectory(at_bfs_f)
 add_subdirectory(bfs_f)

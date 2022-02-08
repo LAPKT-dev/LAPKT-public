@@ -19,9 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifndef __RESOURCES_CONTROL__
+#ifdef __linux__
 #define __RESOURCES_CONTROL__
 
-#include <sys/times.h>
+#include <sys/time.h>
 #include <sys/resource.h>
 #include <unistd.h>
 #include <iostream>
@@ -64,4 +65,5 @@ inline double mem_used()
 
 }
 
+#endif
 #endif // Resources_Control.hxx
