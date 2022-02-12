@@ -1,6 +1,0 @@
-add_subdirectory(FD)
-add_subdirectory(FF)
-add_subdirectory(VAL)
-add_subdirectory(Gringo)
-add_subdirectory(LAPKT)
-add_subdirectory(PythonPackage)

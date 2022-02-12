@@ -2,4 +2,3 @@ breathe
 sphinx
 exhale
 numpy
-cmake

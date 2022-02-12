@@ -1,4 +1,4 @@
-target_sources(LAPKT
+target_sources(core
     PRIVATE
         bit_array.cxx
         bit_array.hxx
@@ -17,8 +17,28 @@ target_sources(LAPKT
         time.hxx
         types.hxx
 )
-target_include_directories(LAPKT
+target_include_directories(core
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/package/core/include>
+)
+
+install(
+    FILES
+        ${PROJECT_SOURCE_DIR}/src/utility/bit_array.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/bit_matrix.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/bit_set.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/bit_square_matrix.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/ext_math.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/hash_table.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/jenkins_12bit.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/memory.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/resources_control.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/sliding_window.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/string_conversions.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/time.hxx
+        ${PROJECT_SOURCE_DIR}/src/utility/types.hxx
+    DESTINATION
+        ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/utility
+    COMPONENT
+        core
 )

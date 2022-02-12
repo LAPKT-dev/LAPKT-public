@@ -23,35 +23,58 @@ message(STATUS "Python result: ${out}")
 #xxxx SECTION 2 - ADD EXTERNAL PROJECTS
 
 include(ExternalProject)
-set(CMAKE_CXX_STANDARD 17)
 
-# which compilers to use for C and C++
-set(CMAKE_C_COMPILER   gcc)
-set(CMAKE_CXX_COMPILER g++)
-
-# Dependencies of LAPKT
+# Dependencies of lapkt
 set(DEPENDENCIES)  
 
-# DOXYGEN EXTRACT BINARIES
-list(APPEND DEPENDENCIES 
-    external_doxygen
-)
 
-ExternalProject_Add( external_doxygen
-    URL https://sourceforge.net/projects/doxygen/files/rel-1.9.3/doxygen-1.9.3.linux.bin.tar.gz
-    URL_MD5 3aa5c8b282f194f0d0d3e9c5b8010e20
-    DOWNLOAD_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}
-    SOURCE_DIR  ${CUSTOM_EXT_INSTALL_PREFIX}/doxygen
-    BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ""
-    INSTALL_COMMAND "" # ./b2 install
-)
-list (APPEND EXTRA_CMAKE_ARGS
-    -DDOXYGEN_ROOT=${CUSTOM_EXT_INSTALL_PREFIX}/doxygen
-)
+# Download Doxygen
+if(CMAKE_DOXYGEN_DOCS)
 
-# Update the submodule if not done manually 
+    find_package(Doxygen)
+
+    if(Doxygen_FOUND)
+        message(STATUS  ${DOXYGEN_EXEC} will be used to generate auto docs)
+    elseif(NOT Doxygen_FOUND)
+        list(APPEND DEPENDENCIES 
+            external_doxygen
+        )
+        # DOXYGEN EXTRACT BINARIES   
+        if(LINUX_BUILD)
+            ExternalProject_Add( external_doxygen
+                URL https://sourceforge.net/projects/doxygen/files/rel-1.9.3/doxygen-1.9.3.linux.bin.tar.gz
+                URL_MD5 3aa5c8b282f194f0d0d3e9c5b8010e20
+                DOWNLOAD_DIR ${DEPS_DOWNLOAD_DIR}
+                SOURCE_DIR  ${DEPS_INSTALL_PREFIX}/doxygen
+                BUILD_IN_SOURCE 1
+                CONFIGURE_COMMAND ""
+                BUILD_COMMAND ""
+                INSTALL_COMMAND "" # ./b2 install
+            )
+            list (APPEND EXTRA_CMAKE_ARGS
+                -DDOXYGEN_ROOT=${DEPS_INSTALL_PREFIX}/doxygen
+            )
+        elseif(WINDOWS_BUILD)
+            ExternalProject_Add( external_doxygen
+                URL https://www.doxygen.nl/files/doxygen-1.9.3.windows.x64.bin.zip
+                URL_MD5 35db2d56a78e9a6d15696ac65f0e2ee1
+                DOWNLOAD_DIR ${DEPS_DOWNLOAD_DIR}
+                SOURCE_DIR  ${DEPS_INSTALL_PREFIX}/doxygen
+                BUILD_IN_SOURCE 1
+                CONFIGURE_COMMAND ""
+                BUILD_COMMAND ""
+                INSTALL_COMMAND "" # ./b2 install
+            )
+            list (APPEND EXTRA_CMAKE_ARGS
+                -DDOXYGEN_ROOT=${DEPS_INSTALL_PREFIX}/doxygen
+            )
+        else()
+            message(ERROR "Doxygen exec is not found on the host system.")
+        endif()
+    endif(Doxygen_FOUND)
+endif(CMAKE_DOXYGEN_DOCS)
+
+# Synchronize and update the FD submodule
 if(NOT EXISTS ${PROJECT_SOURCE_DIR}/external_package/fd_translate/translate.py)
   find_package(Git REQUIRED)
   execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init 
@@ -66,17 +89,17 @@ if(CMAKE_FF_CXX OR CMAKE_FF_PYWRAPPER)
     )
     ExternalProject_Add(external_ff
         GIT_REPOSITORY https://github.com/LAPKT-dev/libff_parser
-        SOURCE_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}/libff
+        SOURCE_DIR ${DEPS_DOWNLOAD_DIR}/libff
         #SOURCE_SUBDIR src
-        BINARY_DIR ${CUSTOM_EXT_BUILD_DIR}/ff/build
-        INSTALL_DIR ${CUSTOM_EXT_INSTALL_PREFIX}/ff
+        BINARY_DIR ${DEPS_BUILD_DIR}/ff/build
+        INSTALL_DIR ${DEPS_INSTALL_PREFIX}/ff
         #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CUSTOM_EXT_INSTALL_PREFIX}/ff
+        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${DEPS_INSTALL_PREFIX}/ff
         # INSTALL_COMMAND  cmake --install ${PROJECT_BINARY_DIR}/../build_external/ff/build 
     )
 endif()
 list (APPEND EXTRA_CMAKE_ARGS
-    -DFF_ROOT=${CUSTOM_EXT_INSTALL_PREFIX}/ff
+    -DFF_ROOT=${DEPS_INSTALL_PREFIX}/ff
 )
 
 # BUILD CATCH2
@@ -86,16 +109,16 @@ list(APPEND DEPENDENCIES
 ExternalProject_Add(external_catch2
     GIT_REPOSITORY https://github.com/catchorg/Catch2
     GIT_TAG  v3.0.0-preview4
-    SOURCE_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}/Catch2
+    SOURCE_DIR ${DEPS_DOWNLOAD_DIR}/Catch2
     #SOURCE_SUBDIR src
-    BINARY_DIR ${CUSTOM_EXT_BUILD_DIR}/Catch2/build
-    INSTALL_DIR ${CUSTOM_EXT_INSTALL_PREFIX}/Catch2
+    BINARY_DIR ${DEPS_BUILD_DIR}/Catch2/build
+    INSTALL_DIR ${DEPS_INSTALL_PREFIX}/Catch2
     #GIT_REMOTE_UPDATE_STRATEGY    CHECKOUT
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CUSTOM_EXT_INSTALL_PREFIX}/Catch2
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${DEPS_INSTALL_PREFIX}/Catch2
     # INSTALL_COMMAND  cmake --install ${PROJECT_BINARY_DIR}/../build_external/Catch2/build 
 )
 list (APPEND EXTRA_CMAKE_ARGS
-    -DCATCH2_ROOT=${CUSTOM_EXT_INSTALL_PREFIX}/Catch2
+    -DCATCH2_ROOT=${DEPS_INSTALL_PREFIX}/Catch2
 )
 
 # BUILD BOOST
@@ -111,36 +134,59 @@ else()
     set(BOOST_VARIANT "release")
 endif()
 message("Building Boost in " ${BOOST_VARIANT} " mode")
-file(WRITE ${CUSTOM_EXT_BUILD_DIR}/boost/user-config.jam "using python  :  ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR} ;")
+file(WRITE ${DEPS_BUILD_DIR}/boost/user-config.jam "using python  :  ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR} ;")
 
 # LOGS
 message("Boost is built using python  :  ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR} ;")
 message("The boost build command is : ./b2 --user-config=${PROJECT_BINARY_DIR}/../build_external/boost/user-config.jam --with-python --with-program_options --build-dir=${PROJECT_BINARY_DIR}/../build_external/boost/build variant=${BOOST_VARIANT} optimization=space link=static install cxxflags=-fpic")
 
-#
-ExternalProject_Add( external_boost
-    URL https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.bz2
-    URL_MD5 db0112a3a37a3742326471d20f1a186a
-    DOWNLOAD_DIR ${CUSTOM_EXT_DOWNLOAD_DIR}
-    TMP_DIR     ${CUSTOM_EXT_BUILD_DIR}/boost/tmp
-    SOURCE_DIR  ${CUSTOM_EXT_BUILD_DIR}/boost/src
-    BUILD_IN_SOURCE 1
-    #INSTALL_DIR ${PROJECT_BINARY_DIR}/boost/lib
-    #CONFIGURE_COMMAND ./bootstrap.sh --libdir=${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost --includedir=${CMAKE_INSTALL_PREFIX}/include
-    CONFIGURE_COMMAND ./bootstrap.sh #--libdir=${PROJECT_BINARY_DIR}/../build_external/boost/lib --includedir=${PROJECT_BINARY_DIR}/../build_external/boost/include
-    #BUILD_COMMAND ./b2 --user-config=${PROJECT_SOURCE_DIR}/config/user-config.jam --with-python --with-program_options --build-dir=${PROJECT_BINARY_DIR}/boost/build toolset=gcc variant=${BOOST_VARIANT} optimization=space link=shared install
-    BUILD_COMMAND ./b2 --with-python --with-program_options --with-random 
-        --user-config=${CUSTOM_EXT_BUILD_DIR}/boost/user-config.jam 
-        --build-dir=${CUSTOM_EXT_BUILD_DIR}/boost/build variant=${BOOST_VARIANT} 
-        optimization=space link=static toolset=gcc
-        --prefix=${CUSTOM_EXT_INSTALL_PREFIX}/boost install
-    INSTALL_COMMAND "" # ./b2 install
-)
+if(MINGW)
+    ExternalProject_Add( external_boost
+        URL https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.bz2
+        URL_MD5 db0112a3a37a3742326471d20f1a186a
+        DOWNLOAD_DIR ${DEPS_DOWNLOAD_DIR}
+        TMP_DIR     ${DEPS_BUILD_DIR}/boost/tmp
+        SOURCE_DIR  ${DEPS_BUILD_DIR}/boost/src
+        BUILD_IN_SOURCE 1
+        #CONFIGURE_COMMAND ./bootstrap.sh --libdir=${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost --includedir=${CMAKE_INSTALL_PREFIX}/include
+        CONFIGURE_COMMAND cd tools/build && bootstrap.bat mingw 
+        BUILD_COMMAND ${DEPS_BUILD_DIR}/boost/src/tools/build/b2 -d0
+            --user-config=${DEPS_BUILD_DIR}/boost/user-config.jam 
+            # --build-dir=${DEPS_BUILD_DIR}/boost/build FAILS IN MINGW 
+            --with-random --with-python --with-program_options 
+            --prefix=${DEPS_INSTALL_PREFIX}/boost install 
+            cxxflags=-fPIC cflags=-fPIC toolset=gcc link=static define=MS_WIN64
+            variant=${BOOST_VARIANT} 
+        INSTALL_COMMAND ""
+    )
+elseif(LINUX_BUILD OR MACOS_BUILD)
+    ExternalProject_Add( external_boost
+        URL https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.bz2
+        URL_MD5 db0112a3a37a3742326471d20f1a186a
+        DOWNLOAD_DIR ${DEPS_DOWNLOAD_DIR}
+        TMP_DIR     ${DEPS_BUILD_DIR}/boost/tmp
+        SOURCE_DIR  ${DEPS_BUILD_DIR}/boost/src
+        BUILD_IN_SOURCE 1
+        #CONFIGURE_COMMAND ./bootstrap.sh --libdir=${CMAKE_INSTALL_PREFIX}/lib/lapkt/boost --includedir=${CMAKE_INSTALL_PREFIX}/include
+        CONFIGURE_COMMAND ./bootstrap.sh 
+        BUILD_COMMAND ./b2 -d0 
+            --user-config=${DEPS_BUILD_DIR}/boost/user-config.jam
+            # --build-dir=${DEPS_BUILD_DIR}/boost/build 
+            --with-python --with-program_options --with-random 
+            --prefix=${DEPS_INSTALL_PREFIX}/boost install 
+            cxxflags=-fPIC cflags=-fPIC toolset=gcc link=static 
+            variant=${BOOST_VARIANT}
+        INSTALL_COMMAND ""
+    )
+else()
+    message(ERROR "lapkt build error: boost-C++ external project build is not configured in SuperBuild for the target host")
+endif()
+
 # Set the path to find Boost Cmake Config
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CUSTOM_EXT_INSTALL_PREFIX}/boost/lib/cmake/Boost-1.78.0")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${DEPS_INSTALL_PREFIX}/boost/lib/cmake/Boost-1.78.0")
 
 list (APPEND EXTRA_CMAKE_ARGS
-    -DBOOST_ROOT=${CUSTOM_EXT_INSTALL_PREFIX}/boost
+    -DBOOST_ROOT=${DEPS_INSTALL_PREFIX}/boost
     -DBOOST_INCLUDEDIR=${BOOST_ROOT}/include
     -DBOOST_LIBRARYDIR=${BOOST_ROOT}/lib
 #   -DBoost_NO_SYSTEM_PATHS=ON
@@ -150,8 +196,9 @@ list (APPEND EXTRA_CMAKE_ARGS
 
 
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
-#xxxx SECTION 3 - CALL THE MAIN SCRIPT TO BUILD LAPKT
-    
+#xxxx SECTION 3 - CALL THE MAIN SCRIPT TO BUILD lapkt
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
+
 list(APPEND EXTRA_CMAKE_ARGS
     -DUSE_SUPERBUILD=OFF
     -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
@@ -170,5 +217,8 @@ ExternalProject_Add (external_lapkt
   DEPENDS ${DEPENDENCIES}
   SOURCE_DIR ${PROJECT_SOURCE_DIR}
   CMAKE_ARGS ${EXTRA_CMAKE_ARGS}
-  INSTALL_COMMAND ""
-  BINARY_DIR ${PROJECT_BINARY_DIR})
+  INSTALL_COMMAND 
+    ${CMAKE_COMMAND} --install  ${PROJECT_BINARY_DIR} --component lapkt &&
+    ${CMAKE_COMMAND} --install  ${PROJECT_BINARY_DIR} --component PYPACKAGE
+  BINARY_DIR ${PROJECT_BINARY_DIR}
+)

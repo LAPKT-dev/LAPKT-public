@@ -6,10 +6,10 @@
     "cmake.configureArgs": [
         "-DUSE_SUPERBUILD=ON",
         "-DCMAKE_FF_CXX=OFF",
+        "-DCMAKE_LEGACY_PLANNER=OFF",
         "-DCMAKE_FF_PYWRAPPER=OFF",
-        "-DCMAKE_FD=OFF",
-        "-DCMAKE_VAL=OFF",
-        "-DCMAKE_TARSKI=OFF",
+        "-DCMAKE_FD=ON",
+        "-DCMAKE_TARSKI=ON",
         "-DCMAKE_DOXYGEN_DOCS=OFF", 
         "-DCMAKE_DOXYGEN_FLAT_THEME=OFF",
         "-DCMAKE_DOXYGEN_AWESOME_THEME=OFF",
@@ -67,7 +67,12 @@
         "streambuf": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "numbers": "cpp"
+        "numbers": "cpp",
+        "chrono": "cpp",
+        "ctime": "cpp",
+        "ratio": "cpp",
+        "sstream": "cpp",
+        "variant": "cpp"
     },
     "C_Cpp.default.cppStandard": "c++17",
     "python.testing.pytestArgs": [

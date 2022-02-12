@@ -37,6 +37,8 @@
  */
 TEST_CASE("Assembling a STRIPS_Problem"){
 
+	std::cout << "BEGIN TEST_CASE(Assembling a STRIPS_Problem)" << std::endl;
+
 	// MRJ: We create our graph
 	Graph	g;
 
@@ -108,5 +110,6 @@ TEST_CASE("Assembling a STRIPS_Problem"){
 	// MRJ: And now we set the initial and goal states of prob	
 	aptk::STRIPS_Problem::set_init( prob, I );
 	aptk::STRIPS_Problem::set_goal( prob, G );
+	std::cout << "END TEST_CASE(Assembling a STRIPS_Problem)" << std::endl;
 
 }

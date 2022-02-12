@@ -1,0 +1,26 @@
+target_sources(core
+    PRIVATE
+        node_novelty_spaces.hxx
+        novelty.hxx
+        novelty_partition.hxx
+        novelty_partition_1.hxx
+        novelty_partition_2.hxx
+)
+
+target_include_directories(core
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+
+install(
+    FILES
+        node_novelty_spaces.hxx
+        novelty.hxx
+        novelty_partition.hxx
+        novelty_partition_1.hxx
+        novelty_partition_2.hxx
+    DESTINATION
+        ${CMAKE_INSTALL_PREFIX}/lapkt/core/include/node_eval/novelty
+    COMPONENT
+        lapkt 
+)

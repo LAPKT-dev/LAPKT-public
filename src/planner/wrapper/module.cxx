@@ -14,6 +14,8 @@
 
 #include <py_strips_interface.hxx>
 #include <strips_prob.hxx>
+
+#include <boost/python.hpp>
 using namespace boost::python;
 // void (STRIPS_Interface::*pre)   (int, std::vector<std::pair<int, bool>>&) = 
 //     &STRIPS_Interface::add_precondition;

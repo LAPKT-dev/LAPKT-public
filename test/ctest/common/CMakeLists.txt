@@ -6,5 +6,4 @@ target_sources(cpp_unit_test PRIVATE
 target_include_directories(cpp_unit_test 
     PRIVATE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    $<INSTALL_INTERFACE:include>
 )

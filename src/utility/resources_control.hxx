@@ -19,11 +19,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifndef __RESOURCES_CONTROL__
-#ifdef __linux__
 #define __RESOURCES_CONTROL__
 
 #include <sys/time.h>
-#include <sys/resource.h>
+#ifdef __linux__
+	#include <sys/resource.h>
+#endif
+#ifdef WIN32
+	#include <Windows.h>
+	#define RUSAGE_SELF		0
+#endif
 #include <unistd.h>
 #include <iostream>
 #include <iomanip>
@@ -31,6 +36,61 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace aptk
 {
+
+
+#ifdef WIN32
+
+#include <sys/time.h>			/* for struct timeval */
+#include <limits.h>				/* for CLK_TCK */
+
+#define RUSAGE_SELF		0
+
+struct rusage
+{
+	struct timeval ru_utime;	/* user time used */
+	struct timeval ru_stime;	/* system time used */
+};
+
+int
+getrusage(int who, struct rusage *rusage)
+{
+    FILETIME    starttime;
+    FILETIME    exittime;
+    FILETIME    kerneltime;
+    FILETIME    usertime;
+    ULARGE_INTEGER li;
+
+    if (who != RUSAGE_SELF)
+    {
+        /* Only RUSAGE_SELF is supported in this implementation for now */
+        errno = EINVAL;
+        return -1;
+    }
+
+    if (rusage == (struct rusage *) NULL)
+    {
+        errno = EFAULT;
+        return -1;
+    }
+    memset(rusage, 0, sizeof(struct rusage));
+    if (GetProcessTimes(GetCurrentProcess(),
+                        &starttime, &exittime, &kerneltime, &usertime) == 0)
+    {
+        return -1;
+    }
+
+    /* Convert FILETIMEs (0.1 us) to struct timeval */
+    memcpy(&li, &kerneltime, sizeof(FILETIME));
+    li.QuadPart /= 10L;         /* Convert to microseconds */
+    rusage->ru_stime.tv_sec = li.QuadPart / 1000000L;
+    rusage->ru_stime.tv_usec = li.QuadPart % 1000000L;
+
+    memcpy(&li, &usertime, sizeof(FILETIME));
+    li.QuadPart /= 10L;         /* Convert to microseconds */
+    rusage->ru_utime.tv_sec = li.QuadPart / 1000000L;
+    rusage->ru_utime.tv_usec = li.QuadPart % 1000000L;
+}
+#endif
 
 inline double  time_used()
 {
@@ -54,6 +114,7 @@ void report_interval( double t0, double t1, Stream& os )
 		os << std::setprecision(3) << delta << std::endl;
 }
 
+#ifndef WIN32
 inline double mem_used()
 {
 	struct rusage data;
@@ -62,8 +123,8 @@ inline double mem_used()
 	
 	return (double)data.ru_maxrss / 1024.;
 }
+#endif
 
 }
 
-#endif
 #endif // Resources_Control.hxx

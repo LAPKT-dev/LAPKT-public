@@ -3,14 +3,14 @@ Building LAPKT {#build}
 
 @tableofcontents
 
-`cmake` is the primary tool used to build the LAPKT's C++(backend) source code. We also use it to generate Python/C++ library package which is ready to go as a `pypi` package. 
+`cmake` is the primary tool used to build the lapkt's C++(backend) source code. We also use it to generate Python/C++ library package which is ready to go as a `pypi` package. 
 
 # IMPORTANT
 
 1. Install the manual build dependencies listed in `PREBUILD_DEPENDENCIES.txt` prior to the cmake build. The file is located in the repo's root directory.
-2. Certain pre-build dependencies are handled by LAPKT's SuperBuild cmake script. This can be disabled using the cmake argument `-DUSE_SUPERBUILD=OFF`.
+2. Certain pre-build dependencies are handled by lapkt's SuperBuild cmake script. This can be disabled using the cmake argument `-DUSE_SUPERBUILD=OFF`.
 
-### A typical set of commands used to build LAPKT
+### A typical set of commands used to build lapkt
 
         cmake -Bbuild -Ssrc -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release
         cmake --build build -j4 [--target clean](optional)
@@ -53,10 +53,6 @@ It involves three steps, configure, build, and install which take the following 
         
                 -DCMAKE_FF=ON
 
-  - Add external package - KCL VAL plan validator
-  
-                -DCMAKE_VAL=ON
-
   - Build doxygen docs
 
                 -DCMAKE_DOXYGEN_DOCS=ON
@@ -73,7 +69,7 @@ It involves three steps, configure, build, and install which take the following 
   - Boost build parameters
     - Path to where the pre-build dependencies compiled by the superbuild cmake script are installed
 
-                -DCUSTOM_EXT_INSTALL_PREFIX="<Path>"
+                -DDEPS_INSTALL_PREFIX="<Path>"
 
     - Path to the directory where Boost2 lib is installed(only required if SUPERBUILD is not used)
 

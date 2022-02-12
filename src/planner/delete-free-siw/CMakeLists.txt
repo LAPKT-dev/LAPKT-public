@@ -1,13 +1,13 @@
-target_sources(planner
+target_sources(py_extension
     PRIVATE
         dfsiw_planner.cxx
-        dfsiw_planner.hxx
-    )
+        # dfsiw_planner.hxx
+)
 
-target_include_directories(planner 
-    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-
+target_include_directories(py_extension
+    PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
 cat(${CMAKE_CURRENT_SOURCE_DIR}/planner_config.yml 
-    ${PROJECT_BINARY_DIR}/lapkt_planner_config.yml
-    )
+    ${PROJECT_BINARY_DIR}/pypi_release/package/lapkt/config/lapkt_planner_config.yml
+)
