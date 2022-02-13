@@ -2,3 +2,4 @@ breathe
 sphinx
 exhale
 numpy
+pybind11

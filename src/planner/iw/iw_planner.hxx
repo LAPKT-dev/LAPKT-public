@@ -12,7 +12,7 @@
 #include <boost/program_options.hpp>
 
 //LAPKT specific
-#include <py_strips_interface.hxx>
+#include <boostpy_strips_interface.hxx>
 #include <strips_prob.hxx>
 #include <strips_state.hxx>
 #include <fwd_search_prob.hxx>

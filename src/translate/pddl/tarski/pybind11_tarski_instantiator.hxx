@@ -17,7 +17,7 @@
 #ifndef __TARSKI_INSTANTIATE__
 #define __TARSKI_INSTANTIATE__
 
-#include <py_strips_interface.hxx>
+#include <boostpy_strips_interface.hxx>
 #include <boost/python.hpp>
 
 // Define Constants

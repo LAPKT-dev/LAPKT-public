@@ -19,41 +19,47 @@ target_link_libraries(core
         ${FF_LIBRARIES}
 )
 
-if(CMAKE_FF_CXX)
-    set_target_properties(core PROPERTIES
-        LINK_FLAGS "-Wl,--allow-multiple-definition" # multiple definitions of gbracket_count in libff.c and scan.#$$^.c file
-    )
-endif(CMAKE_FF_CXX)
+set_target_properties(core PROPERTIES
+    LINK_FLAGS "-Wl,--allow-multiple-definition" # multiple definitions of gbracket_count in libff.c and scan.#$$^.c file
+)
+
+install(
+        FILES
+            ${PROJECT_SOURCE_DIR}/src/translate/pddl/ff/ff_to_aptk.hxx
+        DESTINATION
+            ${CMAKE_INSTALL_PREFIX}/lapkt/core/include/translate
+        COMPONENT
+            lapkt
+)
 
 if(CMAKE_FF_PYWRAPPER)
-    target_include_directories(py_extension PRIVATE ${FF_INCLUDE_DIRS})
-    target_link_libraries(py_extension PRIVATE
+    target_include_directories(pddl PRIVATE ${FF_INCLUDE_DIRS})
+    target_link_libraries(pddl PRIVATE
         core
     )
 
-    target_sources(py_extension
-        PRIVATE
-            module.cxx
-            py_ff_to_aptk.cxx
-            py_ff_to_aptk.hxx
-    )
-    target_include_directories(py_extension
+    if(NOT PYBIND11_NOBOOST)
+        target_sources(pddl
+            PRIVATE
+                boostpy_module.cxx
+                boostpy_ff_to_aptk.cxx
+                boostpy_ff_to_aptk.hxx
+        )
+    else()
+        target_sources(pddl
+            PRIVATE
+                pybind11_module.cxx
+                pybind11_ff_to_aptk.cxx
+                pybind11_ff_to_aptk.hxx
+        )
+    endif(NOT PYBIND11_NOBOOST)
+
+    target_include_directories(pddl
         PRIVATE
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     )
-    #
 endif(CMAKE_FF_PYWRAPPER)
 
-if(CMAKE_FF_CXX OR CMAKE_FF_PYWRAPPER)
-    install(
-            FILES
-                ${PROJECT_SOURCE_DIR}/src/translate/pddl/ff/ff_to_aptk.hxx
-            DESTINATION
-                ${CMAKE_INSTALL_PREFIX}/lapkt/core/include/translate
-            COMPONENT
-                lapkt
-    )
-endif(CMAKE_FF_CXX OR CMAKE_FF_PYWRAPPER)
 
 # target_include_directories(ff_wrapper PRIVATE 
 #     ${Python3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )

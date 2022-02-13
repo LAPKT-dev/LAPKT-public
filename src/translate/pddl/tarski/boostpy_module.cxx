@@ -1,4 +1,4 @@
-#include <tarski_instantiator.hxx>
+#include <boostpy_tarski_instantiator.hxx>
 #include <boost/python.hpp>
 
 using namespace tarski;

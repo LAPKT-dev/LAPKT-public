@@ -13,7 +13,7 @@ add_subdirectory(siw)
 add_subdirectory(siw_plus)
 add_subdirectory(siw_plus-then-bfs_f)
 
-target_include_directories(py_extension
+target_include_directories(planner
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
@@ -35,7 +35,7 @@ install(
         ${PROJECT_SOURCE_DIR}/src/planner/siw_plus/siw_plus_planner.hxx
         ${PROJECT_SOURCE_DIR}/src/planner/siw_plus-then-bfs_f/siw_plus_bfs_f.hxx
     DESTINATION
-        ${CMAKE_INSTALL_PREFIX}/lapkt/extension/include/planner
+        ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/planner
     COMPONENT
         lapkt
 )
@@ -43,7 +43,7 @@ install(
 # PUBLIC_HEADER files can be installed with 
 #   install(<target> ...PUBLIC_HEADER DESTINATION ...)
 
-# set_target_properties(py_extension PROPERTIES
+# set_target_properties(planner PROPERTIES
 #     PUBLIC_HEADER
 # "${PROJECT_SOURCE_DIR}/src/planner/anytime_lapkt/anytime_lapkt.hxx;\
 # ${PROJECT_SOURCE_DIR}/src/planner/anytime_lapkt/ipc2014_rwa.hxx;\

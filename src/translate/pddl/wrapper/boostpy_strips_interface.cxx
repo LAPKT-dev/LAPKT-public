@@ -1,4 +1,4 @@
-#include <py_strips_interface.hxx>
+#include <boostpy_strips_interface.hxx>
 #include <cstring>
 #include <fstream>
 #include <iostream>

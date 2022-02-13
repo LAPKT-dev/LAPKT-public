@@ -6,20 +6,25 @@ from os.path import isfile, join, dirname, realpath
 from pathlib import Path
 from subprocess import run
 
-from .. import planner
+import planner
+
+# External Libs
+from ruamel.yaml import YAML
+
+parent_folder = Path(__file__).parent.absolute()
+rel_config_file = Path('planner/lapkt_planner_config.yml')
+PLANNER_CONFIG_PATH = join(parent_folder, rel_config_file)
+rel_validate_file = Path('../../../bin/validate')
+CWD = dirname(realpath(__file__))
+# -----------------------------------------------------------------------------#
 
 
-rel_validate_file   =   Path('../../../bin/validate')
-CWD                 =   dirname(realpath(__file__))
-#-----------------------------------------------------------------------------#
 @contextmanager
-def time_taken( task_name: str) :
-    """
-    Track the time taken for a task.
-    Usage - "with time_taken("<process name>") :"
-    Arguments
-    =========
-    time_taken: string - name of the task
+def time_taken(task_name: str):
+    """Track the time taken for a task.
+    Usage - "with time_taken("<process name>"):
+    :param task_name:name of the task
+    :type task_name: str
     """
     start = (time(), process_time())
     print("|----------------------------------------------------------|")
@@ -27,32 +32,38 @@ def time_taken( task_name: str) :
     print("|----------------------------------------------------------|")
     stdout.flush()
     yield
-    #print( "{:.3f} , ".format(time.time()-start[0]), end="")
     print("----------------------------------------------------------")
-    print(("***Finished {} after {:.3f} seconds wall-clock time, {:.3f} seconds "+
-            "CPU time***").format( task_name, time()-start[0],
-                process_time()-start[1] ))
+    print((
+        "***Finished {} after {:.3f} seconds wall-clock time, {:.3f} " +
+        "seconds CPU time***").format(task_name, time()-start[0],
+                                      process_time()-start[1]))
     print("----------------------------------------------------------")
     stdout.flush()
-#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
-#-----------------------------------------------------------------------------#
+
 def exists_exec(runfile, name):
-    if runfile and isfile(runfile) and access(runfile, X_OK) :
+    if runfile and isfile(runfile) and access(runfile, X_OK):
         return runfile
-    elif any([isfile(join(path, name)) and 
-            access(join(path, name), X_OK) 
-            for path in environ["PATH"].split(pathsep)]) :
+    elif any([isfile(join(path, name)) and
+              access(join(path, name), X_OK)
+              for path in environ["PATH"].split(pathsep)]):
         return name
-    else :
+    else:
         print("Please install external dependency/package - " + name)
         return None
-#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
-#-----------------------------------------------------------------------------#
+
 class Run_planner:
-    """
-    Container to run the planner
+    """Container to run the planner
+
+    :raises ValueError: [description]
+    :raises ValueError: [description]
+    :raises ValueError: [description]
+    :raises ValueError: [description]
+    :return: [description]
+    :rtype: [type]
     """
     # store
     config = None
@@ -61,114 +72,132 @@ class Run_planner:
 
     # process
     def __init__(self, config: dict):
-        self.config             =   config
-        with time_taken('LAPKT_ALL_TASKS') :
+        self.config = config
+        with time_taken('LAPKT_ALL_TASKS'):
             self._spawn_container(config['planner']['value'])
             self._configure_planner()
-            with time_taken('LAPKT_PARSE_GROUND_TASK') :
+            with time_taken('LAPKT_PARSE_GROUND_TASK'):
                 self._load_problem()
-            with time_taken('LAPKT_SOLVE_TASK') :
+            with time_taken('LAPKT_SOLVE_TASK'):
                 self._exec()
-            if config.get('validate', None) and config['validate']['value'] :
-                retval = validate_plan(self.config['domain']['value'],
+            if config.get('validate', None) and config['validate']['value']:
+                retval = validate_plan(
+                    self.config['domain']['value'],
                     self.config['problem']['value'],
                     self.config['plan_file']['value'])
-                if retval == -1 :
-                    print("Plan was not validated, since 'validate'"+
-                            " binary was not found")
-                else :
+                if retval == -1:
+                    print("Plan was not validated, since 'validate'" +
+                          " binary was not found")
+                else:
                     self.solved = not retval
                     out_status = "passed" if self.solved else "failed"
-                    print ("'validate' check : Plan "+ out_status)
+                    print("'validate' check : Plan " + out_status)
 
-    def _load_problem(self) :
+    def _load_problem(self):
         """
         load problem from pddl files
         """
-        if self.config['lapkt_instance_generator']['value'] == 'Tarski' :
+        if self.config['lapkt_instance_generator']['value'] == 'Tarski':
             from ..tarski import ground_generate_task as process_task
-        elif self.config['lapkt_instance_generator']['value'] == 'FF' :
+        elif self.config['lapkt_instance_generator']['value'] == 'FF':
             try :
                 from ..ff import gen_problem_description as process_task
-            except :  
+            except Exception:
                 print('FF Translate is not installed!')
                 exit()
-        elif self.config['lapkt_instance_generator']['value'] == 'FD' :
-            try :
+        elif self.config['lapkt_instance_generator']['value'] == 'FD':
+            try:
                 from ..fd import default as process_task
-            except :
+            except Exception:
                 print('FD Translate is not installed!')
                 exit()
-        else :
+        else:
             # We can add options for procedurally generated problems here
-            raise ValueError("The value doesn't match supported parsers - Tarski/FF/FD")
+            raise ValueError(
+                "The value doesn't match supported parsers -" +
+                " Tarski/FF/FD")
 
-        if self.config['lapkt_instance_generator']['value'] == 'FF' :
-            process_task(self.config['domain']['value'], 
+        if self.config['lapkt_instance_generator']['value'] == 'FF':
+            process_task(
+                self.config['domain']['value'],
                 self.config['problem']['value'], self.planner_instance,
                 self.planner_instance.ignore_action_costs, False)
-        elif self.config['lapkt_instance_generator']['value'] in ['Tarski', 'FD'] :
-            process_task(self.config['domain']['value'], 
+        elif (self.config['lapkt_instance_generator']['value']
+              in ['Tarski', 'FD']):
+            process_task(
+                self.config['domain']['value'],
                 self.config['problem']['value'], self.planner_instance)
-        else :
+        else:
             # We can add handle  procedurally generated problems here
             pass
         print('#Actions:', self.planner_instance.num_actions())
         print('#Fluents:', self.planner_instance.num_atoms())
         return 0
 
-    def _configure_planner(self) :
+    def _configure_planner(self):
         """
         load configs into planner
         """
         print("Loading Planner Config...")
-        for k, v in self.config.items() :
-            if isinstance(v, dict) and v.get('var_name', None) :
-                try :
+        for k, v in self.config.items():
+            if isinstance(v, dict) and v.get('var_name', None):
+                try:
                     getattr(self.planner_instance, v['var_name'])
-                except :
-                    raise ValueError('Check the variable name ',v['var_name'])
-                setattr(self.planner_instance, v['var_name'],v['value'])
-                print('"'+v['var_name']+'"', "value set to: ", getattr(self.planner_instance, v['var_name']))
-            elif isinstance(v, dict) and v.get('func_name', None) :
-                try :
+                except Exception:
+                    raise ValueError('Check the variable name ', v['var_name'])
+                setattr(self.planner_instance, v['var_name'], v['value'])
+                print('"' + v['var_name'] + '"', "value set to: ",
+                      getattr(self.planner_instance, v['var_name']))
+            elif isinstance(v, dict) and v.get('func_name', None):
+                try:
                     getattr(self.planner_instance, v['func_name'])(v['value'])
-                except :
-                    raise ValueError('Check the setter name ',v['func_name'])
+                except Exception:
+                    raise ValueError('Check the setter name ', v['func_name'])
         return 0
 
-    def _exec(self) :
+    def _exec(self):
         """
         run planner
         """
-        self.planner_instance.setup(bool(not (self.config.get('no_match_tree', 
-            None) and self.config['no_match_tree']['value'])))
+        self.planner_instance.setup(
+            bool(not (self.config.get('no_match_tree',
+                      None) and self.config['no_match_tree']['value'])))
         self.planner_instance.solve()
         return 0
 
-    def _spawn_container(self, name) :
+    def _spawn_container(self, name):
         """
         Used to spawn a planner type object
         """
-        try :
-            self.planner_instance   =   getattr(planner, name)()
-        except :
-            raise ValueError("Either planner name, " +name+
-                    ", is wrong or lapkt didn't load it")
+        try:
+            self.planner_instance = getattr(planner, name)()
+        except Exception:
+            raise ValueError(
+                "Either planner name, " + name +
+                ", is wrong or lapkt didn't load it")
         return 0
-#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
 
-#-----------------------------------------------------------------------------#
-def validate_plan(domain_f, problem_f, plan_f) :
+def validate_plan(domain_f, problem_f, plan_f):
     """
     Used to validate the plan
     """
     validate = exists_exec(join(CWD, rel_validate_file), 'validate')
-    if validate : 
-        with time_taken('LAPKT_VALIDATE_SOL') :
-            return  run([validate, domain_f, problem_f, plan_f]).returncode
-    else :
+    if validate:
+        with time_taken('LAPKT_VALIDATE_SOL'):
+            return run([validate, domain_f, problem_f, plan_f]).returncode
+    else:
         return -1
-#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
+
+def load_planner_config(config_path=PLANNER_CONFIG_PATH):
+    """load the yaml configuration file
+
+    :return: a dictionary with a list of preconfigured planners
+    :rtype: dict
+    """
+    with open(config_path) as from_f:
+        return YAML(typ='safe').load(from_f)
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#

@@ -21,11 +21,11 @@ file(MAKE_DIRECTORY
     ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/search
 )
 file(TOUCH 
-    ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/__init__,py
-    ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/planner/__init__,py
-    ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/__init__,py
-    ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/model/__init__,py
-    ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/search/__init__,py
+    ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/__init__.py
+    ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/planner/__init__.py
+    ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/__init__.py
+    ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/model/__init__.py
+    ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/search/__init__.py
 )
 
 
@@ -46,31 +46,31 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../../../LICENSE.txt
 
 # Prepare package installation directory
 install(
-    FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/__init__,py
+    FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/__init__.py
     DESTINATION ${REL_PYPI_LAPKT_ROOT}
     COMPONENT PYPACKAGE EXCLUDE_FROM_ALL
 )
 
 install(
-    FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/planner/__init__,py
+    FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/planner/__init__.py
     DESTINATION ${REL_PYPI_LAPKT_ROOT}/planner
     COMPONENT PYPACKAGE EXCLUDE_FROM_ALL
 )
 
 install(
-    FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/__init__,py
+    FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/__init__.py
     DESTINATION ${REL_PYPI_LAPKT_ROOT}/pddl
     COMPONENT PYPACKAGE EXCLUDE_FROM_ALL
 )
 
 install(
-    FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/model/__init__,py
+    FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/model/__init__.py
     DESTINATION ${REL_PYPI_LAPKT_ROOT}/model
     COMPONENT PYPACKAGE EXCLUDE_FROM_ALL
 )
 
 install(
-    FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/search/__init__,py
+    FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/search/__init__.py
     DESTINATION ${REL_PYPI_LAPKT_ROOT}/search
     COMPONENT PYPACKAGE EXCLUDE_FROM_ALL
 )

@@ -12,7 +12,7 @@
 #include<siw_plus_planner.hxx>
 #include<siw_plus_bfs_f.hxx>
 
-#include <py_strips_interface.hxx>
+#include <boostpy_strips_interface.hxx>
 #include <strips_prob.hxx>
 
 #include <boost/python.hpp>
@@ -43,62 +43,62 @@ using namespace boost::python;
 
 BOOST_PYTHON_MODULE(planner)
 {
-    class_<aptk::STRIPS_Problem>("STRIPS_Problem")
-        .def( "num_actions", &aptk::STRIPS_Problem::num_actions )
-        ;
-    boost::python::type_info info = boost::python::type_id<STRIPS_Interface>();
-    const boost::python::converter::registration* reg_pointer = 
-            boost::python::converter::registry::query(info);
-    if (reg_pointer == NULL ||(*reg_pointer).m_to_python == NULL) {
-        class_<STRIPS_Interface>("STRIPS_Interface")
-            .def( init< std::string, std::string >() )
-            .def( "instance", &STRIPS_Interface::boost_instance )
-            .def( "add_atom", &STRIPS_Interface::add_atom )
-            .def( "add_action", &STRIPS_Interface::add_action )
-            .def( "add_mutex_group", &STRIPS_Interface::add_mutex_group )
-            .def( "num_atoms", &STRIPS_Interface::n_atoms )
-            .def( "num_actions", &STRIPS_Interface::n_actions )
-            .def( "get_atom_name", &STRIPS_Interface::get_atom_name )
-            .def( "get_domain_name", &STRIPS_Interface::get_domain_name )
-            .def( "get_problem_name", &STRIPS_Interface::get_problem_name )
-            .def<void (STRIPS_Interface::*)(int, std::vector<std::pair<int, bool>>&)>
-                ( "add_precondition",  &STRIPS_Interface::add_precondition )
-            .def<void (STRIPS_Interface::*)(int, boost::python::list&)>
-                ( "add_precondition",  &STRIPS_Interface::add_precondition )
-            .def<void (STRIPS_Interface::*)(int, std::vector<std::pair<int, bool>>&)>
-                ( "add_effect",  &STRIPS_Interface::add_effect )
-            .def<void (STRIPS_Interface::*)(int, boost::python::list&)>
-                ( "add_effect",  &STRIPS_Interface::add_effect )
-            .def<void (STRIPS_Interface::*)(int, std::vector<std::pair<int, bool>>& , 
-                std::vector<std::pair<int, bool>>&)>
-                ( "add_cond_effect",  &STRIPS_Interface::add_cond_effect )
-            .def<void (STRIPS_Interface::*)(int, boost::python::list&, boost::python::list&)>
-                ( "add_cond_effect",  &STRIPS_Interface::add_cond_effect )
-            .def( "set_cost", &STRIPS_Interface::set_cost )
-            .def( "notify_negated_conditions", 
-                    &STRIPS_Interface::notify_negated_conditions )
-            .def( "create_negated_fluents", 
-                    &STRIPS_Interface::create_negated_fluents )
-            .def<void (STRIPS_Interface::*)(std::vector<std::pair<int, bool>>&)>
-                ( "set_init",  &STRIPS_Interface::set_init )
-            .def<void (STRIPS_Interface::*)(boost::python::list&)>
-                ( "set_init",  &STRIPS_Interface::set_init )
-            .def<void (STRIPS_Interface::*)(std::vector<std::pair<int, bool>>&)>
-                ( "set_goal",  &STRIPS_Interface::set_goal )
-            .def<void (STRIPS_Interface::*)(boost::python::list&)>
-                ( "set_goal",  &STRIPS_Interface::set_goal )
-            .def( "set_domain_name", &STRIPS_Interface::set_domain_name )
-            .def( "set_problem_name", &STRIPS_Interface::set_problem_name )
-            .def( "write_ground_pddl", &STRIPS_Interface::write_ground_pddl )
-            .def( "print_action", &STRIPS_Interface::print_action )
-            .def( "print_actions", &STRIPS_Interface::print_actions )
-            .def( "print_fluents", &STRIPS_Interface::print_fluents )
-            .def( "finalize_actions", &STRIPS_Interface::finalize_actions )
-            .def_readwrite( "parsing_time", &STRIPS_Interface::m_parsing_time )
-            .def_readwrite( "ignore_action_costs", 
-                    &STRIPS_Interface::m_ignore_action_costs )
-        ;
-    }     
+    // class_<aptk::STRIPS_Problem>("STRIPS_Problem")
+    //     .def( "num_actions", &aptk::STRIPS_Problem::num_actions )
+    //     ;
+    // boost::python::type_info info = boost::python::type_id<STRIPS_Interface>();
+    // const boost::python::converter::registration* reg_pointer = 
+    //         boost::python::converter::registry::query(info);
+    // if (reg_pointer == NULL ||(*reg_pointer).m_to_python == NULL) {
+    //     class_<STRIPS_Interface>("STRIPS_Interface")
+    //         .def( init< std::string, std::string >() )
+    //         .def( "instance", &STRIPS_Interface::boost_instance )
+    //         .def( "add_atom", &STRIPS_Interface::add_atom )
+    //         .def( "add_action", &STRIPS_Interface::add_action )
+    //         .def( "add_mutex_group", &STRIPS_Interface::add_mutex_group )
+    //         .def( "num_atoms", &STRIPS_Interface::n_atoms )
+    //         .def( "num_actions", &STRIPS_Interface::n_actions )
+    //         .def( "get_atom_name", &STRIPS_Interface::get_atom_name )
+    //         .def( "get_domain_name", &STRIPS_Interface::get_domain_name )
+    //         .def( "get_problem_name", &STRIPS_Interface::get_problem_name )
+    //         .def<void (STRIPS_Interface::*)(int, std::vector<std::pair<int, bool>>&)>
+    //             ( "add_precondition",  &STRIPS_Interface::add_precondition )
+    //         .def<void (STRIPS_Interface::*)(int, boost::python::list&)>
+    //             ( "add_precondition",  &STRIPS_Interface::add_precondition )
+    //         .def<void (STRIPS_Interface::*)(int, std::vector<std::pair<int, bool>>&)>
+    //             ( "add_effect",  &STRIPS_Interface::add_effect )
+    //         .def<void (STRIPS_Interface::*)(int, boost::python::list&)>
+    //             ( "add_effect",  &STRIPS_Interface::add_effect )
+    //         .def<void (STRIPS_Interface::*)(int, std::vector<std::pair<int, bool>>& , 
+    //             std::vector<std::pair<int, bool>>&)>
+    //             ( "add_cond_effect",  &STRIPS_Interface::add_cond_effect )
+    //         .def<void (STRIPS_Interface::*)(int, boost::python::list&, boost::python::list&)>
+    //             ( "add_cond_effect",  &STRIPS_Interface::add_cond_effect )
+    //         .def( "set_cost", &STRIPS_Interface::set_cost )
+    //         .def( "notify_negated_conditions", 
+    //                 &STRIPS_Interface::notify_negated_conditions )
+    //         .def( "create_negated_fluents", 
+    //                 &STRIPS_Interface::create_negated_fluents )
+    //         .def<void (STRIPS_Interface::*)(std::vector<std::pair<int, bool>>&)>
+    //             ( "set_init",  &STRIPS_Interface::set_init )
+    //         .def<void (STRIPS_Interface::*)(boost::python::list&)>
+    //             ( "set_init",  &STRIPS_Interface::set_init )
+    //         .def<void (STRIPS_Interface::*)(std::vector<std::pair<int, bool>>&)>
+    //             ( "set_goal",  &STRIPS_Interface::set_goal )
+    //         .def<void (STRIPS_Interface::*)(boost::python::list&)>
+    //             ( "set_goal",  &STRIPS_Interface::set_goal )
+    //         .def( "set_domain_name", &STRIPS_Interface::set_domain_name )
+    //         .def( "set_problem_name", &STRIPS_Interface::set_problem_name )
+    //         .def( "write_ground_pddl", &STRIPS_Interface::write_ground_pddl )
+    //         .def( "print_action", &STRIPS_Interface::print_action )
+    //         .def( "print_actions", &STRIPS_Interface::print_actions )
+    //         .def( "print_fluents", &STRIPS_Interface::print_fluents )
+    //         .def( "finalize_actions", &STRIPS_Interface::finalize_actions )
+    //         .def_readwrite( "parsing_time", &STRIPS_Interface::m_parsing_time )
+    //         .def_readwrite( "ignore_action_costs", 
+    //                 &STRIPS_Interface::m_ignore_action_costs )
+    //     ;
+    // }     
 
     class_<AT_LAPKT_Planner, bases<STRIPS_Interface>>("AT_LAPKT_Planner")
 		.def( "setup", &AT_LAPKT_Planner::setup )

@@ -7,9 +7,9 @@
 
 add_subdirectory(wrapper)
 
-if(CMAKE_FF_CXX OR CMAKE_FF_PYWRAPPER)
+if(CMAKE_FF_CXX)
     add_subdirectory(ff)
-endif(CMAKE_FF_CXX OR CMAKE_FF_PYWRAPPER)
+endif(CMAKE_FF_CXX)
 
 if(CMAKE_TARSKI)
     add_subdirectory(tarski)

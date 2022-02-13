@@ -1,17 +1,39 @@
-target_sources(py_extension
-    PRIVATE
-        tarski_instantiator.cxx
-        tarski_instantiator.hxx
-)
-target_include_directories(py_extension
+target_include_directories(pddl
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-target_sources(py_extension
-    PRIVATE
-        module.cxx
-)
+if(NOT PYBIND11_NOBOOST)
+    target_sources(pddl
+        PRIVATE
+            boostpy_module.cxx
+            boostpy_tarski_instantiator.cxx
+            boostpy_tarski_instantiator.hxx
+    )
+    install(
+        FILES
+            ${PROJECT_SOURCE_DIR}/src/translate/pddl/tarski/boostpy_tarski_instantiator.hxx
+        DESTINATION
+            ${CMAKE_INSTALL_PREFIX}/${REL_PYEXT_INC_DIR}/translate
+        COMPONENT
+            lapkt EXCLUDE_FROM_ALL
+    )
+else()
+    target_sources(pddl
+        PRIVATE
+            pybind11_module.cxx
+            pybind11_tarski_instantiator.cxx
+            pybind11_tarski_instantiator.hxx
+    )
+    install(
+        FILES
+            ${PROJECT_SOURCE_DIR}/src/translate/pddl/tarski/pybind11_tarski_instantiator.hxx
+        DESTINATION
+            ${CMAKE_INSTALL_PREFIX}/${REL_PYEXT_INC_DIR}/translate
+        COMPONENT
+            lapkt EXCLUDE_FROM_ALL
+    )
+endif(NOT PYBIND11_NOBOOST)
 
 # Copy the Tarski Handlers into the build directory
 file(COPY 
@@ -20,14 +42,6 @@ file(COPY
         ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/tarski/
 )
 
-install(
-    FILES
-        ${PROJECT_SOURCE_DIR}/src/translate/pddl/tarski/tarski_instantiator.hxx
-    DESTINATION
-        ${CMAKE_INSTALL_PREFIX}/${REL_PYEXT_INC_DIR}/translate
-    COMPONENT
-        lapkt EXCLUDE_FROM_ALL
-)
 
 # Tarski Handler Pypi Package
 file(WRITE ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/tarski/__init__.py 

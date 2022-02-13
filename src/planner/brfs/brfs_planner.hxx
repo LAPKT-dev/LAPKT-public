@@ -1,7 +1,7 @@
 #ifndef __BRFS_PLANNER__
 #define __BRFS_PLANNER__
 
-#include <py_strips_interface.hxx>
+#include <boostpy_strips_interface.hxx>
 #include <fwd_search_prob.hxx>
 #include <brfs.hxx>
 
