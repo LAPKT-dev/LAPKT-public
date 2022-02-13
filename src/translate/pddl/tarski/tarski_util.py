@@ -30,11 +30,11 @@ import contextlib
 
 # imports from boost::python planner lib
 #-----------------------------------------------------------------------------#
-from ..._pywrapper.tarski_wrapper import Tarski_Instantiator
-from ..._pywrapper.tarski_wrapper import TI_Action
-from ..._pywrapper.tarski_wrapper import TI_Atom
-from ..._pywrapper.tarski_wrapper import TI_Formula
-from ..._pywrapper.tarski_wrapper import TI_Identifier
+from ...core.lib.pddl import Tarski_Instantiator
+from ...core.lib.pddl import TI_Action
+from ...core.lib.pddl import TI_Atom
+from ...core.lib.pddl import TI_Formula
+from ...core.lib.pddl import TI_Identifier
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
 # Tarski library imports

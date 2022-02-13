@@ -1,6 +1,6 @@
 
-configure_file(${PROJECT_SOURCE_DIR}/src/script/lapkt.py
-    ${PROJECT_BINARY_DIR}/${REL_PYPI_ROOT}/package/script/lapkt.py
+configure_file(${PROJECT_SOURCE_DIR}/src/script/lapkt_run.py
+    ${PROJECT_BINARY_DIR}/${REL_PYPI_ROOT}/package/script/lapkt_run.py
     FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
     COPYONLY
 )
@@ -12,7 +12,7 @@ configure_file(${PROJECT_SOURCE_DIR}/src/script/run_planner.py
 )
 
 install(FILES
-    ${PROJECT_BINARY_DIR}/${REL_PYPI_ROOT}/package/script/lapkt.py
+    ${PROJECT_BINARY_DIR}/${REL_PYPI_ROOT}/package/script/lapkt_run.py
     PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
     DESTINATION ${REL_PYPI_ROOT}/package/script
     COMPONENT PYPACKAGE EXCLUDE_FROM_ALL

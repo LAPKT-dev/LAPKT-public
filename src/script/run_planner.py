@@ -4,9 +4,8 @@ from time import time, process_time
 from sys import stdout
 from os.path import isfile, join, dirname, realpath
 from pathlib import Path
-from subprocess import run
 
-import planner
+import lapkt.planner as planner
 
 # External Libs
 from ruamel.yaml import YAML
@@ -14,7 +13,6 @@ from ruamel.yaml import YAML
 parent_folder = Path(__file__).parent.absolute()
 rel_config_file = Path('planner/lapkt_planner_config.yml')
 PLANNER_CONFIG_PATH = join(parent_folder, rel_config_file)
-rel_validate_file = Path('../../../bin/validate')
 CWD = dirname(realpath(__file__))
 # -----------------------------------------------------------------------------#
 
@@ -98,16 +96,16 @@ class Run_planner:
         load problem from pddl files
         """
         if self.config['lapkt_instance_generator']['value'] == 'Tarski':
-            from ..tarski import ground_generate_task as process_task
+            from ..pddl.tarski import ground_generate_task as process_task
         elif self.config['lapkt_instance_generator']['value'] == 'FF':
-            try :
-                from ..ff import gen_problem_description as process_task
+            try:
+                from ..pddl.ff import gen_problem_description as process_task
             except Exception:
                 print('FF Translate is not installed!')
                 exit()
         elif self.config['lapkt_instance_generator']['value'] == 'FD':
             try:
-                from ..fd import default as process_task
+                from ..pddl.fd import default as process_task
             except Exception:
                 print('FD Translate is not installed!')
                 exit()
@@ -183,12 +181,9 @@ def validate_plan(domain_f, problem_f, plan_f):
     """
     Used to validate the plan
     """
-    validate = exists_exec(join(CWD, rel_validate_file), 'validate')
-    if validate:
-        with time_taken('LAPKT_VALIDATE_SOL'):
-            return run([validate, domain_f, problem_f, plan_f]).returncode
-    else:
-        return -1
+    from val_wrapper import val_main
+    with time_taken('LAPKT_VALIDATE_SOL'):
+        return val_main("Validate", [domain_f, problem_f, plan_f])
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 
 

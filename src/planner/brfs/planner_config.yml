@@ -6,7 +6,7 @@ BRFS_Planner:
     help    : 'builds a portfolio portfolio planner based on config specs'
   argparse_module_path: 
     cmd_arg:  
-      default : None #Leave empty if default lapkt.py module suffices
+      default : None #Leave empty if default lapkt_run.py module suffices
       required: False
       nargs   : '?'
       action  : 'store'

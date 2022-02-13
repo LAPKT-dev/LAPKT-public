@@ -18,8 +18,10 @@ setup(
     package_dir     =   {'': 'package'},  
     classifiers     =   [
                         "Programming Language :: Python :: 3",
-                        "License :: OSI Approved :: GPL3",
-                        "Operating System :: OS Independent",
+                        "License :: OSI Approved :: BSD License",
+                        "Operating System :: Microsoft :: Windows",
+                        "Operating System :: POSIX :: Linux",
+                        "Operating System :: MacOS"
                         ],
     python_requires =   '>=3.7',
     install_requires=   [
@@ -27,9 +29,7 @@ setup(
                         'ruamel.yaml',
                         ],
     extras_require  =   {
-                        'test':'psutil',
-                        'lab_module':'lab',
                         },
-    # scripts         =   ['lapkt/script/lapkt', ],
+    # scripts         =   ['lapkt/script/lapkt_run.py', ],
     include_package_data = True,
     )

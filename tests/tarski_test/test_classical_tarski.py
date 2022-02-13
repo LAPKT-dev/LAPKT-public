@@ -1,5 +1,5 @@
 #! /usr/bin/python3
-# 1. A script similar to lapkt.py without the planner - Done, just modified lapkt.py
+# 1. A script similar to lapkt_run.py without the planner - Done, just modified lapkt_run.py
 # 2. A lab frontend with following functionalities:
 #   - checks parse-ground step
 #   - checks instantiaton step

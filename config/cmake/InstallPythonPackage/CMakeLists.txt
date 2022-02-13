@@ -28,10 +28,13 @@ file(TOUCH
     ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/search/__init__.py
 )
 
+file(WRITE ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/planner/__init__.py
+    "from ..core.lib.planner import *\n"
+)
 
 file(TOUCH ${PROJECT_BINARY_DIR}/${REL_PYPI_ROOT}/setup.cfg)
 file(WRITE ${PROJECT_BINARY_DIR}/${REL_PYPI_ROOT}/setup.cfg 
-    "[options]\nscripts=\n\t${REL_PYPI_ROOT}/script/lapkt.py\n")
+    "[options]\nscripts=\n\tpackage/script/lapkt_run.py\n")
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/MANIFEST.in 
               ${PROJECT_BINARY_DIR}/${REL_PYPI_ROOT}/MANIFEST.in COPYONLY)

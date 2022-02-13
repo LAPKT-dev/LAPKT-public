@@ -14,9 +14,9 @@ LAPKT stands for Lightweight Automated Planning Toolkit
 
 - Explore the options from shell
 
-		lapkt.py -h
+		lapkt_run.py -h
 
-Note:  The directory where the `pip` command installs the scripts, including `lapkt.py`, is generally on the system `PATH`, if not, it needs to be added manually.
+Note:  The directory where the `pip` command installs the scripts, including `lapkt_run.py`, is generally on the system `PATH`, if not, it needs to be added manually.
 
 Introduction to LAPKT 4 Devs
 ============================
