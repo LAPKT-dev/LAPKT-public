@@ -1,0 +1,12 @@
+import os
+Import('common_env')
+
+include_paths = ['.']
+common_env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
+
+cxx_sources = Glob('*.cxx')
+c_sources = Glob('*.c')
+
+objects = [ common_env.Object(s) for s in cxx_sources ] + [ common_env.Object(s) for s in c_sources ]
+
+Return('objects')

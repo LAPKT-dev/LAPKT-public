@@ -1,0 +1,3 @@
+// the configured options and settings for lapkt
+#define lapkt_VERSION_MAJOR @lapkt_VERSION_MAJOR@
+#define lapkt_VERSION_MINOR @lapkt_VERSION_MINOR@

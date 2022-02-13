@@ -1,12 +1,53 @@
-LAPKT
-======
+[![BuildTestLAPKT](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/ubuntu_build_test.yml/badge.svg?branch=Devel2.0)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/ubuntu_build_test.yml)
 
-Lightweight Automated Planning Toolkit
+# LAPKT
 
-Miquel Ramirez <miquel.ramirez@gmail.com>
-Nir Lipovetzky <nirlipo@gmail.com>
-Christian Muise <christian.muise@gmail.com>
-Last update: September 2014
+LAPKT stands for Lightweight Automated Planning Toolkit
+
+... < A more detailed description > ...
+
+# Jump right in!
+
+- Install using python pip
+
+		python3 -m pip install lapkt
+
+- Explore the options from shell
+
+		lapkt.py -h
+
+Note:  The directory where the `pip` command installs the scripts, including `lapkt.py`, is generally on the system `PATH`, if not, it needs to be added manually.
+
+Introduction to LAPKT 4 Devs
+============================
+
+IMPORTANT! 
+----------
+Developers who intend to build from source are required to **manually** install the following PRE-BUILD dependencies. These will not be handled by the cmake tool.
+
+**@Ubuntu**
+
+	python3 >= 3.7 <= 3.9
+	python3-dev >= 3.7 <= 3.9
+	cmake >= 3.16
+	gcc>=8
+	g++>=8
+
+As of 2022, the easiest way to get latest version is cmake's pypi package
+
+*Note* -You would need the following if you plan to compile parser from FF to process PDDL input. Otherwise, these are not needed.
+
+	* flex
+	* bison
+	* libfl-dev
+
+AUTHORS
+=======
+
+- Miquel Ramirez <miquel.ramirez@gmail.com>
+- Nir Lipovetzky <nirlipo@gmail.com>
+- Anubhav Singh <anubhav.singh.er@protonmail.com>
+- Christian Muise <christian.muise@gmail.com>
 
 CONTENTS
 ========
@@ -35,7 +76,7 @@ defining planning tasks programatically.
 
 * 'ff': this interface wraps FF parsing components to obtain 'agnostic' looking
 tasks. **NOTE**: this requires to compile the FF planner as a library. See the 
-documentation on [`external/libff`](./external/libff) for instructions.
+documentation on ```external/libff``` for instructions.
 
 Future interfaces planned are:
 
@@ -59,44 +100,9 @@ this in mind when using this library.
 2 - BUILDING LAPKT
 ==================
 
-In order to build LAPKT you need to install scons (a GNU Makefile replacement)
-in your system. Refer to http://www.scons.org for directions on how to achieve
-this.
+[Build instructions](developersguide/build.md)
 
-In order to compile some of the examples, you will also need a version >= 1.49 of the Boost C++ libraries available on your system.
-You can check the version you have either manually by looking at the macro defined in `boost/version.hpp` or, on debian systems, by running
-`dpkg -s libboost-dev`.
-Be aware that systems such as the Ubuntu 12.04LTS release ship with older versions of Boost.
-
-Finally, LAPKT requires the Judy library (http://judy.sourceforge.net/index.html) to
-support the bitmap array class 'Varset Judy'. NOTE: This dependency will be optional
-or entirely deprecated in the future.
-
-2.1. Build instructions
-=======================
-
-Issue the command
-
-$ scons
-
-at the root of the source directory to obtain the (static) library containing essential data structures and other miscellaneous utilities. If debug symbols are needed, the command
-
-$ scons debug=1
-
-builds the library with optimizations disabled and debug symbols enabled.
-
-If you want to use the planners using the ```ff``` variants of our planners, you'll need to compile the ```FF``` sources included in this repository into a library by running the following commands:
-
-```
-cd external/libff
-make clean
-make depend
-make
-```
-
-is achieved by invoking scons in a similar manner in the corresponding folder.
-
-
+`cmake` is the primary tool used to build the LAPKT's C++(backend) source code. We also use it to generate Python/C++ library package which is ready to go as a `pypi` package. 
 
 3 - EXAMPLES
 ===========
@@ -106,7 +112,7 @@ is achieved by invoking scons in a similar manner in the corresponding folder.
 
 The examples for the 'planner agnostic' interface can be found on
 
-[`examples/agnostic-examples`](./examples/agnostic-examples)
+examples/agnostic-examples
 
 and cover the following topics:
 
@@ -130,17 +136,3 @@ and cover the following topics:
 
 		Shows how can one assemble available components to deliver a
 		planner built around Deadline Aware Search.
-
-
-4 - REQUIREMENTS
-==============
-
-LAPKT requires the following libraries:
-	* boost::program_options
-	* varjudy
-
-In order to compile LAPKT, we recommend need g++ 4.6 or better. However, any 
-compiler able to handle both boost libraries and C++0x standard new features, 
-should also be usable (we have been able to compile it under Visual Studio 
-2010 and llvm).
-

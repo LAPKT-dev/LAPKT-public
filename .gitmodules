@@ -1,0 +1,3 @@
+[submodule "fd_translate"]
+	path = external_package/fd_translate
+	url = https://github.com/LAPKT-dev/fd_translate.git

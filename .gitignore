@@ -1,3 +1,8 @@
+# Ignore .vscode settings
+.vscode/launch.json
+.vscode/c_cpp_properties.json
+.vscode/tasks.json
+
 # Compiled Object files
 *.slo
 *.lo
@@ -36,7 +41,18 @@ examples/agnostic-examples/bfs_f/bfs
 examples/agnostic-examples/successor_generation/succ-gen
 
 # Local directories 
-spikes
+external_package/Catch2
+external_package/libff
+external_package/VAL
+external_package/boost*
+external_package/clingo*
+external_package/doxygen*
+build_external
+build
+release
+Release
+Debug
+debug
 
 # Generated files
 benchmarks/ipc-2006/*.out
@@ -44,76 +60,4 @@ benchmarks/ipc-2006/*.png
 planners/*/fd
 planners/*/prof.c
 plan.ipc
-
-# Judy generated files
-external/judy-1.0.5/Makefile
-external/judy-1.0.5/config.h
-external/judy-1.0.5/config.status
-external/judy-1.0.5/doc/Makefile
-external/judy-1.0.5/doc/man/
-external/judy-1.0.5/libtool
-external/judy-1.0.5/src/Judy1/.deps/
-external/judy-1.0.5/src/Judy1/Judy1ByCount.c
-external/judy-1.0.5/src/Judy1/Judy1Cascade.c
-external/judy-1.0.5/src/Judy1/Judy1Count.c
-external/judy-1.0.5/src/Judy1/Judy1CreateBranch.c
-external/judy-1.0.5/src/Judy1/Judy1Decascade.c
-external/judy-1.0.5/src/Judy1/Judy1First.c
-external/judy-1.0.5/src/Judy1/Judy1FreeArray.c
-external/judy-1.0.5/src/Judy1/Judy1InsertBranch.c
-external/judy-1.0.5/src/Judy1/Judy1MallocIF.c
-external/judy-1.0.5/src/Judy1/Judy1MemActive.c
-external/judy-1.0.5/src/Judy1/Judy1MemUsed.c
-external/judy-1.0.5/src/Judy1/Judy1Next.c
-external/judy-1.0.5/src/Judy1/Judy1NextEmpty.c
-external/judy-1.0.5/src/Judy1/Judy1Prev.c
-external/judy-1.0.5/src/Judy1/Judy1PrevEmpty.c
-external/judy-1.0.5/src/Judy1/Judy1Set.c
-external/judy-1.0.5/src/Judy1/Judy1SetArray.c
-external/judy-1.0.5/src/Judy1/Judy1Tables.c
-external/judy-1.0.5/src/Judy1/Judy1TablesGen
-external/judy-1.0.5/src/Judy1/Judy1TablesGen.c
-external/judy-1.0.5/src/Judy1/Judy1Test.c
-external/judy-1.0.5/src/Judy1/Judy1Unset.c
-external/judy-1.0.5/src/Judy1/Makefile
-external/judy-1.0.5/src/Judy1/j__udy1Test.c
-external/judy-1.0.5/src/JudyCommon/.deps/
-external/judy-1.0.5/src/JudyCommon/Makefile
-external/judy-1.0.5/src/JudyHS/.deps/
-external/judy-1.0.5/src/JudyHS/Makefile
-external/judy-1.0.5/src/JudyL/.deps/
-external/judy-1.0.5/src/JudyL/JudyLByCount.c
-external/judy-1.0.5/src/JudyL/JudyLCascade.c
-external/judy-1.0.5/src/JudyL/JudyLCount.c
-external/judy-1.0.5/src/JudyL/JudyLCreateBranch.c
-external/judy-1.0.5/src/JudyL/JudyLDecascade.c
-external/judy-1.0.5/src/JudyL/JudyLDel.c
-external/judy-1.0.5/src/JudyL/JudyLFirst.c
-external/judy-1.0.5/src/JudyL/JudyLFreeArray.c
-external/judy-1.0.5/src/JudyL/JudyLGet.c
-external/judy-1.0.5/src/JudyL/JudyLIns.c
-external/judy-1.0.5/src/JudyL/JudyLInsArray.c
-external/judy-1.0.5/src/JudyL/JudyLInsertBranch.c
-external/judy-1.0.5/src/JudyL/JudyLMallocIF.c
-external/judy-1.0.5/src/JudyL/JudyLMemActive.c
-external/judy-1.0.5/src/JudyL/JudyLMemUsed.c
-external/judy-1.0.5/src/JudyL/JudyLNext.c
-external/judy-1.0.5/src/JudyL/JudyLNextEmpty.c
-external/judy-1.0.5/src/JudyL/JudyLPrev.c
-external/judy-1.0.5/src/JudyL/JudyLPrevEmpty.c
-external/judy-1.0.5/src/JudyL/JudyLTables.c
-external/judy-1.0.5/src/JudyL/JudyLTablesGen
-external/judy-1.0.5/src/JudyL/JudyLTablesGen.c
-external/judy-1.0.5/src/JudyL/Makefile
-external/judy-1.0.5/src/JudyL/j__udyLGet.c
-external/judy-1.0.5/src/JudySL/.deps/
-external/judy-1.0.5/src/JudySL/Makefile
-external/judy-1.0.5/src/Makefile
-external/judy-1.0.5/src/obj/.libs/
-external/judy-1.0.5/src/obj/Makefile
-external/judy-1.0.5/stamp-h1
-external/judy-1.0.5/test/Makefile
-external/judy-1.0.5/tool/.deps/
-external/judy-1.0.5/tool/Makefile
-external/judy-1.0.5/tool/jhton
 

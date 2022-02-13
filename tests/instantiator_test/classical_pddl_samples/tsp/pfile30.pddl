@@ -1,0 +1,46 @@
+
+
+
+(define (problem tsp-30)
+(:domain tsp)
+(:objects p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29 p30 )
+(:init
+(at p1)
+)
+(:goal
+(and
+(visited p1)
+(visited p2)
+(visited p3)
+(visited p4)
+(visited p5)
+(visited p6)
+(visited p7)
+(visited p8)
+(visited p9)
+(visited p10)
+(visited p11)
+(visited p12)
+(visited p13)
+(visited p14)
+(visited p15)
+(visited p16)
+(visited p17)
+(visited p18)
+(visited p19)
+(visited p20)
+(visited p21)
+(visited p22)
+(visited p23)
+(visited p24)
+(visited p25)
+(visited p26)
+(visited p27)
+(visited p28)
+(visited p29)
+(visited p30)
+)
+)
+)
+
+
