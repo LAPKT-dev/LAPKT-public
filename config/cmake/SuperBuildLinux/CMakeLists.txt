@@ -164,7 +164,9 @@ list(APPEND BUILD_COMMAND
     # --build-dir=${DEPS_BUILD_DIR}/boost/build
     --with-program_options --with-random
     --prefix=${DEPS_INSTALL_PREFIX}/boost install
-    cxxflags=-fPIC cflags=-fPIC toolset=gcc link=static
+    # cxxflags=-fPIC cflags=-fPIC 
+    toolset=gcc link=shared
+    # toolset=gcc link=static
     variant=${BOOST_VARIANT}
 )
 
@@ -194,9 +196,9 @@ list (APPEND EXTRA_CMAKE_ARGS
   -DBOOST_ROOT=${DEPS_INSTALL_PREFIX}/boost
   -DBOOST_INCLUDEDIR=${BOOST_ROOT}/include
   -DBOOST_LIBRARYDIR=${BOOST_ROOT}/lib
-#   -DBoost_NO_SYSTEM_PATHS=ON
-#   -DBoost_REALPATH=ON
-#   -DBoost_NO_BOOST_CMAKE=ON
+  # -DBoost_NO_SYSTEM_PATHS=ON
+  # -DBoost_REALPATH=ON
+  # -DBoost_NO_BOOST_CMAKE=ON
 )
 
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#

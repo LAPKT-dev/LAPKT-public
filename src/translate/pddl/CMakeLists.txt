@@ -5,7 +5,7 @@
 #     ${Boost_LIBRARIES}
 #     )
 
-add_subdirectory(wrapper)
+add_subdirectory(pybinding)
 
 if(CMAKE_FF_CXX)
     add_subdirectory(ff)

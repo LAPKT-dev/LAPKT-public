@@ -96,16 +96,16 @@ class Run_planner:
         load problem from pddl files
         """
         if self.config['lapkt_instance_generator']['value'] == 'Tarski':
-            from ..pddl.tarski import ground_generate_task as process_task
+            from lapkt.pddl.tarski import ground_generate_task as process_task
         elif self.config['lapkt_instance_generator']['value'] == 'FF':
             try:
-                from ..pddl.ff import gen_problem_description as process_task
+                from lapkt.pddl.ff import gen_problem_description as process_task
             except Exception:
                 print('FF Translate is not installed!')
                 exit()
         elif self.config['lapkt_instance_generator']['value'] == 'FD':
             try:
-                from ..pddl.fd import default as process_task
+                from lapkt.pddl.fd import default as process_task
             except Exception:
                 print('FD Translate is not installed!')
                 exit()

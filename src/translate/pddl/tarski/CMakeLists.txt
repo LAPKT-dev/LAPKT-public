@@ -6,7 +6,6 @@ target_include_directories(pddl
 if(NOT PYBIND11_NOBOOST)
     target_sources(pddl
         PRIVATE
-            boostpy_module.cxx
             boostpy_tarski_instantiator.cxx
             boostpy_tarski_instantiator.hxx
     )

@@ -1,17 +1,20 @@
-add_subdirectory(wrapper)
+
+file(WRITE ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/planner/lapkt_planner_config.yml "")
+
+add_subdirectory(pybinding)
 add_subdirectory(anytime_lapkt)
-add_subdirectory(at_bfs_f)
-add_subdirectory(bfs_f)
-add_subdirectory(brfs)
-add_subdirectory(bfws)
-add_subdirectory(delete-free-iw)
-add_subdirectory(delete-free-siw)
-add_subdirectory(dfs_plus)
-add_subdirectory(iw)
-add_subdirectory(iw_plus)
-add_subdirectory(siw)
-add_subdirectory(siw_plus)
-add_subdirectory(siw_plus-then-bfs_f)
+# add_subdirectory(at_bfs_f)
+# add_subdirectory(bfs_f)
+# add_subdirectory(brfs)
+# add_subdirectory(bfws)
+# add_subdirectory(delete-free-iw)
+# add_subdirectory(delete-free-siw)
+# add_subdirectory(dfs_plus)
+# add_subdirectory(iw)
+# add_subdirectory(iw_plus)
+# add_subdirectory(siw)
+# add_subdirectory(siw_plus)
+# add_subdirectory(siw_plus-then-bfs_f)
 
 target_include_directories(planner
     PUBLIC
@@ -63,7 +66,6 @@ install(
 # )
 
 # Planner configuration file in Python Package
-file(TOUCH ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/planner/lapkt_planner_config.yml)
 install(
     FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/planner/lapkt_planner_config.yml
     DESTINATION ${REL_PYPI_LAPKT_ROOT}/planner

@@ -247,6 +247,28 @@ add_library(core SHARED)
 
 #---- Python extensions ----#
 
+#---- CXX Wrappers over LAPKT lib ----#
+add_library(wrapper SHARED)
+set_target_properties(wrapper PROPERTIES
+  PREFIX ""
+)
+if(NOT WINDOWS_BUILD)
+  set_target_properties(wrapper PROPERTIES
+    INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
+  )
+endif(NOT WINDOWS_BUILD)
+
+target_include_directories(wrapper
+  PRIVATE
+    ${Python3_INCLUDE_DIRS} 
+    ${Boost_INCLUDE_DIRS}
+)
+
+target_link_libraries(wrapper PRIVATE
+  core
+  ${Boost_LIBRARIES}
+)
+
 #---- Translate PDDL ----#
 add_library(pddl SHARED)
 set_target_properties(pddl PROPERTIES
@@ -266,6 +288,8 @@ target_include_directories(pddl
 
 target_link_libraries(pddl PRIVATE
   core
+  wrapper
+  planner
   ${Boost_LIBRARIES}
 )
 
@@ -288,10 +312,13 @@ target_include_directories(planner
 
 target_link_libraries(planner PRIVATE
   core
-  pddl
+  # wrapper
   ${Boost_LIBRARIES}
 )
 
+target_link_libraries(planner PUBLIC
+  wrapper
+)
 #---- Add sub directories with source ----#
 
 # Add src
@@ -319,6 +346,22 @@ install(
   COMPONENT lapkt
 )
 
+# wrapper
+install(TARGETS wrapper
+  EXPORT lapkt-wrapper-Targets
+  LIBRARY DESTINATION ${REL_PYEXT_LIB_DIR}
+  COMPONENT lapkt    
+  INCLUDES DESTINATION    
+    ${REL_PYEXT_INC_DIR}
+)
+# Allows the developers to use find_package(lapkt COMPONENT planner) 
+#   to link lapkt library from their cmake project
+install(
+  EXPORT      lapkt-wrapper-Targets
+  FILE        lapkt-wrapper-Targets.cmake
+  DESTINATION ${REL_CMAKE_DIR}
+  COMPONENT lapkt
+)
 # planner
 install(TARGETS planner
   EXPORT lapkt-planner-Targets

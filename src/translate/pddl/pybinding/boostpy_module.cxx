@@ -1,9 +1,12 @@
+#include <boostpy_strips_interface.hxx>
 #include <boostpy_tarski_instantiator.hxx>
+#include <strips_prob.hxx>
 #include <boost/python.hpp>
 
+using namespace boost::python;
 using namespace tarski;
 
-BOOST_PYTHON_MODULE(tarski_wrapper)
+BOOST_PYTHON_MODULE(pddl)
 {
     boost::python::class_<Tarski_Instantiator>("Tarski_Instantiator")
         .def( init< STRIPS_Interface* >() )

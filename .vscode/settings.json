@@ -14,7 +14,7 @@
         "-DCMAKE_DOXYGEN_FLAT_THEME=OFF",
         "-DCMAKE_DOXYGEN_AWESOME_THEME=OFF",
         "-DCMAKE_SPHINX_DOCS=OFF",
-        "-DCMAKE_STATIC_BOOST=ON",
+        "-DCMAKE_STATIC_BOOST=OFF",
         "-DCMAKE_TESTING_ENABLED=ON"
     ],
     "files.associations": {
