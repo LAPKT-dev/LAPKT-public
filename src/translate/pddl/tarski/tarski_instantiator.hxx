@@ -17,13 +17,14 @@
 #ifndef __TARSKI_INSTANTIATE__
 #define __TARSKI_INSTANTIATE__
 
-#include <boostpy_strips_interface.hxx>
-#include <boost/python.hpp>
+#include <py_strips_interface.hxx>
+#include <pybind11/pybind11.h>
+
+namespace py = pybind11;
+
+using namespace py::literals;
 
 // Define Constants
-
-// Define Namespaces used
-using namespace boost::python;
 
 // Created a namespace for tarski specific classes
 namespace tarski{
@@ -50,7 +51,7 @@ namespace tarski{
     class Atom {
         public :
             Atom();
-            Atom( std::string symbol, boost::python::list& subterms);
+            Atom( std::string symbol, py::list& subterms);
             Atom( std::string symbol, std::vector<Identifier>& subterms);
             std::string instantiate( std::map<Identifier,
               std::string>& var_map);
@@ -74,8 +75,8 @@ namespace tarski{
     class Formula{
         public :
             Formula();
-            Formula( std::string symbol, boost::python::list& atom,
-                   boost::python::list& formula, bool dnf_check);
+            Formula( std::string symbol, py::list& atom,
+                   py::list& formula, bool dnf_check);
             // Anu - To make a hash map of AND, OR and NOT processing
             // Typedef function Pointer for compilation methods
             typedef std::pair<std::vector<std::vector<
@@ -123,10 +124,10 @@ namespace tarski{
     class Action{
         public:
             Action();
-            Action( std::string name, boost::python::list& var, Formula* pre,
-                    boost::python::list&  effect, boost::python::tuple& cost);
+            Action( std::string name, py::list& var, Formula* pre,
+                    py::list&  effect, py::tuple& cost);
             // Anu- no need to return anything - send everything to out_task
-            void instantiate( STRIPS_Interface* out_task, boost::python::tuple&
+            void instantiate( STRIPS_Interface* out_task, py::tuple&
                     params, long& next_action_id, std::map<std::string,
                     int>& fluent, std::vector<std::string>& init,
                     std::map<std::string, int>& fval);
@@ -149,17 +150,17 @@ namespace tarski{
             Tarski_Instantiator();
             Tarski_Instantiator( STRIPS_Interface* strips_problem);
             Tarski_Instantiator( STRIPS_Interface* task,
-                    boost::python::list& init, Formula& goal,
-                    boost::python::list& fluent, boost::python::list& f_value);
+                    py::list& init, Formula& goal,
+                    py::list& fluent, py::list& f_value);
             // Methods
-            void add_init( boost::python::list& init);
+            void add_init( py::list& init);
             void set_init();// Anu- Call after setting negated atoms
             void add_goal( Formula& goal);
             void set_goal();
-            void add_fluents( boost::python::list& fluent);
-            void add_functions( boost::python::list& func);
+            void add_fluents( py::list& fluent);
+            void add_functions( py::list& func);
             void instantiate_action( tarski::Action& action,
-                    boost::python::list& reachable_params);
+                    py::list& reachable_params);
             void finalize_actions();
 
         private:

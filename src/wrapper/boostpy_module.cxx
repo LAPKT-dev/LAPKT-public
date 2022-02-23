@@ -35,7 +35,7 @@ BOOST_PYTHON_MODULE(wrapper)
     // if (reg_pointer == NULL ||(*reg_pointer).m_to_python == NULL) {
     //     class_<STRIPS_Interface>("STRIPS_Interface")
     //         .def( init< std::string, std::string >() )
-    //         .def( "instance", &STRIPS_Interface::boost_instance )
+    //         .def( "instance", &STRIPS_Interface::instance )
     //         .def( "add_atom", &STRIPS_Interface::add_atom )
     //         .def( "add_action", &STRIPS_Interface::add_action )
     //         .def( "add_mutex_group", &STRIPS_Interface::add_mutex_group )

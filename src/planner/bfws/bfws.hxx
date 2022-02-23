@@ -4,7 +4,7 @@
 /**
  * LAPKT includes
  */
-#include <boostpy_strips_interface.hxx>
+#include <py_strips_interface.hxx>
 
 #include <iostream>
 #include <fstream>

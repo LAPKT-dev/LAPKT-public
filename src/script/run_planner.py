@@ -12,7 +12,7 @@ from ruamel.yaml import YAML
 
 parent_folder = Path(__file__).parent.absolute()
 rel_config_file = Path('planner/lapkt_planner_config.yml')
-PLANNER_CONFIG_PATH = join(parent_folder, rel_config_file)
+PLANNER_CONFIG_PATH = "/home/zura/.local/lib/python3.9/site-packages/lapkt/planner/lapkt_planner_config.yml" #join(parent_folder, rel_config_file)
 CWD = dirname(realpath(__file__))
 # -----------------------------------------------------------------------------#
 
@@ -168,11 +168,12 @@ class Run_planner:
         Used to spawn a planner type object
         """
         try:
+            print(dir(planner), name)
             self.planner_instance = getattr(planner, name)()
         except Exception:
             raise ValueError(
                 "Either planner name, " + name +
-                ", is wrong or lapkt didn't load it")
+                ", is wrong or lapkt couldn't load it correctly")
         return 0
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 

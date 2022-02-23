@@ -1,0 +1,86 @@
+PDDL problem description loaded: 
+	Domain: cave-diving-adl
+	Problem: cave-diving-adl-p01
+	#Actions: 804
+	#Fluents: 97
+Stage #1: SIW
+Landmarks found: 3
+Total time: 0.001993
+Nodes generated during search: 59
+Nodes expanded during search: 59
+Nodes pruned by bound: 126
+Average ef. width: 1
+Max ef. width: 1
+SIW+ search completed in 0.001993 secs, found plan cost = 3.40282e+38
+Landmarks and edges found: 7
+Stage #2: BFS(f)
+Plan found with cost: 25
+1. (hire-diver d1)
+2. (prepare-tank d1 t0 t1 three four)
+3. (prepare-tank d1 t1 t2 two three)
+4. (prepare-tank d1 t2 t3 one two)
+5. (enter-water d1 l0)
+6. (swim d1 t0 l0 l1)
+7. (drop-tank d1 t2 l1 one two)
+8. (swim d1 t1 l1 l0)
+9. (drop-tank d1 t0 l0 two three)
+10. (drop-tank d1 t1 l0 three four)
+11. (decompress d1 l0)
+12. (hire-diver d0)
+13. (prepare-tank d0 t3 t4 three four)
+14. (prepare-tank d0 t4 t5 two three)
+15. (prepare-tank d0 t5 t6 one two)
+16. (prepare-tank d0 t6 dummy zero one)
+17. (enter-water d0 l0)
+18. (swim d0 t3 l0 l1)
+19. (swim d0 t6 l1 l4)
+20. (photograph d0 l4 t4)
+21. (swim d0 t5 l4 l1)
+22. (drop-tank d0 t3 l1 zero one)
+23. (pickup-tank d0 t2 l1 zero one)
+24. (swim d0 t2 l1 l0)
+25. (decompress d0 l0)
+Time: 1.42134
+Generated: 27351
+Expanded: 6359
+Total time: 1.4214
+Nodes generated during search: 27352
+Nodes expanded during search: 6359
+Nodes pruned by bound: 0
+BFS(f) search completed in 1.4214 secs, found plan cost = 25
+Stage #3: RWA* 
+Branch & Bound search: Initial Bound = 25
+Plan found with cost: 23
+1. (hire-diver d1)
+2. (prepare-tank d1 t0 t1 three four)
+3. (prepare-tank d1 t1 t2 two three)
+4. (prepare-tank d1 t2 t3 one two)
+5. (enter-water d1 l0)
+6. (swim d1 t2 l0 l1)
+7. (drop-tank d1 t0 l1 one two)
+8. (swim d1 t1 l1 l0)
+9. (decompress d1 l0)
+10. (hire-diver d0)
+11. (prepare-tank d0 t3 t4 three four)
+12. (prepare-tank d0 t4 t5 two three)
+13. (prepare-tank d0 t5 t6 one two)
+14. (prepare-tank d0 t6 dummy zero one)
+15. (enter-water d0 l0)
+16. (swim d0 t3 l0 l1)
+17. (swim d0 t6 l1 l4)
+18. (photograph d0 l4 t4)
+19. (swim d0 t5 l4 l1)
+20. (drop-tank d0 t3 l1 zero one)
+21. (pickup-tank d0 t0 l1 zero one)
+22. (swim d0 t0 l1 l0)
+23. (decompress d0 l0)
+Time: 328.047
+Generated: 8331884
+Expanded: 0
+Total time: 766.196
+Nodes generated during search: 23915965
+Nodes expanded during search: 4758377
+Nodes pruned by bound: 3303447
+Dead-end nodes: 1321860
+Nodes in OPEN replaced: 30322
+RWA search completed in 766.196 secs, found plan cost = 3.40282e+38

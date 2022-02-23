@@ -18,8 +18,8 @@ add_subdirectory(node_eval)
 # Blueprints for strips model
 add_subdirectory(model)
 
-# Other utility blueprints
-add_subdirectory(utility)
+# lapkt template library(ltl) a set of utility blueprints
+add_subdirectory(ltl)
 
 # Planners which leverage engine(s) in some particular configuration
 add_subdirectory(planner)

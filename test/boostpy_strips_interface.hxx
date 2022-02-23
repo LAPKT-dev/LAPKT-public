@@ -18,7 +18,7 @@ public:
 	aptk::STRIPS_Problem*	instance() {
 		return m_problem;
 	}
-    aptk::STRIPS_Problem	boost_instance() {
+    aptk::STRIPS_Problem	instance() {
 		return *m_problem;
 	}
 

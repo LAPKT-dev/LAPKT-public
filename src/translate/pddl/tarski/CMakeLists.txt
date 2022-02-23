@@ -1,4 +1,4 @@
-target_include_directories(pddl
+target_include_directories(planner
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
@@ -18,15 +18,15 @@ if(NOT PYBIND11_NOBOOST)
             lapkt EXCLUDE_FROM_ALL
     )
 else()
-    target_sources(pddl
+    target_sources(planner
         PRIVATE
             pybind11_module.cxx
-            pybind11_tarski_instantiator.cxx
-            pybind11_tarski_instantiator.hxx
+            tarski_instantiator.cxx
+            tarski_instantiator.hxx
     )
     install(
         FILES
-            ${PROJECT_SOURCE_DIR}/src/translate/pddl/tarski/pybind11_tarski_instantiator.hxx
+            tarski_instantiator.hxx
         DESTINATION
             ${CMAKE_INSTALL_PREFIX}/${REL_PYEXT_INC_DIR}/translate
         COMPONENT

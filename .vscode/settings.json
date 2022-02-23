@@ -15,7 +15,8 @@
         "-DCMAKE_DOXYGEN_AWESOME_THEME=OFF",
         "-DCMAKE_SPHINX_DOCS=OFF",
         "-DCMAKE_STATIC_BOOST=OFF",
-        "-DCMAKE_TESTING_ENABLED=ON"
+        "-DCMAKE_TESTING_ENABLED=ON",
+        "-DPYBIND11_NOBOOST=ON"
     ],
     "files.associations": {
         "*.ipp": "cpp",
@@ -72,7 +73,10 @@
         "ctime": "cpp",
         "ratio": "cpp",
         "sstream": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "list": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp"
     },
     "C_Cpp.default.cppStandard": "c++17",
     "python.testing.pytestArgs": [

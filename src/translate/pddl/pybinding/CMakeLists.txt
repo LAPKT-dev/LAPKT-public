@@ -6,7 +6,7 @@ if(NOT PYBIND11_NOBOOST)
             boostpy_module.cxx
     )
 else()
-    target_sources(pddl
+    target_sources(planner
     PRIVATE
         pybind11_module.cxx
     )

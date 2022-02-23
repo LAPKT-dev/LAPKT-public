@@ -1,7 +1,7 @@
 #ifndef __RP_IW_PLANNER__
 #define __RP_IW_PLANNER__
 
-#include <boostpy_strips_interface.hxx>
+#include <py_strips_interface.hxx>
 #include <strips_state.hxx>
 #include <strips_prob.hxx>
 #include <fwd_search_prob.hxx>

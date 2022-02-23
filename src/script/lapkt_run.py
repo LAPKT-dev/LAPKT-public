@@ -9,7 +9,7 @@ from re import match
 from os import getpid
 
 # LAPKT Imports
-from lapkt.run_planner import Run_planner, load_planner_config
+from run_planner import Run_planner, load_planner_config
 
 # Parameters which must be set correctly
 

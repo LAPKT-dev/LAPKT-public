@@ -19,6 +19,19 @@ execute_process(COMMAND ${Python3_EXECUTABLE} -m pip install
 )
 message(STATUS "Python result: ${out}")
 
+#Fetch path to Pybind11
+execute_process(COMMAND ${Python3_EXECUTABLE} -m pybind11 --cmakedir 
+  OUTPUT_VARIABLE PYBIND11_CMAKE_DIR
+  ERROR_VARIABLE PYBIND11_CMAKE_DIR_ERROR
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+  ERROR_STRIP_TRAILING_WHITESPACE
+)
+
+if(PYBIND11_CMAKE_DIR_ERROR)
+  message(FATAL_ERROR "Failed to find pybind11 cmake directory from pip\n ERROR: ${PYBIND11_CMAKE_DIR_ERROR}")
+endif()
+
+
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #xxxx SECTION 2 - ADD EXTERNAL PROJECTS
 
@@ -164,9 +177,9 @@ list(APPEND BUILD_COMMAND
     # --build-dir=${DEPS_BUILD_DIR}/boost/build
     --with-program_options --with-random
     --prefix=${DEPS_INSTALL_PREFIX}/boost install
-    # cxxflags=-fPIC cflags=-fPIC 
-    toolset=gcc link=shared
-    # toolset=gcc link=static
+    cxxflags=-fPIC cflags=-fPIC 
+    # toolset=gcc link=shared
+    toolset=gcc link=static
     variant=${BOOST_VARIANT}
 )
 
@@ -208,6 +221,7 @@ list (APPEND EXTRA_CMAKE_ARGS
 list(APPEND EXTRA_CMAKE_ARGS
   -DUSE_SUPERBUILD=OFF
   -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+  -DPYBIND11_CMAKE_DIR=${PYBIND11_CMAKE_DIR}
 )
 
 get_cmake_property(vars CACHE_VARIABLES)

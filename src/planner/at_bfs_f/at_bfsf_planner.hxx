@@ -1,7 +1,7 @@
 #ifndef __AT_BFS_F_PLANNER__
 #define __AT_BFS_F_PLANNER__
 
-#include <boostpy_strips_interface.hxx>
+#include <py_strips_interface.hxx>
 #include <fwd_search_prob.hxx>
 #include <novelty.hxx>
 #include <novelty_partition.hxx>

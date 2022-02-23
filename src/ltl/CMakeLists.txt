@@ -1,0 +1,44 @@
+target_sources(core
+    PRIVATE
+        bit_array.cxx
+        bit_array.hxx
+        bit_matrix.hxx
+        bit_set.cxx
+        bit_set.hxx
+        bit_square_matrix.hxx
+        ext_math.hxx
+        hash_table.hxx
+        jenkins_12bit.hxx
+        memory.cxx
+        memory.hxx
+        resources_control.hxx
+        sliding_window.hxx
+        string_conversions.hxx
+        time.hxx
+        types.hxx
+)
+target_include_directories(core
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+
+install(
+    FILES
+        bit_array.hxx
+        bit_matrix.hxx
+        bit_set.hxx
+        bit_square_matrix.hxx
+        ext_math.hxx
+        hash_table.hxx
+        jenkins_12bit.hxx
+        memory.hxx
+        resources_control.hxx
+        sliding_window.hxx
+        string_conversions.hxx
+        time.hxx
+        types.hxx
+    DESTINATION
+        ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/utility
+    COMPONENT
+        core
+)
