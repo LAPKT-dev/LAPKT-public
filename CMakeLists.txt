@@ -262,85 +262,40 @@ add_library(core SHARED)
 #---- Python extensions ----#
 
 #---- CXX Wrappers over LAPKT lib ----#
-# add_library(wrapper SHARED)
-# # pybind11_add_module(wrapper SHARED)
-# set_target_properties(wrapper PROPERTIES
-#   PREFIX ""
-# )
-# if(NOT WINDOWS_BUILD)
-#   set_target_properties(wrapper PROPERTIES
-#     INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
-#   )
-# endif(NOT WINDOWS_BUILD)
-
-# target_include_directories(wrapper
-#   PRIVATE
-#     ${Python3_INCLUDE_DIRS} 
-#     # ${Boost_INCLUDE_DIRS}
-# )
-
-# target_link_libraries(wrapper PUBLIC
-#   core
-#   pybind11::headers
-#   pybind11::module pybind11::lto pybind11::windows_extras
-#   # ${Boost_LIBRARIES}
-# )
+pybind11_add_module(wrapper SHARED)
+set_target_properties(wrapper PROPERTIES
+  PREFIX ""
+  INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
+)
+target_link_libraries(wrapper PRIVATE
+  core
+)
 
 #---- Translate PDDL ----#
-# pybind11_add_module(pddl)
-# set_target_properties(pddl PROPERTIES
-#   PREFIX ""
-# )
-# if(NOT WINDOWS_BUILD)
-#   set_target_properties(pddl PROPERTIES
-#     INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
-#   )
-# endif(NOT WINDOWS_BUILD)
-
-# target_include_directories(pddl
-#   PRIVATE
-#     ${Python3_INCLUDE_DIRS} 
-#     # ${Boost_INCLUDE_DIRS}
-# )
-
-# target_link_libraries(pddl PUBLIC
-#   core
-#   # wrapper
-#   planner
-#   pybind11::headers
-#   pybind11::module pybind11::lto pybind11::windows_extras
-#   # ${Boost_LIBRARIES}
-# )
-
-#---- Planner ----#
-pybind11_add_module(planner)
-# add_library(planner)
-set_target_properties(planner PROPERTIES
+pybind11_add_module(pddl MODULE)
+set_target_properties(pddl PROPERTIES
   PREFIX ""
 )
-if(NOT WINDOWS_BUILD)
-  set_target_properties(planner PROPERTIES
-    INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
-  )
-endif(NOT WINDOWS_BUILD)
-
-target_include_directories(planner
-  PRIVATE
-    ${Python3_INCLUDE_DIRS} 
-    # ${Boost_INCLUDE_DIRS}
+set_target_properties(pddl PROPERTIES
+  INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
-
-target_link_libraries(planner PUBLIC
+target_link_libraries(pddl PRIVATE
   core
-  # wrapper
-  ${Boost_LIBRARIES}
-  pybind11::headers
-  pybind11::module pybind11::lto pybind11::windows_extras
+  wrapper
 )
 
-target_link_libraries(planner PUBLIC
-  # wrapper
+#---- Planner ----#
+pybind11_add_module(planner MODULE)
+set_target_properties(planner PROPERTIES
+  PREFIX ""
+  INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
+target_link_libraries(planner PRIVATE
+  core
+  wrapper
+  ${Boost_LIBRARIES}
+)
+
 #---- Add sub directories with source ----#
 
 # Add src
@@ -368,22 +323,22 @@ install(
   COMPONENT lapkt
 )
 
-# # wrapper
-# install(TARGETS wrapper
-#   EXPORT lapkt-wrapper-Targets
-#   LIBRARY DESTINATION ${REL_PYEXT_LIB_DIR}
-#   COMPONENT lapkt    
-#   INCLUDES DESTINATION    
-#     ${REL_PYEXT_INC_DIR}
-# )
-# # Allows the developers to use find_package(lapkt COMPONENT planner) 
-# #   to link lapkt library from their cmake project
-# install(
-#   EXPORT      lapkt-wrapper-Targets
-#   FILE        lapkt-wrapper-Targets.cmake
-#   DESTINATION ${REL_CMAKE_DIR}
-#   COMPONENT lapkt
-# )
+# wrapper
+install(TARGETS wrapper
+  EXPORT lapkt-wrapper-Targets
+  LIBRARY DESTINATION ${REL_PYEXT_LIB_DIR}
+  COMPONENT lapkt    
+  INCLUDES DESTINATION    
+    ${REL_PYEXT_INC_DIR}
+)
+# Allows the developers to use find_package(lapkt COMPONENT planner) 
+#   to link lapkt library from their cmake project
+install(
+  EXPORT      lapkt-wrapper-Targets
+  FILE        lapkt-wrapper-Targets.cmake
+  DESTINATION ${REL_CMAKE_DIR}
+  COMPONENT lapkt
+)
 # planner
 install(TARGETS planner
   EXPORT lapkt-planner-Targets
@@ -401,21 +356,21 @@ install(
   COMPONENT lapkt
 )
 # # pddl
-# install(TARGETS pddl
-#   EXPORT lapkt-pddl-Targets
-#   LIBRARY DESTINATION ${REL_PYEXT_LIB_DIR}
-#   COMPONENT lapkt    
-#   INCLUDES DESTINATION    
-#     ${REL_PYEXT_INC_DIR}
-# )
-# # Allows the developers to use find_package(lapkt COMPONENT pddl) 
-# #   to link lapkt library from their cmake project
-# install(
-#   EXPORT      lapkt-pddl-Targets
-#   FILE        lapkt-pddl-Targets.cmake
-#   DESTINATION ${REL_CMAKE_DIR}
-#   COMPONENT lapkt
-# )
+install(TARGETS pddl
+  EXPORT lapkt-pddl-Targets
+  LIBRARY DESTINATION ${REL_PYEXT_LIB_DIR}
+  COMPONENT lapkt    
+  INCLUDES DESTINATION    
+    ${REL_PYEXT_INC_DIR}
+)
+# Allows the developers to use find_package(lapkt COMPONENT pddl) 
+#   to link lapkt library from their cmake project
+install(
+  EXPORT      lapkt-pddl-Targets
+  FILE        lapkt-pddl-Targets.cmake
+  DESTINATION ${REL_CMAKE_DIR}
+  COMPONENT lapkt
+)
 
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #----------- SECTION 4.0  INSTALL CONFIG ------------#

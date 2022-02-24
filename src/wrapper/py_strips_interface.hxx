@@ -14,7 +14,8 @@ namespace py = pybind11;
 // shorthand
 using namespace py::literals;
 
-class STRIPS_Interface {
+// class PYBIND11_EXPORT STRIPS_Interface {
+class PYBIND11_EXPORT STRIPS_Interface {
 public:
 	STRIPS_Interface();
 	STRIPS_Interface(std::string, std::string);

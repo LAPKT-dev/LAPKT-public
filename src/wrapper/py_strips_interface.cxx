@@ -84,7 +84,7 @@ STRIPS_Interface::set_size_negated_fluents(size_t size){
 void
 STRIPS_Interface::add_precondition(int index, py::list& lits){
 	aptk::Action& action = *(m_problem->actions()[index]);
-	for (int i = 0; i < py::len(lits); i++)
+	for (int i=0; i<py::len(lits); i++)
 	{
 		py::tuple li = lits[i];
 		int 	fl_idx 		= li[0].cast<int>();
@@ -104,7 +104,7 @@ STRIPS_Interface::add_precondition(int index,
 	std::vector<std::pair<int, bool>>& lits)
 {
 	aptk::Action& action = *(m_problem->actions()[index]);
-	for (size_t i = 0; i < lits.size(); i++)
+	for (size_t i=0; i<lits.size(); i++)
 	{
     	int 	fl_idx 		= lits[i].first;
 		bool	negated 	= lits[i].second;
@@ -127,7 +127,7 @@ STRIPS_Interface::add_cond_effect(int index, py::list& cond_lits,
 	aptk::Fluent_Vec	cond_fluents;
 	aptk::Fluent_Vec	add_fluents;
 	aptk::Fluent_Vec	del_fluents;
-	for (int i = 0; i < py::len(cond_lits); i++)
+	for (int i=0; i<py::len(cond_lits); i++)
 	{
 		py::tuple li = cond_lits[i];
 		int 	fl_idx 		= li[0].cast<int>();
@@ -138,7 +138,7 @@ STRIPS_Interface::add_cond_effect(int index, py::list& cond_lits,
 		cond_fluents.push_back(fl_idx);
 	}
 
-	for (int i = 0; i < py::len(eff_lits); i++)
+	for (int i=0; i<py::len(eff_lits); i++)
 	{
 		py::tuple li = eff_lits[i];
 
@@ -182,7 +182,7 @@ STRIPS_Interface::add_cond_effect(int index,
 	aptk::Fluent_Vec	add_fluents;
 	aptk::Fluent_Vec	del_fluents;
 
-	for (size_t i = 0; i < cond_lits.size(); i++)
+	for (size_t i=0; i<cond_lits.size(); i++)
 	{
 		int 	fl_idx 		= cond_lits[i].first;
 		bool	negated 	= cond_lits[i].second;
@@ -192,7 +192,7 @@ STRIPS_Interface::add_cond_effect(int index,
 
 		cond_fluents.push_back(fl_idx);
 	}
-	for (size_t i = 0; i < eff_lits.size(); i++)
+	for (size_t i=0; i<eff_lits.size(); i++)
 	{
 		int 	fl_idx 		= eff_lits[i].first;
 		bool	negated 	= eff_lits[i].second;
@@ -207,15 +207,15 @@ STRIPS_Interface::add_cond_effect(int index,
 	aptk::Conditional_Effect* cond_eff =
 		new aptk::Conditional_Effect(*instance(), true);
 	//cond_eff->define(cond_fluents, add_fluents, del_fluents);
-	for (size_t k = 0; k < cond_fluents.size(); k++)
+	for (size_t k=0; k<cond_fluents.size(); k++)
 	{
 		cond_eff->prec_vec().push_back(cond_fluents[k]);
 	}
-	for (size_t k = 0; k < add_fluents.size(); k++)
+	for (size_t k=0; k<add_fluents.size(); k++)
 	{
 		cond_eff->add_vec().push_back(add_fluents[k]);
 	}
-	for (size_t k = 0; k < del_fluents.size(); k++)
+	for (size_t k=0; k<del_fluents.size(); k++)
 	{
 		cond_eff->del_vec().push_back(del_fluents[k]);
 	}
@@ -228,7 +228,7 @@ void
 STRIPS_Interface::add_effect(int index, py::list& lits)
 {
 	aptk::Action& action = *(m_problem->actions()[index]);
-	for (int i; i<py::len(lits); i++)
+	for (int i=0; i<py::len(lits); i++)
 	{
 		py::tuple li = lits[i];
 		int 	fl_idx 		= li[0].cast<int>();
@@ -272,7 +272,7 @@ STRIPS_Interface::add_effect(int index,
 	std::vector<std::pair<int, bool>>& lits)
 {
 	aptk::Action& action = *(m_problem->actions()[index]);
-	for (size_t i = 0; i < lits.size(); i++)
+	for (size_t i=0; i<lits.size(); i++)
 	{
 		int 	fl_idx 		= lits[i].first;
 		bool	negated 	= lits[i].second;
@@ -359,7 +359,7 @@ void
 STRIPS_Interface::add_mutex_group(py::list& lits)
 {
 	aptk::Fluent_Vec	group;
-	for (int i = 0; i < py::len(lits); i++){
+	for (int i=0; i<py::len(lits); i++){
 		py::tuple li = (lits[i]);
 		int 	fl_idx 		= li[0].cast<int>();
 		bool	negated 	= li[1].cast<bool>();
@@ -387,7 +387,7 @@ STRIPS_Interface::set_cost(int index, float c)
 void
 STRIPS_Interface::set_init(py::list& lits){
 	aptk::Fluent_Vec I;
-	for(int i = 0; i < py::len(lits); i++)
+	for(int i=0; i<py::len(lits); i++)
 	{
 		py::tuple li = (lits[i]);
 		int 	fl_idx 		= li[0].cast<int>();
@@ -400,7 +400,7 @@ STRIPS_Interface::set_init(py::list& lits){
 		I.push_back(fl_idx);
 	}
 	// complete initial state under negation
-	for (unsigned p = 0; p < instance()->num_fluents(); p++)
+	for (unsigned p=0; p<instance()->num_fluents(); p++)
 	{
 		if (p >= m_negated.size()) continue; // p is a negated fluent!
 		if (std::find( I.begin(), I.end(), p) != I.end() )
@@ -418,7 +418,7 @@ STRIPS_Interface::set_init(std::vector<std::pair<int, bool>>& lits){
 
 	aptk::Fluent_Vec I;
 
-	for(size_t i = 0; i < lits.size(); i++)
+	for(size_t i=0; i<lits.size(); i++)
 	{
 		int 	fl_idx 		= lits[i].first;
 		bool	negated 	= lits[i].second;
@@ -430,7 +430,7 @@ STRIPS_Interface::set_init(std::vector<std::pair<int, bool>>& lits){
 		I.push_back(fl_idx);
 	}
 	// complete initial state under negation
-	for (unsigned p = 0; p < instance()->num_fluents(); p++){
+	for (unsigned p=0; p<instance()->num_fluents(); p++){
 		if (p >= m_negated.size()) continue; // p is a negated fluent!
 		if (std::find( I.begin(), I.end(), p) != I.end() )
 			continue;
@@ -445,7 +445,7 @@ void
 STRIPS_Interface::set_goal(py::list& lits){
 	aptk::Fluent_Vec G;
 
-	for(int i = 0; i < py::len(lits); i++){
+	for(int i=0; i<py::len(lits); i++){
 		py::tuple li = (lits[i]);
 		int 	fl_idx 		= li[0].cast<int>();
 		bool	negated 	= li[1].cast<bool>();
@@ -463,7 +463,7 @@ void
 STRIPS_Interface::set_goal(std::vector<std::pair<int, bool>>& lits){
 	aptk::Fluent_Vec G;
 
-	for(size_t i = 0; i < lits.size(); i++){
+	for(size_t i=0; i<lits.size(); i++){
 		int 	fl_idx 		= lits[i].first;
 		bool	negated 	= lits[i].second;
 		if (negated){

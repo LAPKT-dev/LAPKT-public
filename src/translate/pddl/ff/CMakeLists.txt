@@ -38,21 +38,11 @@ if(CMAKE_FF_PYWRAPPER)
         core
     )
 
-    if(NOT PYBIND11_NOBOOST)
-        target_sources(pddl
-            PRIVATE
-                boostpy_module.cxx
-                boostpy_ff_to_aptk.cxx
-                boostpy_ff_to_aptk.hxx
-        )
-    else()
-        target_sources(pddl
-            PRIVATE
-                pybind11_module.cxx
-                pybind11_ff_to_aptk.cxx
-                pybind11_ff_to_aptk.hxx
-        )
-    endif(NOT PYBIND11_NOBOOST)
+    target_sources(pddl
+        PRIVATE
+            py_ff_to_aptk.cxx
+            py_ff_to_aptk.hxx
+    )
 
     target_include_directories(pddl
         PRIVATE

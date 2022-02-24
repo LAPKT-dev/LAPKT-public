@@ -5,9 +5,9 @@
     "cmake.configureOnOpen": true,
     "cmake.configureArgs": [
         "-DUSE_SUPERBUILD=ON",
-        "-DCMAKE_FF_CXX=OFF",
-        "-DCMAKE_LEGACY_PLANNER=OFF",
-        "-DCMAKE_FF_PYWRAPPER=OFF",
+        "-DCMAKE_FF_CXX=ON",
+        "-DCMAKE_LEGACY_PLANNER=ON",
+        "-DCMAKE_FF_PYWRAPPER=ON",
         "-DCMAKE_FD=ON",
         "-DCMAKE_TARSKI=ON",
         "-DCMAKE_DOXYGEN_DOCS=OFF", 
@@ -76,7 +76,19 @@
         "variant": "cpp",
         "list": "cpp",
         "fstream": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "strstream": "cpp",
+        "bitset": "cpp",
+        "complex": "cpp",
+        "condition_variable": "cpp",
+        "cstdarg": "cpp",
+        "forward_list": "cpp",
+        "unordered_set": "cpp",
+        "mutex": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp",
+        "typeindex": "cpp"
     },
     "C_Cpp.default.cppStandard": "c++17",
     "python.testing.pytestArgs": [

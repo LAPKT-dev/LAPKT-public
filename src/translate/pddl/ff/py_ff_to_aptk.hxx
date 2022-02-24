@@ -3,7 +3,7 @@
 #define __PY_FF_PDDL_TO_STRIPS__
 
 #include <string>
-#include <boostpy_strips_interface.hxx>
+#include <py_strips_interface.hxx>
 namespace aptk
 {
 	namespace FF_Parser
