@@ -306,7 +306,7 @@ jobs:
         -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
         -DCMAKE_SPHINX_DOCS=OFF
         -DCMAKE_STATIC_BOOST=ON
-        -DCMAKE_TESTING_ENABLED=OFF
+        -DCMAKE_TESTING_ENABLED=ON
 
     - name: Build
       # Build your program with the given configuration

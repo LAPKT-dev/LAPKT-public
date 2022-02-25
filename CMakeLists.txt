@@ -296,7 +296,9 @@ target_link_libraries(planner PRIVATE
 add_subdirectory(src)
 
 # Unit tests
-add_subdirectory(test)
+if(CMAKE_TESTING_ENABLED)
+  add_subdirectory(test)
+endif()
 
 #------------ SECTION 3.3  Install -------------#
 
