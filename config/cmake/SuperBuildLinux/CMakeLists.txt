@@ -158,18 +158,28 @@ message("The boost build command is : ./b2 --user-config=${PROJECT_BINARY_DIR}/.
 # Boost Configure and Build commands
 
 if(WINDOWS_BUILD)
-  list(APPEND CONFIGURE_COMMAND 
+  list(APPEND CONFIGURE_COMMAND
     cd tools/build && bootstrap.bat mingw
   )
   list(APPEND BUILD_COMMAND
     ${DEPS_BUILD_DIR}/boost/src/tools/build/b2 -d0
+    toolset=gcc 
   )
-else()
-  list(APPEND CONFIGURE_COMMAND 
+elseif(MACOS_BUILD)
+  list(APPEND CONFIGURE_COMMAND
     ./bootstrap.sh
   )
   list(APPEND BUILD_COMMAND
     ./b2 -d0
+    toolset=darwin
+  )
+else()
+  list(APPEND CONFIGURE_COMMAND
+    ./bootstrap.sh
+  )
+  list(APPEND BUILD_COMMAND
+    ./b2 -d0
+    toolset=gcc 
   )
 endif()
 
@@ -180,7 +190,7 @@ list(APPEND BUILD_COMMAND
     --prefix=${DEPS_INSTALL_PREFIX}/boost install
     cxxflags=-fPIC cflags=-fPIC 
     # toolset=gcc link=shared
-    toolset=gcc link=static
+    link=static
     variant=${BOOST_VARIANT}
 )
 
