@@ -260,7 +260,7 @@ add_library(core SHARED)
 #---- CXX Wrappers over LAPKT lib ----#
 pybind11_add_module(wrapper SHARED)
 set_target_properties(wrapper PROPERTIES
-  # PREFIX ""
+  PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
 target_link_libraries(wrapper PUBLIC
@@ -270,7 +270,7 @@ target_link_libraries(wrapper PUBLIC
 #---- Translate PDDL ----#
 pybind11_add_module(pddl SHARED)
 set_target_properties(pddl PROPERTIES
-  # PREFIX ""
+  PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
 target_link_libraries(pddl PRIVATE
@@ -281,7 +281,7 @@ target_link_libraries(pddl PRIVATE
 #---- Planner ----#
 pybind11_add_module(planner SHARED)
 set_target_properties(planner PROPERTIES
-  # PREFIX ""
+  PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
 target_link_libraries(planner PRIVATE
@@ -323,7 +323,9 @@ install(
 install(TARGETS wrapper
   EXPORT lapkt-wrapper-Targets
   LIBRARY DESTINATION ${REL_PYEXT_LIB_DIR}
+  COMPONENT lapkt    
   ARCHIVE DESTINATION ${REL_PYEXT_LIB_DIR}
+  COMPONENT lapkt    
   RUNTIME  DESTINATION ${REL_PYEXT_LIB_DIR}
   COMPONENT lapkt    
   INCLUDES DESTINATION    
@@ -340,8 +342,11 @@ install(
 # planner
 install(TARGETS planner
   EXPORT lapkt-planner-Targets
+  DESTINATION ${REL_PYEXT_LIB_DIR}
   LIBRARY DESTINATION ${REL_PYEXT_LIB_DIR}
+  COMPONENT lapkt    
   ARCHIVE DESTINATION ${REL_PYEXT_LIB_DIR}
+  COMPONENT lapkt    
   RUNTIME  DESTINATION ${REL_PYEXT_LIB_DIR}
   COMPONENT lapkt    
   INCLUDES DESTINATION    
@@ -359,7 +364,9 @@ install(
 install(TARGETS pddl
   EXPORT lapkt-pddl-Targets
   LIBRARY DESTINATION ${REL_PYEXT_LIB_DIR}
+  COMPONENT lapkt    
   ARCHIVE DESTINATION ${REL_PYEXT_LIB_DIR}
+  COMPONENT lapkt    
   RUNTIME  DESTINATION ${REL_PYEXT_LIB_DIR}
   COMPONENT lapkt    
   INCLUDES DESTINATION    

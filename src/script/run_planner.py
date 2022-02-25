@@ -13,8 +13,8 @@ from ruamel.yaml import YAML
 parent_folder = Path(__file__).parent.absolute()
 rel_config_file = Path('planner/lapkt_planner_config.yml')
 # PLANNER_CONFIG_PATH = "c:\\users\\zura\\appdata\\local\\programs\\python\\python310\\lib\\site-packages\\lapkt\\planner\\lapkt_planner_config.yml"
-PLANNER_CONFIG_PATH = "/home/zura/.local/lib/python3.9/site-packages/lapkt/planner/lapkt_planner_config.yml" 
-# PLANNER_CONFIG_PATH = join(parent_folder, rel_config_file)
+# PLANNER_CONFIG_PATH = "/home/zura/.local/lib/python3.9/site-packages/lapkt/planner/lapkt_planner_config.yml" 
+PLANNER_CONFIG_PATH = join(parent_folder, rel_config_file)
 CWD = dirname(realpath(__file__))
 # -----------------------------------------------------------------------------#
 

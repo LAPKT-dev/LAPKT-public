@@ -6,10 +6,10 @@ with open("README.md", "r") as fh:
 
 setup(
     name            =   "lapkt",
-    version         =   "2.0",
+    version         =   "0.0.1",
     author          =   "Anubhav Singh, Nir Lipovetzky, "
                         +"Miquel Ramirez, Christian Muise",
-    author_email    =   "anubhav.singh.eng@gmail.com, nirlipo@gmail.com, "
+    author_email    =   "anubhav.singh.er@pm.me, nirlipo@gmail.com, "
                         +"miquel.ramirez@gmail.com, christian.muise@gmail.com",
     description     =   "LAPKT planning toolkit",
     long_description=   project_description,

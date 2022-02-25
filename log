@@ -5,13 +5,13 @@ PDDL problem description loaded:
 	#Fluents: 97
 Stage #1: SIW
 Landmarks found: 3
-Total time: 0.000298997
+Total time: 0.000262012
 Nodes generated during search: 59
 Nodes expanded during search: 59
 Nodes pruned by bound: 126
 Average ef. width: 1
 Max ef. width: 1
-SIW+ search completed in 0.000298997 secs, found plan cost = 3.40282e+38
+SIW+ search completed in 0.000262012 secs, found plan cost = 3.40282e+38
 Landmarks and edges found: 7
 Stage #2: BFS(f)
 Plan found with cost: 25
@@ -40,13 +40,11 @@ Plan found with cost: 25
 23. (pickup-tank d0 t2 l1 zero one)
 24. (swim d0 t2 l1 l0)
 25. (decompress d0 l0)
-Time: 0.139867
+Time: 0.142448
 Generated: 27351
 Expanded: 6359
-Total time: 0.139907
+Total time: 0.142478
 Nodes generated during search: 27352
 Nodes expanded during search: 6359
 Nodes pruned by bound: 0
-BFS(f) search completed in 0.139907 secs, found plan cost = 25
-Stage #3: RWA* 
-Branch & Bound search: Initial Bound = 25
+BFS(f) search completed in 0.142478 secs, found plan cost = 25
