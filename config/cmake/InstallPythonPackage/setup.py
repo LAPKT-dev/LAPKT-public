@@ -25,7 +25,9 @@ setup(
                         ],
     python_requires =   '>=3.7',
     install_requires=   [
-                        'tarski',
+                        # 'tarski',
+                        # "tarski[gringo] @ git+https://github.com/aig-upf/tarski.git@devel",
+                        "tarski[gringo] @ git+https://github.com/anubhav-cs/tarski.git@devel",
                         'ruamel.yaml',
                         ],
     extras_require  =   {

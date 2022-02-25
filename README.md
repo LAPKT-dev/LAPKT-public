@@ -16,7 +16,16 @@ LAPKT stands for Lightweight Automated Planning Toolkit
 
 		lapkt_run.py -h
 
-Note:  The directory where the `pip` command installs the scripts, including `lapkt_run.py`, is generally on the system `PATH`, if not, it needs to be added manually.
+## Important platform requirements:  
+
+**Platform agnostic**
+
+1. The directory where the `pip` command installs the scripts, including `lapkt_run.py`, is generally on the system `PATH`, if not, it needs to be added manually.
+
+**@Windows**
+
+1. `clingo/gringo` python package requires `MSVCP140.dll` which comes with visual studio redistributable. [latest vc-redist](https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
+2. To be able to run `lapkt_run.py` script directly from command line, change the default handler for ".py" files to `Python'.
 
 Introduction to LAPKT 4 Devs
 ============================
@@ -40,6 +49,7 @@ As of 2022, the easiest way to get latest version is cmake's pypi package
 	* flex
 	* bison
 	* libfl-dev
+
 
 AUTHORS
 =======

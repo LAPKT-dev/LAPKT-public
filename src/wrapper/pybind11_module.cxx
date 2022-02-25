@@ -79,6 +79,6 @@ PYBIND11_MODULE(wrapper, m)
         .def("print_fluents", &STRIPS_Interface::print_fluents)
         .def("finalize_actions", &STRIPS_Interface::finalize_actions)
         .def_readwrite("parsing_time", &STRIPS_Interface::m_parsing_time)
-        .def_readwrite("ignore_actions_costs", &STRIPS_Interface::m_ignore_action_costs)
+        .def_readwrite("ignore_action_costs", &STRIPS_Interface::m_ignore_action_costs)
     ;
 }

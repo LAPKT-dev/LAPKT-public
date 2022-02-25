@@ -92,14 +92,13 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/config/cmake)
 
 option(CMAKE_FF_CXX "Include the pure CXX lapkt extensions to support usage of FF parser" OFF)
 
-option(CMAKE_FF_PYWRAPPER "Include a python wrapper over CXX FF extension" OFF)
-if(CMAKE_FF_PYWRAPPER AND NOT CMAKE_FF_CXX)
-  message(FATAL_ERROR "CMAKE_FF_CXX must be ON to install FF py extensions")
-endif()
-
 option(CMAKE_LEGACY_PLANNER "Old is gold! Build some legacy pure CXX planners" OFF)
 if(CMAKE_LEGACY_PLANNER AND NOT CMAKE_FF_CXX)
   message(FATAL_ERROR "CMAKE_FF_CXX must be ON to install legacy planners")
+endif()
+
+if(CMAKE_FF_CXX)
+  add_definitions(-DUSE_FF)
 endif()
 
 # Install FD pddl and include the wrapper over it which
@@ -264,19 +263,17 @@ add_library(core SHARED)
 #---- CXX Wrappers over LAPKT lib ----#
 pybind11_add_module(wrapper SHARED)
 set_target_properties(wrapper PROPERTIES
-  PREFIX ""
+  # PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
-target_link_libraries(wrapper PRIVATE
+target_link_libraries(wrapper PUBLIC
   core
 )
 
 #---- Translate PDDL ----#
-pybind11_add_module(pddl MODULE)
+pybind11_add_module(pddl SHARED)
 set_target_properties(pddl PROPERTIES
-  PREFIX ""
-)
-set_target_properties(pddl PROPERTIES
+  # PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
 target_link_libraries(pddl PRIVATE
@@ -285,9 +282,9 @@ target_link_libraries(pddl PRIVATE
 )
 
 #---- Planner ----#
-pybind11_add_module(planner MODULE)
+pybind11_add_module(planner SHARED)
 set_target_properties(planner PROPERTIES
-  PREFIX ""
+  # PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
 target_link_libraries(planner PRIVATE
@@ -327,6 +324,8 @@ install(
 install(TARGETS wrapper
   EXPORT lapkt-wrapper-Targets
   LIBRARY DESTINATION ${REL_PYEXT_LIB_DIR}
+  ARCHIVE DESTINATION ${REL_PYEXT_LIB_DIR}
+  RUNTIME  DESTINATION ${REL_PYEXT_LIB_DIR}
   COMPONENT lapkt    
   INCLUDES DESTINATION    
     ${REL_PYEXT_INC_DIR}
@@ -343,6 +342,8 @@ install(
 install(TARGETS planner
   EXPORT lapkt-planner-Targets
   LIBRARY DESTINATION ${REL_PYEXT_LIB_DIR}
+  ARCHIVE DESTINATION ${REL_PYEXT_LIB_DIR}
+  RUNTIME  DESTINATION ${REL_PYEXT_LIB_DIR}
   COMPONENT lapkt    
   INCLUDES DESTINATION    
     ${REL_PYEXT_INC_DIR}
@@ -359,6 +360,8 @@ install(
 install(TARGETS pddl
   EXPORT lapkt-pddl-Targets
   LIBRARY DESTINATION ${REL_PYEXT_LIB_DIR}
+  ARCHIVE DESTINATION ${REL_PYEXT_LIB_DIR}
+  RUNTIME  DESTINATION ${REL_PYEXT_LIB_DIR}
   COMPONENT lapkt    
   INCLUDES DESTINATION    
     ${REL_PYEXT_INC_DIR}

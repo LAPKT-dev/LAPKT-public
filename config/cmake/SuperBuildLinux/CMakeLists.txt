@@ -35,6 +35,7 @@ endif()
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #xxxx SECTION 2 - ADD EXTERNAL PROJECTS
 
+set(ENV{PATH} $ENV{PATH}":C:\\GnuWin32\\bin")
 include(ExternalProject)
 
 # Dependencies of lapkt
@@ -96,7 +97,7 @@ if(NOT EXISTS ${PROJECT_SOURCE_DIR}/external_package/fd_translate/translate.py)
 endif()
 
 # BUILD FF
-if(CMAKE_FF_CXX OR CMAKE_FF_PYWRAPPER)
+if(CMAKE_FF_CXX)
   list(APPEND DEPENDENCIES
     external_ff
   )

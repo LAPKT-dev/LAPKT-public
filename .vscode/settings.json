@@ -6,8 +6,7 @@
     "cmake.configureArgs": [
         "-DUSE_SUPERBUILD=ON",
         "-DCMAKE_FF_CXX=ON",
-        "-DCMAKE_LEGACY_PLANNER=ON",
-        "-DCMAKE_FF_PYWRAPPER=ON",
+        "-DCMAKE_LEGACY_PLANNER=OFF",
         "-DCMAKE_FD=ON",
         "-DCMAKE_TARSKI=ON",
         "-DCMAKE_DOXYGEN_DOCS=OFF", 

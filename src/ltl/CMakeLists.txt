@@ -11,6 +11,7 @@ target_sources(core
         jenkins_12bit.hxx
         memory.cxx
         memory.hxx
+        resources_control.cxx
         resources_control.hxx
         sliding_window.hxx
         string_conversions.hxx

@@ -14,7 +14,7 @@
 
 #include <py_strips_interface.hxx>
 // #include <tarski_instantiator.hxx>
-#include <strips_prob.hxx>
+// #include <strips_prob.hxx>
 
 namespace py = pybind11;
 

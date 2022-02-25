@@ -32,23 +32,33 @@ install(
             lapkt
 )
 
-if(CMAKE_FF_PYWRAPPER)
-    target_include_directories(pddl PRIVATE ${FF_INCLUDE_DIRS})
-    target_link_libraries(pddl PRIVATE
-        core
-    )
+target_include_directories(pddl PRIVATE ${FF_INCLUDE_DIRS})
+target_link_libraries(pddl PRIVATE
+    core
+)
 
-    target_sources(pddl
-        PRIVATE
-            py_ff_to_aptk.cxx
-            py_ff_to_aptk.hxx
-    )
+target_sources(pddl
+    PRIVATE
+        py_ff_to_aptk.cxx
+        py_ff_to_aptk.hxx
+)
 
-    target_include_directories(pddl
-        PRIVATE
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    )
-endif(CMAKE_FF_PYWRAPPER)
+target_include_directories(pddl
+    PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+# Tarski Handler Pypi Package
+file(WRITE ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/ff/__init__.py 
+    "from ...core.lib.pddl import pddl_translate_ff ")
+
+install(
+    FILES 
+        ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/ff/__init__.py 
+    DESTINATION
+        ${REL_PYPI_LAPKT_ROOT}/pddl/ff
+    COMPONENT 
+        PYPACKAGE EXCLUDE_FROM_ALL
+)
 
 
 # target_include_directories(ff_wrapper PRIVATE 

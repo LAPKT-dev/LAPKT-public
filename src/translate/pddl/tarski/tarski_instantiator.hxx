@@ -130,7 +130,7 @@ namespace tarski{
             void instantiate( STRIPS_Interface* out_task, py::tuple&
                     params, long& next_action_id, std::map<std::string,
                     int>& fluent, std::vector<std::string>& init,
-                    std::map<std::string, int>& fval);
+                    std::map<std::string, float>& fval);
             std::string m_name;
             std::string publish();
         private:
@@ -167,7 +167,7 @@ namespace tarski{
             STRIPS_Interface*             m_task;     // STRIPS problem instance
             std::vector<std::string>    m_init;     // init state atoms
             std::map<std::string, int>  m_fluent;   // grounded state vars
-            std::map<std::string, int>  m_fval;     // function vals
+            std::map<std::string, float>  m_fval;     // function vals
             std::pair<std::vector<
                 std::vector<std::pair<
                 int, bool>>>, bool>     m_goal;

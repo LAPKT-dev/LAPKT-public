@@ -602,7 +602,7 @@ std::string Action::publish()
 //----------------------------------------------------------------------------//
 void Action::instantiate(STRIPS_Interface* out_task, py::tuple& params,
         long& next_action_id, std::map<std::string, int>& fluent,
-        std::vector<std::string>& init, std::map<std::string, int>& fval)
+        std::vector<std::string>& init, std::map<std::string, float>& fval)
 {
     std::map<Identifier, std::string>      var_map;
     std::vector<std::pair<int, bool>>       effect;
@@ -778,7 +778,7 @@ void Tarski_Instantiator::add_functions(py::list& func)
 {
     for(int i=0; i<py::len(func); i++) {
         py::tuple func_t = func[i];
-        m_fval[func_t[0].cast<std::string>()]  =  func_t[1].cast<int>();
+        m_fval[func_t[0].cast<std::string>()]  =  func_t[1].cast<float>();
     }
 }
 //############################################################################//
