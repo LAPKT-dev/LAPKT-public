@@ -67,7 +67,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: > 
-        cmake --build ${{github.workspace}}/build --target install
+        cmake --build ${{github.workspace}}/build
 
     - name: Install Python Package
       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/pypi_release
@@ -152,7 +152,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: > 
-        cmake --build ${{github.workspace}}/build --target install
+        cmake --build ${{github.workspace}}/build
 
     - name: Install Python Package
       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/pypi_release
@@ -225,7 +225,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: > 
-        cmake --build ${{github.workspace}}/build --target install
+        cmake --build ${{github.workspace}}/build
 
     - name: Install Python Package
       run: py -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/pypi_release
@@ -311,7 +311,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: > 
-        cmake --build ${{github.workspace}}/build --target install
+        cmake --build ${{github.workspace}}/build
 
     - name: Install Python Package
       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/pypi_release
@@ -397,7 +397,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: > 
-        cmake --build ${{github.workspace}}/build --target install
+        cmake --build ${{github.workspace}}/build
 
     - name: Install Python Package
       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/pypi_release
