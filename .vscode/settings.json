@@ -15,7 +15,6 @@
         "-DCMAKE_SPHINX_DOCS=OFF",
         "-DCMAKE_STATIC_BOOST=OFF",
         "-DCMAKE_TESTING_ENABLED=ON",
-        "-DPYBIND11_NOBOOST=ON"
     ],
     "files.associations": {
         "*.ipp": "cpp",

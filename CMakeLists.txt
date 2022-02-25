@@ -185,10 +185,7 @@ list(APPEND Boost_Required_Components
   program_options
   random
 )
-if(NOT PYBIND11_NOBOOST)
-  list(APPEND Boost_Required_Components python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR})
-endif()
-find_package(Boost REQUIRED COMPONENTS program_options ${Boost_Required_Components})
+find_package(Boost REQUIRED COMPONENTS ${Boost_Required_Components})
 message("THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
 
 #---- Catch2 ----#

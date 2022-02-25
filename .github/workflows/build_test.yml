@@ -9,6 +9,9 @@ env:
   BUILD_TYPE: Release
 
 jobs:
+
+# --------------------------------------------------------------------------- #
+
   build-ubuntu-latest:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
@@ -22,6 +25,10 @@ jobs:
       run: | 
         rm -rf ${{github.workspace}}/build
         rm -rf ${{github.workspace}}/${{env.BUILD_TYPE}}
+    
+    - name: Install platform specific requirements
+      run: |
+        sudo apt-get install -y flex bison python3-dev python3 libfl-dev
       
     - name: Set up Python 3.10
       uses: actions/setup-python@v2
@@ -31,7 +38,7 @@ jobs:
     - name: Print GLIBC version
       run: ldd --version
 
-    - name: Install dependencies
+    - name: Install pip dependencies
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install flake8 pytest
@@ -45,6 +52,17 @@ jobs:
         cmake -B ${{github.workspace}}/build 
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
+        -DUSE_SUPERBUILD=ON
+        -DCMAKE_FF_CXX=ON
+        -DCMAKE_LEGACY_PLANNER=OFF
+        -DCMAKE_FD=ON
+        -DCMAKE_TARSKI=ON
+        -DCMAKE_DOXYGEN_DOCS=ON
+        -DCMAKE_DOXYGEN_FLAT_THEME=ON
+        -DCMAKE_DOXYGEN_AWESOME_THEME=ON
+        -DCMAKE_SPHINX_DOCS=ON
+        -DCMAKE_STATIC_BOOST=ON
+        -DCMAKE_TESTING_ENABLED=ON
 
     - name: Build
       # Build your program with the given configuration
@@ -53,6 +71,12 @@ jobs:
 
     - name: Install Python Package
       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/pypi_release
+
+    - name: CTest
+      working-directory: ${{github.workspace}}/build
+      # Execute tests defined by the CMake configuration.  
+      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+      run: ctest
 
     - name: Build Pypi Python Package
       run: |
@@ -71,11 +95,13 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
+# --------------------------------------------------------------------------- #
+
   build-ubuntu-18:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -84,16 +110,20 @@ jobs:
       run: | 
         rm -rf ${{github.workspace}}/build
         rm -rf ${{github.workspace}}/${{env.BUILD_TYPE}}
+    
+    - name: Install platform specific requirements
+      run: |
+        sudo apt-get install -y flex bison python3-dev python3 libfl-dev
       
     - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
         python-version: "3.10"
-    
+
     - name: Print GLIBC version
       run: ldd --version
 
-    - name: Install dependencies
+    - name: Install pip dependencies
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install flake8 pytest
@@ -107,6 +137,17 @@ jobs:
         cmake -B ${{github.workspace}}/build 
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
+        -DUSE_SUPERBUILD=ON
+        -DCMAKE_FF_CXX=ON
+        -DCMAKE_LEGACY_PLANNER=OFF
+        -DCMAKE_FD=ON
+        -DCMAKE_TARSKI=ON
+        -DCMAKE_DOXYGEN_DOCS=ON
+        -DCMAKE_DOXYGEN_FLAT_THEME=ON
+        -DCMAKE_DOXYGEN_AWESOME_THEME=ON
+        -DCMAKE_SPHINX_DOCS=ON
+        -DCMAKE_STATIC_BOOST=ON
+        -DCMAKE_TESTING_ENABLED=ON
 
     - name: Build
       # Build your program with the given configuration
@@ -115,6 +156,12 @@ jobs:
 
     - name: Install Python Package
       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/pypi_release
+
+    - name: CTest
+      working-directory: ${{github.workspace}}/build
+      # Execute tests defined by the CMake configuration.  
+      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+      run: ctest
 
     - name: Build Pypi Python Package
       run: |
@@ -125,6 +172,15 @@ jobs:
       working-directory: ${{github.workspace}}
       run: |
         pytest
+        
+    - name: Lint with flake8
+      run: |
+        # DON'T[ANU: To be changed later] stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+# --------------------------------------------------------------------------- #
 
   build-windows:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -140,13 +196,13 @@ jobs:
       with:
         python-version: "3.10"
 
-    - name: Install dependencies
+    - name: Install pip dependencies
       run: |
         py -m pip install --upgrade pip
         py -m pip install flake8 pytest
         py -m pip install --upgrade build wheel twine
 
-    - name: Configure CMake
+     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: > 
@@ -154,6 +210,17 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
         -DCMAKE_GENERATOR="MinGW Makefiles"
+        -DUSE_SUPERBUILD=ON
+        -DCMAKE_FF_CXX=OFF
+        -DCMAKE_LEGACY_PLANNER=OFF
+        -DCMAKE_FD=ON
+        -DCMAKE_TARSKI=ON
+        -DCMAKE_DOXYGEN_DOCS=OFF
+        -DCMAKE_DOXYGEN_FLAT_THEME=OFF
+        -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
+        -DCMAKE_SPHINX_DOCS=OFF
+        -DCMAKE_STATIC_BOOST=ON
+        -DCMAKE_TESTING_ENABLED=ON
 
     - name: Build
       # Build your program with the given configuration
@@ -162,6 +229,12 @@ jobs:
 
     - name: Install Python Package
       run: py -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/pypi_release
+
+    - name: CTest
+      working-directory: ${{github.workspace}}/build
+      # Execute tests defined by the CMake configuration.  
+      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+      run: ctest
 
     - name: Build Pypi Python Package
       run: |
@@ -172,6 +245,15 @@ jobs:
       working-directory: ${{github.workspace}}
       run: |
         pytest
+
+    - name: Lint with flake8
+      run: |
+        # DON'T[ANU: To be changed later] stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+# --------------------------------------------------------------------------- #
 
   build-macos-latest:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -187,12 +269,16 @@ jobs:
         rm -rf ${{github.workspace}}/build
         rm -rf ${{github.workspace}}/${{env.BUILD_TYPE}}
 
+    - name: Install platform specific dependencies
+      run: |
+        brew install flex bison python3 libffi
+
     - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
         python-version: "3.10"
 
-    - name: Install dependencies
+    - name: Install pip dependencies
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install flake8 pytest
@@ -210,6 +296,17 @@ jobs:
         -DCMAKE_GENERATOR="Unix Makefiles"
         -DCMAKE_C_COMPILER=gcc-10
         -DCMAKE_CXX_COMPILER=g++-10
+        -DUSE_SUPERBUILD=ON
+        -DCMAKE_FF_CXX=OFF
+        -DCMAKE_LEGACY_PLANNER=OFF
+        -DCMAKE_FD=ON
+        -DCMAKE_TARSKI=ON
+        -DCMAKE_DOXYGEN_DOCS=OFF
+        -DCMAKE_DOXYGEN_FLAT_THEME=OFF
+        -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
+        -DCMAKE_SPHINX_DOCS=OFF
+        -DCMAKE_STATIC_BOOST=ON
+        -DCMAKE_TESTING_ENABLED=ON
 
     - name: Build
       # Build your program with the given configuration
@@ -218,6 +315,12 @@ jobs:
 
     - name: Install Python Package
       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/pypi_release
+
+    - name: CTest
+      working-directory: ${{github.workspace}}/build
+      # Execute tests defined by the CMake configuration.  
+      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+      run: ctest
 
     - name: Build Pypi Python Package
       run: |
@@ -228,6 +331,15 @@ jobs:
       working-directory: ${{github.workspace}}
       run: |
         pytest
+
+    - name: Lint with flake8
+      run: |
+        # DON'T[ANU: To be changed later] stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+# --------------------------------------------------------------------------- #
         
   build-macos-10_15:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -243,6 +355,10 @@ jobs:
         rm -rf ${{github.workspace}}/build
         rm -rf ${{github.workspace}}/${{env.BUILD_TYPE}}
 
+    - name: Install platform specific dependencies
+      run: |
+        brew install flex bison python3 libffi
+
     - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
@@ -266,6 +382,17 @@ jobs:
         -DCMAKE_GENERATOR="Unix Makefiles"
         -DCMAKE_C_COMPILER=gcc-10
         -DCMAKE_CXX_COMPILER=g++-10
+        -DUSE_SUPERBUILD=ON
+        -DCMAKE_FF_CXX=OFF
+        -DCMAKE_LEGACY_PLANNER=OFF
+        -DCMAKE_FD=ON
+        -DCMAKE_TARSKI=ON
+        -DCMAKE_DOXYGEN_DOCS=OFF
+        -DCMAKE_DOXYGEN_FLAT_THEME=OFF
+        -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
+        -DCMAKE_SPHINX_DOCS=OFF
+        -DCMAKE_STATIC_BOOST=ON
+        -DCMAKE_TESTING_ENABLED=ON
 
     - name: Build
       # Build your program with the given configuration
@@ -274,6 +401,12 @@ jobs:
 
     - name: Install Python Package
       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/pypi_release
+
+    - name: CTest
+      working-directory: ${{github.workspace}}/build
+      # Execute tests defined by the CMake configuration.  
+      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+      run: ctest
 
     - name: Build Pypi Python Package
       run: |
@@ -284,3 +417,10 @@ jobs:
       working-directory: ${{github.workspace}}
       run: |
         pytest
+
+    - name: Lint with flake8
+      run: |
+        # DON'T[ANU: To be changed later] stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics

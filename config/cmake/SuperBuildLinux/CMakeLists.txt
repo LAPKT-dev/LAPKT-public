@@ -184,12 +184,6 @@ list(APPEND BUILD_COMMAND
     variant=${BOOST_VARIANT}
 )
 
-if(NOT PYBIND11_NOBOOST)
-  list(APPEND BUILD_COMMAND
-    --with-python 
-  )
-endif(NOT PYBIND11_NOBOOST)
-
 ExternalProject_Add( external_boost
   URL https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.bz2
   URL_MD5 db0112a3a37a3742326471d20f1a186a
