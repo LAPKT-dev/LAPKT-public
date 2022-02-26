@@ -133,6 +133,8 @@ jobs:
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+      # Notes- 
+      # 1. Doxygen fails on Ubuntu 18- Requires glibc 2.29
       run: > 
         cmake -B ${{github.workspace}}/build 
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
@@ -142,10 +144,10 @@ jobs:
         -DCMAKE_LEGACY_PLANNER=OFF
         -DCMAKE_FD=ON
         -DCMAKE_TARSKI=ON
-        -DCMAKE_DOXYGEN_DOCS=ON
-        -DCMAKE_DOXYGEN_FLAT_THEME=ON
-        -DCMAKE_DOXYGEN_AWESOME_THEME=ON
-        -DCMAKE_SPHINX_DOCS=ON
+        -DCMAKE_DOXYGEN_DOCS=OFF 
+        -DCMAKE_DOXYGEN_FLAT_THEME=OFF
+        -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
+        -DCMAKE_SPHINX_DOCS=OFF 
         -DCMAKE_STATIC_BOOST=ON
         -DCMAKE_TESTING_ENABLED=ON
 
