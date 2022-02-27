@@ -24,8 +24,8 @@ add_subdirectory(ltl)
 # Planners which leverage engine(s) in some particular configuration
 add_subdirectory(planner)
 
-# Frontend scripts
-add_subdirectory(script)
+# Python packaging related
+add_subdirectory(python)
 
 #----- legacy lapkt-ff executables -----#
 if(CMAKE_LEGACY_PLANNER)

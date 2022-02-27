@@ -220,8 +220,8 @@ set(REL_CORE_INC_DIR ${REL_LAPKT_ROOT}/core/include)
 set(REL_PYEXT_LIB_DIR ${REL_LAPKT_ROOT}/core/lib)
 set(REL_PYEXT_INC_DIR ${REL_LAPKT_ROOT}/core/include)
 # pypi package
-set(REL_PYPI_ROOT pypi_release)
-set(REL_PYPI_LAPKT_ROOT ${REL_PYPI_ROOT}/package/lapkt)
+set(REL_PYPI_ROOT _package)
+set(REL_PYPI_LAPKT_ROOT ${REL_PYPI_ROOT}/lapkt)
 
 #[[
 Note- When creating Python extensions, NEITHER the py extensions NOR the 
@@ -241,8 +241,6 @@ This library should have minimal dependencies.
 
 #---- Generate Source Documentation ----#
 add_subdirectory(config/cmake/DoxygenSphinxDocs)
-#---- Configure Installation of Python Package ----#
-add_subdirectory(config/cmake/InstallPythonPackage)
 
 #---- DECLARE library targets and set properties ----#
 
