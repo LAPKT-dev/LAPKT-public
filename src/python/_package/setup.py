@@ -15,8 +15,8 @@ setup(
     long_description=project_description,
     long_description_content_type='text/markdown',
     url="https://github.com/LAPKT-dev/LAPKT-Public",
-    packages=find_packages('./'),
-    package_dir={'': './'},
+    packages=find_packages('site_package'),
+    package_dir={'': 'site_package'},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: BSD License",

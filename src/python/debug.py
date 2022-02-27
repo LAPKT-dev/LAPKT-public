@@ -9,8 +9,8 @@ from os import getpid
 from importlib.util import find_spec as find_module
 
 # lapkt imports
-from _package.lapkt.parseargs import process_arguments
-from _package.lapkt.load_planner import Planner
+from lapkt.parseargs import process_arguments
+from lapkt.load_planner import Planner
 
 
 def wait_debug(s: str):

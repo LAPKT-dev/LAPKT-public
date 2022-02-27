@@ -1,0 +1,114 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.1",
+    "configurations": [
+        {
+            "name": "Python launch",
+            "type": "python",
+            "request": "launch",
+            //"stopOnEntry": true,
+            // "python": "/usr/bin/python3",
+            "program": "${workspaceFolder}/debug_install/debug.py",
+            // "program": "c:\\users\\zura\\appdata\\local\\programs\\python\\python310\\lib\\site-packages\\lapkt\\lapkt_run.py",
+            "args": [
+                "AT_LAPKT_Planner", 
+                // "BFWS",
+                // "AT_BFS_f_Planner",
+                // "BFS_f_Planner",
+                // "BRFS_Planner",
+                // "DFIW_Planner",
+                // "DFSIW_Planner",
+                // "DFS_Plus_Planner",
+                // "IW_Planner",
+                // "RPIW_Planner",
+                // "SIW_PLUS_BFS_F_Planner",
+                // "SIW_Planner",
+                // "SIW_Plus_Planner",
+                "--lapkt_instance_generator", "Tarski",
+                // "--lapkt_instance_generator", "FD",
+                // "--lapkt_instance_generator", "FF",
+                "-d", 
+                // "${workspaceFolder}/test/classical_instance_small/visitall-opt11-strips/domain.pddl", 
+                // "${workspaceFolder}/test/classical_instance_small/cavediving/domain.pddl", 
+                "${workspaceFolder}/test/classical_instance_small/gripper/domain.pddl", 
+                // "${workspaceFolder}/test/classical_instance_small/hiking-opt14-strips/domain.pddl", 
+                "-p", 
+                // "${workspaceFolder}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl", 
+                // "${workspaceFolder}/test/classical_instance_small/cavediving/testing01.pddl", 
+                "${workspaceFolder}/test/classical_instance_small/gripper/prob01.pddl", 
+                // "${workspaceFolder}/test/classical_instance_small/hiking-opt14-strips/ptesting-1-2-3.pddl", 
+                "--wait_debug"],
+            "cwd": "${workspaceFolder}",
+        },
+        { 
+            "name": "(gdb) Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            // "Ubuntu"
+            "program": "/usr/bin/python3",
+            // "Windows with Python 3.10"
+            // "program": "%LOCALAPPDATA%\\Programs\\Python\\Python310\\python",
+            "processId": "${command:pickProcess}",  
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "cwd": "${workspaceFolder}/src",
+        },
+        { 
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            // "Ubuntu"
+            "program": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/debug_install/debug.py"
+                // "AT_LAPKT_Planner", 
+                "BFWS",
+                // "AT_BFS_f_Planner",
+                // "BFS_f_Planner",
+                // "BRFS_Planner",
+                // "DFIW_Planner",
+                // "DFSIW_Planner",
+                // "DFS_Plus_Planner",
+                // "IW_Planner",
+                // "RPIW_Planner",
+                // "SIW_PLUS_BFS_F_Planner",
+                // "SIW_Planner",
+                // "SIW_Plus_Planner",
+                "--lapkt_instance_generator", "Tarski",
+                // "--lapkt_instance_generator", "FD",
+                // "--lapkt_instance_generator", "FF",
+                "-d", 
+                // "${workspaceFolder}/test/classical_instance_small/visitall-opt11-strips/domain.pddl", 
+                // "${workspaceFolder}/test/classical_instance_small/cavediving/domain.pddl", 
+                "${workspaceFolder}/test/classical_instance_small/gripper/domain.pddl", 
+                // "${workspaceFolder}/test/classical_instance_small/hiking-opt14-strips/domain.pddl", 
+                "-p", 
+                // "${workspaceFolder}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl", 
+                // "${workspaceFolder}/test/classical_instance_small/cavediving/testing01.pddl", 
+                "${workspaceFolder}/test/classical_instance_small/gripper/prob01.pddl", 
+                // "${workspaceFolder}/test/classical_instance_small/hiking-opt14-strips/ptesting-1-2-3.pddl", 
+                "--wait_debug"],
+            "stopAtEntry": false,
+            // "Windows with Python 3.10"
+            // "program": "%LOCALAPPDATA%\\Programs\\Python\\Python310\\python",
+            //"processId": "${command:pickProcess}",  
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "cwd": "${workspaceFolder}/src",
+        }
+    ]
+}

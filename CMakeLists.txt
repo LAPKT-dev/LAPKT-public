@@ -152,7 +152,7 @@ message("The PYTHON_VERSION is ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}
 
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${PYBIND11_CMAKE_DIR})
 set(pybind11_DIR ${PYBIND11_CMAKE_DIR})
-# set(pybind11_DIR "/home/zura/.local/lib/python3.9/site-packages/pybind11/share/cmake/pybind11")
+# set(pybind11_DIR "/home/zura/.local/lib/python3.9/site_packages/pybind11/share/cmake/pybind11")
 message(STATUS "PYBIND11 CMAKE_DIR PATH IS: ${PYBIND11_CMAKE_DIR}")
 message(STATUS "CMAKE_MODULE_PATH IS: ${CMAKE_MODULE_PATH}")
 
@@ -221,7 +221,7 @@ set(REL_PYEXT_LIB_DIR ${REL_LAPKT_ROOT}/core/lib)
 set(REL_PYEXT_INC_DIR ${REL_LAPKT_ROOT}/core/include)
 # pypi package
 set(REL_PYPI_ROOT _package)
-set(REL_PYPI_LAPKT_ROOT ${REL_PYPI_ROOT}/lapkt)
+set(REL_PYPI_LAPKT_ROOT ${REL_PYPI_ROOT}/site_package/lapkt)
 
 #[[
 Note- When creating Python extensions, NEITHER the py extensions NOR the 
@@ -435,9 +435,9 @@ install(DIRECTORY
   COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
 )
 install(DIRECTORY
-  ${CMAKE_INSTALL_PREFIX}/${REL_PYPI_LAPKT_ROOT}/
+  ${CMAKE_INSTALL_PREFIX}/${REL_PYPI_LAPKT_ROOT}
   USE_SOURCE_PERMISSIONS
-  DESTINATION ${CMAKE_SOURCE_DIR}/debug_install/${REL_PYPI_LAPKT_ROOT}
+  DESTINATION ${CMAKE_SOURCE_DIR}/debug_install/
   COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
 )
 
