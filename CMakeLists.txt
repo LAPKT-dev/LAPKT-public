@@ -434,6 +434,12 @@ install(DIRECTORY
   DESTINATION ${REL_PYPI_LAPKT_ROOT}
   COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
 )
+install(DIRECTORY
+  ${CMAKE_INSTALL_PREFIX}/${REL_PYPI_LAPKT_ROOT}/
+  FILE_PERMISSIONS OWNER_WRITE OWNER_READ
+  DESTINATION ${CMAKE_SOURCE_DIR}/debug_install/${REL_PYPI_LAPKT_ROOT}
+  COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
+)
 
 # The script will run during the installation(We want this at the bottom of all install target)
 install(SCRIPT ${PROJECT_SOURCE_DIR}/config/cmake/PostInstallScript.cmake)
