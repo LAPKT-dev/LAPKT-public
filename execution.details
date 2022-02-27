@@ -14,6 +14,6 @@ Plan found with cost: 15
 13. (pick ball1 rooma left)
 14. (move rooma roomb)
 15. (drop ball1 roomb left)
-Time: 0.00035201
+Time: 0.000416994
 Generated: 70
 Expanded: 34
