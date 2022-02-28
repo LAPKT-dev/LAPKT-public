@@ -18,6 +18,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/**
+ * @brief This file contains the Best Supporter Graph Classes used in the computation of Semi Relaxed Heuristics. 
+ * 
+ * Semi-Relaxed heuristics introduce special fluents that explicitly represent conjunctions of fluents. For more info read (Keyder et al. ICAPS 2012)
+ * 
+ */
 #ifndef __BEST_SUPPORT_GRAPH__
 #define __BEST_SUPPORT_GRAPH__
 
@@ -31,14 +37,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <fstream>
 #include <stack>
 
+
 namespace aptk {
 
 namespace agnostic {
 
+	/**
+	 * @brief Represents the Best Supporter Graph given a Best Supporter Function which maps the best action supporting a fluent 
+	 * in the compilation representing conjunctive fluents. The Best Supporter Graph will contain the nodes to make a valid relaxed plan.
+	 * 
+	 * @example 
+	 * STRIPS_Problem	prob;
+	 * aptk::FF_Parser::get_problem_description( vm["domain"].as<std::string>(), vm["problem"].as<std::string>(), prob );
+	 * 
+	 * CC_Problem	pi_2_ce_task( prob, 2 );
+	 * HC_Heuristic<>	h2_ce( pi_2_ce_task );
+	 * 
+	 * Best_Supports_Graph< HC_Heuristic<> > bs_graph( pi_2_ce_task );
+	 * bs_graph.build( h2_ce );
+	 * 
+	 * std::cout << "Actions in best supports graph = " << bs_graph.num_actions() << std::endl;
+	 * std::cout << "Cost of actions in best supports graph = " << bs_graph.cost() << std::endl;
+	 * 
+	 * std::cout << "Preferred operators: " << std::endl;
+	 * for ( auto it = bs_graph.pref_ops().begin(); it != bs_graph.pref_ops().end(); it++ )
+	 * 	std::cout << "\t" << prob.actions()[*it]->signature() << std::endl;	
+	 * 
+	 * std::ofstream	bs_graph_dot_file( "bs_graph_h2_ce.dot" );
+	 * bs_graph.print( bs_graph_dot_file );
+	 * bs_graph_dot_file.close();
+	 * system( "dot -Tpdf -o bs_graph_h2_ce.pdf bs_graph_h2_ce.dot" );
+	 * 
+	 * @tparam Best_Support_Function The function that determines the structure of the graph. See H_C.hxx as an example of a valid function. 
+	 */
 	template <typename Best_Support_Function>
 	class Best_Supports_Graph {
 	public:
 
+		/**
+		 * @brief Represents a node in the graph containing the action and the effects it supports
+		 * 
+		 */
 		class Node {
 		public:
 			const CC_Problem::CC_Action* action;
@@ -50,6 +89,10 @@ namespace agnostic {
 			}
 		};
 
+		/**
+		 * @brief Used to represent define the adjacency list representation of the graph, represnting the action consuming fluent p 
+		 * 
+		 */
 		class Edge {
 		public:
 			unsigned p;
@@ -77,6 +120,12 @@ namespace agnostic {
 			clear();
 		}
 
+		/**
+		 * @brief Builds the graph based on a best supporter function for which the best supporters are already defined. 
+		 * The graph will encode a relaxed plan.
+		 * 
+		 * @param bs Best Supporter function object to build the graph
+		 */
 		void build( const Best_Support_Function& bs ) {
 			clear();
 			add_goal_action_node();
@@ -141,6 +190,11 @@ namespace agnostic {
 			os << "}" << std::endl;
 		}
 
+		/**
+		 * @brief Return the prefered operators of the graph
+		 * 
+		 * @return const std::vector<unsigned>& 
+		 */
 		const std::vector<unsigned>& pref_ops() const {
 			return m_pref_ops;
 		}
@@ -171,6 +225,10 @@ namespace agnostic {
 			return !deleted.empty();
 		}
 
+		/**
+		 * @brief Defines the sorting prefernce over nodes. This is used by a priority queue in the computation of the graph.
+		 * 
+		 */
 		class Node_Comparer {
 		public:
 			Node_Comparer( const Node_Set& V ) 
@@ -183,6 +241,11 @@ namespace agnostic {
 			const Node_Set& m_V;
 		};
 
+		/**
+		 * @brief Performs conflict analysis to suggest new conjunctions to add in the compilation.
+		 * 
+		 * @param vec Contains the conflicts represented as a set of conjunctions
+		 */
 		void find_conflicts( std::vector<Fluent_Vec>& vec ) {
 			std::vector<unsigned> valid_nodes;
 			for ( unsigned k = 0; k < m_nodes.size(); k++ ) {
@@ -323,108 +386,7 @@ namespace agnostic {
 			}
 		}
 
-		/*
-		void find_type_1_conflicts( std::vector<Fluent_Vec>& vec ) {
-			typedef typename std::pair<unsigned, typename Adj_List::iterator> dfs_node;
-			for ( unsigned k = m_nodes.size() - 1; k > 0; k-- ) {
-				if ( !m_valid[k] )  continue;
-				dfs_node n0 = std::make_pair( k, m_adj_lists_out[k].begin() );
-				if (n0.first == 0 ) break;
-				std::cout << "Conflict search start: " << m_nodes[n0.first]->action->signature() << std::endl;
-				std::stack< dfs_node > open;
-				for ( auto it =  m_adj_lists_out[n0.first].begin(); it != m_adj_lists_out[n0.first].end(); it++ ) {
-					const Fluent_Vec& curr_del_vec = m_nodes[n0.first]->action->original().del_vec();
-					std::vector<bool> del_mask( curr_del_vec.size() );
-					for ( unsigned k = 0; k < curr_del_vec.size(); k++ )
-						del_mask[k] = true;
-					open.push( std::make_pair( (*it)->consumer, m_adj_lists_out[(*it)->consumer].begin() ) );
-					while( !open.empty() ) {
-						dfs_node& n = open.top();
-						if ( n.second == m_adj_lists_out[n.first].end() ) {
-							open.pop();
-							if ( n.first != 0 ) {
-								const Fluent_Vec& add_vec = m_nodes[n.first]->action->original().add_vec();
-								for ( unsigned k = 0; k < add_vec.size(); k++ )
-									for ( unsigned l = 0; l < curr_del_vec.size(); l++ )
-										if ( curr_del_vec[l] == add_vec[k] ) {
-											del_mask[l] = true;
-											break;
-										}
-								const Fluent_Vec& del_vec = m_nodes[n.first]->action->original().del_vec();
-								for ( unsigned k = 0; k < del_vec.size(); k++ ) 
-									for ( unsigned l = 0; l < curr_del_vec.size(); l++ )
-										if ( curr_del_vec[l] == del_vec[k] ) {
-											del_mask[l] = false;
-											break;
-										}
-							}
-							continue;
-						}
-						if ( n.second == m_adj_lists_out[n.first].begin() ) {
-							std::cout << "Action " << ( n.first == 0 ? "GOAL" : m_nodes[n.first]->action->signature() );
-							std::cout << " first found, performing conflict check" << std::endl;
-							bool 	 conflict = false;
-							unsigned del_prec;
-							if ( n.first == 0 ) 
-								conflict = check_interference( curr_del_vec, del_mask,
-												m_model.goal(), del_prec );
-							else
-								conflict = check_interference( curr_del_vec, del_mask,
-											m_nodes[n.first]->action->pre(), del_prec );
-							if ( conflict ) {
-								std::cout << "Action " << m_nodes[n0.first]->action->signature() << " deletes ";
-								m_model.print_fluent( del_prec, std::cout );
-								std::cout << " required by ";
-								if ( n.first == 0 ) std::cout << "GOAL";
-								else std::cout << m_nodes[n.first]->action->signature();
-								std::cout << std::endl;
-								open.pop();
-								while ( !open.empty() ) {
-									Fluent_Vec C;
-									C.push_back( del_prec );
-									C.push_back( (*open.top().second)->p );
-									vec.push_back( C );
-									open.pop();
-								}
-								Fluent_Vec C;
-								C.push_back( del_prec );
-								C.push_back( (*it)->p );
-								vec.push_back( C );
-								return;
-							}
-							if ( n.first != 0 ) {
-								const Fluent_Vec& add_vec = m_nodes[n.first]->action->original().add_vec();
-								for ( unsigned k = 0; k < add_vec.size(); k++ )
-									for ( unsigned l = 0; l < curr_del_vec.size(); l++ )
-										if ( curr_del_vec[l] == add_vec[k] ) {
-											del_mask[l] = false;
-											break;
-										}
-								const Fluent_Vec& del_vec = m_nodes[n.first]->action->original().del_vec();
-
-								for ( unsigned k = 0; k < del_vec.size(); k++ ) 
-									for ( unsigned l = 0; l < curr_del_vec.size(); l++ )
-										if ( curr_del_vec[l] == del_vec[k] ) {
-											del_mask[l] = true;
-											break;
-										}
-							}
-						}
-						if (n.first == 0) {
-							open.pop();
-							continue;
-						}
-						open.push( std::make_pair( (*(n.second))->consumer, m_adj_lists_out[(*(n.second))->consumer].begin() ) );
-						std::cout << (*(n.second))->consumer << std::endl;
-						std::cout << "Follow-up action ";
-						std::cout << ( (*(n.second))->consumer == 0 ? "GOAL" : m_nodes[  (*(n.second))->consumer ]->action->signature() );
-						std::cout << " added to open" << std::endl;
-						n.second++;
-					}
-				}
-			}
-		}
-		*/
+		
 	protected:
 
 		void	topological_sort() {
