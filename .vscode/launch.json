@@ -48,8 +48,8 @@
             "request": "attach",
             // "Ubuntu"
             "program": "/usr/bin/python3",
-            // "Windows with Python 3.10"
-            // "program": "%LOCALAPPDATA%\\Programs\\Python\\Python310\\python",
+            // "Windows with Python 3.10", "Set HOME in Environment variables manually"
+            // "program": ${env:HOME}\\AppData\\Local\\Programs\\Python\\Python310\\python",
             "processId": "${command:pickProcess}",  
             "MIMode": "gdb",
             "setupCommands": [
@@ -67,8 +67,10 @@
             "request": "launch",
             // "Ubuntu"
             "program": "/usr/bin/python3",
+            // "Windows with Python 3.10", "Set HOME in Environment variables manually"
+            // "program": ${env:HOME}\\AppData\\Local\\Programs\\Python\\Python310\\python",
             "args": [
-                "${workspaceFolder}/debug_install/debug.py"
+                "${workspaceFolder}/debug_install/debug.py",
                 // "AT_LAPKT_Planner", 
                 "BFWS",
                 // "AT_BFS_f_Planner",
@@ -97,9 +99,6 @@
                 // "${workspaceFolder}/test/classical_instance_small/hiking-opt14-strips/ptesting-1-2-3.pddl", 
                 "--wait_debug"],
             "stopAtEntry": false,
-            // "Windows with Python 3.10"
-            // "program": "%LOCALAPPDATA%\\Programs\\Python\\Python310\\python",
-            //"processId": "${command:pickProcess}",  
             "MIMode": "gdb",
             "setupCommands": [
                 {
