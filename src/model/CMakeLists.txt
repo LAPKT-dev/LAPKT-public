@@ -1,4 +1,4 @@
-target_sources(LAPKT 
+target_sources(core 
     PRIVATE
         action.cxx
         cond_eff.cxx
@@ -9,6 +9,7 @@ target_sources(LAPKT
         mutex_set.cxx
         strips_prob.cxx
         strips_state.cxx
+        succ_gen.cxx
         action.hxx
         cond_eff.hxx
         conj_comp_prob.hxx
@@ -19,13 +20,15 @@ target_sources(LAPKT
         strips_prob.hxx
         strips_state.hxx
         search_prob.hxx
-    )
+        succ_gen.hxx
+        
+)
 
-target_include_directories(LAPKT
+target_include_directories(core
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:include>
-    )
+)
+
 
 install(
     FILES
@@ -39,8 +42,9 @@ install(
         strips_prob.hxx
         strips_state.hxx
         search_prob.hxx
+        succ_gen.hxx
     DESTINATION
-        include
+        ${CMAKE_INSTALL_PREFIX}/lapkt/core/include/model
     COMPONENT
-        Development EXCLUDE_FROM_ALL
-    )
+        lapkt 
+)

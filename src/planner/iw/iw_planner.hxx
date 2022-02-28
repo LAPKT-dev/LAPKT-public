@@ -9,7 +9,6 @@
 //Standard library
 #include <iostream>
 #include <fstream>
-#include <boost/program_options.hpp>
 
 //LAPKT specific
 #include <py_strips_interface.hxx>

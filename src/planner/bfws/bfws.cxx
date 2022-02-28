@@ -104,7 +104,9 @@ float BFWS::do_search( Search_Engine& engine, aptk::STRIPS_Problem& plan_prob, s
 		std::cout << "Nodes generated during search: " << engine.generated() << std::endl;
 		std::cout << "Nodes expanded during search: " << engine.expanded() << std::endl;
 		std::cout << "Plan found with cost: " << m_cost << std::endl;
+		#ifdef UNIX
         aptk::report_memory_usage();
+		#endif
 
         const unsigned* generated_nov = engine.generated_by_novelty();
         const unsigned* expanded_nov = engine.expanded_by_novelty();

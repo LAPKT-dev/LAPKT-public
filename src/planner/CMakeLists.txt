@@ -1,4 +1,7 @@
-add_subdirectory(common)
+
+file(WRITE ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/planner/lapkt_planner_config.yml "")
+
+add_subdirectory(pybinding)
 add_subdirectory(anytime_lapkt)
 add_subdirectory(at_bfs_f)
 add_subdirectory(bfs_f)
@@ -13,60 +16,58 @@ add_subdirectory(siw)
 add_subdirectory(siw_plus)
 add_subdirectory(siw_plus-then-bfs_f)
 
-# target_include_directories(Planners PRIVATE ${Python3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
-
-# target_link_libraries(Planners PRIVATE
-#     ${Boost_LIBRARIES}
-#     ${EXTRA_LIBS}
-#     )
-
-# install(
-#     TARGETS Planners
-#     DESTINATION lib/lapkt/planner
-#     COMPONENT Runtime
-#     )
-# install(
-#     TARGETS Planners
-#     DESTINATION lib/lapkt/planner
-#     COMPONENT Development EXCLUDE_FROM_ALL
-#     )   
-
-# Write __init__.py file
-#
-file(TOUCH ${CMAKE_CURRENT_BINARY_DIR}/__init__.py )
-file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/__init__.py 
-    "from .._pywrapper.planner import *\n")
+target_include_directories(planner
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
 
 install(
-    FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/planner
-    COMPONENT Runtime
-    )
-install(
-    FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/planner
-    COMPONENT Development EXCLUDE_FROM_ALL
-    )
+    FILES
+        ${PROJECT_SOURCE_DIR}/src/planner/anytime_lapkt/anytime_lapkt.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/at_bfs_f/at_bfsf_planner.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/bfs_f/bfsf_planner.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/bfws/bfws.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/brfs/brfs_planner.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/bfws/bfws.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/delete-free-iw/dfiw_planner.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/delete-free-siw/dfsiw_planner.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/dfs_plus/dfs_plus_planner.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/iw/iw_planner.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/iw_plus/rp_iw_planner.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/siw/siw_planner.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/siw_plus/siw_plus_planner.hxx
+        ${PROJECT_SOURCE_DIR}/src/planner/siw_plus-then-bfs_f/siw_plus_bfs_f.hxx
+    DESTINATION
+        ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/planner
+    COMPONENT
+        lapkt
+)
 
-# #
-# install(FILES
-#     ${PROJECT_BINARY_DIR}/__init__.py
-#     DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-#     COMPONENT Development EXCLUDE_FROM_ALL
-#   )
-# install(FILES
-#     ${PROJECT_BINARY_DIR}/__init__.py
-#     DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-#     COMPONENT Runtime
-#   )
-#
-# install(FILES
-#     ${PROJECT_BINARY_DIR}/__init__.py
-#     DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt
-#     COMPONENT Development EXCLUDE_FROM_ALL
-#   )
-# install(FILES
-#     ${PROJECT_BINARY_DIR}/__init__.py
-#     DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/lapkt
-#     COMPONENT Runtime
-#   )
+# PUBLIC_HEADER files can be installed with 
+#   install(<target> ...PUBLIC_HEADER DESTINATION ...)
+
+# set_target_properties(planner PROPERTIES
+#     PUBLIC_HEADER
+# "${PROJECT_SOURCE_DIR}/src/planner/anytime_lapkt/anytime_lapkt.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/anytime_lapkt/ipc2014_rwa.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/at_bfs_f/at_bfsf_planner.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/bfs_f/bfsf_planner.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/bfws/bfws.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/brfs/brfs_planner.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/bfws/bfws.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/delete-free-iw/dfiw_planner.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/delete-free-siw/dfsiw_planner.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/dfs_plus/dfs_plus_planner.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/iw/iw_planner.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/iw_plus/rp_iw_planner.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/siw/siw_planner.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/siw_plus/siw_plus_planner.hxx;\
+# ${PROJECT_SOURCE_DIR}/src/planner/siw_plus-then-bfs_f/siw_plus_bfs_f.hxx"
+# )
+
+# Planner configuration file in Python Package
+install(
+    FILES ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/planner/lapkt_planner_config.yml
+    DESTINATION ${REL_PYPI_LAPKT_ROOT}/planner
+    COMPONENT PYPACKAGE EXCLUDE_FROM_ALL
+)

@@ -6,7 +6,7 @@ BRFS_Planner:
     help    : 'builds a portfolio portfolio planner based on config specs'
   argparse_module_path: 
     cmd_arg:  
-      default : None #Leave empty if default lapkt.py module suffices
+      default : None #Leave empty if default lapkt_run.py module suffices
       required: False
       nargs   : '?'
       action  : 'store'
@@ -20,9 +20,9 @@ BRFS_Planner:
       nargs   : '?'
       action  : 'store'
       help    : 'log file name'
-    # 'var_name' is the name of interface (in module.cxx) 
+    # 'var_name' is the name of interface (in boostpy_module.cxx) 
     #     via which a config value is stored into cpp variable.
-    # 'fun_name' is the name of a setter (in module.cxx) 
+    # 'fun_name' is the name of a setter (in boostpy_module.cxx) 
     #     which pushes exactly 1 (String/numeric) value.
     var_name: 'log_filename'   
   plan_file: 

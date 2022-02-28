@@ -1,73 +1,34 @@
-# CXX Library
-add_library(LAPKT STATIC)
-set_target_properties(LAPKT PROPERTIES
-         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/_cxx/lib)
-# set_target_properties(LAPKT PROPERTIES LINK_SEARCH_START_STATIC ON)
-# set_target_properties(LAPKT PROPERTIES LINK_SEARCH_END_STATIC ON)
-set_target_properties(LAPKT PROPERTIES POSITION_INDEPENDENT_CODE ON)
-# target_link_libraries(LAPKT PRIVATE -static-libgcc -static-libstdc++)
-#
-add_library(planner)
-SET_TARGET_PROPERTIES(planner PROPERTIES PREFIX "")
-set_target_properties(planner PROPERTIES
-         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/_pywrapper)
-set_target_properties(planner PROPERTIES LINK_SEARCH_START_STATIC ON)
-set_target_properties(planner PROPERTIES LINK_SEARCH_END_STATIC ON)
-target_link_libraries(planner PRIVATE -static-libstdc++)
 
-target_include_directories(planner PRIVATE ${Python3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
-target_link_libraries( planner PRIVATE
-    LAPKT
-    ${Boost_LIBRARIES}
-    )
+#----- Project Source -----#
 
-# The source for PDDL to STRIPS problem translator resides here
-add_subdirectory(pddl2strips)
+add_subdirectory(wrapper)
 
-# Source code for pre-processing associated with different planners
-add_subdirectory(planner)
+# Translate PDDL input (leverages external libraries, including tarski)
+add_subdirectory(translate)
 
-# Source code of all search algorithms available in the package
-add_subdirectory(search)
+# Search engines 
+add_subdirectory(engine)
 
-# Source code of evaluations performed at each node
-add_subdirectory(eval_node)
+# Components of the engine
+add_subdirectory(component)
+
+# Algorithms to evaluate a node
+add_subdirectory(node_eval)
 
 # Blueprints for strips model
 add_subdirectory(model)
 
-# Other utility blueprints
-add_subdirectory(utility)
+# lapkt template library(ltl) a set of utility blueprints
+add_subdirectory(ltl)
 
-#
-install(
-    TARGETS LAPKT
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/_cxx/lib/
-    COMPONENT Runtime
-    )
+# Planners which leverage engine(s) in some particular configuration
+add_subdirectory(planner)
 
-install(
-    TARGETS LAPKT 
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/_cxx/lib/
-    COMPONENT Development EXCLUDE_FROM_ALL
-    EXPORT LAPKTTargets
-    )
-#
-install(
-    TARGETS planner
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/_pywrapper/
-    COMPONENT Runtime 
-    )
-install(
-    TARGETS planner
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/package/lapkt/_pywrapper/
-    COMPONENT Development EXCLUDE_FROM_ALL
-    EXPORT LAPKTTargets
-    )
+# Python packaging related
+add_subdirectory(python)
 
-if(CMAKE_FF)
-    add_subdirectory(legacy_ff)
-endif(CMAKE_FF)
-
-#  A compilation of python run scripts which are installed when preparing the python package
-add_subdirectory(script)
+#----- legacy lapkt-ff executables -----#
+if(CMAKE_LEGACY_PLANNER)
+    set(CMAKE_FF_CXX ON)
+    add_subdirectory(legacy_ff_planner)
+endif(CMAKE_LEGACY_PLANNER)

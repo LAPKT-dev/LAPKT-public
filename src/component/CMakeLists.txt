@@ -1,0 +1,30 @@
+target_sources(core
+    PRIVATE
+        closed_list.hxx
+        match_tree.cxx
+        match_tree.hxx
+        open_list.hxx
+        reachability.cxx
+        reachability.hxx
+        watched_lit_succ_gen.cxx
+        watched_lit_succ_gen.hxx
+)
+
+target_include_directories(core
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+
+install(
+    FILES
+        new_node_comparer.hxx
+        closed_list.hxx
+        match_tree.hxx
+        open_list.hxx
+        reachability.hxx
+        watched_lit_succ_gen.hxx
+    DESTINATION
+        ${CMAKE_INSTALL_PREFIX}/lapkt/core/include/component/
+    COMPONENT
+        lapkt
+)

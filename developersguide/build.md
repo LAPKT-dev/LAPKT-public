@@ -3,13 +3,14 @@ Building LAPKT {#build}
 
 @tableofcontents
 
-`cmake` is the primary tool used to build the LAPKT's C++(backend) source code. We also use it to generate Python/C++ library package which is ready to go as a `pypi` package. 
+`cmake` is the primary tool used to build the lapkt's C++(backend) source code. We also use it to generate Python/C++ library package which is ready to go as a `pypi` package. 
 
 # IMPORTANT
 
-Install the manual build dependencies listed in `PREBUILD_DEPENDENCIES.txt` prior to the cmake build. The file is located in the repo's root directory.
+1. Install the manual build dependencies listed in `PREBUILD_DEPENDENCIES.txt` prior to the cmake build. The file is located in the repo's root directory.
+2. Certain pre-build dependencies are handled by lapkt's SuperBuild cmake script. This can be disabled using the cmake argument `-DUSE_SUPERBUILD=OFF`.
 
-### A typical set of commands used to build LAPKT
+### A typical set of commands used to build lapkt
 
         cmake -Bbuild -Ssrc -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release
         cmake --build build -j4 [--target clean](optional)
@@ -35,41 +36,47 @@ It involves three steps, configure, build, and install which take the following 
         cmake  --install <build_dir> [--component {Runtime|Development}]
 
 
-### Cmake options to install features, including ff and fd pddl parsers
+### Cmake options 
 
-- Sync the FF, FD and VAL submodule packages from github.com
+- **Cmake properties**
+  - Specify compiler version
 
-        git submodule update --init
+                -DCMAKE_CXX_COMPILER=g++-8 -DCMAKE_C_COMPILER=gcc-8
 
-- Update the CMAKE configuration step command with the following options
+- **Project specific** Cmake configuration
 
-  - for FD PDDL parser and grounder
+  - Add external package - FD PDDL parser and grounder
 
                 -DCMAKE_FD=ON
 
-  - for FF parser and grounder
+  - Add external package - FF parser and grounder
         
                 -DCMAKE_FF=ON
 
-  - for KCL VAL plan validator
-  
-                -DCMAKE_VAL=ON
-
-  - build doxygen docs
+  - Build doxygen docs
 
                 -DCMAKE_DOXYGEN_DOCS=ON
 
-  - doxygen themes
+  - Select doxygen themes
 
                 -DCMAKE_DOXYGEN_FLAT_THEME=ON
                 -DCMAKE_DOXYGEN_AWESOME_THEME=ON
                 
-  - sphinx rtf theme docs via Doxygen->exhale(Sphinx extension) pipline
+  - Prepare sphinx rtf theme docs via Doxygen->exhale(Sphinx extension) pipline
                 
                 -DCMAKE_SPHINX_DOCS=ON
 
-### Extras
+  - Boost build parameters
+    - Path to where the pre-build dependencies compiled by the superbuild cmake script are installed
 
-- Compile using specific compiler
+                -DDEPS_INSTALL_PREFIX="<Path>"
 
-        -DCMAKE_CXX_COMPILER=g++-8 -DCMAKE_C_COMPILER=gcc-8
+    - Path to the directory where Boost2 lib is installed(only required if SUPERBUILD is not used)
+
+                -DBOOST_ROOT="<Path>"
+
+    - Path to the directory where Catch2 lib is installed(only required if SUPERBUILD is not used)
+
+                -DCATCH2_ROOT="<Path>"
+
+

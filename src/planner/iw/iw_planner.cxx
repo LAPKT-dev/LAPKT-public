@@ -4,7 +4,7 @@
 
 #include <fstream>
 #include <iostream>
-#include <sys/wait.h>
+// #include <sys/wait.h>
 
 //---- Constructor ----------------------------------------------------------//
 IW_Planner::IW_Planner()
@@ -195,7 +195,9 @@ IW_Planner::do_inc_bound_search( Search_Engine& engine, aptk::STRIPS_Problem& pl
         expanded_f   <<  std::endl;
     std::cout << "Nodes pruned by bound: " << pruned_f << std::endl;
     std::cout << "Max novelty expanded: " << engine.bound() << std::endl;
+    #ifdef UNIX
     aptk::report_memory_usage();
+    #endif
     return total_time;
 }
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//
@@ -263,7 +265,9 @@ IW_Planner::do_search( Search_Engine& engine, aptk::STRIPS_Problem& plan_prob,
     std::cout   <<  "Nodes expanded during search: "    <<
         engine.expanded()   <<  std::endl;
     std::cout << "Max novelty expanded: " << engine.bound() << std::endl;
+    #ifdef UNIX
     aptk::report_memory_usage();
+    #endif
 
     return total_time;
 }

@@ -1,5 +1,5 @@
 #! /usr/bin/python3
-# 1. A script similar to lapkt.py without the planner - Done, just modified lapkt.py
+# 1. A script similar to lapkt_run.py without the planner - Done, just modified lapkt_run.py
 # 2. A lab frontend with following functionalities:
 #   - checks parse-ground step
 #   - checks instantiaton step
@@ -43,16 +43,16 @@ from sys import platform
 
 # Tarski library imports
 #-----------------------------------------------------------------------------#
-from tarski.io import FstripsReader
-from tarski.reachability.asp import *
-from tarski.grounding import LPGroundingStrategy, NaiveGroundingStrategy
-from tarski.syntax.transform.quantifier_elimination import QuantifierElimination
-from tarski.syntax import (QuantifiedFormula, CompoundFormula, Tautology,
+from tarski_lapkt.io import FstripsReader
+from tarski_lapkt.reachability.asp import *
+from tarski_lapkt.grounding import LPGroundingStrategy, NaiveGroundingStrategy
+from tarski_lapkt.syntax.transform.quantifier_elimination import QuantifierElimination
+from tarski_lapkt.syntax import (QuantifiedFormula, CompoundFormula, Tautology,
     Function, Quantifier, land, CompoundTerm, Contradiction, symref)
-from tarski.syntax.builtins import BuiltinPredicateSymbol
-from tarski.syntax.transform.substitutions import create_substitution
-from tarski.syntax.transform.errors import TransformationError
-from tarski.fstrips import (UniversalEffect, AddEffect, DelEffect,
+from tarski_lapkt.syntax.builtins import BuiltinPredicateSymbol
+from tarski_lapkt.syntax.transform.substitutions import create_substitution
+from tarski_lapkt.syntax.transform.errors import TransformationError
+from tarski_lapkt.fstrips import (UniversalEffect, AddEffect, DelEffect,
     FunctionalEffect)
 #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#
 # DEFINED CONSTANTS
