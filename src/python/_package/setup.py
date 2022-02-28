@@ -18,6 +18,11 @@ setup(
     packages=find_packages('site_package'),
     package_dir={'': 'site_package'},
     classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Students',
+        'Intended Audience :: Science/Research',
+        'Intended Audience :: Developers',
+        'Topic :: Scientific/Engineering :: Artificial Intelligence',
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: BSD License",
         "Operating System :: Microsoft :: Windows",
@@ -26,9 +31,10 @@ setup(
         ],
     python_requires='>=3.7',
     install_requires=[
+        'tarski-lapkt[gringo]',  # PLACEHOLDER until tarski's next major update
         # 'tarski',
         # "tarski[gringo] @ git+https://github.com/aig-upf/tarski.git@devel",
-        "tarski[gringo] @ git+https://github.com/anubhav-cs/tarski.git@devel",
+        # "tarski[gringo] @ git+https://github.com/anubhav-cs/tarski.git@devel",
         'ruamel.yaml',
         ],
     extras_require={},

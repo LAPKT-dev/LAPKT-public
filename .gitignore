@@ -1,6 +1,7 @@
 # Ignore .vscode settings
 .vscode/c_cpp_properties.json
 .vscode/tasks.json
+.history
 
 # Temporary files
 *.swp
