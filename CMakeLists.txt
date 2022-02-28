@@ -156,6 +156,7 @@ set(pybind11_DIR ${PYBIND11_CMAKE_DIR})
 message(STATUS "PYBIND11 CMAKE_DIR PATH IS: ${PYBIND11_CMAKE_DIR}")
 message(STATUS "CMAKE_MODULE_PATH IS: ${CMAKE_MODULE_PATH}")
 
+set(PYBIND11_NOPYTHON ON)
 find_package(pybind11 REQUIRED)
 
 #---- Boost ----#
@@ -256,17 +257,25 @@ add_library(core SHARED)
 #---- Python extensions ----#
 
 #---- CXX Wrappers over LAPKT lib ----#
-pybind11_add_module(wrapper SHARED)
+# pybind11_add_module(wrapper SHARED)
+add_library(wrapper SHARED)
 set_target_properties(wrapper PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
+
+target_include_directories(wrapper PRIVATE
+  ${Python3_INCLUDE_DIRS}
+)
+
 target_link_libraries(wrapper PUBLIC
   core
+  pybind11::headers
 )
 
 #---- Translate PDDL ----#
-pybind11_add_module(pddl SHARED)
+# pybind11_add_module(pddl SHARED)
+add_library(pddl SHARED)
 set_target_properties(pddl PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
@@ -275,9 +284,13 @@ target_link_libraries(pddl PRIVATE
   core
   wrapper
 )
+target_include_directories(pddl PRIVATE
+  ${Python3_INCLUDE_DIRS}
+)
 
 #---- Planner ----#
-pybind11_add_module(planner SHARED)
+# pybind11_add_module(planner SHARED)
+add_library(planner SHARED)
 set_target_properties(planner PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
@@ -286,6 +299,9 @@ target_link_libraries(planner PRIVATE
   core
   wrapper
   ${Boost_LIBRARIES}
+)
+target_include_directories(planner PRIVATE
+  ${Python3_INCLUDE_DIRS}
 )
 
 #---- Add sub directories with source ----#
