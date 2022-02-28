@@ -13,6 +13,7 @@
 *.res
 log
 plan.ipc
+execution.details
 
 # Local directories 
 external_package/libff

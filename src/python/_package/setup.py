@@ -19,7 +19,7 @@ setup(
     package_dir={'': 'site_package'},
     classifiers=[
         'Development Status :: 3 - Alpha',
-        'Intended Audience :: Students',
+        'Intended Audience :: Education',
         'Intended Audience :: Science/Research',
         'Intended Audience :: Developers',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',

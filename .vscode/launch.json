@@ -4,6 +4,8 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.1",
     "configurations": [
+        // Launch python program to debug. 
+        // The program will wait for user input before continuing. The user can attach a gdb at that time.
         {
             "name": "Python launch",
             "type": "python",
@@ -42,6 +44,8 @@
                 "--wait_debug"],
             "cwd": "${workspaceFolder}",
         },
+        //  gdb(Attach) config.
+        // Attach it to the PID printed by the python script. Then press a key to continue.
         { 
             "name": "(gdb) Attach",
             "type": "cppdbg",
@@ -59,8 +63,11 @@
                     "ignoreFailures": true
                 }
             ],
-            "cwd": "${workspaceFolder}/src",
+            "cwd": "${workspaceFolder}",
         },
+        // gdb(launch) - Launch python with gdb attached to it.
+        // Handy to debug the C++ code.
+        // Can't be used to debug the python code.
         { 
             "name": "(gdb) Launch",
             "type": "cppdbg",
@@ -107,7 +114,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "cwd": "${workspaceFolder}/src",
+            "cwd": "${workspaceFolder}",
         }
     ]
 }
