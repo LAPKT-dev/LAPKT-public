@@ -1,5 +1,5 @@
 # #
-# target_include_directories(lapkt PRIVATE ${Python3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
+# target_include_directories(lapkt PRIVATE ${Python_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
 # target_link_libraries( lapkt PRIVATE
 #     lapkt 
 #     ${Boost_LIBRARIES}
