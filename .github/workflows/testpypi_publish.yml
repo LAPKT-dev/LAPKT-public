@@ -215,6 +215,8 @@ jobs:
     strategy:
       matrix:
         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        exclude:
+          - py_version: "3.6"
 
     steps:
     - uses: actions/checkout@v2
@@ -281,7 +283,7 @@ jobs:
     - name: Pytest
       working-directory: ${{github.workspace}}
       run: |
-        pytest
+        py -m pytest
 
     - name: Store the binary wheel
       uses: actions/upload-artifact@v2
@@ -299,6 +301,8 @@ jobs:
     strategy:
       matrix:
         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        exclude:
+          - py_version: "3.8"
 
 
     steps:
@@ -397,6 +401,8 @@ jobs:
     strategy:
       matrix:
         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        exclude:
+          - py_version: "3.8"
 
     steps:
     - uses: actions/checkout@v2
