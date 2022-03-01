@@ -73,7 +73,7 @@ jobs:
         -DCMAKE_SPHINX_DOCS=ON
         -DCMAKE_STATIC_BOOST=ON
         -DCMAKE_TESTING_ENABLED=ON
-        -DPY_VERSION=${{ matrix.py_version }}
+        -DPY_VERSION="${{ matrix.py_version }}"
 
     - name: Build
       # Build your program with the given configuration
@@ -167,7 +167,7 @@ jobs:
         -DCMAKE_SPHINX_DOCS=OFF
         -DCMAKE_STATIC_BOOST=ON
         -DCMAKE_TESTING_ENABLED=ON
-        -DPY_VERSION=${{ matrix.py_version }}
+        -DPY_VERSION="${{ matrix.py_version }}"
 
     - name: Build
       # Build your program with the given configuration
@@ -249,7 +249,7 @@ jobs:
         -DCMAKE_SPHINX_DOCS=OFF
         -DCMAKE_STATIC_BOOST=ON
         -DCMAKE_TESTING_ENABLED=ON
-        -DPY_VERSION=${{ matrix.py_version }}
+        -DPY_VERSION="${{ matrix.py_version }}"
 
     - name: Build
       # Build your program with the given configuration
@@ -347,7 +347,7 @@ jobs:
         -DCMAKE_SPHINX_DOCS=OFF
         -DCMAKE_STATIC_BOOST=ON
         -DCMAKE_TESTING_ENABLED=ON
-        -DPY_VERSION=${{ matrix.py_version }}
+        -DPY_VERSION="${{ matrix.py_version }}"
 
     - name: Build
       # Build your program with the given configuration
@@ -444,7 +444,7 @@ jobs:
         -DCMAKE_SPHINX_DOCS=OFF
         -DCMAKE_STATIC_BOOST=ON
         -DCMAKE_TESTING_ENABLED=ON
-        -DPY_VERSION=${{ matrix.py_version }}
+        -DPY_VERSION="${{ matrix.py_version }}"
 
     - name: Build
       # Build your program with the given configuration
