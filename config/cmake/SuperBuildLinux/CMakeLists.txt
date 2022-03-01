@@ -5,11 +5,21 @@
 
 # Fetch Python Exec
 find_package(Python3 COMPONENTS Interpreter Development)
-if(${Python3_VERSION} VERSION_LESS 3.6.0)
-  message(SEND_ERROR
-    "INCOMPATIBLE PYTHON VERSION, expected >3.6.x but found - "
-    ${Python3_VERSION})
+if(NOT DEFINED PY_VERSION)
+  find_package(Python COMPONENTS Interpreter Development)
+else()
+  string(REPLACE "." ";" PY_VERSION_PART ${PY_VERSION})
+  LIST(GET PY_VERSION_PART 0 PY_VMAJOR)
+  LIST(GET PY_VERSION_PART 1 PY_VMINOR)
+  MATH(EXPR PY_VMINOR_NEXT "${PY_VMINOR} + 1")
+  find_package(Python ${PY_VMAJOR}.${PY_VMINOR}...<${PY_VMAJOR}.${PY_VMINOR_NEXT} 
+    COMPONENTS Interpreter Development)
 endif()
+# if(${Python3_VERSION} VERSION_LESS 3.6.0)
+#   message(SEND_ERROR
+#     "INCOMPATIBLE PYTHON VERSION, expected >3.6.x but found - "
+#     ${Python3_VERSION})
+# endif()
 message("The PYTHON_VERSION is ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
 
 # Install pip requirements

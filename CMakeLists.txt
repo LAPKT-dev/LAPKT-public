@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.19)
 
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
@@ -136,11 +136,18 @@ endfunction()
 #         "INCOMPATIBLE PYTHON VERSION, expected 3.6.x < 3.9.x but found - " 
 #         ${Python_VERSION})
 # endif()
-find_package(Python COMPONENTS Interpreter Development)
-if(${Python_VERSION} VERSION_LESS 3.6.0)
-  message(SEND_ERROR 
-    "UNTESTED PYTHON VERSION, expected >3.6.x but found - " ${Python_VERSION})
+if(NOT DEFINED PY_VERSION)
+  find_package(Python COMPONENTS Interpreter Development)
+else()
+  string(REPLACE "." ";" PY_VERSION_PART ${PY_VERSION})
+  LIST(GET PY_VERSION_PART 0 PY_VMAJOR)
+  LIST(GET PY_VERSION_PART 1 PY_VMINOR)
+  find_package(Python ${PY_VMAJOR}...<${PY_VMINOR} COMPONENTS Interpreter Development)
 endif()
+# if(${Python_VERSION} VERSION_LESS 3.6.0)
+#   message(SEND_ERROR 
+#     "UNTESTED PYTHON VERSION, expected >3.6.x but found - " ${Python_VERSION})
+# endif()
 
 message("The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
 
