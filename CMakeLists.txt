@@ -130,16 +130,16 @@ endfunction()
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 
 #---- Python  ----#
-# find_package(Python 3.7...<3.10  COMPONENTS Interpreter Development)
-# if(${Python_VERSION} GREATER 3.9 OR ${Python_VERSION} LESS 3.7)
+# find_package(Python 3.6...<3.11  COMPONENTS Interpreter Development)
+# if(${Python_VERSION} GREATER 3.10 OR ${Python_VERSION} LESS 3.6)
 #     message(SEND_ERROR 
-#         "INCOMPATIBLE PYTHON VERSION, expected 3.7.x < 3.9.x but found - " 
+#         "INCOMPATIBLE PYTHON VERSION, expected 3.6.x < 3.9.x but found - " 
 #         ${Python_VERSION})
 # endif()
 find_package(Python COMPONENTS Interpreter Development)
-if(${Python_VERSION} VERSION_LESS 3.7.0)
+if(${Python_VERSION} VERSION_LESS 3.6.0)
   message(SEND_ERROR 
-    "UNTESTED PYTHON VERSION, expected >3.7.x but found - " ${Python_VERSION})
+    "UNTESTED PYTHON VERSION, expected >3.6.x but found - " ${Python_VERSION})
 endif()
 
 message("The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")

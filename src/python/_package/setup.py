@@ -29,7 +29,7 @@ setup(
         "Operating System :: POSIX :: Linux",
         "Operating System :: MacOS"
         ],
-    python_requires='>=3.7',
+    python_requires='>=3.6',
     install_requires=[
         'tarski-lapkt[gringo]',  # PLACEHOLDER until tarski's next major update
         # 'tarski',

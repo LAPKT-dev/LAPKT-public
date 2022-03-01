@@ -5,9 +5,9 @@
 
 # Fetch Python Exec
 find_package(Python3 COMPONENTS Interpreter Development)
-if(${Python3_VERSION} VERSION_LESS 3.7.0)
+if(${Python3_VERSION} VERSION_LESS 3.6.0)
   message(SEND_ERROR
-    "INCOMPATIBLE PYTHON VERSION, expected >3.7.x but found - "
+    "INCOMPATIBLE PYTHON VERSION, expected >3.6.x but found - "
     ${Python3_VERSION})
 endif()
 message("The PYTHON_VERSION is ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")

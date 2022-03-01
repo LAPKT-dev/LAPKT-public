@@ -36,8 +36,8 @@ Developers who intend to build from source are required to **manually** install 
 
 **@Ubuntu**
 
-	python3 >= 3.7 <= 3.9
-	python3-dev >= 3.7 <= 3.9
+	python3 >= 3.6 <= 3.10
+	python3-dev >= 3.6 <= 3.10
 	cmake >= 3.16
 	gcc>=8
 	g++>=8
