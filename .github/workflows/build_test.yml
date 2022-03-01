@@ -222,6 +222,8 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "${{ matrix.py_version }}"
+        exclude:
+          - py_version: "3.6"
 
     - name: Install pip dependencies
       run: |
