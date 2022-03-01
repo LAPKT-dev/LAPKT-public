@@ -4,7 +4,6 @@
 #----SECTION 1.1 -Install python prerequisites ----#
 
 # Fetch Python Exec
-find_package(Python3 COMPONENTS Interpreter Development)
 if(NOT DEFINED PY_VERSION)
   find_package(Python COMPONENTS Interpreter Development)
 else()
