@@ -4,23 +4,32 @@
 #----SECTION 1.1 -Install python prerequisites ----#
 
 # Fetch Python Exec
-find_package(Python3 COMPONENTS Interpreter Development)
-if(${Python3_VERSION} VERSION_LESS 3.7.0)
-  message(SEND_ERROR
-    "INCOMPATIBLE PYTHON VERSION, expected >3.7.x but found - "
-    ${Python3_VERSION})
+if(NOT DEFINED PY_VERSION)
+  find_package(Python COMPONENTS Interpreter Development)
+else()
+  string(REPLACE "." ";" PY_VERSION_PART ${PY_VERSION})
+  LIST(GET PY_VERSION_PART 0 PY_VMAJOR)
+  LIST(GET PY_VERSION_PART 1 PY_VMINOR)
+  MATH(EXPR PY_VMINOR_NEXT "${PY_VMINOR} + 1")
+  find_package(Python ${PY_VMAJOR}.${PY_VMINOR}...<${PY_VMAJOR}.${PY_VMINOR_NEXT} 
+    COMPONENTS Interpreter Development)
 endif()
-message("The PYTHON_VERSION is ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
+# if(${Python_VERSION} VERSION_LESS 3.6.0)
+#   message(SEND_ERROR
+#     "INCOMPATIBLE PYTHON VERSION, expected >3.6.x but found - "
+#     ${Python_VERSION})
+# endif()
+message("The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
 
 # Install pip requirements
-execute_process(COMMAND ${Python3_EXECUTABLE} -m pip install
+execute_process(COMMAND ${Python_EXECUTABLE} -m pip install
   -r ${PROJECT_SOURCE_DIR}/config/pre_build/pip_requirements.txt
   RESULT_VARIABLE out
 )
 message(STATUS "Python result: ${out}")
 
 #Fetch path to Pybind11
-execute_process(COMMAND ${Python3_EXECUTABLE} -m pybind11 --cmakedir 
+execute_process(COMMAND ${Python_EXECUTABLE} -m pybind11 --cmakedir 
   OUTPUT_VARIABLE PYBIND11_CMAKE_DIR
   ERROR_VARIABLE PYBIND11_CMAKE_DIR_ERROR
   OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -151,10 +160,10 @@ else()
   set(BOOST_VARIANT "release")
 endif()
 message("Building Boost in " ${BOOST_VARIANT} " mode")
-file(WRITE ${DEPS_BUILD_DIR}/boost/user-config.jam "using python  :  ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR} ;")
+file(WRITE ${DEPS_BUILD_DIR}/boost/user-config.jam "using python  :  ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR} ;")
 
 # LOGS
-message("Boost is built using python  :  ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR} ;")
+message("Boost is built using python  :  ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR} ;")
 message("The boost build command is : ./b2 --user-config=${PROJECT_BINARY_DIR}/../build_external/boost/user-config.jam --with-python --with-program_options --build-dir=${PROJECT_BINARY_DIR}/../build_external/boost/build variant=${BOOST_VARIANT} optimization=space link=static install cxxflags=-fpic")
 
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.19)
 
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
@@ -129,20 +129,27 @@ endfunction()
 #---- SECTION 2.0 - External packages/libraries -----#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 
-#---- Python3  ----#
-# find_package(Python3 3.7...<3.10  COMPONENTS Interpreter Development)
-# if(${Python3_VERSION} GREATER 3.9 OR ${Python3_VERSION} LESS 3.7)
+#---- Python  ----#
+# find_package(Python 3.6...<3.11  COMPONENTS Interpreter Development)
+# if(${Python_VERSION} GREATER 3.10 OR ${Python_VERSION} LESS 3.6)
 #     message(SEND_ERROR 
-#         "INCOMPATIBLE PYTHON VERSION, expected 3.7.x < 3.9.x but found - " 
-#         ${Python3_VERSION})
+#         "INCOMPATIBLE PYTHON VERSION, expected 3.6.x < 3.9.x but found - " 
+#         ${Python_VERSION})
 # endif()
-find_package(Python3 COMPONENTS Interpreter Development)
-if(${Python3_VERSION} VERSION_LESS 3.7.0)
-  message(SEND_ERROR 
-    "UNTESTED PYTHON VERSION, expected >3.7.x but found - " ${Python3_VERSION})
+if(NOT DEFINED PY_VERSION)
+  find_package(Python COMPONENTS Interpreter Development)
+else()
+  string(REPLACE "." ";" PY_VERSION_PART ${PY_VERSION})
+  LIST(GET PY_VERSION_PART 0 PY_VMAJOR)
+  LIST(GET PY_VERSION_PART 1 PY_VMINOR)
+  find_package(Python ${PY_VMAJOR}...<${PY_VMINOR} COMPONENTS Interpreter Development)
 endif()
+# if(${Python_VERSION} VERSION_LESS 3.6.0)
+#   message(SEND_ERROR 
+#     "UNTESTED PYTHON VERSION, expected >3.6.x but found - " ${Python_VERSION})
+# endif()
 
-message("The PYTHON_VERSION is ${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}")
+message("The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
 
 #---- Pybind11  ----#
 # MUST BE CALLED AFTER FINDPYTHON: CMake 3.12+ (3.15+ recommended, 3.18.2+ ideal) 
@@ -156,6 +163,7 @@ set(pybind11_DIR ${PYBIND11_CMAKE_DIR})
 message(STATUS "PYBIND11 CMAKE_DIR PATH IS: ${PYBIND11_CMAKE_DIR}")
 message(STATUS "CMAKE_MODULE_PATH IS: ${CMAKE_MODULE_PATH}")
 
+# set(PYBIND11_NOPYTHON ON)
 find_package(pybind11 REQUIRED)
 
 #---- Boost ----#
@@ -225,7 +233,7 @@ set(REL_PYPI_LAPKT_ROOT ${REL_PYPI_ROOT}/site_package/lapkt)
 
 #[[
 Note- When creating Python extensions, NEITHER the py extensions NOR the 
-lapkt libs need to be linked to Python3 shared libraries. Including the
+lapkt libs need to be linked to Python shared libraries. Including the
 headers is sufficient. The reference to Python symbols will be populated by
 when the library is loaded by the python interpreter. This would free the 
 python extensions from VERSION specific Python shared libs.
@@ -257,16 +265,24 @@ add_library(core SHARED)
 
 #---- CXX Wrappers over LAPKT lib ----#
 pybind11_add_module(wrapper SHARED)
+# add_library(wrapper SHARED)
 set_target_properties(wrapper PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
+
+# target_include_directories(wrapper PRIVATE
+#   ${Python_INCLUDE_DIRS}
+# )
+
 target_link_libraries(wrapper PUBLIC
   core
+  # pybind11::headers
 )
 
 #---- Translate PDDL ----#
 pybind11_add_module(pddl SHARED)
+# add_library(pddl SHARED)
 set_target_properties(pddl PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
@@ -275,9 +291,13 @@ target_link_libraries(pddl PRIVATE
   core
   wrapper
 )
+# target_include_directories(pddl PRIVATE
+#   ${Python_INCLUDE_DIRS}
+# )
 
 #---- Planner ----#
 pybind11_add_module(planner SHARED)
+# add_library(planner SHARED)
 set_target_properties(planner PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
@@ -287,6 +307,9 @@ target_link_libraries(planner PRIVATE
   wrapper
   ${Boost_LIBRARIES}
 )
+# target_include_directories(planner PRIVATE
+#   ${Python_INCLUDE_DIRS}
+# )
 
 #---- Add sub directories with source ----#
 

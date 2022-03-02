@@ -49,7 +49,7 @@ def exists_python_module(name) :
         return False
 
 if __name__ == '__main__' :
-    assert version_info >= (3,7,0), 'Python >= 3.7 required'
+    assert version_info >= (3,7,0), 'Python >= 3.6 required'
 
     parser  =   ArgumentParser(description="Take LAPKT installation options")    
     parser.add_argument('--cmake', action='store', nargs='?',

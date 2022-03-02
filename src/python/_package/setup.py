@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="lapkt",
-    version="0.0.1",
+    version="0.0.2",
     author="Anubhav Singh, Nir Lipovetzky, "
             + "Miquel Ramirez, Christian Muise",
     author_email="anubhav.singh.er@pm.me, nirlipo@gmail.com, "
@@ -29,7 +29,7 @@ setup(
         "Operating System :: POSIX :: Linux",
         "Operating System :: MacOS"
         ],
-    python_requires='>=3.7',
+    python_requires='>=3.6',
     install_requires=[
         'tarski-lapkt[gringo]',  # PLACEHOLDER until tarski's next major update
         # 'tarski',
