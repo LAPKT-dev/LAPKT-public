@@ -1,4 +1,6 @@
-[![BuildTestLAPKT](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/ubuntu_build_test.yml/badge.svg?branch=Devel2.0)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/ubuntu_build_test.yml)
+[![BuildTest](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/build_test.yml/badge.svg)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/build_test.yml)
+[![PypiPublish](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/pypi_publish.yml/badge.svg)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/pypi_publish.yml)
+[![CodeQL](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/codeql-analysis.yml)
 
 # LAPKT
 
