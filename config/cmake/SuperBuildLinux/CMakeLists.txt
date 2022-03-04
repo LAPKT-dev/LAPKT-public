@@ -44,7 +44,6 @@ endif()
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #xxxx SECTION 2 - ADD EXTERNAL PROJECTS
 
-set(ENV{PATH} $ENV{PATH}":C:\\GnuWin32\\bin")
 include(ExternalProject)
 
 # Dependencies of lapkt

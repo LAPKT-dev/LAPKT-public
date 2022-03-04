@@ -77,8 +77,21 @@ set(CMAKE_CXX_STANDARD 17)
 # Global flag to cause add_library() to create shared libraries
 set(BUILD_SHARED_LIBS ON)
 # static link with stdc++ and libgcc
-set(CMAKE_EXE_LINKER_FLAGS "-static-libstdc++ -static-libgcc")
-set(CMAKE_SHARED_LINKER_FLAGS  "-static-libstdc++ -static-libgcc") 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  # using Clang
+  set(CMAKE_EXE_LINKER_FLAGS "-static-libstdc++")
+  set(CMAKE_SHARED_LINKER_FLAGS  "-static-libstdc++") 
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  # using GCC
+  set(CMAKE_EXE_LINKER_FLAGS "-static-libstdc++ -static-libgcc")
+  set(CMAKE_SHARED_LINKER_FLAGS  "-static-libstdc++ -static-libgcc") 
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
+  # using Intel C++
+  message(WARNING "The build for Intel compiler hasn't been tested. Proceed with caution")
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  # using Visual Studio C++
+  message(WARNING "The build for MSVC hasn't been tested. Proceed with caution")
+endif()
 if(MINGW)
   # set(CMAKE_SHARED_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--allow-multiple-definition -Wl,-Bstatic,--whole-archive -lpthread  -Wl,-Bdynamic,--no-whole-archive")
   # set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--allow-multiple-definition -Wl,-Bstatic,--whole-archive -lpthread  -Wl,-Bdynamic,--no-whole-archive")
