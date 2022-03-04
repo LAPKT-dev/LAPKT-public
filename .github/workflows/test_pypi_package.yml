@@ -44,6 +44,9 @@ jobs:
         python3 -m pip install --upgrade pip
         python3 -m pip install --user lapkt
 
+    - name: Print GLIBC version
+      run: which lapkt_cmd.py
+
     - name: Test lapkt installation
       run: |
         python3 "$HOME/.local/bin/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl"
