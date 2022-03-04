@@ -1,0 +1,194 @@
+# This workflow will upload a Python Package using Twine when a release is created
+# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: TestPypiPublish
+
+on:   
+  workflow_dispatch:
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+
+# --------------------------------------------------------------------------- #
+
+  build-ubuntu-20:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.py_version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: "${{ matrix.py_version }}"
+
+    - name: Print GLIBC version
+      run: ldd --version
+
+    - name: Install lapkt from pypi
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install --user lapkt
+
+    - name: Test lapkt installation
+      run: |
+        python3 "$HOME/.local/bin/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl"
+        cat plan.ipc
+
+    - name: Pytest
+      working-directory: ${{github.workspace}}
+      run: |
+        pytest
+
+# --------------------------------------------------------------------------- #
+
+  build-ubuntu-18:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+
+    steps:
+    - uses: actions/checkout@v2
+  
+    - name: Set up Python ${{ matrix.py_version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: "${{ matrix.py_version }}"
+
+    - name: Install lapkt from pypi
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install --user lapkt
+
+    - name: Test lapkt installation
+      run: |
+        python3 "$HOME/.local/bin/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl"
+        cat plan.ipc
+
+    - name: Pytest
+      working-directory: ${{github.workspace}}
+      run: |
+        pytest
+
+# --------------------------------------------------------------------------- #
+
+  build-windows-2019:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: windows-2019
+    strategy:
+      matrix:
+        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        exclude:
+          - py_version: "3.6"
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Set up Python ${{ matrix.py_version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: "${{ matrix.py_version }}"
+
+    - name: Install lapkt from pypi
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install --user lapkt
+
+    - name: Test lapkt installation
+      run: |
+        py "c:\\hostedtoolcache\\windows\\python\\3.10.2\\x64\\scripts\\lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl"
+        cat plan.ipc
+
+    - name: Pytest
+      working-directory: ${{github.workspace}}
+      run: |
+        py -m pytest
+
+# --------------------------------------------------------------------------- #
+
+  build-macos-11:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: macos-11
+    strategy:
+      matrix:
+        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.py_version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: "${{ matrix.py_version }}"
+
+    - name: Install lapkt from pypi
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install --user lapkt
+
+    - name: Test lapkt installation
+      run: |
+        python3 "$HOME/.local/bin/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl"
+        cat plan.ipc
+
+    - name: Pytest
+      working-directory: ${{github.workspace}}
+      run: |
+        pytest
+
+# --------------------------------------------------------------------------- #
+
+  build-macos-10_15:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: macos-10.15
+    strategy:
+      matrix:
+        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.py_version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: "${{ matrix.py_version }}"
+
+    - name: Install lapkt from pypi
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install --user lapkt
+
+    - name: Test lapkt installation
+      run: |
+        python3 "$HOME/.local/bin/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl"
+        cat plan.ipc
+
+    - name: Pytest
+      working-directory: ${{github.workspace}}
+      run: |
+        pytest
