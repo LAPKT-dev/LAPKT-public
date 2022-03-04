@@ -155,7 +155,7 @@ jobs:
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install --user pytest tarski-lapkt clingo ruamel.yaml
-        python3 -m pip install --user -i https://test.pypi.org/simple/ lapkt
+        python3 -m pip install --user -i https://test.pypi.org/simple/ lapkt==0.0.5
 
 
     - name: Test lapkt installation
