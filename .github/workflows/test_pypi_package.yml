@@ -117,13 +117,9 @@ jobs:
         py -m pip install --upgrade pip
         py -m pip install --user lapkt
 
-    - name: Uninstall
-      run: |
-        py -m pip uninstall lapkt pytest
-
     - name: Test lapkt installation
       run: |
-        py c:\\hostedtoolcache\\windows\\python\\3.10.2\\x64\\scripts\\lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
+        py c:\\users\\runneradmin\\appdata\\roaming\\python\\python310\\scripts\\lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
         cat plan.ipc
 
     - name: Pytest
@@ -157,13 +153,9 @@ jobs:
         python3 -m pip install --upgrade pip
         python3 -m pip install --user lapkt pytest
 
-    - name: Uninstall
-      run: |
-        python3 -m pip uninstall lapkt pytest
-
     - name: Test lapkt installation
       run: |
-        lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
+        python3 /Users/runner/.local/bin/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
         cat plan.ipc
 
     - name: Pytest
@@ -197,7 +189,7 @@ jobs:
 
     - name: Test lapkt installation
       run: |
-        lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
+        python3 /Users/runner/.local/bin/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
         cat plan.ipc
 
     - name: Pytest
