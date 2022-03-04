@@ -2,5 +2,4 @@ breathe
 sphinx
 sphinx_rtd_theme
 exhale
-numpy
 pybind11
