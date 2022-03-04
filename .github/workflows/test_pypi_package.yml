@@ -114,8 +114,8 @@ jobs:
 
     - name: Install lapkt from pypi pytest
       run: |
-        python3 -m pip install --upgrade pip
-        python3 -m pip install --user lapkt
+        py -m pip install --upgrade pip
+        py -m pip install --user lapkt
 
     - name: Uninstall
       run: |
