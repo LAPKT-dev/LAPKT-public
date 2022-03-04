@@ -273,7 +273,7 @@ elseif(WINDOWS_BUILD)
 elseif(MACOS_BUILD)
   message(STATUS "Setting up RPATH on macos build")
   set(CMAKE_MACOSX_RPATH ON)
-  set(CMAKE_INSTALL_RPATH "@loader_path")
+  set(CMAKE_INSTALL_RPATH "@executable_path")
 endif()
 
 add_library(core SHARED)
