@@ -117,6 +117,10 @@ jobs:
         python3 -m pip install --upgrade pip
         python3 -m pip install --user lapkt
 
+    - name: Uninstall
+      run: |
+        py -m pip uninstall lapkt pytest
+
     - name: Test lapkt installation
       run: |
         py c:\\hostedtoolcache\\windows\\python\\3.10.2\\x64\\scripts\\lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
@@ -127,9 +131,6 @@ jobs:
       run: |
         py -m pytest
 
-    - name: Uninstall
-      run: |
-        py -m pip uninstall lapkt pytest
 # --------------------------------------------------------------------------- #
 
   build-macos-11:
@@ -140,7 +141,8 @@ jobs:
     strategy:
       matrix:
         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
-
+        exclude:
+          - py_version: "3.8"
 
     steps:
     - uses: actions/checkout@v2
@@ -155,6 +157,10 @@ jobs:
         python3 -m pip install --upgrade pip
         python3 -m pip install --user lapkt pytest
 
+    - name: Uninstall
+      run: |
+        python3 -m pip uninstall lapkt pytest
+
     - name: Test lapkt installation
       run: |
         lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
@@ -164,11 +170,6 @@ jobs:
       working-directory: ${{github.workspace}}
       run: |
         pytest
-
-
-    - name: Uninstall
-      run: |
-        python3 -m pip uninstall lapkt pytest
 
 # --------------------------------------------------------------------------- #
 
