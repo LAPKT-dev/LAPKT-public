@@ -42,7 +42,7 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user pytest tarski-lapkt clingo
+        python3 -m pip install --user pytest tarski-lapkt clingo ruamel.yaml
         python3 -m pip install --user -i https://test.pypi.org/simple/ lapkt
 
     - name: Find path to lapkt
@@ -80,7 +80,7 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user pytest tarski-lapkt clingo
+        python3 -m pip install --user pytest tarski-lapkt clingo ruamel.yaml
         python3 -m pip install --user -i https://test.pypi.org/simple/ lapkt
 
     - name: Test lapkt installation
@@ -117,7 +117,7 @@ jobs:
     - name: Install lapkt from pypi pytest
       run: |
         py -m pip install --upgrade pip
-        py -m pip install --user pytest tarski-lapkt clingo
+        py -m pip install --user pytest tarski-lapkt clingo ruamel.yaml
         py -m pip install --user -i https://test.pypi.org/simple/ lapkt
 
     - name: Test lapkt installation
@@ -154,7 +154,7 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user pytest tarski-lapkt clingo
+        python3 -m pip install --user pytest tarski-lapkt clingo ruamel.yaml
         python3 -m pip install --user -i https://test.pypi.org/simple/ lapkt
 
 
@@ -192,7 +192,7 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user pytest tarski-lapkt clingo
+        python3 -m pip install --user pytest tarski-lapkt clingo ruamel.yaml
         python3 -m pip install --user -i https://test.pypi.org/simple/ lapkt
 
     - name: Test lapkt installation
