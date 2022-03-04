@@ -271,6 +271,8 @@ if(LINUX_BUILD)
 elseif(WINDOWS_BUILD)
   # set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};$ORIGIN")
 elseif(MACOS_BUILD)
+  message(STATUS "Setting up RPATH on macos build")
+  set(CMAKE_MACOSX_RPATH ON)
   set(CMAKE_INSTALL_RPATH "@loader_path")
 endif()
 
