@@ -23,7 +23,7 @@ LAPKT stands for Lightweight Automated Planning Toolkit
 **Platform agnostic**
 
 1. The directory where the `pip` command installs the scripts, including `lapkt_cmd.py`, is generally on the system `PATH`, if not, it needs to be added manually.
-2. Python version [ `3.6`, `3.7`, `3.7`, `3.8`, `3.9`, `3.10` ] are supported, with an exception of version `3.6` on windows and `3.8` on macos where there are unresolved compability issues.
+2. Python version [ `3.6`, `3.7`, `3.7`, `3.8`, `3.9`, `3.10` ] are supported, with an exception of version `3.6` on windows where there are unresolved compatibility issues.
 
 **@Windows**
 
