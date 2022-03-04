@@ -15,7 +15,7 @@
         "-DCMAKE_SPHINX_DOCS=OFF",
         "-DCMAKE_STATIC_BOOST=OFF",
         "-DCMAKE_TESTING_ENABLED=ON",
-        "-DPY_VERSION=3.9"
+        // "-DPY_VERSION=3.9"
     ],
     "files.associations": {
         "*.ipp": "cpp",
