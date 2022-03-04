@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Test_Pypi_Package
+name: Test_pypi_package
 
 on:   
   workflow_dispatch:
@@ -42,7 +42,8 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user pytest tarski-lapkt clingo lapkt
+        python3 -m pip install --user pytest tarski-lapkt clingo
+        python3 -m pip install --user -i https://test.pypi.org/simple/ lapkt
 
     - name: Find path to lapkt
       run: which lapkt_cmd.py
@@ -79,7 +80,8 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user pytest tarski-lapkt clingo lapkt
+        python3 -m pip install --user pytest tarski-lapkt clingo
+        python3 -m pip install --user -i https://test.pypi.org/simple/ lapkt
 
     - name: Test lapkt installation
       run: |
@@ -115,7 +117,8 @@ jobs:
     - name: Install lapkt from pypi pytest
       run: |
         py -m pip install --upgrade pip
-        py -m pip install --user pytest tarski-lapkt clingo lapkt
+        py -m pip install --user pytest tarski-lapkt clingo
+        py -m pip install --user -i https://test.pypi.org/simple/ lapkt
 
     - name: Test lapkt installation
       run: |
@@ -151,7 +154,8 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user pytest tarski-lapkt clingo lapkt
+        python3 -m pip install --user pytest tarski-lapkt clingo
+        python3 -m pip install --user -i https://test.pypi.org/simple/ lapkt
 
 
     - name: Test lapkt installation
@@ -188,7 +192,8 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user pytest tarski-lapkt clingo lapkt
+        python3 -m pip install --user pytest tarski-lapkt clingo
+        python3 -m pip install --user -i https://test.pypi.org/simple/ lapkt
 
     - name: Test lapkt installation
       run: |
