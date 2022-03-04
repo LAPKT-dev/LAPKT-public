@@ -266,13 +266,13 @@ add_subdirectory(config/cmake/DoxygenSphinxDocs)
 #---- DECLARE library targets and set properties ----#
 
 #---- core - pure cxx component ----#
-if(LINUX_BUILD)
-  set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};$ORIGIN")
+# if(LINUX_BUILD)
+  # set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};$ORIGIN")
 # elseif(WINDOWS_BUILD)
 #   set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};$ORIGIN")
-elseif(MACOS_BUILD)
-  set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};@loader_path")
-endif()
+# elseif(MACOS_BUILD)
+#   set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};@loader_path")
+# endif()
 
 add_library(core SHARED)
 
