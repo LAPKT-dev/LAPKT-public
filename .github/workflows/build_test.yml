@@ -301,8 +301,6 @@ jobs:
     strategy:
       matrix:
         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
-        exclude:
-          - py_version: "3.8"
 
     steps:
     - uses: actions/checkout@v2
@@ -376,7 +374,7 @@ jobs:
     - name: Build Pypi Python Package
       run: |
         cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
-        python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=macosx_11_0_x86_64
+        python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=macosx_11_0_arm64
 
     - name: Pytest
       working-directory: ${{github.workspace}}
@@ -400,8 +398,8 @@ jobs:
     strategy:
       matrix:
         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
-        exclude:
-          - py_version: "3.8"
+        # exclude:
+        #   - py_version: "3.8"
 
     steps:
     - uses: actions/checkout@v2
@@ -436,8 +434,6 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
         -DCMAKE_GENERATOR="Unix Makefiles"
-        -DCMAKE_C_COMPILER=gcc-10
-        -DCMAKE_CXX_COMPILER=g++-10
         -DUSE_SUPERBUILD=ON
         -DCMAKE_FF_CXX=OFF
         -DCMAKE_LEGACY_PLANNER=OFF
@@ -500,8 +496,8 @@ jobs:
     strategy:
       matrix:
         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
-        exclude:
-          - py_version: "3.8"
+        # exclude:
+        #   - py_version: "3.8"
 
     steps:
     - uses: actions/checkout@v2
@@ -536,8 +532,6 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
         -DCMAKE_GENERATOR="Unix Makefiles"
-        -DCMAKE_C_COMPILER=gcc-10
-        -DCMAKE_CXX_COMPILER=g++-10
         -DUSE_SUPERBUILD=ON
         -DCMAKE_FF_CXX=OFF
         -DCMAKE_LEGACY_PLANNER=OFF
