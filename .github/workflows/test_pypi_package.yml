@@ -42,7 +42,7 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user lapkt
+        python3 -m pip install --user lapkt pytest
 
     - name: Find path to lapkt
       run: which lapkt_cmd.py
@@ -79,7 +79,7 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user lapkt
+        python3 -m pip install --user lapkt pytest
 
     - name: Test lapkt installation
       run: |
@@ -112,7 +112,7 @@ jobs:
       with:
         python-version: "${{ matrix.py_version }}"
 
-    - name: Install lapkt from pypi
+    - name: Install lapkt from pypi pytest
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install --user lapkt
@@ -127,6 +127,9 @@ jobs:
       run: |
         py -m pytest
 
+    - name: Uninstall
+      run: |
+        py -m pip uninstall lapkt pytest
 # --------------------------------------------------------------------------- #
 
   build-macos-11:
@@ -150,7 +153,7 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user lapkt
+        python3 -m pip install --user lapkt pytest
 
     - name: Test lapkt installation
       run: |
@@ -161,6 +164,11 @@ jobs:
       working-directory: ${{github.workspace}}
       run: |
         pytest
+
+
+    - name: Uninstall
+      run: |
+        python3 -m pip uninstall lapkt pytest
 
 # --------------------------------------------------------------------------- #
 
@@ -184,7 +192,7 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user lapkt
+        python3 -m pip install --user lapkt pytest
 
     - name: Test lapkt installation
       run: |
