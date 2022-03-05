@@ -557,7 +557,7 @@ jobs:
       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
 
     - name: Uninstall Python Package
-      run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+      run: python3 -m pip uninstall lapkt
 
     - name: CTest
       working-directory: ${{github.workspace}}/build
