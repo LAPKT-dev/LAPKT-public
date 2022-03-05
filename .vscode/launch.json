@@ -41,7 +41,8 @@
                 // "${workspaceFolder}/test/classical_instance_small/cavediving/testing01.pddl", 
                 // "${workspaceFolder}/test/classical_instance_small/gripper/prob01.pddl", 
                 // "${workspaceFolder}/test/classical_instance_small/hiking-opt14-strips/ptesting-1-2-3.pddl", 
-                "--wait_debug"],
+                "--wait_debug"
+            ],
             "cwd": "${workspaceFolder}",
         },
         //  gdb(Attach) config.
