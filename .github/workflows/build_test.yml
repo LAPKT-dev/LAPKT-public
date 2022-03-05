@@ -497,7 +497,8 @@ jobs:
     runs-on: macos-10.15
     strategy:
       matrix:
-        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        # py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        py_version: ["3.9"]
         # exclude:
         #   - py_version: "3.8"
 
@@ -578,6 +579,11 @@ jobs:
       working-directory: ${{github.workspace}}
       run: |
         pytest
+    
+    - name: Test lapkt installation
+      run: |
+        python3 /Users/runner/.local/bin/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
+        cat plan.ipc
 
     - name: Lint with flake8
       run: |
