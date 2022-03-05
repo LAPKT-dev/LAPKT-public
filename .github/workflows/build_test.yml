@@ -556,6 +556,9 @@ jobs:
     - name: Install Python Package
       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
 
+    - name: Uninstall Python Package
+      run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+
     - name: CTest
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.  
