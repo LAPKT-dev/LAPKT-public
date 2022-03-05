@@ -556,9 +556,6 @@ jobs:
     - name: Install Python Package
       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
 
-    - name: Uninstall Python Package
-      run: python3 -m pip uninstall lapkt
-
     - name: CTest
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.  
@@ -585,7 +582,7 @@ jobs:
     
     - name: Test lapkt installation
       run: |
-        python3 /Users/runner/.local/bin/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
+        python3  ${{github.workspace}}/src/python/_package/script/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
         cat plan.ipc
 
     - name: Lint with flake8
