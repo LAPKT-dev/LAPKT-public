@@ -227,9 +227,9 @@ jobs:
 
     - name: Install pip dependencies
       run: |
-        py -m pip install --upgrade pip
-        py -m pip install flake8 pytest
-        py -m pip install --upgrade build wheel twine
+        python -m pip install --upgrade pip
+        python -m pip install flake8 pytest
+        python -m pip install --upgrade build wheel twine
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
@@ -258,7 +258,7 @@ jobs:
         cmake --build ${{github.workspace}}/build
 
     - name: Install Python Package
-      run: py -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+      run: python -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
 
     - name: CTest
       working-directory: ${{github.workspace}}/build
@@ -277,19 +277,19 @@ jobs:
     - name: Build Pypi Python Package
       run: |
         cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
-        py setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=win_amd64
+        python setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=win_amd64
 
     - name: Pytest
       working-directory: ${{github.workspace}}
       run: |
-        py -m pytest
+        python -m pytest
 
     - name: Lint with flake8
       run: |
         # DON'T[ANU: To be changed later] stop the build if there are Python syntax errors or undefined names
-        py -m flake8 . --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics
+        python -m flake8 . --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        py -m flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        python -m flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
 # # --------------------------------------------------------------------------- #
 
