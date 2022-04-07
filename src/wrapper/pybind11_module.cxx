@@ -1,10 +1,14 @@
 #include <py_strips_interface.hxx>
-// #include <tarski_instantiator.hxx>
+#include <h_1.hxx>
+#include <h_1_callback.hxx>
+#include <strips_prob.hxx>
+#include <fwd_search_prob.hxx>
 #include <strips_prob.hxx>
 
 namespace py = pybind11;
 
 // using namespace tarski;
+using namespace aptk::agnostic;
 
 PYBIND11_MODULE(wrapper, m)
 {
@@ -80,5 +84,32 @@ PYBIND11_MODULE(wrapper, m)
         .def("finalize_actions", &STRIPS_Interface::finalize_actions)
         .def_readwrite("parsing_time", &STRIPS_Interface::m_parsing_time)
         .def_readwrite("ignore_action_costs", &STRIPS_Interface::m_ignore_action_costs)
+    ;
+
+    py::class_<aptk::STRIPS_Problem>(m, "STRIPS_Problem")
+		.def(py::init<std::string, std::string>())
+    ;
+
+    py::class_<Fwd_Search_Problem>(m, "Fwd_Search_Problem")
+        .def(py::init<aptk::STRIPS_Problem*>())
+    ;
+
+
+    py::class_<H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>>(m, "H_Add")
+        .def(py::init<Fwd_Search_Problem&>())
+    ;
+
+    typedef H1_Callback<STRIPS_Interface, Fwd_Search_Problem, H_Add_Evaluation_Function> H_Add_Callback;
+
+    py::class_<H_Add_Callback>(m, "H_Add_Callback")
+        .def(py::init<STRIPS_Interface&>())
+        .def("print_values", &H_Add_Callback::print_values)
+        .def("compute_init_h", static_cast<std::string (H_Add_Callback::*) 
+                (py::list&, py::list&)> (&H_Add_Callback::compute_init_h))
+        .def("compute_init_h", static_cast<std::string (H_Add_Callback::*) 
+                ()> (&H_Add_Callback::compute_init_h))
+        .def("fetch_relevant_actions", &H_Add_Callback::fetch_relevant_actions)
+        .def("fetch_best_supporters", &H_Add_Callback::fetch_best_supporters)
+        .def("fetch_hval_fluents", &H_Add_Callback::fetch_hval_fluents)
     ;
 }

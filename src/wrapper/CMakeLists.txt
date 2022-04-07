@@ -3,11 +3,13 @@ target_sources(wrapper
         py_strips_interface.cxx
         py_strips_interface.hxx
         pybind11_module.cxx
+        h_1_callback.hxx
 )
 
 install(
     FILES
         py_strips_interface.hxx
+        h_1_callback.hxx
     DESTINATION
         ${CMAKE_INSTALL_PREFIX}/${REL_CORE_INC_DIR}/extension
     COMPONENT
