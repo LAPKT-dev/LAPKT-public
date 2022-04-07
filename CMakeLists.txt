@@ -305,6 +305,7 @@ pybind11_add_module(wrapper SHARED)
 # add_library(wrapper SHARED)
 set_target_properties(wrapper PROPERTIES
   PREFIX ""
+  INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN" # CHECK THIS FOR MACOS
 )
 
 # target_include_directories(wrapper PRIVATE
@@ -313,6 +314,7 @@ set_target_properties(wrapper PROPERTIES
 
 target_link_libraries(wrapper PUBLIC
   core
+  ${Boost_LIBRARIES}
   # pybind11::headers
 )
 
@@ -321,6 +323,7 @@ pybind11_add_module(pddl SHARED)
 # add_library(pddl SHARED)
 set_target_properties(pddl PROPERTIES
   PREFIX ""
+  INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
 target_link_libraries(pddl PRIVATE
   core
@@ -335,6 +338,7 @@ pybind11_add_module(planner SHARED)
 # add_library(planner SHARED)
 set_target_properties(planner PROPERTIES
   PREFIX ""
+  INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
 target_link_libraries(planner PRIVATE
   core
