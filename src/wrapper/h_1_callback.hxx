@@ -115,7 +115,34 @@ class H1_Callback :
 			}
 		}
 	}
-	
+
+	void fetch_supporting_actions(py::dict& supp_actions){
+		const STRIPS_Problem&	m_strips_model = H1::m_strips_model;
+		for(unsigned p = 0; p < m_strips_model.num_fluents(); p++){
+			supp_actions[py::handle(
+				py::str( m_strips_model.fluents()[p]->signature()))] = py::list();
+		}
+		for ( unsigned i = 0; i < m_strips_model.num_actions(); i++ ) {
+			const Action& a = *(m_strips_model.actions()[i]);
+			// Relevant if the fluent is in the precondition
+			for ( unsigned j = 0; j < a.add_vec().size(); ++j ) {
+				py::list list = supp_actions[py::handle(py::str(
+					m_strips_model.fluents()[a.add_vec()[j]]->signature()))];
+				list.append(m_strips_model.actions()[i]->signature());
+			}
+
+			for ( unsigned j = 0; j < a.ceff_vec().size(); ++j ) {
+
+				const Conditional_Effect& ceff = *(a.ceff_vec()[j]);
+
+				for ( unsigned k = 0; k < ceff.add_vec().size(); ++k) {
+					py::list list = supp_actions[py::handle(py::str(
+						m_strips_model.fluents()[ceff.add_vec()[k]]->signature()))];
+					list.append(m_strips_model.actions()[i]->signature());
+				}
+			}
+		}
+	}
 	void compute(py::list& hval, py::list& best_supp) {
 		boost::circular_buffer<int>& m_updated = H1::m_updated;
 		Bit_Set& m_already_updated = H1::m_already_updated;
