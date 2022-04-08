@@ -3,7 +3,7 @@ from os import getpid
 from typing import Union
 
 
-from lapkt.core.lib.wrapper import STRIPS_Interface, Fwd_Search_Problem, H_Add_Callback
+from lapkt.core.lib.wrapper import STRIPS_Interface, Fwd_Search_Problem, H_Add
 from lapkt.pddl.tarski import ground_generate_task as process_pddl
 
 
@@ -106,7 +106,7 @@ def test_h_add():
 	with open("fluents.list", 'r') as file:
 		print(file.read())
 
-	h_add = H_Add_Callback(four_action_blocks_problem)
+	h_add = H_Add(four_action_blocks_problem)
 	h_add.print_values()
 	assert(h_add.compute_init_h()=='5')
 	relevant_actions = dict()
