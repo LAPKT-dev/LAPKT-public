@@ -79,7 +79,7 @@ class H1_Callback :
 			best_supp[py::handle(py::str(
 			m_strips_model.fluents()[p]->signature()))] = 
 				m_best_supporters[p].act_idx > m_strips_model.num_actions() - 1 ?
-				"start" :
+				"NA" :
 				m_strips_model.actions()[m_best_supporters[p].act_idx]->signature();
 		}
 	}
