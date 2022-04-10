@@ -24,10 +24,11 @@ public:
 	aptk::STRIPS_Problem*	instance(){
 		return m_problem;
 	}
-    // aptk::STRIPS_Problem	instance(){
+    // aptk::STRIPS_Problem&	_instance(){
 	// 	return *m_problem;
 	// }
-
+	aptk::Fluent_Vec&		get_init()	  			{ return m_problem->init(); }
+	aptk::Fluent_Vec&		get_goal()	  			{ return m_problem->goal(); }
 	void	add_atom(std::string name);
 	void	add_action(std::string name, bool flag_tarski=false);
 	void	add_precondition(int index,

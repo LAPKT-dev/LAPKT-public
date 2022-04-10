@@ -1,4 +1,6 @@
-[![BuildTestLAPKT](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/ubuntu_build_test.yml/badge.svg?branch=Devel2.0)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/ubuntu_build_test.yml)
+[![BuildTest](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/build_test.yml/badge.svg)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/build_test.yml)
+[![PypiPublish](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/pypi_publish.yml/badge.svg)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/pypi_publish.yml)
+[![CodeQL](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/codeql-analysis.yml)
 
 # LAPKT
 
@@ -20,7 +22,8 @@ LAPKT stands for Lightweight Automated Planning Toolkit
 
 **Platform agnostic**
 
-1. The directory where the `pip` command installs the scripts, including `lapkt_run.py`, is generally on the system `PATH`, if not, it needs to be added manually.
+1. The directory where the `pip` command installs the scripts, including `lapkt_cmd.py`, is generally on the system `PATH`, if not, it needs to be added manually.
+2. Python version [ `3.6`, `3.7`, `3.7`, `3.8`, `3.9`, `3.10` ] are supported, with an exception of version `3.6` on windows where there are unresolved compatibility issues.
 
 **@Windows**
 

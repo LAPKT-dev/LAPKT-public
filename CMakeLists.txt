@@ -77,8 +77,21 @@ set(CMAKE_CXX_STANDARD 17)
 # Global flag to cause add_library() to create shared libraries
 set(BUILD_SHARED_LIBS ON)
 # static link with stdc++ and libgcc
-set(CMAKE_EXE_LINKER_FLAGS "-static-libstdc++ -static-libgcc")
-set(CMAKE_SHARED_LINKER_FLAGS  "-static-libstdc++ -static-libgcc") 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  # using Clang
+  set(CMAKE_EXE_LINKER_FLAGS "-static-libstdc++")
+  set(CMAKE_SHARED_LINKER_FLAGS  "-static-libstdc++") 
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  # using GCC
+  set(CMAKE_EXE_LINKER_FLAGS "-static-libstdc++ -static-libgcc")
+  set(CMAKE_SHARED_LINKER_FLAGS  "-static-libstdc++ -static-libgcc") 
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
+  # using Intel C++
+  message(WARNING "The build for Intel compiler hasn't been tested. Proceed with caution")
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  # using Visual Studio C++
+  message(WARNING "The build for MSVC hasn't been tested. Proceed with caution")
+endif()
 if(MINGW)
   # set(CMAKE_SHARED_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--allow-multiple-definition -Wl,-Bstatic,--whole-archive -lpthread  -Wl,-Bdynamic,--no-whole-archive")
   # set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--allow-multiple-definition -Wl,-Bstatic,--whole-archive -lpthread  -Wl,-Bdynamic,--no-whole-archive")
@@ -253,6 +266,30 @@ add_subdirectory(config/cmake/DoxygenSphinxDocs)
 #---- DECLARE library targets and set properties ----#
 
 #---- core - pure cxx component ----#
+if(LINUX_BUILD)
+  # set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};$ORIGIN")
+elseif(WINDOWS_BUILD)
+  # set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};$ORIGIN")
+elseif(MACOS_BUILD)
+  message(STATUS "Setting up RPATH on macos build")
+  # message(STATUS "CMAKE_SKIP_RPATH TRUE")
+  # set(CMAKE_SKIP_RPATH TRUE)
+  # message(STATUS "CMAKE_MACOS_RPATH TRUE")
+  # set(CMAKE_MACOSX_RPATH TRUE)
+  # message(STATUS "CMAKE_INSTALL_NAME_DIR @executable_path")
+  # set(CMAKE_INSTALL_NAME_DIR @executable_path)
+  message(STATUS "CMAKE_INSTALL_NAME_DIR @loader_path")
+  set(CMAKE_INSTALL_NAME_DIR @loader_path)
+  # message(STATUS "CMAKE_BUILD_WITH_INSTALL_RPATH TRUE")
+  # set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+  # message(STATUS "CMAKE_INSTALL_RPATH @executable_path")
+  # set(CMAKE_INSTALL_RPATH @executable_path)
+  # message(STATUS "CMAKE_INSTALL_RPATH @loader_path")
+  # set(CMAKE_INSTALL_RPATH @loader_path)
+  # message(STATUS "CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE")
+  # set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+endif()
 
 add_library(core SHARED)
 
@@ -268,7 +305,7 @@ pybind11_add_module(wrapper SHARED)
 # add_library(wrapper SHARED)
 set_target_properties(wrapper PROPERTIES
   PREFIX ""
-  INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
+  INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN" # CHECK THIS FOR MACOS
 )
 
 # target_include_directories(wrapper PRIVATE
@@ -277,6 +314,7 @@ set_target_properties(wrapper PROPERTIES
 
 target_link_libraries(wrapper PUBLIC
   core
+  ${Boost_LIBRARIES}
   # pybind11::headers
 )
 

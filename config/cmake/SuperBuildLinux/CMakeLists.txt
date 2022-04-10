@@ -22,11 +22,19 @@ endif()
 message("The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
 
 # Install pip requirements
-execute_process(COMMAND ${Python_EXECUTABLE} -m pip install
-  -r ${PROJECT_SOURCE_DIR}/config/pre_build/pip_requirements.txt
+execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --user
+  -r ${PROJECT_SOURCE_DIR}/config/pre_build/general_pip_requirements.txt
   RESULT_VARIABLE out
 )
-message(STATUS "Python result: ${out}")
+message(STATUS "Status- Install general pip result: ${out}")
+
+if(CMAKE_SPHINX_DOCS)
+  execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --user
+    -r ${PROJECT_SOURCE_DIR}/config/pre_build/pip_auto_docs_requirements.txt
+    RESULT_VARIABLE out
+  )
+endif(CMAKE_SPHINX_DOCS)
+message(STATUS "Status- Install auto docs pip dependencies: ${out}")
 
 #Fetch path to Pybind11
 execute_process(COMMAND ${Python_EXECUTABLE} -m pybind11 --cmakedir 
@@ -44,7 +52,6 @@ endif()
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #xxxx SECTION 2 - ADD EXTERNAL PROJECTS
 
-set(ENV{PATH} $ENV{PATH}":C:\\GnuWin32\\bin")
 include(ExternalProject)
 
 # Dependencies of lapkt
