@@ -60,7 +60,7 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
         -DUSE_SUPERBUILD=ON
-        -DCMAKE_FF_CXX=OFF
+        -DCMAKE_FF_CXX=ON
         -DCMAKE_LEGACY_PLANNER=OFF
         -DCMAKE_FD=OFF
         -DCMAKE_TARSKI=ON
@@ -154,7 +154,7 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
         -DUSE_SUPERBUILD=ON
-        -DCMAKE_FF_CXX=OFF
+        -DCMAKE_FF_CXX=ON
         -DCMAKE_LEGACY_PLANNER=OFF
         -DCMAKE_FD=OFF
         -DCMAKE_TARSKI=ON
