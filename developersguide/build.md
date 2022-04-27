@@ -20,7 +20,7 @@ Building LAPKT {#build}
 It involves three steps, configure, build, and install which take the following user defined paramaters. 
 
 - *build_dir* - The directory where the build files are stored
-- *src_dir* - The root directory of the source with the top level `CMakeList` config file. This should be '.'.
+- *src_dir* - The root directory of the source with the top level `CMakeList` config file. 
 - *install_dir* - The path of the directory where the installation files will be stored.
 
 **Configuration step**
