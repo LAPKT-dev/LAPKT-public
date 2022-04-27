@@ -12,7 +12,7 @@ Building LAPKT {#build}
 
 ### A typical set of commands used to build lapkt
 
-        cmake -Bbuild -Ssrc -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release
+        cmake -Bbuild -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release
         cmake --build build -j4 [--target clean](optional)
         cmake  --install build
         cd Release && ctest && ctest ..
