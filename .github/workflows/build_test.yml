@@ -23,7 +23,7 @@ jobs:
 #         py_version: ["3.9", "3.10"]
 
 #     steps:
-#     - uses: actions/checkout@v2
+#     - uses: actions/checkout@v3
 
 #     - name: Remove previous builds if any
 #       run: | 
@@ -36,7 +36,7 @@ jobs:
 #       # python3-dev python3 libfl-dev
       
 #     - name: Set up Python ${{ matrix.py_version }}
-#       uses: actions/setup-python@v2
+#       uses: actions/setup-python@v4
 #       with:
 #         python-version: "${{ matrix.py_version }}"
 
@@ -120,7 +120,7 @@ jobs:
 #         # py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
 
 #     steps:
-#     - uses: actions/checkout@v2
+#     - uses: actions/checkout@v3
 
 #     - name: Remove previous builds if any
 #       run: | 
@@ -133,7 +133,7 @@ jobs:
 #       # python3-dev python3
       
 #     - name: Set up Python ${{ matrix.py_version }}
-#       uses: actions/setup-python@v2
+#       uses: actions/setup-python@v4
 #       with:
 #         python-version: "${{ matrix.py_version }}"
 
@@ -221,10 +221,10 @@ jobs:
 #           - py_version: "3.6"
 
 #     steps:
-#     - uses: actions/checkout@v2
+#     - uses: actions/checkout@v3
       
 #     - name: Set up Python ${{ matrix.py_version }}
-#       uses: actions/setup-python@v2
+#       uses: actions/setup-python@v4
 #       with:
 #         python-version: "${{ matrix.py_version }}"
 
@@ -309,7 +309,7 @@ jobs:
         #   - py_version: "3.8"
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Remove previous builds if any
       run: | 
@@ -321,7 +321,7 @@ jobs:
     #     brew install flex bison python3 libffi
 
     - name: Set up Python ${{ matrix.py_version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "${{ matrix.py_version }}"
 
@@ -408,7 +408,7 @@ jobs:
   #       #   - py_version: "3.8"
 
   #   steps:
-  #   - uses: actions/checkout@v2
+  #   - uses: actions/checkout@v3
 
   #   - name: Remove previous builds if any
   #     run: | 
@@ -420,7 +420,7 @@ jobs:
   #   #     brew install flex bison python3 libffi
 
   #   - name: Set up Python ${{ matrix.py_version }}
-  #     uses: actions/setup-python@v2
+  #     uses: actions/setup-python@v4
   #     with:
   #       python-version: "${{ matrix.py_version }}"
 
@@ -508,7 +508,7 @@ jobs:
         #   - py_version: "3.8"
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Remove previous builds if any
       run: | 
@@ -520,7 +520,7 @@ jobs:
     #     brew install flex bison python3 libffi
 
     - name: Set up Python ${{ matrix.py_version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "${{ matrix.py_version }}"
 
@@ -607,7 +607,7 @@ jobs:
         #   - py_version: "3.8"
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Remove previous builds if any
       run: | 
@@ -619,7 +619,7 @@ jobs:
     #     brew install flex bison python3 libffi
 
     - name: Set up Python ${{ matrix.py_version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "${{ matrix.py_version }}"
 
