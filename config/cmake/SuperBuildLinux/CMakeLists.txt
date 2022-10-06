@@ -4,11 +4,11 @@
 #----SECTION 1.1 -Install python prerequisites ----#
 
 # Fetch Python Exec
-if(MACOS_BUILD)
-  set(Python_FIND_FRAMEWORK "LAST")
+# if(MACOS_BUILD)
+  # set(Python_FIND_FRAMEWORK "LAST")
   # set(ENV{DYLD_FRAMEWORK_PATH} "/usr/local/Frameworks/")
   # set(ENV{DYLD_FRAMEWORK_PATH} "/Applications/Xcode_14.0.1.app/Contents/Developer/Library/Frameworks")
-endif(MACOS_BUILD)
+# endif(MACOS_BUILD)
 
 if(NOT DEFINED PY_VERSION)
   find_package(Python COMPONENTS Interpreter Development)
