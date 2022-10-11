@@ -128,7 +128,7 @@
             "type": "lldb",
             "request": "launch",
             // "macos"
-            "program": "/usr/local/bin/python3",
+            "program": "/usr/local/bin/python3.9",
             // "Ubuntu"
             // "program": "/usr/bin/python3",
             // "Windows with Python 3.10", "Set HOME in Environment variables manually"
