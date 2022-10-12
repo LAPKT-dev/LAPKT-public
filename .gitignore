@@ -21,6 +21,7 @@ external_package/libff
 # Generated files
 build_external
 build
+builds
 release
 Release
 Debug
