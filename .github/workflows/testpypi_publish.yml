@@ -282,7 +282,7 @@ jobs:
     - name: Pytest
       working-directory: ${{github.workspace}}
       run: |
-        python -m pytest
+        pytest
 
     - name: Store the binary wheel
       uses: actions/upload-artifact@v2
