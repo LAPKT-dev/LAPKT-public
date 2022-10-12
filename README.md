@@ -9,7 +9,7 @@ LAPKT stands for Lightweight Automated Planning Toolkit
 ... < A more detailed description > ...
 
 
-# Pypi package: Jump right in!
+# Pypi package(linux and windows): Jump right in!
 
 - Install package
 
@@ -19,7 +19,7 @@ LAPKT stands for Lightweight Automated Planning Toolkit
 
 		lapkt_run.py -h
 
-### NOTE - pypi package for macos is work in progress as of Oct 2022
+### *Note* - as of Oct 2022 `pypi` package for `macos` is `work in progress` 
 
 ## Important platform requirements:  
 
