@@ -309,32 +309,32 @@ add_library(core SHARED)
 #---- Python extensions ----#
 
 #---- CXX Wrappers over LAPKT lib ----#
-# pybind11_add_module(wrapper SHARED)
-add_library(wrapper SHARED)
+
+if(WINDOWS_BUILD)
+  pybind11_add_module(wrapper SHARED)
+elseif(LINUX_BUILD)
+  add_library(wrapper SHARED)
+  target_link_libraries(wrapper PUBLIC
+    pybind11::pybind11
+  )
+endif()
+
 set_target_properties(wrapper PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN" # CHECK THIS FOR MACOS
 )
 
-# target_include_directories(wrapper PRIVATE
-#   ${Python_INCLUDE_DIRS}
-# )
-
 target_link_libraries(wrapper PUBLIC
   core
   ${Boost_LIBRARIES}
-  pybind11::pybind11
 )
-
-if(WINDOWS_BUILD)
-target_link_libraries(wrapper PUBLIC
-  pybind11::module
-)
-endif(WINDOWS_BUILD)
 
 #---- Translate PDDL ----#
-# pybind11_add_module(pddl SHARED)
-add_library(pddl SHARED)
+if(WINDOWS_BUILD)
+  pybind11_add_module(pddl SHARED)
+elseif(LINUX_BUILD)
+  add_library(pddl SHARED)
+endif()
 set_target_properties(pddl PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
@@ -343,22 +343,25 @@ target_link_libraries(pddl PRIVATE
   core
   wrapper
 )
-# target_include_directories(pddl PRIVATE
-#   ${Python_INCLUDE_DIRS}
-# )
 
 #---- Planner ----#
-# pybind11_add_module(planner SHARED)
-add_library(planner SHARED)
+if(WINDOWS_BUILD)
+  pybind11_add_module(planner SHARED)
+elseif(LINUX_BUILD)
+  add_library(planner SHARED)
+endif()
+
 set_target_properties(planner PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
+
 target_link_libraries(planner PRIVATE
   core
   wrapper
   ${Boost_LIBRARIES}
 )
+
 # target_include_directories(planner PRIVATE
 #   ${Python_INCLUDE_DIRS}
 # )
