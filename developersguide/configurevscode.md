@@ -22,6 +22,8 @@ VSCode has an active community of developers which has lead to creation of highl
   - Recommended C/C++ extension settings
         
         "C_Cpp.default.cppStandard": "c++17"
+- vadimcn.vscode-lldb
+  - c++ debug on macos
   
 - ms-vscode.cpptools-extension-pack
   

@@ -2,7 +2,7 @@
 from os import getpid
 from typing import Union
 
-
+import lapkt
 from lapkt.core.lib.wrapper import STRIPS_Interface, Fwd_Search_Problem, H_Add
 from lapkt.pddl.tarski import ground_generate_task as process_pddl
 

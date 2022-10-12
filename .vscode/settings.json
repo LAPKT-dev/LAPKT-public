@@ -3,19 +3,25 @@
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "git.ignoreLimitWarning": true,
     "cmake.configureOnOpen": true,
+    "cmake.buildDirectory" : "${workspaceFolder}/builds/build_${buildType}",
+    "cmake.installPrefix": "${workspaceFolder}/builds/${buildType}",
+    // "cmake.generator": "MinGW Makefiles", // Windows
+    // "cmake.generator": "Unix Makefiles", // Linux/ Macos
     "cmake.configureArgs": [
+        // "-DCMAKE_GENERATOR='Unix Makefiles'",
+        // "-DCMAKE_GENERATOR='MinGW Makefiles'",
         "-DUSE_SUPERBUILD=ON",
         "-DCMAKE_FF_CXX=OFF",
         "-DCMAKE_LEGACY_PLANNER=OFF",
-        "-DCMAKE_FD=ON",
+        "-DCMAKE_FD=OFF",
         "-DCMAKE_TARSKI=ON",
         "-DCMAKE_DOXYGEN_DOCS=OFF", 
         "-DCMAKE_DOXYGEN_FLAT_THEME=OFF",
         "-DCMAKE_DOXYGEN_AWESOME_THEME=OFF",
         "-DCMAKE_SPHINX_DOCS=OFF",
-        "-DCMAKE_STATIC_BOOST=OFF",
+        "-DCMAKE_STATIC_BOOST=ON",
         "-DCMAKE_TESTING_ENABLED=ON",
-        // "-DPY_VERSION=3.9"
+        // "-DPY_VERSION=3.9" // Configure the build for a specific version
     ],
     "files.associations": {
         "*.ipp": "cpp",
@@ -95,6 +101,9 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "master"
+    ],
     // **** The following configurations should be added to you "User" settings
     // **** User setting locations: 
     //      https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations

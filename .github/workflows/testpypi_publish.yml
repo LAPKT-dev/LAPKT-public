@@ -23,10 +23,11 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        py_version: ["3.7", "3.8", "3.9", "3.10"]
+        # py_version: ["3.8", "3.9", "3.10"]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Remove previous builds if any
       run: | 
@@ -38,7 +39,7 @@ jobs:
     #     sudo apt-get install -y flex bison python3-dev python3 libfl-dev
       
     - name: Set up Python ${{ matrix.py_version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "${{ matrix.py_version }}"
 
@@ -60,7 +61,7 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
         -DUSE_SUPERBUILD=ON
-        -DCMAKE_FF_CXX=OFF
+        -DCMAKE_FF_CXX=ON
         -DCMAKE_LEGACY_PLANNER=OFF
         -DCMAKE_FD=OFF
         -DCMAKE_TARSKI=ON
@@ -117,10 +118,11 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        py_version: ["3.7", "3.8", "3.9", "3.10"]
+        # py_version: ["3.8", "3.9", "3.10"]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Remove previous builds if any
       run: | 
@@ -132,7 +134,7 @@ jobs:
     #     sudo apt-get install -y flex bison python3-dev python3 libfl-dev
       
     - name: Set up Python ${{ matrix.py_version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "${{ matrix.py_version }}"
 
@@ -154,7 +156,7 @@ jobs:
         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
         -DUSE_SUPERBUILD=ON
-        -DCMAKE_FF_CXX=OFF
+        -DCMAKE_FF_CXX=ON
         -DCMAKE_LEGACY_PLANNER=OFF
         -DCMAKE_FD=OFF
         -DCMAKE_TARSKI=ON
@@ -211,15 +213,15 @@ jobs:
     runs-on: windows-2019
     strategy:
       matrix:
-        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
-        exclude:
-          - py_version: "3.6"
+        py_version: ["3.7", "3.8", "3.9", "3.10"]
+        # py_version: ["3.8", "3.9", "3.10"]
+        
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       
     - name: Set up Python ${{ matrix.py_version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "${{ matrix.py_version }}"
 
@@ -280,7 +282,7 @@ jobs:
     - name: Pytest
       working-directory: ${{github.workspace}}
       run: |
-        python -m pytest
+        pytest
 
     - name: Store the binary wheel
       uses: actions/upload-artifact@v2
@@ -297,11 +299,11 @@ jobs:
 #     runs-on: macos-11
 #     strategy:
 #       matrix:
-#         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+#         py_version: ["3.7", "3.8", "3.9", "3.10"]
 
 
 #     steps:
-#     - uses: actions/checkout@v2
+#     - uses: actions/checkout@v3
 
 #     - name: Remove previous builds if any
 #       run: | 
@@ -313,7 +315,7 @@ jobs:
 #     #     brew install flex bison python3 libffi
 
 #     - name: Set up Python ${{ matrix.py_version }}
-#       uses: actions/setup-python@v2
+#       uses: actions/setup-python@v4
 #       with:
 #         python-version: "${{ matrix.py_version }}"
 
@@ -385,196 +387,289 @@ jobs:
 #         name: python-package-distributions
 #         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
 
-# # --------------------------------------------------------------------------- #
-
-#   build-macos-11:
-#     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-#     # You can convert this to a matrix build if you need cross-platform coverage.
-#     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-#     runs-on: macos-11
-#     strategy:
-#       matrix:
-#         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
 
 
-#     steps:
-#     - uses: actions/checkout@v2
+# --------------------------------------------------------------------------- #
 
-#     - name: Remove previous builds if any
-#       run: | 
-#         rm -rf ${{github.workspace}}/build
-#         rm -rf ${{github.workspace}}/${{env.BUILD_TYPE}}
+  # build-macos-12:
+  #   # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+  #   # You can convert this to a matrix build if you need cross-platform coverage.
+  #   # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  #   runs-on: macos-12
+  #   strategy:
+  #     matrix:
+  #       # py_version: ["3.7", "3.8", "3.9", "3.10"]
+  #       py_version: ["3.8", "3.9", "3.10"]
+  #       exclude:
+  #         - py_version: "3.9"
 
-#     # - name: Install platform specific dependencies
-#     #   run: |
-#     #     brew install flex bison python3 libffi
 
-#     - name: Set up Python ${{ matrix.py_version }}
-#       uses: actions/setup-python@v2
-#       with:
-#         python-version: "${{ matrix.py_version }}"
+  #   steps:
+  #   - uses: actions/checkout@v3
 
-#     - name: Install pip dependencies
-#       run: |
-#         python3 -m pip install --upgrade pip
-#         python3 -m pip install flake8 pytest
-#         python3 -m pip install --upgrade build wheel twine
-#         brew install gcc@10
-#         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+  #   - name: Remove previous builds if any
+  #     run: | 
+  #       rm -rf ${{github.workspace}}/build
+  #       rm -rf ${{github.workspace}}/${{env.BUILD_TYPE}}
 
-#     - name: Configure CMake
-#       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-#       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-#       run: > 
-#         cmake -B ${{github.workspace}}/build 
-#         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-#         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
-#         -DCMAKE_GENERATOR="Unix Makefiles"
-#         -DUSE_SUPERBUILD=ON
-#         -DCMAKE_FF_CXX=OFF
-#         -DCMAKE_LEGACY_PLANNER=OFF
-#         -DCMAKE_FD=OFF
-#         -DCMAKE_TARSKI=ON
-#         -DCMAKE_DOXYGEN_DOCS=OFF
-#         -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-#         -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-#         -DCMAKE_SPHINX_DOCS=OFF
-#         -DCMAKE_STATIC_BOOST=ON
-#         -DCMAKE_TESTING_ENABLED=ON
-#         -DPY_VERSION="${{ matrix.py_version }}"
+  #   # - name: Install platform specific dependencies
+  #   #   run: |
+  #   #     brew install flex bison python3 libffi
 
-#     - name: Build
-#       # Build your program with the given configuration
-#       run: > 
-#         cmake --build ${{github.workspace}}/build
+  #   - name: Set up Python ${{ matrix.py_version }}
+  #     uses: actions/setup-python@v4
+  #     with:
+  #       python-version: "${{ matrix.py_version }}"
 
-#     - name: Install Python Package
-#       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+  #   - name: Install pip dependencies
+  #     run: |
+  #       python3 -m pip install --upgrade pip
+  #       python3 -m pip install flake8 pytest
+  #       python3 -m pip install --upgrade build wheel twine
+  #       brew install gcc@10
+  #       if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-#     - name: CTest
-#       working-directory: ${{github.workspace}}/build
-#       # Execute tests defined by the CMake configuration.  
-#       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-#       run: ctest
+  #   - name: Configure CMake
+  #     # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+  #     # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+  #     run: > 
+  #       cmake -B ${{github.workspace}}/build 
+  #       -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+  #       -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
+  #       -DCMAKE_GENERATOR="Unix Makefiles"
+  #       -DUSE_SUPERBUILD=ON
+  #       -DCMAKE_FF_CXX=OFF
+  #       -DCMAKE_LEGACY_PLANNER=OFF
+  #       -DCMAKE_FD=OFF
+  #       -DCMAKE_TARSKI=ON
+  #       -DCMAKE_DOXYGEN_DOCS=OFF
+  #       -DCMAKE_DOXYGEN_FLAT_THEME=OFF
+  #       -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
+  #       -DCMAKE_SPHINX_DOCS=OFF
+  #       -DCMAKE_STATIC_BOOST=ON
+  #       -DCMAKE_TESTING_ENABLED=ON
+  #       -DPY_VERSION="${{ matrix.py_version }}"
 
-#     - name: Split version code
-#       uses: xom9ikk/split@v1
-#       id: split
-#       with:
-#         string: ${{ matrix.py_version }}
-#         separator: .
-#         limit: -1
+  #   - name: Build
+  #     # Build your program with the given configuration
+  #     run: > 
+  #       cmake --build ${{github.workspace}}/build
 
-#     - name: Build Pypi Python Package
-#       run: |
-#         cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
-#         python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=macosx_11_0_x86_64
+  #   - name: Install Python Package
+  #     run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
 
-#     - name: Pytest
-#       working-directory: ${{github.workspace}}
-#       run: |
-#         pytest
+  #   - name: CTest
+  #     working-directory: ${{github.workspace}}/build
+  #     # Execute tests defined by the CMake configuration.  
+  #     # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+  #     run: ctest
 
-#     - name: Store the binary wheel
-#       uses: actions/upload-artifact@v2
-#       with:
-#         name: python-package-distributions
-#         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
+  #   - name: Split version code
+  #     uses: xom9ikk/split@v1
+  #     id: split
+  #     with:
+  #       string: ${{ matrix.py_version }}
+  #       separator: .
+  #       limit: -1
 
-# # --------------------------------------------------------------------------- #
+  #   - name: Build Pypi Python Package
+  #     run: |
+  #       cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+  #       python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=macosx_12_0_x86_64
 
-#   build-macos-10_15:
-#     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-#     # You can convert this to a matrix build if you need cross-platform coverage.
-#     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-#     runs-on: macos-10.15
-#     strategy:
-#       matrix:
-#         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+  #   - name: Store the binary wheel
+  #     uses: actions/upload-artifact@v2
+  #     with:
+  #       name: python-package-distributions
+  #       path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
 
-#     steps:
-#     - uses: actions/checkout@v2
 
-#     - name: Remove previous builds if any
-#       run: | 
-#         rm -rf ${{github.workspace}}/build
-#         rm -rf ${{github.workspace}}/${{env.BUILD_TYPE}}
+# --------------------------------------------------------------------------- #
 
-#     # - name: Install platform specific dependencies
-#     #   run: |
-#     #     brew install flex bison python3 libffi
+  # build-macos-11:
+  #   # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+  #   # You can convert this to a matrix build if you need cross-platform coverage.
+  #   # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  #   runs-on: macos-11
+  #   strategy:
+  #     matrix:
+  #       # py_version: ["3.7", "3.8", "3.9", "3.10"]
+  #       py_version: ["3.8", "3.9", "3.10"]
+  #       exclude:
+  #         - py_version: "3.9"
 
-#     - name: Set up Python ${{ matrix.py_version }}
-#       uses: actions/setup-python@v2
-#       with:
-#         python-version: "${{ matrix.py_version }}"
 
-#     - name: Install dependencies
-#       run: |
-#         python3 -m pip install --upgrade pip
-#         python3 -m pip install flake8 pytest
-#         python3 -m pip install --upgrade build wheel twine
-#         brew install gcc@10
-#         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+  #   steps:
+  #   - uses: actions/checkout@v3
 
-#     - name: Configure CMake
-#       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-#       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-#       run: > 
-#         cmake -B ${{github.workspace}}/build 
-#         -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-#         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
-#         -DCMAKE_GENERATOR="Unix Makefiles"
-#         -DUSE_SUPERBUILD=ON
-#         -DCMAKE_FF_CXX=OFF
-#         -DCMAKE_LEGACY_PLANNER=OFF
-#         -DCMAKE_FD=OFF
-#         -DCMAKE_TARSKI=ON
-#         -DCMAKE_DOXYGEN_DOCS=OFF
-#         -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-#         -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-#         -DCMAKE_SPHINX_DOCS=OFF
-#         -DCMAKE_STATIC_BOOST=ON
-#         -DCMAKE_TESTING_ENABLED=ON
-#         -DPY_VERSION="${{ matrix.py_version }}"
+  #   - name: Remove previous builds if any
+  #     run: | 
+  #       rm -rf ${{github.workspace}}/build
+  #       rm -rf ${{github.workspace}}/${{env.BUILD_TYPE}}
 
-#     - name: Build
-#       # Build your program with the given configuration
-#       run: > 
-#         cmake --build ${{github.workspace}}/build
+  #   # - name: Install platform specific dependencies
+  #   #   run: |
+  #   #     brew install flex bison python3 libffi
 
-#     - name: Install Python Package
-#       run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+  #   - name: Set up Python ${{ matrix.py_version }}
+  #     uses: actions/setup-python@v4
+  #     with:
+  #       python-version: "${{ matrix.py_version }}"
 
-#     - name: CTest
-#       working-directory: ${{github.workspace}}/build
-#       # Execute tests defined by the CMake configuration.  
-#       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-#       run: ctest
+  #   - name: Install pip dependencies
+  #     run: |
+  #       python3 -m pip install --upgrade pip
+  #       python3 -m pip install flake8 pytest
+  #       python3 -m pip install --upgrade build wheel twine
+  #       brew install gcc@10
+  #       if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-#     - name: Split version code
-#       uses: xom9ikk/split@v1
-#       id: split
-#       with:
-#         string: ${{ matrix.py_version }}
-#         separator: .
-#         limit: -1
+  #   - name: Configure CMake
+  #     # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+  #     # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+  #     run: > 
+  #       cmake -B ${{github.workspace}}/build 
+  #       -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+  #       -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
+  #       -DCMAKE_GENERATOR="Unix Makefiles"
+  #       -DUSE_SUPERBUILD=ON
+  #       -DCMAKE_FF_CXX=OFF
+  #       -DCMAKE_LEGACY_PLANNER=OFF
+  #       -DCMAKE_FD=OFF
+  #       -DCMAKE_TARSKI=ON
+  #       -DCMAKE_DOXYGEN_DOCS=OFF
+  #       -DCMAKE_DOXYGEN_FLAT_THEME=OFF
+  #       -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
+  #       -DCMAKE_SPHINX_DOCS=OFF
+  #       -DCMAKE_STATIC_BOOST=ON
+  #       -DCMAKE_TESTING_ENABLED=ON
+  #       -DPY_VERSION="${{ matrix.py_version }}"
 
-#     - name: Build Pypi Python Package
-#       run: |
-#         cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
-#         python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=macosx_10_15_x86_64
+  #   - name: Build
+  #     # Build your program with the given configuration
+  #     run: > 
+  #       cmake --build ${{github.workspace}}/build
 
-#     - name: Pytest
-#       working-directory: ${{github.workspace}}
-#       run: |
-#         pytest
+  #   - name: Install Python Package
+  #     run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
 
-#     - name: Store the binary wheel
-#       uses: actions/upload-artifact@v2
-#       with:
-#         name: python-package-distributions
-#         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
+  #   - name: CTest
+  #     working-directory: ${{github.workspace}}/build
+  #     # Execute tests defined by the CMake configuration.  
+  #     # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+  #     run: ctest
+
+  #   - name: Split version code
+  #     uses: xom9ikk/split@v1
+  #     id: split
+  #     with:
+  #       string: ${{ matrix.py_version }}
+  #       separator: .
+  #       limit: -1
+
+  #   - name: Build Pypi Python Package
+  #     run: |
+  #       cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+  #       python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=macosx_11_0_x86_64
+
+  #   - name: Store the binary wheel
+  #     uses: actions/upload-artifact@v2
+  #     with:
+  #       name: python-package-distributions
+  #       path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
+
+# --------------------------------------------------------------------------- #
+
+  # build-macos-10_15:
+  #   # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+  #   # You can convert this to a matrix build if you need cross-platform coverage.
+  #   # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  #   runs-on: macos-10.15
+  #   strategy:
+  #     matrix:
+  #       # py_version: ["3.7", "3.8", "3.9", "3.10"]
+  #       py_version: ["3.8", "3.9", "3.10"]
+  #       exclude:
+  #         - py_version: "3.9"
+
+  #   steps:
+  #   - uses: actions/checkout@v3
+
+  #   - name: Remove previous builds if any
+  #     run: | 
+  #       rm -rf ${{github.workspace}}/build
+  #       rm -rf ${{github.workspace}}/${{env.BUILD_TYPE}}
+
+  #   # - name: Install platform specific dependencies
+  #   #   run: |
+  #   #     brew install flex bison python3 libffi
+
+  #   - name: Set up Python ${{ matrix.py_version }}
+  #     uses: actions/setup-python@v4
+  #     with:
+  #       python-version: "${{ matrix.py_version }}"
+
+  #   - name: Install dependencies
+  #     run: |
+  #       python3 -m pip install --upgrade pip
+  #       python3 -m pip install flake8 pytest
+  #       python3 -m pip install --upgrade build wheel twine
+  #       brew install gcc@10
+  #       if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+  #   - name: Configure CMake
+  #     # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+  #     # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+  #     run: > 
+  #       cmake -B ${{github.workspace}}/build 
+  #       -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+  #       -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/${{env.BUILD_TYPE}}
+  #       -DCMAKE_GENERATOR="Unix Makefiles"
+  #       -DUSE_SUPERBUILD=ON
+  #       -DCMAKE_FF_CXX=OFF
+  #       -DCMAKE_LEGACY_PLANNER=OFF
+  #       -DCMAKE_FD=OFF
+  #       -DCMAKE_TARSKI=ON
+  #       -DCMAKE_DOXYGEN_DOCS=OFF
+  #       -DCMAKE_DOXYGEN_FLAT_THEME=OFF
+  #       -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
+  #       -DCMAKE_SPHINX_DOCS=OFF
+  #       -DCMAKE_STATIC_BOOST=ON
+  #       -DCMAKE_TESTING_ENABLED=ON
+  #       -DPY_VERSION="${{ matrix.py_version }}"
+
+  #   - name: Build
+  #     # Build your program with the given configuration
+  #     run: > 
+  #       cmake --build ${{github.workspace}}/build
+
+  #   - name: Install Python Package
+  #     run: python3 -m pip install ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+
+  #   - name: CTest
+  #     working-directory: ${{github.workspace}}/build
+  #     # Execute tests defined by the CMake configuration.  
+  #     # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+  #     run: ctest
+
+  #   - name: Split version code
+  #     uses: xom9ikk/split@v1
+  #     id: split
+  #     with:
+  #       string: ${{ matrix.py_version }}
+  #       separator: .
+  #       limit: -1
+
+  #   - name: Build Pypi Python Package
+  #     run: |
+  #       cd ${{github.workspace}}/${{env.BUILD_TYPE}}/_package
+  #       python3 setup.py bdist_wheel --python-tag=cp${{ steps.split.outputs._0 }}${{ steps.split.outputs._1 }} --plat-name=macosx_10_15_x86_64
+
+  #   - name: Store the binary wheel
+  #     uses: actions/upload-artifact@v2
+  #     with:
+  #       name: python-package-distributions
+  #       path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
 
 # --------------------------------------------------------------------------- #
 
@@ -586,17 +681,19 @@ jobs:
     - build-windows-2019
     # - build-macos-10_15
     # - build-macos-11-M1
+    # - build-macos-12
     # - build-macos-11
+    # - build-macos-10_15
     - build-ubuntu-18
     - build-ubuntu-20
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       
     - name: Set up Python 3.10
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "3.10"
 

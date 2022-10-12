@@ -26,13 +26,13 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        py_version: ["3.7", "3.8", "3.9", "3.10"]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Set up Python ${{ matrix.py_version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "${{ matrix.py_version }}"
 
@@ -67,13 +67,13 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        py_version: ["3.7", "3.8", "3.9", "3.10"]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
   
     - name: Set up Python ${{ matrix.py_version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "${{ matrix.py_version }}"
 
@@ -102,15 +102,14 @@ jobs:
     runs-on: windows-2019
     strategy:
       matrix:
-        py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
-        exclude:
-          - py_version: "3.6"
+        py_version: ["3.7", "3.8", "3.9", "3.10"]
+        
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       
     - name: Set up Python ${{ matrix.py_version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "${{ matrix.py_version }}"
 
@@ -139,15 +138,15 @@ jobs:
 #     runs-on: macos-latest
 #     strategy:
 #       matrix:
-#         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+#         py_version: ["3.7", "3.8", "3.9", "3.10"]
 #         # exclude:
 #         #   - py_version: "3.8"
 
 #     steps:
-#     - uses: actions/checkout@v2
+#     - uses: actions/checkout@v3
 
 #     - name: Set up Python ${{ matrix.py_version }}
-#       uses: actions/setup-python@v2
+#       uses: actions/setup-python@v4
 #       with:
 #         python-version: "${{ matrix.py_version }}"
 
@@ -177,15 +176,15 @@ jobs:
 #     runs-on: macos-10.15
 #     strategy:
 #       matrix:
-#         py_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+#         py_version: ["3.7", "3.8", "3.9", "3.10"]
 #         # exclude:
 #         #   - py_version: "3.8"
 
 #     steps:
-#     - uses: actions/checkout@v2
+#     - uses: actions/checkout@v3
 
 #     - name: Set up Python ${{ matrix.py_version }}
-#       uses: actions/setup-python@v2
+#       uses: actions/setup-python@v4
 #       with:
 #         python-version: "${{ matrix.py_version }}"
 

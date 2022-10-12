@@ -149,13 +149,21 @@ endfunction()
 #         "INCOMPATIBLE PYTHON VERSION, expected 3.6.x < 3.9.x but found - " 
 #         ${Python_VERSION})
 # endif()
+if(MACOS_BUILD)
+  set(Python_FIND_FRAMEWORK "FIRST")
+  set(ENV{DYLD_FRAMEWORK_PATH} "/usr/local/Frameworks/")
+  # set(ENV{DYLD_FRAMEWORK_PATH} "/Applications/Xcode_14.0.1.app/Contents/Developer/Library/Frameworks")
+endif(MACOS_BUILD)
 if(NOT DEFINED PY_VERSION)
   find_package(Python COMPONENTS Interpreter Development)
 else()
   string(REPLACE "." ";" PY_VERSION_PART ${PY_VERSION})
   LIST(GET PY_VERSION_PART 0 PY_VMAJOR)
   LIST(GET PY_VERSION_PART 1 PY_VMINOR)
-  find_package(Python ${PY_VMAJOR}...<${PY_VMINOR} COMPONENTS Interpreter Development)
+  MATH(EXPR PY_VMINOR_NEXT "${PY_VMINOR} + 1")
+  # find_package(Python ${PY_VMAJOR}...<${PY_VMINOR} COMPONENTS Interpreter Development)
+  find_package(Python ${PY_VMAJOR}.${PY_VMINOR}...<${PY_VMAJOR}.${PY_VMINOR_NEXT} 
+    COMPONENTS Interpreter Development)
 endif()
 # if(${Python_VERSION} VERSION_LESS 3.6.0)
 #   message(SEND_ERROR 
@@ -301,26 +309,32 @@ add_library(core SHARED)
 #---- Python extensions ----#
 
 #---- CXX Wrappers over LAPKT lib ----#
-pybind11_add_module(wrapper SHARED)
-# add_library(wrapper SHARED)
+
+if(WINDOWS_BUILD)
+  pybind11_add_module(wrapper SHARED)
+elseif(LINUX_BUILD)
+  add_library(wrapper SHARED)
+  target_link_libraries(wrapper PUBLIC
+    pybind11::pybind11
+  )
+endif()
+
 set_target_properties(wrapper PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN" # CHECK THIS FOR MACOS
 )
 
-# target_include_directories(wrapper PRIVATE
-#   ${Python_INCLUDE_DIRS}
-# )
-
 target_link_libraries(wrapper PUBLIC
   core
   ${Boost_LIBRARIES}
-  # pybind11::headers
 )
 
 #---- Translate PDDL ----#
-pybind11_add_module(pddl SHARED)
-# add_library(pddl SHARED)
+if(WINDOWS_BUILD)
+  pybind11_add_module(pddl SHARED)
+elseif(LINUX_BUILD)
+  add_library(pddl SHARED)
+endif()
 set_target_properties(pddl PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
@@ -329,22 +343,25 @@ target_link_libraries(pddl PRIVATE
   core
   wrapper
 )
-# target_include_directories(pddl PRIVATE
-#   ${Python_INCLUDE_DIRS}
-# )
 
 #---- Planner ----#
-pybind11_add_module(planner SHARED)
-# add_library(planner SHARED)
+if(WINDOWS_BUILD)
+  pybind11_add_module(planner SHARED)
+elseif(LINUX_BUILD)
+  add_library(planner SHARED)
+endif()
+
 set_target_properties(planner PROPERTIES
   PREFIX ""
   INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:$ORIGIN"
 )
+
 target_link_libraries(planner PRIVATE
   core
   wrapper
   ${Boost_LIBRARIES}
 )
+
 # target_include_directories(planner PRIVATE
 #   ${Python_INCLUDE_DIRS}
 # )
