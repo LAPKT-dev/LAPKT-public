@@ -9,7 +9,7 @@ endif()
 
 # Install the pip package
 execute_process(COMMAND ${Python3_EXECUTABLE} -m pip install .
-    WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}
+    WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/_package
     RESULT_VARIABLE out
 )
 

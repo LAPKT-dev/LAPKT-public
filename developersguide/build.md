@@ -7,17 +7,23 @@ Building LAPKT {#build}
 
 # IMPORTANT
 
-1. Install the manual build dependencies listed in `PREBUILD_DEPENDENCIES.txt` prior to the cmake build. The file is located in the repo's root directory.
-2. Certain pre-build dependencies are handled by lapkt's SuperBuild cmake script. This can be disabled using the cmake argument `-DUSE_SUPERBUILD=OFF`.
+0. If you have a pre-existing `build` directory delete it if you are having compilation issues.
 
-### A typical set of commands used to build lapkt
+1. Install the manual build dependencies listed in [`https://github.com/LAPKT-dev/LAPKT-public/blob/Devel2.0/config/pre_build/general_pip_requirements.txt`](config/pre_build/general_pip_requirements.txt) prior to the cmake build. The file is located in the repo's root directory.
 
-        cmake -Bbuild -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release
+2. Build LAPKT with the following command
+
+        cmake -Bbuild -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release -DUSE_SUPERBUILD=ON
         cmake --build build -j4 [--target clean](optional)
+3. Install the built sourcecode if you want to have system wide access        
+       
         cmake  --install build
-        cd Release && ctest && ctest ..
 
-It involves three steps, configure, build, and install which take the following user defined paramaters. 
+<!-- 4. Test to check everything went correctly
+
+        cd Release && ctest && ctest .. -->
+
+The three steps above involve, configure, build, and install which take the following user defined paramaters. 
 
 - *build_dir* - The directory where the build files are stored
 - *src_dir* - The root directory of the source with the top level `CMakeList` config file. 
@@ -79,4 +85,5 @@ It involves three steps, configure, build, and install which take the following 
 
                 -DCATCH2_ROOT="<Path>"
 
-
+### Superbuild
+2. Certain pre-build dependencies are handled by lapkt's SuperBuild cmake script. This can be disabled using the cmake argument `-DUSE_SUPERBUILD=OFF`.

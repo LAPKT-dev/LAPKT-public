@@ -19,6 +19,9 @@ execution.details
 external_package/libff
 
 # Generated files
+external_build
+external_download
+external_lib
 build_external
 build
 builds

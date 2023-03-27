@@ -17,8 +17,9 @@ LAPKT stands for Lightweight Automated Planning Toolkit
 
 - Checkout lapkt options
 
-		lapkt_run.py -h
+		lapkt_cmd.py -h
 
+The python script can be found [here](https://github.com/LAPKT-dev/LAPKT-public/blob/Devel2.0/src/python/_package/script/lapkt_cmd.py)
 ### *Note* - as of Oct 2022 `pypi` package for `macos` is `work in progress` 
 
 ## Important platform requirements:  
