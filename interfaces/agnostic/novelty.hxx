@@ -224,7 +224,7 @@ protected:
 					} else {
 
 						// If all elements in the tuple are equal, ignore the tuple
-						if (std::any_of(tuple.cbegin(), tuple.cend(), [&tuple](unsigned x){ return x != tuple[0]; }  )) continue;
+						if (std::all_of(tuple.cbegin(), tuple.cend(), [&tuple](unsigned x){ return x == tuple[0]; })) continue;
 						/**
 						 * get tuples from indexes
 						 */
@@ -328,7 +328,7 @@ protected:
 			} else {
 				
 				// If all elements in the tuple are equal, ignore the tuple
-				if (std::any_of(tuple.cbegin(), tuple.cend(), [&tuple](unsigned x){ return x != tuple[0]; }  )) continue;
+				if (std::all_of(tuple.cbegin(), tuple.cend(), [&tuple](unsigned x){ return x == tuple[0]; })) continue;
 				tuple_idx = tuple2idx( tuple, arity );
 			}
 			
