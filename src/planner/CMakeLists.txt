@@ -1,7 +1,7 @@
 
 file(WRITE ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/planner/lapkt_planner_config.yml "")
 
-add_subdirectory(pybinding)
+add_subdirectory(approximate_novelty_search)
 add_subdirectory(anytime_lapkt)
 add_subdirectory(at_bfs_f)
 add_subdirectory(bfs_f)

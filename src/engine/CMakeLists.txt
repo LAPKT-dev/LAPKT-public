@@ -20,7 +20,17 @@ target_sources(core
         serialized_search.hxx
         siw.hxx
         siw_plus.hxx
-
+        approx_novelty_bfws_2h_consistency_M.hxx
+        approx_novelty_bfws_2h_consistency.hxx
+        approx_novelty_bfws_2h_M.hxx
+        approx_novelty_bfws_2h.hxx
+        approx_novelty_bfws_4h.hxx
+        approx_novelty_rp_iw.hxx
+        approx_novelty_serialized_search.hxx
+        approx_novelty_siw_plus.hxx
+        approx_novelty_siw.hxx
+        approx_novelty_dfs_plus.hxx
+        approx_novelty_iw.hxx
 )
 
 target_include_directories(core
@@ -56,6 +66,17 @@ install(
         ${PROJECT_SOURCE_DIR}/src/engine/serialized_search.hxx
         ${PROJECT_SOURCE_DIR}/src/engine/siw.hxx
         ${PROJECT_SOURCE_DIR}/src/engine/siw_plus.hxx
+        ${PROJECT_SOURCE_DIR}/src/engine/approx_novelty_bfws_2h_consistency_M.hxx
+        ${PROJECT_SOURCE_DIR}/src/engine/approx_novelty_bfws_2h_consistency.hxx
+        ${PROJECT_SOURCE_DIR}/src/engine/approx_novelty_bfws_2h_M.hxx
+        ${PROJECT_SOURCE_DIR}/src/engine/approx_novelty_bfws_2h.hxx
+        ${PROJECT_SOURCE_DIR}/src/engine/approx_novelty_bfws_4h.hxx
+        ${PROJECT_SOURCE_DIR}/src/engine/approx_novelty_rp_iw.hxx
+        ${PROJECT_SOURCE_DIR}/src/engine/approx_novelty_serialized_search.hxx
+        ${PROJECT_SOURCE_DIR}/src/engine/approx_novelty_siw_plus.hxx
+        ${PROJECT_SOURCE_DIR}/src/engine/approx_novelty_siw.hxx
+        ${PROJECT_SOURCE_DIR}/src/engine/approx_novelty_dfs_plus.hxx
+        ${PROJECT_SOURCE_DIR}/src/engine/approx_novelty_iw.hxx
     DESTINATION
         ${CMAKE_INSTALL_PREFIX}/lapkt/core/include/engine
     COMPONENT

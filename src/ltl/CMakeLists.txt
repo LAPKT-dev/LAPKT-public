@@ -17,6 +17,9 @@ target_sources(core
         string_conversions.hxx
         time.hxx
         types.hxx
+        bloomfilter.hxx
+        hash_functions.hxx
+        math_utility.hxx
 )
 target_include_directories(core
     PUBLIC
