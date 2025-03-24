@@ -6,22 +6,22 @@ Copyright 2022
 Miquel Ramirez <miquel.ramirez@unimelb.edu.au>Nir Lipovetzky <nirlipo@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files 
-(the "Software"), to deal in the Software without restriction, 
-including without limitation the rights to use, copy, modify, merge, 
-publish, distribute, sublicense, and/or sell copies of the Software, 
+a copy of this software and associated documentation files
+(the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
 and to permit persons to whom the Software is furnished to do so, subject
  to the following conditions:
 
-The above copyright notice and this permission notice shall be included 
+The above copyright notice and this permission notice shall be included
 in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
@@ -46,9 +46,9 @@ namespace aptk
 
 		template <typename Search_Model>
 		class SIW : public Serialized_Search<Search_Model,
-											 brfs::IW<Search_Model,
-													  aptk::agnostic::Novelty<Search_Model, aptk::search::brfs::Node<aptk::State>>>,
-											 aptk::search::brfs::Node<aptk::State>>
+																				 brfs::IW<Search_Model,
+																									aptk::agnostic::Novelty<Search_Model, aptk::search::brfs::Node<aptk::State>>>,
+																				 aptk::search::brfs::Node<aptk::State>>
 		{
 
 		public:
@@ -56,7 +56,7 @@ namespace aptk
 			typedef aptk::agnostic::Landmarks_Graph Landmarks_Graph;
 
 			SIW(const Search_Model &search_problem)
-				: Serialized_Search<Search_Model, brfs::IW<Search_Model, aptk::agnostic::Novelty<Search_Model, Search_Node>>, Search_Node>(search_problem), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0), m_max_bound(std::numeric_limits<unsigned>::max())
+					: Serialized_Search<Search_Model, brfs::IW<Search_Model, aptk::agnostic::Novelty<Search_Model, Search_Node>>, Search_Node>(search_problem), m_pruned_sum_B_count(0), m_sum_B_count(0), m_max_B_count(0), m_iw_calls(0), m_max_bound(std::numeric_limits<unsigned>::max())
 			{
 				m_goal_agenda = NULL;
 			}
@@ -79,7 +79,7 @@ namespace aptk
 
 				if (this->verbose())
 					std::cout << std::endl
-							  << "Caption\n{#goals, #UNnachieved,  #Achieved} -> IW(max_w)" << std::endl;
+										<< "Caption\n{#goals, #UNnachieved,  #Achieved} -> IW(max_w)" << std::endl;
 
 				if (m_goal_agenda)
 				{
@@ -88,14 +88,14 @@ namespace aptk
 				else
 				{
 					this->m_goal_candidates.insert(this->m_goal_candidates.begin(),
-												   this->problem().task().goal().begin(), this->problem().task().goal().end());
+																				 this->problem().task().goal().begin(), this->problem().task().goal().end());
 				}
 
 				do
 				{
 					if (this->verbose())
 						std::cout << std::endl
-								  << "{" << gsize << "/" << this->m_goal_candidates.size() << "/" << this->m_goals_achieved.size() << "}:IW(" << this->bound() << ") -> ";
+											<< "{" << gsize << "/" << this->m_goal_candidates.size() << "/" << this->m_goals_achieved.size() << "}:IW(" << this->bound() << ") -> ";
 					end = this->do_search();
 					m_pruned_sum_B_count += this->pruned_by_bound();
 

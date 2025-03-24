@@ -6,22 +6,22 @@ Copyright 2022
 Miquel Ramirez <miquel.ramirez@unimelb.edu.au>Nir Lipovetzky <nirlipo@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files 
-(the "Software"), to deal in the Software without restriction, 
-including without limitation the rights to use, copy, modify, merge, 
-publish, distribute, sublicense, and/or sell copies of the Software, 
+a copy of this software and associated documentation files
+(the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
 and to permit persons to whom the Software is furnished to do so, subject
  to the following conditions:
 
-The above copyright notice and this permission notice shall be included 
+The above copyright notice and this permission notice shall be included
 in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
@@ -33,31 +33,32 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <iostream>
 #include <iomanip>
 
-namespace aptk {
-    #ifdef WIN32
+namespace aptk
+{
+#ifdef WIN32
 
-        #include <sys/time.h>			/* for struct timeval */
-        #include <limits.h>				/* for CLK_TCK */
+#include <sys/time.h> /* for struct timeval */
+#include <limits.h>   /* for CLK_TCK */
 
-        #define RUSAGE_SELF		0
+#define RUSAGE_SELF 0
 
-        struct rusage
-        {
-            struct timeval ru_utime;	/* user time used */
-            struct timeval ru_stime;	/* system time used */
-        };
+    struct rusage
+    {
+        struct timeval ru_utime; /* user time used */
+        struct timeval ru_stime; /* system time used */
+    };
 
-        int getrusage(int who, struct rusage *rusage);
-    #endif
+    int getrusage(int who, struct rusage *rusage);
+#endif
 
     double time_used();
 
     template <typename Stream>
-    void report_interval( double t0, double t1, Stream& os );
+    void report_interval(double t0, double t1, Stream &os);
 
-    #ifndef WIN32
-        double mem_used();
-    #endif
+#ifndef WIN32
+    double mem_used();
+#endif
 
 };
 
