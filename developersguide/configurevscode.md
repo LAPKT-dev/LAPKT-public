@@ -1,13 +1,6 @@
-# IDE: VSCode configuration {#vscode}
+# VSCode configuration
 
-@tableofcontents
-
-### Why do I need this?
-
-VSCode has an active community of developers which has lead to creation of highly useful community developed extensions which are regularly updated. Even if you plan to use a different IDE, we highly recommend configuring it with the following features.
-
-1. Auto-generate `Doxygen` compatible comment blocks.
-2. Linter for C++17 or higher.
+VSCode has an active community of developers who maintain many useful extensions. This guide would help a user get started with LAPKT development using VSCode
 
 ### General tips for VSCode configuration
 
@@ -16,16 +9,16 @@ VSCode has an active community of developers which has lead to creation of highl
 - The default template for configuration can be added using `Add Configuration` option in the GUI menu.
 - `Ctrl+Shift+P` opens the command interface.
 
-### Recommended VSCode Extensions (extension id)
+### Recommended VSCode Extensions
 
 - ms-vscode.cpptools
-  - Recommended C/C++ extension settings
-        
-        "C_Cpp.default.cppStandard": "c++17"
-- vadimcn.vscode-lldb
-  - c++ debug on macos
-  
+  - C/C++ extensions
+
 - ms-vscode.cpptools-extension-pack
+  - C/C++ extensions
+
+- vadimcn.vscode-lldb
+  - to debug on macos
   
 - cschlosser.doxdocgen(installed along with ms-vscode.cpptools-extension-pack)
   - Automatically generates comment blocks that parsed by Doxygen to generate source documentation
@@ -48,7 +41,5 @@ VSCode has an active community of developers which has lead to creation of highl
         "cmake.buildDirectory" : "${workspaceFolder}/build",
 
 - twxs.cmake (cmake language support)
-- ms-python.python
-- ms-python.vscode-pylance
-- littlefoxteam.vscode-python-test-adapter
 
+- ms-python.python

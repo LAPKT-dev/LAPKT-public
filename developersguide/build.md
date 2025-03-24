@@ -1,89 +1,96 @@
-Building LAPKT {#build}
-===============
+# Building LAPKT
 
-@tableofcontents
+We use `cmake` to manage the build process. The build handles the compilation of core LAPKT libraries which are written in C++. It also compiles python bindings that allow us to expose the core C++ classes and methods to the python frontend. 
 
-`cmake` is the primary tool used to build the lapkt's C++(backend) source code. We also use it to generate Python/C++ library package which is ready to go as a `pypi` package. 
+The `cmake` build also restructures the compiled binary the a package that can be shipped as a `pip` installable.
 
-# IMPORTANT
+The cmake script has been tested on standard [os images](https://github.com/actions/runner-images) available on Github Actions. The [build-test](../.github/workflows/build_test.yml) workflow configuration lists all the build and test commands.
 
-0. If you have a pre-existing `build` directory delete it if you are having compilation issues.
+(user) can also use the [Apptainer configuration](../Apptainer.ApxNoveltyTarski) to build a self contained package
 
-1. Install the manual build dependencies listed in [`https://github.com/LAPKT-dev/LAPKT-public/blob/Devel2.0/config/pre_build/general_pip_requirements.txt`](config/pre_build/general_pip_requirements.txt) prior to the cmake build. The file is located in the repo's root directory.
+## Build prerequisites
 
-2. Build LAPKT with the following command
+The build requires development tools specific to the operating system that you are using.
 
-        cmake -Bbuild -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release -DUSE_SUPERBUILD=ON
-        cmake --build build -j4 [--target clean](optional)
-3. Install the built sourcecode if you want to have system wide access        
-       
-        cmake  --install build
+| Operating System | Tested Versions | 
+|----|-----|
+| [Ubuntu](ubuntu_requirements.md)|18.04/ 20.04/ 22.04|
+| [Windows](windows_requirements.md)| 2019 |
+
+## Build steps
+
+0. If you have a pre-existing `build` directory, then delete it if you are having compilation issues.
+
+
+1. To build LAPKT, run the following command from the root of the lapkt source directory
+
+        cmake -Bbuilds/build -DCMAKE_INSTALL_PREFIX=Release -DCMAKE_BUILD_TYPE=Release -DUSE_SUPERBUILD=ON
+
+        cmake --build builds/build -j4 [--target clean](optional)
+
+   This would create a package, `lapkt_package`, at the root of the source directory. Users can directly run/debug lapkt with the following command
+
+        cd <source_dir>
+
+        python3 lapkt_package/lapkt.py -h
+
+2. Install the built source code if you want to have system wide access (optional)
+
+        cmake  --install builds/build
+
+   Same can achieved with the pip install as well
+        
+        python3 -m pip install --user  Release/_package/
+
+   In Ubuntu, this installs the python script `lapkt_cmd.py` in local binary directory, typically at `$HOME/.local/bin/lapkt_cmd.py`, and `lapkt` library files into the python shared module directory, `$HOME/.local/lib/python<version>/site-packages/lapkt/`. 
 
 <!-- 4. Test to check everything went correctly
 
         cd Release && ctest && ctest .. -->
 
-The three steps above involve, configure, build, and install which take the following user defined paramaters. 
 
-- *build_dir* - The directory where the build files are stored
-- *src_dir* - The root directory of the source with the top level `CMakeList` config file. 
-- *install_dir* - The path of the directory where the installation files will be stored.
+## Custom build steps (advanced usage)
+
+The build process involves three step, configure, build, and install. Each step can take additional parameter. We list some of the useful configuration parameters below.
 
 **Configuration step**
   
         cmake -B<build_dir> -S<src_dir> -DCMAKE_INSTALL_PREFIX=<install_dir> -DCMAKE_BUILD_TYPE={Release|Debug}
 
+| Parameter | Usage |
+|----|----|
+| *build_dir* | build output path |
+| *src_dir* | source directory |
+| `CMAKE_INSTALL_PREFIX` | installation path |
+| `CMAKE_CXX_COMPILER` | specify a g++ version, tested with `g++-8`, `g++-9`, `g++-10`, `g++-11` `g++-12` |
+| `CMAKE_C_COMPILER` | specify a gcc version, tested with `gcc-8`, `gcc-9`, `gcc-10`, `gcc-11` `gcc-12` |
+| `CMAKE_INSTALL_PREFIX` | installation path |
+| `CMAKE_BUILD_TYPE` | Release for production and Debug for debugging the source|
+| `USE_SUPERBUILD` | builds all dependencies from source (makes the build independent of any pre-existing installation of dependencies), it is set to ON by default |
+| `CMAKE_FD` | add fast-downward parser and grounder to the package, default ON |
+| `CMAKE_TARSKI` | add tarski parser and grounder to the package, default ON |
+| `GEN_DOXYGEN_DOCS` | automatically generate doxygen html docs from source and md files, default OFF |
+| `GEN_DOXYSPHINX_DOCS` | automatically generate sphinx rtd theme html docs, default OFF |
+| `CMAKE_STATIC_BOOST` | Static link boost, default ON |
+| `CMAKE_TESTING_ENABLED` | build ctest executables, default OFF |
+| `CMAKE_FF`, `CMAKE_LEGACY_PLANNER`| build executables for planners that use the FF parser and grounder, only for testing, default OFF |
+| `CMAKE_FF`, `CMAKE_LEGACY_PLANNER`| build executables for planners that use the FF parser and grounder, only for testing, default OFF |
+| `BOOST_ROOT`| Path to Boost installtion (required if `USE_SUPERBUILD=OFF` is not used), default "" |
+| `CATCH2_ROOT`| Path to Catch2 installtion (required if `USE_SUPERBUILD=OFF` is not used), default "" |
+
 **Build step**
 
         cmake --build <build_dir> -j<cpu_count>
+
+| Parameter | Usage |
+|----|----|
+| *build_dir* | build path, same as configuration step |
+| *cpu_count* | maximum CPUs used in parallel |
         
 **Installation step**
 
-        cmake  --install <build_dir> [--component {Runtime|Development}]
+        cmake  --install <build_dir>
 
-
-### Cmake options 
-
-- **Cmake properties**
-  - Specify compiler version
-
-                -DCMAKE_CXX_COMPILER=g++-8 -DCMAKE_C_COMPILER=gcc-8
-
-- **Project specific** Cmake configuration
-
-  - Add external package - FD PDDL parser and grounder
-
-                -DCMAKE_FD=ON
-
-  - Add external package - FF parser and grounder
-        
-                -DCMAKE_FF=ON
-
-  - Build doxygen docs
-
-                -DCMAKE_DOXYGEN_DOCS=ON
-
-  - Select doxygen themes
-
-                -DCMAKE_DOXYGEN_FLAT_THEME=ON
-                -DCMAKE_DOXYGEN_AWESOME_THEME=ON
-                
-  - Prepare sphinx rtf theme docs via Doxygen->exhale(Sphinx extension) pipline
-                
-                -DCMAKE_SPHINX_DOCS=ON
-
-  - Boost build parameters
-    - Path to where the pre-build dependencies compiled by the superbuild cmake script are installed
-
-                -DDEPS_INSTALL_PREFIX="<Path>"
-
-    - Path to the directory where Boost2 lib is installed(only required if SUPERBUILD is not used)
-
-                -DBOOST_ROOT="<Path>"
-
-    - Path to the directory where Catch2 lib is installed(only required if SUPERBUILD is not used)
-
-                -DCATCH2_ROOT="<Path>"
-
-### Superbuild
-2. Certain pre-build dependencies are handled by lapkt's SuperBuild cmake script. This can be disabled using the cmake argument `-DUSE_SUPERBUILD=OFF`.
+| Parameter | Usage |
+|----|----|
+| *build_dir* | build path, same as configuration step |
