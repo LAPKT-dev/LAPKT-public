@@ -114,14 +114,14 @@ endif()
 
 # BUILD CATCH2
 
-if(CMAKE_TESTING_ENABLED)
+if(BUILD_CPP_TESTS)
   list(APPEND DEPENDENCIES
     external_catch2
   )
   ExternalProject_Add(external_catch2
     # GIT_REPOSITORY https://github.com/catchorg/Catch2
     # GIT_TAG  v3.0.0-preview4
-    URL ${PROJECT_SOURCE_DIR}/external_package/Catch2-3.0.0-preview4.tar.gz
+    URL ${PROJECT_SOURCE_DIR}/external_package/Catch2-3.4.0.tar.gz
     DOWNLOAD_EXTRACT_TIMESTAMP TRUE
     SOURCE_DIR ${DEPS_DOWNLOAD_DIR}/Catch2
     #SOURCE_SUBDIR src
@@ -136,7 +136,7 @@ if(CMAKE_TESTING_ENABLED)
   list (APPEND EXTRA_CMAKE_ARGS
     -DCatch2_ROOT=${DEPS_INSTALL_PREFIX}/Catch2
   )
-endif(CMAKE_TESTING_ENABLED)
+endif(BUILD_CPP_TESTS)
 
 # BUILD BOOST
 
