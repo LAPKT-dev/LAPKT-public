@@ -13,7 +13,7 @@ target_sources(planner PRIVATE planner_py_module.cxx)
 #     )
 # endif()
 
-add_subdirectory(approximate_novelty_search)
+add_subdirectory(apx_novelty_search)
 add_subdirectory(anytime_lapkt)
 add_subdirectory(at_bfs_f)
 add_subdirectory(bfs_f)
