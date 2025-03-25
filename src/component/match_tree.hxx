@@ -106,7 +106,7 @@ namespace aptk
 
 		private:
 			const STRIPS_Problem &m_problem;
-			BaseNode *root_node;
+			BaseNode *root_node = nullptr;
 		};
 
 	}
