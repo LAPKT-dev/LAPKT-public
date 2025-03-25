@@ -86,8 +86,12 @@ namespace aptk
     {
 
       // TODO: This fluents.size() stuff needs to change to the number of mutexes once they're computed
-      static std::vector<int> var_count = std::vector<int>(prob.fluents().size(), 0);
-      std::fill(var_count.begin(), var_count.end(), 0);
+      // static std::vector<int> var_count = std::vector<int>(prob.fluents().size(), 0);
+      // std::fill(var_count.begin(), var_count.end(), 0);
+
+      static std::vector<int> var_count;
+
+      var_count.resize(prob.fluents().size(), 0);
 
       int max_size = 0;
       int best_var = 0;
