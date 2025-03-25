@@ -1,4 +1,4 @@
-# Building LAPKT
+# Building LAPKT {#build}
 
 We use `cmake` to manage the build process. The build handles the compilation of core LAPKT libraries which are written in C++. It also compiles python bindings that allow us to expose the core C++ classes and methods to the python frontend. 
 
@@ -14,7 +14,7 @@ The build requires development tools specific to the operating system that you a
 
 | Operating System | Tested Versions | 
 |----|-----|
-| [Ubuntu](ubuntu_requirements.md)|18.04/ 20.04/ 22.04|
+| [Ubuntu](ubuntu_requirements.md)|20.04/ 22.04/ 24.04 |
 | [Windows](windows_requirements.md)| 2019 |
 
 ## Build steps
@@ -44,9 +44,10 @@ The build requires development tools specific to the operating system that you a
 
    In Ubuntu, this installs the python script `lapkt_cmd.py` in local binary directory, typically at `$HOME/.local/bin/lapkt_cmd.py`, and `lapkt` library files into the python shared module directory, `$HOME/.local/lib/python<version>/site-packages/lapkt/`. 
 
-<!-- 3. Test to check everything went correctly
+3. Test to check everything went correctly
 
-        cd Release && ctest && ctest .. -->
+        cd builds/build/ && ctest && cd ../.. \
+        cd pytest && python3 -m pytest -W ignore::DeprecationWarning && cd ..
 
 
 ## Custom build steps (advanced usage)

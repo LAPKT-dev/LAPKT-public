@@ -10,5 +10,7 @@ A collection of state-of-the-art classical planning libraries.
 
 **Contents**
 
-- \subpage inanutshell
-- \subpage howtocontrib
+- \subpage build
+- \subpage vscode
+- \subpage doxygen
+- \subpage debug

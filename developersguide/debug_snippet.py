@@ -1,8 +1,8 @@
 """
-Info- The below snippet is for use when debugging mixed Python and C++ code. 
+Info- The below snippet is for use when debugging mixed Python and C++ code.
 This should be added at the beginning of the python frontend.
 
-Effect - It will cause the python script to wait for user input, giving the 
+Effect - It will cause the python script to wait for user input, giving the
 developer enough time to attach a gdb session to the python programs PID.
 
 We can attach gdb from command line or use an IDE like vscode.
@@ -42,16 +42,20 @@ We can attach gdb from command line or use an IDE like vscode.
 }
 
 NOTE - Trying to attach gdb at pdb breakpoints or by setting stopOnEntry true
-will not work as gdb is unable to load symbol table properly when python is 
+will not work as gdb is unable to load symbol table properly when python is
 paused like that. - The root cause is unknown.
 """
-#"""
+
+# """
 import os
+
+
 def wait_debug(str):
-    print (str)
+    print(str)
     wait = input()
     return
 
-print ("PID =", os.getpid())
-wait_debug('starting main..press a key')
-#"""
+
+print("PID =", os.getpid())
+wait_debug("starting main..press a key")
+# """

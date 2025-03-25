@@ -2,61 +2,10 @@
 [![PypiPublish](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/pypi_publish.yml/badge.svg)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/pypi_publish.yml)
 [![CodeQL](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/LAPKT-dev/LAPKT-public/actions/workflows/codeql-analysis.yml)
 
-# LAPKT
 
-LAPKT stands for Lightweight Automated Planning Toolkit
+![LAPKT](cmake/docs/resources/logo/lapkt-low-resolution-logo-color-on-transparent-background.png)
 
-... < A more detailed description > ...
-
-
-# Pypi package(linux and windows): Jump right in!
-
-- Install package
-
-		python3 -m pip install lapkt
-
-- Checkout lapkt options
-
-		lapkt_cmd.py -h
-
-The python script can be found [here](https://github.com/LAPKT-dev/LAPKT-public/blob/Devel2.0/src/python/_package/script/lapkt_cmd.py)
-### *Note* - as of Oct 2022 `pypi` package for `macos` is `work in progress` 
-
-## Important platform requirements:  
-
-**Platform agnostic**
-
-1. The directory where the `pip` command installs the scripts, including `lapkt_cmd.py`, is generally on the system `PATH`, if not, it needs to be added manually.
-2. Python version [ `3.7`, `3.7`, `3.8`, `3.9`, `3.10` ] are supported
-
-**@Windows**
-
-1. `clingo/gringo` python package requires `MSVCP140.dll` which comes with visual studio redistributable. [latest vc-redist](https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
-2. To be able to run `lapkt_run.py` script directly from command line, change the default handler for ".py" files to `Python'.
-
-
-# Introduction to LAPKT 4 Devs
-============================
-
-IMPORTANT! 
-----------
-Developers who intend to build from source are required to **manually** install the following PRE-BUILD dependencies. These will not be handled by the cmake tool.
-
-**@Ubuntu**
-
-	python3 >= 3.7 <= 3.10
-	python3-dev >= 3.7 <= 3.10
-	cmake >= 3.19
-	gcc>=8
-	g++>=8
-
-As of 2022, the easiest way to get latest version is cmake's pypi package
-
-*Note* -You would need the following if you plan to compile parser from FF to process PDDL input. Otherwise, these are not needed.
-
-	* flex
-	* bison
-	* libfl-dev
+LAPKT aims to make your life easier if your purpose is to create, use or extend basic to advanced Automated Planners. It's an open-source Toolkit written in C++ and Python with simple interfaces that give you complete flexibility by decoupling parsers from problem representations and algorithms. It has been succesfully used in embedded systems, webservices, compilations, replanning and contains some of the high-performance planners from the last International Planning Competition 2014.
 
 AUTHORS
 =======
@@ -66,17 +15,9 @@ AUTHORS
 - Anubhav Singh <anubhav.singh.er@protonmail.com>
 - Christian Muise <christian.muise@gmail.com>
 
-CONTENTS
-========
 
-1. Overview of toolkit components
-2. Building LAPKT
-3. Search algorithms implemented
-4. Examples
-5. Contributing
-6. Requirements
 
-1 - OVERVIEW
+OVERVIEW
 ===========
 
 LAPKT separates search engines from the data structures used to represent
@@ -90,13 +31,44 @@ do so, LAPKT makes heavy use of C++ templates and the Static Strategy design pat
 At the time of writing this, the modularity and decoupling of components isn't as high 
 as I would like, there's still a lot of work to do :)
 
-LAPKT is bound to change rapidly and dramatically over the next months, so please keep
-this in mind when using this library.
+Pypi package (linux and windows): Jump right in!
+=================================================
+- Install package
 
-2 - BUILDING LAPKT
-==================
+		python3 -m pip install lapkt
 
-[Build instructions](developersguide/build.md)
+- Checkout lapkt options
 
-`cmake` is the primary tool used to build the LAPKT's C++(backend) source code. We also use it to generate Python/C++ library package which is ready to go as a `pypi` package. 
+		lapkt_cmd.py -h
+
+## Important platform requirements:
+
+**@Ubuntu**
+
+1. The directory where the `pip` command installs the scripts, including `lapkt_cmd.py`, is generally on the system `PATH`, if not, it needs to be added manually.
+2. Python versions: `3.7`, `3.8`, `3.9`, `3.10`, `3.11`, and `3.12` are supported on Ubuntu 20.04 and 22.04 (and other linux version with the same glibc versions). Python `3.7` is not supported on Ubuntu 24.04.
+
+**@Windows**
+
+1. Python versions: `3.9`, `3.10`, `3.11`, and `3.12` are supported.
+2. `clingo/gringo` python package requires `MSVCP140.dll` which comes with visual studio redistributable. [latest vc-redist](https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
+3. To be able to run `lapkt_run.py` script directly from command line, change the default handler for ".py" files to `Python'.
+
+
+Introduction to LAPKT 4 Devs
+================================
+
+> [!Important] 
+> Refer to [Developers Guide](./developersguide) for [build instructions](developersguide/build.md) and other helpful instruction on extending LAPKT. 
+
+`cmake` is the primary tool used to build the LAPKT's C++(backend) source code and generate Python/C++ library package in `pypi` package structure. 
+
+
+# Apptainer Configurations
+
+Apptainer configurations are avaliable for a few planners in [./apptainer_configurations](./apptainer_configurations). 
+
+To build, execute
+
+	apptainer build ApxNovelty.sif  Apptainer.ApxNovelty
 

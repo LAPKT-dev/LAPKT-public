@@ -1,4 +1,4 @@
-# VSCode configuration
+# VSCode configuration {#vscode}
 
 VSCode has an active community of developers who maintain many useful extensions. This guide would help a user get started with LAPKT development using VSCode
 
