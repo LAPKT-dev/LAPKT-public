@@ -20,11 +20,7 @@ else()
   find_package(Python ${PY_VMAJOR}.${PY_VMINOR}...<${PY_VMAJOR}.${PY_VMINOR_NEXT} 
     COMPONENTS Interpreter Development)
 endif()
-# if(${Python_VERSION} VERSION_LESS 3.6.0)
-#   message(SEND_ERROR
-#     "INCOMPATIBLE PYTHON VERSION, expected >3.6.x but found - "
-#     ${Python_VERSION})
-# endif()
+
 message("The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
 
 # Install pip requirements
@@ -34,13 +30,6 @@ execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --user
 )
 message(STATUS "Status- Install general pip result: ${out}")
 
-if(GEN_SPHINX_DOCS)
-  execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --user
-    -r ${PROJECT_SOURCE_DIR}/config/pre_build/pip_auto_docs_requirements.txt
-    RESULT_VARIABLE out
-  )
-endif(GEN_SPHINX_DOCS)
-message(STATUS "Status- Install auto docs pip dependencies: ${out}")
 
 
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
@@ -53,7 +42,7 @@ set(DEPENDENCIES)
 
 
 # Download Doxygen
-if(GEN_DOXYGEN_DOCS OR GEN_DOXYSPHINX_DOCS)
+if(GEN_DOXYGEN_DOCS)
 
   list(APPEND DEPENDENCIES
     external_doxygen
@@ -92,7 +81,7 @@ if(GEN_DOXYGEN_DOCS OR GEN_DOXYSPHINX_DOCS)
   else()
     message(ERROR "Doxygen exec is not found on the host system.")
   endif()
-endif(GEN_DOXYGEN_DOCS OR GEN_DOXYSPHINX_DOCS)
+endif(GEN_DOXYGEN_DOCS)
 
 # Synchronize and update the FD submodule
 if(NOT EXISTS ${PROJECT_SOURCE_DIR}/external_package/fd_translate/translate.py)

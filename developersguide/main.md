@@ -12,4 +12,3 @@ A collection of state-of-the-art classical planning libraries.
 
 - \subpage inanutshell
 - \subpage howtocontrib
-- \subpage discourse

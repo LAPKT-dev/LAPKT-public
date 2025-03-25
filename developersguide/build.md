@@ -28,23 +28,23 @@ The build requires development tools specific to the operating system that you a
 
         cmake --build builds/build -j4 [--target clean](optional)
 
-   This would create a package, `lapkt_package`, at the root of the source directory. Users can directly run/debug lapkt with the following command
+   This would create a package, `Release/lapkt_package`, at the root of the source directory. Users can directly run/debug lapkt with the following command
 
         cd <source_dir>
 
-        python3 lapkt_package/lapkt.py -h
+        python3 Release/lapkt_package/lapkt.py -h
 
 2. Install the built source code if you want to have system wide access (optional)
 
         cmake  --install builds/build
 
-   Same can achieved with the pip install as well
+   Same can be achieved with the pip install as well
         
         python3 -m pip install --user  Release/_package/
 
    In Ubuntu, this installs the python script `lapkt_cmd.py` in local binary directory, typically at `$HOME/.local/bin/lapkt_cmd.py`, and `lapkt` library files into the python shared module directory, `$HOME/.local/lib/python<version>/site-packages/lapkt/`. 
 
-<!-- 4. Test to check everything went correctly
+<!-- 3. Test to check everything went correctly
 
         cd Release && ctest && ctest .. -->
 
@@ -70,7 +70,6 @@ The build process involves three step, configure, build, and install. Each step 
 | `CMAKE_FD` | add fast-downward parser and grounder to the package, default ON |
 | `CMAKE_TARSKI` | add tarski parser and grounder to the package, default ON |
 | `GEN_DOXYGEN_DOCS` | automatically generate doxygen html docs from source and md files, default OFF |
-| `GEN_DOXYSPHINX_DOCS` | automatically generate sphinx rtd theme html docs, default OFF |
 | `CMAKE_STATIC_BOOST` | Static link boost, default ON |
 | `CMAKE_TESTING_ENABLED` | build ctest executables, default OFF |
 | `CMAKE_FF`, `CMAKE_LEGACY_PLANNER`| build executables for planners that use the FF parser and grounder, only for testing, default OFF |

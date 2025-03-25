@@ -4,7 +4,7 @@ MIT License
 Copyright (c) 2022 Anubhav Singh(anubhav.singh.er@pm.me)
 """
 
-from os import access, X_OK, environ, pathsep
+from os import access, X_OK, environ, pathsep, system
 from contextlib import contextmanager
 from sre_constants import SUCCESS
 from time import time, process_time
@@ -106,19 +106,19 @@ class Planner:
         """
         load problem from pddl files
         """
-        if self.config['lapkt_instance_generator']['value'] == 'Tarski':
+        if self.config['grounder']['value'] == 'Tarski':
             try:
                 from .pddl.tarski import ground_generate_task as process_task
             except Exception:
                 print('Tarski PDDL translator is not installed!')
                 exit()
-        elif self.config['lapkt_instance_generator']['value'] == 'FF':
+        elif self.config['grounder']['value'] == 'FF':
             try:
                 from .pddl.ff import pddl_translate_ff as process_task
             except Exception:
                 print('FF PDDL translator is not installed!')
                 exit()
-        elif self.config['lapkt_instance_generator']['value'] == 'FD':
+        elif self.config['grounder']['value'] == 'FD':
             try:
                 from .pddl.fd import default as process_task
             except Exception:
@@ -130,12 +130,12 @@ class Planner:
                 "The value doesn't match supported parsers -" +
                 " Tarski/FF/FD")
 
-        if self.config['lapkt_instance_generator']['value'] == 'FF':
+        if self.config['grounder']['value'] == 'FF':
             process_task(
                 self.config['domain']['value'],
                 self.config['problem']['value'], self.planner_instance,
                 self.planner_instance.ignore_action_costs, False)
-        elif (self.config['lapkt_instance_generator']['value']
+        elif (self.config['grounder']['value']
               in ['Tarski', 'FD']):
             process_task(
                 self.config['domain']['value'],
@@ -176,6 +176,18 @@ class Planner:
             bool(not (self.config.get('no_match_tree',
                       None) and self.config['no_match_tree']['value'])))
         self.planner_instance.solve()
+        
+        if self.config["anytime_fd"]['value'] != None:
+            with time_taken("Running FD"):
+                fd_cmd =  "python3 {} --plan-file {} --portfolio-bound {} {} {}".format(
+                    self.config["anytime_fd"]['value'],
+                    self.config["plan_file"]['value'], 
+                    int(self.planner_instance.plan_cost), 
+                    self.config['domain']['value'], 
+                    self.config['problem']['value']
+                )
+                system(fd_cmd)
+            
         return SUCCESS
 
     def _spawn_container(self, name):

@@ -31,7 +31,7 @@ setup(
         ],
     python_requires='>=3.7',
     install_requires=[
-        'tarski-lapkt[gringo]',  # PLACEHOLDER until tarski's next major update
+        'tarski-lapkt[gringo, arithmetic]',  # PLACEHOLDER until tarski's next major update
         # 'tarski',
         # "tarski[gringo] @ git+https://github.com/aig-upf/tarski.git@devel",
         # "tarski[gringo] @ git+https://github.com/anubhav-cs/tarski.git@devel",

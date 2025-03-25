@@ -67,7 +67,11 @@ def process_arguments(debug: bool = False) -> dict:
             help='If specified, plan is checked for correctioness' +
             'using validate')
         parser.add_argument(
-            '--lapkt_instance_generator', action='store',
+            '--anytime_fd', action='store',
+            nargs='?', required=False, 
+            help='Anytime variant using Fast Downward (FD) as the complete solver. Specify the path to FD.')
+        parser.add_argument(
+            '--grounder', action='store',
             nargs='?', default='Tarski',
             help='Choice of parser - Tarski<Default>,FD or FF')
         if(debug):

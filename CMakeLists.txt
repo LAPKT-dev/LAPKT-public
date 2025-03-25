@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.19)
 
+cmake_policy(SET CMP0144 OLD)
+cmake_policy(SET CMP0167 OLD)
+
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #------------ SUPERBUILD/PREBUILD  script------------#
@@ -122,9 +125,6 @@ option(CMAKE_FD "Install FD pddl" ON)
 # handles the intregration of Tarski grounder and lapkt library
 option(CMAKE_TARSKI "Build and install the extension for tarski" ON)
 
-# Create Sphinx Docs (pddld from Doxygen XML)
-option(GEN_SPHINX_DOCS "GEN_SPHINX_DOCS" OFF)
-
 # Create Doxygen html Docs
 option(GEN_DOXYGEN_DOCS "GEN_DOXYGEN_DOCS" OFF)
 
@@ -143,12 +143,6 @@ endfunction()
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 
 #---- Python  ----#
-# find_package(Python 3.6...<3.11  COMPONENTS Interpreter Development)
-# if(${Python_VERSION} GREATER 3.10 OR ${Python_VERSION} LESS 3.6)
-#     message(SEND_ERROR 
-#         "INCOMPATIBLE PYTHON VERSION, expected 3.6.x < 3.9.x but found - " 
-#         ${Python_VERSION})
-# endif()
 if(MACOS_BUILD)
   set(Python_FIND_FRAMEWORK "FIRST")
   set(ENV{DYLD_FRAMEWORK_PATH} "/usr/local/Frameworks/")
@@ -165,10 +159,7 @@ else()
   find_package(Python ${PY_VMAJOR}.${PY_VMINOR}...<${PY_VMAJOR}.${PY_VMINOR_NEXT} 
     COMPONENTS Interpreter Development)
 endif()
-# if(${Python_VERSION} VERSION_LESS 3.6.0)
-#   message(SEND_ERROR 
-#     "UNTESTED PYTHON VERSION, expected >3.6.x but found - " ${Python_VERSION})
-# endif()
+
 
 message("The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
 
@@ -538,11 +529,6 @@ install(DIRECTORY
     COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
 )
 
-install(PROGRAMS
-    ${PROJECT_SOURCE_DIR}/src/python/lapkt.py
-    DESTINATION ${CMAKE_SOURCE_DIR}/lapkt_package
-    COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
-)
 
 install(PROGRAMS
 ${PROJECT_SOURCE_DIR}/src/python/lapkt.py
@@ -554,12 +540,6 @@ install(DIRECTORY
   ${CMAKE_INSTALL_PREFIX}/${REL_LAPKT_ROOT}/
   USE_SOURCE_PERMISSIONS
   DESTINATION ${REL_PYPI_LAPKT_ROOT}
-  COMPONENT PYPACKAGE 
-)
-install(DIRECTORY
-  ${CMAKE_INSTALL_PREFIX}/${REL_PYPI_LAPKT_ROOT}
-  USE_SOURCE_PERMISSIONS
-  DESTINATION ${CMAKE_SOURCE_DIR}/lapkt_package
   COMPONENT PYPACKAGE 
 )
 

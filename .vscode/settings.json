@@ -8,102 +8,25 @@
     // "cmake.generator": "MinGW Makefiles", // Windows
     // "cmake.generator": "Unix Makefiles", // Linux/ Macos
     "cmake.configureArgs": [
-        // "-DCMAKE_GENERATOR='Unix Makefiles'",
-        // "-DCMAKE_GENERATOR='MinGW Makefiles'",
-        "-DUSE_SUPERBUILD=ON",
-        "-DCMAKE_FF_CXX=OFF",
-        "-DCMAKE_LEGACY_PLANNER=OFF",
-        "-DCMAKE_FD=OFF",
-        "-DCMAKE_TARSKI=ON",
-        "-DCMAKE_DOXYGEN_DOCS=OFF", 
-        "-DCMAKE_DOXYGEN_FLAT_THEME=OFF",
-        "-DCMAKE_DOXYGEN_AWESOME_THEME=OFF",
-        "-DCMAKE_SPHINX_DOCS=OFF",
-        "-DCMAKE_STATIC_BOOST=ON",
-        "-DCMAKE_TESTING_ENABLED=ON",
+        // "-DCMAKE_GENERATOR='Unix Makefiles'", // Default
+        // "-DCMAKE_GENERATOR='MinGW Makefiles'", // Windows
+        "-DUSE_SUPERBUILD=ON",  // Default: ON
+        "-DCMAKE_FF_CXX=OFF",  // Default: OFF
+        "-DCMAKE_LEGACY_PLANNER=OFF",  // Default: OFF
+        "-DCMAKE_FD=ON",  // Default: ON
+        "-DCMAKE_TARSKI=ON",  // Default: ON
+        "-DGEN_DOXYGEN_DOCS=OFF",  // Default: OFF
+        "-DCMAKE_STATIC_BOOST=ON",  // Default: ON
+        "-DCMAKE_TESTING_ENABLED=OFF",  // Default: OFF
+        // By default cmake would link to the latest version of the python library
         // "-DPY_VERSION=3.9" // Configure the build for a specific version
     ],
-    "files.associations": {
-        "*.ipp": "cpp",
-        "cctype": "cpp",
-        "clocale": "cpp",
-        "cmath": "cpp",
-        "cstddef": "cpp",
-        "cstdio": "cpp",
-        "cstdlib": "cpp",
-        "cstring": "cpp",
-        "cwchar": "cpp",
-        "cwctype": "cpp",
-        "array": "cpp",
-        "atomic": "cpp",
-        "bit": "cpp",
-        "*.tcc": "cpp",
-        "compare": "cpp",
-        "concepts": "cpp",
-        "cstdint": "cpp",
-        "deque": "cpp",
-        "map": "cpp",
-        "set": "cpp",
-        "unordered_map": "cpp",
-        "vector": "cpp",
-        "exception": "cpp",
-        "algorithm": "cpp",
-        "functional": "cpp",
-        "iterator": "cpp",
-        "memory": "cpp",
-        "memory_resource": "cpp",
-        "numeric": "cpp",
-        "optional": "cpp",
-        "random": "cpp",
-        "string": "cpp",
-        "string_view": "cpp",
-        "system_error": "cpp",
-        "tuple": "cpp",
-        "type_traits": "cpp",
-        "utility": "cpp",
-        "initializer_list": "cpp",
-        "iosfwd": "cpp",
-        "iostream": "cpp",
-        "istream": "cpp",
-        "limits": "cpp",
-        "new": "cpp",
-        "ostream": "cpp",
-        "ranges": "cpp",
-        "stdexcept": "cpp",
-        "streambuf": "cpp",
-        "cinttypes": "cpp",
-        "typeinfo": "cpp",
-        "numbers": "cpp",
-        "chrono": "cpp",
-        "ctime": "cpp",
-        "ratio": "cpp",
-        "sstream": "cpp",
-        "variant": "cpp",
-        "list": "cpp",
-        "fstream": "cpp",
-        "iomanip": "cpp",
-        "strstream": "cpp",
-        "bitset": "cpp",
-        "complex": "cpp",
-        "condition_variable": "cpp",
-        "cstdarg": "cpp",
-        "forward_list": "cpp",
-        "unordered_set": "cpp",
-        "mutex": "cpp",
-        "semaphore": "cpp",
-        "stop_token": "cpp",
-        "thread": "cpp",
-        "typeindex": "cpp"
-    },
     "C_Cpp.default.cppStandard": "c++17",
     "python.testing.pytestArgs": [
         "test/pytest/tarski_interface"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "githubPullRequests.ignoredPullRequestBranches": [
-        "master"
-    ],
     // **** The following configurations should be added to you "User" settings
     // **** User setting locations: 
     //      https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations

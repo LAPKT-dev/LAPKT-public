@@ -8,13 +8,6 @@ developersguide/build.md
 
 ```{toctree}
 :hidden:
-:caption: LcgPlan Documentations
-:maxdepth: 1
-Source <docs/doxysphinx/html/index>
-```
-
-```{toctree}
-:hidden:
 :maxdepth: 1
 :caption: Development
 
