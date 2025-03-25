@@ -31,7 +31,7 @@ jobs:
     
     - name: Install platform specific requirements
       run: |
-        sudo apt-get install -y flex bison libfl-dev
+        sudo apt-get install -y flex bison libfl-dev graphviz
       # python3-dev python3 libfl-dev
       
     - name: Set up Python ${{ matrix.py_version }}
@@ -61,10 +61,7 @@ jobs:
         -DCMAKE_LEGACY_PLANNER=OFF
         -DCMAKE_FD=ON
         -DCMAKE_TARSKI=ON
-        -DCMAKE_DOXYGEN_DOCS=ON
-        -DCMAKE_DOXYGEN_FLAT_THEME=ON
-        -DCMAKE_DOXYGEN_AWESOME_THEME=ON
-        -DCMAKE_SPHINX_DOCS=ON
+        -DGEN_DOXYGEN_DOCS=ON
         -DCMAKE_STATIC_BOOST=ON
         -DCMAKE_TESTING_ENABLED=ON
         -DPY_VERSION="${{ matrix.py_version }}"
@@ -159,10 +156,7 @@ jobs:
         -DCMAKE_LEGACY_PLANNER=OFF
         -DCMAKE_FD=ON
         -DCMAKE_TARSKI=ON
-        -DCMAKE_DOXYGEN_DOCS=OFF 
-        -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-        -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-        -DCMAKE_SPHINX_DOCS=OFF 
+        -DGEN_DOXYGEN_DOCS=OFF 
         -DCMAKE_STATIC_BOOST=ON
         -DCMAKE_TESTING_ENABLED=ON
         -DPY_VERSION="${{ matrix.py_version }}"
@@ -242,10 +236,7 @@ jobs:
         -DCMAKE_LEGACY_PLANNER=OFF
         -DCMAKE_FD=ON
         -DCMAKE_TARSKI=ON
-        -DCMAKE_DOXYGEN_DOCS=OFF
-        -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-        -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-        -DCMAKE_SPHINX_DOCS=OFF
+        -DGEN_DOXYGEN_DOCS=OFF
         -DCMAKE_STATIC_BOOST=ON
         -DCMAKE_TESTING_ENABLED=ON
         -DPY_VERSION="${{ matrix.py_version }}"
@@ -342,10 +333,7 @@ jobs:
   #       -DCMAKE_LEGACY_PLANNER=OFF
   #       -DCMAKE_FD=ON
   #       -DCMAKE_TARSKI=ON
-  #       -DCMAKE_DOXYGEN_DOCS=OFF
-  #       -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-  #       -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-  #       -DCMAKE_SPHINX_DOCS=OFF
+  #       -DGEN_DOXYGEN_DOCS=OFF
   #       -DCMAKE_STATIC_BOOST=ON
   #       -DCMAKE_TESTING_ENABLED=ON
   #       -DPY_VERSION="${{ matrix.py_version }}"
@@ -441,10 +429,7 @@ jobs:
   #       -DCMAKE_LEGACY_PLANNER=OFF
   #       -DCMAKE_FD=ON
   #       -DCMAKE_TARSKI=ON
-  #       -DCMAKE_DOXYGEN_DOCS=OFF
-  #       -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-  #       -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-  #       -DCMAKE_SPHINX_DOCS=OFF
+  #       -DGEN_DOXYGEN_DOCS=OFF
   #       -DCMAKE_STATIC_BOOST=ON
   #       -DCMAKE_TESTING_ENABLED=ON
   #       -DCMAKE_C_FLAGS="-target arm64-apple-macos11"
@@ -542,10 +527,7 @@ jobs:
 #         -DCMAKE_LEGACY_PLANNER=OFF
 #         -DCMAKE_FD=ON
 #         -DCMAKE_TARSKI=ON
-#         -DCMAKE_DOXYGEN_DOCS=OFF
-#         -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-#         -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-#         -DCMAKE_SPHINX_DOCS=OFF
+#         -DGEN_DOXYGEN_DOCS=OFF
 #         -DCMAKE_STATIC_BOOST=ON
 #         -DCMAKE_TESTING_ENABLED=ON
 #         -DPY_VERSION="${{ matrix.py_version }}"
@@ -644,10 +626,7 @@ jobs:
 #         -DCMAKE_LEGACY_PLANNER=OFF
 #         -DCMAKE_FD=ON
 #         -DCMAKE_TARSKI=ON
-#         -DCMAKE_DOXYGEN_DOCS=OFF
-#         -DCMAKE_DOXYGEN_FLAT_THEME=OFF
-#         -DCMAKE_DOXYGEN_AWESOME_THEME=OFF
-#         -DCMAKE_SPHINX_DOCS=OFF
+#         -DGEN_DOXYGEN_DOCS=OFF
 #         -DCMAKE_STATIC_BOOST=ON
 #         -DCMAKE_TESTING_ENABLED=ON
 #         -DPY_VERSION="${{ matrix.py_version }}"
