@@ -53,7 +53,7 @@ jobs:
         cat plan.ipc
 
     - name: Pytest
-      working-directory: ${{github.workspace}}
+      working-directory: ${{github.workspace}}/pytest
       run: |
         pytest
 
@@ -87,7 +87,7 @@ jobs:
         cat plan.ipc
 
     - name: Pytest
-      working-directory: ${{github.workspace}}
+      working-directory: ${{github.workspace}}/pytest
       run: |
         pytest
 
@@ -122,7 +122,7 @@ jobs:
         cat plan.ipc
 
     - name: Pytest
-      working-directory: ${{github.workspace}}
+      working-directory: ${{github.workspace}}/pytest
       run: |
         py -m pytest
 
