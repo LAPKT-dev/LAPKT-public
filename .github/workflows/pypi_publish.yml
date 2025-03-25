@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        py_version: ["3.7", "3.8", "3.9", "3.10"]
+        py_version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
 
     steps:
     - uses: actions/checkout@v3
@@ -116,7 +116,7 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        py_version: ["3.7", "3.8", "3.9", "3.10"]
+        py_version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
 
     steps:
     - uses: actions/checkout@v3
@@ -207,7 +207,7 @@ jobs:
     runs-on: windows-2019
     strategy:
       matrix:
-        py_version: ["3.9", "3.10"]
+        py_version: ["3.9", "3.10", "3.11", "3.12"]
         
 
     steps:
@@ -289,7 +289,7 @@ jobs:
 #     runs-on: macos-11
 #     strategy:
 #       matrix:
-#         py_version: ["3.7", "3.8", "3.9", "3.10"]
+#         py_version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
 
 
 #     steps:
@@ -383,7 +383,7 @@ jobs:
 #     runs-on: macos-11
 #     strategy:
 #       matrix:
-#         py_version: ["3.7", "3.8", "3.9", "3.10"]
+#         py_version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
 
 
 #     steps:
@@ -476,7 +476,7 @@ jobs:
 #     runs-on: macos-10.15
 #     strategy:
 #       matrix:
-#         py_version: ["3.7", "3.8", "3.9", "3.10"]
+#         py_version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
 
 #     steps:
 #     - uses: actions/checkout@v3
