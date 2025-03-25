@@ -1,0 +1,72 @@
+# Stage 1: Compile the planner
+Bootstrap: docker
+From: ubuntu:kinetic
+Stage: build
+
+%files
+    .
+
+%post
+    ## Install all necessary dependencies.  
+    apt-get update
+    apt-get -y install cmake python3 python3-dev python3-pip make g++ git
+
+    ## Configure the build
+    cmake -S. -Bbuilds/build_release -DCMAKE_INSTALL_PREFIX=builds/Release -DCMAKE_BUILD_TYPE=Release -DUSE_SUPERBUILD=ON
+
+    ## Build the planner
+    cmake --build builds/build_release -j4
+
+    ## Build FD
+    tar -xvf external_package/downward-release-22.12.0.tar.gz  -C builds/Release/
+
+    python3 builds/Release/downward-release-22.12.0/build.py
+
+# Stage 2: Run the planner
+Bootstrap: docker
+From: ubuntu:kinetic
+Stage: run
+
+# # Copy planner binary and required files from Stage 1.
+%files from build
+    builds/Release/lapkt_package/
+    builds/Release/downward-release-22.12.0/
+
+%post
+    ## Install only dependencies for running the planner.
+    apt-get update
+    apt-get -y install python3-minimal python3-pip
+    ## Remove unnecessary files to keep the image small.
+    rm -rf /var/lib/apt/lists/*
+    python3 -m pip install ruamel.yaml
+
+# The runscript is called whenever the container is used to solve an instance.
+%runscript
+    DOMAINFILE="$1"
+    PROBLEMFILE="$2"
+    PLANFILE="$3"
+
+    python3 /builds/Release/lapkt_package/lapkt.py Approximate_BFWS \
+        --grounder FD \
+        --anytime_fd "/builds/Release/downward-release-22.12.0/fast-downward.py  --alias lazy-rwastar --overall-time-limit 30m"\
+        --actual_action_costs_in_output\
+        --plan_file "$PLANFILE" \
+        -d "$DOMAINFILE" \
+        -p "$PROBLEMFILE" \
+
+## Define meta data
+%labels
+Name        Approximate Novelty Anytime
+Description The anytime configuration of the planner. It uses ApxNovelty search to find the first satisficing plan. After which, it switches to lazy wastar with a upper bound on the plan cost, and continues to optimize the solutions until timeout.
+Authors     Anubhav Singh <anubhavs@student.unimelb.edu.au>, Nir Lipovetzky <nir.lipovetzky@unimelb.edu.au>, Miquel Ramirez <miquel.ramirez@unimelb.edu.au>, Javier Segovia-Aguas <javier.segovia@upf.edu>
+License     MIT
+Tracks      Satisficing
+SupportsDerivedPredicates                       no
+SupportsUniversallyQuantifiedPreconditions      yes
+SupportsExistentiallyQuantifiedPreconditions    yes
+SupportsUniversallyQuantifiedEffects            yes
+SupportsNegativePreconditions                   yes
+SupportsEqualityPreconditions                   yes
+SupportsInequalityPreconditions                 yes
+SupportsConditionalEffects                      yes
+SupportsImplyPreconditions                      no
