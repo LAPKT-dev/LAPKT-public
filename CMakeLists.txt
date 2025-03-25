@@ -235,7 +235,7 @@ message("THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
 
 #---- Catch2 ----#
 
-if(CMAKE_TESTING_ENABLED)
+if(BUILD_CPP_TESTS)
   find_package(Catch2 3 REQUIRED
   # As of cmake-v3.12 <PackageName>_ROOT is the first path that is checked
   # PATHS ${Catch2_ROOT} 
@@ -393,8 +393,8 @@ target_link_libraries(planner PRIVATE
 add_subdirectory(src)
 
 # Unit tests
-if(CMAKE_TESTING_ENABLED)
-  add_subdirectory(test)
+if(BUILD_CPP_TESTS)
+  add_subdirectory(ctest)
 endif()
 
 #------------ SECTION 3.3  Install -------------#

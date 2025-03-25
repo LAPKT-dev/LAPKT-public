@@ -71,7 +71,7 @@ The build process involves three step, configure, build, and install. Each step 
 | `CMAKE_TARSKI` | add tarski parser and grounder to the package, default ON |
 | `GEN_DOXYGEN_DOCS` | automatically generate doxygen html docs from source and md files, default OFF |
 | `CMAKE_STATIC_BOOST` | Static link boost, default ON |
-| `CMAKE_TESTING_ENABLED` | build ctest executables, default OFF |
+| `BUILD_CPP_TESTS` | build ctest executables, default OFF |
 | `CMAKE_FF`, `CMAKE_LEGACY_PLANNER`| build executables for planners that use the FF parser and grounder, only for testing, default OFF |
 | `CMAKE_FF`, `CMAKE_LEGACY_PLANNER`| build executables for planners that use the FF parser and grounder, only for testing, default OFF |
 | `BOOST_ROOT`| Path to Boost installtion (required if `USE_SUPERBUILD=OFF` is not used), default "" |
