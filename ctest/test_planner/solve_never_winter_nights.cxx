@@ -44,6 +44,8 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <planner/apx_novelty_search/apx_bfws/approximate_bfws.hxx>
+#include <planner/delete-free-iw/dfiw_planner.hxx>
+
 #include <planner/anytime_lapkt/anytime_lapkt.hxx>
 
 /**
@@ -93,8 +95,58 @@ TEST_CASE("Solving Never Winter Nights!")
 
   std::cout << "BEGIN TEST_CASE(Solving Never Winter Nights)" << std::endl;
 
+  test_planner->setup();
   test_planner->solve();
 
+
+  delete test_planner;
+
+  std::cout << "END TEST_CASE(Solving Never Winter Nights)" << std::endl;
+}
+
+TEST_CASE("Solving Never Winter Nights using DFIW!")
+{
+
+  std::cout << "BEGIN TEST_CASE(Assembling Never Winter Nights)" << std::endl;
+
+  int dim = 5;
+  float block_prob = 0.1f;
+  int n_items = 4;
+  int n_goal_items = 2;
+  int n_goal_locs = 1;
+  float W_0 = 5.0f;
+  float decay = 0.75f;
+
+  NWN_Mockup fake_nwn_situation;
+
+  auto *test_planner = new DFIW_Planner();
+
+  aptk::STRIPS_Problem& plan_prob = *test_planner->instance();
+
+  fake_nwn_situation.setup_nav_graph(dim, dim, block_prob);
+  fake_nwn_situation.add_items(n_items);
+  fake_nwn_situation.build_strips_problem(n_goal_items, n_goal_locs, plan_prob);
+
+  std::cout << "Dumping STRIPS problem on file 'problem.strips'" << std::endl;
+  std::ofstream outstream("problem.strips");
+  plan_prob.print(outstream);
+  outstream.close();
+  std::cout << "Problem statistics:" << std::endl;
+  std::cout << "\t# Fluents: " << plan_prob.num_fluents() << std::endl;
+  std::cout << "\t# Actions: " << plan_prob.num_actions() << std::endl;
+  std::cout << "Initial state: " << std::endl;
+  plan_prob.print_fluent_vec(std::cout, plan_prob.init());
+  std::cout << std::endl;
+  std::cout << "Goal state: " << std::endl;
+  plan_prob.print_fluent_vec(std::cout, plan_prob.goal());
+  std::cout << std::endl;
+
+  std::cout << "END TEST_CASE(Assembling Never Winter Nights)" << std::endl;
+
+  std::cout << "BEGIN TEST_CASE(Solving Never Winter Nights)" << std::endl;
+
+  test_planner->setup();
+  test_planner->solve();
 
   delete test_planner;
 

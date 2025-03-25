@@ -134,6 +134,7 @@ TEST_CASE("Solving a toy graph")
 
   std::cout << "BEGIN TEST_CASE(Solving Toy Graph)" << std::endl;
 
+  test_planner->setup();
   test_planner->solve();
 
   delete test_planner;
