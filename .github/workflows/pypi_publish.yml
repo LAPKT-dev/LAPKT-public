@@ -50,7 +50,7 @@ jobs:
     - name: Install pip dependencies
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install flake8 pytest
+        python3 -m pip install flake8 pytest setuptools
         python3 -m pip install --upgrade build wheel twine
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
@@ -141,7 +141,7 @@ jobs:
     - name: Install pip dependencies
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install flake8 pytest
+        python3 -m pip install flake8 pytest setuptools
         python3 -m pip install --upgrade build wheel twine
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
@@ -312,7 +312,7 @@ jobs:
 #     - name: Install pip dependencies
 #       run: |
 #         python3 -m pip install --upgrade pip
-#         python3 -m pip install flake8 pytest
+#         python3 -m pip install flake8 pytest setuptools
 #         python3 -m pip install --upgrade build wheel twine
 #         brew install gcc@10
 #         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
@@ -406,7 +406,7 @@ jobs:
 #     - name: Install pip dependencies
 #       run: |
 #         python3 -m pip install --upgrade pip
-#         python3 -m pip install flake8 pytest
+#         python3 -m pip install flake8 pytest setuptools
 #         python3 -m pip install --upgrade build wheel twine
 #         brew install gcc@10
 #         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
@@ -498,7 +498,7 @@ jobs:
 #     - name: Install dependencies
 #       run: |
 #         python3 -m pip install --upgrade pip
-#         python3 -m pip install flake8 pytest
+#         python3 -m pip install flake8 pytest setuptools
 #         python3 -m pip install --upgrade build wheel twine
 #         brew install gcc@10
 #         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
