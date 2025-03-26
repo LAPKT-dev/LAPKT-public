@@ -463,7 +463,7 @@ jobs:
   #   - name: Pytest
   #     working-directory: ${{github.workspace}}
   #     run: |
-  #       lapkt_cmd.py BFWS --lapkt_instance_generator Tarski -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
+  #       lapkt_cmd.py BFWS --lapkt_instance_generator Tarski -d ${{github.workspace}}/pytest/test/planner_test/domain.pddl -p ${{github.workspace}}/pytest/test/planner_test/problem.pddl
 
   #   - name: Lint with flake8
   #     run: |
@@ -657,7 +657,7 @@ jobs:
 #     - name: Pytest
 #       working-directory: ${{github.workspace}}
 #       run: |
-#         lapkt_cmd.py BFWS --lapkt_instance_generator Tarski -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
+#         lapkt_cmd.py BFWS --lapkt_instance_generator Tarski -d ${{github.workspace}}/pytest/test/planner_test/domain.pddl -p ${{github.workspace}}/pytest/test/planner_test/problem.pddl
 
 #     - name: Lint with flake8
 #       run: |
@@ -760,7 +760,7 @@ jobs:
     
 #     - name: Test lapkt installation
 #       run: |
-#         python3  ${{github.workspace}}/src/python/_package/script/lapkt_cmd.py BFWS -d ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/domain.pddl -p ${{github.workspace}}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl
+#         python3  ${{github.workspace}}/src/python/_package/script/lapkt_cmd.py BFWS -d ${{github.workspace}}/pytest/test/planner_test/domain.pddl -p ${{github.workspace}}/pytest/test/planner_test/problem.pddl
 #         cat plan.ipc
 
 #     - name: Lint with flake8
