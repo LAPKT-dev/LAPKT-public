@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="lapkt",
-    version="0.1.8",
+    version="0.2.0",
     author="Anubhav Singh, Nir Lipovetzky, "
             + "Miquel Ramirez, Christian Muise",
     author_email="anubhav.singh.er@pm.me, nirlipo@gmail.com, "
