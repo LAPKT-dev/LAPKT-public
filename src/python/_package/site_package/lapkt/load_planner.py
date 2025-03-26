@@ -198,7 +198,7 @@ class Planner:
         )
         self.planner_instance.solve()
 
-        if self.config["anytime_fd"]["value"] != None:
+        if "anytime_fd" in self.config and self.config["anytime_fd"]["value"] is not None:
             with time_taken("Running FD"):
                 fd_cmd = "python3 {} --plan-file {} --portfolio-bound {} {} {}".format(
                     self.config["anytime_fd"]["value"],
