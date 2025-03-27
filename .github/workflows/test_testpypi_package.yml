@@ -142,6 +142,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
+    - uses: winterjung/split@v2
+      id: split
+      with:
+        msg: "${{ matrix.py_version }}"
+        separator: "."
+        maxsplit: -1
       
     - name: Set up Python ${{ matrix.py_version }}
       uses: actions/setup-python@v5
@@ -156,7 +163,7 @@ jobs:
 
     - name: Test lapkt installation
       run: |
-        python c:\\users\\runneradmin\\appdata\\roaming\\python\\python310\\scripts\\lapkt_cmd.py BFWS -d ${{github.workspace}}/pytest/test/planner_test/domain.pddl -p ${{github.workspace}}/pytest/test/planner_test/problem.pddl
+        python c:\\users\\runneradmin\\appdata\\roaming\\python\\python${{steps.split.outputs._0}}${{steps.split.outputs._1}}\\scripts\\lapkt_cmd.py BFWS -d ${{github.workspace}}/pytest/test/planner_test/domain.pddl -p ${{github.workspace}}/pytest/test/planner_test/problem.pddl
         cat plan.ipc
 
     - name: Pytest
