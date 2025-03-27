@@ -143,12 +143,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - uses: winterjung/split@v2
+    - name: Split version code
+      uses: xom9ikk/split@v1
       id: split
       with:
-        msg: "${{ matrix.py_version }}"
-        separator: "."
-        maxsplit: -1
+        string: "${{ matrix.py_version }}"
+        separator: .
+        limit: -1
       
     - name: Set up Python ${{ matrix.py_version }}
       uses: actions/setup-python@v5
