@@ -149,6 +149,7 @@ endfunction()
 
 #---- Python  ----#
 if(MACOS_BUILD)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -undefined dynamic_lookup")
   set(Python_FIND_FRAMEWORK "FIRST")
   set(ENV{DYLD_FRAMEWORK_PATH} "/usr/local/Frameworks/")
   # set(ENV{DYLD_FRAMEWORK_PATH} "/Applications/Xcode_14.0.1.app/Contents/Developer/Library/Frameworks")
