@@ -42,7 +42,7 @@ jobs:
     - name: Install lapkt from pypi
       run: |
         python3 -m pip install --upgrade pip
-        python3 -m pip install --user pytest tarski-lapkt clingo lapkt
+        python3 -m pip install --user pytest tarski-lapkt[arithmetic,gringo] clingo lapkt
 
     - name: Find path to lapkt
       run: which lapkt_cmd.py
