@@ -17,8 +17,7 @@ NOTE
 Verify input against BUILTIN_TYPES to prevent
 security issue with eval(...)
 """
-BUILTIN_TYPES = [d for d in dir(builtins)
-                 if isinstance(getattr(builtins, d), type)]
+BUILTIN_TYPES = [d for d in dir(builtins) if isinstance(getattr(builtins, d), type)]
 # -----------------------------------------------------------------------------#
 
 
@@ -31,8 +30,8 @@ def store_value(args, config) -> None:
     :type config: dict
     """
     for k in dir(args):
-        if match(r'^[^_]\w*', k):
-            config.setdefault(k, dict())['value'] = getattr(args, k)
+        if match(r"^[^_]\w*", k):
+            config.setdefault(k, dict())["value"] = getattr(args, k)
 
 
 def process_arguments(debug: bool = False) -> dict:
@@ -45,49 +44,77 @@ def process_arguments(debug: bool = False) -> dict:
     """
 
     parser_main = ArgumentParser(description="Process planner input")
-    parser_sub = parser_main.add_subparsers(help='sub-command help')
+    parser_sub = parser_main.add_subparsers(help="sub-command help")
 
     # Load the parsing args from the config file on PLANNER_CONFIG_PATH
     list_planner_config = load_planner_config()
     for k, options in list_planner_config.items():  # k is the planner name
         parser = parser_sub.add_parser(
-            k, help='Use ' + k + ' -h' + ' to view planner options')
+            k, help="Use " + k + " -h" + " to view planner options"
+        )
         # Add common config args
         parser.add_argument(
-            '-d', '--domain', action='store', nargs='?',
-            required=True, help='path to the domain pddl file')
+            "-d",
+            "--domain",
+            action="store",
+            nargs="?",
+            required=True,
+            help="path to the domain pddl file",
+        )
         parser.add_argument(
-            '-p', '--problem', action='store', nargs='?',
-            required=True, help='path to the problem pddl file')
+            "-p",
+            "--problem",
+            action="store",
+            nargs="?",
+            required=True,
+            help="path to the problem pddl file",
+        )
         parser.add_argument(
-            '--no_match_tree', action='store_true',
-            help='If specified, match tree is not generated')
+            "--no_match_tree",
+            action="store_true",
+            help="If specified, match tree is not generated",
+        )
         parser.add_argument(
-            '--validate', action='store_true',
-            help='If specified, plan is checked for correctioness' +
-            'using validate')
+            "--validate",
+            action="store_true",
+            help="If specified, plan is checked for correctioness" + "using validate",
+        )
         parser.add_argument(
-            '--lapkt_instance_generator', action='store',
-            nargs='?', default='Tarski',
-            help='Choice of parser - Tarski<Default>,FD or FF')
-        if(debug):
+            "--anytime_fd",
+            action="store",
+            nargs="?",
+            required=False,
+            help="Anytime variant using Fast Downward (FD) as the complete solver. Specify the path to FD.",
+        )
+        parser.add_argument(
+            "--grounder",
+            action="store",
+            nargs="?",
+            default="Tarski",
+            help="Choice of parser - Tarski<Default>,FD or FF",
+        )
+        if debug:
             parser.add_argument(
-                '--wait_debug', action='store_true', help='For' +
-                ' debugging, program waits for key press while user attaches gdb')
+                "--wait_debug",
+                action="store_true",
+                help="For"
+                + " debugging, program waits for key press while user attaches gdb",
+            )
         parser.set_defaults(planner=k)
         # Planner specific config
         for opt, parser_args in options.items():
-            if isinstance(parser_args, dict) and \
-                    parser_args.get('cmd_arg', None):
-                has_type = parser_args['cmd_arg'].get('type', None)
+            if isinstance(parser_args, dict) and parser_args.get("cmd_arg", None):
+                has_type = parser_args["cmd_arg"].get("type", None)
                 if has_type and has_type in BUILTIN_TYPES:
-                    parser_args['cmd_arg']['type'] = eval(has_type)
-                if parser_args['cmd_arg'].get('default', None):
-                    parser_args['cmd_arg']['help'] = \
-                        parser_args['cmd_arg']['help'] + "; **Default = " + \
-                        str(parser_args['cmd_arg']['default'])
-                parser.add_argument('--'+opt, **parser_args['cmd_arg'])
-                del parser_args['cmd_arg']  # Will be in the Arg-parser
+                    parser_args["cmd_arg"]["type"] = eval(has_type)
+                if parser_args["cmd_arg"].get("default", None):
+                    parser_args["cmd_arg"]["help"] = (
+                        parser_args["cmd_arg"]["help"]
+                        + "; **Default = "
+                        + str(parser_args["cmd_arg"]["default"])
+                    )
+                parser.add_argument("--" + opt, **parser_args["cmd_arg"])
+                del parser_args["cmd_arg"]  # Will be in the Arg-parser
 
     args = parser_main.parse_args()
 
@@ -98,7 +125,7 @@ def process_arguments(debug: bool = False) -> dict:
         exit(0)
 
     if debug and args.wait_debug:
-        config['wait'] = True
+        config["wait"] = True
 
     store_value(args, config)
 

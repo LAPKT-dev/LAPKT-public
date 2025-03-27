@@ -25,6 +25,8 @@ add_subdirectory(siw_plus-ffparser)
 add_executable(run_siw_plus_then_bfs_f_ff_parser "")
 add_subdirectory(siw_plus-then-bfs_f-ffparser)
 
+add_dependencies(planner run_siw_plus_then_bfs_f_ff_parser)
+
 install(
     TARGETS 
         run_iw_ff_parser 

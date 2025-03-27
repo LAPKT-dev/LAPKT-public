@@ -208,8 +208,13 @@ def encode( lits, atom_table ) :
             continue
         encoded.append( (index, p.negated) )
     return encoded
+
 def encodeNegatedOnly(lits, atom_table):
     encoded = []
+    
+    if isinstance(lits, pddl.Atom):
+        return encoded # ANU: Skip Positive Atoms
+    
     if isinstance(lits, pddl.NegatedAtom):
         # singleton
         index = atom_table[lits.text()]
@@ -219,14 +224,18 @@ def encodeNegatedOnly(lits, atom_table):
     if isinstance(lits, pddl.Conjunction):
         lits = [p for p in lits.parts]
 
-    for p in lits:
-        if isinstance(p, pddl.Assign):
-            continue  # MRJ: we don't handle assigns
-        try:
-            index = atom_table[p.text()]
-        except KeyError:
-            continue
-        encoded.append(index)
+        for p in lits:
+            if isinstance(p, pddl.Assign):
+                continue  # MRJ: we don't handle assigns
+            if isinstance(p, pddl.Atom):
+                continue # ANU: Skip Positive Atoms
+            try:
+                index = atom_table[p.text()]
+            except KeyError:
+                continue
+            encoded.append(index)
+        return encoded
+    
     return encoded
 
 def fodet( domain_file, problem_file, output_task ) :
@@ -345,7 +354,7 @@ def default( domain_file, problem_file, output_task ) :
         if len(nd_action.negated_conditions) > 0 :
             output_task.notify_negated_conditions( nd_action.negated_conditions )
         nd_actions.append( ( nd_action.name, nd_action ) )
-
+    
     #NIR: Notify negated atoms in the intial and goal state
     output_task.notify_negated_conditions(encodeNegatedOnly(task.init, atom_table))
     output_task.notify_negated_conditions(encodeNegatedOnly(task.goal, atom_table))

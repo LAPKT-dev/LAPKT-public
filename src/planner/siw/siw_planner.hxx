@@ -6,29 +6,24 @@
 #include <novelty.hxx>
 #include <siw.hxx>
 
-
-class	SIW_Planner : public STRIPS_Interface
+class SIW_Planner : public STRIPS_Interface
 {
 public:
+	typedef aptk::search::SIW<aptk::agnostic::Fwd_Search_Problem> SIW_Fwd;
 
-    typedef	aptk::search::SIW< aptk::agnostic::Fwd_Search_Problem >  SIW_Fwd;
-
-	SIW_Planner( );
-	SIW_Planner( std::string, std::string );
+	SIW_Planner();
+	SIW_Planner(std::string, std::string);
 	virtual ~SIW_Planner();
 
-	
-	virtual	void	setup(bool gen_match_tree=true);
-	void	solve();
+	virtual void setup(bool gen_match_tree = true);
+	void solve();
 
-	int		m_iw_bound;
-	std::string	m_log_filename;
-	std::string	m_plan_filename;
+	int m_iw_bound;
+	std::string m_log_filename;
+	std::string m_plan_filename;
 
 protected:
-	
-	float	do_search( SIW_Fwd& engine);
-
+	float do_search(SIW_Fwd &engine);
 };
 
 #endif

@@ -5,17 +5,21 @@
     "version": "0.2.1",
     "configurations": [
         // Launch python program to debug. 
-        // The program will wait for user input before continuing. The user can attach a gdb at that time.
+        // To debug the C++ backend, the user needs to manually attach gdb (run the "(gdb) attach" launch option) when the program launches
+        // Use the "(gdb) launch" option to debug C++ backend with gdb. "(gdb) launch" runs without the python debugger.
         {
             "name": "Python launch",
             "type": "python",
             "request": "launch",
-            //"stopOnEntry": true,
-            // "python": "/usr/bin/python3",
-            "program": "${workspaceFolder}/debug_install/debug.py",
-            // "program": "c:\\users\\zura\\appdata\\local\\programs\\python\\python310\\lib\\site-packages\\lapkt\\lapkt_run.py",
+            // "stopOnEntry": true,
+            "program": "${workspaceFolder}/Debug/lapkt_package/lapkt.py",
             "args": [
-                "AT_LAPKT_Planner", 
+                "Approximate_BFWS",
+                // "Approximate_IW",
+                // "Approximate_RP_IW",
+                // "Approximate_SIW",
+                // "Approximate_DFS_Plus",
+                // "AT_LAPKT_Planner", 
                 // "BFWS",
                 // "AT_BFS_f_Planner",
                 // "BFS_f_Planner",
@@ -28,18 +32,15 @@
                 // "SIW_PLUS_BFS_F_Planner",
                 // "SIW_Planner",
                 // "SIW_Plus_Planner",
-                "--lapkt_instance_generator", "Tarski",
-                // "--lapkt_instance_generator", "FD",
-                // "--lapkt_instance_generator", "FF",
                 "-d", 
-                "${workspaceFolder}/test/classical_instance_small/visitall-opt11-strips/domain.pddl", 
+                // "${workspaceFolder}/test/classical_instance_small/visitall-opt11-strips/domain.pddl", 
                 // "${workspaceFolder}/test/classical_instance_small/cavediving/domain.pddl", 
-                // "${workspaceFolder}/test/classical_instance_small/gripper/domain.pddl", 
+                "${workspaceFolder}/test/classical_instance_small/gripper/domain.pddl", 
                 // "${workspaceFolder}/test/classical_instance_small/hiking-opt14-strips/domain.pddl", 
                 "-p", 
-                "${workspaceFolder}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl", 
+                // "${workspaceFolder}/test/classical_instance_small/visitall-opt11-strips/problem02-full.pddl", 
                 // "${workspaceFolder}/test/classical_instance_small/cavediving/testing01.pddl", 
-                // "${workspaceFolder}/test/classical_instance_small/gripper/prob01.pddl", 
+                "${workspaceFolder}/test/classical_instance_small/gripper/prob01.pddl", 
                 // "${workspaceFolder}/test/classical_instance_small/hiking-opt14-strips/ptesting-1-2-3.pddl", 
                 "--wait_debug"
             ],
@@ -74,15 +75,20 @@
             "type": "cppdbg",
             "request": "launch",
             // "macos"
-            "program": "/usr/local/bin/python3",
+            "program": "/usr/bin/python3",
             // "Ubuntu"
             // "program": "/usr/bin/python3",
             // "Windows with Python 3.10", "Set HOME in Environment variables manually"
             // "program": ${env:HOME}\\AppData\\Local\\Programs\\Python\\Python310\\python",
             "args": [
-                "${workspaceFolder}/debug_install/debug.py",
+                "${workspaceFolder}/Debug/lapkt_package/lapkt.py",
+                "Approximate_BFWS",
+                // "Approximate_IW",
+                // "Approximate_RP_IW",
+                // "Approximate_SIW",
+                // "Approximate_DFS_Plus",
                 // "AT_LAPKT_Planner", 
-                "BFWS",
+                // "BFWS",
                 // "AT_BFS_f_Planner",
                 // "BFS_f_Planner",
                 // "BRFS_Planner",
@@ -94,9 +100,8 @@
                 // "SIW_PLUS_BFS_F_Planner",
                 // "SIW_Planner",
                 // "SIW_Plus_Planner",
-                "--lapkt_instance_generator", "Tarski",
-                // "--lapkt_instance_generator", "FD",
-                // "--lapkt_instance_generator", "FF",
+                "--grounder", "FD",
+                // "--grounder", "FF",
                 "-d", 
                 // "${workspaceFolder}/test/classical_instance_small/visitall-opt11-strips/domain.pddl", 
                 // "${workspaceFolder}/test/classical_instance_small/cavediving/domain.pddl", 
@@ -107,10 +112,8 @@
                 // "${workspaceFolder}/test/classical_instance_small/cavediving/testing01.pddl", 
                 "${workspaceFolder}/test/classical_instance_small/gripper/prob01.pddl", 
                 // "${workspaceFolder}/test/classical_instance_small/hiking-opt14-strips/ptesting-1-2-3.pddl", 
-                // "--wait_debug"
             ],
             "stopAtEntry": false,
-            "MIMode": "lldb",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
@@ -134,9 +137,14 @@
             // "Windows with Python 3.10", "Set HOME in Environment variables manually"
             // "program": ${env:HOME}\\AppData\\Local\\Programs\\Python\\Python310\\python",
             "args": [
-                "${workspaceFolder}/debug_install/debug.py",
+                "${workspaceFolder}/Debug/lapkt_package/lapkt.py",
+                "Approximate_BFWS",
+                // "Approximate_IW",
+                // "Approximate_RP_IW",
+                // "Approximate_SIW",
+                // "Approximate_DFS_Plus",
                 // "AT_LAPKT_Planner", 
-                "BFWS",
+                // "BFWS",
                 // "AT_BFS_f_Planner",
                 // "BFS_f_Planner",
                 // "BRFS_Planner",
@@ -148,9 +156,9 @@
                 // "SIW_PLUS_BFS_F_Planner",
                 // "SIW_Planner",
                 // "SIW_Plus_Planner",
-                "--lapkt_instance_generator", "Tarski",
-                // "--lapkt_instance_generator", "FD",
-                // "--lapkt_instance_generator", "FF",
+                // "--grounder", "Tarski",
+                "--grounder", "FD",
+                // "--grounder", "FF",
                 "-d", 
                 // "${workspaceFolder}/test/classical_instance_small/visitall-opt11-strips/domain.pddl", 
                 // "${workspaceFolder}/test/classical_instance_small/cavediving/domain.pddl", 
@@ -164,14 +172,6 @@
                 // "--wait_debug"
             ],
             // "stopAtEntry": false,
-            // "MIMode": "lldb",
-            // "setupCommands": [
-            //     {
-            //         "description": "Enable pretty-printing for gdb",
-            //         "text": "-enable-pretty-printing",
-            //         "ignoreFailures": true
-            //     }
-            // ],
             "cwd": "${workspaceFolder}",
         },
         

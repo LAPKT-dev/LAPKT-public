@@ -1,0 +1,3 @@
+pybind11
+tarski-lapkt[gringo, arithmetic]
+ruamel.yaml

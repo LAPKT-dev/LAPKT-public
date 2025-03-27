@@ -1,0 +1,65 @@
+# Stage 1: Compile the planner
+Bootstrap: docker
+From: ubuntu:kinetic
+Stage: build
+
+%files
+    .
+
+%post
+    ## Install all necessary dependencies.  
+    apt-get update
+    apt-get -y install cmake python3 python3-dev python3-pip make g++ git
+
+    ## Configure the build
+    cmake -S. -Bbuilds/build_release -DCMAKE_INSTALL_PREFIX=builds/Release -DCMAKE_BUILD_TYPE=Release -DUSE_SUPERBUILD=ON
+
+    ## Build the planner
+    cmake --build builds/build_release -j4
+
+
+
+# Stage 2: Run the planner
+Bootstrap: docker
+From: ubuntu:kinetic
+Stage: run
+
+# Copy planner binary and required files from Stage 1.
+%files from build
+    builds/Release/lapkt_package
+
+%post
+    ## Install only dependencies for running the planner.
+    apt-get update
+    apt-get -y install python3-minimal python3-pip
+    ## Remove unnecessary files to keep the image small.
+    rm -rf /var/lib/apt/lists/*
+    python3 -m pip install "tarski-lapkt[gringo, arithmetic]" ruamel.yaml
+
+# The runscript is called whenever the container is used to solve an instance.
+%runscript
+    DOMAINFILE="$1"
+    PROBLEMFILE="$2"
+    PLANFILE="$3"
+
+    python3 /builds/Release/lapkt_package/lapkt.py Approximate_BFWS \
+        --grounder Tarski --plan_file "$PLANFILE" \
+        -d "$DOMAINFILE" \
+        -p "$PROBLEMFILE" \
+
+## Define meta data
+%labels
+Name        Grounding Schematic Representation with GRINGO for Width-based Search
+Description Approximate Best First Width Search with novelty approximation and goal count heuristics, f=<#w,#g>, the planner leverages Tarski to ground the schematic representation of the planning problem, refer https://tarski.readthedocs.io/en/latest/notebooks/grounding-reachability-analysis.html
+Authors     Anubhav Singh <anubhavs@student.unimelb.edu.au>, Nir Lipovetzky <nir.lipovetzky@unimelb.edu.au>, Miquel Ramirez <miquel.ramirez@unimelb.edu.au>, Javier Segovia-Aguas <javier.segovia@upf.edu>, Guillem Francès <guillem.frances@gmail.com>
+License     MIT
+Tracks      Agile
+SupportsDerivedPredicates                       no
+SupportsUniversallyQuantifiedPreconditions      yes
+SupportsExistentiallyQuantifiedPreconditions    yes
+SupportsUniversallyQuantifiedEffects            yes
+SupportsNegativePreconditions                   yes
+SupportsEqualityPreconditions                   yes
+SupportsInequalityPreconditions                 yes
+SupportsConditionalEffects                      yes
+SupportsImplyPreconditions                      no

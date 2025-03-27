@@ -6,22 +6,22 @@ Copyright 2022
 Miquel Ramirez <miquel.ramirez@unimelb.edu.au>Nir Lipovetzky <nirlipo@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files 
-(the "Software"), to deal in the Software without restriction, 
-including without limitation the rights to use, copy, modify, merge, 
-publish, distribute, sublicense, and/or sell copies of the Software, 
+a copy of this software and associated documentation files
+(the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
 and to permit persons to whom the Software is furnished to do so, subject
  to the following conditions:
 
-The above copyright notice and this permission notice shall be included 
+The above copyright notice and this permission notice shall be included
 in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
@@ -62,77 +62,76 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace po = boost::program_options;
 
-using	aptk::STRIPS_Problem;
+using aptk::STRIPS_Problem;
 
-using	aptk::agnostic::Fwd_Search_Problem;
-using	aptk::Action;
+using aptk::Action;
+using aptk::agnostic::Fwd_Search_Problem;
 
-using 	aptk::agnostic::Landmarks_Graph;
-using 	aptk::agnostic::Landmarks_Graph_Generator;
-using   aptk::agnostic::Landmarks_Graph_Manager;
-using 	aptk::agnostic::Landmarks_Count_Heuristic;
+using aptk::agnostic::Landmarks_Count_Heuristic;
+using aptk::agnostic::Landmarks_Graph;
+using aptk::agnostic::Landmarks_Graph_Generator;
+using aptk::agnostic::Landmarks_Graph_Manager;
 
-using 	aptk::agnostic::H2_Heuristic;
-using 	aptk::agnostic::H1_Heuristic;
-using	aptk::agnostic::H_Add_Evaluation_Function;
-using	aptk::agnostic::Relaxed_Plan_Heuristic;
-using 	aptk::agnostic::Novelty_Partition;
+using aptk::agnostic::H1_Heuristic;
+using aptk::agnostic::H2_Heuristic;
+using aptk::agnostic::H_Add_Evaluation_Function;
+using aptk::agnostic::Novelty_Partition;
+using aptk::agnostic::Relaxed_Plan_Heuristic;
 
-using 	aptk::agnostic::Novelty;
-using	aptk::search::brfs::IW;
-using	aptk::search::Serialized_Search;
+using aptk::agnostic::Novelty;
+using aptk::search::Serialized_Search;
+using aptk::search::brfs::IW;
 
-using 	aptk::search::Open_List;
-using	aptk::search::Node_Comparer_DH;
-using	aptk::search::Node_Comparer_3H;
-using	aptk::search::gbfs_3h::AT_GBFS_3H;
-//using	aptk::search::gbfs_mh::Node;
+using aptk::search::Node_Comparer_3H;
+using aptk::search::Node_Comparer_DH;
+using aptk::search::Open_List;
+using aptk::search::gbfs_3h::AT_GBFS_3H;
+// using	aptk::search::gbfs_mh::Node;
 
-using	aptk::search::bfs_dq_mh::IPC2014_RWA;
+using aptk::search::bfs_dq_mh::IPC2014_RWA;
 
-typedef         H2_Heuristic<Fwd_Search_Problem>                  H2_Fwd;
-typedef         Landmarks_Graph_Generator<Fwd_Search_Problem>     Gen_Lms_Fwd;
-typedef         Landmarks_Count_Heuristic<Fwd_Search_Problem>     H_Lmcount_Fwd;
-typedef         Landmarks_Graph_Manager<Fwd_Search_Problem>       Land_Graph_Man;
+typedef H2_Heuristic<Fwd_Search_Problem> H2_Fwd;
+typedef Landmarks_Graph_Generator<Fwd_Search_Problem> Gen_Lms_Fwd;
+typedef Landmarks_Count_Heuristic<Fwd_Search_Problem> H_Lmcount_Fwd;
+typedef Landmarks_Graph_Manager<Fwd_Search_Problem> Land_Graph_Man;
 
 // MRJ: We start defining the type of nodes for our planner
-typedef		aptk::search::gbfs_3h::Node< Fwd_Search_Problem, aptk::State >	Search_Node;
-typedef         Novelty_Partition<Fwd_Search_Problem, Search_Node>              H_Novel_Fwd;
+typedef aptk::search::gbfs_3h::Node<Fwd_Search_Problem, aptk::State> Search_Node;
+typedef Novelty_Partition<Fwd_Search_Problem, Search_Node> H_Novel_Fwd;
 
-typedef		aptk::search::ipc2014::Node< aptk::State >		AT_Search_Node;
+typedef aptk::search::ipc2014::Node<aptk::State> AT_Search_Node;
 
 // MRJ: Then we define the type of the tie-breaking algorithm
 // for the open list we are going to use
-typedef		Node_Comparer_3H< Search_Node >					Tie_Breaking_Algorithm;
+typedef Node_Comparer_3H<Search_Node> Tie_Breaking_Algorithm;
 
 // MRJ: Now we define the Open List type by combining the types we have defined before
-typedef		Open_List< Tie_Breaking_Algorithm, Search_Node >		BFS_Open_List;
-typedef		AT_Search_Node::Open_List					AT_BFS_Open_List;
-
+typedef Open_List<Tie_Breaking_Algorithm, Search_Node> BFS_Open_List;
+typedef AT_Search_Node::Open_List AT_BFS_Open_List;
 
 // MRJ: Now we define the heuristics
-typedef		H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function>	H_Add_Fwd; //, aptk::agnostic::H1_Cost_Function::Ignore_Costs
-typedef		Relaxed_Plan_Heuristic< Fwd_Search_Problem, H_Add_Fwd >		H_Add_Rp_Fwd;
+typedef H1_Heuristic<Fwd_Search_Problem, H_Add_Evaluation_Function> H_Add_Fwd; //, aptk::agnostic::H1_Cost_Function::Ignore_Costs
+typedef Relaxed_Plan_Heuristic<Fwd_Search_Problem, H_Add_Fwd> H_Add_Rp_Fwd;
 
 // MRJ: Now we're ready to define the BFS algorithm we're going to use
-typedef		AT_GBFS_3H< Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List >    	Anytime_GBFS_H_Add_Rp_Fwd;
-//typedef		AT_RWBFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Unsat /*H_Lmcount_Fwd*/, AT_BFS_Open_List >		Anytime_RWA;
-typedef		IPC2014_RWA< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Lmcount_Fwd, AT_BFS_Open_List >		Anytime_RWA;
-
+typedef AT_GBFS_3H<Fwd_Search_Problem, H_Novel_Fwd, H_Lmcount_Fwd, H_Add_Rp_Fwd, BFS_Open_List> Anytime_GBFS_H_Add_Rp_Fwd;
+// typedef		AT_RWBFS_DQ_MH< Fwd_Search_Problem, H_Add_Rp_Fwd, H_Unsat /*H_Lmcount_Fwd*/, AT_BFS_Open_List >		Anytime_RWA;
+typedef IPC2014_RWA<Fwd_Search_Problem, H_Add_Rp_Fwd, H_Lmcount_Fwd, AT_BFS_Open_List> Anytime_RWA;
 
 // MRJ: SIW definitions
-typedef		aptk::search::brfs::Node< aptk::State >	          	IW_Node;
-typedef         Novelty<Fwd_Search_Problem, IW_Node>                    H_Simple_Novel_Fwd;
-typedef		aptk::search::SIW< aptk::agnostic::Fwd_Search_Problem >  SIW_Fwd;
-typedef		IW< Fwd_Search_Problem, H_Simple_Novel_Fwd >	        IW_Fwd;
+typedef aptk::search::brfs::Node<aptk::State> IW_Node;
+typedef Novelty<Fwd_Search_Problem, IW_Node> H_Simple_Novel_Fwd;
+typedef aptk::search::SIW<aptk::agnostic::Fwd_Search_Problem> SIW_Fwd;
+typedef IW<Fwd_Search_Problem, H_Simple_Novel_Fwd> IW_Fwd;
 
-
-float do_stage_1( STRIPS_Problem& prob, SIW_Fwd& engine,  float& cost, int iw_bound, std::ofstream& details, std::string plan_filename ) {
-	engine.set_max_bound( iw_bound );
+float do_stage_1(STRIPS_Problem &prob, SIW_Fwd &engine, float &cost, int iw_bound, std::ofstream &details, std::string plan_filename)
+{
+	engine.set_max_bound(iw_bound);
 	engine.start();
 
-	std::vector< aptk::Action_Idx > plan;
-	cost = 0.0f;;
+	std::vector<aptk::Action_Idx> plan;
+	cost = 0.0f;
+	;
 
 	float ref = aptk::time_used();
 	float t0 = aptk::time_used();
@@ -140,13 +139,15 @@ float do_stage_1( STRIPS_Problem& prob, SIW_Fwd& engine,  float& cost, int iw_bo
 	unsigned expanded_0 = engine.expanded();
 	unsigned generated_0 = engine.generated();
 
-	if ( engine.find_solution( cost, plan ) ) {
+	if (engine.find_solution(cost, plan))
+	{
 		details << "Plan found with cost: " << cost << std::endl;
-		std::ofstream	plan_stream( plan_filename.c_str() );
+		std::ofstream plan_stream(plan_filename.c_str());
 
-		for ( unsigned k = 0; k < plan.size(); k++ ) {
-			details << k+1 << ". ";
-			const aptk::Action& a = *(prob.actions()[ plan[k] ]);
+		for (unsigned k = 0; k < plan.size(); k++)
+		{
+			details << k + 1 << ". ";
+			const aptk::Action &a = *(prob.actions()[plan[k]]);
 			details << a.signature();
 			details << std::endl;
 			plan_stream << a.signature() << std::endl;
@@ -166,22 +167,23 @@ float do_stage_1( STRIPS_Problem& prob, SIW_Fwd& engine,  float& cost, int iw_bo
 	}
 	else
 		cost = infty;
- 	float total_time = aptk::time_used() - ref;
+	float total_time = aptk::time_used() - ref;
 	details << "Total time: " << total_time << std::endl;
 	details << "Nodes generated during search: " << engine.generated() << std::endl;
 	details << "Nodes expanded during search: " << engine.expanded() << std::endl;
 	details << "Nodes pruned by bound: " << engine.sum_pruned_by_bound() << std::endl;
 	details << "Average ef. width: " << engine.avg_B() << std::endl;
 	details << "Max ef. width: " << engine.max_B() << std::endl;
-	return total_time;	
+	return total_time;
 }
 
-float do_stage_3(  STRIPS_Problem& prob, Anytime_RWA& engine, float B, float& cost,std::ofstream& details, std::string plan_filename  ) {
+float do_stage_3(STRIPS_Problem &prob, Anytime_RWA &engine, float B, float &cost, std::ofstream &details, std::string plan_filename)
+{
 	engine.start(B);
 	details << "Branch & Bound search: Initial Bound = " << B << std::endl;
-	engine.set_schedule( 1000, 1, 10 );
+	engine.set_schedule(1000, 1, 10);
 
-	std::vector< aptk::Action_Idx > plan;
+	std::vector<aptk::Action_Idx> plan;
 	cost = infty;
 
 	float ref = aptk::time_used();
@@ -190,13 +192,16 @@ float do_stage_3(  STRIPS_Problem& prob, Anytime_RWA& engine, float B, float& co
 	unsigned expanded_0 = engine.expanded();
 	unsigned generated_0 = engine.generated();
 
-	while ( engine.find_solution( cost, plan ) ) {
-		if ( !plan.empty() ) {
+	while (engine.find_solution(cost, plan))
+	{
+		if (!plan.empty())
+		{
 			details << "Plan found with cost: " << cost << std::endl;
-			std::ofstream plan_stream( plan_filename.c_str() );
-			for ( unsigned k = 0; k < plan.size(); k++ ) {
-				details << k+1 << ". ";
-				const aptk::Action& a = *(prob.actions()[ plan[k] ]);
+			std::ofstream plan_stream(plan_filename.c_str());
+			for (unsigned k = 0; k < plan.size(); k++)
+			{
+				details << k + 1 << ". ";
+				const aptk::Action &a = *(prob.actions()[plan[k]]);
 				details << a.signature();
 				details << std::endl;
 				plan_stream << a.signature() << std::endl;
@@ -226,11 +231,12 @@ float do_stage_3(  STRIPS_Problem& prob, Anytime_RWA& engine, float B, float& co
 	return total_time;
 }
 
-float do_stage_2(  STRIPS_Problem& prob, Anytime_GBFS_H_Add_Rp_Fwd& engine, float B, float& cost,std::ofstream& details, std::string plan_filename  ) {
-	
+float do_stage_2(STRIPS_Problem &prob, Anytime_GBFS_H_Add_Rp_Fwd &engine, float B, float &cost, std::ofstream &details, std::string plan_filename)
+{
+
 	engine.start(B);
 
-	std::vector< aptk::Action_Idx > plan;
+	std::vector<aptk::Action_Idx> plan;
 	cost = 0.0f;
 
 	float ref = aptk::time_used();
@@ -239,13 +245,14 @@ float do_stage_2(  STRIPS_Problem& prob, Anytime_GBFS_H_Add_Rp_Fwd& engine, floa
 	unsigned expanded_0 = engine.expanded();
 	unsigned generated_0 = engine.generated();
 
-
-	if ( engine.find_solution( cost, plan ) ) {
+	if (engine.find_solution(cost, plan))
+	{
 		details << "Plan found with cost: " << cost << std::endl;
-		std::ofstream plan_stream( plan_filename.c_str() );
-		for ( unsigned k = 0; k < plan.size(); k++ ) {
-			details << k+1 << ". ";
-			const aptk::Action& a = *(prob.actions()[ plan[k] ]);
+		std::ofstream plan_stream(plan_filename.c_str());
+		for (unsigned k = 0; k < plan.size(); k++)
+		{
+			details << k + 1 << ". ";
+			const aptk::Action &a = *(prob.actions()[plan[k]]);
 			details << a.signature();
 			details << std::endl;
 			plan_stream << a.signature() << std::endl;
@@ -262,28 +269,30 @@ float do_stage_2(  STRIPS_Problem& prob, Anytime_GBFS_H_Add_Rp_Fwd& engine, floa
 		generated_0 = generated_f;
 		plan.clear();
 	}
-	else {
+	else
+	{
 		cost = infty;
 	}
- 	float total_time = aptk::time_used() - ref;
+	float total_time = aptk::time_used() - ref;
 	details << "Total time: " << total_time << std::endl;
 	details << "Nodes generated during search: " << engine.generated() << std::endl;
 	details << "Nodes expanded during search: " << engine.expanded() << std::endl;
 	details << "Nodes pruned by bound: " << engine.pruned_by_bound() << std::endl;
-	return total_time;	
+	return total_time;
 }
 
-void report_no_solution( std::string reason, std::string plan_filename ) {
-	std::ofstream plan_stream( plan_filename.c_str() );
+void report_no_solution(std::string reason, std::string plan_filename)
+{
+	std::ofstream plan_stream(plan_filename.c_str());
 	plan_stream << ";; No solution found" << std::endl;
 	plan_stream << ";; " << reason << std::endl;
 	plan_stream.close();
 }
 
+void process_command_line_options(int ac, char **av, po::variables_map &vars)
+{
+	po::options_description desc("Options:");
 
-void process_command_line_options( int ac, char** av, po::variables_map& vars ) {
-	po::options_description desc( "Options:" );
-	
 	desc.add_options()
 		( "help", "Show help message" )
 		( "domain", po::value<std::string>(), "Input PDDL domain description" )
@@ -295,68 +304,73 @@ void process_command_line_options( int ac, char** av, po::variables_map& vars ) 
 		( "disable-siw", po::value<bool>()->default_value(false), "Disable SIW stage")
 		( "disable-bfs-f", po::value<bool>()->default_value(false), "Disable BFS(f) stage")
 	;
-	
-	try {
-		po::store( po::parse_command_line( ac, av, desc ), vars );
-		po::notify( vars );
+
+	try
+	{
+		po::store(po::parse_command_line(ac, av, desc), vars);
+		po::notify(vars);
 	}
-	catch ( std::exception& e ) {
+	catch (std::exception &e)
+	{
 		std::cerr << "Error: " << e.what() << std::endl;
 		std::exit(1);
 	}
-	catch ( ... ) {
+	catch (...)
+	{
 		std::cerr << "Exception of unknown type!" << std::endl;
 		std::exit(1);
 	}
 
-	if ( vars.count("help") ) {
+	if (vars.count("help"))
+	{
 		std::cout << desc << std::endl;
 		std::exit(0);
 	}
-
 }
 
-int main( int argc, char** argv ) {
+int main(int argc, char **argv)
+{
 
 	po::variables_map vm;
 
-	process_command_line_options( argc, argv, vm );
+	process_command_line_options(argc, argv, vm);
 
-	
-	if ( !vm.count( "domain" ) ) {
+	if (!vm.count("domain"))
+	{
 		std::cerr << "No PDDL domain was specified!" << std::endl;
 		std::exit(1);
 	}
 
-	if ( !vm.count( "problem" ) ) {
+	if (!vm.count("problem"))
+	{
 		std::cerr << "No PDDL problem was specified!" << std::endl;
 		std::exit(1);
 	}
 
-	std::string plan_filename;	
-	if ( !vm.count( "output" ) ) {
+	std::string plan_filename;
+	if (!vm.count("output"))
+	{
 		std::cerr << "No output plan file specified, defaulting to 'plan.ipc'" << std::endl;
 		plan_filename = "plan.ipc";
 	}
 	else
 		plan_filename = vm["output"].as<std::string>();
 
-
 	bool enable_siw = !vm["disable-siw"].as<bool>();
 	bool enable_bfs_f = !vm["disable-bfs-f"].as<bool>();
 
-	std::ofstream details( "execution.details" );
+	std::ofstream details("execution.details");
 
-	STRIPS_Problem	prob;
+	STRIPS_Problem prob;
 
-	aptk::FF_Parser::get_problem_description( vm["domain"].as<std::string>(), vm["problem"].as<std::string>(), prob );
+	aptk::FF_Parser::get_problem_description(vm["domain"].as<std::string>(), vm["problem"].as<std::string>(), prob);
 	details << "PDDL problem description loaded: " << std::endl;
 	details << "\tDomain: " << prob.domain_name() << std::endl;
 	details << "\tProblem: " << prob.problem_name() << std::endl;
 	details << "\t#Actions: " << prob.num_actions() << std::endl;
 	details << "\t#Fluents: " << prob.num_fluents() << std::endl;
 
-	Fwd_Search_Problem	search_prob( &prob );
+	Fwd_Search_Problem search_prob(&prob);
 
 	// if ( !prob.has_conditional_effects() ) {
 	// 	H2_Fwd    h2( search_prob );
@@ -364,71 +378,72 @@ int main( int argc, char** argv ) {
 	// 	if ( h2.eval( prob.goal() ) == infty ) {
 	// 		details << "Problem has no solution!" << std::endl;
 	// 		report_no_solution( "h2(s0) = infty", plan_filename );
-	// 		return 0;	
+	// 		return 0;
 	// 	}
 	// }
 	// else
-	// 	prob.compute_edeletes();	
-
+	// 	prob.compute_edeletes();
 
 	float siw_cost = infty;
 
-
-	if ( enable_siw )
+	if (enable_siw)
 	{
 		// MRJ: 1st Stage, SIW search with bounded width
 		details << "Stage #1: SIW" << std::endl;
-		Gen_Lms_Fwd    gen_lms( search_prob );
-		Landmarks_Graph graph( prob );
-		
-		gen_lms.set_only_goals( true );
-		gen_lms.compute_lm_graph_set_additive( graph );
-		
+		Gen_Lms_Fwd gen_lms(search_prob);
+		Landmarks_Graph graph(prob);
+
+		gen_lms.set_only_goals(true);
+		gen_lms.compute_lm_graph_set_additive(graph);
+
 		details << "Landmarks found: " << graph.num_landmarks() << std::endl;
-		//graph.print( details );
-	
-		SIW_Fwd siw_engine( search_prob );
-		siw_engine.set_goal_agenda( &graph );
-		float iw_t = do_stage_1(prob, siw_engine, siw_cost, vm["iw-bound"].as<int>(), details, plan_filename  );
+		// graph.print( details );
+
+		SIW_Fwd siw_engine(search_prob);
+		siw_engine.set_goal_agenda(&graph);
+		float iw_t = do_stage_1(prob, siw_engine, siw_cost, vm["iw-bound"].as<int>(), details, plan_filename);
 		details << "SIW search completed in " << iw_t << " secs, found plan cost = " << siw_cost << std::endl;
 		std::cout << "SIW search completed in " << iw_t << " secs \nfound plan cost = " << siw_cost << std::endl;
 	}
 
 	float bfs_f_cost = infty;
-	Gen_Lms_Fwd    gen_lms( search_prob );
-	Landmarks_Graph graph( prob );
+	Gen_Lms_Fwd gen_lms(search_prob);
+	Landmarks_Graph graph(prob);
 
-	gen_lms.compute_lm_graph_set_additive( graph );
-	
+	gen_lms.compute_lm_graph_set_additive(graph);
+
 	details << "Landmarks and edges found: " << graph.num_landmarks_and_edges() << std::endl;
-	graph.print( details );
+	graph.print(details);
 
-	Land_Graph_Man lgm( search_prob, &graph);
+	Land_Graph_Man lgm(search_prob, &graph);
 
-	if ( enable_bfs_f ) {
+	if (enable_bfs_f)
+	{
 		// MRJ: 2nd Stage, full BFS(f) with bound informed by SIW search
 		details << "Stage #2: BFS(f)" << std::endl;
-	
-		Anytime_GBFS_H_Add_Rp_Fwd bfs_engine( search_prob );
-		bfs_engine.use_land_graph_manager( &lgm );
-		bfs_engine.set_arity( vm["max-novelty"].as<int>(), graph.num_landmarks_and_edges() );
-		
-		float bfs_t = do_stage_2(prob,  bfs_engine, siw_cost, bfs_f_cost, details, plan_filename  );
+
+		Anytime_GBFS_H_Add_Rp_Fwd bfs_engine(search_prob);
+		bfs_engine.use_land_graph_manager(&lgm);
+		bfs_engine.set_arity(vm["max-novelty"].as<int>(), graph.num_landmarks_and_edges());
+
+		float bfs_t = do_stage_2(prob, bfs_engine, siw_cost, bfs_f_cost, details, plan_filename);
 		details << "BFS(f) search completed in " << bfs_t << " secs, found plan cost = " << bfs_f_cost << std::endl;
-		if ( siw_cost == infty && bfs_f_cost == infty ) {
-			report_no_solution( "BFS(f) did not found a plan", plan_filename );
+		if (siw_cost == infty && bfs_f_cost == infty)
+		{
+			report_no_solution("BFS(f) did not found a plan", plan_filename);
 			return 0;
 		}
 	}
-	bfs_f_cost = std::min( siw_cost, bfs_f_cost );
-	if ( (bfs_f_cost < infty) || (!enable_siw && !enable_bfs_f) ) {
+	bfs_f_cost = std::min(siw_cost, bfs_f_cost);
+	if ((bfs_f_cost < infty) || (!enable_siw && !enable_bfs_f))
+	{
 		// MRJ: 3rd Stage, RWA* with bound informed by BFS(f) search
 		float rwa_cost = infty;
 		details << "Stage #3: RWA* " << std::endl;
-		Anytime_RWA wbfs_engine( search_prob, 10.0f, 0.95f);
-		//wbfs_engine.h2().set_graph( &graph );
-		wbfs_engine.use_land_graph_manager( &lgm );
-		float at_search_t = do_stage_3(prob, wbfs_engine, std::min(bfs_f_cost,siw_cost), rwa_cost, details, plan_filename );
+		Anytime_RWA wbfs_engine(search_prob, 10.0f, 0.95f);
+		// wbfs_engine.h2().set_graph( &graph );
+		wbfs_engine.use_land_graph_manager(&lgm);
+		float at_search_t = do_stage_3(prob, wbfs_engine, std::min(bfs_f_cost, siw_cost), rwa_cost, details, plan_filename);
 		details << "RWA search completed in " << at_search_t << " secs, found plan cost = " << rwa_cost << std::endl;
 	}
 

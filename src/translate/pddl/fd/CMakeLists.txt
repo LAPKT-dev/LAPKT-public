@@ -3,6 +3,7 @@ file(WRITE
     "from .fd_util import default"
 )
 
+
 add_custom_target(copy_fd 
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${PROJECT_SOURCE_DIR}/external_package/fd_translate/
@@ -11,7 +12,11 @@ add_custom_target(copy_fd
 add_dependencies(copy_fd copy_package)
 
 add_custom_target(copy_fd_extensions
-    COMMAND ${CMAKE_COMMAND} -E copy fd_util.py timers.py __init__.py 
+    COMMAND ${CMAKE_COMMAND} -E copy 
+    ${CMAKE_CURRENT_SOURCE_DIR}/fd_util.py 
+    ${CMAKE_CURRENT_SOURCE_DIR}/timers.py 
     ${PROJECT_BINARY_DIR}/${REL_PYPI_LAPKT_ROOT}/pddl/fd/
 )
 add_dependencies(copy_fd_extensions copy_fd)
+
+add_dependencies(wrapper copy_fd_extensions copy_fd)

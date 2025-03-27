@@ -3,11 +3,11 @@
 
 #include <cstdlib>
 
-typedef  unsigned long  int  ub4;   /* unsigned 4-byte quantities */
-typedef  unsigned       char ub1;   /* unsigned 1-byte quantities */
+typedef unsigned long int ub4; /* unsigned 4-byte quantities */
+typedef unsigned char ub1;     /* unsigned 1-byte quantities */
 
-#define jenkins_hashsize(n) ((ub4)1<<(n))
-#define jenkins_hashmask(n) (jenkins_hashsize(n)-1)
+#define jenkins_hashsize(n) ((ub4)1 << (n))
+#define jenkins_hashmask(n) (jenkins_hashsize(n) - 1)
 
 /*
 --------------------------------------------------------------------
@@ -19,16 +19,16 @@ For every delta with one or two bits set, and the deltas of all three
   have at least 1/4 probability of changing.
 * If mix() is run forward, every bit of c will change between 1/3 and
   2/3 of the time.  (Well, 22/100 and 78/100 for some 2-bit deltas.)
-mix() was built out of 36 single-cycle latency instructions in a 
+mix() was built out of 36 single-cycle latency instructions in a
   structure that could supported 2x parallelism, like so:
-      a -= b; 
+      a -= b;
       a -= c; x = (c>>13);
       b -= c; a ^= x;
       b -= a; x = (a<<8);
       c -= a; b ^= x;
       c -= b; x = (b>>13);
       ...
-  Unfortunately, superscalar Pentiums and Sparcs can't take advantage 
+  Unfortunately, superscalar Pentiums and Sparcs can't take advantage
   of that parallelism.  They've also turned some of those single-cycle
   latency instructions into multi-cycle latency instructions.  Still,
   this is the fastest good hash I could find.  There were about 2^^68
@@ -46,7 +46,7 @@ mix() was built out of 36 single-cycle latency instructions in a
   a -= b; a -= c; a ^= (c>>3);  \
   b -= c; b -= a; b ^= (a<<10); \
   c -= a; c -= b; c ^= (b>>15); \
-}
+  }
 
 /*
 --------------------------------------------------------------------
@@ -76,49 +76,61 @@ acceptable.  Do NOT use for cryptographic purposes.
 --------------------------------------------------------------------
 */
 
-inline ub4 jenkins_hash( ub1* k, ub4 length, ub4 initval)
+inline ub4 jenkins_hash(ub1 *k, ub4 length, ub4 initval)
 /*k - the key */
 /*lenth - the length of the key */
 /*initval - the previous hash, or an arbitrary value */
 {
-   ub4 a,b,c,len;
+  ub4 a, b, c, len;
 
-   /* Set up the internal state */
-   len = length;
-   a = b = 0x9e3779b9;  /* the golden ratio; an arbitrary value */
-   c = initval;         /* the previous hash value */
+  /* Set up the internal state */
+  len = length;
+  a = b = 0x9e3779b9; /* the golden ratio; an arbitrary value */
+  c = initval;        /* the previous hash value */
 
-   /*---------------------------------------- handle most of the key */
-   while (len >= 12)
-   {
-      a += (k[0] +((ub4)k[1]<<8) +((ub4)k[2]<<16) +((ub4)k[3]<<24));
-      b += (k[4] +((ub4)k[5]<<8) +((ub4)k[6]<<16) +((ub4)k[7]<<24));
-      c += (k[8] +((ub4)k[9]<<8) +((ub4)k[10]<<16)+((ub4)k[11]<<24));
-      jenkins_mix(a,b,c);
-      k += 12; len -= 12;
-   }
+  /*---------------------------------------- handle most of the key */
+  while (len >= 12)
+  {
+    a += (k[0] + ((ub4)k[1] << 8) + ((ub4)k[2] << 16) + ((ub4)k[3] << 24));
+    b += (k[4] + ((ub4)k[5] << 8) + ((ub4)k[6] << 16) + ((ub4)k[7] << 24));
+    c += (k[8] + ((ub4)k[9] << 8) + ((ub4)k[10] << 16) + ((ub4)k[11] << 24));
+    jenkins_mix(a, b, c);
+    k += 12;
+    len -= 12;
+  }
 
-   /*------------------------------------- handle the last 11 bytes */
-   c += length;
-   switch(len)              /* all the case statements fall through */
-   {
-   case 11: c+=((ub4)k[10]<<24);
-   case 10: c+=((ub4)k[9]<<16);
-   case 9 : c+=((ub4)k[8]<<8);
-      /* the first byte of c is reserved for the length */
-   case 8 : b+=((ub4)k[7]<<24);
-   case 7 : b+=((ub4)k[6]<<16);
-   case 6 : b+=((ub4)k[5]<<8);
-   case 5 : b+=k[4];
-   case 4 : a+=((ub4)k[3]<<24);
-   case 3 : a+=((ub4)k[2]<<16);
-   case 2 : a+=((ub4)k[1]<<8);
-   case 1 : a+=k[0];
-     /* case 0: nothing left to add */
-   }
-   jenkins_mix(a,b,c);
-   /*-------------------------------------------- report the result */
-   return c;
+  /*------------------------------------- handle the last 11 bytes */
+  c += length;
+  switch (len) /* all the case statements fall through */
+  {
+  case 11:
+    c += ((ub4)k[10] << 24);
+  case 10:
+    c += ((ub4)k[9] << 16);
+  case 9:
+    c += ((ub4)k[8] << 8);
+    /* the first byte of c is reserved for the length */
+  case 8:
+    b += ((ub4)k[7] << 24);
+  case 7:
+    b += ((ub4)k[6] << 16);
+  case 6:
+    b += ((ub4)k[5] << 8);
+  case 5:
+    b += k[4];
+  case 4:
+    a += ((ub4)k[3] << 24);
+  case 3:
+    a += ((ub4)k[2] << 16);
+  case 2:
+    a += ((ub4)k[1] << 8);
+  case 1:
+    a += k[0];
+    /* case 0: nothing left to add */
+  }
+  jenkins_mix(a, b, c);
+  /*-------------------------------------------- report the result */
+  return c;
 }
 
 // Adaptor for jenkins hash for use with types which can be casted into integers
@@ -127,17 +139,14 @@ template <typename T>
 class Jenkins_Hash_Function
 {
 public:
+  Jenkins_Hash_Function() {}
+  ~Jenkins_Hash_Function() {}
 
-	Jenkins_Hash_Function() {}
-	~Jenkins_Hash_Function() {}
-	
-	size_t operator()( const T& obj ) const 
-	{
-		unsigned key = unsigned(obj);
-		return jenkins_hash( (ub1*)&key, sizeof(unsigned), 2021980 );	
-	}
-
-	
+  size_t operator()(const T &obj) const
+  {
+    unsigned key = unsigned(obj);
+    return jenkins_hash((ub1 *)&key, sizeof(unsigned), 2021980);
+  }
 };
 
 #endif // jenkins_12_byte.hxx

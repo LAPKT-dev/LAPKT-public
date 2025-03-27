@@ -1,0 +1,46 @@
+# Planner Class Name
+Approximate_SIW:
+  #Config parameters begin here
+  #portfolio_planner is currently not implemented
+  portfolio_planner:
+    help    : 'builds a portfolio portfolio planner based on config specs'
+  argparse_module_path:
+    cmd_arg:
+      default : None #Leave empty if default lapkt.py module suffices
+      required: False
+      nargs   : '?'
+      action  : 'store'
+      help    : 'python module for parsing cmd args and running solver'
+  # Use this as example config
+  log_file:
+  # cmd_args will be loaded in ArgumentParser python module
+    cmd_arg:
+      default : 'log' #
+      required: False
+      nargs   : '?'
+      action  : 'store'
+      help    : 'log file name'
+    # 'var_name' is the name of interface (in module.cxx) 
+    #     via which a config value is stored into cpp variable.
+    # 'fun_name' is the name of a setter (in module.cxx) 
+    #     which pushes exactly 1 (String/numeric) value.
+    var_name: 'log_filename'
+  plan_file:
+    cmd_arg:
+      default: 'plan.ipc' #
+      required: False
+      nargs   : '?'
+      action  : 'store'
+      help    : 'file name where solution plan will be stored'
+    var_name: 'plan_filename'
+  iw_bound:
+    cmd_arg:
+      default: 2 #
+      required: False
+      nargs   : '?'
+      type    : 'int'
+      action  : 'store'
+      help    : 'Bound for IW Algorithm'
+    var_name: 'iw_bound'
+
+#END - Leave this line a empty line as it is

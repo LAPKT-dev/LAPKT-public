@@ -6,38 +6,38 @@
 #include <vector>
 #include <iosfwd>
 
-namespace aptk {
+namespace aptk
+{
 
-class STRIPS_Problem;
+	class STRIPS_Problem;
 
-namespace agnostic {
+	namespace agnostic
+	{
 
-	// A simple container for mutexes
-	class Mutex_Set {
-	public:
+		// A simple container for mutexes
+		class Mutex_Set
+		{
+		public:
+			Mutex_Set(const STRIPS_Problem &prob);
+			~Mutex_Set();
 
+			bool are_mutex(unsigned p, unsigned q) const;
+			bool action_edeletes(const Action *a, unsigned p) const;
+			bool cond_eff_edeletes(const Action *a, unsigned eff, unsigned p) const;
 
-		Mutex_Set( const STRIPS_Problem& prob );
-		~Mutex_Set();
+			void add(const Fluent_Vec &group);
 
-		bool	are_mutex( unsigned p, unsigned q ) const;
-		bool	action_edeletes( const Action* a, unsigned p ) const;
-		bool  	cond_eff_edeletes( const Action* a, unsigned eff, unsigned p ) const;
+			unsigned num_groups() const { return m_mutex_groups.size(); }
 
-		void	add( const Fluent_Vec& group );
+			void print(std::ostream &os) const;
 
-		unsigned num_groups() const { return m_mutex_groups.size(); }
+		protected:
+			const STRIPS_Problem &m_model;
+			std::vector<Fluent_Vec> m_mutex_groups;
+			std::vector<Bit_Array> m_mutex_groups_bitmap;
+		};
 
-		void	print( std::ostream& os ) const;
-
-	protected:
-
-		const STRIPS_Problem&		m_model;
-		std::vector< Fluent_Vec >	m_mutex_groups;
-		std::vector< Bit_Array >	m_mutex_groups_bitmap;
-	};
-
-}
+	}
 
 }
 

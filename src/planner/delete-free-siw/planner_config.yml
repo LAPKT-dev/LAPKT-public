@@ -20,10 +20,10 @@ DFSIW_Planner:
       nargs   : '?'
       action  : 'store'
       help    : 'log file name'
-    # 'var_name' is the name of interface (in boostpy_module.cxx) 
-    #     via which a config value is stored into cpp variable.
-    # 'fun_name' is the name of a setter (in boostpy_module.cxx) 
-    #     which pushes exactly 1 (String/numeric) value.
+    # 'var_name' is the name of an attribute (in pybind11_module.cxx)  
+    #    The attribute is exposed to python and user can use it to set value of an attribute in the object of C++ class
+    # 'fun_name' is the name of a setter method (in pybind11_module.cxx) 
+    #     The setter is exposed to python and user can use it to set value of a private attribute of the  C++ class
     var_name: 'log_filename'   
   plan_file: 
     cmd_arg: 

@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.19)
 
+if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.27")
+cmake_policy(SET CMP0144 OLD)
+endif(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.27")
+
+if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.30")
+cmake_policy(SET CMP0167 OLD)
+endif(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.30")
+
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #------------ SUPERBUILD/PREBUILD  script------------#
@@ -38,7 +46,7 @@ if (USE_SUPERBUILD)
   set(DEPS_BUILD_DIR "${PROJECT_BINARY_DIR}/../external_build")
 
   message(STATUS "THE LOCAL BUILD SYSTEM NAME IS : ${CMAKE_SYSTEM_NAME}")
-  add_subdirectory(config/cmake/SuperBuildLinux)
+  add_subdirectory(cmake/SuperBuildLinux)
   return()
 endif(USE_SUPERBUILD)
 
@@ -49,7 +57,7 @@ endif(USE_SUPERBUILD)
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 
-project(lapkt VERSION 2.0)
+project(lapkt VERSION 0.2.0)
 
 # FLAG THE LOCAL BUILD SYSTEM
 message(STATUS "THE LOCAL BUILD SYSTEM NAME IS : ${CMAKE_SYSTEM_NAME}")
@@ -99,13 +107,13 @@ if(MINGW)
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--allow-multiple-definition -static -lpthread")
 endif(MINGW)
 # The Find<Package>.cmake file are located here
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/config/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
 
 #---- SECTION 1.2 Choose features to add to the lapkt library  ----#
 
 option(CMAKE_FF_CXX "Include the pure CXX lapkt extensions to support usage of FF parser" OFF)
 
-option(CMAKE_LEGACY_PLANNER "Old is gold! Build some legacy pure CXX planners" OFF)
+option(CMAKE_LEGACY_PLANNER "Old is gold! Build legacy FF parser-based planners" OFF)
 if(CMAKE_LEGACY_PLANNER AND NOT CMAKE_FF_CXX)
   message(FATAL_ERROR "CMAKE_FF_CXX must be ON to install legacy planners")
 endif()
@@ -116,17 +124,14 @@ endif()
 
 # Install FD pddl and include the wrapper over it which
 #   acts as a pipe between output of FD tarnslate and lapkt
-option(CMAKE_FD "Install FD pddl" OFF)
+option(CMAKE_FD "Install FD pddl" ON)
 
 # Builds a wrapper over lapkt library and installs a python module which 
 # handles the intregration of Tarski grounder and lapkt library
 option(CMAKE_TARSKI "Build and install the extension for tarski" ON)
 
-# Create Sphinx Docs (pddld from Doxygen XML)
-option(CMAKE_SPHINX_DOCS "CMAKE_SPHINX_DOCS" OFF)
-
 # Create Doxygen html Docs
-option(CMAKE_DOXYGEN_DOCS "CMAKE_DOXYGEN_DOCS" OFF)
+option(GEN_DOXYGEN_DOCS "GEN_DOXYGEN_DOCS" OFF)
 
 
 # https://stackoverflow.com/a/17032841/7248295
@@ -143,13 +148,8 @@ endfunction()
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 
 #---- Python  ----#
-# find_package(Python 3.6...<3.11  COMPONENTS Interpreter Development)
-# if(${Python_VERSION} GREATER 3.10 OR ${Python_VERSION} LESS 3.6)
-#     message(SEND_ERROR 
-#         "INCOMPATIBLE PYTHON VERSION, expected 3.6.x < 3.9.x but found - " 
-#         ${Python_VERSION})
-# endif()
 if(MACOS_BUILD)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -undefined dynamic_lookup")
   set(Python_FIND_FRAMEWORK "FIRST")
   set(ENV{DYLD_FRAMEWORK_PATH} "/usr/local/Frameworks/")
   # set(ENV{DYLD_FRAMEWORK_PATH} "/Applications/Xcode_14.0.1.app/Contents/Developer/Library/Frameworks")
@@ -165,10 +165,7 @@ else()
   find_package(Python ${PY_VMAJOR}.${PY_VMINOR}...<${PY_VMAJOR}.${PY_VMINOR_NEXT} 
     COMPONENTS Interpreter Development)
 endif()
-# if(${Python_VERSION} VERSION_LESS 3.6.0)
-#   message(SEND_ERROR 
-#     "UNTESTED PYTHON VERSION, expected >3.6.x but found - " ${Python_VERSION})
-# endif()
+
 
 message("The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
 
@@ -178,14 +175,29 @@ message("The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
 # and modern targets and tools. If you use FindPython, pybind11 will detect this 
 # and use the existing targets instead:
 
+#Fetch path to Pybind11
+execute_process(COMMAND ${Python_EXECUTABLE} -m pybind11 --cmakedir 
+  OUTPUT_VARIABLE PYBIND11_CMAKE_DIR
+  ERROR_VARIABLE PYBIND11_CMAKE_DIR_ERROR
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+  ERROR_STRIP_TRAILING_WHITESPACE
+)
+
+if(PYBIND11_CMAKE_DIR_ERROR)
+  message(FATAL_ERROR "Failed to find pybind11 cmake directory from pip\n ERROR: ${PYBIND11_CMAKE_DIR_ERROR}")
+endif()
+
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${PYBIND11_CMAKE_DIR})
-set(pybind11_DIR ${PYBIND11_CMAKE_DIR})
-# set(pybind11_DIR "/home/zura/.local/lib/python3.9/site_packages/pybind11/share/cmake/pybind11")
 message(STATUS "PYBIND11 CMAKE_DIR PATH IS: ${PYBIND11_CMAKE_DIR}")
 message(STATUS "CMAKE_MODULE_PATH IS: ${CMAKE_MODULE_PATH}")
 
+set(pybind11_ROOT ${PYBIND11_CMAKE_DIR})
 # set(PYBIND11_NOPYTHON ON)
-find_package(pybind11 REQUIRED)
+find_package(pybind11 REQUIRED
+  # As of cmake-v3.12 <PackageName>_ROOT is the first path that is checked
+  # PATHS ${PYBIND11_CMAKE_DIR} 
+  # NO_DEFAULT_PATH
+)
 
 #---- Boost ----#
 # LOGS
@@ -214,11 +226,24 @@ list(APPEND Boost_Required_Components
   program_options
   random
 )
-find_package(Boost REQUIRED COMPONENTS ${Boost_Required_Components})
+find_package(Boost 
+  REQUIRED COMPONENTS ${Boost_Required_Components} 
+  # As of cmake-v3.12 <PackageName>_ROOT is the first path that is checked
+  # PATHS ${Boost_ROOT} 
+  # NO_DEFAULT_PATH
+  )
 message("THE BOOST INCLUDE dirs search path is " ${Boost_INCLUDE_DIRS} )
 
 #---- Catch2 ----#
-find_package(Catch2 3 REQUIRED PATHS ${CATCH2_ROOT} NO_DEFAULT_PATH)
+
+if(BUILD_CPP_TESTS)
+  find_package(Catch2 3 REQUIRED
+  # As of cmake-v3.12 <PackageName>_ROOT is the first path that is checked
+  # PATHS ${Catch2_ROOT} 
+  # NO_DEFAULT_PATH
+  )
+  enable_testing()
+endif()
 
 #[[ Alternative FetchContent method to add Catch2 targets to the build
 Include(FetchContent)
@@ -231,9 +256,6 @@ FetchContent_MakeAvailable(Catch2)
 list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 ]]
 
-if(CMAKE_TESTING_ENABLED)
-  enable_testing()
-endif()
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 #------ SECTION 3.0  lapkt LIBRARIES and DOCS -------#
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
@@ -269,7 +291,7 @@ This library should have minimal dependencies.
 ]]
 
 #---- Generate Source Documentation ----#
-add_subdirectory(config/cmake/DoxygenSphinxDocs)
+add_subdirectory(cmake/docs)
 
 #---- DECLARE library targets and set properties ----#
 
@@ -312,7 +334,7 @@ add_library(core SHARED)
 
 if(WINDOWS_BUILD)
   pybind11_add_module(wrapper SHARED)
-elseif(LINUX_BUILD)
+elseif(LINUX_BUILD OR MACOS_BUILD)
   add_library(wrapper SHARED)
   target_link_libraries(wrapper PUBLIC
     pybind11::pybind11
@@ -332,7 +354,7 @@ target_link_libraries(wrapper PUBLIC
 #---- Translate PDDL ----#
 if(WINDOWS_BUILD)
   pybind11_add_module(pddl SHARED)
-elseif(LINUX_BUILD)
+elseif(LINUX_BUILD OR MACOS_BUILD)
   add_library(pddl SHARED)
 endif()
 set_target_properties(pddl PROPERTIES
@@ -347,7 +369,7 @@ target_link_libraries(pddl PRIVATE
 #---- Planner ----#
 if(WINDOWS_BUILD)
   pybind11_add_module(planner SHARED)
-elseif(LINUX_BUILD)
+elseif(LINUX_BUILD OR MACOS_BUILD)
   add_library(planner SHARED)
 endif()
 
@@ -372,8 +394,8 @@ target_link_libraries(planner PRIVATE
 add_subdirectory(src)
 
 # Unit tests
-if(CMAKE_TESTING_ENABLED)
-  add_subdirectory(test)
+if(BUILD_CPP_TESTS)
+  add_subdirectory(ctest)
 endif()
 
 #------------ SECTION 3.3  Install -------------#
@@ -464,7 +486,7 @@ install(
 #---- SECTION 4.1 CMAKE EXPORT CONFIGURATION
 
 ## Allow developers using the lapkt library to fetch information, including library version
-configure_file(${PROJECT_SOURCE_DIR}/config/cmake/lapkt_cmake_config.h.in 
+configure_file(${PROJECT_SOURCE_DIR}/cmake/lapkt_cmake_config.h.in 
   lapkt_cmake_config.h
 )
 
@@ -474,7 +496,7 @@ install(FILES "${PROJECT_BINARY_DIR}/lapkt_cmake_config.h"
 )
 include(CMakePackageConfigHelpers)
 # generate the config file that includes the exports
-configure_package_config_file(${PROJECT_SOURCE_DIR}/config/cmake/Config.cmake.in
+configure_package_config_file(${PROJECT_SOURCE_DIR}/cmake/Config.cmake.in
   ${PROJECT_BINARY_DIR}/${REL_CMAKE_DIR}/lapktConfig.cmake
   INSTALL_DESTINATION ${REL_CMAKE_DIR}
   # NO_SET_AND_CHECK_MACRO
@@ -507,17 +529,44 @@ install(FILES
 #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX#
 
 install(DIRECTORY
+    ${PROJECT_BINARY_DIR}/${REL_PYPI_ROOT}/
+    USE_SOURCE_PERMISSIONS
+    DESTINATION ${REL_PYPI_ROOT}
+    COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
+)
+
+
+install(PROGRAMS
+${PROJECT_SOURCE_DIR}/src/python/lapkt.py
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lapkt_package
+    COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
+)
+
+install(DIRECTORY
   ${CMAKE_INSTALL_PREFIX}/${REL_LAPKT_ROOT}/
   USE_SOURCE_PERMISSIONS
   DESTINATION ${REL_PYPI_LAPKT_ROOT}
-  COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
+  COMPONENT PYPACKAGE 
 )
+
 install(DIRECTORY
   ${CMAKE_INSTALL_PREFIX}/${REL_PYPI_LAPKT_ROOT}
   USE_SOURCE_PERMISSIONS
-  DESTINATION ${CMAKE_SOURCE_DIR}/debug_install/
-  COMPONENT PYPACKAGE EXCLUDE_FROM_ALL 
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/lapkt_package
+  COMPONENT PYPACKAGE
+)
+
+add_custom_command(
+    TARGET planner POST_BUILD
+    COMMAND ${CMAKE_COMMAND} --install ${CMAKE_BINARY_DIR} --component lapkt
+    BYPRODUCTS ${REL_PYPI_LAPKT_ROOT}
+)
+
+add_custom_command(
+  TARGET planner POST_BUILD
+  COMMAND ${CMAKE_COMMAND} --install ${CMAKE_BINARY_DIR} --component PYPACKAGE
 )
 
 # The script will run during the installation(We want this at the bottom of all install target)
-install(SCRIPT ${PROJECT_SOURCE_DIR}/config/cmake/PostInstallScript.cmake)
+## Install lapkt using python pip module
+install(SCRIPT ${PROJECT_SOURCE_DIR}/cmake/PostInstallScript.cmake)

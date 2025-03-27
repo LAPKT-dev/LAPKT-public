@@ -1,0 +1,188 @@
+#Planner Class Name
+Approximate_BFWS:
+  #Config parameters begin here
+  #portfolio_planner is currently not implemented
+  portfolio_planner:
+    help    : 'builds a portfolio portfolio planner based on config specs'
+  argparse_module_path:
+    cmd_arg:
+      default : None #Leave empty if default lapkt.py module suffices
+      required: False
+      nargs   : '?'
+      action  : 'store'
+      help    : 'python module for parsing cmd args and running solver'
+  # Use this as example config
+  log_file:
+  # cmd_args will be loaded in ArgumentParser python module
+    cmd_arg:
+      default : 'log' #
+      nargs   : '?'
+      action  : 'store'
+      help    : 'log file name'
+    # 'var_name' is the name of interface (in module.cxx) 
+    #     via which a config value is stored into cpp variable.
+    # 'fun_name' is the name of a setter (in module.cxx) 
+    #     which pushes exactly 1 (String/numeric) value.
+    var_name: 'log_filename'
+  plan_file:
+    cmd_arg:
+      default: 'plan.ipc' #
+      nargs   : '?'
+      action  : 'store'
+      help    : 'file name where solution plan will be stored'
+    var_name: 'plan_filename'
+  search_type:
+    cmd_arg:
+      default: 'k-BFWS-Iter-OLC' #
+      choices:
+        - 'k-BFWS-landmarks-Iter'
+        - 'k-BFWS-landmarks-Iter-OLC'
+        - 'k-BFWS-landmarks'
+        - 'BFWS-goalcount-only'
+        - 'BFWS-f5'
+        - 'BFWS-f5-OLC'
+        - 'BFWS-f5-initstate-relevant'
+        - 'k-BFWS'
+        - 'k-BFWS-OLC'
+        - 'k-BFWS-Iter'
+        - 'k-BFWS-Iter-OLC'
+        - 'k-M-BFWS'
+        - 'k-M-C-BFWS'
+        - 'k-C-BFWS'
+        - '1-C-BFWS'
+        - '1-BFWS'
+        - '1-BFWS-10T'
+        - '2-BFWS-OLC-10T'
+        - 'POLY-BFWS'
+        - 'DUAL-C-BFWS'
+        - 'DUAL-C-BFWS-Iter'
+        - 'DUAL-C-BFWS-OLC'
+        - 'DUAL-BFWS'
+        - 'DUAL-BFWS-OLC'
+      nargs   : '?'
+      action  : 'store'
+      help    : "specify a variant of BFWS - default 'k-BFWS-Iter-OLC'"
+    var_name: 'search'
+  anytime:
+    cmd_arg:
+      default : False
+      action  : 'store_true'
+      help    : 'enable anytime planning'
+    var_name: 'anytime'
+  max_novelty:
+    cmd_arg:
+      default: 2
+      nargs   : '?'
+      type    : 'int'
+      action  : 'store'
+      help    : 'Max bound for novelty computation (only applicable for k-BFWS variants that have a strict novelty bound, hence incomplete)'
+    var_name: 'max_novelty'
+  m_value:
+    cmd_arg:
+      default: 32
+      nargs   : '?'
+      type    : 'int'
+      action  : 'store'
+      help    : 'For M-variants of BFWS, increases the number of expanded nodes by the constant factor.'
+    var_name: 'm_value'
+  sampling_type:
+    cmd_arg:
+      default : 'rand'
+      nargs   : '?'
+      action  : 'store'
+      help    : 'Sampling type, default rand'
+    var_name: 'sampling_strategy'
+  sample_factor:
+    cmd_arg:
+      default : 1.0
+      nargs   : '?'
+      type    : 'float'
+      action  : 'store'
+      help    : 'sample size multiplicative modifier - default(1.0) or no modification'
+    var_name: 'sample_factor'
+  seed:
+    cmd_arg:
+      default : 101
+      nargs   : '?'
+      type    : 'int'
+      action  : 'store'
+      help    : 'Seed for random number generator, default 101'
+    var_name: 'rand_seed'
+  min_k4sample :
+    cmd_arg:
+      default : 1
+      nargs   : '?'
+      type    : 'int'
+      action  : 'store'
+      help    : 'minimum novelty category at which sampling begins, default 1'
+    var_name: 'min_k4sample'
+  bf_fs_gb :
+    cmd_arg:
+      default : 0 # set 0 to use default, |F|^2
+      nargs   : '?'
+      type    : 'float'
+      action  : 'store'
+      help    : 'size of each Bloom Filter in GB, default = |F|^2'
+    var_name: 'bf_fs'
+  bf_max_size_gb :
+    cmd_arg:
+      default : 0.5 # set to 0 for NO LIMIT
+      nargs   : '?'
+      type    : 'float'
+      action  : 'store'
+      help    : 'total max size of Bloom Filters in GB, set to 0 for NO LIMIT, default = 0.5 GB'
+    var_name: 'bf_max_size'
+  sample_fs :
+    cmd_arg:
+      default : 0 # set value to 0 for default size, |I|
+      nargs   : '?'
+      type    : 'int'
+      action  : 'store'
+      help    : 'Fix sample size to an integer value, default = |I|'
+    var_name: 'sample_fs'
+  alpha :
+    cmd_arg:
+      default : 1.0
+      nargs   : '?'
+      type    : 'float'
+      action  : 'store'
+      help    : 'multiplicative modifier for rate of random pruning, default 1'
+    var_name: 'alpha_rand_prune'
+  slack :
+    cmd_arg:
+      default : 0
+      nargs   : '?'
+      type    : 'int'
+      action  : 'store'
+      help    : 'OLC random pruning max-slack before pruning begins, default 0'
+    var_name: 'slack'
+  no_hq:
+    cmd_arg:
+      default : False
+      action  : 'store_false'
+      help    : 'Turn off holding queue (incomplete planner), default holding queue is OFF'
+    var_name: 'use_hq'
+  verbose:
+    cmd_arg:
+      default : False
+      required: False
+      action  : 'store_true'
+      help    : 'verbose output, default set to OFF'
+    var_name: 'verbose'
+  actual_action_costs_in_output:
+    cmd_arg:
+      default : True
+      required: False
+      action  : 'store_false'
+      help    : 'ignores action cost in plan output, default set to True'
+    var_name: 'ignore_action_costs'
+  run_id:
+    cmd_arg:
+      default : 0
+      required: False
+      nargs   : '?'
+      type    : 'int'
+      action  : 'store'
+      help    : 'a dummy id to differentiate between multiple runs of the same planner, default 0'
+
+#END - Leave this line a empty line as it is
