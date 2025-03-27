@@ -661,8 +661,9 @@ jobs:
     # - build-macos-10_15
     # - build-macos-11-M1
     # - build-macos-11
-    - build-ubuntu-18
     - build-ubuntu-20
+    - build-ubuntu-22
+    - build-ubuntu-24
 
     runs-on: ubuntu-latest
 
