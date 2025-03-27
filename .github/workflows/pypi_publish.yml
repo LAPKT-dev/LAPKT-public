@@ -104,7 +104,7 @@ jobs:
     - name: Store the binary wheel
       uses: actions/upload-artifact@v4
       with:
-        name: python-package-distributions-${{ matrix.runs-on }}
+        name: python-package-distributions-ubuntu-20.04-${{ matrix.py_version }}
         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
 
 # --------------------------------------------------------------------------- #
@@ -195,7 +195,7 @@ jobs:
     - name: Store the binary wheel
       uses: actions/upload-artifact@v4
       with:
-        name: python-package-distributions-${{ matrix.runs-on }}
+        name: python-package-distributions-ubuntu-22.04-${{ matrix.py_version }}
         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
 
 # --------------------------------------------------------------------------- #
@@ -286,7 +286,7 @@ jobs:
     - name: Store the binary wheel
       uses: actions/upload-artifact@v4
       with:
-        name: python-package-distributions-${{ matrix.runs-on }}
+        name: python-package-distributions-ubuntu-24.04-${{ matrix.py_version }}
         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
 
 # --------------------------------------------------------------------------- #
@@ -368,7 +368,7 @@ jobs:
     - name: Store the binary wheel
       uses: actions/upload-artifact@v4
       with:
-        name: python-package-distributions-${{ matrix.runs-on }}
+        name: python-package-distributions-windows-2019-${{ matrix.py_version }}
         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
 
 # # --------------------------------------------------------------------------- #
@@ -462,7 +462,7 @@ jobs:
 #     - name: Store the binary wheel
 #       uses: actions/upload-artifact@v4
 #       with:
-#         name: python-package-distributions-${{ matrix.runs-on }}
+#         name: python-package-distributions-${{ matrix.py_version }}
 #         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
 
 # # --------------------------------------------------------------------------- #
@@ -555,7 +555,7 @@ jobs:
 #     - name: Store the binary wheel
 #       uses: actions/upload-artifact@v4
 #       with:
-#         name: python-package-distributions-${{ matrix.runs-on }}
+#         name: python-package-distributions-${{ matrix.py_version }}
 #         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
 
 # # --------------------------------------------------------------------------- #
@@ -647,7 +647,7 @@ jobs:
 #     - name: Store the binary wheel
 #       uses: actions/upload-artifact@v4
 #       with:
-#         name: python-package-distributions-${{ matrix.runs-on }}
+#         name: python-package-distributions-${{ matrix.py_version }}
 #         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
 
 # --------------------------------------------------------------------------- #
