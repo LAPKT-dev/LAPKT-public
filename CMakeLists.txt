@@ -333,7 +333,7 @@ add_library(core SHARED)
 
 if(WINDOWS_BUILD)
   pybind11_add_module(wrapper SHARED)
-elseif(LINUX_BUILD)
+elseif(LINUX_BUILD OR MACOS_BUILD)
   add_library(wrapper SHARED)
   target_link_libraries(wrapper PUBLIC
     pybind11::pybind11
@@ -353,7 +353,7 @@ target_link_libraries(wrapper PUBLIC
 #---- Translate PDDL ----#
 if(WINDOWS_BUILD)
   pybind11_add_module(pddl SHARED)
-elseif(LINUX_BUILD)
+elseif(LINUX_BUILD OR MACOS_BUILD)
   add_library(pddl SHARED)
 endif()
 set_target_properties(pddl PROPERTIES
@@ -368,7 +368,7 @@ target_link_libraries(pddl PRIVATE
 #---- Planner ----#
 if(WINDOWS_BUILD)
   pybind11_add_module(planner SHARED)
-elseif(LINUX_BUILD)
+elseif(LINUX_BUILD OR MACOS_BUILD)
   add_library(planner SHARED)
 endif()
 
