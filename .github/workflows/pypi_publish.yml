@@ -102,7 +102,7 @@ jobs:
         pytest
 
     - name: Store the binary wheel
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: python-package-distributions
         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
@@ -193,7 +193,7 @@ jobs:
         pytest
 
     - name: Store the binary wheel
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: python-package-distributions
         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
@@ -284,7 +284,7 @@ jobs:
         pytest
 
     - name: Store the binary wheel
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: python-package-distributions
         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
@@ -366,7 +366,7 @@ jobs:
         python -m pytest
 
     - name: Store the binary wheel
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: python-package-distributions
         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
@@ -460,7 +460,7 @@ jobs:
 #         pytest
 
 #     - name: Store the binary wheel
-#       uses: actions/upload-artifact@v2
+#       uses: actions/upload-artifact@v4
 #       with:
 #         name: python-package-distributions
 #         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
@@ -553,7 +553,7 @@ jobs:
 #         pytest
 
 #     - name: Store the binary wheel
-#       uses: actions/upload-artifact@v2
+#       uses: actions/upload-artifact@v4
 #       with:
 #         name: python-package-distributions
 #         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
@@ -645,7 +645,7 @@ jobs:
 #         pytest
 
 #     - name: Store the binary wheel
-#       uses: actions/upload-artifact@v2
+#       uses: actions/upload-artifact@v4
 #       with:
 #         name: python-package-distributions
 #         path: ${{github.workspace}}/${{env.BUILD_TYPE}}/_package/dist
@@ -682,7 +682,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Download all the dists
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: python-package-distributions
         path: dist/
