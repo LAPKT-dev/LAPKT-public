@@ -686,6 +686,8 @@ jobs:
       with:
         pattern: python-package-distributions-*
         merge-multiple: true
+        attestations: false
+        verbose: true
         path: dist/
 
     - name: Publish package to PyPI
