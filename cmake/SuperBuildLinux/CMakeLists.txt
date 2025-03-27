@@ -24,8 +24,14 @@ endif()
 message("The PYTHON_VERSION is ${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
 
 # Install pip requirements
+if(MACOS_BUILD)
+  set(PIP_REQ_FILE "pip_requirements_mac.txt")
+else()
+  set(PIP_REQ_FILE "pip_requirements.txt")
+endif()
+
 execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --user
-  -r ${PROJECT_SOURCE_DIR}/pip_requirements.txt
+  -r ${PROJECT_SOURCE_DIR}/${PIP_REQ_FILE}
   RESULT_VARIABLE out
 )
 message(STATUS "Status- Install general pip result: ${out}")
