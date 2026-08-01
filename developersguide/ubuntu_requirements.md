@@ -8,7 +8,7 @@
   - make
   - pybind11
   - git
-  - tarski-lapkt[gringo, arithmetic]
+  - tarski[arithmetic]
   - ruamel.yaml
 
  **NOTE :** As of 2022, the easiest way to get the latest cmake version is to install the cmake pypi package.
@@ -38,5 +38,5 @@ Need to install lapkt on a bare bone ubuntu and list down all the required packa
 (user) the `cmake` script should take care of all the pip requirements automatically. These packages are listed for reference.
 
   - pybind11
-  - tarski-lapkt[gringo, arithmetic]
+  - tarski[arithmetic]
   - ruamel.yaml
