@@ -19,46 +19,6 @@ jobs:
 
 # --------------------------------------------------------------------------- #
 
-  build-ubuntu-20:
-    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-    # You can convert this to a matrix build if you need cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        py_version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Set up Python ${{ matrix.py_version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: "${{ matrix.py_version }}"
-
-    - name: Print GLIBC version
-      run: ldd --version
-
-    - name: Install lapkt from pypi
-      run: |
-        python3 -m pip install --upgrade pip
-        python3 -m pip install --user pytest tarski[arithmetic] clingo lapkt
-
-    - name: Find path to lapkt
-      run: which lapkt_cmd.py
-
-    - name: Test lapkt installation
-      run: |
-        lapkt_cmd.py BFWS -d ${{github.workspace}}/pytest/test/planner_test/domain.pddl -p ${{github.workspace}}/pytest/test/planner_test/problem.pddl
-        cat plan.ipc
-
-    - name: Pytest
-      working-directory: ${{github.workspace}}/pytest
-      run: |
-        pytest
-
-# --------------------------------------------------------------------------- #
-
   build-ubuntu-22:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
@@ -66,7 +26,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        py_version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        py_version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
 
     steps:
     - uses: actions/checkout@v3
@@ -100,7 +60,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        py_version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        py_version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
 
     steps:
     - uses: actions/checkout@v3
@@ -127,14 +87,48 @@ jobs:
 
 # --------------------------------------------------------------------------- #
 
-  build-windows-2019:
+  build-ubuntu-26:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: windows-2019
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
-        py_version: ["3.9", "3.10", "3.11", "3.12"]
+        py_version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.py_version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: "${{ matrix.py_version }}"
+
+    - name: Install lapkt from pypi
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install --user pytest tarski[arithmetic] clingo lapkt
+
+    - name: Test lapkt installation
+      run: |
+        lapkt_cmd.py BFWS -d ${{github.workspace}}/pytest/test/planner_test/domain.pddl -p ${{github.workspace}}/pytest/test/planner_test/problem.pddl
+        cat plan.ipc
+
+    - name: Pytest
+      working-directory: ${{github.workspace}}/pytest
+      run: |
+        pytest
+
+# --------------------------------------------------------------------------- #
+
+  build-windows-2022:
+    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: windows-2022
+    strategy:
+      matrix:
+        py_version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
         
 
     steps:
