@@ -10,7 +10,7 @@ We can attach gdb from command line or use an IDE like vscode.
     sudo gdb --pid=<python program's pid>
 2. Attach gdb from vscode with the following launch config.
 {
-    "version": "0.2.0",
+    "version": "0.2.1",
     "configurations": [
         {
             "name": "Python launch",

@@ -79,4 +79,5 @@ Lists minor and major revisions. Minor patches are not included.
 
 | Version | Change log |
 | --- | --- |
-| 0.2.0 | [PR](https://github.com/LAPKT-dev/LAPKT-public/pull/52)
+| 0.2.0 | [PR](https://github.com/LAPKT-dev/LAPKT-public/pull/52) |
+| 0.2.1 | |
